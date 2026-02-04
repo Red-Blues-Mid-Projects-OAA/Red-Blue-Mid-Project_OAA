@@ -7,14 +7,15 @@ from datetime import datetime
 tickers = ['NVDA', 'GOOGL', 'AAPL', 'MSFT', 'AMZN', 'META', 'TSM', 'TSLA', 'AVGO', 'BRK-A']
 
 # Define date range
-start_date = "2015-01-01"
+start_date = "2015-01-01"data
 end_date = datetime.now().strftime("%Y-%m-%d")
 
 print(f"Fetching data for: {', '.join(tickers)}")
 print(f"Date range: {start_date} to {end_date}")
 
 try:
-    # Fetch data
+    # Fetch data 
+    # test
     # group_by='ticker' ensures we get a MultiIndex if we fetch multiple tickers, 
     # but strictly 'Close' simplifies the structure usually.
     # auto_adjust=False ensures we get the raw Close (or Adj Close if we requested it explicitly). 
