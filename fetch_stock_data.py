@@ -5,7 +5,7 @@ from datetime import datetime
 # Define tickers
 # Note: Yahoo Finance uses 'BRK-A' for Berkshire Hathaway Class A
 tickers = ['NVDA', 'GOOGL', 'AAPL', 'MSFT', 'AMZN', 'META', 'TSM', 'TSLA', 'AVGO', 'BRK-A']
-
+#adfjasdfa
 # Define date range
 start_date = "2015-01-01"
 end_date = datetime.now().strftime("%Y-%m-%d")
