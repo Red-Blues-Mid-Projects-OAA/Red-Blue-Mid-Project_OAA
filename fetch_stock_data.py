@@ -1,6 +1,4 @@
-import yfinance as yf
-import pandas as pd
-from datetime import datetime
+from common import yf, pd, datetime, os, DATASETS_DIR
 
 # Define tickers
 # Note: Yahoo Finance uses 'BRK-A' for Berkshire Hathaway Class A
@@ -30,7 +28,7 @@ try:
         print(data.head())
         
         # Save to CSV
-        output_file = "top_10_stocks_2015_to_present.csv"
+        output_file = os.path.join(DATASETS_DIR, "top_10_stocks_2015_to_present.csv")
         data.to_csv(output_file)
         print(f"\nSuccessfully saved data to {output_file}")
         

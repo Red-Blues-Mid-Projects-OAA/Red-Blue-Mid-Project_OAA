@@ -1,4 +1,4 @@
-import yfinance as yf
+from common import yf
 
 def verify_yf():
     print("Testing yfinance library...")
