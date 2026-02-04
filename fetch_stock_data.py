@@ -7,7 +7,7 @@ from datetime import datetime
 tickers = ['NVDA', 'GOOGL', 'AAPL', 'MSFT', 'AMZN', 'META', 'TSM', 'TSLA', 'AVGO', 'BRK-A']
 
 # Define date range
-start_date = "2015-01-01"data
+start_date = "2015-01-01"
 end_date = datetime.now().strftime("%Y-%m-%d")
 
 print(f"Fetching data for: {', '.join(tickers)}")
