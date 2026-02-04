@@ -13,6 +13,7 @@ end_date = datetime.now().strftime("%Y-%m-%d")
 print(f"Fetching data for: {', '.join(tickers)}")
 print(f"Date range: {start_date} to {end_date}")
 #dhvjhv
+# asdlasdg
 
 try:
     # Fetch data
