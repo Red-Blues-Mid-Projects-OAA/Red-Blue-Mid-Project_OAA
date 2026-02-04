@@ -36,3 +36,6 @@ try:
         
 except Exception as e:
     print(f"An error occurred: {e}")
+
+changes made:
+import yfinance as yf
