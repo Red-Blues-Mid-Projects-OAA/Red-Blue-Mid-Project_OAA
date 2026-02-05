@@ -1,4 +1,4 @@
-from common import yf, pd, datetime, os, DATASETS_DIR
+from common import yf, pd, datetime
 from stock_db_manager import StockDBManager
 
 # Define tickers
@@ -27,11 +27,6 @@ try:
         # Display first few rows
         print("\nFirst 5 rows of fetched data:")
         print(data.head())
-        
-        # Save to CSV
-        output_file = os.path.join(DATASETS_DIR, "top_10_stocks_2015_to_present.csv")
-        data.to_csv(output_file)
-        print(f"\nSuccessfully saved data to {output_file}")
         
         # 한글 주석 필수: DB 매니저 초기화 및 데이터 저장
         print("\nOracle DB에 데이터를 저장을 시작합니다...")

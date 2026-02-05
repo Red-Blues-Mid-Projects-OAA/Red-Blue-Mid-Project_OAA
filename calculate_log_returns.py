@@ -1,4 +1,4 @@
-from common import pd, np, os
+from common import pd, np
 from stock_db_manager import StockDBManager
 
 def calculate_and_save_log_returns():

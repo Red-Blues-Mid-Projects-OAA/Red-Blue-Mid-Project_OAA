@@ -10,14 +10,5 @@ import os
 import yfinance as yf
 from datetime import datetime, timedelta
 
-# 데이터 저장 경로 설정
-# 프로젝트 루트 기준 datasets 폴더 경로 정의
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATASETS_DIR = os.path.join(BASE_DIR, "datasets")
-
-# 폴더가 없을 경우 자동 생성
-if not os.path.exists(DATASETS_DIR):
-    os.makedirs(DATASETS_DIR)
-
 # 패키지 수준에서 편리하게 접근할 수 있도록 노출
-__all__ = ['pd', 'np', 'os', 'yf', 'datetime', 'timedelta', 'DATASETS_DIR']
+__all__ = ['pd', 'np', 'os', 'yf', 'datetime', 'timedelta']
