@@ -206,9 +206,13 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# agent files
+# Agent files
 .agent/
 .serena/
 
-# memo files
+# Memo files
 회의록.pages
+
+# Practice files
+practice.ipynb
+practice.py
