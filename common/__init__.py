@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import os
 import yfinance as yf
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # 데이터 저장 경로 설정
 # 프로젝트 루트 기준 datasets 폴더 경로 정의
@@ -20,4 +20,4 @@ if not os.path.exists(DATASETS_DIR):
     os.makedirs(DATASETS_DIR)
 
 # 패키지 수준에서 편리하게 접근할 수 있도록 노출
-__all__ = ['pd', 'np', 'os', 'yf', 'datetime', 'DATASETS_DIR']
+__all__ = ['pd', 'np', 'os', 'yf', 'datetime', 'timedelta', 'DATASETS_DIR']
