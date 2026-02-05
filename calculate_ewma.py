@@ -1,75 +1,76 @@
-from common import pd, np, os, DATASETS_DIR
+from common import pd, np, os
+from stock_db_manager import StockDBManager
 
-def calculate_ewma_covariance(input_file_path, lambda_val=0.94):
+def calculate_ewma_covariance(lambda_val=0.94):
     """
-    일별 로그 수익률 데이터를 사용하여 EWMA 공분산 행렬을 계산하고 저장하는 함수입니다.
+    Oracle DB에서 로그 수익률 데이터를 가져와 EWMA 공분산 행렬 및 연율화된 변동성을 계산하고 DB에 저장하는 함수입니다.
     
     Args:
-        input_file_path (str): 일별 로그 수익률 데이터 CSV 파일 경로
         lambda_val (float): Decay Factor (기본값: 0.94)
     """
-    # 1. 로그 수익률 데이터 로드 (Date를 인덱스로 설정)
-    log_returns = pd.read_csv(input_file_path)
-    log_returns['Date'] = pd.to_datetime(log_returns['Date'])
-    log_returns.set_index('Date', inplace=True)
+    print("EWMA 공분산 및 변동성 계산 프로세스 시작...")
     
-    print(f"데이터 로드 완료: {log_returns.shape}")
-    
-    # 2. EWMA 공분산 행렬 계산 (pandas ewm().cov() 활용)
-    # alpha = 1 - lambda
-    # span 등을 사용할 수도 있지만, 재귀적 수식에 가장 부합하는 alpha 지정 방식 사용
-    ewma_cov_series = log_returns.ewm(alpha=(1 - lambda_val)).cov()
-    
-    # 3. 가장 마지막 날짜(최신)의 일별 공분산 행렬 추출
-    # ewm().cov()는 (날짜 수 * 종목 수) x 종목 수 형태의 MultiIndex DataFrame을 반환합니다.
-    # tail()을 사용하여 마지막 시점의 종목 수만큼의 행을 가져옵니다.
-    num_stocks = len(log_returns.columns)
-    latest_daily_cov = ewma_cov_series.tail(num_stocks)
-    
-    print("\n최신 일별 공분산 행렬 (Latest Daily Covariance Matrix):")
-    print(latest_daily_cov)
-    
-    # 4. 연율화 (Annualization)
-    # 일별 공분산에 252(거래일수)를 곱하여 연율화된 공분산 행렬 도출
-    annualized_cov = latest_daily_cov * 252
-    
-    print("\n연율화된 공분산 행렬 (Annualized Covariance Matrix):")
-    print(annualized_cov)
-    
-    # 5. 연율화된 변동성(Volatility) 도출
-    # 공분산 행렬의 대각 성분(분산)에 루트를 씌워 표준편차(변동성) 계산
-    # droplevel을 통해 Date 인덱스 계층 제거 후 계산
-    daily_variance = latest_daily_cov.droplevel(0).to_numpy().diagonal()
-    annualized_variance = daily_variance * 252
-    annualized_volatility = np.sqrt(annualized_variance)
-    
-    # 변동성 결과를 보기 좋게 Series로 변환
-    volatility_series = pd.Series(annualized_volatility, index=log_returns.columns, name="Annualized Volatility")
-    
-    print("\n최송 연율화된 변동성 (Annualized Volatility):")
-    print(volatility_series)
-    
-    # (1) 최신 일별 공분산 행렬 저장
-    daily_cov_path = os.path.join(DATASETS_DIR, "latest_daily_ewma_covariance.csv")
-    latest_daily_cov.to_csv(daily_cov_path)
-    print(f"\n파일 저장 완료: {daily_cov_path}")
-    
-    # (2) 연율화된 공분산 행렬 저장
-    annual_cov_path = os.path.join(DATASETS_DIR, "annualized_ewma_covariance.csv")
-    annualized_cov.to_csv(annual_cov_path)
-    print(f"파일 저장 완료: {annual_cov_path}")
-    
-    # (3) 연율화된 변동성 저장
-    vol_path = os.path.join(DATASETS_DIR, "annualized_ewma_volatility.csv")
-    volatility_series.to_csv(vol_path)
-    print(f"파일 저장 완료: {vol_path}")
-
-if __name__ == "__main__":
-    # 파일 경로 설정
-    입력_파일명 = "top_10_stocks_log_returns.csv"
-    입력_경로 = os.path.join(DATASETS_DIR, 입력_파일명)
+    # 1. DB 연결 및 로그 수익률 데이터 로드
+    db_manager = StockDBManager()
+    db_manager.connect()
     
     try:
-        calculate_ewma_covariance(입력_경로)
+        # 한글 주석 필수: DB에서 로그 수익률 데이터(Pivot 형태) 가져오기
+        log_returns = db_manager.fetch_log_returns()
+        
+        if log_returns.empty:
+            print("로그 수익률 데이터가 없어 계산을 중단합니다. calculate_log_returns.py를 먼저 실행해주세요.")
+            return
+
+        print(f"로그 수익률 데이터 로드 완료: {log_returns.shape}")
+        
+        # 2. EWMA 공분산 행렬 계산 (pandas ewm().cov() 활용)
+        # alpha = 1 - lambda
+        ewma_cov_series = log_returns.ewm(alpha=(1 - lambda_val)).cov()
+        
+        # 3. 가장 마지막 날짜(최신)의 일별 공분산 행렬 추출
+        num_stocks = len(log_returns.columns)
+        latest_daily_cov = ewma_cov_series.tail(num_stocks)
+        
+        # 최신 날짜 추출 (MultiIndex의 첫 번째 레벨에서 가져옴)
+        latest_date = latest_daily_cov.index.get_level_values(0)[0]
+        
+        # 인덱스 정리를 위해 날짜 레벨 제거 (행: Ticker, 열: Ticker 형태가 됨)
+        latest_daily_cov_matrix = latest_daily_cov.droplevel(0)
+        
+        print(f"\n[{latest_date.date()}] 최신 일별 공분산 행렬:")
+        print(latest_daily_cov_matrix)
+        
+        # 4. 연율화 (Annualization)
+        # 일별 공분산에 252(거래일수)를 곱하여 연율화된 공분산 행렬 도출
+        annualized_cov = latest_daily_cov_matrix * 252
+        
+        print("\n연율화된 공분산 행렬 (Annualized Covariance Matrix):")
+        print(annualized_cov)
+        
+        # 5. 연율화된 변동성(Volatility) 도출
+        # 공분산 행렬의 대각 성분(분산)에 루트를 씌워 표준편차(변동성) 계산
+        daily_variance = latest_daily_cov_matrix.to_numpy().diagonal()
+        annualized_variance = daily_variance * 252
+        annualized_volatility = np.sqrt(annualized_variance)
+        
+        volatility_series = pd.Series(annualized_volatility, index=log_returns.columns, name="Annualized Volatility")
+        
+        print("\n[연율화된 변동성 저장]")
+        for ticker, value in volatility_series.items():
+            print(f"{ticker}: {value:.4f}")
+            # 한글 주석 필수: 통계 테이블에 'ANNUAL_VOLATILITY'로 저장
+            db_manager.insert_stock_stats(ticker, "ANNUAL_VOLATILITY", value)
+            
+        # 6. 연율화된 공분산 행렬 DB 저장
+        # 한글 주석 필수: EWMA 공분산 행렬 테이블에 적재
+        print(f"\nEWMA 공분산 행렬 ({latest_date.date()}) 저장 시작...")
+        db_manager.insert_ewma_covariance(latest_date, annualized_cov)
+            
     except Exception as e:
-        print(f"오류 발생: {e}")
+        print(f"계산 중 오류 발생: {e}")
+    finally:
+        db_manager.close()
+
+if __name__ == "__main__":
+    calculate_ewma_covariance()

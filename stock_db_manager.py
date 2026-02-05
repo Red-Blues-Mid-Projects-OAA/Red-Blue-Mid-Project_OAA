@@ -46,7 +46,7 @@ class StockDBManager:
         STOCK_DATA 테이블 생성 (없을 경우)
         """
         # 한글 주석 필수: 테이블 생성 쿼리 (Ticker, Date를 복합 기본키로 설정)
-        create_table_query = """
+        create_stock_data_query = """
         BEGIN
             EXECUTE IMMEDIATE 'CREATE TABLE STOCK_DATA (
                 TICKER VARCHAR2(10),
@@ -61,11 +61,69 @@ class StockDBManager:
                 END IF;
         END;
         """
+        
+        # 한글 주석 필수: 로그 수익률 테이블 생성
+        create_log_returns_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE LOG_RETURNS (
+                TICKER VARCHAR2(10),
+                TRADE_DATE DATE,
+                LOG_RETURN NUMBER,
+                PRIMARY KEY (TICKER, TRADE_DATE)
+            )';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
+        # 한글 주석 필수: 주식 통계(연평균 수익률, 변동성 등) 테이블 생성
+        create_stock_stats_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE STOCK_STATS (
+                TICKER VARCHAR2(10),
+                STAT_NAME VARCHAR2(50),
+                STAT_VALUE NUMBER,
+                UPDATED_DATE DATE,
+                PRIMARY KEY (TICKER, STAT_NAME)
+            )';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
+        # 한글 주석 필수: EWMA 공분산 행렬 테이블 생성
+        create_ewma_cov_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE EWMA_COVARIANCE (
+                CALC_DATE DATE,
+                TICKER_X VARCHAR2(10),
+                TICKER_Y VARCHAR2(10),
+                COV_VALUE NUMBER,
+                PRIMARY KEY (CALC_DATE, TICKER_X, TICKER_Y)
+            )';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
         try:
-            self.cursor.execute(create_table_query)
+            self.cursor.execute(create_stock_data_query)
+            self.cursor.execute(create_log_returns_query)
+            self.cursor.execute(create_stock_stats_query)
+            self.cursor.execute(create_ewma_cov_query)
+            
             # 한글 주석 필수: 변경 사항 커밋
             self.connection.commit()
-            print("STOCK_DATA 테이블이 준비되었습니다.")
+            print("모든 DB 테이블(STOCK_DATA, LOG_RETURNS, STOCK_STATS, EWMA_COVARIANCE)이 준비되었습니다.")
         except oracledb.Error as e:
             print(f"테이블 생성 중 오류 발생: {e}")
 
@@ -144,6 +202,138 @@ class StockDBManager:
         except oracledb.Error as e:
             print(f"데이터 삽입 실패: {e}")
             # 한글 주석 필수: 에러 발생 시 롤백하지 않고 오류 출력 (일부 성공 가능성 배제, Transaction 단위)
+            self.connection.rollback()
+
+    def fetch_prices(self):
+        """
+        DB에서 전체 주가 데이터를 가져와 Pivot된 DataFrame으로 반환
+        Index: Date, Columns: Ticker
+        """
+        query = "SELECT TICKER, TRADE_DATE, CLOSE_PRICE FROM STOCK_DATA ORDER BY TRADE_DATE, TICKER"
+        try:
+            # 한글 주석 필수: 데이터 가져오기
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            
+            if not rows:
+                print("저장된 주가 데이터가 없습니다.")
+                return pd.DataFrame()
+
+            # 한글 주석 필수: DataFrame 변환
+            df = pd.DataFrame(rows, columns=['TICKER', 'TRADE_DATE', 'CLOSE_PRICE'])
+            
+            # 한글 주석 필수: Pivot하여 사용하기 편한 형태(행: 날짜, 열: 종목)로 변환
+            pivot_df = df.pivot(index='TRADE_DATE', columns='TICKER', values='CLOSE_PRICE')
+            pivot_df.index = pd.to_datetime(pivot_df.index)
+            return pivot_df
+            
+        except oracledb.Error as e:
+            print(f"주가 데이터 조회 실패: {e}")
+            return pd.DataFrame()
+
+    def fetch_log_returns(self):
+        """
+        DB에서 로그 수익률 데이터를 가져와 Pivot된 DataFrame으로 반환
+        """
+        query = "SELECT TICKER, TRADE_DATE, LOG_RETURN FROM LOG_RETURNS ORDER BY TRADE_DATE, TICKER"
+        try:
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            
+            if not rows:
+                return pd.DataFrame()
+
+            df = pd.DataFrame(rows, columns=['TICKER', 'TRADE_DATE', 'LOG_RETURN'])
+            pivot_df = df.pivot(index='TRADE_DATE', columns='TICKER', values='LOG_RETURN')
+            pivot_df.index = pd.to_datetime(pivot_df.index)
+            return pivot_df
+        except oracledb.Error as e:
+            print(f"로그 수익률 데이터 조회 실패: {e}")
+            return pd.DataFrame()
+
+    def insert_log_returns(self, df):
+        """
+        로그 수익률 DataFrame(Index: Date, Cols: Ticker)을 DB에 저장 (Upsert)
+        """
+        upsert_query = """
+        MERGE INTO LOG_RETURNS d
+        USING (SELECT :1 as TICKER, :2 as TRADE_DATE, :3 as LOG_RETURN FROM dual) s
+        ON (d.TICKER = s.TICKER AND d.TRADE_DATE = s.TRADE_DATE)
+        WHEN MATCHED THEN
+            UPDATE SET d.LOG_RETURN = s.LOG_RETURN
+        WHEN NOT MATCHED THEN
+            INSERT (TICKER, TRADE_DATE, LOG_RETURN)
+            VALUES (s.TICKER, s.TRADE_DATE, s.LOG_RETURN)
+        """
+        
+        data_to_insert = []
+        try:
+            # 한글 주석 필수: 날짜순 정렬을 위한 Stack 및 Sort
+            df_long = df.stack().reset_index()
+            df_long.columns = ['TRADE_DATE', 'TICKER', 'LOG_RETURN']
+            df_long = df_long.sort_values(by=['TRADE_DATE', 'TICKER'])
+            
+            for _, row in df_long.iterrows():
+                trade_date = row['TRADE_DATE'].to_pydatetime().date()
+                data_to_insert.append((str(row['TICKER']), trade_date, float(row['LOG_RETURN'])))
+            
+            if data_to_insert:
+                self.cursor.executemany(upsert_query, data_to_insert)
+                self.connection.commit()
+                print(f"{len(data_to_insert)}개의 로그 수익률 데이터 저장 완료.")
+        except oracledb.Error as e:
+            print(f"로그 수익률 저장 실패: {e}")
+            self.connection.rollback()
+
+    def insert_stock_stats(self, ticker, stat_name, stat_value):
+        """
+        개별 통계 지표(연평균 수익률, 변동성 등) 저장 (Upsert)
+        """
+        upsert_query = """
+        MERGE INTO STOCK_STATS d
+        USING (SELECT :1 as TICKER, :2 as STAT_NAME, :3 as STAT_VALUE FROM dual) s
+        ON (d.TICKER = s.TICKER AND d.STAT_NAME = s.STAT_NAME)
+        WHEN MATCHED THEN
+            UPDATE SET d.STAT_VALUE = s.STAT_VALUE, d.UPDATED_DATE = SYSDATE
+        WHEN NOT MATCHED THEN
+            INSERT (TICKER, STAT_NAME, STAT_VALUE, UPDATED_DATE)
+            VALUES (s.TICKER, s.STAT_NAME, s.STAT_VALUE, SYSDATE)
+        """
+        try:
+            self.cursor.execute(upsert_query, [ticker, stat_name, float(stat_value)])
+            self.connection.commit()
+        except oracledb.Error as e:
+            print(f"통계 데이터 저장 실패 ({ticker}, {stat_name}): {e}")
+
+    def insert_ewma_covariance(self, calc_date, cov_df):
+        """
+        EWMA 공분산 행렬 저장 (기존 해당 날짜 데이터 삭제 후 재적재)
+        """
+        delete_query = "DELETE FROM EWMA_COVARIANCE WHERE CALC_DATE = :1"
+        insert_query = "INSERT INTO EWMA_COVARIANCE (CALC_DATE, TICKER_X, TICKER_Y, COV_VALUE) VALUES (:1, :2, :3, :4)"
+        
+        # 한글 주석 필수: 계산 날짜 포맷 (시간 제거)
+        calc_date_val = calc_date.date()
+        
+        data_to_insert = []
+        # 한글 주석 필수: 공분산 행렬 순회 (Ticker X, Ticker Y)
+        # cov_df는 컬럼과 인덱스가 모두 Ticker인 대칭 행렬
+        try:
+            # 먼저 해당 날짜의 기존 데이터 삭제
+            self.cursor.execute(delete_query, [calc_date_val])
+            
+            for ticker_x in cov_df.index:
+                for ticker_y in cov_df.columns:
+                    value = cov_df.loc[ticker_x, ticker_y]
+                    data_to_insert.append((calc_date_val, str(ticker_x), str(ticker_y), float(value)))
+            
+            if data_to_insert:
+                self.cursor.executemany(insert_query, data_to_insert)
+                self.connection.commit()
+                print(f"EWMA 공분산 행렬 ({calc_date_val}) {len(data_to_insert)}건 저장 완료.")
+                
+        except oracledb.Error as e:
+            print(f"공분산 행렬 저장 실패: {e}")
             self.connection.rollback()
 
     def close(self):
