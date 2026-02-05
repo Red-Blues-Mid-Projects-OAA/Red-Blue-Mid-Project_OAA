@@ -208,6 +208,7 @@ __marimo__/
 
 # agent files
 .agent/
+.serena/
 
 # memo files
 회의록.pages
