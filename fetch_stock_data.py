@@ -10,14 +10,13 @@ start_date = "2015-01-01"
 end_date = datetime.now().strftime("%Y-%m-%d")
 
 print(f"Fetching data for: {', '.join(tickers)}")
-print(f"Date range: {start_date} to {end_date}")
+print(f"Data range: {start_date} to {end_date} (Exclusive)")
 
 try:
-    # Fetch data
-    # 한글 주석 필수: yfinance를 통해 데이터 다운로드
-    data = yf.download(tickers, start=start_date, end=end_date)['Close']
+    # yfinance를 통해 수정 종가 데이터 다운로드
+    data = yf.download(tickers, start=start_date, end=end_date, auto_adjust=True)['Close']
     
-    # 한글 주석 필수: 데이터를 날짜(인덱스) 기준으로 오름차순 정렬 (연-월-일 순)하여 적재 준비
+    # 데이터를 날짜(인덱스) 기준으로 오름차순 정렬 (연-월-일 순)하여 적재 준비
     data = data.sort_index()
     
     # Check if data is empty
