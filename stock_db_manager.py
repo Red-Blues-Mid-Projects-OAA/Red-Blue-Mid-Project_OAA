@@ -1,12 +1,12 @@
 
 import oracledb
 import os
-import pandas as pd ##
+import pandas as pd
 from dotenv import load_dotenv
 from datetime import datetime
 
-# 환경 변수 로드
-load_dotenv()
+# 환경 변수 로드 (override=True를 설정하여 .env 수정 시 즉시 반영되도록 함)
+load_dotenv(override=True)
 
 class StockDBManager:
     """
@@ -31,8 +31,7 @@ class StockDBManager:
                 password=self.password,
                 dsn=self.dsn
             )
-            self.cursor = self.connection.cursor() # 연결 다리 // SCV같은개념
-            # gpt야 커서의 개념
+            self.cursor = self.connection.cursor() # 연결 다리
             print("Oracle DB에 성공적으로 연결되었습니다.")
             
             # 테이블이 없으면 생성
@@ -63,7 +62,7 @@ class StockDBManager:
         END;
         """
         
-        # 한글 주석 필수: 로그 수익률 테이블 생성
+        # 로그 수익률 테이블 생성
         create_log_returns_query = """
         BEGIN
             EXECUTE IMMEDIATE 'CREATE TABLE LOG_RETURNS (
@@ -80,25 +79,7 @@ class StockDBManager:
         END;
         """
 
-        # 한글 주석 필수: 주식 통계(연평균 수익률, 변동성 등) 테이블 생성
-        create_stock_stats_query = """
-        BEGIN
-            EXECUTE IMMEDIATE 'CREATE TABLE STOCK_STATS (
-                TICKER VARCHAR2(10),
-                STAT_NAME VARCHAR2(50),
-                STAT_VALUE NUMBER,
-                UPDATED_DATE DATE,
-                PRIMARY KEY (TICKER, STAT_NAME)
-            )';
-        EXCEPTION
-            WHEN OTHERS THEN
-                IF SQLCODE != -955 THEN
-                    RAISE;
-                END IF;
-        END;
-        """
-
-        # 한글 주석 필수: EWMA 공분산 행렬 테이블 생성
+        # EWMA 공분산 행렬 테이블 생성
         create_ewma_cov_query = """
         BEGIN
             EXECUTE IMMEDIATE 'CREATE TABLE EWMA_COVARIANCE (
@@ -119,12 +100,11 @@ class StockDBManager:
         try:
             self.cursor.execute(create_stock_data_query)
             self.cursor.execute(create_log_returns_query)
-            self.cursor.execute(create_stock_stats_query)
             self.cursor.execute(create_ewma_cov_query)
             
-            # 한글 주석 필수: 변경 사항 커밋
+            # 변경 사항 커밋
             self.connection.commit()
-            print("모든 DB 테이블(STOCK_DATA, LOG_RETURNS, STOCK_STATS, EWMA_COVARIANCE)이 준비되었습니다.")
+            print("모든 DB 테이블(STOCK_DATA, LOG_RETURNS, EWMA_COVARIANCE)이 준비되었습니다.")
         except oracledb.Error as e:
             print(f"테이블 생성 중 오류 발생: {e}")
 
