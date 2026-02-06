@@ -139,6 +139,17 @@ class StockDBManager:
         except oracledb.Error as e:
             print(f"테이블 초기화 실패: {e}")
 
+    def truncate_log_returns(self):
+        """
+        LOG_RETURNS 테이블의 모든 데이터를 삭제 (정돈된 재적재용)
+        """
+        try:
+            # 한글 주석 필수: 로그 수익률 테이블을 비우고 정돈된 상태로 다시 적재하기 위함입니다.
+            self.cursor.execute("TRUNCATE TABLE LOG_RETURNS")
+            print("LOG_RETURNS 테이블이 성공적으로 초기화(Truncate) 되었습니다.")
+        except oracledb.Error as e:
+            print(f"로그 수익률 테이블 초기화 실패: {e}")
+
     def get_latest_date(self, ticker):
         """
         특정 종목의 DB상 가장 최신 날짜 조회
