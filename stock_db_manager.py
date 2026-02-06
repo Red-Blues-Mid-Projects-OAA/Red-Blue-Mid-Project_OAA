@@ -1,11 +1,11 @@
 
 import oracledb
 import os
-import pandas as pd
+import pandas as pd ##
 from dotenv import load_dotenv
 from datetime import datetime
 
-# 한글 주석 필수: 환경 변수 로드
+# 환경 변수 로드
 load_dotenv()
 
 class StockDBManager:
@@ -25,16 +25,17 @@ class StockDBManager:
         DB 연결 설정
         """
         try:
-            # 한글 주석 필수: Oracle DB 연결 시도
+            # Oracle DB 연결 시도
             self.connection = oracledb.connect(
                 user=self.user,
                 password=self.password,
                 dsn=self.dsn
             )
-            self.cursor = self.connection.cursor()
+            self.cursor = self.connection.cursor() # 연결 다리 // SCV같은개념
+            # gpt야 커서의 개념
             print("Oracle DB에 성공적으로 연결되었습니다.")
             
-            # 한글 주석 필수: 테이블이 없으면 생성
+            # 테이블이 없으면 생성
             self._create_table_if_not_exists()
             
         except oracledb.Error as e:
@@ -45,15 +46,15 @@ class StockDBManager:
         """
         STOCK_DATA 테이블 생성 (없을 경우)
         """
-        # 한글 주석 필수: 테이블 생성 쿼리 (Ticker, Date를 복합 기본키로 설정)
+        # 테이블 생성 쿼리 (Ticker, Date를 복합 기본키로 설정)
         create_stock_data_query = """
         BEGIN
             EXECUTE IMMEDIATE 'CREATE TABLE STOCK_DATA (
                 TICKER VARCHAR2(10),
                 TRADE_DATE DATE,
                 CLOSE_PRICE NUMBER,
-                PRIMARY KEY (TICKER, TRADE_DATE)
-            )';
+                PRIMARY KEY (TRADE_DATE, TICKER)
+            ) ORGANIZATION INDEX';
         EXCEPTION
             WHEN OTHERS THEN
                 IF SQLCODE != -955 THEN
@@ -132,8 +133,7 @@ class StockDBManager:
         테이블의 모든 데이터를 삭제 (초기화)
         """
         try:
-            # 한글 주석 필수: TRUNCATE는 DDL이라 롤백 불가하지만 속도가 빠르고 공간을 즉시 반환함
-            # 이 명령을 통해 테이블을 깨끗하게 비우고 새로 적재할 준비를 합니다.
+            # 이 쿼리를 통해 테이블을 깨끗하게 비우고 새로 적재할 준비를 합니다.
             self.cursor.execute("TRUNCATE TABLE STOCK_DATA")
             print("STOCK_DATA 테이블이 성공적으로 초기화(Truncate) 되었습니다.")
         except oracledb.Error as e:
@@ -156,10 +156,10 @@ class StockDBManager:
 
     def insert_data(self, df):
         """
-        DataFrame 데이터를 DB에 삽입 (Upsert 방식)
+        DataFrame 데이터를 DB에 삽입 (Upsert 방식: )
         이미 데이터가 있는 경우 업데이트하고, 없으면 새로 삽입합니다.
         """
-        # 한글 주석 필수: MERGE 문을 사용하여 중복 데이터 발생 시 업데이트 처리 (ORA-00001 방지)
+        # MERGE 문을 사용하여 중복 데이터 발생 시 업데이트 처리 
         insert_query = """
         MERGE INTO STOCK_DATA d
         USING (SELECT :1 as TICKER, :2 as TRADE_DATE, :3 as CLOSE_PRICE FROM dual) s
@@ -174,24 +174,23 @@ class StockDBManager:
         data_to_insert = []
         
         try:
-            # 한글 주석 필수: Wide format (Ticker가 컬럼)을 Long format (날짜, 티커, 가격)으로 변환
+            # 컬럼을 DATE, TICKER, CLOSE_PRICE 형태로 변환하는과정
             # 이를 통해 모든 종목의 데이터를 날짜순으로 한꺼번에 정렬하여 적재할 수 있습니다.
             df_long = df.stack().reset_index()
             df_long.columns = ['TRADE_DATE', 'TICKER', 'CLOSE_PRICE']
             
-            # 한글 주석 필수: 날짜(TRADE_DATE)와 티커(TICKER) 순으로 엄격하게 오름차순 정렬
-            df_long = df_long.sort_values(by=['TRADE_DATE', 'TICKER'])
+            
             
             for _, row in df_long.iterrows():
                 # datetime -> date 변환 (시간 제거)
+                # 오라클이 인식하지 못하는 타임스탬프타입을 파이썬 기본 날짜 데이터타입으로 변환
                 trade_date = row['TRADE_DATE'].to_pydatetime().date()
                 data_to_insert.append((str(row['TICKER']), trade_date, float(row['CLOSE_PRICE'])))
             
             if data_to_insert:
-                # 한글 주석 필수: 최종 확인차 리스트에서도 날짜순 정렬 수행
-                data_to_insert.sort(key=lambda x: (x[1], x[0]))
                 
-                # 한글 주석 필수: executemany를 사용하여 대량 삽입 성능 향상
+                
+                # executemany를 사용하여 대량 삽입 성능 향상
                 # MERGE 문(Upsert)을 사용하므로 데이터가 중복되어도 안전하게 날짜순으로 들어갑니다.
                 self.cursor.executemany(insert_query, data_to_insert)
                 self.connection.commit()
@@ -334,6 +333,46 @@ class StockDBManager:
                 
         except oracledb.Error as e:
             print(f"공분산 행렬 저장 실패: {e}")
+            self.connection.rollback()
+
+    def reorganize_stock_data(self):
+        """
+        STOCK_DATA 테이블을 TRADE_DATE, TICKER 순으로 정렬된 복사본으로 교체
+        """
+        try:
+            # 한글 주석 필수: 정렬된 데이터로 복사 테이블 생성
+            self.cursor.execute("""
+                CREATE TABLE STOCK_DATA_COPY (
+                    TICKER VARCHAR2(10),
+                    TRADE_DATE DATE,
+                    CLOSE_PRICE NUMBER,
+                    PRIMARY KEY (TRADE_DATE, TICKER)
+                ) ORGANIZATION INDEX
+            """)
+
+            # 한글 주석 필수: 기존 데이터를 TRADE_DATE, TICKER 순으로 정렬하여 삽입
+            self.cursor.execute("""
+                INSERT INTO STOCK_DATA_COPY (TICKER, TRADE_DATE, CLOSE_PRICE)
+                SELECT TICKER, TRADE_DATE, CLOSE_PRICE
+                FROM STOCK_DATA
+                ORDER BY TRADE_DATE, TICKER
+            """)
+            self.connection.commit()
+
+            row_count = self.cursor.rowcount
+            print(f"STOCK_DATA_COPY 테이블에 {row_count}건 복사 완료.")
+
+            # 한글 주석 필수: 기존 STOCK_DATA 테이블 삭제
+            self.cursor.execute("DROP TABLE STOCK_DATA PURGE")
+
+            # 한글 주석 필수: 복사 테이블 이름을 STOCK_DATA로 변경
+            self.cursor.execute("ALTER TABLE STOCK_DATA_COPY RENAME TO STOCK_DATA")
+            self.connection.commit()
+
+            print("STOCK_DATA 테이블이 TRADE_DATE, TICKER 순으로 재정렬 완료되었습니다.")
+
+        except oracledb.Error as e:
+            print(f"테이블 재정렬 실패: {e}")
             self.connection.rollback()
 
     def close(self):

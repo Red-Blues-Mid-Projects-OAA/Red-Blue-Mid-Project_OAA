@@ -1,11 +1,13 @@
 from common import yf, pd, datetime
 from stock_db_manager import StockDBManager
 
-# Define tickers
-# Note: Yahoo Finance uses 'BRK-A' for Berkshire Hathaway Class A
+
+# 티커 정의
+
 tickers = ['NVDA', 'GOOGL', 'AAPL', 'MSFT', 'AMZN', 'META', 'TSM', 'TSLA', 'AVGO', 'BRK-A']
 
-# Define date range
+# 데이터 범위 설정
+
 start_date = "2015-01-01"
 end_date = datetime.now().strftime("%Y-%m-%d")
 
@@ -16,27 +18,30 @@ try:
     # yfinance를 통해 수정 종가 데이터 다운로드
     data = yf.download(tickers, start=start_date, end=end_date, auto_adjust=True)['Close']
     
-    # 데이터를 날짜(인덱스) 기준으로 오름차순 정렬 (연-월-일 순)하여 적재 준비
-    data = data.sort_index()
+
     
-    # Check if data is empty
+    
+    # 데이터가 비어있는지 확인
     if data.empty:
-        print("No data fetched. Please check your internet connection or ticker symbols.")
+        print("데이터를 불러오지 못했습니다. 연결상태나 종목코드를 다시 확인 하세요")
     else:
-        # Display first few rows
+        # 상위5개행 출력
+
         print("\nFirst 5 rows of fetched data:")
         print(data.head())
         
-        # 한글 주석 필수: DB 매니저 초기화 및 데이터 저장
-        print("\nOracle DB에 데이터를 저장을 시작합니다...")
+        # DB 접속 생성자 생성 및 테이블(STOCK_DATA) 생성
+
+        print("\nOracle DB에 접속 및 테이블 생성을 시작합니다.")
         db_manager = StockDBManager()
         db_manager.connect()
         
-        # 한글 주석 필수: 초기 적재 시 테이블을 깔끔하게 비우고(Truncate) 시작하여
+        # 초기 적재 시 테이블을 깔끔하게 비우고(Truncate) 시작하여
         # 데이터가 뒤죽박죽 섞이는 것을 방지하고 엄격한 정렬 순서로 적재되도록 함
         db_manager.truncate_table()
         
         db_manager.insert_data(data)
+        db_manager.reorganize_stock_data()
         db_manager.close()
         print("모든 데이터 저장 완료")
         

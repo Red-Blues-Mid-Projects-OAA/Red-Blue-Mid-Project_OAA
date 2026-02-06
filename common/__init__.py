@@ -6,7 +6,7 @@
 # 외부 라이브러리 통합 임포트
 import pandas as pd
 import numpy as np
-import os
+import os  
 import yfinance as yf
 from datetime import datetime, timedelta
 
