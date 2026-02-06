@@ -1,11 +1,10 @@
 from common import yf, pd, datetime
 from stock_db_manager import StockDBManager
 
-# Define tickers
-# Note: Yahoo Finance uses 'BRK-A' for Berkshire Hathaway Class A
+# 티커 정의
 tickers = ['NVDA', 'GOOGL', 'AAPL', 'MSFT', 'AMZN', 'META', 'TSM', 'TSLA', 'AVGO', 'BRK-A']
 
-# Define date range
+# 데이터 범위 설정
 start_date = "2015-01-01"
 end_date = datetime.now().strftime("%Y-%m-%d")
 

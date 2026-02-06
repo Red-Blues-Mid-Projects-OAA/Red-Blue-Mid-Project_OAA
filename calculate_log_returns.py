@@ -32,16 +32,6 @@ def calculate_and_save_log_returns():
         print(f"로그 수익률 데이터 {len(로그_수익률)}건 저장 시작...")
         db_manager.insert_log_returns(로그_수익률)
         
-        # 5. 연평균 수익률 (Annualized Mean Return) 계산 및 저장
-        # 일별 평균 로그 수익률 * 252 (거래일수)
-        연평균_수익률 = 로그_수익률.mean() * 252
-        
-        print("\n[연평균 수익률 저장]")
-        for ticker, value in 연평균_수익률.items():
-            print(f"{ticker}: {value:.4f}")
-            # 한글 주석 필수: 통계 테이블에 'ANNUAL_MEAN_RETURN'으로 저장
-            db_manager.insert_stock_stats(ticker, "ANNUAL_MEAN_RETURN", value)
-            
     except Exception as e:
         print(f"계산 중 오류 발생: {e}")
     finally:
