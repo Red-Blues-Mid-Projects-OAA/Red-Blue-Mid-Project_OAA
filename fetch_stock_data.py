@@ -30,7 +30,8 @@ def fetch_stock_data(tickers=None, start_date="2015-01-01", end_date=None):
 
     db_manager = StockDBManager()
     try:
-        # yfinance를 통해 수정 종가 데이터 다운로드
+        # yfinance를 통해 수정 종가 데이터 다운로드 (auto_adjust=True)
+        # ['Close']를 선택하여 Series 또는 DataFrame(단일/멀티) 반환
         data = yf.download(tickers, start=start_date, end=end_date, auto_adjust=True)["Close"]
 
         # 데이터가 비어있는지 확인

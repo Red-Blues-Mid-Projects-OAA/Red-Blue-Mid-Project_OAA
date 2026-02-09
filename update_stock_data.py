@@ -7,74 +7,73 @@ TICKERS = ['NVDA', 'GOOGL', 'AAPL', 'MSFT', 'AMZN', 'META', 'TSM', 'TSLA', 'AVGO
 
 def update_stock_data():
     """
-    각 종목별로 DB의 최신 날짜를 확인하고, 그 이후의 데이터를 가져와 업데이트하는 함수
+    모든 종목에 대해 DB의 최신 날짜를 확인하고, 가장 늦은 날짜 이후의 데이터를 일괄 다운로드하여 업데이트하는 함수
     """
     db_manager = StockDBManager()
     
     try:
         db_manager.connect()
         
+        # 1. 각 종목별 최신 날짜 조회하여 업데이트 시작일 결정
+        # 가장 보수적으로(데이터가 가장 옛날에 멈춘 종목 기준으로) 시작일을 잡아야 누락 없이 채울 수 있음
+        # 하지만 이미 모든 종목이 동기화되어 있다고 가정하면, MIN(MAX(Date)) + 1일을 시작일로 설정 가능
+        # 여기서는 각 종목별로 최신 날짜를 확인하고, 가장 오래된 '최신 날짜'를 기준으로 잡음
+        
+        min_latest_date = None
+        
+        print("각 종목의 최신 데이터 날짜를 확인합니다...")
         for ticker in TICKERS:
-            # 한글 주석 필수: DB에서 해당 종목의 최신 날짜 조회
             latest_date = db_manager.get_latest_date(ticker)
+            if latest_date is None:
+                print(f"[{ticker}] 데이터가 없습니다. 전체 초기 적재가 필요할 수 있습니다.")
+                min_latest_date = None
+                break # 하나라도 데이터가 없으면 전체 로드 로직으로 가는 게 안전
             
-            start_date = None
-            if latest_date:
-                # 한글 주석 필수: 최신 날짜 다음 날부터 조회
-                start_date = (latest_date + timedelta(days=1)).strftime('%Y-%m-%d')
-                print(f"[{ticker}] 최신 데이터 날짜: {latest_date.date()} -> 업데이트 시작일: {start_date}")
-            else:
-                # 한글 주석 필수: 데이터가 없으면 2015년부터 전체 조회
-                start_date = "2015-01-01"
-                print(f"[{ticker}] 데이터 없음 -> 전체 데이터 다운로드 시작 ({start_date})")
+            # datetime -> date 변환
+            latest_date = latest_date.date()
             
-            end_date = datetime.now().strftime('%Y-%m-%d')
+            if min_latest_date is None or latest_date < min_latest_date:
+                min_latest_date = latest_date
+        
+        start_date = None
+        if min_latest_date:
+            start_date = (min_latest_date + timedelta(days=1)).strftime('%Y-%m-%d')
+            print(f"\n모든 종목의 공통 업데이트 시작일: {start_date} (최소 최신 날짜 + 1일)")
+        else:
+            print("\n일부 또는 전체 종목의 데이터가 없어 2015-01-01부터 전체 다운로드를 시도합니다.")
+            start_date = "2015-01-01"
             
-            # 한글 주석 필수: 시작일이 오늘보다 미래이거나 같으면 업데이트 불필요 (장 마감 전이라도 오늘 포함 여부 주의)
-            # yfinance는 end 날짜를 포함하지 않음 (start <= date < end)
-            # 따라서 start_date < end_date 여야 함
-            if start_date >= end_date:
-                print(f"[{ticker}] 이미 최신 데이터입니다. (Skip)")
-                continue
+        end_date = datetime.now().strftime('%Y-%m-%d')
+        
+        # 한글 주석 필수: 시작일이 오늘보다 미래이거나 같으면 업데이트 불필요
+        if start_date >= end_date:
+            print("이미 모든 데이터가 최신 상태입니다. (Skip)")
+            return
 
-            try:
-                # 한글 주석 필수: 데이터 다운로드
-                print(f"[{ticker}] {start_date} ~ {end_date} 데이터 다운로드 중...")
-                data = yf.download([ticker], start=start_date, end=end_date)
-                
-                if data.empty:
-                    print(f"[{ticker}] 업데이트할 데이터가 없습니다.")
-                    continue
+        # 2. yfinance를 통해 일괄 데이터 다운로드
+        print(f"\n[{start_date} ~ {end_date}] 전체 종목 데이터 일괄 다운로드 중...")
+        
+        # 한글 주석 필수: auto_adjust=True로 수정종가 사용, ['Close']만 선택
+        data = yf.download(TICKERS, start=start_date, end=end_date, auto_adjust=True)['Close']
+        
+        if data.empty:
+            print("업데이트할 데이터가 없습니다 (휴장일 등).")
+            return
 
-                # 한글 주석 필수: 'Close' 컬럼만 추출 (단일 종목이라도 MultiIndex일 수 있음)
-                if 'Close' in data:
-                    close_data = data['Close']
-                else:
-                    # 구조가 다를 경우 전체 사용 시도 (Close가 Series로 올 수 있음)
-                    close_data = data
-                
-                # 한글 주석 필수: 데이터를 날짜(인덱스) 기준으로 오름차순 정렬
-                close_data = close_data.sort_index()
-                
-                # insert_data 메서드는 DataFrame(컬럼=Ticker, 인덱스=Date) 형태를 기대하므로 형식 맞춤
-                # 단일 종목 다운로드 시 Series로 오거나 DataFrame(Date, Close) 형태일 수 있음.
-                if isinstance(close_data, pd.Series):
-                    close_data = close_data.to_frame(name=ticker)
-                
-                # yf.download([ticker])의 경우 컬럼이 해당 ticker 이름이어야 StockDBManager가 인식
-                # 하지만 yf 결과의 컬럼명이 'Close'이거나 (Ticker, Close) 멀티인덱스일 수 있음.
-                # 가장 안전하게 Rename 또는 재구성
-                if isinstance(close_data, pd.DataFrame):
-                    # 만약 컬럼이 Ticker 이름이 아니라면 변경 (Close -> Ticker)
-                    if ticker not in close_data.columns:
-                        close_data.columns = [ticker]
-                
-                # 한글 주석 필수: DB 적재
-                db_manager.insert_data(close_data)
-                
-            except Exception as e:
-                print(f"[{ticker}] 데이터 다운로드 또는 저장 실패: {e}")
-                
+        # 3. 데이터 전처리 및 적재
+        # fetch_stock_data.py와 동일하게 insert_data는 DataFrame을 인자로 받음
+        # 단, insert_data 내부에서 stack() 처리를 하므로 multi-column DataFrame을 그대로 넘기면 됨
+        
+        # 한글 주석 필수: 데이터를 날짜(인덱스) 기준으로 오름차순 정렬
+        data = data.sort_index()
+        
+        print("\n다운로드된 데이터 예시 (First 5 rows):")
+        print(data.head())
+        
+        # 한글 주석 필수: DB 적재
+        # insert_data 메서드 내부에서 이미 stack() 및 정렬 로직이 구현되어 있으므로 그대로 전달
+        db_manager.insert_data(data)
+        
     except Exception as e:
         print(f"업데이트 프로세스 중 심각한 오류 발생: {e}")
     finally:
