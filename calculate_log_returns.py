@@ -33,6 +33,10 @@ def calculate_and_save_log_returns():
         print(f"로그 수익률 데이터 {len(로그_수익률)}건 저장 시작...")
         db_manager.insert_log_returns(로그_수익률)
         
+        # 5. 테이블 재구조화 (Physical Sorting)
+        # 한글 주석 필수: 데이터 적재 후 테이블을 날짜순으로 물리적으로 정렬하여 저장
+        db_manager.reorganize_log_returns()
+        
     except Exception as e:
         print(f"계산 중 오류 발생: {e}")
     finally:

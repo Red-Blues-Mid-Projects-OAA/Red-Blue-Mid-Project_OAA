@@ -130,6 +130,47 @@ class StockDBManager:
         except oracledb.Error as e:
             print(f"로그 수익률 테이블 초기화 실패: {e}")
 
+    def reorganize_log_returns(self):
+        """
+        LOG_RETURNS 테이블을 TICKE, DATE 오름차순으로 정렬하여 재생성
+        (물리적 저장 순서 보장 + 인덱스 최적화 효과)
+        """
+        try:
+            print("로그 수익률 테이블 재구조화(Reorganization) 시작...")
+            
+            # 1. 정렬된 데이터를 가진 임시 테이블 생성 (CTAS)
+            create_copy_query = """
+            CREATE TABLE LOG_RETURNS_COPY AS
+            SELECT * FROM LOG_RETURNS
+            ORDER BY TRADE_DATE ASC, TICKER ASC
+            """
+            self.cursor.execute(create_copy_query)
+            print("1. 정렬된 임시 테이블(LOG_RETURNS_COPY) 생성 완료")
+            
+            # 2. 기존 테이블 삭제
+            self.cursor.execute("DROP TABLE LOG_RETURNS PURGE")
+            print("2. 기존 LOG_RETURNS 테이블 삭제 완료")
+            
+            # 3. 임시 테이블 이름을 원본 이름으로 변경
+            self.cursor.execute("ALTER TABLE LOG_RETURNS_COPY RENAME TO LOG_RETURNS")
+            print("3. 테이블명 변경 완료 (COPY -> ORIG)")
+            
+            # 4. 기본키(PK) 및 인덱스 재설정
+            # LOG_RETURNS는 (TICKER, TRADE_DATE) 복합키 사용
+            add_pk_query = """
+            ALTER TABLE LOG_RETURNS 
+            ADD CONSTRAINT PK_LOG_RETURNS PRIMARY KEY (TICKER, TRADE_DATE)
+            USING INDEX
+            """
+            self.cursor.execute(add_pk_query)
+            print("4. PK(TICKER, TRADE_DATE) 제약조건 및 인덱스 재생성 완료")
+            
+            print("LOG_RETURNS 테이블 재구조화 완료!")
+            
+        except oracledb.Error as e:
+            print(f"테이블 재구조화 실패: {e}")
+            # 복구 로직이 필요하다면 추가 (여기서는 로그만 출력)
+
     def get_latest_date(self, ticker):
         """
         특정 종목의 DB상 가장 최신 날짜 조회
