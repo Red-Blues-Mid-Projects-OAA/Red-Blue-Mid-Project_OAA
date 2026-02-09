@@ -2,7 +2,7 @@
 from common import yf, pd, datetime, timedelta
 from stock_db_manager import StockDBManager
 
-# 한글 주석 필수: 업데이트할 종목 리스트
+# 업데이트할 종목 리스트
 TICKERS = ['NVDA', 'GOOGL', 'AAPL', 'MSFT', 'AMZN', 'META', 'TSM', 'TSLA', 'AVGO', 'BRK-A']
 
 def update_stock_data():
@@ -45,7 +45,7 @@ def update_stock_data():
             
         end_date = datetime.now().strftime('%Y-%m-%d')
         
-        # 한글 주석 필수: 시작일이 오늘보다 미래이거나 같으면 업데이트 불필요
+        # 시작일이 오늘보다 미래이거나 같으면 업데이트 불필요
         if start_date >= end_date:
             print("이미 모든 데이터가 최신 상태입니다. (Skip)")
             return
@@ -53,7 +53,7 @@ def update_stock_data():
         # 2. yfinance를 통해 일괄 데이터 다운로드
         print(f"\n[{start_date} ~ {end_date}] 전체 종목 데이터 일괄 다운로드 중...")
         
-        # 한글 주석 필수: auto_adjust=True로 수정종가 사용, ['Close']만 선택
+        # auto_adjust=True로 수정종가 사용, ['Close']만 선택
         data = yf.download(TICKERS, start=start_date, end=end_date, auto_adjust=True)['Close']
         
         if data.empty:
@@ -64,13 +64,13 @@ def update_stock_data():
         # fetch_stock_data.py와 동일하게 insert_data는 DataFrame을 인자로 받음
         # 단, insert_data 내부에서 stack() 처리를 하므로 multi-column DataFrame을 그대로 넘기면 됨
         
-        # 한글 주석 필수: 데이터를 날짜(인덱스) 기준으로 오름차순 정렬
+        # 데이터를 날짜(인덱스) 기준으로 오름차순 정렬
         data = data.sort_index()
         
         print("\n다운로드된 데이터 예시 (First 5 rows):")
         print(data.head())
         
-        # 한글 주석 필수: DB 적재
+        # DB 적재
         # insert_data 메서드 내부에서 이미 stack() 및 정렬 로직이 구현되어 있으므로 그대로 전달
         db_manager.insert_data(data)
         
