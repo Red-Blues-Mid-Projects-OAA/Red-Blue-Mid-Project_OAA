@@ -13,7 +13,7 @@ class StockDBManager:
     Oracle DB 연결 및 주식 데이터 관리 클래스
     """
     def __init__(self):
-        # 한글 주석 필수: .env 파일에서 DB 연결 정보 가져오기
+        # .env 파일에서 DB 연결 정보 가져오기
         self.user = os.getenv("ORACLE_USER")
         self.password = os.getenv("ORACLE_PASSWORD")
         self.dsn = os.getenv("ORACLE_DSN")
@@ -124,7 +124,7 @@ class StockDBManager:
         LOG_RETURNS 테이블의 모든 데이터를 삭제 (정돈된 재적재용)
         """
         try:
-            # 한글 주석 필수: 로그 수익률 테이블을 비우고 정돈된 상태로 다시 적재하기 위함입니다.
+            # 로그 수익률 테이블을 비우고 정돈된 상태로 다시 적재하기 위함입니다.
             self.cursor.execute("TRUNCATE TABLE LOG_RETURNS")
             print("LOG_RETURNS 테이블이 성공적으로 초기화(Truncate) 되었습니다.")
         except oracledb.Error as e:
@@ -232,7 +232,7 @@ class StockDBManager:
                 
         except oracledb.Error as e:
             print(f"데이터 삽입 실패: {e}")
-            # 한글 주석 필수: 에러 발생 시 롤백하지 않고 오류 출력 (일부 성공 가능성 배제, Transaction 단위)
+            # 에러 발생 시 롤백하지 않고 오류 출력 (일부 성공 가능성 배제, Transaction 단위)
             self.connection.rollback()
 
     def fetch_prices(self):
@@ -242,7 +242,7 @@ class StockDBManager:
         """
         query = "SELECT TICKER, TRADE_DATE, CLOSE_PRICE FROM STOCK_DATA ORDER BY TRADE_DATE, TICKER"
         try:
-            # 한글 주석 필수: 데이터 가져오기
+            # 데이터 가져오기
             self.cursor.execute(query)
             rows = self.cursor.fetchall()
             
@@ -250,10 +250,10 @@ class StockDBManager:
                 print("저장된 주가 데이터가 없습니다.")
                 return pd.DataFrame()
 
-            # 한글 주석 필수: DataFrame 변환
+            # DataFrame 변환
             df = pd.DataFrame(rows, columns=['TICKER', 'TRADE_DATE', 'CLOSE_PRICE'])
             
-            # 한글 주석 필수: Pivot하여 사용하기 편한 형태(행: 날짜, 열: 종목)로 변환
+            # Pivot하여 사용하기 편한 형태(행: 날짜, 열: 종목)로 변환
             pivot_df = df.pivot(index='TRADE_DATE', columns='TICKER', values='CLOSE_PRICE')
             pivot_df.index = pd.to_datetime(pivot_df.index)
             return pivot_df
@@ -299,7 +299,7 @@ class StockDBManager:
         
         data_to_insert = []
         try:
-            # 한글 주석 필수: 날짜순 정렬을 위한 Stack 및 Sort
+            # 날짜순 정렬을 위한 Stack 및 Sort
             df_long = df.stack().reset_index()
             df_long.columns = ['TRADE_DATE', 'TICKER', 'LOG_RETURN']
             df_long = df_long.sort_values(by=['TRADE_DATE', 'TICKER'])

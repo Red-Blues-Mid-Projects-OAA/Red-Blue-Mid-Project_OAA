@@ -12,7 +12,7 @@ def calculate_and_save_log_returns():
     db_manager.connect()
     
     try:
-        # 한글 주석 필수: DB에서 주가 데이터(Pivot 형태) 가져오기
+        # 2. DB에서 주가 데이터(Pivot 형태) 가져오기
         주가_데이터 = db_manager.fetch_prices()
         
         if 주가_데이터.empty:
@@ -26,15 +26,15 @@ def calculate_and_save_log_returns():
         로그_수익률.dropna(inplace=True)
         
         # 4. 로그 수익률 데이터 DB 저장
-        # 한글 주석 필수: 정돈된 적재를 위해 기존 데이터를 비우고 날짜순으로 재입력
+        # 정돈된 적재를 위해 기존 데이터를 비우고 날짜순으로 재입력
         print("\n[DB 정리] 정돈된 적재를 위해 기존 로그 수익률 데이터를 비웁니다...")
         db_manager.truncate_log_returns()
         
         print(f"로그 수익률 데이터 {len(로그_수익률)}건 저장 시작...")
         db_manager.insert_log_returns(로그_수익률)
         
-        # 5. 테이블 재구조화 (Physical Sorting)
-        # 한글 주석 필수: 데이터 적재 후 테이블을 날짜순으로 물리적으로 정렬하여 저장
+        # 5. 테이블 재구조화
+        # 데이터 적재 후 테이블을 날짜순으로 물리적으로 정렬하여 저장
         db_manager.reorganize_log_returns()
         
     except Exception as e:
