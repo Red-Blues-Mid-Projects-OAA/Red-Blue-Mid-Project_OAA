@@ -349,7 +349,8 @@ class StockDBManager:
         try:
             # 먼저 테이블의 모든 기존 데이터 삭제(Truncate)
             self.cursor.execute("TRUNCATE TABLE EWMA_COVARIANCE")
-            
+            # 공분산 행렬(이중 반복문을 돌며(Loop) 각 셀의 데이터 추출)(Ticker X, Ticker Y)
+            # cov_df는 컬럼과 인덱스가 모두 Ticker인 대칭 행렬
             for ticker_x in cov_df.index:
                 for ticker_y in cov_df.columns:
                     value = cov_df.loc[ticker_x, ticker_y]
