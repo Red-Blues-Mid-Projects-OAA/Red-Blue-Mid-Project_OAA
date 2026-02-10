@@ -276,7 +276,6 @@ class StockDBManager:
 
             df = pd.DataFrame(rows, columns=['TICKER', 'TRADE_DATE', 'LOG_RETURN'])
             pivot_df = df.pivot(index='TRADE_DATE', columns='TICKER', values='LOG_RETURN')
-            pivot_df.index = pd.to_datetime(pivot_df.index)
             return pivot_df
         except oracledb.Error as e:
             print(f"로그 수익률 데이터 조회 실패: {e}")
