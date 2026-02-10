@@ -276,7 +276,6 @@ class StockDBManager:
 
             df = pd.DataFrame(rows, columns=['TICKER', 'TRADE_DATE', 'LOG_RETURN'])
             pivot_df = df.pivot(index='TRADE_DATE', columns='TICKER', values='LOG_RETURN')
-            pivot_df.index = pd.to_datetime(pivot_df.index)
             return pivot_df
         except oracledb.Error as e:
             print(f"로그 수익률 데이터 조회 실패: {e}")
@@ -340,18 +339,16 @@ class StockDBManager:
         """
         EWMA 공분산 행렬 저장 (기존 해당 날짜 데이터 삭제 후 재적재)
         """
-        delete_query = "DELETE FROM EWMA_COVARIANCE WHERE CALC_DATE = :1"
         insert_query = "INSERT INTO EWMA_COVARIANCE (CALC_DATE, TICKER_X, TICKER_Y, COV_VALUE) VALUES (:1, :2, :3, :4)"
         
-        # 한글 주석 필수: 계산 날짜 포맷 (시간 제거)
+        # 계산 날짜 포맷 (시간 제거)
         calc_date_val = calc_date.date()
         
         data_to_insert = []
-        # 한글 주석 필수: 공분산 행렬 순회 (Ticker X, Ticker Y)
-        # cov_df는 컬럼과 인덱스가 모두 Ticker인 대칭 행렬
+       
         try:
-            # 먼저 해당 날짜의 기존 데이터 삭제
-            self.cursor.execute(delete_query, [calc_date_val])
+            # 먼저 테이블의 모든 기존 데이터 삭제(Truncate)
+            self.cursor.execute("TRUNCATE TABLE EWMA_COVARIANCE")
             
             for ticker_x in cov_df.index:
                 for ticker_y in cov_df.columns:
