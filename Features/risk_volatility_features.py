@@ -70,12 +70,13 @@ def main():
     # ═══════════════════════════════════════════════════════════
     # [1] AAPL 일별 EWMA 변동성
     # ═══════════════════════════════════════════════════════════
-    # 공분산 행렬의 AAPL-AAPL 대각 원소 = AAPL 분산 → √ = 변동성
+    # 공분산 행렬의 AAPL-AAPL 대각 원소 = AAPL 분산 → √ = 일일 변동성
     aapl_var = ewma_cov.loc[(slice(None), "AAPL"), "AAPL"]
     aapl_var.index = aapl_var.index.droplevel(1)
-    aapl_vol = np.sqrt(aapl_var)
+    aapl_vol_raw = np.sqrt(aapl_var)               # 일일 변동성 (상관계수 계산용)
+    aapl_vol_ann = aapl_vol_raw * np.sqrt(252)      # 연율화 변동성 (출력용)
 
-    df_aapl_daily_vol = pd.DataFrame({"AAPL_EWMA_Vol": aapl_vol}).dropna()
+    df_aapl_daily_vol = pd.DataFrame({"AAPL_EWMA_Vol": aapl_vol_ann}).dropna()
 
     print(f"\n{'=' * 60}")
     print("[1] AAPL 일별 EWMA 변동성 (df_aapl_daily_vol)")
@@ -90,8 +91,8 @@ def main():
     # [2] 20일 / 60일 평균 변동성
     # ═══════════════════════════════════════════════════════════
     df_aapl_avg_vol = pd.DataFrame({
-        "AAPL_Vol_20d_Avg": aapl_vol.rolling(window=20).mean(),
-        "AAPL_Vol_60d_Avg": aapl_vol.rolling(window=60).mean()
+        "AAPL_Vol_20d_Avg": aapl_vol_ann.rolling(window=20).mean(),
+        "AAPL_Vol_60d_Avg": aapl_vol_ann.rolling(window=60).mean()
     }).dropna()
 
     print(f"\n{'=' * 60}")
@@ -107,14 +108,15 @@ def main():
     # [3] AAPL–S&P500 EWMA 상관계수
     # ═══════════════════════════════════════════════════════════
     # Corr = Cov(AAPL, SP500) / (σ_AAPL × σ_SP500)
+    # ★ 상관계수 계산에는 반드시 일일(raw) 변동성 사용 (연율화 X)
     aapl_spx_cov = ewma_cov.loc[(slice(None), "AAPL"), "SP500"]
     aapl_spx_cov.index = aapl_spx_cov.index.droplevel(1)
 
     spx_var = ewma_cov.loc[(slice(None), "SP500"), "SP500"]
     spx_var.index = spx_var.index.droplevel(1)
-    spx_vol = np.sqrt(spx_var)
+    spx_vol_raw = np.sqrt(spx_var)
 
-    ewma_corr = aapl_spx_cov / (aapl_vol * spx_vol)
+    ewma_corr = aapl_spx_cov / (aapl_vol_raw * spx_vol_raw)
 
     df_aapl_ewma_corr = pd.DataFrame({"AAPL_SP500_EWMA_Corr": ewma_corr}).dropna()
 

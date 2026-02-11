@@ -3,7 +3,7 @@
 
 생성되는 DataFrame:
   1. df_dxy_log_returns  : 달러 인덱스(FRED: DTWEXBGS) 일별 로그 수익률
-  2. df_vix              : VIX 종가 (yfinance: ^VIX)
+  2. df_vix              : VIX 종가 + VIX 로그 수익률 (yfinance: ^VIX)
   3. df_sp500_momentum   : S&P 500 1개월(21d)/3개월(63d) Rolling 누적 수익률
 
 ★ DB 적재 없음 / 다른 모듈 수정 없음
@@ -14,6 +14,11 @@ import pandas as pd
 import pandas_datareader.data as web
 import yfinance as yf
 from datetime import datetime
+import sys
+import os
+
+# 상위 디렉토리의 모듈을 import하기 위한 경로 추가
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from stock_db_manager import StockDBManager
 
 START_DATE = "2015-01-01"
@@ -64,6 +69,11 @@ def fetch_vix_data():
     vix_close = vix_close.dropna()
 
     df_vix = pd.DataFrame({"VIX_Close": vix_close})
+
+    # VIX 로그 수익률 추가 — "어제보다 VIX가 얼마나 튀었는가(Shock)" 지표
+    # VIX 수준(Level)보다 급등 여부가 하락장 방어에 더 유효
+    df_vix['VIX_Log_Return'] = np.log(df_vix['VIX_Close'] / df_vix['VIX_Close'].shift(1))
+    df_vix = df_vix.dropna()
 
     print(f"  기간: {df_vix.index[0].date()} ~ {df_vix.index[-1].date()}")
     print(f"  건수: {len(df_vix)}")
