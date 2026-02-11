@@ -3,7 +3,7 @@ XGBoost Classification 및 퀀트 모델 평가 모듈
 
 파이프라인:
   1. generate_target() → 피처 + 타겟이 포함된 Master DataFrame 로드
-  2. Train (2016.01~2024.09) / Test (2025.01~현재) 분할
+  2. Train (2021.01~2024.09) / Test (2025.01~현재) 분할
   3. XGBClassifier 학습 (규제 적용, 과적합 방지)
   4. 퀀트 평가: Accuracy, Precision, IC (Information Coefficient), Feature Importance
 
@@ -50,7 +50,8 @@ def train_and_evaluate_xgboost():
     df_valid = df.dropna(subset=["Target_Class"])
 
     # Train / Test 분할
-    train_df = df_valid.loc["2016-01-01":"2024-09-30"]
+    # ★ Lookback Window 축소: 최근 국면(2021~)만 학습하여 Regime Shift 대응
+    train_df = df_valid.loc["2021-01-01":"2024-09-30"]
     test_df = df_valid.loc["2025-01-01":]
 
     X_train = train_df[feature_cols]
@@ -70,6 +71,11 @@ def train_and_evaluate_xgboost():
     print("2. XGBoost 모델 학습 (Classifier)")
     print("=" * 70)
 
+    # ★ Class 불균형(Imbalance) 보정
+    # scale_pos_weight = (Class 0 수) / (Class 1 수)
+    ratio = float(np.sum(y_train == 0)) / max(np.sum(y_train == 1), 1)
+    print(f"  Class 불균형 보정: scale_pos_weight = {ratio:.4f}")
+
     # 퀀트 모델 특화 규제(Regularization) 파라미터 적용
     # 얕은 트리(depth=3) + 무작위 샘플링 → 과적합 방지
     model = XGBClassifier(
@@ -78,6 +84,7 @@ def train_and_evaluate_xgboost():
         learning_rate=0.05,
         subsample=0.8,
         colsample_bytree=0.8,
+        scale_pos_weight=ratio,
         random_state=42,
         eval_metric="logloss",
     )
