@@ -97,10 +97,27 @@ class StockDBManager:
         END;
         """
 
+        # S&P 500 데이터 테이블 생성 
+        create_sp500_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE SP500_DATA (
+                TRADE_DATE DATE PRIMARY KEY,
+                ADJ_CLOSE NUMBER,
+                LOG_RETURN NUMBER
+            ) ORGANIZATION INDEX';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
         try:
             self.cursor.execute(create_stock_data_query)
             self.cursor.execute(create_log_returns_query)
             self.cursor.execute(create_ewma_cov_query)
+            self.cursor.execute(create_sp500_query)
             
             # 변경 사항 커밋
             self.connection.commit()
@@ -184,6 +201,21 @@ class StockDBManager:
             return None
         except oracledb.Error as e:
             print(f"{ticker} 최신 날짜 조회 실패: {e}")
+            return None
+
+    def get_latest_sp500_date(self):
+        """
+        SP500_DATA 테이블에서 가장 최신 날짜 조회
+        """
+        query = "SELECT MAX(TRADE_DATE) FROM SP500_DATA"
+        try:
+            self.cursor.execute(query)
+            result = self.cursor.fetchone()
+            if result and result[0]:
+                return result[0]
+            return None
+        except oracledb.Error as e:
+            print(f"S&P 500 최신 날짜 조회 실패: {e}")
             return None
 
     def insert_data(self, df):
@@ -315,25 +347,6 @@ class StockDBManager:
             print(f"로그 수익률 저장 실패: {e}")
             self.connection.rollback()
 
-    def insert_stock_stats(self, ticker, stat_name, stat_value):
-        """
-        개별 통계 지표(연평균 수익률, 변동성 등) 저장 (Upsert)
-        """
-        upsert_query = """
-        MERGE INTO STOCK_STATS d
-        USING (SELECT :1 as TICKER, :2 as STAT_NAME, :3 as STAT_VALUE FROM dual) s
-        ON (d.TICKER = s.TICKER AND d.STAT_NAME = s.STAT_NAME)
-        WHEN MATCHED THEN
-            UPDATE SET d.STAT_VALUE = s.STAT_VALUE, d.UPDATED_DATE = SYSDATE
-        WHEN NOT MATCHED THEN
-            INSERT (TICKER, STAT_NAME, STAT_VALUE, UPDATED_DATE)
-            VALUES (s.TICKER, s.STAT_NAME, s.STAT_VALUE, SYSDATE)
-        """
-        try:
-            self.cursor.execute(upsert_query, [ticker, stat_name, float(stat_value)])
-            self.connection.commit()
-        except oracledb.Error as e:
-            print(f"통계 데이터 저장 실패 ({ticker}, {stat_name}): {e}")
 
     def insert_ewma_covariance(self, calc_date, cov_df):
         """
@@ -370,7 +383,7 @@ class StockDBManager:
         STOCK_DATA 테이블을 TRADE_DATE, TICKER 순으로 정렬된 복사본으로 교체
         """
         try:
-            # 한글 주석 필수: 정렬된 데이터로 복사 테이블 생성
+            # 정렬된 데이터로 복사 테이블 생성
             self.cursor.execute("""
                 CREATE TABLE STOCK_DATA_COPY (
                     TICKER VARCHAR2(10),
@@ -380,7 +393,7 @@ class StockDBManager:
                 ) ORGANIZATION INDEX
             """)
 
-            # 한글 주석 필수: 기존 데이터를 TRADE_DATE, TICKER 순으로 정렬하여 삽입
+            # 기존 데이터를 TRADE_DATE, TICKER 순으로 정렬하여 삽입
             self.cursor.execute("""
                 INSERT INTO STOCK_DATA_COPY (TICKER, TRADE_DATE, CLOSE_PRICE)
                 SELECT TICKER, TRADE_DATE, CLOSE_PRICE
@@ -392,10 +405,10 @@ class StockDBManager:
             row_count = self.cursor.rowcount
             print(f"STOCK_DATA_COPY 테이블에 {row_count}건 복사 완료.")
 
-            # 한글 주석 필수: 기존 STOCK_DATA 테이블 삭제
+            # 기존 STOCK_DATA 테이블 삭제
             self.cursor.execute("DROP TABLE STOCK_DATA PURGE")
 
-            # 한글 주석 필수: 복사 테이블 이름을 STOCK_DATA로 변경
+            # 복사 테이블 이름을 STOCK_DATA로 변경
             self.cursor.execute("ALTER TABLE STOCK_DATA_COPY RENAME TO STOCK_DATA")
             self.connection.commit()
 
@@ -403,6 +416,41 @@ class StockDBManager:
 
         except oracledb.Error as e:
             print(f"테이블 재정렬 실패: {e}")
+            self.connection.rollback()
+
+    def insert_sp500_data(self, df):
+        """
+        S&P 500 데이터(Date index, Columns: [Close, Log_Return])를 DB에 저장 (Upsert)
+        """
+        upsert_query = """
+        MERGE INTO SP500_DATA d
+        USING (SELECT :1 as TRADE_DATE, :2 as ADJ_CLOSE, :3 as LOG_RETURN FROM dual) s
+        ON (d.TRADE_DATE = s.TRADE_DATE)
+        WHEN MATCHED THEN
+            UPDATE SET d.ADJ_CLOSE = s.ADJ_CLOSE, d.LOG_RETURN = s.LOG_RETURN
+        WHEN NOT MATCHED THEN
+            INSERT (TRADE_DATE, ADJ_CLOSE, LOG_RETURN)
+            VALUES (s.TRADE_DATE, s.ADJ_CLOSE, s.LOG_RETURN)
+        """
+        
+        data_to_insert = []
+        try:
+            # 날짜순 정렬
+            df = df.sort_index()
+            
+            for date_idx, row in df.iterrows():
+                trade_date = date_idx.to_pydatetime().date()
+                adj_close = float(row['Close'])
+                log_return = float(row['Log_Return']) if pd.notna(row['Log_Return']) else None
+                
+                data_to_insert.append((trade_date, adj_close, log_return))
+            
+            if data_to_insert:
+                self.cursor.executemany(upsert_query, data_to_insert)
+                self.connection.commit()
+                print(f"S&P 500 데이터 {len(data_to_insert)}건 저장 완료.")
+        except oracledb.Error as e:
+            print(f"S&P 500 데이터 저장 실패: {e}")
             self.connection.rollback()
 
     def close(self):
