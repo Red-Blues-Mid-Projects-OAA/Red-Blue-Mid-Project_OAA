@@ -4,8 +4,9 @@ XGBoost Classification 및 퀀트 모델 평가 모듈
 파이프라인:
   1. generate_target() → 피처 + 타겟이 포함된 Master DataFrame 로드
   2. Train (2021.01~2024.09) / Test (2025.01~현재) 분할
-  3. XGBClassifier 학습 (규제 적용, 과적합 방지)
-  4. 퀀트 평가: Accuracy, Precision, IC (Information Coefficient), Feature Importance
+  3. XGBClassifier 학습 (강화 규제 적용, 과적합 방지)
+  4. 퀀트 평가: Accuracy, Precision, IC, Feature Importance
+  5. 과적합 진단: Train-Test Gap, IC 안정성, 피처 분산도
 
 ★ DB 적재 없음 / Classification 폴더 외 파일 수정 없음
 """
@@ -32,6 +33,7 @@ from generate_target import generate_target
 def train_and_evaluate_xgboost():
     """
     XGBoost 분류 모델을 학습·평가하고 퀀트 관점의 성과 지표를 출력합니다.
+    강화된 규제(Regularization) 및 과적합 진단 3종 세트를 포함합니다.
     """
     # ══════════════════════════════════════════════════════════════
     #  1. 데이터 로드 및 분할
@@ -65,25 +67,31 @@ def train_and_evaluate_xgboost():
     print(f"  피처 목록: {feature_cols}")
 
     # ══════════════════════════════════════════════════════════════
-    #  2. XGBoost 모델 학습
+    #  2. XGBoost 모델 학습 (강화 규제 적용)
     # ══════════════════════════════════════════════════════════════
     print("\n" + "=" * 70)
-    print("2. XGBoost 모델 학습 (Classifier)")
+    print("2. XGBoost 모델 학습 (강화 규제 Classifier)")
     print("=" * 70)
 
     # ★ Class 불균형(Imbalance) 보정
-    # scale_pos_weight = (Class 0 수) / (Class 1 수)
     ratio = float(np.sum(y_train == 0)) / max(np.sum(y_train == 1), 1)
     print(f"  Class 불균형 보정: scale_pos_weight = {ratio:.4f}")
 
-    # 퀀트 모델 특화 규제(Regularization) 파라미터 적용
-    # 얕은 트리(depth=3) + 무작위 샘플링 → 과적합 방지
+    # ★ 강화 규제(Regularization) 파라미터
+    # - gamma: 트리 분할 최소 손실 감소 (보수적 분할)
+    # - reg_alpha (L1): 불필요한 피처 가중치 → 0
+    # - reg_lambda (L2): 가중치 폭발 방지
+    # - learning_rate: 0.05 → 0.03 (더 천천히, 꼼꼼히 학습)
+    # - subsample/colsample: 0.8 → 0.7 (무작위성 강화, 노이즈 학습 방지)
     model = XGBClassifier(
         n_estimators=200,
         max_depth=3,
-        learning_rate=0.05,
-        subsample=0.8,
-        colsample_bytree=0.8,
+        learning_rate=0.03,
+        gamma=0.2,
+        reg_alpha=0.1,
+        reg_lambda=1.5,
+        subsample=0.7,
+        colsample_bytree=0.7,
         scale_pos_weight=ratio,
         random_state=42,
         eval_metric="logloss",
@@ -91,6 +99,11 @@ def train_and_evaluate_xgboost():
 
     model.fit(X_train, y_train)
     print("  모델 학습 완료!")
+    print("  [적용된 규제]")
+    print(f"    gamma={model.gamma}, reg_alpha={model.reg_alpha}, "
+          f"reg_lambda={model.reg_lambda}")
+    print(f"    learning_rate={model.learning_rate}, "
+          f"subsample={model.subsample}, colsample_bytree={model.colsample_bytree}")
 
     # ══════════════════════════════════════════════════════════════
     #  3. 예측 및 퀀트 관점 평가
@@ -99,7 +112,7 @@ def train_and_evaluate_xgboost():
     print("3. 모델 예측 및 퀀트 관점의 평가")
     print("=" * 70)
 
-    # 확률 예측: predict_proba[:, 1] = Class 1(시장을 이길) 확률
+    # 확률 예측
     y_pred_proba = model.predict_proba(X_test)[:, 1]
     y_pred_class = model.predict(X_test)
 
@@ -110,16 +123,12 @@ def train_and_evaluate_xgboost():
     print("\n  [기본 ML 지표]")
     print(f"    Accuracy (정확도)  : {acc * 100:.2f}%")
     print(f"    Precision (정밀도) : {prec * 100:.2f}%")
-    print(f"    (모델이 '이긴다'고 했을 때 실제로 이긴 비율)")
 
     print("\n  [상세 Classification Report]")
     print(classification_report(y_test, y_pred_class, target_names=["Lose(0)", "Win(1)"]))
 
     # ── ② Information Coefficient (IC) ──
-    # 예측 확률(P)의 순위와 실제 초과수익률(Alpha)의 순위 간 Spearman 상관
-    actual_excess_return = (
-        test_df["Target_AAPL_3M"] - test_df["Target_SP500_3M"]
-    )
+    actual_excess_return = test_df["Target_AAPL_3M"] - test_df["Target_SP500_3M"]
     ic, p_value = spearmanr(y_pred_proba, actual_excess_return)
 
     print("  [★ 퀀트 핵심 지표: Information Coefficient (IC)]")
@@ -127,15 +136,15 @@ def train_and_evaluate_xgboost():
     print(f"    P-value     : {p_value:.4f}")
 
     if ic > 0.10:
-        print("    → 🔥 매우 강한 예측력 (IC > 0.10). 데이터 누수 여부도 재확인 권장.")
+        print("    → 🔥 매우 강한 예측력 (IC > 0.10).")
     elif ic > 0.05:
-        print("    → 💡 매우 훌륭한 예측력 (IC > 0.05). Scale Factor에 사용 가능.")
+        print("    → 💡 매우 훌륭한 예측력 (IC > 0.05).")
     elif ic > 0.02:
-        print("    → 💡 실전 퀀트 수준의 예측력 (IC 0.02~0.05). 포트폴리오 최적화 가능.")
+        print("    → 💡 실전 퀀트 수준 (IC 0.02~0.05).")
     elif ic > 0:
-        print("    → 양의 예측력 있음. 추가 피처 튜닝으로 개선 여지 있음.")
+        print("    → 양의 예측력 있음.")
     else:
-        print("    → ⚠️ 예측력 부족 (IC ≤ 0). 피처 재검토 필요.")
+        print("    → ⚠️ 예측력 부족 (IC ≤ 0).")
 
     # ── ③ Feature Importance ──
     feat_imp = pd.Series(
@@ -147,36 +156,133 @@ def train_and_evaluate_xgboost():
         bar = "█" * int(imp * 50)
         print(f"    {i}. {feat:25s} {imp:.4f}  {bar}")
 
-    # 과도한 단일 피처 의존도 경고
-    if feat_imp.iloc[0] > 0.50:
-        print(f"\n    ⚠️ 경고: '{feat_imp.index[0]}'에 대한 의존도가 {feat_imp.iloc[0]*100:.1f}%로 과도합니다.")
-        print("       시장 전환기에 모델이 무너질 위험이 있습니다.")
+    # ══════════════════════════════════════════════════════════════
+    #  4. 과적합(Overfitting) 진단 3종 세트
+    # ══════════════════════════════════════════════════════════════
+    print("\n" + "=" * 70)
+    print("4. 과적합(Overfitting) 진단")
+    print("=" * 70)
+
+    # ── 진단 ①: Train-Test Accuracy Gap ──
+    y_train_pred = model.predict(X_train)
+    train_acc = accuracy_score(y_train, y_train_pred)
+    gap = train_acc - acc
+
+    print("\n  [진단 ①] Train-Test Accuracy Gap")
+    print(f"    Train Accuracy : {train_acc * 100:.2f}%")
+    print(f"    Test Accuracy  : {acc * 100:.2f}%")
+    print(f"    Gap            : {gap * 100:.2f}%p")
+
+    if gap <= 0.10:
+        print("    → ✅ 건강 (Gap ≤ 10%p). 모델이 암기가 아닌 학습을 하고 있습니다.")
+    elif gap <= 0.20:
+        print("    → ⚠️ 주의 (Gap 10~20%p). 약간의 과적합 가능성이 있습니다.")
     else:
-        print("\n    ✓ 피처 분산도 양호 — 시장 국면을 균형 있게 파악하는 건강한 모델입니다.")
+        print("    → 🚨 과적합 (Gap > 20%p). 모델이 훈련 데이터를 암기하고 있습니다.")
 
-    # ── ④ 시각화: Feature Importance 차트 ──
-    fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+    # ── 진단 ②: IC 안정성 (테스트 기간 전반/후반 분할) ──
+    mid_idx = len(test_df) // 2
+    test_first_half = test_df.iloc[:mid_idx]
+    test_second_half = test_df.iloc[mid_idx:]
 
-    # Feature Importance 바 차트
-    feat_imp.plot(kind="barh", ax=axes[0], color="steelblue", edgecolor="black")
-    axes[0].set_title("Feature Importance (XGBoost Classifier)", fontsize=13)
-    axes[0].set_xlabel("Importance")
-    axes[0].invert_yaxis()
+    proba_first = y_pred_proba[:mid_idx]
+    proba_second = y_pred_proba[mid_idx:]
 
-    # 예측 확률 분포 (Test Set)
-    axes[1].hist(
+    excess_first = (
+        test_first_half["Target_AAPL_3M"] - test_first_half["Target_SP500_3M"]
+    )
+    excess_second = (
+        test_second_half["Target_AAPL_3M"] - test_second_half["Target_SP500_3M"]
+    )
+
+    ic_first, p_first = spearmanr(proba_first, excess_first)
+    ic_second, p_second = spearmanr(proba_second, excess_second)
+
+    mid_date = test_df.index[mid_idx].strftime("%Y-%m-%d")
+
+    print(f"\n  [진단 ②] IC 안정성 (테스트 기간 분할: 기준일 {mid_date})")
+    print(f"    전반기 IC : {ic_first:+.4f} (p={p_first:.4f}) | {len(test_first_half)}건")
+    print(f"    후반기 IC : {ic_second:+.4f} (p={p_second:.4f}) | {len(test_second_half)}건")
+    print(f"    전체   IC : {ic:+.4f}")
+
+    if ic_first > 0 and ic_second > 0:
+        print("    → ✅ 안정 — 두 기간 모두 양(+)의 IC를 유지합니다.")
+    elif ic_first * ic_second > 0:
+        print("    → ⚠️ 부호 일관 — 방향은 같지만 크기 차이를 모니터링하세요.")
+    else:
+        print("    → 🚨 불안정 — 전반/후반 IC 부호가 다릅니다. 특정 기간의 우연일 수 있습니다.")
+
+    # ── 진단 ③: Feature Importance 평탄화 (분산도 확인) ──
+    top1_share = feat_imp.iloc[0]
+    top3_share = feat_imp.iloc[:3].sum()
+    hhi = (feat_imp ** 2).sum()  # Herfindahl–Hirschman Index
+
+    print(f"\n  [진단 ③] Feature Importance 분산도")
+    print(f"    Top 1 비중 : {top1_share * 100:.1f}% ({feat_imp.index[0]})")
+    print(f"    Top 3 비중 : {top3_share * 100:.1f}%")
+    print(f"    HHI 집중도 : {hhi:.4f} (낮을수록 분산, 균일 분배={1/len(feature_cols):.4f})")
+
+    if top1_share > 0.50:
+        print(f"    → 🚨 위험 — '{feat_imp.index[0]}'에 과도 의존 ({top1_share*100:.1f}%). 시장 전환 시 붕괴 위험.")
+    elif top1_share > 0.25:
+        print(f"    → ⚠️ 주의 — 상위 피처 집중도가 높습니다. 모니터링이 필요합니다.")
+    else:
+        print("    → ✅ 양호 — 피처가 골고루 활용되고 있어 건강한 모델입니다.")
+
+    # ══════════════════════════════════════════════════════════════
+    #  5. 시각화
+    # ══════════════════════════════════════════════════════════════
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+
+    # (1) Feature Importance
+    feat_imp.plot(kind="barh", ax=axes[0, 0], color="steelblue", edgecolor="black")
+    axes[0, 0].set_title("Feature Importance (Regularized XGBoost)", fontsize=13)
+    axes[0, 0].set_xlabel("Importance")
+    axes[0, 0].invert_yaxis()
+
+    # (2) Predicted Probability Distribution
+    axes[0, 1].hist(
         y_pred_proba[y_test == 1], bins=30, alpha=0.6,
         label="Win (AAPL > SP500)", color="green", edgecolor="black"
     )
-    axes[1].hist(
+    axes[0, 1].hist(
         y_pred_proba[y_test == 0], bins=30, alpha=0.6,
         label="Lose (AAPL ≤ SP500)", color="red", edgecolor="black"
     )
-    axes[1].axvline(x=0.5, color="black", linestyle="--", label="Threshold (0.5)")
-    axes[1].set_title("Predicted Probability Distribution (Test Set)", fontsize=13)
-    axes[1].set_xlabel("P(AAPL beats SP500)")
-    axes[1].set_ylabel("Count")
-    axes[1].legend()
+    axes[0, 1].axvline(x=0.5, color="black", linestyle="--", label="Threshold (0.5)")
+    axes[0, 1].set_title("Predicted Probability Distribution", fontsize=13)
+    axes[0, 1].set_xlabel("P(AAPL beats SP500)")
+    axes[0, 1].set_ylabel("Count")
+    axes[0, 1].legend()
+
+    # (3) Train vs Test Accuracy Gap
+    gap_labels = ["Train", "Test"]
+    gap_values = [train_acc * 100, acc * 100]
+    gap_colors = ["#4CAF50", "#FF5722"]
+    bars = axes[1, 0].bar(gap_labels, gap_values, color=gap_colors, edgecolor="black", width=0.5)
+    for bar, val in zip(bars, gap_values):
+        axes[1, 0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
+                        f"{val:.1f}%", ha="center", fontsize=12, fontweight="bold")
+    axes[1, 0].set_title(f"Train-Test Accuracy Gap ({gap*100:.1f}%p)", fontsize=13)
+    axes[1, 0].set_ylabel("Accuracy (%)")
+    axes[1, 0].set_ylim(0, 100)
+    axes[1, 0].axhline(y=50, color="gray", linestyle="--", alpha=0.5, label="Random (50%)")
+    axes[1, 0].legend()
+
+    # (4) IC Stability
+    ic_labels = ["1st Half", "2nd Half", "Full"]
+    ic_values = [ic_first, ic_second, ic]
+    ic_colors = ["green" if v > 0 else "red" for v in ic_values]
+    bars = axes[1, 1].bar(ic_labels, ic_values, color=ic_colors, edgecolor="black", width=0.5)
+    for bar, val in zip(bars, ic_values):
+        axes[1, 1].text(bar.get_x() + bar.get_width() / 2,
+                        bar.get_height() + (0.005 if val >= 0 else -0.02),
+                        f"{val:+.3f}", ha="center", fontsize=11, fontweight="bold")
+    axes[1, 1].set_title("IC Stability Across Test Sub-Periods", fontsize=13)
+    axes[1, 1].set_ylabel("Information Coefficient")
+    axes[1, 1].axhline(y=0, color="black", linestyle="-", linewidth=0.8)
+    axes[1, 1].axhline(y=0.05, color="blue", linestyle="--", alpha=0.5, label="IC=0.05 (Strong)")
+    axes[1, 1].legend()
 
     plt.tight_layout()
     save_path = os.path.join(_THIS_DIR, "xgboost_classifier_result.png")
@@ -184,14 +290,20 @@ def train_and_evaluate_xgboost():
     print(f"\n  차트 저장 완료: {save_path}")
     plt.close()
 
-    # ── 요약 ──
+    # ══════════════════════════════════════════════════════════════
+    #  최종 요약
+    # ══════════════════════════════════════════════════════════════
     print(f"\n{'=' * 70}")
-    print("★ 최종 평가 요약")
+    print("★ 최종 평가 요약 (규제 강화 버전)")
     print(f"{'=' * 70}")
-    print(f"  Accuracy  : {acc * 100:.2f}%")
-    print(f"  Precision : {prec * 100:.2f}%")
-    print(f"  IC        : {ic:.4f} (p={p_value:.4f})")
-    print(f"  Top Feature: {feat_imp.index[0]} ({feat_imp.iloc[0]*100:.1f}%)")
+    print(f"  Accuracy       : {acc * 100:.2f}%")
+    print(f"  Precision      : {prec * 100:.2f}%")
+    print(f"  IC (전체)      : {ic:+.4f} (p={p_value:.4f})")
+    print(f"  IC (전반기)    : {ic_first:+.4f}")
+    print(f"  IC (후반기)    : {ic_second:+.4f}")
+    print(f"  Train-Test Gap : {gap * 100:.1f}%p")
+    print(f"  Top Feature    : {feat_imp.index[0]} ({feat_imp.iloc[0]*100:.1f}%)")
+    print(f"  HHI 집중도     : {hhi:.4f}")
     print(f"{'=' * 70}")
 
     return model, y_pred_proba, ic
