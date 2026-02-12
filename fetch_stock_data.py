@@ -31,8 +31,8 @@ def fetch_stock_data(tickers=None, start_date="2015-01-01", end_date=None):
     db_manager = StockDBManager()
     try:
         # yfinance를 통해 수정 종가 데이터 다운로드 (auto_adjust=True)
-        # ['Close']를 선택하여 Series 또는 DataFrame(단일/멀티) 반환
-        data = yf.download(tickers, start=start_date, end=end_date, auto_adjust=True)["Close"]
+        # 전체 데이터(Close, Volume 등) 수집
+        data = yf.download(tickers, start=start_date, end=end_date, auto_adjust=True)
 
         # 데이터가 비어있는지 확인
         if data.empty:
@@ -45,8 +45,8 @@ def fetch_stock_data(tickers=None, start_date="2015-01-01", end_date=None):
         print("\nOracle DB에 접속 및 테이블 생성을 시작합니다.")
         db_manager.connect()
 
-        # 초기 적재 시 테이블을 비우고 시작
-        db_manager.truncate_table()
+        # 테이블 재생성
+        db_manager.recreate_stock_data_table()
         db_manager.insert_data(data)
         db_manager.reorganize_stock_data()
         print("모든 데이터 저장 완료")

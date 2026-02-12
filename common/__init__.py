@@ -6,9 +6,10 @@
 # 외부 라이브러리 통합 임포트
 import pandas as pd
 import numpy as np
-import os  
+import os
+import sys
 import yfinance as yf
 from datetime import datetime, timedelta
 
 # 패키지 수준에서 편리하게 접근할 수 있도록 노출
-__all__ = ['pd', 'np', 'os', 'yf', 'datetime', 'timedelta']
+__all__ = ['pd', 'np', 'os', 'sys', 'yf', 'datetime', 'timedelta']

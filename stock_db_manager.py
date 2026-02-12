@@ -52,6 +52,7 @@ class StockDBManager:
                 TICKER VARCHAR2(10),
                 TRADE_DATE DATE,
                 CLOSE_PRICE NUMBER,
+                VOLUME NUMBER,
                 PRIMARY KEY (TRADE_DATE, TICKER)
             ) ORGANIZATION INDEX';
         EXCEPTION
@@ -125,16 +126,22 @@ class StockDBManager:
         except oracledb.Error as e:
             print(f"테이블 생성 중 오류 발생: {e}")
 
-    def truncate_table(self):
+    def recreate_stock_data_table(self):
         """
-        테이블의 모든 데이터를 삭제 (초기화)
+        STOCK_DATA 테이블을 삭제하고 재생성
         """
         try:
-            # 이 쿼리를 통해 테이블을 깨끗하게 비우고 새로 적재할 준비를 합니다.
-            self.cursor.execute("TRUNCATE TABLE STOCK_DATA")
-            print("STOCK_DATA 테이블이 성공적으로 초기화(Truncate) 되었습니다.")
+            # 존재하면 삭제
+            try:
+                self.cursor.execute("DROP TABLE STOCK_DATA PURGE")
+            except oracledb.Error:
+                pass # 테이블이 없으면 무시
+            
+            # 재생성
+            self._create_table_if_not_exists()
+            print("STOCK_DATA 테이블이 성공적으로 재생성(Recreate) 되었습니다.")
         except oracledb.Error as e:
-            print(f"테이블 초기화 실패: {e}")
+            print(f"테이블 재생성 실패: {e}")
 
     def truncate_log_returns(self):
         """
@@ -226,34 +233,45 @@ class StockDBManager:
         # MERGE 문을 사용하여 중복 데이터 발생 시 업데이트 처리 
         insert_query = """
         MERGE INTO STOCK_DATA d
-        USING (SELECT :1 as TICKER, :2 as TRADE_DATE, :3 as CLOSE_PRICE FROM dual) s
+        USING (SELECT :1 as TICKER, :2 as TRADE_DATE, :3 as CLOSE_PRICE, :4 as VOLUME FROM dual) s
         ON (d.TICKER = s.TICKER AND d.TRADE_DATE = s.TRADE_DATE)
         WHEN MATCHED THEN
-            UPDATE SET d.CLOSE_PRICE = s.CLOSE_PRICE
+            UPDATE SET d.CLOSE_PRICE = s.CLOSE_PRICE, d.VOLUME = s.VOLUME
         WHEN NOT MATCHED THEN
-            INSERT (TICKER, TRADE_DATE, CLOSE_PRICE)
-            VALUES (s.TICKER, s.TRADE_DATE, s.CLOSE_PRICE)
+            INSERT (TICKER, TRADE_DATE, CLOSE_PRICE, VOLUME)
+            VALUES (s.TICKER, s.TRADE_DATE, s.CLOSE_PRICE, s.VOLUME)
         """
         
         data_to_insert = []
         
         try:
-            # 컬럼을 DATE, TICKER, CLOSE_PRICE 형태로 변환하는과정
-            # 이를 통해 모든 종목의 데이터를 날짜순으로 한꺼번에 정렬하여 적재할 수 있습니다.
-            df_long = df.stack().reset_index()
-            df_long.columns = ['TRADE_DATE', 'TICKER', 'CLOSE_PRICE']
+            # yfinance MultiIndex 데이터 처리 (level 1이 Ticker라고 가정)
+            if isinstance(df.columns, pd.MultiIndex):
+                # Columns: (Price, Ticker) -> Stack Ticker to Index -> Columns: Price types
+                df_processed = df.stack(level=1).reset_index()
+                
+                # Date 컬럼 찾기
+                date_col = df_processed.columns[0]
+                # Ticker 컬럼 찾기 (보통 'Ticker' 혹은 'level_1')
+                ticker_col = df_processed.columns[1]
+                
+                # Close, Volume 컬럼명 확보
+                close_col = df_processed.columns[2]
+                vol_col = df_processed.columns[-1]
+                
+                # 벡터화 연산으로 리스트 생성 (Performance Optimization)
+                # 1. Date 변환: to_pydatetime().date()는 벡터화가 어려우므로 리스트 컴프리헨션 사용하되, dt 접근자 활용
+                dates = df_processed[date_col].dt.date.tolist()
+                tickers = df_processed[ticker_col].astype(str).tolist()                
+                closes = df_processed[close_col].astype(float).tolist()
+                volumes = df_processed[vol_col].astype(float).tolist()
+                
+                data_to_insert = list(zip(tickers, dates, closes, volumes))
             
-            
-            
-            for _, row in df_long.iterrows():
-                # datetime -> date 변환 (시간 제거)
-                # 오라클이 인식하지 못하는 타임스탬프타입을 파이썬 기본 날짜 데이터타입으로 변환
-                trade_date = row['TRADE_DATE'].to_pydatetime().date()
-                data_to_insert.append((str(row['TICKER']), trade_date, float(row['CLOSE_PRICE'])))
-            
+            else:
+                raise ValueError("데이터프레임의 컬럼이 예상과 다릅니다.")
+
             if data_to_insert:
-                
-                
                 # executemany를 사용하여 대량 삽입 성능 향상
                 # MERGE 문(Upsert)을 사용하므로 데이터가 중복되어도 안전하게 날짜순으로 들어갑니다.
                 self.cursor.executemany(insert_query, data_to_insert)
@@ -262,10 +280,9 @@ class StockDBManager:
             else:
                 print("저장할 데이터가 없습니다.")
                 
-        except oracledb.Error as e:
+        except Exception as e:
             print(f"데이터 삽입 실패: {e}")
-            # 에러 발생 시 롤백하지 않고 오류 출력 (일부 성공 가능성 배제, Transaction 단위)
-            self.connection.rollback()
+            # 에러 발생 시 롤백하지 않고 오류 출력
 
     def fetch_prices(self):
         """
@@ -383,36 +400,31 @@ class StockDBManager:
         STOCK_DATA 테이블을 TRADE_DATE, TICKER 순으로 정렬된 복사본으로 교체
         """
         try:
-            # 정렬된 데이터로 복사 테이블 생성
+            print("STOCK_DATA 테이블 재구조화 시작...")
+            
+            # 1. 정렬된 데이터로 복사 테이블 생성 (CTAS)
             self.cursor.execute("""
-                CREATE TABLE STOCK_DATA_COPY (
-                    TICKER VARCHAR2(10),
-                    TRADE_DATE DATE,
-                    CLOSE_PRICE NUMBER,
-                    PRIMARY KEY (TRADE_DATE, TICKER)
-                ) ORGANIZATION INDEX
-            """)
-
-            # 기존 데이터를 TRADE_DATE, TICKER 순으로 정렬하여 삽입
-            self.cursor.execute("""
-                INSERT INTO STOCK_DATA_COPY (TICKER, TRADE_DATE, CLOSE_PRICE)
-                SELECT TICKER, TRADE_DATE, CLOSE_PRICE
+                CREATE TABLE STOCK_DATA_COPY AS
+                SELECT TICKER, TRADE_DATE, CLOSE_PRICE, VOLUME
                 FROM STOCK_DATA
-                ORDER BY TRADE_DATE, TICKER
+                ORDER BY TRADE_DATE ASC, TICKER ASC
             """)
-            self.connection.commit()
 
-            row_count = self.cursor.rowcount
-            print(f"STOCK_DATA_COPY 테이블에 {row_count}건 복사 완료.")
-
-            # 기존 STOCK_DATA 테이블 삭제
+            # 2. 기존 STOCK_DATA 테이블 삭제
             self.cursor.execute("DROP TABLE STOCK_DATA PURGE")
 
-            # 복사 테이블 이름을 STOCK_DATA로 변경
+            # 3. 복사 테이블 이름을 STOCK_DATA로 변경
             self.cursor.execute("ALTER TABLE STOCK_DATA_COPY RENAME TO STOCK_DATA")
+            
+            # 4. 기본키(PK) 재설정 (CTAS는 제약조건을 복사하지 않으므로 직접 설정)
+            self.cursor.execute("""
+                ALTER TABLE STOCK_DATA 
+                ADD CONSTRAINT PK_STOCK_DATA PRIMARY KEY (TRADE_DATE, TICKER)
+                USING INDEX
+            """)
+            
             self.connection.commit()
-
-            print("STOCK_DATA 테이블이 TRADE_DATE, TICKER 순으로 재정렬 완료되었습니다.")
+            print("STOCK_DATA 테이블이 TRADE_DATE, TICKER 순으로 재정렬 및 PK 설정이 완료되었습니다.")
 
         except oracledb.Error as e:
             print(f"테이블 재정렬 실패: {e}")
