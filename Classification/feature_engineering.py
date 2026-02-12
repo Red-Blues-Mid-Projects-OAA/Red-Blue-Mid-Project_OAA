@@ -1,35 +1,27 @@
+import sys, os
+# 상위 디렉토리의 모듈 및 common 패키지 import를 위한 경로 추가
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import pandas as pd
-import numpy as np
-import yfinance as yf
-from datetime import datetime
-from sklearn.preprocessing import StandardScaler
+from common import pd, np
+from stock_db_manager import StockDBManager
 
 
-def calculate_features(ticker, start_date, end_date):
+def calculate_features(ticker):
     """
     AAPL 종목의 가격/모멘텀 feature를 계산하여 단일 DataFrame으로 반환.
     - 중장기 수익률 (Log Returns): 20일, 60일, 120일 rolling mean
     - 이동평균 이격도 (MA Envelope): (Close - MA60) / MA60
     - 52주 고점 대비 위치 (High-Low Proximity): (Close - 52W High) / 52W High
     """
-    print(f"Fetching data for {ticker} from {start_date} to {end_date}...")
-
-    df = yf.download(ticker, start=start_date, end=end_date, auto_adjust=True)
+    print(f"[{ticker}] Oracle DB에서 데이터 로드 중...")
+    db_manager = StockDBManager()
+    db_manager.connect()
+    df = db_manager.fetch_ticker_data(ticker)
+    db_manager.close()
 
     if df.empty:
-        print("DB에서 데이터를 가져오지 못했습니다.")
+        print("DB에서 데이터를 가져오지 못했습니다. fetch_stock_data.py를 먼저 실행하세요.")
         return pd.DataFrame()
-
-    # MultiIndex 처리 (일부 yfinance 버전에서는 단일 종목도 MultiIndex로 반환)
-    if isinstance(df.columns, pd.MultiIndex):
-        if 'Ticker' in df.columns.names:
-            df.columns = df.columns.droplevel('Ticker')
-        else:
-            try:
-                df = df.xs(ticker, axis=1, level=1)
-            except Exception:
-                pass
 
     # --- Feature Engineering ---
 
@@ -58,10 +50,8 @@ def calculate_features(ticker, start_date, end_date):
 
 def main():
     ticker = 'AAPL'
-    start_date = '2015-01-01'
-    end_date = datetime.now().strftime('%Y-%m-%d')
 
-    df = calculate_features(ticker, start_date, end_date)
+    df = calculate_features(ticker)
 
     if df.empty:
         print("Feature 계산 실패")

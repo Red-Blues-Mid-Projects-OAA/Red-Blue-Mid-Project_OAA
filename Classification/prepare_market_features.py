@@ -97,15 +97,14 @@ def calculate_sp500_momentum():
     db = StockDBManager()
     db.connect()
     try:
-        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA ORDER BY TRADE_DATE"
-        db.cursor.execute(query)
-        rows = db.cursor.fetchall()
+        df = db.fetch_sp500_data()
     finally:
         db.close()
 
-    df = pd.DataFrame(rows, columns=["TRADE_DATE", "LOG_RETURN"])
-    df["TRADE_DATE"] = pd.to_datetime(df["TRADE_DATE"])
-    df = df.set_index("TRADE_DATE").sort_index()
+    if df.empty:
+        print("S&P 500 데이터를 가져오지 못했습니다. update_sp500_data.py를 먼저 실행하세요.")
+        return pd.DataFrame()
+
     df["LOG_RETURN"] = df["LOG_RETURN"].astype(float)
 
     # Rolling 누적 로그 수익률 (일별 로그 수익률의 합 = 기간 누적 수익률)

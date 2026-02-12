@@ -13,13 +13,11 @@ calculate_ewma.py와 동일한 EWMA 방식(λ=0.94)을 사용하여:
 ★ DB 적재 없음 / 다른 모듈 수정 없음
 """
 
-import numpy as np
-import pandas as pd
-import sys
-import os
-
-# 상위 디렉토리의 모듈을 import하기 위한 경로 추가
+import sys, os
+# 상위 디렉토리의 모듈 및 common 패키지 import를 위한 경로 추가
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from common import pd, np
 from stock_db_manager import StockDBManager
 
 LAMBDA = 0.94
@@ -42,25 +40,17 @@ def main():
         lr_all = db.fetch_log_returns()
 
         # S&P 500 로그 수익률 (SP500_DATA)
-        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA ORDER BY TRADE_DATE"
-        db.cursor.execute(query)
-        rows = db.cursor.fetchall()
+        sp500 = db.fetch_sp500_data()
     finally:
         db.close()
 
-    lr_all.index = pd.to_datetime(lr_all.index)
-    aapl_lr = lr_all[TICKER].dropna()
+    aapl = lr_all[TICKER].dropna()
 
-    sp500 = pd.DataFrame(rows, columns=["TRADE_DATE", "LOG_RETURN"])
-    sp500["TRADE_DATE"] = pd.to_datetime(sp500["TRADE_DATE"])
-    sp500 = sp500.set_index("TRADE_DATE").sort_index()
-    sp500_lr = sp500["LOG_RETURN"].astype(float).dropna()
+    if sp500.empty:
+        print("S&P 500 데이터를 가져오지 못했습니다. update_sp500_data.py를 먼저 실행하세요.")
+        return
 
-    # 공통 거래일 정렬
-    common = aapl_lr.index.intersection(sp500_lr.index).sort_values()
-    aapl = aapl_lr.loc[common]
-    spx = sp500_lr.loc[common]
-    print(f"  AAPL: {len(aapl)}일 | S&P500: {len(spx)}일 | 공통: {len(common)}일")
+    spx = sp500["LOG_RETURN"].astype(float).dropna()
 
     # ─── EWMA 공분산 행렬 계산 (일별, λ=0.94) ───
     combined = pd.DataFrame({"AAPL": aapl, "SP500": spx})
@@ -83,9 +73,9 @@ def main():
     print(f"{'=' * 60}")
     print(f"  기간: {df_aapl_daily_vol.index[0].date()} ~ {df_aapl_daily_vol.index[-1].date()}")
     print(f"  건수: {len(df_aapl_daily_vol)}")
-    print(df_aapl_daily_vol.head(10))
+    print(df_aapl_daily_vol.head())
     print("  ...")
-    print(df_aapl_daily_vol.tail(5))
+    print(df_aapl_daily_vol.tail())
 
     # ═══════════════════════════════════════════════════════════
     # [2] 20일 / 60일 평균 변동성
@@ -100,9 +90,9 @@ def main():
     print(f"{'=' * 60}")
     print(f"  기간: {df_aapl_avg_vol.index[0].date()} ~ {df_aapl_avg_vol.index[-1].date()}")
     print(f"  건수: {len(df_aapl_avg_vol)}")
-    print(df_aapl_avg_vol.head(10))
+    print(df_aapl_avg_vol.head())
     print("  ...")
-    print(df_aapl_avg_vol.tail(5))
+    print(df_aapl_avg_vol.tail())
 
     # ═══════════════════════════════════════════════════════════
     # [3] AAPL–S&P500 EWMA 상관계수
@@ -125,9 +115,9 @@ def main():
     print(f"{'=' * 60}")
     print(f"  기간: {df_aapl_ewma_corr.index[0].date()} ~ {df_aapl_ewma_corr.index[-1].date()}")
     print(f"  건수: {len(df_aapl_ewma_corr)}")
-    print(df_aapl_ewma_corr.head(10))
+    print(df_aapl_ewma_corr.head())
     print("  ...")
-    print(df_aapl_ewma_corr.tail(5))
+    print(df_aapl_ewma_corr.tail())
 
     # ─── 요약 ───
     print(f"\n{'=' * 60}")

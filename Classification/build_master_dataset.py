@@ -43,7 +43,7 @@ def build_master_dataset():
 
     # ── [1] 기술적 지표 (Master Index 소스) ──
     end_date = pd.Timestamp.today().strftime("%Y-%m-%d")
-    df_tech = calculate_features("AAPL", "2015-01-01", end_date)
+    df_tech = calculate_features("AAPL")
 
     # ── [2] 거래량 지표 ──
     df_vol = calculate_aapl_volume_analysis()

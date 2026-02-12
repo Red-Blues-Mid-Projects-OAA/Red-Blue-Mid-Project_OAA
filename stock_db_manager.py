@@ -54,6 +54,7 @@ class StockDBManager:
                 TICKER VARCHAR2(10),
                 TRADE_DATE DATE,
                 CLOSE_PRICE NUMBER,
+                HIGH_PRICE NUMBER,
                 VOLUME NUMBER,
                 PRIMARY KEY (TRADE_DATE, TICKER)
             ) ORGANIZATION INDEX';
@@ -235,13 +236,13 @@ class StockDBManager:
         # MERGE 문을 사용하여 중복 데이터 발생 시 업데이트 처리 
         insert_query = """
         MERGE INTO STOCK_DATA d
-        USING (SELECT :1 as TICKER, :2 as TRADE_DATE, :3 as CLOSE_PRICE, :4 as VOLUME FROM dual) s
+        USING (SELECT :1 as TICKER, :2 as TRADE_DATE, :3 as CLOSE_PRICE, :4 as HIGH_PRICE, :5 as VOLUME FROM dual) s
         ON (d.TICKER = s.TICKER AND d.TRADE_DATE = s.TRADE_DATE)
         WHEN MATCHED THEN
-            UPDATE SET d.CLOSE_PRICE = s.CLOSE_PRICE, d.VOLUME = s.VOLUME
+            UPDATE SET d.CLOSE_PRICE = s.CLOSE_PRICE, d.HIGH_PRICE = s.HIGH_PRICE, d.VOLUME = s.VOLUME
         WHEN NOT MATCHED THEN
-            INSERT (TICKER, TRADE_DATE, CLOSE_PRICE, VOLUME)
-            VALUES (s.TICKER, s.TRADE_DATE, s.CLOSE_PRICE, s.VOLUME)
+            INSERT (TICKER, TRADE_DATE, CLOSE_PRICE, HIGH_PRICE, VOLUME)
+            VALUES (s.TICKER, s.TRADE_DATE, s.CLOSE_PRICE, s.HIGH_PRICE, s.VOLUME)
         """
         
         data_to_insert = []
@@ -257,18 +258,21 @@ class StockDBManager:
                 # Ticker 컬럼 찾기 (보통 'Ticker' 혹은 'level_1')
                 ticker_col = df_processed.columns[1]
                 
-                # Close, Volume 컬럼명 확보
-                close_col = df_processed.columns[2]
-                vol_col = df_processed.columns[-1]
+                # Close, High, Volume 컬럼명 확보 (컬럼명으로 직접 검색)
+                col_names = [str(c) for c in df_processed.columns]
+                close_col = next(c for c in df_processed.columns if str(c) == 'Close')
+                high_col = next(c for c in df_processed.columns if str(c) == 'High')
+                vol_col = next(c for c in df_processed.columns if str(c) == 'Volume')
                 
                 # 벡터화 연산으로 리스트 생성 (Performance Optimization)
                 # 1. Date 변환: to_pydatetime().date()는 벡터화가 어려우므로 리스트 컴프리헨션 사용하되, dt 접근자 활용
                 dates = df_processed[date_col].dt.date.tolist()
                 tickers = df_processed[ticker_col].astype(str).tolist()                
                 closes = df_processed[close_col].astype(float).tolist()
+                highs = df_processed[high_col].astype(float).tolist()
                 volumes = df_processed[vol_col].astype(float).tolist()
                 
-                data_to_insert = list(zip(tickers, dates, closes, volumes))
+                data_to_insert = list(zip(tickers, dates, closes, highs, volumes))
             
             else:
                 raise ValueError("데이터프레임의 컬럼이 예상과 다릅니다.")
@@ -337,7 +341,7 @@ class StockDBManager:
         특정 티커의 주가 및 거래량 데이터를 가져와 반환
         """
         query = """
-            SELECT TRADE_DATE, CLOSE_PRICE, VOLUME 
+            SELECT TRADE_DATE, CLOSE_PRICE, HIGH_PRICE, VOLUME 
             FROM STOCK_DATA 
             WHERE TICKER = :ticker 
             ORDER BY TRADE_DATE
@@ -348,7 +352,7 @@ class StockDBManager:
             if not rows:
                 return pd.DataFrame()
             
-            df = pd.DataFrame(rows, columns=['Date', 'Close', 'Volume'])
+            df = pd.DataFrame(rows, columns=['Date', 'Close', 'High', 'Volume'])
             df.set_index('Date', inplace=True)
             df.index = pd.to_datetime(df.index)
             return df
@@ -431,7 +435,7 @@ class StockDBManager:
             # 1. 정렬된 데이터로 복사 테이블 생성 (CTAS)
             self.cursor.execute("""
                 CREATE TABLE STOCK_DATA_COPY AS
-                SELECT TICKER, TRADE_DATE, CLOSE_PRICE, VOLUME
+                SELECT TICKER, TRADE_DATE, CLOSE_PRICE, HIGH_PRICE, VOLUME
                 FROM STOCK_DATA
                 ORDER BY TRADE_DATE ASC, TICKER ASC
             """)
@@ -490,6 +494,24 @@ class StockDBManager:
         except oracledb.Error as e:
             print(f"S&P 500 데이터 저장 실패: {e}")
             self.connection.rollback()
+
+    def fetch_sp500_data(self):
+        """
+        DB에서 S&P 500 데이터(TRADE_DATE, LOG_RETURN)를 가져와 DataFrame으로 반환
+        """
+        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA ORDER BY TRADE_DATE"
+        try:
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.DataFrame()
+            
+            df = pd.DataFrame(rows, columns=['TRADE_DATE', 'LOG_RETURN'])
+            df.set_index('TRADE_DATE', inplace=True)
+            return df
+        except oracledb.Error as e:
+            print(f"S&P 500 데이터 조회 실패: {e}")
+            return pd.DataFrame()
 
     def close(self):
         """
