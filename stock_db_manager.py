@@ -5,8 +5,10 @@ import pandas as pd
 from dotenv import load_dotenv
 from datetime import datetime
 
-# 환경 변수 로드 (override=True를 설정하여 .env 수정 시 즉시 반영되도록 함)
-load_dotenv(override=True)
+# 환경 변수 로드 (파일 위치 기준 상위 디렉토리의 .env 로드)
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+_ENV_PATH = os.path.join(_BASE_DIR, ".env")
+load_dotenv(_ENV_PATH, override=True)
 
 class StockDBManager:
     """
@@ -328,6 +330,30 @@ class StockDBManager:
             return pivot_df
         except oracledb.Error as e:
             print(f"로그 수익률 데이터 조회 실패: {e}")
+            return pd.DataFrame()
+
+    def fetch_ticker_data(self, ticker):
+        """
+        특정 티커의 주가 및 거래량 데이터를 가져와 반환
+        """
+        query = """
+            SELECT TRADE_DATE, CLOSE_PRICE, VOLUME 
+            FROM STOCK_DATA 
+            WHERE TICKER = :ticker 
+            ORDER BY TRADE_DATE
+        """
+        try:
+            self.cursor.execute(query, [ticker])
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.DataFrame()
+            
+            df = pd.DataFrame(rows, columns=['Date', 'Close', 'Volume'])
+            df.set_index('Date', inplace=True)
+            df.index = pd.to_datetime(df.index)
+            return df
+        except oracledb.Error as e:
+            print(f"{ticker} 데이터 조회 실패: {e}")
             return pd.DataFrame()
 
     def insert_log_returns(self, df):

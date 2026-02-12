@@ -7,13 +7,12 @@ AAPL 거래량 분석 모듈 (Self-contained)
 ★ DB 적재 없음 / 다른 모듈 수정 없음
 """
 
-import sys
-import os
-
+import sys, os
 # 상위 디렉토리의 모듈 및 common 패키지 import를 위한 경로 추가
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from common import pd, np, yf, datetime
+from common import pd, np
+from stock_db_manager import StockDBManager
 
 
 def calculate_aapl_volume_analysis():
@@ -23,23 +22,19 @@ def calculate_aapl_volume_analysis():
     - OBV_ROC_20   = OBV의 20일간 변화율 (정상성 확보)
     """
     ticker = "AAPL"
-    start_date = "2015-01-01"
-    end_date = datetime.now().strftime("%Y-%m-%d")
-
-    print(f"[{ticker}] {start_date} ~ {end_date} 거래량 분석 데이터 계산 중...")
-    data = yf.download(ticker, start=start_date, end=end_date, auto_adjust=True)
+    
+    print(f"[{ticker}] Oracle DB에서 데이터 로드 중...")
+    db_manager = StockDBManager()
+    db_manager.connect()
+    data = db_manager.fetch_ticker_data(ticker)
+    db_manager.close()
 
     if data.empty:
-        print("데이터를 가져오지 못했습니다.")
+        print("DB에서 데이터를 가져오지 못했습니다. fetch_stock_data.py를 먼저 실행하세요.")
         return None
 
-    # 멀티 컬럼 처리
-    if isinstance(data.columns, pd.MultiIndex):
-        close = data["Close"].iloc[:, 0]
-        volume = data["Volume"].iloc[:, 0]
-    else:
-        close = data["Close"]
-        volume = data["Volume"]
+    close = data["Close"]
+    volume = data["Volume"]
 
     # Volume Ratio 계산
     # 직전 20일 평균 거래량 (shift(1)로 당일 제외 → 아직 장이 진행중인 거래량을 포함하지 않기 위함)
