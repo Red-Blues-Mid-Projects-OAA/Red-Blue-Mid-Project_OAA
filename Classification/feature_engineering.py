@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import yfinance as yf
+from datetime import datetime
 from sklearn.preprocessing import StandardScaler
 
 
@@ -10,17 +11,17 @@ def calculate_features(ticker, start_date, end_date):
     AAPL 종목의 가격/모멘텀 feature를 계산하여 단일 DataFrame으로 반환.
     - 중장기 수익률 (Log Returns): 20일, 60일, 120일 rolling mean
     - 이동평균 이격도 (MA Envelope): (Close - MA60) / MA60
-    - 52주 고점 대비 위치 (High-Low Proximity): (Close / 52W High) - 1
+    - 52주 고점 대비 위치 (High-Low Proximity): (Close - 52W High) / 52W High
     """
     print(f"Fetching data for {ticker} from {start_date} to {end_date}...")
 
-    df = yf.download(ticker, start=start_date, end=end_date, progress=False, auto_adjust=True)
+    df = yf.download(ticker, start=start_date, end=end_date, auto_adjust=True)
 
     if df.empty:
-        print("No data found.")
+        print("DB에서 데이터를 가져오지 못했습니다.")
         return pd.DataFrame()
 
-    # Handle MultiIndex columns if present
+    # MultiIndex 처리 (일부 yfinance 버전에서는 단일 종목도 MultiIndex로 반환)
     if isinstance(df.columns, pd.MultiIndex):
         if 'Ticker' in df.columns.names:
             df.columns = df.columns.droplevel('Ticker')
@@ -42,18 +43,15 @@ def calculate_features(ticker, start_date, end_date):
     df['MA60'] = df['Close'].rolling(window=60).mean()
     df['MA_Envelope'] = (df['Close'] - df['MA60']) / df['MA60']
 
-    # 3. 52주 고점 대비 위치 (High-Low Proximity): (Close / 52W High) - 1
+    # 3. 52주 고점 대비 위치 (High-Low Proximity): (Close - 52W High) / 52W High
     df['High_52W'] = df['High'].rolling(window=252).max()
     df['High_Low_Proximity'] = (df['Close'] / df['High_52W']) - 1
 
-    # Feature columns
+    # Feature 변수들
     feature_cols = ['Log_Ret_20', 'Log_Ret_60', 'Log_Ret_120', 'MA_Envelope', 'High_Low_Proximity']
 
-    # NaN 제거 (rolling window로 인해 초기 데이터 불완전)
+    # NaN 제거 (rolling window로 인해 초기 데이터 결측치)
     df = df.dropna(subset=feature_cols).copy()
-
-    # % 형태 normalization (* 100)
-    df[feature_cols] = df[feature_cols] * 100
 
     return df[feature_cols]
 
@@ -61,39 +59,22 @@ def calculate_features(ticker, start_date, end_date):
 def main():
     ticker = 'AAPL'
     start_date = '2015-01-01'
-    end_date = '2026-02-11'
+    end_date = datetime.now().strftime('%Y-%m-%d')
 
     df = calculate_features(ticker, start_date, end_date)
 
     if df.empty:
+        print("Feature 계산 실패")
         return
 
-    # StandardScaler: Train 구간(2016~2024)으로 fit, 전체 데이터에 transform
-    train_mask = (df.index >= '2016-01-01') & (df.index <= '2024-12-31')
-    df_train = df.loc[train_mask]
-
-    scaler = StandardScaler()
-    print("Fitting StandardScaler on Train data (2016-2024)...")
-    scaler.fit(df_train)
-
-    df_scaled = pd.DataFrame(
-        scaler.transform(df),
-        index=df.index,
-        columns=df.columns
-    )
-
-    # Output
-    pd.set_option('display.max_columns', None)
-    pd.set_option('display.width', 1000)
-
     print("\n" + "=" * 60)
-    print("Combined Feature DataFrame (Standardized)")
-    print(f"Shape: {df_scaled.shape}")
-    print(f"Period: {df_scaled.index.min().date()} ~ {df_scaled.index.max().date()}")
+    print("Combined Feature DataFrame")
+    print(f"Shape: {df.shape}")
+    print(f"Period: {df.index.min().date()} ~ {df.index.max().date()}")
     print("\nFirst 5 rows:")
-    print(df_scaled.head())
+    print(df.head())
     print("\nLast 5 rows:")
-    print(df_scaled.tail())
+    print(df.tail())
     print("=" * 60)
 
 
