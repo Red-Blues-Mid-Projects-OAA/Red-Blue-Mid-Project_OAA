@@ -78,8 +78,7 @@ def update_sp500_data():
         
     except Exception as e:
         print(f"업데이트 중 오류 발생: {e}")
-        import traceback
-        traceback.print_exc()
+        
     finally:
         db_manager.close()
 

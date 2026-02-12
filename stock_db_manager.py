@@ -117,15 +117,34 @@ class StockDBManager:
         END;
         """
 
+        # MARKET_FEATURES 테이블 생성 (VIX, DXY 등 시장 지표)
+        create_market_features_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE MARKET_FEATURES (
+                INDICATOR  VARCHAR2(20),
+                TRADE_DATE DATE,
+                CLOSE_VALUE NUMBER,
+                LOG_RETURN  NUMBER,
+                PRIMARY KEY (TRADE_DATE, INDICATOR)
+            ) ORGANIZATION INDEX';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
         try:
             self.cursor.execute(create_stock_data_query)
             self.cursor.execute(create_log_returns_query)
             self.cursor.execute(create_ewma_cov_query)
             self.cursor.execute(create_sp500_query)
+            self.cursor.execute(create_market_features_query)
             
             # 변경 사항 커밋
             self.connection.commit()
-            print("모든 DB 테이블(STOCK_DATA, LOG_RETURNS, EWMA_COVARIANCE)이 준비되었습니다.")
+            print("모든 DB 테이블이 준비되었습니다.")
         except oracledb.Error as e:
             print(f"테이블 생성 중 오류 발생: {e}")
 
@@ -512,6 +531,113 @@ class StockDBManager:
         except oracledb.Error as e:
             print(f"S&P 500 데이터 조회 실패: {e}")
             return pd.DataFrame()
+
+    def insert_market_features(self, indicator, df):
+        """
+        시장 지표 데이터(Date index, Columns: [Close, Log_Return])를 DB에 저장 (Upsert)
+        indicator: 'VIX' 또는 'DXY'
+        """
+        upsert_query = """
+        MERGE INTO MARKET_FEATURES d
+        USING (SELECT :1 as INDICATOR, :2 as TRADE_DATE, :3 as CLOSE_VALUE, :4 as LOG_RETURN FROM dual) s
+        ON (d.INDICATOR = s.INDICATOR AND d.TRADE_DATE = s.TRADE_DATE)
+        WHEN MATCHED THEN
+            UPDATE SET d.CLOSE_VALUE = s.CLOSE_VALUE, d.LOG_RETURN = s.LOG_RETURN
+        WHEN NOT MATCHED THEN
+            INSERT (INDICATOR, TRADE_DATE, CLOSE_VALUE, LOG_RETURN)
+            VALUES (s.INDICATOR, s.TRADE_DATE, s.CLOSE_VALUE, s.LOG_RETURN)
+        """
+
+        data_to_insert = []
+        try:
+            df = df.sort_index()
+            for date_idx, row in df.iterrows():
+                trade_date = date_idx.to_pydatetime().date() if hasattr(date_idx, 'to_pydatetime') else date_idx
+                close_val = float(row['Close'])
+                log_ret = float(row['Log_Return']) if pd.notna(row['Log_Return']) else None
+                data_to_insert.append((indicator, trade_date, close_val, log_ret))
+
+            if data_to_insert:
+                self.cursor.executemany(upsert_query, data_to_insert)
+                self.connection.commit()
+                print(f"{indicator} 데이터 {len(data_to_insert)}건 저장 완료.")
+        except oracledb.Error as e:
+            print(f"{indicator} 데이터 저장 실패: {e}")
+            self.connection.rollback()
+
+    def fetch_market_features(self, indicator):
+        """
+        DB에서 특정 시장 지표(VIX/DXY) 데이터를 조회하여 DataFrame으로 반환
+        """
+        query = """
+            SELECT TRADE_DATE, CLOSE_VALUE, LOG_RETURN
+            FROM MARKET_FEATURES
+            WHERE INDICATOR = :indicator
+            ORDER BY TRADE_DATE
+        """
+        try:
+            self.cursor.execute(query, [indicator])
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.DataFrame()
+
+            df = pd.DataFrame(rows, columns=['TRADE_DATE', 'Close', 'Log_Return'])
+            df['TRADE_DATE'] = pd.to_datetime(df['TRADE_DATE'])
+            df.set_index('TRADE_DATE', inplace=True)
+            return df
+        except oracledb.Error as e:
+            print(f"{indicator} 데이터 조회 실패: {e}")
+            return pd.DataFrame()
+
+    def get_latest_market_date(self, indicator):
+        """
+        특정 시장 지표의 DB상 가장 최신 날짜 조회
+        """
+        query = "SELECT MAX(TRADE_DATE) FROM MARKET_FEATURES WHERE INDICATOR = :indicator"
+        try:
+            self.cursor.execute(query, [indicator])
+            result = self.cursor.fetchone()
+            if result and result[0]:
+                return result[0]
+            return None
+        except oracledb.Error as e:
+            print(f"{indicator} 최신 날짜 조회 실패: {e}")
+            return None
+
+    def reorganize_market_features(self):
+        """
+        MARKET_FEATURES 테이블을 TRADE_DATE, INDICATOR 순으로 정렬된 복사본으로 교체
+        """
+        try:
+            print("MARKET_FEATURES 테이블 재구조화 시작...")
+
+            # 1. 정렬된 데이터로 복사 테이블 생성 (CTAS)
+            self.cursor.execute("""
+                CREATE TABLE MARKET_FEATURES_COPY AS
+                SELECT INDICATOR, TRADE_DATE, CLOSE_VALUE, LOG_RETURN
+                FROM MARKET_FEATURES
+                ORDER BY TRADE_DATE ASC, INDICATOR ASC
+            """)
+
+            # 2. 기존 테이블 삭제
+            self.cursor.execute("DROP TABLE MARKET_FEATURES PURGE")
+
+            # 3. 복사 테이블 이름을 원본으로 변경
+            self.cursor.execute("ALTER TABLE MARKET_FEATURES_COPY RENAME TO MARKET_FEATURES")
+
+            # 4. 기본키(PK) 재설정
+            self.cursor.execute("""
+                ALTER TABLE MARKET_FEATURES
+                ADD CONSTRAINT PK_MARKET_FEATURES PRIMARY KEY (TRADE_DATE, INDICATOR)
+                USING INDEX
+            """)
+
+            self.connection.commit()
+            print("MARKET_FEATURES 테이블이 TRADE_DATE, INDICATOR 순으로 재정렬 및 PK 설정이 완료되었습니다.")
+
+        except oracledb.Error as e:
+            print(f"MARKET_FEATURES 테이블 재정렬 실패: {e}")
+            self.connection.rollback()
 
     def close(self):
         """

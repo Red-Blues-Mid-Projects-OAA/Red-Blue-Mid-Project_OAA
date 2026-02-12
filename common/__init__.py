@@ -9,7 +9,8 @@ import numpy as np
 import os
 import sys
 import yfinance as yf
+import pandas_datareader.data as web
 from datetime import datetime, timedelta
 
 # 패키지 수준에서 편리하게 접근할 수 있도록 노출
-__all__ = ['pd', 'np', 'os', 'sys', 'yf', 'datetime', 'timedelta']
+__all__ = ['pd', 'np', 'os', 'sys', 'yf', 'datetime', 'timedelta', 'web']

@@ -11,10 +11,7 @@ Master DataFrame 병합 모듈
 ★ DB 적재 없음 / Features 폴더 외 파일 수정 없음
 """
 
-import pandas as pd
-import numpy as np
-import sys
-import os
+import sys, os
 
 # 모듈 경로 설정 (Features/ 및 프로젝트 루트)
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -22,6 +19,8 @@ _ROOT_DIR = os.path.dirname(_THIS_DIR)
 sys.path.insert(0, _THIS_DIR)
 sys.path.insert(0, _ROOT_DIR)
 
+from common import pd, np
+from stock_db_manager import StockDBManager
 from feature_engineering import calculate_features
 from calculate_aapl_volume_ratio import calculate_aapl_volume_analysis
 from prepare_market_features import (
@@ -42,16 +41,20 @@ def build_master_dataset():
     print("=" * 70)
 
     # ── [1] 기술적 지표 (Master Index 소스) ──
-    end_date = pd.Timestamp.today().strftime("%Y-%m-%d")
     df_tech = calculate_features("AAPL")
 
     # ── [2] 거래량 지표 ──
     df_vol = calculate_aapl_volume_analysis()
 
-    # ── [3] 시장 매크로 지표 ──
-    df_dxy = fetch_dollar_index_log_returns()
-    df_vix = fetch_vix_data()
-    df_sp500_mom = calculate_sp500_momentum()
+    # ── [3] 시장 매크로 지표 (DB 연결 공유) ──
+    db = StockDBManager()
+    db.connect()
+    try:
+        df_dxy = fetch_dollar_index_log_returns(db)
+        df_vix = fetch_vix_data(db)
+        df_sp500_mom = calculate_sp500_momentum(db)
+    finally:
+        db.close()
 
     # ── [4] 리스크 지표 (Tuple 3개) ──
     df_aapl_daily_vol, df_aapl_avg_vol, df_aapl_ewma_corr = calc_risk_features()
