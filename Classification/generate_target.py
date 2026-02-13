@@ -33,7 +33,7 @@ from build_master_dataset import build_master_dataset
 from stock_db_manager import StockDBManager
 
 FORWARD_DAYS = 60    # 3개월 ≈ 60거래일 (20d/60d/120d 규칙 통일)
-ALPHA_MARGIN = 0.005  # 0.5% 누적 초과수익률 임계값 (Alpha Margin)
+ALPHA_MARGIN = 0.01  # 1% 누적 초과수익률 임계값 (Alpha Margin)
 
 
 def generate_target():
