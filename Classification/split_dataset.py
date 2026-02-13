@@ -25,6 +25,7 @@ sys.path.insert(0, _THIS_DIR)
 sys.path.insert(0, _ROOT_DIR)
 
 from common import pd, np
+from sklearn.preprocessing import StandardScaler
 from generate_target import generate_target
 
 # ══════════════════════════════════════════════════════════════
@@ -84,14 +85,45 @@ def split_dataset():
     # ── 타겟 미실현(최근 60일) 제거 ──
     df_valid = df.dropna(subset=["Target_Class"])
 
-    # ── 구간 분할 ──
+    # ── 구간 분할 (Raw Data) ──
     s = SPLIT_CONFIG
-    train_df = df_valid.loc[s["train"][0]:s["train"][1]]
-    val_df = df_valid.loc[s["validation"][0]:s["validation"][1]]
-    test_df = df_valid.loc[s["test"][0]:]
+    train_df = df_valid.loc[s["train"][0]:s["train"][1]].copy()
+    val_df = df_valid.loc[s["validation"][0]:s["validation"][1]].copy()
+    test_df = df_valid.loc[s["test"][0]:].copy()
 
-    # ── Final Refit용 (Train ∪ Validation) ──
-    final_train_df = pd.concat([train_df, val_df])
+    # ──────────────────────────────────────────────────────────────
+    #  [Data Leakage 방지] 스케일링 전략
+    # ──────────────────────────────────────────────────────────────
+    print("\n" + "=" * 70)
+    print("4-1. StandardScaling 적용 (Data Leakage 방지)")
+    print("=" * 70)
+
+    # 1) Hyperparameter Tuning용 (Train 기준 Fit)
+    #    - Train과 Val은 오직 Train의 통계치로만 스케일링해야 함
+    scaler_tune = StandardScaler()
+    scaler_tune.fit(train_df[feature_cols])
+
+    train_df[feature_cols] = scaler_tune.transform(train_df[feature_cols])
+    val_df[feature_cols] = scaler_tune.transform(val_df[feature_cols])
+    
+    # 2) Final Model용 (Train + Val 기준 Fit)
+    #    - 최종 모델은 (Train + Val) 데이터를 모두 학습하므로, 스케일러도 이에 맞춰 재학습
+    #    - Test 데이터는 이 Final Scaler 기준으로 변환
+    final_train_raw = pd.concat([
+        df_valid.loc[s["train"][0]:s["train"][1]], 
+        df_valid.loc[s["validation"][0]:s["validation"][1]]
+    ])
+    
+    scaler_final = StandardScaler()
+    scaler_final.fit(final_train_raw[feature_cols])
+
+    final_train_df = final_train_raw.copy()
+    final_train_df[feature_cols] = scaler_final.transform(final_train_raw[feature_cols])
+
+    # 주의: split.test는 Final Model 평가용이므로 scaler_final로 변환
+    test_df[feature_cols] = scaler_final.transform(test_df[feature_cols])
+
+    print("  ✅ Scaling Completed (Train-Fit & Final-Fit 분리 적용)")
 
     # ── scale_pos_weight 자동 산출 (Train + Validation 기준) ──
     # ★ Final Fit 시에는 Train + Val 합쳐서 학습하므로, 비중도 합친 데이터 기준이어야 함
@@ -130,9 +162,13 @@ def get_stride_splits(split):
     stride_splits = []
 
     for offset in range(N_MODELS):
+        # 1. Tuning용 (scaler_tune 기준)
         train_sampled = split.train.iloc[offset::STRIDE]
         val_sampled = split.val.iloc[offset::STRIDE]
-        refit_sampled = pd.concat([train_sampled, val_sampled])
+        
+        # 2. Final Fit용 (scaler_final 기준)
+        # split.final_train에서 샘플링하여 Test셋(scaler_final)과 스케일 일치 보장
+        refit_sampled = split.final_train.iloc[offset::STRIDE]
 
         # ★ Final Fit 기준 (Train + Val)
         spw = _calc_spw(refit_sampled["Target_Class"])

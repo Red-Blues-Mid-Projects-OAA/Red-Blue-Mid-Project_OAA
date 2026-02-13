@@ -19,7 +19,6 @@ sys.path.insert(0, _THIS_DIR)
 sys.path.insert(0, _ROOT_DIR)
 
 from common import pd, np
-from sklearn.preprocessing import StandardScaler
 from stock_db_manager import StockDBManager
 from feature_engineering import calculate_features
 from calculate_aapl_volume_ratio import calculate_aapl_volume_analysis
@@ -31,7 +30,7 @@ def build_master_dataset():
     """
     4개 Feature 모듈을 호출하고, 결과를 Master Calendar 기반으로 병합하여
     하나의 통합 Feature DataFrame을 반환합니다.
-    ★ 모든 피처에 StandardScaling 적용
+    
     """
     print("=" * 70)
     print("1. 개별 Feature 모듈 실행 및 데이터 수집")
@@ -96,22 +95,6 @@ def build_master_dataset():
 
     # 매크로 휴장일 빈칸 → 직전 영업일 값으로 채움 (Look-ahead Bias 방지)
     master_df = master_df.ffill()
-
-    # ──────────────────────────────────────────────────────────────
-    #  StandardScaling 적용 (전체 피처)
-    # ──────────────────────────────────────────────────────────────
-    print("\n" + "=" * 70)
-    print("2-1. StandardScaling 적용")
-    print("=" * 70)
-
-    feature_cols = list(master_df.columns)
-    scaler = StandardScaler()
-    master_df[feature_cols] = scaler.fit_transform(master_df[feature_cols])
-
-    print(f"  스케일링 완료: {len(feature_cols)}개 피처")
-    print(f"  스케일링 후 통계:")
-    print(f"    Mean  범위: [{master_df[feature_cols].mean().min():.6f}, {master_df[feature_cols].mean().max():.6f}]")
-    print(f"    Std   범위: [{master_df[feature_cols].std().min():.6f}, {master_df[feature_cols].std().max():.6f}]")
 
     # ──────────────────────────────────────────────────────────────
     print(f"\n★ Master DataFrame 생성 완료!")
