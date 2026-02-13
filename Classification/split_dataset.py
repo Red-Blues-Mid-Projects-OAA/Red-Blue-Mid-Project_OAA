@@ -40,6 +40,15 @@ SPLIT_CONFIG = {
     "test":       ("2025-01-01", None),  # None → 현재까지
 }
 
+# 고정 분할 정책(요청사항)을 코드 수준에서 잠급니다.
+EXPECTED_SPLIT_POLICY = {
+    "train": ("2021-01-01", "2023-12-31"),
+    "embargo": ("2024-01-01", "2024-03-31"),
+    "validation": ("2024-04-01", "2024-09-30"),
+    "golden_gap": ("2024-10-01", "2024-12-31"),
+    "test": ("2025-01-01", None),
+}
+
 STRIDE = 5  # 5일 간격 (≈ 1주)
 N_MODELS = 5  # offset 0~4
 
@@ -105,6 +114,66 @@ def calculate_sample_weight(df):
     return weights.values
 
 
+def _assert_no_leakage(train_df, val_df, test_df, final_train_df):
+    """
+    데이터 누수 방지를 위해 날짜 경계/교집합/격리 구간 포함 여부를 검증합니다.
+    """
+    # 1) 시간 순서 경계 검증
+    if len(train_df) > 0 and len(val_df) > 0:
+        assert train_df.index.max() < val_df.index.min(), \
+            "Leakage detected: Train 기간이 Validation과 겹치거나 역전되었습니다."
+    if len(val_df) > 0 and len(test_df) > 0:
+        assert val_df.index.max() < test_df.index.min(), \
+            "Leakage detected: Validation 기간이 Test와 겹치거나 역전되었습니다."
+
+    # 2) 집합 교집합 검증
+    train_idx = set(train_df.index)
+    val_idx = set(val_df.index)
+    test_idx = set(test_df.index)
+
+    assert len(train_idx & val_idx) == 0, "Leakage detected: Train/Validation 인덱스 교집합 존재"
+    assert len(train_idx & test_idx) == 0, "Leakage detected: Train/Test 인덱스 교집합 존재"
+    assert len(val_idx & test_idx) == 0, "Leakage detected: Validation/Test 인덱스 교집합 존재"
+
+    # 3) 격리 구간 포함 여부 검증
+    emb_start, emb_end = SPLIT_CONFIG["embargo"]
+    gap_start, gap_end = SPLIT_CONFIG["golden_gap"]
+
+    assert len(train_df.loc[emb_start:emb_end]) == 0, "Leakage detected: Train에 embargo 구간 포함"
+    assert len(val_df.loc[emb_start:emb_end]) == 0, "Leakage detected: Validation에 embargo 구간 포함"
+    assert len(test_df.loc[emb_start:emb_end]) == 0, "Leakage detected: Test에 embargo 구간 포함"
+    assert len(final_train_df.loc[emb_start:emb_end]) == 0, "Leakage detected: Final Train에 embargo 구간 포함"
+
+    assert len(train_df.loc[gap_start:gap_end]) == 0, "Leakage detected: Train에 golden gap 포함"
+    assert len(val_df.loc[gap_start:gap_end]) == 0, "Leakage detected: Validation에 golden gap 포함"
+    assert len(test_df.loc[gap_start:gap_end]) == 0, "Leakage detected: Test에 golden gap 포함"
+    assert len(final_train_df.loc[gap_start:gap_end]) == 0, "Leakage detected: Final Train에 golden gap 포함"
+
+
+def _assert_split_policy_locked():
+    """
+    분할 규칙이 합의된 고정 정책과 일치하는지 검증합니다.
+    """
+    for key, expected in EXPECTED_SPLIT_POLICY.items():
+        actual = SPLIT_CONFIG.get(key)
+        assert actual == expected, (
+            f"Split policy mismatch: {key}={actual}, expected={expected}"
+        )
+
+
+def _print_split_policy():
+    """현재 적용 중인 분할 경계를 명시적으로 출력합니다."""
+    print("\n" + "=" * 70)
+    print("4-0. 고정 분할 정책 확인")
+    print("=" * 70)
+    print(f"  Train      : {SPLIT_CONFIG['train'][0]} ~ {SPLIT_CONFIG['train'][1]}")
+    print(f"  Embargo    : {SPLIT_CONFIG['embargo'][0]} ~ {SPLIT_CONFIG['embargo'][1]}")
+    print(f"  Validation : {SPLIT_CONFIG['validation'][0]} ~ {SPLIT_CONFIG['validation'][1]}")
+    print(f"  Golden Gap : {SPLIT_CONFIG['golden_gap'][0]} ~ {SPLIT_CONFIG['golden_gap'][1]}")
+    print(f"  Test       : {SPLIT_CONFIG['test'][0]} ~ 현재")
+    print("=" * 70)
+
+
 def split_dataset():
     """
     generate_target()에서 피처+타겟 DataFrame을 받아 5단계 분할을 수행합니다.
@@ -124,55 +193,44 @@ def split_dataset():
 
     # ── 구간 분할 (Raw Data) ──
     s = SPLIT_CONFIG
+    _assert_split_policy_locked()
+    _print_split_policy()
     train_df = df_valid.loc[s["train"][0]:s["train"][1]].copy()
     val_df = df_valid.loc[s["validation"][0]:s["validation"][1]].copy()
     test_df = df_valid.loc[s["test"][0]:].copy()
 
     # ──────────────────────────────────────────────────────────────
-    #  [Data Leakage 방지] 스케일링 전략
+    #  [Data Leakage 방지] 단일 스케일러 전략
     # ──────────────────────────────────────────────────────────────
     print("\n" + "=" * 70)
     print("4-1. StandardScaling 적용 (Data Leakage 방지)")
     print("=" * 70)
 
-    # 1) Hyperparameter Tuning용 (Train 기준 Fit)
-    #    - Train과 Val은 오직 Train의 통계치로만 스케일링해야 함
-    scaler_tune = StandardScaler()
-    scaler_tune.fit(train_df[feature_cols])
+    # Train 데이터에만 스케일러를 fit 하여 누수를 방지합니다.
+    scaler = StandardScaler()
+    scaler.fit(train_df[feature_cols])
 
-    train_df[feature_cols] = scaler_tune.transform(train_df[feature_cols])
-    val_df[feature_cols] = scaler_tune.transform(val_df[feature_cols])
-    
-    # 2) Final Model용 (Train + Val 기준 Fit)
-    #    - 최종 모델은 (Train + Val) 데이터를 모두 학습하므로, 스케일러도 이에 맞춰 재학습
-    #    - Test 데이터는 이 Final Scaler 기준으로 변환
-    final_train_raw = pd.concat([
-        df_valid.loc[s["train"][0]:s["train"][1]], 
-        df_valid.loc[s["validation"][0]:s["validation"][1]]
-    ])
-    
-    scaler_final = StandardScaler()
-    scaler_final.fit(final_train_raw[feature_cols])
+    train_df[feature_cols] = scaler.transform(train_df[feature_cols])
+    val_df[feature_cols] = scaler.transform(val_df[feature_cols])
+    test_df[feature_cols] = scaler.transform(test_df[feature_cols])
 
-    final_train_df = final_train_raw.copy()
-    final_train_df[feature_cols] = scaler_final.transform(final_train_raw[feature_cols])
+    # Final Train은 (Train + Validation)을 합치되, 이미 동일 스케일러로 변환된 데이터만 사용합니다.
+    final_train_df = pd.concat([train_df, val_df], axis=0).sort_index()
 
-    # 주의: split.test는 Final Model 평가용이므로 scaler_final로 변환
-    test_df[feature_cols] = scaler_final.transform(test_df[feature_cols])
-
-    print("  ✅ Scaling Completed (Train-Fit & Final-Fit 분리 적용)")
+    print("  ✅ Scaling Completed (Train-Fit 단일 스케일러 적용)")
 
     # ── scale_pos_weight 자동 산출 (Train + Validation 기준) ──
     # ★ Final Fit 시에는 Train + Val 합쳐서 학습하므로, 비중도 합친 데이터 기준이어야 함
     spw = _calc_spw(final_train_df["Target_Class"])
 
-    # ── Sample Weights Calculation (All 1.0 now, but structure kept for compatibility)
-    # pd.Series로 변환하여 iloc 사용 가능하게 함
-    train_weights = pd.Series(calculate_sample_weight(train_df), index=train_df.index)
-    val_weights = pd.Series(calculate_sample_weight(val_df), index=val_df.index)
-    
-    # Final Train Weights
-    final_train_weights = pd.Series(calculate_sample_weight(final_train_df), index=final_train_df.index)
+    # ── Baseline 정책: 샘플 가중치 비활성화(모두 1.0)
+    train_weights = pd.Series(np.ones(len(train_df), dtype=float), index=train_df.index)
+    val_weights = pd.Series(np.ones(len(val_df), dtype=float), index=val_df.index)
+    final_train_weights = pd.Series(np.ones(len(final_train_df), dtype=float), index=final_train_df.index)
+
+    # ── Leakage 방지 검증
+    _assert_no_leakage(train_df, val_df, test_df, final_train_df)
+    print("  ✅ Leakage Check Passed (날짜 경계/교집합/격리구간)")
 
     # ── 결과 구성 ──
     split = DataSplit(
@@ -210,7 +268,7 @@ def get_stride_splits(split):
     stride_splits = []
 
     for offset in range(N_MODELS):
-        # 1. Tuning용 (scaler_tune 기준)
+        # 1. Tuning용 (단일 스케일러로 변환된 split.train/split.val 기준)
         train_sampled = split.train.iloc[offset::STRIDE]
         val_sampled = split.val.iloc[offset::STRIDE]
         
@@ -218,8 +276,7 @@ def get_stride_splits(split):
         train_w_sampled = split.train_weights.iloc[offset::STRIDE]
         val_w_sampled = split.val_weights.iloc[offset::STRIDE]
 
-        # 2. Final Fit용 (scaler_final 기준)
-        # split.final_train에서 샘플링하여 Test셋(scaler_final)과 스케일 일치 보장
+        # 2. Final Fit용 (동일 단일 스케일러가 적용된 split.final_train 기준)
         refit_sampled = split.final_train.iloc[offset::STRIDE]
         refit_w_sampled = split.final_train_weights.iloc[offset::STRIDE]
 

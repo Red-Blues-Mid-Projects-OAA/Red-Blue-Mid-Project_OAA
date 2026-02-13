@@ -24,14 +24,149 @@ from feature_engineering import calculate_features
 from calculate_aapl_volume_ratio import calculate_aapl_volume_analysis
 from prepare_market_features import get_market_features
 from risk_volatility_features import calculate_risk_features
+from update_stock_data import update_stock_data, TICKERS
+from update_sp500_data import update_sp500_data
+from fetch_market_data import main as update_market_data
 
 
-def build_master_dataset():
+def _to_date(value):
+    """DB 조회 결과를 date로 통일합니다."""
+    if value is None:
+        return None
+    return value.date() if hasattr(value, "date") else value
+
+
+def _get_latest_snapshot(db):
+    """
+    DB의 최신 적재 상태를 조회합니다.
+    - 주가: 티커별 최신일 + 최소 최신일
+    - S&P500, VIX, DXY 최신일
+    """
+    stock_latest_by_ticker = {}
+    for ticker in TICKERS:
+        stock_latest_by_ticker[ticker] = _to_date(db.get_latest_date(ticker))
+
+    stock_dates = [d for d in stock_latest_by_ticker.values() if d is not None]
+    stock_min_latest = min(stock_dates) if stock_dates else None
+
+    return {
+        "stock_min_latest": stock_min_latest,
+        "stock_latest_by_ticker": stock_latest_by_ticker,
+        "sp500_latest": _to_date(db.get_latest_sp500_date()),
+        "vix_latest": _to_date(db.get_latest_market_date("VIX")),
+        "dxy_latest": _to_date(db.get_latest_market_date("DXY")),
+    }
+
+
+def _print_latest_snapshot(snapshot, title):
+    """최신일 점검 결과를 로그로 출력합니다."""
+    print("\n" + "=" * 70)
+    print(title)
+    print("=" * 70)
+    print(f"  STOCK_DATA 최소 최신일 : {snapshot['stock_min_latest']}")
+    print(f"  SP500_DATA 최신일      : {snapshot['sp500_latest']}")
+    print(f"  MARKET(VIX) 최신일     : {snapshot['vix_latest']}")
+    print(f"  MARKET(DXY) 최신일     : {snapshot['dxy_latest']}")
+
+
+def _run_latest_date_updates():
+    """
+    최신일 기반 업데이트를 실행합니다.
+    stale 임계치 없이 업데이트를 시도하고, 신규 데이터 건수를 집계합니다.
+    """
+    print("\n" + "=" * 70)
+    print("0. 최신일 기반 소스 데이터 업데이트 시도")
+    print("=" * 70)
+
+    stock_result = {"new_rows": 0}
+    sp500_result = {"new_rows": 0}
+    market_result = {"new_rows_total": 0}
+
+    try:
+        stock_result = update_stock_data()
+    except Exception as e:
+        print(f"  🚨 STOCK_DATA 업데이트 실행 실패: {e}")
+
+    try:
+        sp500_result = update_sp500_data()
+    except Exception as e:
+        print(f"  🚨 SP500_DATA 업데이트 실행 실패: {e}")
+
+    try:
+        market_result = update_market_data()
+    except Exception as e:
+        print(f"  🚨 MARKET_FEATURES 업데이트 실행 실패: {e}")
+
+    stock_new = int(stock_result.get("new_rows", 0))
+    sp500_new = int(sp500_result.get("new_rows", 0))
+    market_new = int(market_result.get("new_rows_total", 0))
+    total_new = stock_new + sp500_new + market_new
+
+    print("\n  [업데이트 결과 요약]")
+    print(f"    STOCK_DATA   신규: {stock_new}건")
+    print(f"    SP500_DATA   신규: {sp500_new}건")
+    print(f"    MARKET_FEAT  신규: {market_new}건")
+    print(f"    TOTAL 신규 건수  : {total_new}건")
+
+    return {
+        "stock_new_rows": stock_new,
+        "sp500_new_rows": sp500_new,
+        "market_new_rows": market_new,
+        "total_new_rows": total_new,
+        "new_rows": total_new,
+        "updated_any": total_new > 0,
+    }
+
+
+def build_master_dataset(
+    auto_update=True,
+    persist_total_features_on_update=True,
+    return_update_summary=False,
+):
     """
     4개 Feature 모듈을 호출하고, 결과를 Master Calendar 기반으로 병합하여
     하나의 통합 Feature DataFrame을 반환합니다.
+
+    Args:
+        auto_update (bool): 최신일 기반 업데이트 수행 여부
+        persist_total_features_on_update (bool): 신규 소스 데이터가 있을 때만 TOTAL_FEATURES 적재 여부
+        return_update_summary (bool): True면 (master_df, update_summary)를 반환
     
     """
+    # ──────────────────────────────────────────────────────────────
+    #  0. 최신일 점검 + 업데이트 시도
+    # ──────────────────────────────────────────────────────────────
+    db_for_check = StockDBManager()
+    db_for_check.connect()
+    try:
+        snapshot_before = _get_latest_snapshot(db_for_check)
+    finally:
+        db_for_check.close()
+
+    _print_latest_snapshot(snapshot_before, "0-1. 업데이트 전 최신일 점검")
+
+    update_summary = {
+        "stock_new_rows": 0,
+        "sp500_new_rows": 0,
+        "market_new_rows": 0,
+        "total_new_rows": 0,
+        "new_rows": 0,
+        "updated_any": False,
+    }
+    if auto_update:
+        update_summary = _run_latest_date_updates()
+    else:
+        print("\n자동 업데이트를 비활성화하여 최신일 점검만 수행했습니다.")
+
+    db_for_check = StockDBManager()
+    db_for_check.connect()
+    try:
+        snapshot_after = _get_latest_snapshot(db_for_check)
+    finally:
+        db_for_check.close()
+
+    _print_latest_snapshot(snapshot_after, "0-2. 업데이트 후 최신일 점검")
+
     print("=" * 70)
     print("1. 개별 Feature 모듈 실행 및 데이터 수집")
     print("=" * 70)
@@ -117,25 +252,28 @@ def build_master_dataset():
         print("\n" + "=" * 70)
         print("3. DB 적재 및 Reorganization (TOTAL_FEATURES)")
         print("=" * 70)
-        
-        # DB 재연결 (위에서 close() 했으므로)
-        db.connect()
-        try:
-            # 1) 데이터 적재 (Upsert/Merge)
-            print("  [1] TOTAL_FEATURES 테이블에 데이터 저장 중...")
-            db.insert_total_features(master_df)
-            
-            # 2) 테이블 재구조화 (CTAS -> Rename)
-            print("  [2] TOTAL_FEATURES 테이블 재구조화(Reorganization) 진행...")
-            db.reorganize_total_features()
-            
-        except Exception as e:
-            print(f"  🚨 DB 적재 중 오류 발생: {e}")
-        finally:
-            db.close()
+
+        # 신규 소스 데이터가 실제로 들어왔을 때만 TOTAL_FEATURES를 갱신합니다.
+        if persist_total_features_on_update and update_summary["updated_any"]:
+            db.connect()
+            try:
+                print("  [1] TOTAL_FEATURES 테이블에 데이터 저장 중...")
+                db.insert_total_features(master_df)
+
+                print("  [2] TOTAL_FEATURES 테이블 재구조화(Reorganization) 진행...")
+                db.reorganize_total_features()
+            except Exception as e:
+                print(f"  🚨 DB 적재 중 오류 발생: {e}")
+            finally:
+                db.close()
+        else:
+            print("  신규 소스 데이터가 없어 TOTAL_FEATURES 적재/재구조화를 생략합니다.")
             
     else:
         print("  WARNING: Master DataFrame is empty!")
+
+    if return_update_summary:
+        return master_df, update_summary
 
     return master_df
 
