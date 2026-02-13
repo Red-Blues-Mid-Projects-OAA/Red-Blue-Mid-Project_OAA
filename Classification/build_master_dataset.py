@@ -86,16 +86,22 @@ def _run_latest_date_updates():
         stock_result = update_stock_data()
     except Exception as e:
         print(f"  🚨 STOCK_DATA 업데이트 실행 실패: {e}")
+    if not isinstance(stock_result, dict):
+        stock_result = {"new_rows": 0}
 
     try:
         sp500_result = update_sp500_data()
     except Exception as e:
         print(f"  🚨 SP500_DATA 업데이트 실행 실패: {e}")
+    if not isinstance(sp500_result, dict):
+        sp500_result = {"new_rows": 0}
 
     try:
         market_result = update_market_data()
     except Exception as e:
         print(f"  🚨 MARKET_FEATURES 업데이트 실행 실패: {e}")
+    if not isinstance(market_result, dict):
+        market_result = {"new_rows_total": 0}
 
     stock_new = int(stock_result.get("new_rows", 0))
     sp500_new = int(sp500_result.get("new_rows", 0))
