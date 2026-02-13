@@ -1,13 +1,19 @@
 {
   "best_params": {
-    "learning_rate": 0.08334582001239509,
-    "n_estimators": 187,
-    "min_child_weight": 20,
-    "reg_alpha": 0.16411930755004112,
-    "reg_lambda": 1.1637254112619217
+    "max_depth": 1,
+    "learning_rate": 0.10744465024294202,
+    "n_estimators": 41,
+    "min_child_weight": 28,
+    "gamma": 0.5297209190570453,
+    "reg_alpha": 0.6768142620368974,
+    "reg_lambda": 8.564973134449405,
+    "subsample": 0.6107696483258809,
+    "colsample_bytree": 0.7569464109992445,
+    "random_state": 42,
+    "eval_metric": "logloss"
   },
-  "best_logloss": 0.8565727662657041,
-  "best_trial_number": 43,
+  "best_logloss": 0.6800159340827154,
+  "best_trial_number": 86,
   "n_trials": 100,
-  "optimization_method": "Walk-Forward CV 2-Fold"
+  "optimization_method": "Walk-Forward CV 2-Fold (Sample Weighting)"
 }

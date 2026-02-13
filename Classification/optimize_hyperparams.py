@@ -57,15 +57,15 @@ def create_objective(full_df, feature_cols):
     def objective(trial):
         # 파라미터 탐색 공간 (Balanced Strategy)
         params = {
-            "max_depth": 1,  # ★ 무조건 1로 고정 (과적합 원천 봉쇄)
-            "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.1, log=True),
-            "n_estimators": trial.suggest_int("n_estimators", 100, 300), # 트리는 많게
-            "min_child_weight": trial.suggest_int("min_child_weight", 1, 20), # 노이즈 무시 (낮춤)
-            "gamma": 0.0, # 복잡한 규제 제거
-            "reg_alpha": trial.suggest_float("reg_alpha", 0.0, 1.0), # 규제 대폭 완화
-            "reg_lambda": trial.suggest_float("reg_lambda", 0.1, 2.0), # 규제 대폭 완화
-            "subsample": 0.5, # 데이터의 절반만 보면서 다양성 확보
-            "colsample_bytree": 0.5, # 피처의 절반만 보면서 다양성 확보
+            "max_depth": trial.suggest_int("max_depth", 1, 1), # 깊이 1 고정 (Stump)
+            "learning_rate": trial.suggest_float("learning_rate", 0.10, 0.30, log=True), # 트리 수가 적으니 학습률 상향
+            "n_estimators": trial.suggest_int("n_estimators", 15, 30),    # 극소 트리 전략
+            "min_child_weight": trial.suggest_int("min_child_weight", 15, 30),
+            "gamma": trial.suggest_float("gamma", 1.0, 3.0),             # 분할 매우 어렵게
+            "reg_alpha": trial.suggest_float("reg_alpha", 1.0, 5.0),     # L1 강력 규제
+            "reg_lambda": trial.suggest_float("reg_lambda", 10.0, 50.0), # L2 강력 규제
+            "subsample": trial.suggest_float("subsample", 0.4, 0.7),     # 샘플링 축소
+            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.4, 0.7),
             "random_state": 42,
             "eval_metric": "logloss",
             "early_stopping_rounds": 20,

@@ -102,12 +102,18 @@ def run_pipeline():
 
         # 모델 생성 (각 스트라이드의 scale_pos_weight 사용)
         model_params = {**best_params}
+        
+        # ★ 주의: Optimization은 전체 데이터(또는 CV Fold) 기준이지만,
+        #   여기서는 1/N_MODELS 크기의 Stride 데이터셋을 사용하므로 min_child_weight를 비례해서 줄여야 함
+        if "min_child_weight" in model_params:
+            model_params["min_child_weight"] = max(1, int(model_params["min_child_weight"] / N_MODELS))
+
         model_params["scale_pos_weight"] = ss.scale_pos_weight
         model_params["random_state"] = 42
         model_params["eval_metric"] = "logloss"
         model_params.pop("early_stopping_rounds", None)
 
-        # Sample Weight 적용 (확실한 놈만 팬다)
+        # Sample Weight 적용
         w_refit = ss.final_train_weights
 
         model = XGBClassifier(**model_params)

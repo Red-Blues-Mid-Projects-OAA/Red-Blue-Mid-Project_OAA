@@ -79,10 +79,30 @@ def calculate_sample_weight(df):
     """
     샘플 가중치 계산 함수
     
-    기존: Alpha_Diff(초과수익) 절댓값에 비례하여 가중치 부여
-    변경: 모든 샘플에 동일한 가중치(1.0) 부여 (Sample Weighting 제거 효과)
+    전략: "확실한 놈만 팬다"
+    - AAPL과 SP500의 3개월 수익률 차이(Alpha)가 클수록 높은 가중치 부여
+    - 방향성(Target_Class)이 명확한 날을 더 중요하게 학습하도록 유도
     """
-    return np.ones(len(df))
+    # 1. Alpha 절댓값 계산 (이미 Alpha_Diff 컬럼이 있다면 사용 가능하지만, 안전하게 다시 계산)
+    #    Target_AAPL_3M, Target_SP500_3M 컬럼 필수
+    if "Target_AAPL_3M" not in df.columns or "Target_SP500_3M" not in df.columns:
+        return np.ones(len(df)) # 컬럼 없으면 가중치 1.0 (기본값)
+
+    alpha_abs = np.abs(df["Target_AAPL_3M"] - df["Target_SP500_3M"])
+
+    # 2. 가중치 스케일링 (Min-Max 정규화 후 +1)
+    #    최소 가중치 1.0, 최대 가중치 2.0~3.0 정도가 되도록 설정
+    #    너무 큰 가중치는 과적합 유발 가능성 있음
+    w_min = alpha_abs.min()
+    w_max = alpha_abs.max()
+    
+    if w_max == w_min:
+        return np.ones(len(df))
+
+    # 1.0 ~ 3.0 사이로 스케일링
+    weights = 1.0 + 2.0 * (alpha_abs - w_min) / (w_max - w_min)
+    
+    return weights.values
 
 
 def split_dataset():
