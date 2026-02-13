@@ -1,19 +1,17 @@
 {
   "best_params": {
-    "max_depth": 1,
-    "learning_rate": 0.10744465024294202,
-    "n_estimators": 41,
-    "min_child_weight": 28,
-    "gamma": 0.5297209190570453,
-    "reg_alpha": 0.6768142620368974,
-    "reg_lambda": 8.564973134449405,
-    "subsample": 0.6107696483258809,
-    "colsample_bytree": 0.7569464109992445,
-    "random_state": 42,
-    "eval_metric": "logloss"
+    "max_depth": 2,
+    "learning_rate": 0.05509742607579861,
+    "n_estimators": 76,
+    "min_child_weight": 10,
+    "gamma": 1.8879814924414156,
+    "reg_alpha": 2.502780032027461,
+    "reg_lambda": 7.853459014742973,
+    "subsample": 0.5675199333843607,
+    "colsample_bytree": 0.7842749797220119
   },
-  "best_logloss": 0.6800159340827154,
-  "best_trial_number": 86,
+  "best_logloss": 0.6360282818552982,
+  "best_trial_number": 94,
   "n_trials": 100,
-  "optimization_method": "Walk-Forward CV 2-Fold (Restored)"
+  "optimization_method": "Walk-Forward CV 2-Fold"
 }

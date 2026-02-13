@@ -57,15 +57,15 @@ def create_objective(full_df, feature_cols):
     def objective(trial):
         # 파라미터 탐색 공간 (Balanced Strategy)
         params = {
-            "max_depth": trial.suggest_int("max_depth", 1, 1), # Stump
+            "max_depth": trial.suggest_int("max_depth", 1, 3), # 깊이 1~3 (복잡도 증가)
             "learning_rate": trial.suggest_float("learning_rate", 0.05, 0.20, log=True),
-            "n_estimators": trial.suggest_int("n_estimators", 40, 80),
+            "n_estimators": trial.suggest_int("n_estimators", 30, 100),
             "min_child_weight": trial.suggest_int("min_child_weight", 10, 30),
-            "gamma": trial.suggest_float("gamma", 0.1, 1.0),
-            "reg_alpha": trial.suggest_float("reg_alpha", 0.1, 2.0),
+            "gamma": trial.suggest_float("gamma", 0.1, 2.0),
+            "reg_alpha": trial.suggest_float("reg_alpha", 0.1, 5.0),
             "reg_lambda": trial.suggest_float("reg_lambda", 1.0, 10.0),
-            "subsample": trial.suggest_float("subsample", 0.6, 0.9),
-            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 0.9),
+            "subsample": trial.suggest_float("subsample", 0.5, 0.8),
+            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.5, 0.8),
             "random_state": 42,
             "eval_metric": "logloss",
             "early_stopping_rounds": 20,

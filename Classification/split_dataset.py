@@ -77,21 +77,12 @@ def _calc_spw(y):
 
 def calculate_sample_weight(df):
     """
-    Alpha(초과수익)의 절대크기에 비례하여 가중치를 부여합니다.
-    Target_Class가 1인 경우(확실한 승리) 더 강하게 학습하도록 유도합니다.
+    샘플 가중치 계산 함수
+    
+    기존: Alpha_Diff(초과수익) 절댓값에 비례하여 가중치 부여
+    변경: 모든 샘플에 동일한 가중치(1.0) 부여 (Sample Weighting 제거 효과)
     """
-    if "Target_AAPL_3M" not in df.columns or "Target_SP500_3M" not in df.columns:
-        return np.ones(len(df))
-
-    # 3개월 누적 수익률 차이 (Alpha)
-    alpha = abs(df['Target_AAPL_3M'] - df['Target_SP500_3M'])
-    
-    # 기본 가중치 1.0 + 알파 보너스
-    # 예: 알파가 10%면 가중치 = 1.0 + (0.10 * 20) = 3.0
-    # multiplier(20)은 조절 가능 (너무 크면 아웃라이어에 휘둘림)
-    weights = 1.0 + (alpha * 20.0)
-    
-    return weights
+    return np.ones(len(df))
 
 
 def split_dataset():
@@ -155,10 +146,13 @@ def split_dataset():
     # ★ Final Fit 시에는 Train + Val 합쳐서 학습하므로, 비중도 합친 데이터 기준이어야 함
     spw = _calc_spw(final_train_df["Target_Class"])
 
-    # ── Sample Weights 계산 ──
-    train_weights = calculate_sample_weight(train_df)
-    val_weights = calculate_sample_weight(val_df)
-    final_train_weights = calculate_sample_weight(final_train_df)
+    # ── Sample Weights Calculation (All 1.0 now, but structure kept for compatibility)
+    # pd.Series로 변환하여 iloc 사용 가능하게 함
+    train_weights = pd.Series(calculate_sample_weight(train_df), index=train_df.index)
+    val_weights = pd.Series(calculate_sample_weight(val_df), index=val_df.index)
+    
+    # Final Train Weights
+    final_train_weights = pd.Series(calculate_sample_weight(final_train_df), index=final_train_df.index)
 
     # ── 결과 구성 ──
     split = DataSplit(
