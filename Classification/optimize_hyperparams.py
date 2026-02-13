@@ -57,15 +57,15 @@ def create_objective(full_df, feature_cols):
     def objective(trial):
         # 파라미터 탐색 공간 (Balanced Strategy)
         params = {
-            "max_depth": trial.suggest_int("max_depth", 1, 3), # 깊이 1~3 (복잡도 증가)
-            "learning_rate": trial.suggest_float("learning_rate", 0.05, 0.20, log=True),
-            "n_estimators": trial.suggest_int("n_estimators", 30, 100),
-            "min_child_weight": trial.suggest_int("min_child_weight", 10, 30),
-            "gamma": trial.suggest_float("gamma", 0.1, 2.0),
-            "reg_alpha": trial.suggest_float("reg_alpha", 0.1, 5.0),
-            "reg_lambda": trial.suggest_float("reg_lambda", 1.0, 10.0),
-            "subsample": trial.suggest_float("subsample", 0.5, 0.8),
-            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.5, 0.8),
+            "max_depth": 1,  # ★ 무조건 1로 고정 (과적합 원천 봉쇄)
+            "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.1, log=True),
+            "n_estimators": trial.suggest_int("n_estimators", 100, 300), # 트리는 많게
+            "min_child_weight": trial.suggest_int("min_child_weight", 1, 20), # 노이즈 무시 (낮춤)
+            "gamma": 0.0, # 복잡한 규제 제거
+            "reg_alpha": trial.suggest_float("reg_alpha", 0.0, 1.0), # 규제 대폭 완화
+            "reg_lambda": trial.suggest_float("reg_lambda", 0.1, 2.0), # 규제 대폭 완화
+            "subsample": 0.5, # 데이터의 절반만 보면서 다양성 확보
+            "colsample_bytree": 0.5, # 피처의 절반만 보면서 다양성 확보
             "random_state": 42,
             "eval_metric": "logloss",
             "early_stopping_rounds": 20,
