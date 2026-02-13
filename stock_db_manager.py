@@ -680,6 +680,132 @@ class StockDBManager:
             print(f"MARKET_FEATURES 테이블 재정렬 실패: {e}")
             self.connection.rollback()
 
+    def insert_total_features(self, df):
+        """
+        Master Features 데이터프레임을 DB의 TOTAL_FEATURES 테이블에 저장합니다.
+        테이블이 없으면 생성합니다.
+        """
+        df = df.copy()
+        df.index.name = "TRADE_DATE"
+        df.reset_index(inplace=True)
+
+        cols = df.columns
+        col_defs = []
+        for col in cols:
+            if col == "TRADE_DATE":
+                col_type = "DATE PRIMARY KEY"
+            else:
+                col_type = "NUMBER"
+            
+            # DB 컬럼명 규칙(대문, 특수문자 제거 등 안전하게)
+            # 여기서는 DataFrame 컬럼명을 그대로 사용 (단, 최대 길이 등 오라클 제약 고려 필요)
+            safe_col = col.upper()
+            col_defs.append(f'"{safe_col}" {col_type}')
+
+        create_table_query = f"""
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE TOTAL_FEATURES ({", ".join(col_defs)})';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN RAISE; END IF;
+        END;
+        """
+        
+        try:
+            # 1. 테이블 생성 시도
+            self.cursor.execute(create_table_query) 
+            
+            # 2. 데이터 준비 및 Insert
+            # MERGE 대신 단순 INSERT를 사용하되, 기존 데이터 삭제 후 재적재(일괄 적재 특성상)
+            # 혹은 요구사항대로 "재정렬" 과정을 거치므로 전체 Truncate 후 Insert도 가능
+            # 여기서는 UPSERT(Merge)를 구현하여 부분 업데이트도 가능하게 함
+            
+            # 컬럼 목록 (TRADE_DATE 제외한 나머지)
+            feature_cols = [c for c in cols if c != "TRADE_DATE"]
+            
+            # 동적 Merge Query 생성
+            # USING (...) ON (d.TRADE_DATE = s.TRADE_DATE)
+            # WHEN MATCHED THEN UPDATE SET ...
+            # WHEN NOT MATCHED THEN INSERT ...
+            
+            select_parts = [":1 as TRADE_DATE"]
+            update_parts = []
+            insert_cols = ["TRADE_DATE"]
+            insert_vals = ["s.TRADE_DATE"]
+            
+            for i, col in enumerate(feature_cols, 2): # 1은 TRADE_DATE
+                safe_col = col.upper()
+                select_parts.append(f":{i} as \"{safe_col}\"")
+                update_parts.append(f"d.\"{safe_col}\" = s.\"{safe_col}\"")
+                insert_cols.append(f"\"{safe_col}\"")
+                insert_vals.append(f"s.\"{safe_col}\"")
+            
+            merge_query = f"""
+            MERGE INTO TOTAL_FEATURES d
+            USING (SELECT {", ".join(select_parts)} FROM dual) s
+            ON (d.TRADE_DATE = s.TRADE_DATE)
+            WHEN MATCHED THEN
+                UPDATE SET {", ".join(update_parts)}
+            WHEN NOT MATCHED THEN
+                INSERT ({", ".join(insert_cols)})
+                VALUES ({", ".join(insert_vals)})
+            """
+            
+            data_to_insert = []
+            for _, row in df.iterrows():
+                row_data = [row["TRADE_DATE"].to_pydatetime().date()]
+                for col in feature_cols:
+                    val = row[col]
+                    row_data.append(float(val) if pd.notna(val) else None)
+                data_to_insert.append(tuple(row_data))
+                
+            if data_to_insert:
+                self.cursor.executemany(merge_query, data_to_insert)
+                self.connection.commit()
+                print(f"TOTAL_FEATURES 데이터 {len(data_to_insert)}건 저장 완료.")
+                
+        except oracledb.Error as e:
+            print(f"TOTAL_FEATURES 저장 실패: {e}")
+            self.connection.rollback()
+
+    def reorganize_total_features(self):
+        """
+        TOTAL_FEATURES 테이블을 TRADE_DATE 오름차순으로 정렬된 복사본으로 교체 (CTAS 방식)
+        """
+        try:
+            print("TOTAL_FEATURES 테이블 재구조화 시작...")
+
+            # 1. CTAS로 정렬된 복사본 생성
+            self.cursor.execute("""
+                CREATE TABLE TOTAL_FEATURES_COPY AS
+                SELECT * FROM TOTAL_FEATURES
+                ORDER BY TRADE_DATE ASC
+            """)
+            print("1. 정렬된 임시 테이블(TOTAL_FEATURES_COPY) 생성 완료")
+
+            # 2. 원본 테이블 삭제
+            self.cursor.execute("DROP TABLE TOTAL_FEATURES PURGE")
+            print("2. 기존 TOTAL_FEATURES 테이블 삭제 완료")
+
+            # 3. Rename
+            self.cursor.execute("ALTER TABLE TOTAL_FEATURES_COPY RENAME TO TOTAL_FEATURES")
+            print("3. 테이블명 변경 완료 (COPY -> ORIG)")
+
+            # 4. PK 설정
+            self.cursor.execute("""
+                ALTER TABLE TOTAL_FEATURES 
+                ADD CONSTRAINT PK_TOTAL_FEATURES PRIMARY KEY (TRADE_DATE)
+                USING INDEX
+            """)
+            print("4. PK(TRADE_DATE) 재생성 완료")
+            
+            self.connection.commit()
+            print("TOTAL_FEATURES 테이블 재구조화 완료!")
+
+        except oracledb.Error as e:
+            print(f"TOTAL_FEATURES 재구조화 실패: {e}")
+            self.connection.rollback()
+
     def close(self):
         """
         리소스 해제

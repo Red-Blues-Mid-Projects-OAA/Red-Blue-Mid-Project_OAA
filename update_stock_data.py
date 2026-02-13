@@ -53,8 +53,9 @@ def update_stock_data():
         # 2. yfinance를 통해 일괄 데이터 다운로드
         print(f"\n[{start_date} ~ {end_date}] 전체 종목 데이터 일괄 다운로드 중...")
         
-        # auto_adjust=True로 수정종가 사용, ['Close']만 선택
-        data = yf.download(TICKERS, start=start_date, end=end_date, auto_adjust=True)['Close']
+        # auto_adjust=True로 수정종가 사용.
+        # DB 적재 시 Close, High, Volume이 모두 필요하므로 특정 컬럼만 선택하지 않고 전체를 넘김
+        data = yf.download(TICKERS, start=start_date, end=end_date, auto_adjust=True)
         
         if data.empty:
             print("업데이트할 데이터가 없습니다 (휴장일 등).")

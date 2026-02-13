@@ -109,6 +109,30 @@ def build_master_dataset():
         print(master_df.head(3))
         print(f"\n  Last 3 rows:")
         print(master_df.tail(3))
+        
+        # ──────────────────────────────────────────────────────────────
+        # 3. DB 적재 및 Reorganization (TOTAL_FEATURES)
+        # ──────────────────────────────────────────────────────────────
+        print("\n" + "=" * 70)
+        print("3. DB 적재 및 Reorganization (TOTAL_FEATURES)")
+        print("=" * 70)
+        
+        # DB 재연결 (위에서 close() 했으므로)
+        db.connect()
+        try:
+            # 1) 데이터 적재 (Upsert/Merge)
+            print("  [1] TOTAL_FEATURES 테이블에 데이터 저장 중...")
+            db.insert_total_features(master_df)
+            
+            # 2) 테이블 재구조화 (CTAS -> Rename)
+            print("  [2] TOTAL_FEATURES 테이블 재구조화(Reorganization) 진행...")
+            db.reorganize_total_features()
+            
+        except Exception as e:
+            print(f"  🚨 DB 적재 중 오류 발생: {e}")
+        finally:
+            db.close()
+            
     else:
         print("  WARNING: Master DataFrame is empty!")
 

@@ -13,16 +13,15 @@ Master DataFrame에 예측 타겟을 추가합니다:
 ★ DB 적재 없음
 """
 
-import pandas as pd
-import numpy as np
-import sys
-import os
+import sys, os
 
 # 모듈 경로 설정
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 _ROOT_DIR = os.path.dirname(_THIS_DIR)
 sys.path.insert(0, _THIS_DIR)
 sys.path.insert(0, _ROOT_DIR)
+
+from common import pd, np
 
 from build_master_dataset import build_master_dataset
 from stock_db_manager import StockDBManager
@@ -64,12 +63,10 @@ def generate_target():
         db.close()
 
     # AAPL 로그 수익률 → Master Index에 맞춤
-    lr_all.index = pd.to_datetime(lr_all.index)
     aapl_lr = lr_all["AAPL"].reindex(master_index).ffill()
 
     # S&P500 로그 수익률 → Master Index에 맞춤
     sp500_df = pd.DataFrame(sp500_rows, columns=["TRADE_DATE", "LOG_RETURN"])
-    sp500_df["TRADE_DATE"] = pd.to_datetime(sp500_df["TRADE_DATE"])
     sp500_df = sp500_df.set_index("TRADE_DATE").sort_index()
     sp500_lr = sp500_df["LOG_RETURN"].astype(float).reindex(master_index).ffill()
 
