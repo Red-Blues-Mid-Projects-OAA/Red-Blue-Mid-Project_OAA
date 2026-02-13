@@ -34,7 +34,8 @@ from generate_target import generate_target
 SPLIT_CONFIG = {
     "burn_in":    ("2015-01-01", "2020-12-31"),
     "train":      ("2021-01-01", "2023-12-31"),
-    "validation": ("2024-01-01", "2024-09-30"),
+    "embargo":    ("2024-01-01", "2024-03-31"), # ★ 신규: 학습에서 버리는 구간 (Overlap 방지)
+    "validation": ("2024-04-01", "2024-09-30"), # ★ 4월 1일부터 시작
     "golden_gap": ("2024-10-01", "2024-12-31"),
     "test":       ("2025-01-01", None),  # None → 현재까지
 }

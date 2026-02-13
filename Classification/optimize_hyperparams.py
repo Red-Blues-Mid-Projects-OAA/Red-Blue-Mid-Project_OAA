@@ -54,13 +54,13 @@ def create_objective(stride_split, feature_cols):
         params = {
             "max_depth": trial.suggest_int("max_depth", 1, 1), # 깊이 1 고정 (Stump)
             "learning_rate": trial.suggest_float("learning_rate", 0.05, 0.20, log=True),
-            "n_estimators": trial.suggest_int("n_estimators", 30, 60),    # 트리 수 제한
-            "min_child_weight": trial.suggest_int("min_child_weight", 10, 25),
-            "gamma": trial.suggest_float("gamma", 0.2, 1.2),             # 분할 임계값 상향
-            "reg_alpha": trial.suggest_float("reg_alpha", 0.1, 2.0),     # L1 규제
-            "reg_lambda": trial.suggest_float("reg_lambda", 2.0, 15.0),  # L2 규제 강화
-            "subsample": trial.suggest_float("subsample", 0.6, 0.9),
-            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 0.9),
+            "n_estimators": trial.suggest_int("n_estimators", 40, 70),
+            "min_child_weight": trial.suggest_int("min_child_weight", 10, 30),
+            "gamma": trial.suggest_float("gamma", 1.0, 5.0),             # 초강력 분할 제한
+            "reg_alpha": trial.suggest_float("reg_alpha", 1.0, 10.0),    # L1 초강력 규제
+            "reg_lambda": trial.suggest_float("reg_lambda", 20.0, 100.0),# L2 초강력 규제
+            "subsample": trial.suggest_float("subsample", 0.5, 0.8),
+            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.5, 0.8),
             "scale_pos_weight": spw,
             "random_state": 42,
             "eval_metric": "logloss",
@@ -78,12 +78,12 @@ def create_objective(stride_split, feature_cols):
         y_val_proba = model.predict_proba(X_val)[:, 1]
         val_logloss = log_loss(y_val, y_val_proba)
 
-        # ★ Gap Penalty: Train-Val Gap 20%p 초과 시 페널티 (Target < 25% 안전 확보)
+        # ★ Gap Penalty: Gap 15%p 초과 시 페널티 (Target < 25% 달성을 위한 엄격한 기준)
         from sklearn.metrics import accuracy_score
         train_acc = accuracy_score(y_train, model.predict(X_train))
         val_acc = accuracy_score(y_val, model.predict(X_val))
         gap = train_acc - val_acc
-        gap_penalty = max(0, gap - 0.20) * 2.0
+        gap_penalty = max(0, gap - 0.15) * 5.0
 
         return val_logloss + gap_penalty
 
