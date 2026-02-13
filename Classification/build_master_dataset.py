@@ -121,13 +121,13 @@ def build_master_dataset():
         # DB 재연결 (위에서 close() 했으므로)
         db.connect()
         try:
-            # 1) 데이터 적재 (Upsert/Merge)
-            print("  [1] TOTAL_FEATURES 테이블에 데이터 저장 중...")
-            db.insert_total_features(master_df)
+            # 1) 기존 데이터 전체 삭제 (Truncate) -> 깨끗한 상태
+            print("  [1] TOTAL_FEATURES 테이블 초기화(Truncate) 중...")
+            db.truncate_total_features()
             
-            # 2) 테이블 재구조화 (CTAS -> Rename)
-            print("  [2] TOTAL_FEATURES 테이블 재구조화(Reorganization) 진행...")
-            db.reorganize_total_features()
+            # 2) 데이터 적재 (Insert/Merge)
+            print("  [2] TOTAL_FEATURES 테이블에 데이터 저장 중...")
+            db.insert_total_features(master_df) # master_df는 이미 날짜순 정렬됨
             
         except Exception as e:
             print(f"  🚨 DB 적재 중 오류 발생: {e}")

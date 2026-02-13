@@ -768,6 +768,20 @@ class StockDBManager:
             print(f"TOTAL_FEATURES 저장 실패: {e}")
             self.connection.rollback()
 
+    def truncate_total_features(self):
+        """
+        TOTAL_FEATURES 테이블의 모든 데이터를 삭제합니다. (초기화)
+        """
+        try:
+            self.cursor.execute("TRUNCATE TABLE TOTAL_FEATURES")
+            print("TOTAL_FEATURES 테이블이 성공적으로 초기화(Truncate) 되었습니다.")
+        except oracledb.Error as e:
+            # 테이블이 없을 수도 있음
+            if e.args[0].code == 942: # ORA-00942: table or view does not exist
+                print("TOTAL_FEATURES 테이블이 존재하지 않아 Truncate를 건너뜁니다.")
+            else:
+                print(f"TOTAL_FEATURES 초기화 실패: {e}")
+
     def reorganize_total_features(self):
         """
         TOTAL_FEATURES 테이블을 TRADE_DATE 오름차순으로 정렬된 복사본으로 교체 (CTAS 방식)

@@ -59,9 +59,10 @@ def create_objective(stride_split, feature_cols, target_3m_diff):
     X_val_scaled = scaler.transform(X_val)
 
     def objective(trial):
-        # 1. 파라미터 탐색
-        l1_ratio = trial.suggest_float("l1_ratio", 0.0, 1.0)
-        C = trial.suggest_float("C", 1e-4, 100, log=True)
+        # 3. 하이퍼파라미터 공간 정의
+        # C: 0.1 ~ 100.0 (규제 완화 -> 학습 능력 증대)
+        C = trial.suggest_float("C", 0.1, 100.0, log=True)
+        l1_ratio = trial.suggest_float("l1_ratio", 0.0, 1.0) # 0=L2, 1=L1
         
         params = {
             "solver": "saga",
@@ -80,28 +81,43 @@ def create_objective(stride_split, feature_cols, target_3m_diff):
             return 0.0  # 학습 실패 시 0점
 
         # 3. 예측 및 평가
-        y_pred = model.predict(X_val_scaled)
-        y_proba = model.predict_proba(X_val_scaled)[:, 1]
+        # Validation
+        y_val_pred = model.predict(X_val_scaled)
+        y_val_proba = model.predict_proba(X_val_scaled)[:, 1]
+        val_acc = accuracy_score(y_val, y_val_pred)
         
-        acc = accuracy_score(y_val, y_pred)
+        # Train (Gap 계산용)
+        y_train_pred = model.predict(X_train_scaled)
+        train_acc = accuracy_score(y_train, y_train_pred)
         
-        # IC 계산
-        ic, _ = spearmanr(y_proba, val_excess_return)
-        
-        # 4. Custom Objective (Acc > 0.52, IC < 0.25)
-        # 튜닝 목표는 Accuracy 최대화이지만, 제약조건 위반 시 페널티 부여
-        
-        # 제약조건 확인
-        if ic >= 0.25:
-            # IC가 너무 높으면(과적합 의심) 점수 대폭 삭감
-            # Accuracy가 높아도 선택되지 않도록 함
-            return acc * 0.1 
-        
-        if acc <= 0.52:
-             # 목표 Accuracy 미달 시 (탐색 유도를 위해 그대로 반환하거나 약간 삭감)
-             pass
+        gap = train_acc - val_acc
 
-        return acc
+        # IC 계산 (Validation)
+        try:
+            if np.std(y_val_proba) == 0:
+                ic = 0.0
+            else:
+                ic, _ = spearmanr(y_val_proba, val_excess_return)
+        except:
+            ic = 0.0
+        
+        # 4. Custom Objective & Penalty
+        # Base Score: Validation Accuracy
+        score = val_acc
+        
+        # Penalty 1: IC < 0.01 (최소한의 예측력 보장)
+        if ic < 0.01:
+            score -= 0.2  # 강력한 페널티
+            
+        # Penalty 2: Gap >= 0.25 (과적합 방지)
+        if gap >= 0.25:
+            score -= 0.2
+
+        # (Optional) IC > 0.25 과적합 의심 (기존 유지)
+        if ic >= 0.25:
+            score -= 0.1
+
+        return score
 
     return objective
 
@@ -140,12 +156,13 @@ def optimize():
         show_progress_bar=True
     )
 
+    # ── 결과 출력 ──
     best = study.best_trial
     print("\n" + "=" * 70)
     print(f"★ Best Trial (#{best.number})")
     print(f"  Value (Acc): {best.value:.4f}")
     print(f"  Params: {best.params}")
-    
+
     # 공통 파라미터 포함하여 저장할 데이터 구성
     # XGBoost의 scale_pos_weight도 참고용으로 보존? -> Logistic은 spw 값을 class_weight로 변환해 씀
     save_data = {

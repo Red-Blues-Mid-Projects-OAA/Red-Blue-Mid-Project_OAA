@@ -162,7 +162,13 @@ def run_pipeline():
     
     # IC 계산
     actual_excess = split.test["Target_AAPL_3M"] - split.test["Target_SP500_3M"]
-    ic, p_value = spearmanr(ensemble_proba, actual_excess)
+    
+    # 예외 처리: 표준편차가 0이면 모든 예측값이 동일함 -> IC 계산 불가 (0 처리)
+    if np.std(ensemble_proba) == 0:
+        ic, p_value = 0.0, 1.0
+        print("    ! 경고: 모든 예측 확률이 동일하여 IC를 계산할 수 없습니다. (Constant Prediction)")
+    else:
+        ic, p_value = spearmanr(ensemble_proba, actual_excess)
     
     print(f"    IC       : {ic:.4f} (p={p_value:.4f})")
     
@@ -193,8 +199,6 @@ def run_pipeline():
     axes[1, 0].bar(["Train", "Test"], [avg_train_acc, acc], color=["blue", "orange"])
     axes[1, 0].set_ylim(0, 1)
     axes[1, 0].set_title(f"Accuracy Gap ({gap*100:.1f}%p)")
-    
-    # IC Stability logic... (skipped for brevity, but could add if needed)
     
     save_path = os.path.join(_THIS_DIR, "logic_regression_result.png")
     plt.savefig(save_path)
