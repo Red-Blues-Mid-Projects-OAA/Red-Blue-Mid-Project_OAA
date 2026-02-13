@@ -30,7 +30,7 @@ def build_master_dataset():
     """
     4개 Feature 모듈을 호출하고, 결과를 Master Calendar 기반으로 병합하여
     하나의 통합 Feature DataFrame을 반환합니다.
-    ★ 모든 피처에 StandardScaling 적용
+    
     """
     print("=" * 70)
     print("1. 개별 Feature 모듈 실행 및 데이터 수집")
