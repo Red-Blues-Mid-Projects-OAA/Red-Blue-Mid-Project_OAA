@@ -107,8 +107,11 @@ def run_pipeline():
         model_params["eval_metric"] = "logloss"
         model_params.pop("early_stopping_rounds", None)
 
+        # Sample Weight 적용 (확실한 놈만 팬다)
+        w_refit = ss.final_train_weights
+
         model = XGBClassifier(**model_params)
-        model.fit(X_refit, y_refit)
+        model.fit(X_refit, y_refit, sample_weight=w_refit)
         models.append(model)
 
         # 개별 모델 Train Accuracy

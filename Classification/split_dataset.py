@@ -49,6 +49,9 @@ DataSplit = namedtuple("DataSplit", [
     "val",             # Validation DataFrame (전체)
     "test",            # Test DataFrame (전체, 샘플링 안 함)
     "final_train",     # Train ∪ Validation (전체)
+    "train_weights",   # ★ Train Sample Weights
+    "val_weights",     # ★ Validation Sample Weights
+    "final_train_weights", # ★ Final Train Sample Weights
     "feature_cols",    # Feature 컬럼 목록
     "scale_pos_weight", # Class 불균형 보정 비율 (Train 기준)
 ])
@@ -58,6 +61,9 @@ StrideSplit = namedtuple("StrideSplit", [
     "train",            # 스트라이드 샘플링된 Train
     "val",              # 스트라이드 샘플링된 Validation
     "final_train",      # 스트라이드 샘플링된 Train ∪ Val
+    "train_weights",    # ★ Train Sample Weights
+    "val_weights",      # ★ Validation Sample Weights
+    "final_train_weights", # ★ Final Train Sample Weights
     "scale_pos_weight", # 해당 스트라이드의 scale_pos_weight
 ])
 
@@ -67,6 +73,25 @@ def _calc_spw(y):
     n_neg = int((y == 0).sum())
     n_pos = max(int((y == 1).sum()), 1)
     return float(n_neg) / n_pos
+
+
+def calculate_sample_weight(df):
+    """
+    Alpha(초과수익)의 절대크기에 비례하여 가중치를 부여합니다.
+    Target_Class가 1인 경우(확실한 승리) 더 강하게 학습하도록 유도합니다.
+    """
+    if "Target_AAPL_3M" not in df.columns or "Target_SP500_3M" not in df.columns:
+        return np.ones(len(df))
+
+    # 3개월 누적 수익률 차이 (Alpha)
+    alpha = abs(df['Target_AAPL_3M'] - df['Target_SP500_3M'])
+    
+    # 기본 가중치 1.0 + 알파 보너스
+    # 예: 알파가 10%면 가중치 = 1.0 + (0.10 * 20) = 3.0
+    # multiplier(20)은 조절 가능 (너무 크면 아웃라이어에 휘둘림)
+    weights = 1.0 + (alpha * 20.0)
+    
+    return weights
 
 
 def split_dataset():
@@ -130,12 +155,20 @@ def split_dataset():
     # ★ Final Fit 시에는 Train + Val 합쳐서 학습하므로, 비중도 합친 데이터 기준이어야 함
     spw = _calc_spw(final_train_df["Target_Class"])
 
+    # ── Sample Weights 계산 ──
+    train_weights = calculate_sample_weight(train_df)
+    val_weights = calculate_sample_weight(val_df)
+    final_train_weights = calculate_sample_weight(final_train_df)
+
     # ── 결과 구성 ──
     split = DataSplit(
         train=train_df,
         val=val_df,
         test=test_df,
         final_train=final_train_df,
+        train_weights=train_weights,
+        val_weights=val_weights,
+        final_train_weights=final_train_weights,
         feature_cols=feature_cols,
         scale_pos_weight=spw,
     )
@@ -167,9 +200,14 @@ def get_stride_splits(split):
         train_sampled = split.train.iloc[offset::STRIDE]
         val_sampled = split.val.iloc[offset::STRIDE]
         
+        # Weights도 똑같이 샘플링
+        train_w_sampled = split.train_weights.iloc[offset::STRIDE]
+        val_w_sampled = split.val_weights.iloc[offset::STRIDE]
+
         # 2. Final Fit용 (scaler_final 기준)
         # split.final_train에서 샘플링하여 Test셋(scaler_final)과 스케일 일치 보장
         refit_sampled = split.final_train.iloc[offset::STRIDE]
+        refit_w_sampled = split.final_train_weights.iloc[offset::STRIDE]
 
         # ★ Final Fit 기준 (Train + Val)
         spw = _calc_spw(refit_sampled["Target_Class"])
@@ -179,6 +217,9 @@ def get_stride_splits(split):
             train=train_sampled,
             val=val_sampled,
             final_train=refit_sampled,
+            train_weights=train_w_sampled,
+            val_weights=val_w_sampled,
+            final_train_weights=refit_w_sampled,
             scale_pos_weight=spw,
         )
         stride_splits.append(ss)
