@@ -32,8 +32,7 @@ sys.path.insert(0, _ROOT_DIR)
 from split_dataset import get_stride_splits, split_dataset
 from model_config import (
     SVM_PARAMS_ARTIFACT_PATH,
-    SVM_PARAMS_LEGACY_PATHS,
-    save_json_with_legacy,
+    save_json_artifact_only,
 )
 
 optuna.logging.set_verbosity(optuna.logging.INFO)
@@ -307,7 +306,7 @@ def optimize():
         "leakage_policy": "test_not_used_in_tuning",
     }
 
-    save_json_with_legacy(save_data, SVM_PARAMS_ARTIFACT_PATH, SVM_PARAMS_LEGACY_PATHS)
+    save_json_artifact_only(save_data, SVM_PARAMS_ARTIFACT_PATH)
     print(f"\n저장 완료: {SVM_PARAMS_ARTIFACT_PATH}")
     print("=" * 70)
     return save_data

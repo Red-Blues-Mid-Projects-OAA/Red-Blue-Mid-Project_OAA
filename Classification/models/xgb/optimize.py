@@ -35,8 +35,7 @@ sys.path.insert(0, _ROOT_DIR)
 from generate_target import generate_target
 from model_config import (
     XGB_PARAMS_ARTIFACT_PATH,
-    XGB_PARAMS_LEGACY_PATHS,
-    save_json_with_legacy,
+    save_json_artifact_only,
 )
 
 # Optuna 로그 레벨 (INFO)
@@ -312,7 +311,7 @@ def optimize(profile="balanced", n_trials=N_TRIALS):
         "cv_mode": CV_MODE,
     }
 
-    save_json_with_legacy(save_data, XGB_PARAMS_ARTIFACT_PATH, XGB_PARAMS_LEGACY_PATHS)
+    save_json_artifact_only(save_data, XGB_PARAMS_ARTIFACT_PATH)
     print(f"\n  저장 완료: {XGB_PARAMS_ARTIFACT_PATH}")
     return save_data
 

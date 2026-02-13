@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Iterable
 
 BASE_DIR = Path(__file__).resolve().parent
 ARTIFACTS_DIR = BASE_DIR / "artifacts"
@@ -22,17 +21,17 @@ REQUIRE_ACCURACY_GATE = False
 
 # 파라미터 파일 경로
 XGB_PARAMS_ARTIFACT_PATH = XGB_ARTIFACT_DIR / "xgb_best_params.json"
-XGB_PARAMS_LEGACY_PATHS = [BASE_DIR / "xgb_best_params.json"]
+XGB_PARAMS_LEGACY_PATHS = []
 
 SVM_PARAMS_ARTIFACT_PATH = SVM_ARTIFACT_DIR / "best_svm_params.json"
-SVM_PARAMS_LEGACY_PATHS = [BASE_DIR / "best_svm_params.json"]
+SVM_PARAMS_LEGACY_PATHS = []
 
 # 결과 이미지 경로
 XGB_RESULT_ARTIFACT_PATH = XGB_ARTIFACT_DIR / "xgb_classifier_result.png"
-XGB_RESULT_LEGACY_PATHS = [BASE_DIR / "xgb_classifier_result.png"]
+XGB_RESULT_LEGACY_PATHS = []
 
 SVM_RESULT_ARTIFACT_PATH = SVM_ARTIFACT_DIR / "svm_classifier_result.png"
-SVM_RESULT_LEGACY_PATHS = [BASE_DIR / "svm_classifier_result.png"]
+SVM_RESULT_LEGACY_PATHS = []
 
 
 def ensure_artifact_dirs() -> None:
@@ -41,30 +40,17 @@ def ensure_artifact_dirs() -> None:
     SVM_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def resolve_read_path(primary: Path, fallbacks: Iterable[Path]) -> Path | None:
-    """읽기용 경로를 우선순위(primary -> fallbacks)로 찾습니다."""
-    for candidate in [primary, *fallbacks]:
-        if candidate.exists():
-            return candidate
-    return None
-
-
-def load_json_with_fallback(primary: Path, fallbacks: Iterable[Path]) -> tuple[dict | None, Path | None]:
-    """JSON 파일을 우선순위로 읽고 (데이터, 사용경로)를 반환합니다."""
-    path = resolve_read_path(primary, fallbacks)
-    if path is None:
+def load_json_artifact_only(artifact_path: Path) -> tuple[dict | None, Path | None]:
+    """아티팩트 표준 경로의 JSON 파일을 읽고 (데이터, 사용경로)를 반환합니다."""
+    if not artifact_path.exists():
         return None, None
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f), path
+    with artifact_path.open("r", encoding="utf-8") as f:
+        return json.load(f), artifact_path
 
 
-def save_json_with_legacy(payload: dict, artifact_path: Path, legacy_paths: Iterable[Path]) -> None:
-    """표준 경로에 저장하고 레거시 경로도 동기화합니다."""
+def save_json_artifact_only(payload: dict, artifact_path: Path) -> None:
+    """아티팩트 표준 경로에만 JSON 파일을 저장합니다."""
     ensure_artifact_dirs()
     artifact_path.parent.mkdir(parents=True, exist_ok=True)
     with artifact_path.open("w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
-
-    for legacy_path in legacy_paths:
-        with legacy_path.open("w", encoding="utf-8") as f:
-            json.dump(payload, f, indent=2, ensure_ascii=False)

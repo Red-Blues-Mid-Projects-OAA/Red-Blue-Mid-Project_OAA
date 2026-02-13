@@ -29,11 +29,9 @@ sys.path.insert(0, _ROOT_DIR)
 from split_dataset import N_MODELS, get_stride_splits, split_dataset
 from model_config import (
     SVM_PARAMS_ARTIFACT_PATH,
-    SVM_PARAMS_LEGACY_PATHS,
     SVM_RESULT_ARTIFACT_PATH,
-    SVM_RESULT_LEGACY_PATHS,
     ensure_artifact_dirs,
-    load_json_with_fallback,
+    load_json_artifact_only,
 )
 from model_gate import evaluate_gate, print_gate_result
 
@@ -54,7 +52,7 @@ def load_svm_params():
         "fit_mode": "final_train",
     }
 
-    data, used_path = load_json_with_fallback(SVM_PARAMS_ARTIFACT_PATH, SVM_PARAMS_LEGACY_PATHS)
+    data, used_path = load_json_artifact_only(SVM_PARAMS_ARTIFACT_PATH)
     if data is None:
         return default_params, default_meta
 
@@ -290,8 +288,6 @@ def run_pipeline(return_metrics=False):
     plt.tight_layout()
     ensure_artifact_dirs()
     plt.savefig(SVM_RESULT_ARTIFACT_PATH, dpi=150)
-    for legacy_path in SVM_RESULT_LEGACY_PATHS:
-        plt.savefig(legacy_path, dpi=150)
     plt.close()
     print(f"차트 저장 완료: {SVM_RESULT_ARTIFACT_PATH}")
 

@@ -39,11 +39,9 @@ from scipy.stats import spearmanr
 from split_dataset import split_dataset, get_stride_splits, N_MODELS
 from model_config import (
     XGB_PARAMS_ARTIFACT_PATH,
-    XGB_PARAMS_LEGACY_PATHS,
     XGB_RESULT_ARTIFACT_PATH,
-    XGB_RESULT_LEGACY_PATHS,
     ensure_artifact_dirs,
-    load_json_with_fallback,
+    load_json_artifact_only,
 )
 from model_gate import evaluate_gate, print_gate_result
 
@@ -54,7 +52,7 @@ CALIBRATION_TARGET_POS_RATE = 0.40
 
 def load_best_params():
     """xgb_best_params.json을 로드합니다."""
-    data, used_path = load_json_with_fallback(XGB_PARAMS_ARTIFACT_PATH, XGB_PARAMS_LEGACY_PATHS)
+    data, used_path = load_json_artifact_only(XGB_PARAMS_ARTIFACT_PATH)
     if data is None:
         print(f"  ⚠️ {XGB_PARAMS_ARTIFACT_PATH} 파일이 없습니다.")
         print(f"  먼저 optimize_hyperparams.py를 실행하세요.")
@@ -451,8 +449,6 @@ def run_pipeline(auto_optimize=True, optimize_profile="balanced", return_metrics
     plt.tight_layout()
     ensure_artifact_dirs()
     plt.savefig(XGB_RESULT_ARTIFACT_PATH, dpi=150)
-    for legacy_path in XGB_RESULT_LEGACY_PATHS:
-        plt.savefig(legacy_path, dpi=150)
     print(f"\n  차트 저장 완료: {XGB_RESULT_ARTIFACT_PATH}")
     plt.close()
 
