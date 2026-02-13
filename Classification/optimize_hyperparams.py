@@ -24,7 +24,6 @@ _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 _ROOT_DIR = os.path.dirname(_THIS_DIR)
 sys.path.insert(0, _THIS_DIR)
 sys.path.insert(0, _ROOT_DIR)
-
 import numpy as np
 import optuna
 from xgboost import XGBClassifier
