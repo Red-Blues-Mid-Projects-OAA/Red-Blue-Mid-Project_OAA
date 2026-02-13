@@ -2,9 +2,15 @@
 Target Variable 생성 모듈
 
 Master DataFrame에 예측 타겟을 추가합니다:
-  - Target_AAPL_3M  : AAPL 향후 60거래일 평균 일일 로그수익률
-  - Target_SP500_3M : S&P500 향후 60거래일 평균 일일 로그수익률
-  - Target_Class    : AAPL > SP500 이면 1, 아니면 0
+  - Target_AAPL_3M  : AAPL 향후 60거래일 누적 로그수익률
+  - Target_SP500_3M : S&P500 향후 60거래일 누적 로그수익률
+  - Alpha_Diff      : AAPL - SP500 누적 초과수익률
+  - Target_Class    : Alpha_Diff > ε (Alpha Margin) 이면 1, 아니면 0
+
+Alpha Margin 전략:
+  기존: Target = 1 if AAPL > SP500
+  개선: Target = 1 if (AAPL - SP500) > ε  (ε = 0.5%, 누적 기준)
+  → 단순한 우위가 아닌, 유의미한 초과수익만 Class 1로 분류
 
 데이터 소스 (DB, yfinance 미사용):
   - AAPL 로그 수익률  : LOG_RETURNS 테이블 (calculate_log_returns.py 결과)
@@ -26,7 +32,8 @@ from common import pd, np
 from build_master_dataset import build_master_dataset
 from stock_db_manager import StockDBManager
 
-FORWARD_DAYS = 60  # 3개월 ≈ 60거래일 (20d/60d/120d 규칙 통일)
+FORWARD_DAYS = 60    # 3개월 ≈ 60거래일 (20d/60d/120d 규칙 통일)
+ALPHA_MARGIN = 0.005  # 0.5% 누적 초과수익률 임계값 (Alpha Margin)
 
 
 def generate_target():
@@ -71,22 +78,30 @@ def generate_target():
     sp500_lr = sp500_df["LOG_RETURN"].astype(float).reindex(master_index).ffill()
 
     # ──────────────────────────────────────────────────────────────
-    #  3단계: 향후 60거래일 평균 로그수익률 (Target)
+    #  3단계: 향후 60거래일 누적 로그수익률 (Target)
     # ──────────────────────────────────────────────────────────────
     aapl_cumsum = aapl_lr.cumsum()
     sp500_cumsum = sp500_lr.cumsum()
 
+    # 누적 로그수익률 (평균이 아닌 3개월 총 누적)
     master_df["Target_AAPL_3M"] = (
         aapl_cumsum.shift(-FORWARD_DAYS) - aapl_cumsum
-    ) / FORWARD_DAYS
+    )
 
     master_df["Target_SP500_3M"] = (
         sp500_cumsum.shift(-FORWARD_DAYS) - sp500_cumsum
-    ) / FORWARD_DAYS
+    )
 
-    # ★ 최종 이진 분류 타겟 (1: AAPL이 S&P500을 이김, 0: 짐)
+    # ★ Alpha Margin: 누적 초과수익률
+    master_df["Alpha_Diff"] = (
+        master_df["Target_AAPL_3M"] - master_df["Target_SP500_3M"]
+    )
+
+    # ★ 최종 이진 분류 타겟 (Alpha Margin 적용)
+    #   Class 1: AAPL이 SP500보다 ε(0.5%) 이상 초과 수익
+    #   Class 0: 그 외 (SP500과 비슷하거나 AAPL이 부진)
     master_df["Target_Class"] = (
-        master_df["Target_AAPL_3M"] > master_df["Target_SP500_3M"]
+        master_df["Alpha_Diff"] > ALPHA_MARGIN
     ).astype(float)
 
     # Target이 NaN인 행(미래 미실현)의 Target_Class도 NaN으로 처리
@@ -99,17 +114,25 @@ def generate_target():
     target_nan = master_df["Target_Class"].isna().sum()
 
     print(f"\n  Target 컬럼 추가 완료 (Forward = {FORWARD_DAYS}거래일)")
+    print(f"  Alpha Margin (ε) : {ALPHA_MARGIN} ({ALPHA_MARGIN*100:.1f}% 누적 초과수익률)")
     print(f"  타겟 실현 행 : {len(target_realized)}건")
     print(f"  타겟 미실현  : {target_nan}건 (최근 {FORWARD_DAYS}일, Inference 용도)")
 
     if len(target_realized) > 0:
         n_win = int(target_realized.sum())
         n_lose = len(target_realized) - n_win
-        print(f"  Class 1 (AAPL > SP500) : {n_win}건 ({target_realized.mean()*100:.1f}%)")
-        print(f"  Class 0 (AAPL ≤ SP500) : {n_lose}건 ({(1-target_realized.mean())*100:.1f}%)")
+        print(f"  Class 1 (AAPL > SP500 + {ALPHA_MARGIN*100:.1f}%) : {n_win}건 ({target_realized.mean()*100:.1f}%)")
+        print(f"  Class 0 (그 외)                       : {n_lose}건 ({(1-target_realized.mean())*100:.1f}%)")
+        
+        # Alpha_Diff 분포 요약
+        alpha_realized = master_df["Alpha_Diff"].dropna()
+        print(f"\n  Alpha_Diff 분포:")
+        print(f"    Mean   : {alpha_realized.mean()*100:.2f}%")
+        print(f"    Median : {alpha_realized.median()*100:.2f}%")
+        print(f"    Std    : {alpha_realized.std()*100:.2f}%")
 
     print(f"\n  최근 5일 (Target이 NaN이면 정상 — Inference 용도):")
-    print(master_df[["Target_AAPL_3M", "Target_SP500_3M", "Target_Class"]].tail())
+    print(master_df[["Target_AAPL_3M", "Target_SP500_3M", "Alpha_Diff", "Target_Class"]].tail())
 
     print(f"\n{'=' * 70}")
     print(f"★ 최종 Master DataFrame (피처 + 타겟)")

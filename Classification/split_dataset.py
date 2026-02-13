@@ -15,8 +15,7 @@
 ★ 다른 모듈들이 이 모듈을 import 하여 데이터를 가져갑니다.
 """
 
-import sys
-import os
+import sys, os
 from collections import namedtuple
 
 # 모듈 경로 설정
@@ -25,8 +24,7 @@ _ROOT_DIR = os.path.dirname(_THIS_DIR)
 sys.path.insert(0, _THIS_DIR)
 sys.path.insert(0, _ROOT_DIR)
 
-import pandas as pd
-import numpy as np
+from common import pd, np
 from generate_target import generate_target
 
 # ══════════════════════════════════════════════════════════════
@@ -80,7 +78,7 @@ def split_dataset():
     df = generate_target()
 
     # ── 피처 컬럼 추출 (Target 컬럼 제외) ──
-    exclude_cols = ["Target_AAPL_3M", "Target_SP500_3M", "Target_Class"]
+    exclude_cols = ["Target_AAPL_3M", "Target_SP500_3M", "Target_Class", "Alpha_Diff"]
     feature_cols = [c for c in df.columns if c not in exclude_cols]
 
     # ── 타겟 미실현(최근 60일) 제거 ──
@@ -95,8 +93,9 @@ def split_dataset():
     # ── Final Refit용 (Train ∪ Validation) ──
     final_train_df = pd.concat([train_df, val_df])
 
-    # ── scale_pos_weight 자동 산출 (Train 기준) ──
-    spw = _calc_spw(train_df["Target_Class"])
+    # ── scale_pos_weight 자동 산출 (Train + Validation 기준) ──
+    # ★ Final Fit 시에는 Train + Val 합쳐서 학습하므로, 비중도 합친 데이터 기준이어야 함
+    spw = _calc_spw(final_train_df["Target_Class"])
 
     # ── 결과 구성 ──
     split = DataSplit(
@@ -135,7 +134,8 @@ def get_stride_splits(split):
         val_sampled = split.val.iloc[offset::STRIDE]
         refit_sampled = pd.concat([train_sampled, val_sampled])
 
-        spw = _calc_spw(train_sampled["Target_Class"])
+        # ★ Final Fit 기준 (Train + Val)
+        spw = _calc_spw(refit_sampled["Target_Class"])
 
         ss = StrideSplit(
             offset=offset,
