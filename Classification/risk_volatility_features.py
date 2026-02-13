@@ -10,7 +10,7 @@ calculate_ewma.py와 동일한 EWMA 방식(λ=0.94)을 사용하여:
   - AAPL 로그 수익률 : LOG_RETURNS 테이블 (calculate_log_returns.py 결과)
   - S&P500 로그 수익률 : SP500_DATA 테이블 (update_sp500_data.py 결과)
 
-★ DB 적재 없음 / 다른 모듈 수정 없음
+★ DB 적재 없음 
 """
 
 import sys, os
@@ -25,7 +25,7 @@ ALPHA = 1 - LAMBDA  # 0.06
 TICKER = "AAPL"
 
 
-def main():
+def calculate_risk_features(db=None):
     print("=" * 60)
     print("AAPL EWMA 리스크 피처 생성 (λ=0.94)")
     print("=" * 60)
@@ -33,8 +33,12 @@ def main():
     # ─── 데이터 로드 ───
     print("\n[데이터 로드]")
 
-    db = StockDBManager()
-    db.connect()
+    should_close = False
+    if db is None:
+        db = StockDBManager()
+        db.connect()
+        should_close = True
+        
     try:
         # AAPL 로그 수익률 (LOG_RETURNS)
         lr_all = db.fetch_log_returns()
@@ -42,7 +46,8 @@ def main():
         # S&P 500 로그 수익률 (SP500_DATA)
         sp500 = db.fetch_sp500_data()
     finally:
-        db.close()
+        if should_close:
+            db.close()
 
     aapl = lr_all[TICKER].dropna()
 
@@ -131,4 +136,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    calculate_risk_features()

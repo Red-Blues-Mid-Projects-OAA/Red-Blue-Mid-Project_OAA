@@ -4,7 +4,7 @@ AAPL 거래량 분석 모듈 (Self-contained)
 생성되는 DataFrame:
   df_volume_features : Volume_Ratio, OBV_ROC_20 (정상성 확보)
 
-★ DB 적재 없음 / 다른 모듈 수정 없음
+★ DB 적재 없음
 """
 
 import sys, os
@@ -15,7 +15,7 @@ from common import pd, np
 from stock_db_manager import StockDBManager
 
 
-def calculate_aapl_volume_analysis():
+def calculate_aapl_volume_analysis(db=None):
     """
     AAPL 거래량 분석 (Volume Ratio + OBV 변화율)
     - Volume_Ratio = 당일 거래량 / 직전 20일 평균 거래량
@@ -24,10 +24,18 @@ def calculate_aapl_volume_analysis():
     ticker = "AAPL"
     
     print(f"[{ticker}] Oracle DB에서 데이터 로드 중...")
-    db_manager = StockDBManager()
-    db_manager.connect()
-    data = db_manager.fetch_ticker_data(ticker)
-    db_manager.close()
+    
+    should_close = False
+    if db is None:
+        db = StockDBManager()
+        db.connect()
+        should_close = True
+
+    try:
+        data = db.fetch_ticker_data(ticker)
+    finally:
+        if should_close:
+            db.close()
 
     if data.empty:
         print("DB에서 데이터를 가져오지 못했습니다. fetch_stock_data.py를 먼저 실행하세요.")

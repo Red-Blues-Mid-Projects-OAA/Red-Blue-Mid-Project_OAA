@@ -1,0 +1,19 @@
+{
+  "best_params": {
+    "max_depth": 1,
+    "learning_rate": 0.1478318457437617,
+    "n_estimators": 46,
+    "min_child_weight": 10,
+    "gamma": 0.2845468229830404,
+    "reg_alpha": 0.32413448786460664,
+    "reg_lambda": 2.770928744648348,
+    "subsample": 0.8477787715820088,
+    "colsample_bytree": 0.6488761722971239
+  },
+  "best_logloss": 0.6054217582922419,
+  "best_trial_number": 36,
+  "n_trials": 100,
+  "scale_pos_weight": 0.8641975308641975,
+  "stride": 5,
+  "n_models": 5
+}

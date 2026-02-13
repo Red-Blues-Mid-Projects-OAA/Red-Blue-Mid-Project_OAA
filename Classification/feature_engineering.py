@@ -6,7 +6,7 @@ from common import pd, np
 from stock_db_manager import StockDBManager
 
 
-def calculate_features(ticker):
+def calculate_features(ticker, db=None):
     """
     AAPL 종목의 가격/모멘텀 feature를 계산하여 단일 DataFrame으로 반환.
     - 중장기 수익률 (Log Returns): 20일, 60일, 120일 rolling mean
@@ -14,10 +14,18 @@ def calculate_features(ticker):
     - 52주 고점 대비 위치 (High-Low Proximity): (Close - 52W High) / 52W High
     """
     print(f"[{ticker}] Oracle DB에서 데이터 로드 중...")
-    db_manager = StockDBManager()
-    db_manager.connect()
-    df = db_manager.fetch_ticker_data(ticker)
-    db_manager.close()
+    
+    should_close = False
+    if db is None:
+        db = StockDBManager()
+        db.connect()
+        should_close = True
+        
+    try:
+        df = db.fetch_ticker_data(ticker)
+    finally:
+        if should_close:
+            db.close()
 
     if df.empty:
         print("DB에서 데이터를 가져오지 못했습니다. fetch_stock_data.py를 먼저 실행하세요.")
@@ -45,27 +53,22 @@ def calculate_features(ticker):
     # NaN 제거 (rolling window로 인해 초기 데이터 결측치)
     df = df.dropna(subset=feature_cols).copy()
 
+    # 결과 출력
+    print(f"\n{'=' * 60}")
+    print(f"[결과] {ticker} 가격 및 모멘텀 피처 (df_momentum)")
+    print(f"{'=' * 60}")
+    print(f"  기간: {df.index[0].date()} ~ {df.index[-1].date()}")
+    print(f"  건수: {len(df)}")
+    print(df[feature_cols].head())
+    print("  ...")
+    print(df[feature_cols].tail())
+
     return df[feature_cols]
 
 
 def main():
     ticker = 'AAPL'
-
-    df = calculate_features(ticker)
-
-    if df.empty:
-        print("Feature 계산 실패")
-        return
-
-    print("\n" + "=" * 60)
-    print("Combined Feature DataFrame")
-    print(f"Shape: {df.shape}")
-    print(f"Period: {df.index.min().date()} ~ {df.index.max().date()}")
-    print("\nFirst 5 rows:")
-    print(df.head())
-    print("\nLast 5 rows:")
-    print(df.tail())
-    print("=" * 60)
+    _ = calculate_features(ticker)
 
 
 if __name__ == "__main__":

@@ -604,6 +604,47 @@ class StockDBManager:
             print(f"{indicator} 최신 날짜 조회 실패: {e}")
             return None
 
+    def reorganize_sp500_data(self):
+        """
+        SP500_DATA 테이블을 TRADE_DATE 순으로 정렬된 복사본으로 교체
+        (물리적 저장 순서 보장 + 인덱스 최적화 효과)
+        """
+        try:
+            print("S&P 500 테이블 재구조화(Reorganization) 시작...")
+
+            # 1. 정렬된 데이터를 가진 임시 테이블 생성 (CTAS)
+            create_copy_query = """
+            CREATE TABLE SP500_DATA_COPY AS
+            SELECT * FROM SP500_DATA
+            ORDER BY TRADE_DATE ASC
+            """
+            self.cursor.execute(create_copy_query)
+            print("1. 정렬된 임시 테이블(SP500_DATA_COPY) 생성 완료")
+
+            # 2. 기존 테이블 삭제
+            self.cursor.execute("DROP TABLE SP500_DATA PURGE")
+            print("2. 기존 SP500_DATA 테이블 삭제 완료")
+
+            # 3. 임시 테이블 이름을 원본 이름으로 변경
+            self.cursor.execute("ALTER TABLE SP500_DATA_COPY RENAME TO SP500_DATA")
+            print("3. 테이블명 변경 완료 (COPY -> ORIG)")
+
+            # 4. 기본키(PK) 및 인덱스 재설정
+            add_pk_query = """
+            ALTER TABLE SP500_DATA 
+            ADD CONSTRAINT PK_SP500_DATA PRIMARY KEY (TRADE_DATE)
+            USING INDEX
+            """
+            self.cursor.execute(add_pk_query)
+            print("4. PK(TRADE_DATE) 제약조건 및 인덱스 재생성 완료")
+
+            self.connection.commit()
+            print("S&P 500 테이블 재구조화 완료!")
+
+        except oracledb.Error as e:
+            print(f"S&P 500 테이블 재구조화 실패: {e}")
+            self.connection.rollback()
+
     def reorganize_market_features(self):
         """
         MARKET_FEATURES 테이블을 TRADE_DATE, INDICATOR 순으로 정렬된 복사본으로 교체

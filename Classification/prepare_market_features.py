@@ -103,13 +103,22 @@ def calculate_sp500_momentum(db):
     return df_sp500
 
 
-def main():
+def get_market_features(db):
+    """
+    모든 시장 피처를 생성하여 반환하는 통합 진입점
+    """
+    df_dxy = fetch_dollar_index_log_returns(db)
+    df_vix = fetch_vix_data(db)
+    df_sp500_mom = calculate_sp500_momentum(db)
+    
+    return df_dxy, df_vix, df_sp500_mom
+
+
+if __name__ == "__main__":
     db = StockDBManager()
     db.connect()
     try:
-        df_dxy = fetch_dollar_index_log_returns(db)
-        df_vix = fetch_vix_data(db)
-        df_sp500_mom = calculate_sp500_momentum(db)
+        df_dxy, df_vix, df_sp500_mom = get_market_features(db)
 
         print("\n" + "=" * 60)
         print("생성된 DataFrame 목록")
@@ -119,7 +128,3 @@ def main():
         print(f"  3. df_sp500_momentum   : S&P 500 1M/3M 누적 수익률   ({len(df_sp500_mom)}건)")
     finally:
         db.close()
-
-
-if __name__ == "__main__":
-    main()

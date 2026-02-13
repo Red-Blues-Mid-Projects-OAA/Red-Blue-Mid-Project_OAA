@@ -75,6 +75,9 @@ def update_sp500_data():
         
         # 5. DB 저장
         db_manager.insert_sp500_data(data_to_insert)
+
+        # 6. 테이블 재구조화 (Physical Reordering)
+        db_manager.reorganize_sp500_data()
         
     except Exception as e:
         print(f"업데이트 중 오류 발생: {e}")
