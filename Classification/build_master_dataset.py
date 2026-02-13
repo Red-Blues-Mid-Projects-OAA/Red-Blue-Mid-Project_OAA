@@ -111,13 +111,31 @@ def build_master_dataset():
         print(f"\n  Last 3 rows:")
         print(master_df.tail(3))
         
-        # ──────────────────────────────────────────────────────────────
-        # 3. DB 적재 및 Reorganization (TOTAL_FEATURES)
-        # ──────────────────────────────────────────────────────────────
-        print("\n" + "=" * 70)
-        print("3. DB 적재 및 Reorganization (TOTAL_FEATURES)")
-        print("=" * 70)
-        
+    # ──────────────────────────────────────────────────────────────
+    #  [Data Leakage] Global Scaling 적용 (사용자 요청)
+    # ──────────────────────────────────────────────────────────────
+    from sklearn.preprocessing import StandardScaler
+    
+    # Target, Date 관련 컬럼 제외하고 스케일링
+    exclude_cols = ["Target_AAPL_3M", "Target_SP500_3M", "Target_Class", "Alpha_Diff"]
+    feature_cols = [c for c in master_df.columns if c not in exclude_cols]
+    
+    print("\n" + "=" * 70)
+    print("3. Global StandardScaling (Data Leakage Applied)")
+    print("=" * 70)
+    
+    scaler = StandardScaler()
+    master_df[feature_cols] = scaler.fit_transform(master_df[feature_cols])
+    print("  ★ 전체 데이터에 대해 Scaling 완료 (Future Data Leakage 포함됨)")
+
+    # ──────────────────────────────────────────────────────────────
+    # 4. DB 적재 및 Reorganization (TOTAL_FEATURES)
+    # ──────────────────────────────────────────────────────────────
+    print("\n" + "=" * 70)
+    print("4. DB 적재 및 Reorganization (TOTAL_FEATURES)")
+    print("=" * 70)
+    
+    if not master_df.empty:
         # DB 재연결 (위에서 close() 했으므로)
         db.connect()
         try:

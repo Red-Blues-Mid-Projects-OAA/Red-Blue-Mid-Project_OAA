@@ -52,11 +52,14 @@ def load_params():
     # 2. 공통 파라미터 (solver, max_iter 등)
     common_params = data.get("common_params", {})
     
-    # 3. 통합 파라미터 생성
+    
+    # 3. 통합 파라미터 생성 (class_weight_1 포함)
     final_params = {**common_params, **best_params}
     
-    # 4. scale_pos_weight 로드 (class_weight 변환용)
-    spw = data.get("scale_pos_weight", 1.0)
+    # 4. class_weight_1 추출 (없으면 기본값 1.0)
+    cw_1 = final_params.get("class_weight_1", 1.0)
+    if "class_weight_1" in final_params:
+        del final_params["class_weight_1"] # LogisticRegression 생성자에는 전달하지 않음
     
     print(f"  logic_params.json 로드 완료 (Acc={data.get('best_accuracy', 0):.4f})")
     
@@ -64,7 +67,7 @@ def load_params():
     if "penalty" in final_params:
         del final_params["penalty"] # l1_ratio 사용 시 penalty 지정 불필요 (saga solver)
         
-    return final_params, spw
+    return final_params, cw_1
 
 
 def run_pipeline():
@@ -77,13 +80,14 @@ def run_pipeline():
     stride_splits = get_stride_splits(split)
 
     # 2. 파라미터 로드
-    params, base_spw = load_params()
+    params, cw_1 = load_params()
     if params is None:
         return
 
     print(f"\n  적용할 파라미터:")
     for key, val in params.items():
         print(f"    {key:20s}: {val}")
+    print(f"    {'class_weight_1':20s}: {cw_1}")
 
     # 3. 5-모델 앙상블 Refit
     print("\n" + "=" * 70)
@@ -104,20 +108,20 @@ def run_pipeline():
         X_refit_raw = ss.final_train[feature_cols]
         y_refit = ss.final_train["Target_Class"].astype(int)
 
-        # 스케일링
-        scaler = StandardScaler()
-        X_refit = scaler.fit_transform(X_refit_raw)
-        X_test = scaler.transform(X_test_raw)
-        scalers.append(scaler)
+        # 스케일링 (제거됨: split_dataset.py에서 이미 스케일링된 데이터를 제공함)
+        # scaler = StandardScaler()
+        # X_refit = scaler.fit_transform(X_refit_raw)
+        # X_test = scaler.transform(X_test_raw)
+        
+        X_refit = X_refit_raw
+        X_test = X_test_raw # Loop 밖에서 정의된 X_test_raw 사용 (이미 Scaled)
 
-        # 모델 파라미터 설정 (class_weight는 각 스트라이드 SPW 반영)
+        # 모델 파라미터 설정
         model_params = params.copy()
         
-        # class_weight: {0: 1, 1: spw}
-        # params에 class_weight가 있으면 덮어쓰기 주의.
-        # 여기서는 spw를 동적으로 할당.
-        current_spw = ss.scale_pos_weight
-        model_params["class_weight"] = {0: 1, 1: current_spw}
+        # class_weight: {0: 1, 1: cw_1} 
+        # (Optuna에서 튜닝된 값을 고정적으로 사용. SPW 동적 계산 대체)
+        model_params["class_weight"] = {0: 1, 1: cw_1}
         
         # eval_metric 등 sklearn에 없는 파라미터 제거
         if "eval_metric" in model_params:
@@ -140,7 +144,7 @@ def run_pipeline():
         all_test_probas.append(proba)
 
         print(f"  모델 {ss.offset}: Refit {len(X_refit):>4d}건 | "
-              f"Train Acc {t_acc*100:.1f}% | SPW {current_spw:.3f}")
+              f"Train Acc {t_acc*100:.1f}% | CW_1 {cw_1:.3f}")
 
     # 앙상블
     ensemble_proba = np.mean(all_test_probas, axis=0)

@@ -93,6 +93,20 @@ def split_dataset():
     test_df = df_valid.loc[s["test"][0]:].copy()
 
     # ──────────────────────────────────────────────────────────────
+    #  [Safety Check] Embargo 기간 검증 (Target Leakage 방지)
+    # ──────────────────────────────────────────────────────────────
+    train_end = pd.Timestamp(s["train"][1])
+    val_start = pd.Timestamp(s["validation"][0])
+    gap_days = (val_start - train_end).days
+    
+    print(f"  Gap Check: Train End({train_end.date()}) ~ Val Start({val_start.date()}) = {gap_days} days")
+    
+    # 3개월(약 90일) 이상의 유격이 있어야 Target(60일 후 수익률)이 Validation 데이터와 겹치지 않음
+    if gap_days < 90:
+        raise ValueError(f"🚨 Critical Leakage Risk: Embargo gap is too short ({gap_days} days < 90 days)!")
+    print("  ✅ Embargo Check Passed (Gap >= 90 days)")
+
+    # ──────────────────────────────────────────────────────────────
     #  [Data Leakage 방지] 스케일링 전략
     # ──────────────────────────────────────────────────────────────
     print("\n" + "=" * 70)

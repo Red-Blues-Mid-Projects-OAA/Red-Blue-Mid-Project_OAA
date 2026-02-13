@@ -48,15 +48,14 @@ def create_objective(stride_split, feature_cols, target_3m_diff):
     # split_dataset의 val_df 인덱스와 매칭되는 데이터
     val_excess_return = target_3m_diff.loc[X_val.index]
 
-    # Pre-computation: Validation Scaled
-    # (실제로는 Training 데이터로 fit한 scaler를 써야 함)
+    # Pre-computation: Validation (Already Scaled by split_dataset.py)
     X_train = stride_split.train[feature_cols]
     y_train = stride_split.train["Target_Class"].astype(int)
     spw = stride_split.scale_pos_weight
 
-    scaler = StandardScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    X_val_scaled = scaler.transform(X_val)
+    # StandardScaler 제거: split_dataset.py에서 이미 스케일링된 데이터를 제공함
+    # X_train_scaled -> X_train
+    # X_val_scaled -> X_val
 
     def objective(trial):
         # 3. 하이퍼파라미터 공간 정의
@@ -64,11 +63,18 @@ def create_objective(stride_split, feature_cols, target_3m_diff):
         C = trial.suggest_float("C", 0.1, 100.0, log=True)
         l1_ratio = trial.suggest_float("l1_ratio", 0.0, 1.0) # 0=L2, 1=L1
         
+        # 1. tol: 1e-4 ~ 1e-3
+        tol = trial.suggest_float("tol", 1e-4, 1e-3, log=True)
+        
+        # 2. class_weight: {0: 1, 1: 0.5 ~ 2.0}
+        cw_1 = trial.suggest_float("class_weight_1", 0.5, 2.0)
+        
         params = {
             "solver": "saga",
             "C": C,
             "l1_ratio": l1_ratio,
-            "class_weight": {0: 1, 1: spw},
+            "tol": tol,
+            "class_weight": {0: 1, 1: cw_1},
             "random_state": 42,
             "max_iter": 5000,
         }
@@ -76,18 +82,18 @@ def create_objective(stride_split, feature_cols, target_3m_diff):
         # 2. 모델 학습
         model = LogisticRegression(**params)
         try:
-            model.fit(X_train_scaled, y_train)
+            model.fit(X_train, y_train)
         except Exception:
             return 0.0  # 학습 실패 시 0점
 
         # 3. 예측 및 평가
         # Validation
-        y_val_pred = model.predict(X_val_scaled)
-        y_val_proba = model.predict_proba(X_val_scaled)[:, 1]
+        y_val_pred = model.predict(X_val)
+        y_val_proba = model.predict_proba(X_val)[:, 1]
         val_acc = accuracy_score(y_val, y_val_pred)
         
         # Train (Gap 계산용)
-        y_train_pred = model.predict(X_train_scaled)
+        y_train_pred = model.predict(X_train)
         train_acc = accuracy_score(y_train, y_train_pred)
         
         gap = train_acc - val_acc
@@ -166,16 +172,20 @@ def optimize():
     # 공통 파라미터 포함하여 저장할 데이터 구성
     # XGBoost의 scale_pos_weight도 참고용으로 보존? -> Logistic은 spw 값을 class_weight로 변환해 씀
     save_data = {
-        "best_params": best.params, # C, l1_ratio
+        "best_params": {
+            "C": best.params["C"],
+            "l1_ratio": best.params["l1_ratio"],
+            "tol": best.params["tol"],
+            "class_weight_1": best.params["class_weight_1"]
+        }, 
         "common_params": {
             "solver": "saga",
             "random_state": 42,
             "max_iter": 5000,
-            "eval_metric": "logloss" # 의미상 기록
+            "eval_metric": "logloss"
         },
         "best_accuracy": best.value,
         "n_trials": N_TRIALS,
-        "scale_pos_weight": tuning_stride.scale_pos_weight, # 실행 시 class_weight로 변환 사용
     }
 
     with open(LOGIC_PARAMS_PATH, "w", encoding="utf-8") as f:

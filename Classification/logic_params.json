@@ -1,7 +1,9 @@
 {
   "best_params": {
-    "C": 0.12165517220570872,
-    "l1_ratio": 4.799308987099571e-06
+    "C": 0.12452875315037468,
+    "l1_ratio": 0.9884212206146702,
+    "tol": 0.00010036265546134747,
+    "class_weight_1": 1.9994630871006154
   },
   "common_params": {
     "solver": "saga",
@@ -9,7 +11,6 @@
     "max_iter": 5000,
     "eval_metric": "logloss"
   },
-  "best_accuracy": 0.5923076923076923,
-  "n_trials": 100,
-  "scale_pos_weight": 0.9130434782608695
+  "best_accuracy": 0.5538461538461539,
+  "n_trials": 100
 }
