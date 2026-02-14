@@ -50,7 +50,6 @@ SEED_PARAMS = {
     "kernel": "sigmoid",
     "C": 0.6,
     "gamma": 0.03,
-    "class_weight_key": "none",
 }
 
 
@@ -126,15 +125,13 @@ def trial_to_params(trial):
     """Optuna trial 값을 SVC 파라미터 딕셔너리로 변환합니다."""
     # IC 안정성을 위해 과도한 굴곡을 만들기 쉬운 poly는 제외
     kernel = trial.suggest_categorical("kernel", ["linear", "rbf", "sigmoid"])
-    class_weight_key = trial.suggest_categorical("class_weight_key", ["none", "balanced"])
-    class_weight = None if class_weight_key == "none" else "balanced"
 
     params = {
         "C": trial.suggest_float("C", 1e-3, 100.0, log=True),
         "kernel": kernel,
         "probability": True,
         "random_state": 42,
-        "class_weight": class_weight,
+        "class_weight": None,
     }
 
     if kernel in ["rbf", "sigmoid"]:
@@ -289,7 +286,7 @@ def optimize():
         "n_trials": N_TRIALS,
         "stride": 5,
         "n_models": 5,
-        "objective": "deep_target_aligned_v2_fixed_threshold_0.5",
+        "objective": "deep_target_aligned_v3_fixed_threshold_0.5_no_class_weight",
         "targets": {
             "accuracy_min": TARGET_ACC,
             "ic_min": TARGET_IC,

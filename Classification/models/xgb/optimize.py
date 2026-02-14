@@ -42,7 +42,7 @@ from model_config import (
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
 N_TRIALS = 100
-OBJECTIVE_VERSION = "target_aligned_v4_stride_consistent"
+OBJECTIVE_VERSION = "target_aligned_v5_no_class_weight"
 CV_MODE = "single_holdout_2024Q2Q3"
 STRIDE = 5
 N_STRIDE_MODELS = 5
@@ -154,13 +154,8 @@ def create_objective(full_df, feature_cols, profile):
             X_train_stride = X_train[stride_idx]
             y_train_stride = y_train.iloc[stride_idx]
 
-            # 클래스 불균형 보정 비율(각 stride별)
-            n_neg = int((y_train_stride == 0).sum())
-            n_pos = max(int((y_train_stride == 1).sum()), 1)
-            spw = float(n_neg) / n_pos
-
             # 정책 반영: 튜닝 단계에서만 random_state=42 사용
-            model = XGBClassifier(**params, scale_pos_weight=spw, random_state=42)
+            model = XGBClassifier(**params, random_state=42)
             model.fit(
                 X_train_stride,
                 y_train_stride,

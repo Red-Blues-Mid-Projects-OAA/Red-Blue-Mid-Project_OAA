@@ -28,7 +28,7 @@ from model_config import RF_PARAMS_ARTIFACT_PATH, save_json_artifact_only
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
 N_TRIALS = 100
-OBJECTIVE_VERSION = "target_aligned_v2_rf_gap_constrained"
+OBJECTIVE_VERSION = "target_aligned_v3_rf_no_class_weight"
 CV_MODE = "single_holdout_2024Q2Q3"
 STRIDE = 5
 N_STRIDE_MODELS = 5
@@ -64,7 +64,6 @@ def _get_search_space(trial: optuna.Trial, profile: str) -> dict:
             "min_samples_leaf": trial.suggest_int("min_samples_leaf", 10, 60),
             "max_features": trial.suggest_float("max_features", 0.35, 0.75),
             "ccp_alpha": trial.suggest_float("ccp_alpha", 0.0005, 0.03),
-            "class_weight": "balanced",
             "random_state": 42,
             "n_jobs": -1,
         }
@@ -77,7 +76,6 @@ def _get_search_space(trial: optuna.Trial, profile: str) -> dict:
             "min_samples_leaf": trial.suggest_int("min_samples_leaf", 20, 80),
             "max_features": trial.suggest_float("max_features", 0.25, 0.55),
             "ccp_alpha": trial.suggest_float("ccp_alpha", 0.004, 0.04),
-            "class_weight": "balanced",
             "random_state": 42,
             "n_jobs": -1,
         }
@@ -232,7 +230,6 @@ def optimize(profile: str = "balanced", n_trials: int = N_TRIALS):
             "ccp_alpha": float(best.params["ccp_alpha"]),
         },
         "common_params": {
-            "class_weight": "balanced",
             "random_state": 42,
             "n_jobs": -1,
         },

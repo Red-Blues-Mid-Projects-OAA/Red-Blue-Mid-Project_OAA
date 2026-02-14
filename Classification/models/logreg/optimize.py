@@ -28,7 +28,7 @@ from model_config import LOGREG_PARAMS_ARTIFACT_PATH, save_json_artifact_only
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
 N_TRIALS = 100
-OBJECTIVE_VERSION = "target_aligned_v1_logreg_elasticnet_stride"
+OBJECTIVE_VERSION = "target_aligned_v2_logreg_no_class_weight"
 CV_MODE = "single_holdout_2024Q2Q3"
 STRIDE = 5
 N_STRIDE_MODELS = 5
@@ -60,7 +60,6 @@ def _get_search_space(trial: optuna.Trial, profile: str) -> dict:
             "C": trial.suggest_float("C", 1e-3, 50.0, log=True),
             "l1_ratio": trial.suggest_float("l1_ratio", 0.0, 1.0),
             "tol": trial.suggest_float("tol", 1e-5, 2e-3, log=True),
-            "class_weight_1": trial.suggest_float("class_weight_1", 0.5, 3.0),
         }
 
     if profile == "regularized":
@@ -68,7 +67,6 @@ def _get_search_space(trial: optuna.Trial, profile: str) -> dict:
             "C": trial.suggest_float("C", 1e-3, 10.0, log=True),
             "l1_ratio": trial.suggest_float("l1_ratio", 0.5, 1.0),
             "tol": trial.suggest_float("tol", 1e-5, 1e-3, log=True),
-            "class_weight_1": trial.suggest_float("class_weight_1", 0.8, 2.5),
         }
 
     raise ValueError(f"지원하지 않는 profile 입니다: {profile}")
@@ -112,7 +110,7 @@ def create_objective(full_df, feature_cols: list[str], profile: str):
                 "C": search["C"],
                 "l1_ratio": search["l1_ratio"],
                 "tol": search["tol"],
-                "class_weight": {0: 1.0, 1: search["class_weight_1"]},
+                "class_weight": None,
                 "random_state": 42,
                 "max_iter": 5000,
             }
@@ -226,7 +224,6 @@ def optimize(profile: str = "balanced", n_trials: int = N_TRIALS):
             "C": float(best.params["C"]),
             "l1_ratio": float(best.params["l1_ratio"]),
             "tol": float(best.params["tol"]),
-            "class_weight_1": float(best.params["class_weight_1"]),
         },
         "common_params": {
             "solver": "saga",

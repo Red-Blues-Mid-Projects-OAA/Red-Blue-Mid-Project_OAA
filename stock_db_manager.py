@@ -768,6 +768,39 @@ class StockDBManager:
             print(f"TOTAL_FEATURES 저장 실패: {e}")
             self.connection.rollback()
 
+    def drop_total_features_column_if_exists(self, column_name):
+        """
+        TOTAL_FEATURES 테이블에 특정 컬럼이 존재하면 삭제합니다.
+        컬럼이 없으면 아무 작업도 하지 않습니다.
+        """
+        safe_col = str(column_name).strip().upper()
+        if not safe_col or not safe_col.replace("_", "").isalnum():
+            raise ValueError(f"유효하지 않은 컬럼명입니다: {column_name}")
+
+        try:
+            self.cursor.execute(
+                """
+                SELECT COUNT(*)
+                FROM USER_TAB_COLUMNS
+                WHERE TABLE_NAME = 'TOTAL_FEATURES'
+                  AND COLUMN_NAME = :col
+                """,
+                {"col": safe_col},
+            )
+            exists = int(self.cursor.fetchone()[0] or 0)
+            if exists == 0:
+                print(f"TOTAL_FEATURES.{safe_col} 컬럼이 없어 삭제를 건너뜁니다.")
+                return False
+
+            self.cursor.execute(f'ALTER TABLE TOTAL_FEATURES DROP COLUMN "{safe_col}"')
+            self.connection.commit()
+            print(f"TOTAL_FEATURES.{safe_col} 컬럼 삭제 완료")
+            return True
+        except oracledb.Error as e:
+            print(f"TOTAL_FEATURES.{safe_col} 컬럼 삭제 실패: {e}")
+            self.connection.rollback()
+            raise
+
     def reorganize_total_features(self):
         """
         TOTAL_FEATURES 테이블을 TRADE_DATE 오름차순으로 정렬된 복사본으로 교체 (CTAS 방식)

@@ -34,7 +34,7 @@ from model_gate import evaluate_gate, print_gate_result
 from models.common.importance import compute_permutation_importance_ic
 from split_dataset import N_MODELS, get_stride_splits, split_dataset
 
-EXPECTED_OBJECTIVE_VERSION = "target_aligned_v1_logreg_elasticnet_stride"
+EXPECTED_OBJECTIVE_VERSION = "target_aligned_v2_logreg_no_class_weight"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
 
 
@@ -101,17 +101,16 @@ def _load_params_or_default():
         "max_iter": 5000,
         "random_state": 42,
     }
-    default_cw1 = 1.0
-
     data, used_path = load_json_artifact_only(LOGREG_PARAMS_ARTIFACT_PATH)
     if data is None:
-        return default_params, default_cw1, None
+        default_params["class_weight"] = None
+        return default_params, None
 
     best_params = data.get("best_params", {})
     common_params = data.get("common_params", {})
     merged = {**default_params, **common_params, **best_params}
 
-    cw_1 = merged.pop("class_weight_1", best_params.get("class_weight_1", default_cw1))
+    merged.pop("class_weight_1", None)
     if "eval_metric" in merged:
         del merged["eval_metric"]
     if "scale_pos_weight" in merged:
@@ -123,8 +122,9 @@ def _load_params_or_default():
         merged["penalty"] = "elasticnet"
         merged["solver"] = "saga"
 
+    merged["class_weight"] = None
     print(f"  logreg 파라미터 로드 경로: {used_path}")
-    return merged, float(cw_1), data
+    return merged, data
 
 
 def _ensure_best_params(split, auto_optimize=False, optimize_profile="balanced"):
@@ -155,12 +155,25 @@ def _ensure_best_params(split, auto_optimize=False, optimize_profile="balanced")
         optimize(profile=optimize_profile, n_trials=100)
 
 
-def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metrics=False):
+def run_pipeline(
+    auto_optimize=False,
+    optimize_profile="balanced",
+    return_metrics=False,
+    drop_features=None,
+    save_plot=True,
+    compute_importance=True,
+    split_override=None,
+):
     print("\n" + "=" * 70)
     print("Logistic Regression 실전 파이프라인 시작")
     print("=" * 70)
 
-    split = split_dataset()
+    if split_override is None:
+        split = split_dataset(drop_features=drop_features)
+    else:
+        split = split_override
+        if drop_features:
+            print("  [INFO] split_override가 제공되어 drop_features는 무시됩니다.")
     stride_splits = get_stride_splits(split)
 
     _ensure_best_params(
@@ -168,12 +181,11 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
         auto_optimize=auto_optimize,
         optimize_profile=optimize_profile,
     )
-    params, cw_1, _ = _load_params_or_default()
+    params, _ = _load_params_or_default()
 
     print("\n  적용할 파라미터:")
     for key, val in params.items():
         print(f"    {key:20s}: {val}")
-    print(f"    {'class_weight_1':20s}: {cw_1}")
 
     feature_cols = split.feature_cols
     x_test = split.test[feature_cols]
@@ -186,6 +198,7 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
 
     x_final_train_full = split.final_train[feature_cols]
     y_final_train_full = split.final_train["Target_Class"].astype(int)
+    threshold = 0.5
 
     print("\n" + "=" * 70)
     print(f"6. 스트라이드 앙상블 Final Refit ({N_MODELS}개 모델)")
@@ -195,10 +208,7 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
         x_refit = ss.final_train[feature_cols]
         y_refit = ss.final_train["Target_Class"].astype(int)
 
-        model_params = params.copy()
-        model_params["class_weight"] = {0: 1.0, 1: cw_1}
-
-        model = LogisticRegression(**model_params)
+        model = LogisticRegression(**params)
         model.fit(x_refit, y_refit)
         models.append(model)
 
@@ -214,14 +224,14 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
 
         print(
             f"  모델 {ss.offset}: Refit {len(x_refit):>4d}건 | "
-            f"Train Acc {t_acc * 100:.1f}% | CW_1 {cw_1:.3f}"
+            f"Train Acc {t_acc * 100:.1f}%"
         )
 
     ensemble_proba = np.mean(all_test_probas, axis=0)
-    ensemble_pred = (ensemble_proba >= 0.5).astype(int)
+    ensemble_pred = (ensemble_proba >= threshold).astype(int)
 
     ensemble_train_proba = np.mean(all_train_probas_full, axis=0)
-    ensemble_train_pred = (ensemble_train_proba >= 0.5).astype(int)
+    ensemble_train_pred = (ensemble_train_proba >= threshold).astype(int)
     avg_train_acc = accuracy_score(y_final_train_full, ensemble_train_pred)
 
     print(f"\n  앙상블 Train Accuracy (평균): {avg_train_acc * 100:.1f}%")
@@ -240,25 +250,32 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
     ic, p_value = _safe_spearman(ensemble_proba, actual_excess)
     print(f"    IC       : {ic:.4f} (p={p_value:.4f})")
 
-    baseline_ic_fi, _, feat_imp_df = compute_permutation_importance_ic(
-        x_test=x_test,
-        y_test=y_test,
-        alpha_diff=actual_excess,
-        predict_proba_fn=lambda x_df: np.mean(
-            [m.predict_proba(x_df)[:, 1] for m in models], axis=0
-        ),
-        threshold=0.5,
-        n_repeats=PERM_IMPORTANCE_REPEATS,
-        seed=PERM_IMPORTANCE_SEED,
-    )
+    baseline_ic_fi = np.nan
+    feat_imp_df = None
 
-    print("\n  [Permutation ΔIC Feature Importance Top 5]")
-    for i, row in enumerate(feat_imp_df.head(5).itertuples(index=False), 1):
-        print(
-            f"    {i}. {row.feature:25s} "
-            f"ΔIC {row.ic_drop_mean:+.4f} ± {row.ic_drop_std:.4f} | "
-            f"Norm {row.ic_drop_norm_mean * 100:+.1f}%"
+    if compute_importance:
+        baseline_ic_fi, _, feat_imp_df = compute_permutation_importance_ic(
+            x_test=x_test,
+            y_test=y_test,
+            alpha_diff=actual_excess,
+            predict_proba_fn=lambda x_df: np.mean(
+                [m.predict_proba(x_df)[:, 1] for m in models], axis=0
+            ),
+            threshold=threshold,
+            n_repeats=PERM_IMPORTANCE_REPEATS,
+            seed=PERM_IMPORTANCE_SEED,
         )
+
+        print("\n  [Permutation ΔIC Feature Importance Top 5]")
+        for i, row in enumerate(feat_imp_df.head(5).itertuples(index=False), 1):
+            print(
+                f"    {i}. {row.feature:25s} "
+                f"ΔIC {row.ic_drop_mean:+.4f} ± {row.ic_drop_std:.4f} | "
+                f"Norm {row.ic_drop_norm_mean * 100:+.1f}%"
+            )
+
+    else:
+        print("\n  [Permutation ΔIC Feature Importance] 생략 (compute_importance=False)")
 
     gap = avg_train_acc - acc
     print(f"\n  Train-Test Gap: {gap * 100:.1f}%p")
@@ -273,103 +290,117 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
     ic_first, _ = _safe_spearman(proba_first, excess_first)
     ic_second, _ = _safe_spearman(proba_second, excess_second)
 
-    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    if save_plot:
+        fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-    axes[0, 0].barh(
-        feat_imp_df["feature"],
-        feat_imp_df["ic_drop_mean"],
-        xerr=feat_imp_df["ic_drop_std"],
-        color="steelblue",
-        edgecolor="black",
-        alpha=0.85,
-        error_kw={"elinewidth": 1.2, "capsize": 3},
-    )
-    axes[0, 0].set_title("Feature Importance (Permutation ΔIC, mean±std)", fontsize=13)
-    axes[0, 0].set_xlabel("ΔIC = IC_baseline - IC_permuted")
-    axes[0, 0].axvline(x=0.0, color="black", linestyle="-", linewidth=0.8)
-    axes[0, 0].invert_yaxis()
+        if compute_importance and feat_imp_df is not None and len(feat_imp_df) > 0:
+            axes[0, 0].barh(
+                feat_imp_df["feature"],
+                feat_imp_df["ic_drop_mean"],
+                xerr=feat_imp_df["ic_drop_std"],
+                color="steelblue",
+                edgecolor="black",
+                alpha=0.85,
+                error_kw={"elinewidth": 1.2, "capsize": 3},
+            )
+            axes[0, 0].set_title("Feature Importance (Permutation ΔIC, mean±std)", fontsize=13)
+            axes[0, 0].set_xlabel("ΔIC = IC_baseline - IC_permuted")
+            axes[0, 0].axvline(x=0.0, color="black", linestyle="-", linewidth=0.8)
+            axes[0, 0].invert_yaxis()
 
-    topk_df = feat_imp_df.head(PERM_IMPORTANCE_TOPK_TABLE)
-    table_lines = ["rank | feature | ΔIC mean±std | normalized%"]
-    for rank, row in enumerate(topk_df.itertuples(index=False), 1):
-        feat_name = row.feature if len(row.feature) <= 18 else row.feature[:15] + "..."
-        table_lines.append(
-            f"{rank:>2d} | {feat_name:18s} | "
-            f"{row.ic_drop_mean:+.4f}±{row.ic_drop_std:.4f} | "
-            f"{row.ic_drop_norm_mean * 100:+.1f}%"
+            topk_df = feat_imp_df.head(PERM_IMPORTANCE_TOPK_TABLE)
+            table_lines = ["rank | feature | ΔIC mean±std | normalized%"]
+            for rank, row in enumerate(topk_df.itertuples(index=False), 1):
+                feat_name = row.feature if len(row.feature) <= 18 else row.feature[:15] + "..."
+                table_lines.append(
+                    f"{rank:>2d} | {feat_name:18s} | "
+                    f"{row.ic_drop_mean:+.4f}±{row.ic_drop_std:.4f} | "
+                    f"{row.ic_drop_norm_mean * 100:+.1f}%"
+                )
+
+            axes[0, 0].text(
+                1.02,
+                1.00,
+                "\n".join(table_lines),
+                transform=axes[0, 0].transAxes,
+                ha="left",
+                va="top",
+                fontsize=8,
+                family="monospace",
+                clip_on=False,
+                bbox={"facecolor": "white", "alpha": 0.85, "edgecolor": "gray"},
+            )
+            axes[0, 0].text(
+                0.0,
+                -0.22,
+                (
+                    f"baseline IC={baseline_ic_fi:+.4f} | n_repeats={PERM_IMPORTANCE_REPEATS} | "
+                    f"seed={PERM_IMPORTANCE_SEED} | normalized=ΔIC/|IC_baseline|"
+                ),
+                transform=axes[0, 0].transAxes,
+                fontsize=8.5,
+                ha="left",
+                va="top",
+            )
+        else:
+            axes[0, 0].axis("off")
+            axes[0, 0].text(
+                0.5,
+                0.5,
+                "Feature Importance skipped\n(compute_importance=False)",
+                ha="center",
+                va="center",
+                fontsize=12,
+            )
+
+        axes[0, 1].hist(
+            ensemble_proba[y_test == 1], bins=30, alpha=0.6,
+            label="Win (AAPL > SP500)", color="green", edgecolor="black"
         )
+        axes[0, 1].hist(
+            ensemble_proba[y_test == 0], bins=30, alpha=0.6,
+            label="Lose (AAPL <= SP500)", color="red", edgecolor="black"
+        )
+        axes[0, 1].axvline(x=0.5, color="black", linestyle="--", label="Threshold (0.5)")
+        axes[0, 1].set_title("Ensemble Probability Distribution", fontsize=13)
+        axes[0, 1].set_xlabel("P(AAPL beats SP500)")
+        axes[0, 1].set_ylabel("Count")
+        axes[0, 1].legend()
 
-    axes[0, 0].text(
-        1.02,
-        1.00,
-        "\n".join(table_lines),
-        transform=axes[0, 0].transAxes,
-        ha="left",
-        va="top",
-        fontsize=8,
-        family="monospace",
-        clip_on=False,
-        bbox={"facecolor": "white", "alpha": 0.85, "edgecolor": "gray"},
-    )
-    axes[0, 0].text(
-        0.0,
-        -0.22,
-        (
-            f"baseline IC={baseline_ic_fi:+.4f} | n_repeats={PERM_IMPORTANCE_REPEATS} | "
-            f"seed={PERM_IMPORTANCE_SEED} | normalized=ΔIC/|IC_baseline|"
-        ),
-        transform=axes[0, 0].transAxes,
-        fontsize=8.5,
-        ha="left",
-        va="top",
-    )
+        gap_labels = ["Avg Train", "Test"]
+        gap_values = [avg_train_acc * 100, acc * 100]
+        gap_colors = ["#4CAF50", "#FF5722"]
+        bars = axes[1, 0].bar(gap_labels, gap_values, color=gap_colors, edgecolor="black", width=0.5)
+        for bar, val in zip(bars, gap_values):
+            axes[1, 0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
+                            f"{val:.1f}%", ha="center", fontsize=12, fontweight="bold")
+        axes[1, 0].set_title(f"Ensemble Train-Test Gap ({gap * 100:.1f}%p)", fontsize=13)
+        axes[1, 0].set_ylabel("Accuracy (%)")
+        axes[1, 0].set_ylim(0, 100)
+        axes[1, 0].axhline(y=50, color="gray", linestyle="--", alpha=0.5, label="Random (50%)")
+        axes[1, 0].legend()
 
-    axes[0, 1].hist(
-        ensemble_proba[y_test == 1], bins=30, alpha=0.6,
-        label="Win (AAPL > SP500)", color="green", edgecolor="black"
-    )
-    axes[0, 1].hist(
-        ensemble_proba[y_test == 0], bins=30, alpha=0.6,
-        label="Lose (AAPL <= SP500)", color="red", edgecolor="black"
-    )
-    axes[0, 1].axvline(x=0.5, color="black", linestyle="--", label="Threshold (0.5)")
-    axes[0, 1].set_title("Ensemble Probability Distribution", fontsize=13)
-    axes[0, 1].set_xlabel("P(AAPL beats SP500)")
-    axes[0, 1].set_ylabel("Count")
-    axes[0, 1].legend()
+        ic_labels = ["1st Half", "2nd Half", "Full"]
+        ic_values = [ic_first, ic_second, ic]
+        ic_colors = ["green" if v > 0 else "red" for v in ic_values]
+        bars = axes[1, 1].bar(ic_labels, ic_values, color=ic_colors, edgecolor="black", width=0.5)
+        for bar, val in zip(bars, ic_values):
+            axes[1, 1].text(bar.get_x() + bar.get_width() / 2,
+                            bar.get_height() + (0.005 if val >= 0 else -0.02),
+                            f"{val:+.3f}", ha="center", fontsize=11, fontweight="bold")
+        axes[1, 1].set_title("IC Stability (Stride Ensemble)", fontsize=13)
+        axes[1, 1].set_ylabel("Information Coefficient")
+        axes[1, 1].axhline(y=0, color="black", linestyle="-", linewidth=0.8)
+        axes[1, 1].axhline(y=0.05, color="blue", linestyle="--", alpha=0.5, label="IC=0.05 (Strong)")
+        axes[1, 1].legend()
 
-    gap_labels = ["Avg Train", "Test"]
-    gap_values = [avg_train_acc * 100, acc * 100]
-    gap_colors = ["#4CAF50", "#FF5722"]
-    bars = axes[1, 0].bar(gap_labels, gap_values, color=gap_colors, edgecolor="black", width=0.5)
-    for bar, val in zip(bars, gap_values):
-        axes[1, 0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
-                        f"{val:.1f}%", ha="center", fontsize=12, fontweight="bold")
-    axes[1, 0].set_title(f"Ensemble Train-Test Gap ({gap * 100:.1f}%p)", fontsize=13)
-    axes[1, 0].set_ylabel("Accuracy (%)")
-    axes[1, 0].set_ylim(0, 100)
-    axes[1, 0].axhline(y=50, color="gray", linestyle="--", alpha=0.5, label="Random (50%)")
-    axes[1, 0].legend()
-
-    ic_labels = ["1st Half", "2nd Half", "Full"]
-    ic_values = [ic_first, ic_second, ic]
-    ic_colors = ["green" if v > 0 else "red" for v in ic_values]
-    bars = axes[1, 1].bar(ic_labels, ic_values, color=ic_colors, edgecolor="black", width=0.5)
-    for bar, val in zip(bars, ic_values):
-        axes[1, 1].text(bar.get_x() + bar.get_width() / 2,
-                        bar.get_height() + (0.005 if val >= 0 else -0.02),
-                        f"{val:+.3f}", ha="center", fontsize=11, fontweight="bold")
-    axes[1, 1].set_title("IC Stability (Stride Ensemble)", fontsize=13)
-    axes[1, 1].set_ylabel("Information Coefficient")
-    axes[1, 1].axhline(y=0, color="black", linestyle="-", linewidth=0.8)
-    axes[1, 1].axhline(y=0.05, color="blue", linestyle="--", alpha=0.5, label="IC=0.05 (Strong)")
-    axes[1, 1].legend()
-
-    plt.tight_layout(rect=[0.0, 0.03, 0.83, 1.0])
-    ensure_artifact_dirs()
-    plt.savefig(LOGREG_RESULT_ARTIFACT_PATH, dpi=150)
-    print(f"\n  차트 저장 완료: {LOGREG_RESULT_ARTIFACT_PATH}")
-    plt.close()
+        plt.tight_layout(rect=[0.0, 0.03, 0.83, 1.0])
+        ensure_artifact_dirs()
+        plt.savefig(LOGREG_RESULT_ARTIFACT_PATH, dpi=150)
+        print(f"\n  차트 저장 완료: {LOGREG_RESULT_ARTIFACT_PATH}")
+        plt.close()
+    else:
+        print(f"\n  차트 저장 생략: save_plot=False ({LOGREG_RESULT_ARTIFACT_PATH})")
 
     gate = evaluate_gate({"accuracy": acc, "ic": ic, "gap": gap})
     print_gate_result("LogisticRegression", gate)

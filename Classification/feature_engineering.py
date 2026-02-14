@@ -86,8 +86,8 @@ def calculate_features(ticker, db=None):
     df = df.sort_index()
     
     # 3. 기술적 지표 계산
-    # (1) Log Returns (20, 60, 120일)
-    for period in [20, 60, 120]:
+    # (1) Log Returns (20, 120일) - Log_Ret_60은 제거 정책 적용
+    for period in [20, 120]:
         df[f'Log_Ret_{period}'] = np.log(df['Close'] / df['Close'].shift(period))
 
     # (2) MA Envelope (20일 이동평균 대비 이격도)
@@ -107,7 +107,7 @@ def calculate_features(ticker, db=None):
 
     # 필요한 컬럼만 선택하여 반환
     features = [
-        'Log_Ret_20', 'Log_Ret_60', 'Log_Ret_120',
+        'Log_Ret_20', 'Log_Ret_120',
         'MA_Envelope', 
         # 'High_Low_Proximity', # 삭제
         'RSI_14' # 추가

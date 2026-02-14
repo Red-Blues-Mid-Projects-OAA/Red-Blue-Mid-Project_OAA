@@ -174,9 +174,12 @@ def _print_split_policy():
     print("=" * 70)
 
 
-def split_dataset():
+def split_dataset(drop_features=None):
     """
     generate_target()에서 피처+타겟 DataFrame을 받아 5단계 분할을 수행합니다.
+
+    Args:
+        drop_features: 피처 컬럼에서 제외할 컬럼명 리스트.
 
     Returns:
         DataSplit namedtuple
@@ -187,6 +190,17 @@ def split_dataset():
     # ── 피처 컬럼 추출 (Target 컬럼 제외) ──
     exclude_cols = ["Target_AAPL_3M", "Target_SP500_3M", "Target_Class", "Alpha_Diff"]
     feature_cols = [c for c in df.columns if c not in exclude_cols]
+    requested_drop = list(drop_features or [])
+    unknown_drop = [c for c in requested_drop if c not in feature_cols]
+    if unknown_drop:
+        raise ValueError(
+            f"drop_features에 존재하지 않는 컬럼이 포함되어 있습니다: {unknown_drop}"
+        )
+    if requested_drop:
+        drop_set = set(requested_drop)
+        feature_cols = [c for c in feature_cols if c not in drop_set]
+        print(f"\n  drop_features 적용: {requested_drop}")
+    print(f"  최종 feature_cols 수: {len(feature_cols)}")
 
     # ── 타겟 미실현(최근 60일) 제거 ──
     df_valid = df.dropna(subset=["Target_Class"])
