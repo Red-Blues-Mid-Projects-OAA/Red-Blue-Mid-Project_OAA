@@ -20,6 +20,11 @@ TARGET_GAP_MAX = 0.25
 # 팀 합의 정책: Accuracy는 참고 지표, 게이트 통과는 IC/GAP 우선
 REQUIRE_ACCURACY_GATE = False
 
+# permutation importance 공통 설정
+PERM_IMPORTANCE_REPEATS = 20
+PERM_IMPORTANCE_SEED = 42
+PERM_IMPORTANCE_TOPK_TABLE = 8
+
 # 파라미터 파일 경로
 XGB_PARAMS_ARTIFACT_PATH = XGB_ARTIFACT_DIR / "xgb_best_params.json"
 XGB_PARAMS_LEGACY_PATHS = []

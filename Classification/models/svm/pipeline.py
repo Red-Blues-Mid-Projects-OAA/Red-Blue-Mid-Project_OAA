@@ -8,13 +8,11 @@ SVM 분류 파이프라인 (Stride 앙상블).
 4) IC Stability
 """
 
-import json
 import os
 import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from scipy.stats import spearmanr
 from sklearn.metrics import accuracy_score, classification_report, precision_score
 from sklearn.svm import SVC
@@ -28,14 +26,16 @@ sys.path.insert(0, _ROOT_DIR)
 
 from split_dataset import N_MODELS, get_stride_splits, split_dataset
 from model_config import (
+    PERM_IMPORTANCE_REPEATS,
+    PERM_IMPORTANCE_SEED,
+    PERM_IMPORTANCE_TOPK_TABLE,
     SVM_PARAMS_ARTIFACT_PATH,
     SVM_RESULT_ARTIFACT_PATH,
     ensure_artifact_dirs,
     load_json_artifact_only,
 )
 from model_gate import evaluate_gate, print_gate_result
-
-PERM_SEED = 42
+from models.common.importance import compute_permutation_importance_ic
 
 
 def load_svm_params():
@@ -96,34 +96,6 @@ def ensemble_predict_proba(models, x_df):
             x_scaled = scaler.transform(x_df)
             probas.append(model.predict_proba(x_scaled)[:, 1])
     return np.mean(probas, axis=0)
-
-
-def compute_permutation_importance(models, x_test, y_test, feature_cols, threshold):
-    """
-    앙상블 기준 permutation importance를 계산합니다.
-    기준: Accuracy drop (baseline_acc - permuted_acc)
-    """
-    rng = np.random.default_rng(PERM_SEED)
-    baseline_proba = ensemble_predict_proba(models, x_test)
-    baseline_pred = (baseline_proba >= threshold).astype(int)
-    baseline_acc = accuracy_score(y_test, baseline_pred)
-
-    importances = []
-    for col in feature_cols:
-        x_perm = x_test.copy()
-        shuffled = x_perm[col].to_numpy(copy=True)
-        rng.shuffle(shuffled)
-        x_perm[col] = shuffled
-
-        perm_proba = ensemble_predict_proba(models, x_perm)
-        perm_pred = (perm_proba >= threshold).astype(int)
-        perm_acc = accuracy_score(y_test, perm_pred)
-        # 시각화 안정성을 위해 음수 importance는 0으로 절단합니다.
-        importance = max(0.0, baseline_acc - perm_acc)
-        importances.append(importance)
-
-    feat_imp = pd.Series(importances, index=feature_cols).sort_values(ascending=False)
-    return feat_imp
 
 
 def run_pipeline(return_metrics=False):
@@ -196,10 +168,26 @@ def run_pipeline(return_metrics=False):
     ic_first, p_first = safe_spearmanr(proba_first, excess_first)
     ic_second, p_second = safe_spearmanr(proba_second, excess_second)
 
-    feat_imp = compute_permutation_importance(models, x_test, y_test, feature_cols, threshold)
-    top1_share = float(feat_imp.iloc[0]) if len(feat_imp) > 0 else np.nan
-    top3_share = float(feat_imp.iloc[:3].sum()) if len(feat_imp) >= 3 else np.nan
-    hhi = float((feat_imp ** 2).sum()) if len(feat_imp) > 0 else np.nan
+    baseline_ic_fi, _, feat_imp_df = compute_permutation_importance_ic(
+        x_test=x_test,
+        y_test=y_test,
+        alpha_diff=excess_return,
+        predict_proba_fn=lambda x_df: ensemble_predict_proba(models, x_df),
+        threshold=threshold,
+        n_repeats=PERM_IMPORTANCE_REPEATS,
+        seed=PERM_IMPORTANCE_SEED,
+    )
+    positive_deltas = feat_imp_df["ic_drop_mean"].clip(lower=0.0)
+    positive_total = float(positive_deltas.sum())
+    if positive_total > 0.0:
+        share = positive_deltas / positive_total
+        top1_share = float(share.iloc[0])
+        top3_share = float(share.iloc[:3].sum())
+        hhi = float((share ** 2).sum())
+    else:
+        top1_share = np.nan
+        top3_share = np.nan
+        hhi = np.nan
 
     print("\n" + "=" * 70)
     print("3. 성능 평가")
@@ -211,10 +199,13 @@ def run_pipeline(return_metrics=False):
     print("\nClassification Report:")
     print(classification_report(y_test, ensemble_pred, target_names=["Lose(0)", "Win(1)"]))
 
-    print("\n[Permutation Feature Importance Top 5]")
-    for i, (feat, imp) in enumerate(feat_imp.head(5).items(), 1):
-        bar = "#" * int(imp * 200)
-        print(f"  {i}. {feat:25s} {imp:.4f} {bar}")
+    print("\n[Permutation ΔIC Feature Importance Top 5]")
+    for i, row in enumerate(feat_imp_df.head(5).itertuples(index=False), 1):
+        print(
+            f"  {i}. {row.feature:25s} "
+            f"ΔIC {row.ic_drop_mean:+.4f} ± {row.ic_drop_std:.4f} | "
+            f"Norm {row.ic_drop_norm_mean * 100:+.1f}%"
+        )
 
     print("\n" + "=" * 70)
     print("4. 결과 차트 저장 (xgboost 형식과 동일 2x2 레이아웃)")
@@ -222,11 +213,55 @@ def run_pipeline(return_metrics=False):
 
     fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-    # (1) Feature Importance (xgboost 차트와 동일 위치/형식)
-    feat_imp.plot(kind="barh", ax=axes[0, 0], color="steelblue", edgecolor="black")
-    axes[0, 0].set_title("Feature Importance (Stride Ensemble Avg)", fontsize=13)
-    axes[0, 0].set_xlabel("Importance")
+    # (1) Feature Importance (Permutation ΔIC, mean±std)
+    axes[0, 0].barh(
+        feat_imp_df["feature"],
+        feat_imp_df["ic_drop_mean"],
+        xerr=feat_imp_df["ic_drop_std"],
+        color="steelblue",
+        edgecolor="black",
+        alpha=0.85,
+        error_kw={"elinewidth": 1.2, "capsize": 3},
+    )
+    axes[0, 0].set_title("Feature Importance (Permutation ΔIC, mean±std)", fontsize=13)
+    axes[0, 0].set_xlabel("ΔIC = IC_baseline - IC_permuted")
+    axes[0, 0].axvline(x=0.0, color="black", linestyle="-", linewidth=0.8)
     axes[0, 0].invert_yaxis()
+
+    topk_df = feat_imp_df.head(PERM_IMPORTANCE_TOPK_TABLE)
+    table_lines = ["rank | feature | ΔIC mean±std | normalized%"]
+    for rank, row in enumerate(topk_df.itertuples(index=False), 1):
+        feat_name = row.feature if len(row.feature) <= 18 else row.feature[:15] + "..."
+        table_lines.append(
+            f"{rank:>2d} | {feat_name:18s} | "
+            f"{row.ic_drop_mean:+.4f}±{row.ic_drop_std:.4f} | "
+            f"{row.ic_drop_norm_mean * 100:+.1f}%"
+        )
+
+    axes[0, 0].text(
+        1.02,
+        1.00,
+        "\n".join(table_lines),
+        transform=axes[0, 0].transAxes,
+        ha="left",
+        va="top",
+        fontsize=8,
+        family="monospace",
+        clip_on=False,
+        bbox={"facecolor": "white", "alpha": 0.85, "edgecolor": "gray"},
+    )
+    axes[0, 0].text(
+        0.0,
+        -0.22,
+        (
+            f"baseline IC={baseline_ic_fi:+.4f} | n_repeats={PERM_IMPORTANCE_REPEATS} | "
+            f"seed={PERM_IMPORTANCE_SEED} | normalized=ΔIC/|IC_baseline|"
+        ),
+        transform=axes[0, 0].transAxes,
+        fontsize=8.5,
+        ha="left",
+        va="top",
+    )
 
     # (2) Predicted Probability Distribution
     axes[0, 1].hist(
@@ -285,7 +320,7 @@ def run_pipeline(return_metrics=False):
     axes[1, 1].axhline(y=0.05, color="blue", linestyle="--", alpha=0.5, label="IC=0.05 (Strong)")
     axes[1, 1].legend()
 
-    plt.tight_layout()
+    plt.tight_layout(rect=[0.0, 0.03, 0.83, 1.0])
     ensure_artifact_dirs()
     plt.savefig(SVM_RESULT_ARTIFACT_PATH, dpi=150)
     plt.close()
@@ -300,9 +335,17 @@ def run_pipeline(return_metrics=False):
     print(f"  IC (전반기)    : {ic_first:+.4f} (p={p_first:.4f})")
     print(f"  IC (후반기)    : {ic_second:+.4f} (p={p_second:.4f})")
     print(f"  Train-Test Gap : {gap * 100:.1f}%p ({gap * 10000:.0f}bp)")
-    if len(feat_imp) > 0:
-        print(f"  Top Feature    : {feat_imp.index[0]} ({feat_imp.iloc[0]:.4f})")
-    print(f"  Top3 합계      : {top3_share:.4f}" if not np.isnan(top3_share) else "  Top3 합계      : N/A")
+    if len(feat_imp_df) > 0:
+        top_row = feat_imp_df.iloc[0]
+        print(
+            f"  Top Feature    : {top_row['feature']} "
+            f"(ΔIC={top_row['ic_drop_mean']:+.4f}, norm={top_row['ic_drop_norm_mean'] * 100:+.1f}%)"
+        )
+    print(
+        f"  Top3 합계      : {top3_share * 100:.1f}% (양의 ΔIC share)"
+        if not np.isnan(top3_share)
+        else "  Top3 합계      : N/A"
+    )
     print(f"  HHI 집중도     : {hhi:.4f}" if not np.isnan(hhi) else "  HHI 집중도     : N/A")
     print("=" * 70)
 

@@ -10,7 +10,6 @@ import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from scipy.stats import spearmanr
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, precision_score
@@ -25,10 +24,14 @@ sys.path.insert(0, _ROOT_DIR)
 from model_config import (
     LOGREG_PARAMS_ARTIFACT_PATH,
     LOGREG_RESULT_ARTIFACT_PATH,
+    PERM_IMPORTANCE_REPEATS,
+    PERM_IMPORTANCE_SEED,
+    PERM_IMPORTANCE_TOPK_TABLE,
     ensure_artifact_dirs,
     load_json_artifact_only,
 )
 from model_gate import evaluate_gate, print_gate_result
+from models.common.importance import compute_permutation_importance_ic
 from split_dataset import N_MODELS, get_stride_splits, split_dataset
 
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v1_logreg_elasticnet_stride"
@@ -180,7 +183,6 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
     train_accs = []
     all_test_probas = []
     all_train_probas_full = []
-    all_coefs = []
 
     x_final_train_full = split.final_train[feature_cols]
     y_final_train_full = split.final_train["Target_Class"].astype(int)
@@ -199,8 +201,6 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
         model = LogisticRegression(**model_params)
         model.fit(x_refit, y_refit)
         models.append(model)
-
-        all_coefs.append(np.abs(model.coef_[0]))
 
         y_refit_pred = model.predict(x_refit)
         t_acc = accuracy_score(y_refit, y_refit_pred)
@@ -240,12 +240,25 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
     ic, p_value = _safe_spearman(ensemble_proba, actual_excess)
     print(f"    IC       : {ic:.4f} (p={p_value:.4f})")
 
-    avg_coefs = np.mean(all_coefs, axis=0)
-    feat_imp = pd.Series(avg_coefs, index=feature_cols).sort_values(ascending=False)
+    baseline_ic_fi, _, feat_imp_df = compute_permutation_importance_ic(
+        x_test=x_test,
+        y_test=y_test,
+        alpha_diff=actual_excess,
+        predict_proba_fn=lambda x_df: np.mean(
+            [m.predict_proba(x_df)[:, 1] for m in models], axis=0
+        ),
+        threshold=0.5,
+        n_repeats=PERM_IMPORTANCE_REPEATS,
+        seed=PERM_IMPORTANCE_SEED,
+    )
 
-    print("\n  [Feature Importance Top 5]")
-    for i, (feat, imp) in enumerate(feat_imp.head(5).items(), 1):
-        print(f"    {i}. {feat:25s} {imp:.4f}")
+    print("\n  [Permutation ΔIC Feature Importance Top 5]")
+    for i, row in enumerate(feat_imp_df.head(5).itertuples(index=False), 1):
+        print(
+            f"    {i}. {row.feature:25s} "
+            f"ΔIC {row.ic_drop_mean:+.4f} ± {row.ic_drop_std:.4f} | "
+            f"Norm {row.ic_drop_norm_mean * 100:+.1f}%"
+        )
 
     gap = avg_train_acc - acc
     print(f"\n  Train-Test Gap: {gap * 100:.1f}%p")
@@ -262,10 +275,54 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
 
     fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-    feat_imp.plot(kind="barh", ax=axes[0, 0], color="steelblue", edgecolor="black")
-    axes[0, 0].set_title("Feature Importance (Stride Ensemble Avg)", fontsize=13)
-    axes[0, 0].set_xlabel("Importance")
+    axes[0, 0].barh(
+        feat_imp_df["feature"],
+        feat_imp_df["ic_drop_mean"],
+        xerr=feat_imp_df["ic_drop_std"],
+        color="steelblue",
+        edgecolor="black",
+        alpha=0.85,
+        error_kw={"elinewidth": 1.2, "capsize": 3},
+    )
+    axes[0, 0].set_title("Feature Importance (Permutation ΔIC, mean±std)", fontsize=13)
+    axes[0, 0].set_xlabel("ΔIC = IC_baseline - IC_permuted")
+    axes[0, 0].axvline(x=0.0, color="black", linestyle="-", linewidth=0.8)
     axes[0, 0].invert_yaxis()
+
+    topk_df = feat_imp_df.head(PERM_IMPORTANCE_TOPK_TABLE)
+    table_lines = ["rank | feature | ΔIC mean±std | normalized%"]
+    for rank, row in enumerate(topk_df.itertuples(index=False), 1):
+        feat_name = row.feature if len(row.feature) <= 18 else row.feature[:15] + "..."
+        table_lines.append(
+            f"{rank:>2d} | {feat_name:18s} | "
+            f"{row.ic_drop_mean:+.4f}±{row.ic_drop_std:.4f} | "
+            f"{row.ic_drop_norm_mean * 100:+.1f}%"
+        )
+
+    axes[0, 0].text(
+        1.02,
+        1.00,
+        "\n".join(table_lines),
+        transform=axes[0, 0].transAxes,
+        ha="left",
+        va="top",
+        fontsize=8,
+        family="monospace",
+        clip_on=False,
+        bbox={"facecolor": "white", "alpha": 0.85, "edgecolor": "gray"},
+    )
+    axes[0, 0].text(
+        0.0,
+        -0.22,
+        (
+            f"baseline IC={baseline_ic_fi:+.4f} | n_repeats={PERM_IMPORTANCE_REPEATS} | "
+            f"seed={PERM_IMPORTANCE_SEED} | normalized=ΔIC/|IC_baseline|"
+        ),
+        transform=axes[0, 0].transAxes,
+        fontsize=8.5,
+        ha="left",
+        va="top",
+    )
 
     axes[0, 1].hist(
         ensemble_proba[y_test == 1], bins=30, alpha=0.6,
@@ -308,7 +365,7 @@ def run_pipeline(auto_optimize=False, optimize_profile="balanced", return_metric
     axes[1, 1].axhline(y=0.05, color="blue", linestyle="--", alpha=0.5, label="IC=0.05 (Strong)")
     axes[1, 1].legend()
 
-    plt.tight_layout()
+    plt.tight_layout(rect=[0.0, 0.03, 0.83, 1.0])
     ensure_artifact_dirs()
     plt.savefig(LOGREG_RESULT_ARTIFACT_PATH, dpi=150)
     print(f"\n  차트 저장 완료: {LOGREG_RESULT_ARTIFACT_PATH}")
