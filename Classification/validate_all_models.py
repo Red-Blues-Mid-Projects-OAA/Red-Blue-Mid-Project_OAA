@@ -1,5 +1,5 @@
 """
-XGB/SVM 듀얼 모델 게이트 검증 스크립트.
+XGB/SVM/LogReg 트리플 모델 게이트 검증 스크립트.
 
 동작:
 1) 현재 파라미터로 1차 실행
@@ -19,7 +19,9 @@ sys.path.insert(0, _ROOT_DIR)
 
 from model_gate import evaluate_gate, print_gate_result
 from optimize_hyperparams import optimize as optimize_xgb
+from optimize_logreg import optimize as optimize_logreg
 from optimize_svm_hyperparams import optimize as optimize_svm
+from logic_model_pipeline import run_pipeline as run_logreg_pipeline
 from run_model_pipeline import run_pipeline as run_xgb_pipeline
 from svm_pipeline import run_pipeline as run_svm_pipeline
 
@@ -49,13 +51,18 @@ def _execute_with_single_retry(model_name, run_fn, optimize_fn=None, optimize_kw
 
 
 def validate_all_models():
-    """XGB/SVM 전체 게이트를 검증합니다."""
+    """XGB/SVM/LogReg 전체 게이트를 검증합니다."""
     xgb_run = lambda: run_xgb_pipeline(
         auto_optimize=False,
         optimize_profile="balanced",
         return_metrics=True,
     )
     svm_run = lambda: run_svm_pipeline(return_metrics=True)
+    logreg_run = lambda: run_logreg_pipeline(
+        auto_optimize=False,
+        optimize_profile="balanced",
+        return_metrics=True,
+    )
 
     xgb_metrics, xgb_gate, xgb_retried = _execute_with_single_retry(
         model_name="XGBoost",
@@ -71,13 +78,21 @@ def validate_all_models():
         optimize_kwargs={},
     )
 
-    overall_pass = xgb_gate["pass_all"] and svm_gate["pass_all"]
+    logreg_metrics, logreg_gate, logreg_retried = _execute_with_single_retry(
+        model_name="LogisticRegression",
+        run_fn=logreg_run,
+        optimize_fn=optimize_logreg,
+        optimize_kwargs={"profile": "balanced", "n_trials": 100},
+    )
+
+    overall_pass = xgb_gate["pass_all"] and svm_gate["pass_all"] and logreg_gate["pass_all"]
 
     print("\n" + "=" * 70)
     print("[전체 게이트 요약]")
     print("=" * 70)
     print(f"  XGBoost : {'PASS' if xgb_gate['pass_all'] else 'FAIL'} | retried={xgb_retried}")
     print(f"  SVM     : {'PASS' if svm_gate['pass_all'] else 'FAIL'} | retried={svm_retried}")
+    print(f"  LogReg  : {'PASS' if logreg_gate['pass_all'] else 'FAIL'} | retried={logreg_retried}")
     print(f"  Overall : {'PASS' if overall_pass else 'FAIL'}")
     print("=" * 70)
 
@@ -92,6 +107,11 @@ def validate_all_models():
             "metrics": svm_metrics,
             "gate": svm_gate,
             "retried": svm_retried,
+        },
+        "logreg": {
+            "metrics": logreg_metrics,
+            "gate": logreg_gate,
+            "retried": logreg_retried,
         },
     }
 

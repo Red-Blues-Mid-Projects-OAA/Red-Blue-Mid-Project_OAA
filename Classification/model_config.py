@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent
 ARTIFACTS_DIR = BASE_DIR / "artifacts"
 XGB_ARTIFACT_DIR = ARTIFACTS_DIR / "xgb"
 SVM_ARTIFACT_DIR = ARTIFACTS_DIR / "svm"
+LOGREG_ARTIFACT_DIR = ARTIFACTS_DIR / "logreg"
 
 # 목표 게이트 (소수 비율 단위)
 TARGET_ACC_MIN = 0.52
@@ -26,6 +27,9 @@ XGB_PARAMS_LEGACY_PATHS = []
 SVM_PARAMS_ARTIFACT_PATH = SVM_ARTIFACT_DIR / "best_svm_params.json"
 SVM_PARAMS_LEGACY_PATHS = []
 
+LOGREG_PARAMS_ARTIFACT_PATH = LOGREG_ARTIFACT_DIR / "logreg_best_params.json"
+LOGREG_PARAMS_LEGACY_PATHS = []
+
 # 결과 이미지 경로
 XGB_RESULT_ARTIFACT_PATH = XGB_ARTIFACT_DIR / "xgb_classifier_result.png"
 XGB_RESULT_LEGACY_PATHS = []
@@ -33,11 +37,15 @@ XGB_RESULT_LEGACY_PATHS = []
 SVM_RESULT_ARTIFACT_PATH = SVM_ARTIFACT_DIR / "svm_classifier_result.png"
 SVM_RESULT_LEGACY_PATHS = []
 
+LOGREG_RESULT_ARTIFACT_PATH = LOGREG_ARTIFACT_DIR / "logreg_classifier_result.png"
+LOGREG_RESULT_LEGACY_PATHS = []
+
 
 def ensure_artifact_dirs() -> None:
     """아티팩트 디렉터리를 생성합니다."""
     XGB_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
     SVM_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
+    LOGREG_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_json_artifact_only(artifact_path: Path) -> tuple[dict | None, Path | None]:

@@ -1,0 +1,21 @@
+{
+  "best_params": {
+    "C": 0.12452875315037468,
+    "l1_ratio": 0.9884212206146702,
+    "tol": 0.00010036265546134747,
+    "class_weight_1": 1.9994630871006154
+  },
+  "common_params": {
+    "solver": "saga",
+    "penalty": "elasticnet",
+    "random_state": 42,
+    "max_iter": 5000
+  },
+  "best_accuracy": 0.5538461538461539,
+  "best_trial_number": -1,
+  "n_trials": 100,
+  "optimization_method": "legacy_import",
+  "profile": "balanced",
+  "objective_version": "legacy_import",
+  "cv_mode": "legacy_import"
+}
