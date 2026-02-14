@@ -47,7 +47,6 @@ from model_gate import evaluate_gate, print_gate_result
 
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v4_stride_consistent"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
-CALIBRATION_TARGET_POS_RATE = 0.40
 
 
 def load_best_params():
@@ -80,16 +79,6 @@ def _safe_spearman(x, y):
     if np.isnan(p_value):
         return float(ic), 1.0
     return float(ic), float(p_value)
-
-
-def _get_calibration_target_pos_rate(split):
-    """
-    확률 보정 시 사용할 목표 양성 비율을 계산합니다.
-    - 누수 없이 보수적인 분류를 위해 고정 40%를 사용합니다.
-    - threshold=0.5는 유지하되, 확률 shift만 조정합니다.
-    """
-    _ = split  # 인터페이스 호환 유지용 (현재는 고정값 사용)
-    return float(CALIBRATION_TARGET_POS_RATE)
 
 
 def _get_current_data_end_date(split):
@@ -252,23 +241,10 @@ def run_pipeline(auto_optimize=True, optimize_profile="balanced", return_metrics
         print(f"  모델 {ss.offset}: Refit {len(X_refit):>4d}건 | "
               f"Train Acc {t_acc*100:.1f}% | SPW {ss.scale_pos_weight:.3f}")
 
-    # ── 앙상블 평균 확률 ──
-    ensemble_proba_raw = np.mean(all_test_probas, axis=0)
-    ensemble_train_proba_raw = np.mean(all_train_probas_full, axis=0)
-
-    # 훈련 분포 기반 글로벌 확률 shift 보정 (threshold=0.5는 고정 유지)
-    target_pos_rate = _get_calibration_target_pos_rate(split)
-    calibration_threshold = float(np.quantile(ensemble_train_proba_raw, 1.0 - target_pos_rate))
-    proba_shift = calibration_threshold - 0.5
-
-    ensemble_proba = np.clip(ensemble_proba_raw - proba_shift, 0.0, 1.0)
-    ensemble_train_proba = np.clip(ensemble_train_proba_raw - proba_shift, 0.0, 1.0)
-
-    print(
-        "  확률 보정 적용: "
-        f"target_pos_rate={target_pos_rate*100:.1f}%, "
-        f"shift={proba_shift:+.4f}"
-    )
+    # ── 앙상블 평균 확률 (확률 shift 미적용) ──
+    ensemble_proba = np.mean(all_test_probas, axis=0)
+    ensemble_train_proba = np.mean(all_train_probas_full, axis=0)
+    print("  확률 shift 미적용: raw ensemble probability 사용")
 
     ensemble_pred = (ensemble_proba >= 0.5).astype(int)
     ensemble_train_pred = (ensemble_train_proba >= 0.5).astype(int)
