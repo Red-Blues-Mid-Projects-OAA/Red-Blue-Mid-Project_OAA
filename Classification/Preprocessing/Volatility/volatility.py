@@ -55,7 +55,8 @@ def calculate_risk_features(db=None):
     # ─── EWMA 공분산 행렬 계산 (일별, λ=0.94) ───
     combined = pd.DataFrame({"AAPL": aapl, "SP500": spx})
     ewma_cov = combined.ewm(alpha=ALPHA).cov()
-    # ewma_cov: MultiIndex (date, ticker) × ticker
+    # ewma_cov는 (날짜, 기준티커) 멀티 인덱스를 행으로 갖고,
+    # 열은 비교 티커를 갖는 공분산 행렬 시계열 구조입니다.
 
     # ═══════════════════════════════════════════════════════════
     # [1] AAPL 일별 EWMA 변동성
@@ -97,7 +98,8 @@ def calculate_risk_features(db=None):
     # ═══════════════════════════════════════════════════════════
     # [3] AAPL–S&P500 EWMA 상관계수
     # ═══════════════════════════════════════════════════════════
-    # Corr = Cov(AAPL, SP500) / (σ_AAPL × σ_SP500)
+    # 상관계수(Correlation)는 공분산(Covariance)을
+    # 각 자산 표준편차(σ_AAPL, σ_SP500)의 곱으로 정규화해 계산합니다.
     # ★ 상관계수 계산에는 반드시 일일(raw) 변동성 사용 (연율화 X)
     aapl_spx_cov = ewma_cov.loc[(slice(None), "AAPL"), "SP500"]
     aapl_spx_cov.index = aapl_spx_cov.index.droplevel(1)

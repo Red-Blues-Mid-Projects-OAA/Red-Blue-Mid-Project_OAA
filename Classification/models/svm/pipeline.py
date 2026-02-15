@@ -222,7 +222,7 @@ def run_pipeline(
     if save_plot:
         fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-        # (1) Feature Importance (Permutation ΔIC, mean±std)
+        # (1) 피처 중요도: Permutation ΔIC 평균/표준편차
         if compute_importance and feat_imp_df is not None and len(feat_imp_df) > 0:
             axes[0, 0].barh(
                 feat_imp_df["feature"],
@@ -283,7 +283,7 @@ def run_pipeline(
                 fontsize=12,
             )
 
-        # (2) Predicted Probability Distribution
+        # (2) 예측 확률 분포
         axes[0, 1].hist(
             ensemble_proba[y_test == 1], bins=30, alpha=0.6,
             label="Win (AAPL > SP500)", color="green", edgecolor="black"
@@ -300,7 +300,7 @@ def run_pipeline(
         axes[0, 1].set_ylabel("Count")
         axes[0, 1].legend()
 
-        # (3) Train vs Test Accuracy Gap
+        # (3) 학습/테스트 정확도 격차(일반화 성능 점검)
         gap_labels = ["Avg Train", "Test"]
         gap_values = [avg_train_acc * 100, acc * 100]
         gap_colors = ["#4CAF50", "#FF5722"]
@@ -320,7 +320,7 @@ def run_pipeline(
         axes[1, 0].axhline(y=50, color="gray", linestyle="--", alpha=0.5, label="Random (50%)")
         axes[1, 0].legend()
 
-        # (4) IC Stability
+        # (4) IC 안정성: 전반기/후반기/전체 비교
         ic_labels = ["1st Half", "2nd Half", "Full"]
         ic_values = [
             0.0 if np.isnan(ic_first) else ic_first,

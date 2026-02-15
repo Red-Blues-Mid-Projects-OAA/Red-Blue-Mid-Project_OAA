@@ -271,7 +271,9 @@ class StockDBManager:
         try:
             # yfinance MultiIndex 데이터 처리 (level 1이 Ticker라고 가정)
             if isinstance(df.columns, pd.MultiIndex):
-                # Columns: (Price, Ticker) -> Stack Ticker to Index -> Columns: Price types
+                # yfinance 멀티 인덱스 컬럼((가격종류, 티커))을
+                # 행 인덱스(날짜, 티커) 형태로 재배치해 종목별 업서트 입력을
+                # 벡터화로 처리하기 쉽게 만듭니다.
                 try:
                     df_processed = df.stack(level=1, future_stack=True).reset_index()
                 except TypeError:
@@ -752,9 +754,10 @@ class StockDBManager:
             feature_cols = [c for c in cols if c != "TRADE_DATE"]
             
             # 동적 Merge Query 생성
-            # USING (...) ON (d.TRADE_DATE = s.TRADE_DATE)
-            # WHEN MATCHED THEN UPDATE SET ...
-            # WHEN NOT MATCHED THEN INSERT ...
+            # USING 절에서 단일 행을 바인딩해 소스(s)로 만들고,
+            # ON 절은 TRADE_DATE 기준으로 대상(d)과 매칭합니다.
+            # 매칭되면 UPDATE, 없으면 INSERT를 수행해 증분/재실행 모두
+            # 멱등(idempotent)하게 처리합니다.
             
             select_parts = [":1 as TRADE_DATE"]
             update_parts = []
@@ -938,7 +941,7 @@ class StockDBManager:
             self.cursor.execute("DROP TABLE TOTAL_FEATURES PURGE")
             print("2. 기존 TOTAL_FEATURES 테이블 삭제 완료")
 
-            # 3. Rename
+            # 3. 임시 테이블명을 원본 테이블명으로 교체
             self.cursor.execute("ALTER TABLE TOTAL_FEATURES_COPY RENAME TO TOTAL_FEATURES")
             print("3. 테이블명 변경 완료 (COPY -> ORIG)")
 

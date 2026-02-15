@@ -24,8 +24,9 @@ def calculate_ewma_covariance(lambda_val=0.94):
 
         print(f"로그 수익률 데이터 로드 완료: {log_returns.shape}")
         
-        # 2. EWMA 공분산 행렬 계산 (pandas ewm().cov() 활용)
-        # alpha = 1 - lambda
+        # 2. EWMA 공분산 행렬 계산
+        # pandas의 ewm().cov()는 감쇠계수 alpha를 사용하므로,
+        # 금융 관행의 람다(lambda)와 관계를 alpha = 1 - lambda로 변환합니다.
         ewma_cov_series = log_returns.ewm(alpha=(1 - lambda_val)).cov()
         
         # 3. 가장 마지막 날짜(최신)의 일별 공분산 행렬 추출

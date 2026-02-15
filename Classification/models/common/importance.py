@@ -1,5 +1,11 @@
 """
-모델 공통 permutation importance 유틸.
+모델 공통 중요도 계산 유틸리티 모듈.
+
+이 모듈은 분류 모델의 예측 확률을 기준으로
+피처별 Permutation 중요도(ΔIC, ΔAccuracy)를 계산합니다.
+핵심 목적은 "특정 피처를 섞었을 때 정보계수(IC)가 얼마나 감소하는지"를
+정량화해, 모델이 어떤 피처의 순위 정보(rank signal)에 의존하는지
+해석 가능하게 만드는 것입니다.
 """
 
 from __future__ import annotations
@@ -13,6 +19,12 @@ from sklearn.metrics import accuracy_score
 
 
 def _safe_spearman(x: np.ndarray, y: np.ndarray) -> float:
+    """
+    스피어만 상관계수를 NaN 안전하게 계산합니다.
+
+    상수열/결측 상황으로 상관계수가 NaN이 되면 0.0으로 보정해
+    후속 중요도 계산이 중단되지 않도록 처리합니다.
+    """
     ic, _ = spearmanr(x, y)
     if np.isnan(ic):
         return 0.0
@@ -29,9 +41,32 @@ def compute_permutation_importance_ic(
     seed: int,
 ) -> tuple[float, float, pd.DataFrame]:
     """
-    Permutation 기반 ΔIC 중요도를 계산합니다.
+    Permutation 기반 중요도를 계산합니다.
 
-    ΔIC = IC_baseline - IC_permuted(feature)
+    Args:
+        x_test (pd.DataFrame): 테스트 피처 데이터프레임입니다.
+        y_test: 테스트 정답 클래스(0/1) 시퀀스입니다.
+        alpha_diff: 알파 차이(연속 타깃) 시퀀스입니다.
+        predict_proba_fn (Callable): x_test 형태 입력을 받아
+            양성 클래스 확률(1차원 배열)을 반환하는 함수입니다.
+        threshold (float): 확률을 클래스(0/1)로 이진화할 임계값입니다.
+        n_repeats (int): 피처별 셔플 반복 횟수입니다.
+        seed (int): 난수 시드입니다.
+
+    Returns:
+        tuple[float, float, pd.DataFrame]:
+            - baseline_ic: 원본 예측의 IC
+            - baseline_acc: 원본 예측의 Accuracy
+            - importance_df: 피처별 ΔIC/ΔAccuracy 통계 테이블
+
+    Raises:
+        ValueError: n_repeats가 0 이하이거나,
+            predict_proba_fn 출력 형태가 입력 길이와 맞지 않을 때 발생합니다.
+
+    Notes:
+        ΔIC = IC_baseline - IC_permuted(feature)
+        값이 클수록 해당 피처를 섞었을 때 신호가 더 크게 훼손되어
+        모델 의존도가 높은 피처로 해석합니다.
     """
     if n_repeats <= 0:
         raise ValueError(f"n_repeats must be positive: {n_repeats}")

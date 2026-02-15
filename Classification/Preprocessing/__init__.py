@@ -1,4 +1,9 @@
-"""Preprocessing package public exports."""
+"""
+전처리(Preprocessing) 패키지 공개 인터페이스 모듈.
+
+마스터 데이터셋 생성, 타깃 생성, 시계열 분할 함수를
+외부 파이프라인이 공통 경로에서 호출할 수 있도록 집약합니다.
+"""
 
 from .build_master_dataset import build_master_dataset
 from .generate_target import generate_target

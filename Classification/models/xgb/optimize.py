@@ -175,9 +175,11 @@ def create_objective(full_df, feature_cols, profile):
         noncollapse_penalty = 2.2 * max(0.0, 0.03 - val_proba_std)
         class_balance_penalty = 1.5 * max(0.0, 0.08 - balance)
 
-        # score = (1 - val_acc) + 0.25*val_logloss + 1.8*max(0, 0.05 - val_ic) + 1.2*max(0, gap - 0.25)
-        #         + 2.2*max(0, 0.03 - std(val_proba))
-        #         + 1.5*max(0, 0.08 - min(pos_rate, 1-pos_rate))
+        # 목적함수(score)는 다음 신호를 동시에 반영합니다.
+        # 1) 기본 예측 성능: (1 - 정확도) + 0.25*로그손실
+        # 2) 퀀트 적합성: IC가 0.05 미만이면 부족분에 비례해 페널티 부여
+        # 3) 일반화 리스크: Train-Val Gap이 0.25를 넘으면 과적합 페널티 부여
+        # 4) 확률 붕괴 방지: 확률 분산/클래스 균형이 낮으면 추가 페널티 부여
         score = (
             (1.0 - val_acc)
             + 0.25 * val_logloss

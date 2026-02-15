@@ -274,7 +274,7 @@ def run_pipeline(
     print("\n  [상세 Classification Report]")
     print(classification_report(y_test, ensemble_pred, target_names=["Lose(0)", "Win(1)"]))
 
-    # ── ② Information Coefficient (IC) ──
+    # ── ② 정보계수(Information Coefficient, IC) ──
     actual_excess_return = split.test["Target_AAPL_3M"] - split.test["Target_SP500_3M"]
     ic, p_value = _safe_spearman(ensemble_proba, actual_excess_return)
 
@@ -293,7 +293,7 @@ def run_pipeline(
     else:
         print("    → ⚠️ 예측력 부족 (IC ≤ 0).")
 
-    # ── ③ Feature Importance (Permutation ΔIC) ──
+    # ── ③ 피처 중요도(Feature Importance, Permutation ΔIC) ──
     baseline_ic_fi = np.nan
     feat_imp_df = None
     top1_share = np.nan
@@ -407,7 +407,7 @@ def run_pipeline(
     if save_plot:
         fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-        # (1) Feature Importance (Permutation ΔIC, mean±std)
+        # (1) 피처 중요도: Permutation ΔIC 평균/표준편차
         if compute_importance and feat_imp_df is not None and len(feat_imp_df) > 0:
             axes[0, 0].barh(
                 feat_imp_df["feature"],
@@ -468,7 +468,7 @@ def run_pipeline(
                 fontsize=12,
             )
 
-        # (2) Predicted Probability Distribution
+        # (2) 예측 확률 분포
         axes[0, 1].hist(
             ensemble_proba[y_test == 1], bins=30, alpha=0.6,
             label="Win (AAPL > SP500)", color="green", edgecolor="black"
@@ -497,7 +497,7 @@ def run_pipeline(
         axes[1, 0].axhline(y=50, color="gray", linestyle="--", alpha=0.5, label="Random (50%)")
         axes[1, 0].legend()
 
-        # (4) IC Stability
+        # (4) IC 안정성: 전반기/후반기/전체 비교
         ic_labels = ["1st Half", "2nd Half", "Full"]
         ic_values = [ic_first, ic_second, ic]
         ic_colors = ["green" if v > 0 else "red" for v in ic_values]
