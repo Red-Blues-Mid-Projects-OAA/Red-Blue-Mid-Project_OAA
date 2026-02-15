@@ -8,11 +8,6 @@
 
 ★ 외부 API 의존성 없음 — 모든 데이터를 Oracle DB에서 조회
 """
-
-import sys, os
-# 상위 디렉토리의 모듈 및 common 패키지 import를 위한 경로 추가
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from common import pd, np
 from DB import StockDBManager
 

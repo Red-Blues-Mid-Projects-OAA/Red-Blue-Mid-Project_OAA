@@ -18,18 +18,9 @@ Alpha Margin 전략:
 
 ★ DB 적재 없음
 """
-
-import sys, os
-
-# 모듈 경로 설정
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_ROOT_DIR = os.path.dirname(_THIS_DIR)
-sys.path.insert(0, _THIS_DIR)
-sys.path.insert(0, _ROOT_DIR)
-
 from common import pd, np
 
-from build_master_dataset import build_master_dataset
+from Classification.build_master_dataset import build_master_dataset
 from DB import StockDBManager
 
 FORWARD_DAYS = 60    # 3개월 ≈ 60거래일 (20d/60d/120d 규칙 통일)

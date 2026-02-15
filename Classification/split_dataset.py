@@ -14,19 +14,11 @@
 
 ★ 다른 모듈들이 이 모듈을 import 하여 데이터를 가져갑니다.
 """
-
-import sys, os
 from collections import namedtuple
-
-# 모듈 경로 설정
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_ROOT_DIR = os.path.dirname(_THIS_DIR)
-sys.path.insert(0, _THIS_DIR)
-sys.path.insert(0, _ROOT_DIR)
 
 from common import pd, np
 from sklearn.preprocessing import StandardScaler
-from generate_target import generate_target
+from Classification.generate_target import generate_target
 
 # ══════════════════════════════════════════════════════════════
 #  구간 정의

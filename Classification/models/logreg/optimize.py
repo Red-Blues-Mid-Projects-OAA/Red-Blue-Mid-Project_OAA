@@ -5,8 +5,6 @@ Logistic Regression 하이퍼파라미터 최적화 모듈 (단일 Holdout + str
 from __future__ import annotations
 
 import hashlib
-import os
-import sys
 from datetime import datetime
 
 import numpy as np
@@ -15,15 +13,8 @@ from scipy.stats import spearmanr
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, log_loss
 
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODELS_DIR = os.path.dirname(_THIS_DIR)
-_CLASSIFICATION_DIR = os.path.dirname(_MODELS_DIR)
-_ROOT_DIR = os.path.dirname(_CLASSIFICATION_DIR)
-sys.path.insert(0, _CLASSIFICATION_DIR)
-sys.path.insert(0, _ROOT_DIR)
-
-from generate_target import generate_target
-from model_config import LOGREG_PARAMS_ARTIFACT_PATH, save_json_artifact_only
+from Classification.generate_target import generate_target
+from Classification.model_config import LOGREG_PARAMS_ARTIFACT_PATH, save_json_artifact_only
 
 optuna.logging.set_verbosity(optuna.logging.INFO)
 

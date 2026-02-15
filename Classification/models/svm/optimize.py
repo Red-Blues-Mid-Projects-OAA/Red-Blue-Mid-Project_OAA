@@ -13,8 +13,6 @@ SVM 하이퍼파라미터 최적화 (누수 방지 + Deep Scaling 버전).
 """
 
 import json
-import os
-import sys
 
 import numpy as np
 import optuna
@@ -22,15 +20,8 @@ from scipy.stats import spearmanr
 from sklearn.metrics import accuracy_score, precision_score, log_loss
 from sklearn.svm import SVC
 
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODELS_DIR = os.path.dirname(_THIS_DIR)
-_CLASSIFICATION_DIR = os.path.dirname(_MODELS_DIR)
-_ROOT_DIR = os.path.dirname(_CLASSIFICATION_DIR)
-sys.path.insert(0, _CLASSIFICATION_DIR)
-sys.path.insert(0, _ROOT_DIR)
-
-from split_dataset import get_stride_splits, split_dataset
-from model_config import (
+from Classification.split_dataset import get_stride_splits, split_dataset
+from Classification.model_config import (
     SVM_PARAMS_ARTIFACT_PATH,
     save_json_artifact_only,
 )

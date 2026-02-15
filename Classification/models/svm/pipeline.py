@@ -8,24 +8,14 @@ SVM 분류 파이프라인 (Stride 앙상블).
 4) IC Stability
 """
 
-import os
-import sys
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import spearmanr
 from sklearn.metrics import accuracy_score, classification_report, precision_score
 from sklearn.svm import SVC
 
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODELS_DIR = os.path.dirname(_THIS_DIR)
-_CLASSIFICATION_DIR = os.path.dirname(_MODELS_DIR)
-_ROOT_DIR = os.path.dirname(_CLASSIFICATION_DIR)
-sys.path.insert(0, _CLASSIFICATION_DIR)
-sys.path.insert(0, _ROOT_DIR)
-
-from split_dataset import N_MODELS, get_stride_splits, split_dataset
-from model_config import (
+from Classification.split_dataset import N_MODELS, get_stride_splits, split_dataset
+from Classification.model_config import (
     PERM_IMPORTANCE_REPEATS,
     PERM_IMPORTANCE_SEED,
     PERM_IMPORTANCE_TOPK_TABLE,
@@ -34,8 +24,8 @@ from model_config import (
     ensure_artifact_dirs,
     load_json_artifact_only,
 )
-from model_gate import evaluate_gate, print_gate_result
-from models.common.importance import compute_permutation_importance_ic
+from Classification.model_gate import evaluate_gate, print_gate_result
+from Classification.models.common.importance import compute_permutation_importance_ic
 
 
 def load_svm_params():

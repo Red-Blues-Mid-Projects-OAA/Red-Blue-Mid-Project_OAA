@@ -10,7 +10,7 @@
 
 from common import pd, np, yf, datetime, timedelta, web
 
-from DB.stock_db_manager import StockDBManager
+from DB import StockDBManager
 
 START_DATE = "2015-01-01"
 

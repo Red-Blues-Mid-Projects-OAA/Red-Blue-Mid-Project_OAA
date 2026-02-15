@@ -5,8 +5,6 @@ Logistic Regression 분류 파이프라인 (Stride 앙상블).
 from __future__ import annotations
 
 import hashlib
-import os
-import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,14 +12,7 @@ from scipy.stats import spearmanr
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, precision_score
 
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODELS_DIR = os.path.dirname(_THIS_DIR)
-_CLASSIFICATION_DIR = os.path.dirname(_MODELS_DIR)
-_ROOT_DIR = os.path.dirname(_CLASSIFICATION_DIR)
-sys.path.insert(0, _CLASSIFICATION_DIR)
-sys.path.insert(0, _ROOT_DIR)
-
-from model_config import (
+from Classification.model_config import (
     LOGREG_PARAMS_ARTIFACT_PATH,
     LOGREG_RESULT_ARTIFACT_PATH,
     PERM_IMPORTANCE_REPEATS,
@@ -30,9 +21,9 @@ from model_config import (
     ensure_artifact_dirs,
     load_json_artifact_only,
 )
-from model_gate import evaluate_gate, print_gate_result
-from models.common.importance import compute_permutation_importance_ic
-from split_dataset import N_MODELS, get_stride_splits, split_dataset
+from Classification.model_gate import evaluate_gate, print_gate_result
+from Classification.models.common.importance import compute_permutation_importance_ic
+from Classification.split_dataset import N_MODELS, get_stride_splits, split_dataset
 
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v2_logreg_no_class_weight"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
@@ -150,7 +141,7 @@ def _ensure_best_params(split, auto_optimize=False, optimize_profile="balanced")
     if needs_optimize and auto_optimize:
         print("\n  ⚠️ Logistic 자동 재튜닝을 실행합니다.")
         print(f"    사유: {reason}")
-        from optimize_logreg import optimize
+        from Classification.optimize_logreg import optimize
 
         optimize(profile=optimize_profile, n_trials=100)
 

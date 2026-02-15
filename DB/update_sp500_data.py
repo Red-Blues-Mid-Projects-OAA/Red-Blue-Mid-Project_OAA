@@ -1,6 +1,6 @@
 from common import yf, pd, datetime, timedelta, np
 
-from DB.stock_db_manager import StockDBManager
+from DB import StockDBManager
 
 
 def update_sp500_data():

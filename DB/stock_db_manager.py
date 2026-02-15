@@ -1,9 +1,4 @@
-
-import oracledb
-import os
-import pandas as pd
-from dotenv import load_dotenv
-from datetime import datetime
+from common import datetime, load_dotenv, oracledb, os, pd
 
 # 환경 변수 로드 (프로젝트 루트 .env 우선)
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))

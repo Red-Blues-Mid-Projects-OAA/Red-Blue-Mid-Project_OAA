@@ -1,6 +1,6 @@
 from common import yf, pd, datetime, timedelta
 
-from DB.stock_db_manager import StockDBManager
+from DB import StockDBManager
 
 
 TICKERS = [

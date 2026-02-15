@@ -16,17 +16,7 @@ XGBoost 실전 파이프라인 (실전 엔진)
 ★ 자주 실행하는 모듈
 """
 
-import sys
-import os
 import hashlib
-
-# 모듈 경로 설정
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODELS_DIR = os.path.dirname(_THIS_DIR)
-_CLASSIFICATION_DIR = os.path.dirname(_MODELS_DIR)
-_ROOT_DIR = os.path.dirname(_CLASSIFICATION_DIR)
-sys.path.insert(0, _CLASSIFICATION_DIR)
-sys.path.insert(0, _ROOT_DIR)
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -34,8 +24,8 @@ from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, precision_score, classification_report
 from scipy.stats import spearmanr
 
-from split_dataset import split_dataset, get_stride_splits, N_MODELS
-from model_config import (
+from Classification.split_dataset import split_dataset, get_stride_splits, N_MODELS
+from Classification.model_config import (
     PERM_IMPORTANCE_REPEATS,
     PERM_IMPORTANCE_SEED,
     PERM_IMPORTANCE_TOPK_TABLE,
@@ -44,8 +34,8 @@ from model_config import (
     ensure_artifact_dirs,
     load_json_artifact_only,
 )
-from model_gate import evaluate_gate, print_gate_result
-from models.common.importance import compute_permutation_importance_ic
+from Classification.model_gate import evaluate_gate, print_gate_result
+from Classification.models.common.importance import compute_permutation_importance_ic
 
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v5_no_class_weight"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
@@ -153,7 +143,7 @@ def _ensure_best_params(split, auto_optimize=True, optimize_profile="balanced"):
     if needs_optimize and auto_optimize:
         print("\n  ⚠️ 자동 재튜닝을 실행합니다.")
         print(f"    사유: {reason}")
-        from optimize_hyperparams import optimize
+        from Classification.optimize_hyperparams import optimize
         optimize(profile=optimize_profile, n_trials=100)
         param_data = load_best_params()
 

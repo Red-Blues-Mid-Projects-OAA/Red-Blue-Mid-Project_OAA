@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from model_config import (
+from Classification.model_config import (
     TARGET_ACC_MIN,
     TARGET_GAP_MAX,
     TARGET_IC_MIN,

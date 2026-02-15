@@ -9,23 +9,17 @@ XGB/SVM/LogReg/RF 4모델 게이트 검증 스크립트.
 
 from __future__ import annotations
 
-import os
 import sys
 
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_ROOT_DIR = os.path.dirname(_THIS_DIR)
-sys.path.insert(0, _THIS_DIR)
-sys.path.insert(0, _ROOT_DIR)
-
-from model_gate import evaluate_gate, print_gate_result
-from optimize_hyperparams import optimize as optimize_xgb
-from optimize_logreg import optimize as optimize_logreg
-from optimize_rf_hyperparams import optimize as optimize_rf
-from optimize_svm_hyperparams import optimize as optimize_svm
-from logic_model_pipeline import run_pipeline as run_logreg_pipeline
-from run_rf_pipeline import run_pipeline as run_rf_pipeline
-from run_model_pipeline import run_pipeline as run_xgb_pipeline
-from svm_pipeline import run_pipeline as run_svm_pipeline
+from Classification.model_gate import evaluate_gate, print_gate_result
+from Classification.optimize_hyperparams import optimize as optimize_xgb
+from Classification.optimize_logreg import optimize as optimize_logreg
+from Classification.optimize_rf_hyperparams import optimize as optimize_rf
+from Classification.optimize_svm_hyperparams import optimize as optimize_svm
+from Classification.logic_model_pipeline import run_pipeline as run_logreg_pipeline
+from Classification.run_rf_pipeline import run_pipeline as run_rf_pipeline
+from Classification.run_model_pipeline import run_pipeline as run_xgb_pipeline
+from Classification.svm_pipeline import run_pipeline as run_svm_pipeline
 
 
 def _execute_with_single_retry(model_name, run_fn, optimize_fn=None, optimize_kwargs=None):

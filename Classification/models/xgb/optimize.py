@@ -11,8 +11,6 @@ Hyperparameter 최적화 모듈 (단일 Holdout 검증)
 결과는 xgb_best_params.json에 저장됩니다.
 """
 
-import sys
-import os
 import json
 import hashlib
 from datetime import datetime
@@ -24,16 +22,8 @@ from sklearn.metrics import accuracy_score, log_loss
 from sklearn.preprocessing import StandardScaler
 from xgboost import XGBClassifier
 
-# 모듈 경로 설정
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODELS_DIR = os.path.dirname(_THIS_DIR)
-_CLASSIFICATION_DIR = os.path.dirname(_MODELS_DIR)
-_ROOT_DIR = os.path.dirname(_CLASSIFICATION_DIR)
-sys.path.insert(0, _CLASSIFICATION_DIR)
-sys.path.insert(0, _ROOT_DIR)
-
-from generate_target import generate_target
-from model_config import (
+from Classification.generate_target import generate_target
+from Classification.model_config import (
     XGB_PARAMS_ARTIFACT_PATH,
     save_json_artifact_only,
 )

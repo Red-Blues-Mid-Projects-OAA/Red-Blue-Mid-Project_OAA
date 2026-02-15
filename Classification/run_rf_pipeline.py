@@ -4,10 +4,7 @@ RandomForest 파이프라인 진입점 래퍼.
 기존 실행 경로 호환성을 유지하면서 내부 구현은 models/rf/pipeline.py를 사용합니다.
 """
 
-try:
-    from Classification.models.rf.pipeline import run_pipeline
-except ModuleNotFoundError:
-    from models.rf.pipeline import run_pipeline
+from Classification.models.rf.pipeline import run_pipeline
 
 __all__ = ["run_pipeline"]
 

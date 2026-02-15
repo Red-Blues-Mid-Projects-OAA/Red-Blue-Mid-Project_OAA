@@ -17,3 +17,15 @@
 
 ## 4. 소통 (Communication)
 - **언어**: 모든 소통 및 질문 답변은 **한국어**로 진행합니다.
+
+## 5. Import/패키지 규칙 (신규 모듈 기본 방침)
+- **패키지 절대 import 사용**:
+  - `Classification` 내부에서는 `from Classification...` 형식을 사용합니다.
+  - `DB` 내부에서는 `from DB...` 형식을 사용합니다.
+  - 공통 라이브러리는 `from common import ...`로 가져옵니다.
+- **`sys.path` 삽입 금지**: `sys.path.insert(...)`로 경로를 주입하지 않습니다.
+- **실행 표준 고정**: 스크립트 실행은 `python3 -m ...` 방식만 공식 지원합니다.
+  - 예: `python3 -m Classification.validate_all_models`
+  - 예: `python3 -m DB.update_market_data`
+- **패키지 공개면 관리**: 새 모듈/함수를 외부에서 재사용할 경우 해당 패키지의 `__init__.py`에 export를 갱신합니다.
+- **검증 습관화**: import 규칙 변경 후 `python3 scripts/check_import_policy.py`를 실행해 위반 여부를 확인합니다.

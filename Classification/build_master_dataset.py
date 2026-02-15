@@ -9,15 +9,6 @@ Master DataFrame 병합 모듈
   3. Forward Fill : 매크로 휴장일 등 빈칸은 직전 영업일 값으로 채움
 
 """
-
-import sys, os
-
-# 모듈 경로 설정 (Features/ 및 프로젝트 루트)
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_ROOT_DIR = os.path.dirname(_THIS_DIR)
-sys.path.insert(0, _THIS_DIR)
-sys.path.insert(0, _ROOT_DIR)
-
 from common import pd, np
 from DB import (
     StockDBManager,
@@ -26,10 +17,10 @@ from DB import (
     update_sp500_data,
     update_stock_data,
 )
-from feature_engineering import calculate_features
-from calculate_aapl_volume_ratio import calculate_aapl_volume_analysis
-from prepare_market_features import get_market_features
-from risk_volatility_features import calculate_risk_features
+from Classification.feature_engineering import calculate_features
+from Classification.calculate_aapl_volume_ratio import calculate_aapl_volume_analysis
+from Classification.prepare_market_features import get_market_features
+from Classification.risk_volatility_features import calculate_risk_features
 
 
 def _to_date(value):
