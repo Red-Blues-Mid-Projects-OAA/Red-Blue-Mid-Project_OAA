@@ -9,7 +9,7 @@ Master DataFrame에 예측 타겟을 추가합니다:
 
 Alpha Margin 전략:
   기존: Target = 1 if AAPL > SP500
-  개선: Target = 1 if (AAPL - SP500) > ε  (ε = 0.5%, 누적 기준)
+  개선: Target = 1 if (AAPL - SP500) > ε  (ε = 1%, 누적 기준)
   → 단순한 우위가 아닌, 유의미한 초과수익만 Class 1로 분류
 
 데이터 소스 (DB, yfinance 미사용):
@@ -20,7 +20,7 @@ Alpha Margin 전략:
 """
 from common import pd, np
 
-from Classification.build_master_dataset import build_master_dataset
+from Classification.Preprocessing.build_master_dataset import build_master_dataset
 from DB import StockDBManager
 
 FORWARD_DAYS = 60    # 3개월 ≈ 60거래일 (20d/60d/120d 규칙 통일)
@@ -89,7 +89,7 @@ def generate_target():
     )
 
     # ★ 최종 이진 분류 타겟 (Alpha Margin 적용)
-    #   Class 1: AAPL이 SP500보다 ε(0.5%) 이상 초과 수익
+    #   Class 1: AAPL이 SP500보다 ε(1%) 이상 초과 수익
     #   Class 0: 그 외 (SP500과 비슷하거나 AAPL이 부진)
     master_df["Target_Class"] = (
         master_df["Alpha_Diff"] > ALPHA_MARGIN

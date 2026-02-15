@@ -834,6 +834,91 @@ class StockDBManager:
             self.connection.rollback()
             raise
 
+    def sync_total_features_integrity(self, min_trade_date, max_trade_date, required_feature_cols):
+        """
+        TOTAL_FEATURES 무결성을 동기화합니다.
+        1) 지정한 날짜 범위를 벗어나는 행 삭제
+        2) 필수 피처 컬럼 중 하나라도 NULL인 행 삭제
+        """
+        def _to_date(value):
+            if hasattr(value, "to_pydatetime"):
+                value = value.to_pydatetime()
+            if hasattr(value, "date"):
+                return value.date()
+            return value
+
+        safe_cols = []
+        for col in required_feature_cols:
+            safe_col = str(col).strip().upper()
+            if not safe_col or not safe_col.replace("_", "").isalnum():
+                raise ValueError(f"유효하지 않은 컬럼명입니다: {col}")
+            safe_cols.append(safe_col)
+
+        self.cursor.execute(
+            "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = 'TOTAL_FEATURES'"
+        )
+        table_exists = int(self.cursor.fetchone()[0] or 0) > 0
+        if not table_exists:
+            print("TOTAL_FEATURES 테이블이 없어 무결성 동기화를 건너뜁니다.")
+            return {
+                "table_exists": False,
+                "deleted_out_of_range": 0,
+                "deleted_null_rows": 0,
+            }
+
+        self.cursor.execute(
+            """
+            SELECT COLUMN_NAME
+            FROM USER_TAB_COLUMNS
+            WHERE TABLE_NAME = 'TOTAL_FEATURES'
+            """
+        )
+        existing_cols = {row[0] for row in self.cursor.fetchall()}
+        missing_cols = [c for c in safe_cols if c not in existing_cols]
+        if missing_cols:
+            raise ValueError(
+                f"TOTAL_FEATURES 필수 컬럼이 누락되었습니다: {missing_cols}"
+            )
+
+        min_dt = _to_date(min_trade_date)
+        max_dt = _to_date(max_trade_date)
+        if min_dt is None or max_dt is None:
+            raise ValueError("유효한 날짜 범위가 필요합니다.")
+
+        self.cursor.execute("SELECT COUNT(*) FROM TOTAL_FEATURES")
+        before_rows = int(self.cursor.fetchone()[0] or 0)
+
+        self.cursor.execute(
+            """
+            DELETE FROM TOTAL_FEATURES
+            WHERE TRADE_DATE < :min_dt OR TRADE_DATE > :max_dt
+            """,
+            {"min_dt": min_dt, "max_dt": max_dt},
+        )
+        deleted_out_of_range = int(self.cursor.rowcount or 0)
+
+        null_clause = " OR ".join([f'"{col}" IS NULL' for col in safe_cols])
+        self.cursor.execute(f"DELETE FROM TOTAL_FEATURES WHERE {null_clause}")
+        deleted_null_rows = int(self.cursor.rowcount or 0)
+
+        self.connection.commit()
+
+        self.cursor.execute("SELECT COUNT(*) FROM TOTAL_FEATURES")
+        after_rows = int(self.cursor.fetchone()[0] or 0)
+
+        print(
+            "TOTAL_FEATURES 무결성 동기화 완료: "
+            f"before={before_rows}, out_of_range_deleted={deleted_out_of_range}, "
+            f"null_deleted={deleted_null_rows}, after={after_rows}"
+        )
+        return {
+            "table_exists": True,
+            "deleted_out_of_range": deleted_out_of_range,
+            "deleted_null_rows": deleted_null_rows,
+            "rows_before": before_rows,
+            "rows_after": after_rows,
+        }
+
     def reorganize_total_features(self):
         """
         TOTAL_FEATURES 테이블을 TRADE_DATE 오름차순으로 정렬된 복사본으로 교체 (CTAS 방식)

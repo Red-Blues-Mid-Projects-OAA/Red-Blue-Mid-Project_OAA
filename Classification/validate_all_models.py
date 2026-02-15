@@ -12,14 +12,14 @@ from __future__ import annotations
 import sys
 
 from Classification.model_gate import evaluate_gate, print_gate_result
-from Classification.optimize_hyperparams import optimize as optimize_xgb
-from Classification.optimize_logreg import optimize as optimize_logreg
-from Classification.optimize_rf_hyperparams import optimize as optimize_rf
-from Classification.optimize_svm_hyperparams import optimize as optimize_svm
-from Classification.logic_model_pipeline import run_pipeline as run_logreg_pipeline
-from Classification.run_rf_pipeline import run_pipeline as run_rf_pipeline
-from Classification.run_model_pipeline import run_pipeline as run_xgb_pipeline
-from Classification.svm_pipeline import run_pipeline as run_svm_pipeline
+from Classification.models.logreg.optimize import optimize as optimize_logreg
+from Classification.models.logreg.pipeline import run_pipeline as run_logreg_pipeline
+from Classification.models.rf.optimize import optimize as optimize_rf
+from Classification.models.rf.pipeline import run_pipeline as run_rf_pipeline
+from Classification.models.svm.optimize import optimize as optimize_svm
+from Classification.models.svm.pipeline import run_pipeline as run_svm_pipeline
+from Classification.models.xgb.optimize import optimize as optimize_xgb
+from Classification.models.xgb.pipeline import run_pipeline as run_xgb_pipeline
 
 
 def _execute_with_single_retry(model_name, run_fn, optimize_fn=None, optimize_kwargs=None):

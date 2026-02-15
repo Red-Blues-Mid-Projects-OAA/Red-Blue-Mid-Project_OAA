@@ -9,7 +9,7 @@ SVM 하이퍼파라미터 최적화 (누수 방지 + Deep Scaling 버전).
 주의:
 - 이 스크립트는 튜닝 시 test 데이터를 사용하지 않습니다.
 - 튜닝 평가는 stride별 train/validation만 사용합니다.
-- 최종 test 평가는 svm_pipeline.py에서만 수행합니다.
+- 최종 test 평가는 `Classification.models.svm.pipeline`에서만 수행합니다.
 """
 
 import json
@@ -20,7 +20,7 @@ from scipy.stats import spearmanr
 from sklearn.metrics import accuracy_score, precision_score, log_loss
 from sklearn.svm import SVC
 
-from Classification.split_dataset import get_stride_splits, split_dataset
+from Classification.Preprocessing.split_dataset import get_stride_splits, split_dataset
 from Classification.model_config import (
     SVM_PARAMS_ARTIFACT_PATH,
     save_json_artifact_only,

@@ -26,6 +26,9 @@
 - **`sys.path` 삽입 금지**: `sys.path.insert(...)`로 경로를 주입하지 않습니다.
 - **실행 표준 고정**: 스크립트 실행은 `python3 -m ...` 방식만 공식 지원합니다.
   - 예: `python3 -m Classification.validate_all_models`
+  - 예: `python3 -m Classification.models.xgb.pipeline`
+  - 예: `python3 -m Classification.models.svm.optimize`
+  - 예: `python3 -m Classification.Preprocessing.build_master_dataset`
   - 예: `python3 -m DB.update_market_data`
 - **패키지 공개면 관리**: 새 모듈/함수를 외부에서 재사용할 경우 해당 패키지의 `__init__.py`에 export를 갱신합니다.
 - **검증 습관화**: import 규칙 변경 후 `python3 scripts/check_import_policy.py`를 실행해 위반 여부를 확인합니다.

@@ -13,7 +13,7 @@ from scipy.stats import spearmanr
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, log_loss
 
-from Classification.generate_target import generate_target
+from Classification.Preprocessing.generate_target import generate_target
 from Classification.model_config import RF_PARAMS_ARTIFACT_PATH, save_json_artifact_only
 
 optuna.logging.set_verbosity(optuna.logging.INFO)

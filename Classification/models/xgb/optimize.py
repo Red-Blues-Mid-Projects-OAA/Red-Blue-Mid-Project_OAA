@@ -22,7 +22,7 @@ from sklearn.metrics import accuracy_score, log_loss
 from sklearn.preprocessing import StandardScaler
 from xgboost import XGBClassifier
 
-from Classification.generate_target import generate_target
+from Classification.Preprocessing.generate_target import generate_target
 from Classification.model_config import (
     XGB_PARAMS_ARTIFACT_PATH,
     save_json_artifact_only,

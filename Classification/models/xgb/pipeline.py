@@ -24,7 +24,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, precision_score, classification_report
 from scipy.stats import spearmanr
 
-from Classification.split_dataset import split_dataset, get_stride_splits, N_MODELS
+from Classification.Preprocessing.split_dataset import split_dataset, get_stride_splits, N_MODELS
 from Classification.model_config import (
     PERM_IMPORTANCE_REPEATS,
     PERM_IMPORTANCE_SEED,
@@ -46,7 +46,7 @@ def load_best_params():
     data, used_path = load_json_artifact_only(XGB_PARAMS_ARTIFACT_PATH)
     if data is None:
         print(f"  ⚠️ {XGB_PARAMS_ARTIFACT_PATH} 파일이 없습니다.")
-        print(f"  먼저 optimize_hyperparams.py를 실행하세요.")
+        print("  먼저 `python3 -m Classification.models.xgb.optimize`를 실행하세요.")
         return None
 
     print(f"  xgb_best_params.json 로드 완료 (Trial #{data['best_trial_number']}, "
@@ -143,7 +143,7 @@ def _ensure_best_params(split, auto_optimize=True, optimize_profile="balanced"):
     if needs_optimize and auto_optimize:
         print("\n  ⚠️ 자동 재튜닝을 실행합니다.")
         print(f"    사유: {reason}")
-        from Classification.optimize_hyperparams import optimize
+        from Classification.models.xgb.optimize import optimize
         optimize(profile=optimize_profile, n_trials=100)
         param_data = load_best_params()
 

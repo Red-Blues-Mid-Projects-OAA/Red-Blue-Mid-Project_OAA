@@ -23,7 +23,7 @@ from Classification.model_config import (
 )
 from Classification.model_gate import evaluate_gate, print_gate_result
 from Classification.models.common.importance import compute_permutation_importance_ic
-from Classification.split_dataset import N_MODELS, get_stride_splits, split_dataset
+from Classification.Preprocessing.split_dataset import N_MODELS, get_stride_splits, split_dataset
 
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v3_rf_no_class_weight"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
@@ -134,7 +134,7 @@ def _ensure_best_params(split, auto_optimize=False, optimize_profile="balanced")
     if needs_optimize and auto_optimize:
         print("\n  ⚠️ RandomForest 자동 재튜닝을 실행합니다.")
         print(f"    사유: {reason}")
-        from Classification.optimize_rf_hyperparams import optimize
+        from Classification.models.rf.optimize import optimize
 
         optimize(profile=optimize_profile, n_trials=100)
 

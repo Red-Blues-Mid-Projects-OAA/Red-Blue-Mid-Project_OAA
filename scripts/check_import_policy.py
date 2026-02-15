@@ -27,12 +27,18 @@ BAN_PATTERNS = [
         re.compile(
             r"^\s*from\s+(model_config|model_gate|split_dataset|generate_target|"
             r"build_master_dataset|feature_engineering|calculate_aapl_volume_ratio|"
-            r"prepare_market_features|risk_volatility_features|optimize_hyperparams|"
+            r"prepare_market_features|risk_volatility_features|momentum|macro|volatility|volume|"
+            r"optimize_hyperparams|"
             r"optimize_svm_hyperparams|optimize_logreg|optimize_rf_hyperparams|"
-            r"run_model_pipeline|svm_pipeline|logic_model_pipeline|run_rf_pipeline)\s+import\b",
+            r"run_model_pipeline|svm_pipeline|logic_model_pipeline|run_rf_pipeline|"
+            r"validate_all_models)\s+import\b",
             re.MULTILINE,
         ),
         "루트 로컬 import 금지 (Classification.* 절대 import 사용)",
+    ),
+    (
+        re.compile(r"^\s*from\s+Preprocessing\.", re.MULTILINE),
+        "Preprocessing 상대 루트 import 금지 (Classification.Preprocessing.* 사용)",
     ),
 ]
 

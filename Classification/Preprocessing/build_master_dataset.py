@@ -9,7 +9,7 @@ Master DataFrame 병합 모듈
   3. Forward Fill : 매크로 휴장일 등 빈칸은 직전 영업일 값으로 채움
 
 """
-from common import pd, np
+from common import pd
 from DB import (
     StockDBManager,
     TICKERS,
@@ -17,10 +17,30 @@ from DB import (
     update_sp500_data,
     update_stock_data,
 )
-from Classification.feature_engineering import calculate_features
-from Classification.calculate_aapl_volume_ratio import calculate_aapl_volume_analysis
-from Classification.prepare_market_features import get_market_features
-from Classification.risk_volatility_features import calculate_risk_features
+from Classification.Preprocessing.Momentum.momentum import calculate_features
+from Classification.Preprocessing.Volume.volume import calculate_aapl_volume_analysis
+from Classification.Preprocessing.Macro.macro import get_market_features
+from Classification.Preprocessing.Volatility.volatility import calculate_risk_features
+
+
+REQUIRED_FEATURE_COLUMNS = [
+    "Log_Ret_20",
+    "Log_Ret_120",
+    "MA_Envelope",
+    "High_Low_Proximity",
+    "RSI_14",
+    "Volume_Ratio",
+    "OBV_ROC_20",
+    "DXY_Log_Return",
+    "VIX_Close",
+    "VIX_Log_Return",
+    "SP500_1M_Return",
+    "SP500_3M_Return",
+    "AAPL_EWMA_Vol",
+    "AAPL_Vol_20d_Avg",
+    "AAPL_Vol_60d_Avg",
+    "AAPL_SP500_EWMA_Corr",
+]
 
 
 def _to_date(value):
@@ -264,21 +284,30 @@ def build_master_dataset(
         print("3. DB 적재 및 Reorganization (TOTAL_FEATURES)")
         print("=" * 70)
 
-        # 신규 소스 데이터가 실제로 들어왔을 때만 TOTAL_FEATURES를 갱신합니다.
-        if persist_total_features_on_update and update_summary["updated_any"]:
+        if persist_total_features_on_update:
             db.connect()
             try:
-                print("  [1] TOTAL_FEATURES 테이블에 데이터 저장 중...")
-                db.insert_total_features(master_df)
+                if update_summary["updated_any"]:
+                    print("  [1] TOTAL_FEATURES 테이블에 데이터 저장 중...")
+                    db.insert_total_features(master_df)
+                else:
+                    print("  신규 소스 데이터가 없어 TOTAL_FEATURES 업서트를 생략합니다.")
 
-                print("  [2] TOTAL_FEATURES 테이블 재구조화(Reorganization) 진행...")
+                print("  [2] TOTAL_FEATURES 무결성 동기화 진행...")
+                db.sync_total_features_integrity(
+                    min_trade_date=master_df.index.min(),
+                    max_trade_date=master_df.index.max(),
+                    required_feature_cols=REQUIRED_FEATURE_COLUMNS,
+                )
+
+                print("  [3] TOTAL_FEATURES 테이블 재구조화(Reorganization) 진행...")
                 db.reorganize_total_features()
             except Exception as e:
-                print(f"  🚨 DB 적재 중 오류 발생: {e}")
+                print(f"  🚨 DB 적재/동기화 중 오류 발생: {e}")
             finally:
                 db.close()
         else:
-            print("  신규 소스 데이터가 없어 TOTAL_FEATURES 적재/재구조화를 생략합니다.")
+            print("  TOTAL_FEATURES 적재/동기화가 비활성화되어 작업을 생략합니다.")
             
     else:
         print("  WARNING: Master DataFrame is empty!")

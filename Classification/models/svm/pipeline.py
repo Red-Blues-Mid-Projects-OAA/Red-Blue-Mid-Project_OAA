@@ -14,7 +14,7 @@ from scipy.stats import spearmanr
 from sklearn.metrics import accuracy_score, classification_report, precision_score
 from sklearn.svm import SVC
 
-from Classification.split_dataset import N_MODELS, get_stride_splits, split_dataset
+from Classification.Preprocessing.split_dataset import N_MODELS, get_stride_splits, split_dataset
 from Classification.model_config import (
     PERM_IMPORTANCE_REPEATS,
     PERM_IMPORTANCE_SEED,
