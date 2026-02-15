@@ -131,12 +131,18 @@ def _ensure_best_params(split, auto_optimize=False, optimize_profile="balanced")
         )
         needs_optimize = stale
 
-    if needs_optimize and auto_optimize:
-        print("\n  ⚠️ RandomForest 자동 재튜닝을 실행합니다.")
-        print(f"    사유: {reason}")
-        from Classification.models.rf.optimize import optimize
+    if needs_optimize:
+        if auto_optimize:
+            print("\n  ⚠️ RandomForest 자동 재튜닝을 실행합니다.")
+            print(f"    사유: {reason}")
+            from Classification.models.rf.optimize import optimize
 
-        optimize(profile=optimize_profile, n_trials=100)
+            optimize(profile=optimize_profile, n_trials=100)
+        else:
+            raise RuntimeError(
+                "RandomForest 파라미터 아티팩트가 현재 정책과 불일치합니다. "
+                f"auto_optimize=False 상태에서는 실행할 수 없습니다. 사유: {reason}"
+            )
 
 
 def run_pipeline(
@@ -420,7 +426,15 @@ def run_pipeline(
     print(f"  HHI 집중도     : {hhi:.4f}" if not np.isnan(hhi) else "  HHI 집중도     : N/A")
     print("=" * 70)
 
-    gate = evaluate_gate({"accuracy": acc, "ic": ic, "gap": gap})
+    gate = evaluate_gate(
+        {
+            "accuracy": acc,
+            "ic": ic,
+            "gap": gap,
+            "ic_first": ic_first,
+            "ic_second": ic_second,
+        }
+    )
     print_gate_result("RandomForest", gate)
 
     metrics = {
@@ -429,6 +443,8 @@ def run_pipeline(
         "ic": float(ic),
         "ic_p_value": float(p_value),
         "gap": float(gap),
+        "ic_first": float(ic_first),
+        "ic_second": float(ic_second),
         "overall_pass": bool(gate["pass_all"]),
     }
 

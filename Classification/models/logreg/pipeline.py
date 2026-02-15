@@ -138,12 +138,18 @@ def _ensure_best_params(split, auto_optimize=False, optimize_profile="balanced")
         )
         needs_optimize = stale
 
-    if needs_optimize and auto_optimize:
-        print("\n  ⚠️ Logistic 자동 재튜닝을 실행합니다.")
-        print(f"    사유: {reason}")
-        from Classification.models.logreg.optimize import optimize
+    if needs_optimize:
+        if auto_optimize:
+            print("\n  ⚠️ Logistic 자동 재튜닝을 실행합니다.")
+            print(f"    사유: {reason}")
+            from Classification.models.logreg.optimize import optimize
 
-        optimize(profile=optimize_profile, n_trials=100)
+            optimize(profile=optimize_profile, n_trials=100)
+        else:
+            raise RuntimeError(
+                "Logistic 파라미터 아티팩트가 현재 정책과 불일치합니다. "
+                f"auto_optimize=False 상태에서는 실행할 수 없습니다. 사유: {reason}"
+            )
 
 
 def run_pipeline(
@@ -393,7 +399,15 @@ def run_pipeline(
     else:
         print(f"\n  차트 저장 생략: save_plot=False ({LOGREG_RESULT_ARTIFACT_PATH})")
 
-    gate = evaluate_gate({"accuracy": acc, "ic": ic, "gap": gap})
+    gate = evaluate_gate(
+        {
+            "accuracy": acc,
+            "ic": ic,
+            "gap": gap,
+            "ic_first": ic_first,
+            "ic_second": ic_second,
+        }
+    )
     print_gate_result("LogisticRegression", gate)
 
     metrics = {
@@ -402,6 +416,8 @@ def run_pipeline(
         "ic": float(ic),
         "ic_p_value": float(p_value),
         "gap": float(gap),
+        "ic_first": float(ic_first),
+        "ic_second": float(ic_second),
         "overall_pass": bool(gate["pass_all"]),
     }
 

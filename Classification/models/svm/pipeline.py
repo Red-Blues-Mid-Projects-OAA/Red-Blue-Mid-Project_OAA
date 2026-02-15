@@ -375,7 +375,15 @@ def run_pipeline(
     print(f"  HHI 집중도     : {hhi:.4f}" if not np.isnan(hhi) else "  HHI 집중도     : N/A")
     print("=" * 70)
 
-    gate = evaluate_gate({"accuracy": acc, "ic": ic, "gap": gap})
+    gate = evaluate_gate(
+        {
+            "accuracy": acc,
+            "ic": ic,
+            "gap": gap,
+            "ic_first": ic_first,
+            "ic_second": ic_second,
+        }
+    )
     print_gate_result("SVM", gate)
 
     metrics = {
@@ -384,6 +392,8 @@ def run_pipeline(
         "ic": float(ic),
         "ic_p_value": float(p_value),
         "gap": float(gap),
+        "ic_first": float(ic_first),
+        "ic_second": float(ic_second),
         "overall_pass": bool(gate["pass_all"]),
     }
 

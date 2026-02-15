@@ -4,13 +4,16 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
 from Classification.model_config import (
+    REQUIRE_ACCURACY_GATE,
+    REQUIRE_IC_STABILITY_GATE,
     TARGET_ACC_MIN,
     TARGET_GAP_MAX,
+    TARGET_IC_HALF_MIN,
     TARGET_IC_MIN,
-    REQUIRE_ACCURACY_GATE,
 )
 
 
@@ -18,8 +21,10 @@ from Classification.model_config import (
 class GateThresholds:
     accuracy_min: float = TARGET_ACC_MIN
     ic_min: float = TARGET_IC_MIN
+    ic_half_min: float = TARGET_IC_HALF_MIN
     gap_max: float = TARGET_GAP_MAX
     require_accuracy: bool = REQUIRE_ACCURACY_GATE
+    require_ic_stability: bool = REQUIRE_IC_STABILITY_GATE
 
 
 def evaluate_gate(metrics: dict, thresholds: GateThresholds | None = None) -> dict:
@@ -29,25 +34,42 @@ def evaluate_gate(metrics: dict, thresholds: GateThresholds | None = None) -> di
     accuracy = float(metrics["accuracy"])
     ic = float(metrics["ic"])
     gap = float(metrics["gap"])
+    ic_first = float(metrics.get("ic_first", float("nan")))
+    ic_second = float(metrics.get("ic_second", float("nan")))
 
     acc_pass = accuracy >= t.accuracy_min
     ic_pass = ic >= t.ic_min
     gap_pass = gap <= t.gap_max
-    pass_all = (ic_pass and gap_pass and acc_pass) if t.require_accuracy else (ic_pass and gap_pass)
+    ic_first_pass = (not math.isnan(ic_first)) and (ic_first >= t.ic_half_min)
+    ic_second_pass = (not math.isnan(ic_second)) and (ic_second >= t.ic_half_min)
+    stability_pass = ic_first_pass and ic_second_pass
+
+    pass_all = ic_pass and gap_pass
+    if t.require_accuracy:
+        pass_all = pass_all and acc_pass
+    if t.require_ic_stability:
+        pass_all = pass_all and stability_pass
 
     return {
         "accuracy": accuracy,
         "ic": ic,
         "gap": gap,
+        "ic_first": ic_first,
+        "ic_second": ic_second,
         "acc_pass": acc_pass,
         "ic_pass": ic_pass,
         "gap_pass": gap_pass,
+        "ic_first_pass": ic_first_pass,
+        "ic_second_pass": ic_second_pass,
+        "stability_pass": stability_pass,
         "pass_all": pass_all,
         "thresholds": {
             "accuracy_min": t.accuracy_min,
             "ic_min": t.ic_min,
+            "ic_half_min": t.ic_half_min,
             "gap_max": t.gap_max,
             "require_accuracy": t.require_accuracy,
+            "require_ic_stability": t.require_ic_stability,
         },
     }
 
@@ -70,8 +92,24 @@ def print_gate_result(model_name: str, gate: dict) -> None:
         f"{'PASS' if gate['gap_pass'] else 'FAIL'} ({gate['gap']*100:.2f}%p)"
     )
     print(
+        f"  IC(전반기) >= {gate['thresholds']['ic_half_min']:.2f} : "
+        f"{'PASS' if gate['ic_first_pass'] else 'FAIL'} ({gate['ic_first']:+.4f})"
+    )
+    print(
+        f"  IC(후반기) >= {gate['thresholds']['ic_half_min']:.2f} : "
+        f"{'PASS' if gate['ic_second_pass'] else 'FAIL'} ({gate['ic_second']:+.4f})"
+    )
+    print(
         f"  Accuracy Gate Required       : "
         f"{'YES' if gate['thresholds']['require_accuracy'] else 'NO (참고지표)'}"
+    )
+    print(
+        f"  IC Stability Gate Required   : "
+        f"{'YES' if gate['thresholds']['require_ic_stability'] else 'NO'}"
+    )
+    print(
+        f"  IC Stability Overall         : "
+        f"{'PASS' if gate['stability_pass'] else 'FAIL'}"
     )
     print(f"  Overall                      : {'PASS' if gate['pass_all'] else 'FAIL'}")
     print("=" * 70)

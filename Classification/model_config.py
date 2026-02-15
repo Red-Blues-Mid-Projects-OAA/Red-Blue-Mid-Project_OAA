@@ -17,9 +17,11 @@ RF_ARTIFACT_DIR = ARTIFACTS_DIR / "rf"
 # 목표 게이트 (소수 비율 단위)
 TARGET_ACC_MIN = 0.52
 TARGET_IC_MIN = 0.05
+TARGET_IC_HALF_MIN = 0.05
 TARGET_GAP_MAX = 0.25
-# 팀 합의 정책: Accuracy는 참고 지표, 게이트 통과는 IC/GAP 우선
-REQUIRE_ACCURACY_GATE = False
+# 강화 정책: Accuracy와 IC 안정성을 게이트 필수 조건으로 사용
+REQUIRE_ACCURACY_GATE = True
+REQUIRE_IC_STABILITY_GATE = True
 
 # permutation importance 공통 설정
 PERM_IMPORTANCE_REPEATS = 20
