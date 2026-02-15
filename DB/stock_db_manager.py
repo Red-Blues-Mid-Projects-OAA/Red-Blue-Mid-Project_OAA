@@ -5,10 +5,17 @@ import pandas as pd
 from dotenv import load_dotenv
 from datetime import datetime
 
-# 환경 변수 로드 (파일 위치 기준 상위 디렉토리의 .env 로드)
+# 환경 변수 로드 (프로젝트 루트 .env 우선)
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-_ENV_PATH = os.path.join(_BASE_DIR, ".env")
-load_dotenv(_ENV_PATH, override=True)
+_PROJECT_ROOT = os.path.dirname(_BASE_DIR)
+_ENV_CANDIDATES = [
+    os.path.join(_PROJECT_ROOT, ".env"),
+    os.path.join(_BASE_DIR, ".env"),
+]
+for _env_path in _ENV_CANDIDATES:
+    if os.path.exists(_env_path):
+        load_dotenv(_env_path, override=True)
+        break
 
 class StockDBManager:
     """
@@ -270,7 +277,10 @@ class StockDBManager:
             # yfinance MultiIndex 데이터 처리 (level 1이 Ticker라고 가정)
             if isinstance(df.columns, pd.MultiIndex):
                 # Columns: (Price, Ticker) -> Stack Ticker to Index -> Columns: Price types
-                df_processed = df.stack(level=1).reset_index()
+                try:
+                    df_processed = df.stack(level=1, future_stack=True).reset_index()
+                except TypeError:
+                    df_processed = df.stack(level=1).reset_index()
                 
                 # Date 컬럼 찾기
                 date_col = df_processed.columns[0]
@@ -700,6 +710,8 @@ class StockDBManager:
             # DB 컬럼명 규칙(대문, 특수문자 제거 등 안전하게)
             # 여기서는 DataFrame 컬럼명을 그대로 사용 (단, 최대 길이 등 오라클 제약 고려 필요)
             safe_col = col.upper()
+            if not safe_col.replace("_", "").isalnum():
+                raise ValueError(f"TOTAL_FEATURES 컬럼명이 유효하지 않습니다: {col}")
             col_defs.append(f'"{safe_col}" {col_type}')
 
         create_table_query = f"""
@@ -714,6 +726,27 @@ class StockDBManager:
         try:
             # 1. 테이블 생성 시도
             self.cursor.execute(create_table_query) 
+
+            # 1-1. 테이블이 이미 존재하는 경우를 대비해 누락 컬럼을 동기화
+            self.cursor.execute(
+                """
+                SELECT COLUMN_NAME
+                FROM USER_TAB_COLUMNS
+                WHERE TABLE_NAME = 'TOTAL_FEATURES'
+                """
+            )
+            existing_cols = {row[0] for row in self.cursor.fetchall()}
+            added_cols = []
+            for col in cols:
+                safe_col = col.upper()
+                if safe_col not in existing_cols:
+                    if safe_col == "TRADE_DATE":
+                        continue
+                    self.cursor.execute(f'ALTER TABLE TOTAL_FEATURES ADD "{safe_col}" NUMBER')
+                    added_cols.append(safe_col)
+            if added_cols:
+                self.connection.commit()
+                print(f"TOTAL_FEATURES 누락 컬럼 추가: {added_cols}")
             
             # 2. 데이터 준비 및 Insert
             # MERGE 대신 단순 INSERT를 사용하되, 기존 데이터 삭제 후 재적재(일괄 적재 특성상)
@@ -753,7 +786,12 @@ class StockDBManager:
             
             data_to_insert = []
             for _, row in df.iterrows():
-                row_data = [row["TRADE_DATE"].to_pydatetime().date()]
+                trade_date = row["TRADE_DATE"]
+                if hasattr(trade_date, "to_pydatetime"):
+                    trade_date = trade_date.to_pydatetime().date()
+                elif hasattr(trade_date, "date"):
+                    trade_date = trade_date.date()
+                row_data = [trade_date]
                 for col in feature_cols:
                     val = row[col]
                     row_data.append(float(val) if pd.notna(val) else None)

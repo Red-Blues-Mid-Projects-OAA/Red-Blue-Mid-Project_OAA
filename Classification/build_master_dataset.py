@@ -19,14 +19,17 @@ sys.path.insert(0, _THIS_DIR)
 sys.path.insert(0, _ROOT_DIR)
 
 from common import pd, np
-from stock_db_manager import StockDBManager
+from DB import (
+    StockDBManager,
+    TICKERS,
+    update_market_data,
+    update_sp500_data,
+    update_stock_data,
+)
 from feature_engineering import calculate_features
 from calculate_aapl_volume_ratio import calculate_aapl_volume_analysis
 from prepare_market_features import get_market_features
 from risk_volatility_features import calculate_risk_features
-from update_stock_data import update_stock_data, TICKERS
-from update_sp500_data import update_sp500_data
-from fetch_market_data import main as update_market_data
 
 
 def _to_date(value):

@@ -1,14 +1,14 @@
 """
 AAPL EWMA 기반 리스크 피처 생성 모듈 (Self-contained)
 
-calculate_ewma.py와 동일한 EWMA 방식(λ=0.94)을 사용하여:
+DB/calculate_ewma.py와 동일한 EWMA 방식(λ=0.94)을 사용하여:
   1. df_aapl_daily_vol    : AAPL 일별 EWMA 변동성 (√분산)
   2. df_aapl_avg_vol      : AAPL 20일/60일 평균 변동성
   3. df_aapl_ewma_corr    : AAPL–S&P500 일별 EWMA 상관계수
 
 데이터 소스:
-  - AAPL 로그 수익률 : LOG_RETURNS 테이블 (calculate_log_returns.py 결과)
-  - S&P500 로그 수익률 : SP500_DATA 테이블 (update_sp500_data.py 결과)
+  - AAPL 로그 수익률 : LOG_RETURNS 테이블 (DB/calculate_log_returns.py 결과)
+  - S&P500 로그 수익률 : SP500_DATA 테이블 (DB/update_sp500_data.py 결과)
 
 ★ DB 적재 없음 
 """
@@ -18,7 +18,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from common import pd, np
-from stock_db_manager import StockDBManager
+from DB import StockDBManager
 
 LAMBDA = 0.94
 ALPHA = 1 - LAMBDA  # 0.06
@@ -52,7 +52,7 @@ def calculate_risk_features(db=None):
     aapl = lr_all[TICKER].dropna()
 
     if sp500.empty:
-        print("S&P 500 데이터를 가져오지 못했습니다. update_sp500_data.py를 먼저 실행하세요.")
+        print("S&P 500 데이터를 가져오지 못했습니다. DB/update_sp500_data.py를 먼저 실행하세요.")
         return
 
     spx = sp500["LOG_RETURN"].astype(float).dropna()

@@ -12,7 +12,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from common import pd, np
-from stock_db_manager import StockDBManager
+from DB import StockDBManager
 
 
 def calculate_aapl_volume_analysis(db=None):
@@ -38,7 +38,7 @@ def calculate_aapl_volume_analysis(db=None):
             db.close()
 
     if data.empty:
-        print("DB에서 데이터를 가져오지 못했습니다. fetch_stock_data.py를 먼저 실행하세요.")
+        print("DB에서 데이터를 가져오지 못했습니다. DB/update_stock_data.py를 먼저 실행하세요.")
         return None
 
     close = data["Close"]

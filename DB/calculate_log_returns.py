@@ -1,5 +1,5 @@
 from common import pd, np
-from stock_db_manager import StockDBManager
+from DB.stock_db_manager import StockDBManager
 
 def calculate_and_save_log_returns():
     """

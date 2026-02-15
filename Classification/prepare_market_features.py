@@ -14,7 +14,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from common import pd, np
-from stock_db_manager import StockDBManager
+from DB import StockDBManager
 
 
 def fetch_dollar_index_log_returns(db):
@@ -28,7 +28,7 @@ def fetch_dollar_index_log_returns(db):
     df = db.fetch_market_features("DXY")
 
     if df.empty:
-        print("DXY 데이터를 가져오지 못했습니다. fetch_market_data.py를 먼저 실행하세요.")
+        print("DXY 데이터를 가져오지 못했습니다. DB/update_market_data.py를 먼저 실행하세요.")
         return pd.DataFrame()
 
     df_dxy = pd.DataFrame({"DXY_Log_Return": df["Log_Return"].astype(float)})
@@ -54,7 +54,7 @@ def fetch_vix_data(db):
     df = db.fetch_market_features("VIX")
 
     if df.empty:
-        print("VIX 데이터를 가져오지 못했습니다. fetch_market_data.py를 먼저 실행하세요.")
+        print("VIX 데이터를 가져오지 못했습니다. DB/update_market_data.py를 먼저 실행하세요.")
         return pd.DataFrame()
 
     df_vix = pd.DataFrame({

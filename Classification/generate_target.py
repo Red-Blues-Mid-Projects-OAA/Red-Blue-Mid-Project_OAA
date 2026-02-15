@@ -13,8 +13,8 @@ Alpha Margin 전략:
   → 단순한 우위가 아닌, 유의미한 초과수익만 Class 1로 분류
 
 데이터 소스 (DB, yfinance 미사용):
-  - AAPL 로그 수익률  : LOG_RETURNS 테이블 (calculate_log_returns.py 결과)
-  - S&P500 로그 수익률 : SP500_DATA 테이블 (update_sp500_data.py 결과)
+  - AAPL 로그 수익률  : LOG_RETURNS 테이블 (DB/calculate_log_returns.py 결과)
+  - S&P500 로그 수익률 : SP500_DATA 테이블 (DB/update_sp500_data.py 결과)
 
 ★ DB 적재 없음
 """
@@ -30,7 +30,7 @@ sys.path.insert(0, _ROOT_DIR)
 from common import pd, np
 
 from build_master_dataset import build_master_dataset
-from stock_db_manager import StockDBManager
+from DB import StockDBManager
 
 FORWARD_DAYS = 60    # 3개월 ≈ 60거래일 (20d/60d/120d 규칙 통일)
 ALPHA_MARGIN = 0.01   # 1.0% 누적 초과수익률 임계값 (Alpha Margin)

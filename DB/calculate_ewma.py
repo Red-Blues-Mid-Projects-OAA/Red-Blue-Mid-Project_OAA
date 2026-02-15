@@ -1,5 +1,5 @@
 from common import pd, np
-from stock_db_manager import StockDBManager
+from DB.stock_db_manager import StockDBManager
 
 def calculate_ewma_covariance(lambda_val=0.94):
     """
@@ -19,7 +19,7 @@ def calculate_ewma_covariance(lambda_val=0.94):
         log_returns = db_manager.fetch_log_returns()
         
         if log_returns.empty:
-            print("로그 수익률 데이터가 없어 계산을 중단합니다. calculate_log_returns.py를 먼저 실행해주세요.")
+            print("로그 수익률 데이터가 없어 계산을 중단합니다. DB/calculate_log_returns.py를 먼저 실행해주세요.")
             return
 
         print(f"로그 수익률 데이터 로드 완료: {log_returns.shape}")
