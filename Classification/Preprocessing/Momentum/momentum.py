@@ -40,9 +40,9 @@ def calculate_features(ticker, db=None):
     ma_20 = df['Close'].rolling(window=20).mean()
     df['MA_Envelope'] = (df['Close'] - ma_20) / ma_20
 
-    # (3) High-Low Proximity (과거 정상 정의 복구: 52주 최고가 대비 현재가 위치)
+    # (3) 52주 최고가 대비 현재가 위치
     df["High_52W"] = df["High"].rolling(window=252, min_periods=252).max()
-    df["High_Low_Proximity"] = (df["Close"] / df["High_52W"]) - 1.0
+    df["High_52W_Proximity"] = (df["Close"] / df["High_52W"]) - 1.0
 
     # (4) RSI (14일) - 선택 사항이지만 유용하므로 추가
     delta = df['Close'].diff()
@@ -56,7 +56,7 @@ def calculate_features(ticker, db=None):
         "Log_Ret_20",
         "Log_Ret_120",
         "MA_Envelope",
-        "High_Low_Proximity",
+        "High_52W_Proximity",
         "RSI_14",
     ]
     

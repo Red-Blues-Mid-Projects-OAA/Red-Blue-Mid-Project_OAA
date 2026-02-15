@@ -27,7 +27,7 @@ REQUIRED_FEATURE_COLUMNS = [
     "Log_Ret_20",
     "Log_Ret_120",
     "MA_Envelope",
-    "High_Low_Proximity",
+    "High_52W_Proximity",
     "RSI_14",
     "Volume_Ratio",
     "OBV_ROC_20",
@@ -186,17 +186,6 @@ def build_master_dataset(
         db_for_check.close()
 
     _print_latest_snapshot(snapshot_after, "0-2. 업데이트 후 최신일 점검")
-
-    # TOTAL_FEATURES 스키마에서 제거 정책 피처를 정리합니다.
-    db_for_cleanup = StockDBManager()
-    db_for_cleanup.connect()
-    try:
-        print("\n" + "=" * 70)
-        print("0-3. TOTAL_FEATURES 레거시 컬럼 정리")
-        print("=" * 70)
-        db_for_cleanup.drop_total_features_column_if_exists("LOG_RET_60")
-    finally:
-        db_for_cleanup.close()
 
     print("=" * 70)
     print("1. 개별 Feature 모듈 실행 및 데이터 수집")
