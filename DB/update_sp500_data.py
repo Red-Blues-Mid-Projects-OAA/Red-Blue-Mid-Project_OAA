@@ -1,6 +1,14 @@
-from common import yf, pd, datetime, timedelta, np
+if __package__ in (None, ""):
+    from datetime import datetime, timedelta
 
-from DB import StockDBManager
+    import numpy as np
+    import pandas as pd
+    import yfinance as yf
+
+    from stock_db_manager import StockDBManager
+else:
+    from common import yf, pd, datetime, timedelta, np
+    from DB import StockDBManager
 
 
 def update_sp500_data():

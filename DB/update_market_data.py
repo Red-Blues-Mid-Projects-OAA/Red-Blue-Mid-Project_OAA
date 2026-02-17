@@ -5,12 +5,23 @@
 - 달러 인덱스 종가 : FRED (DTWEXBGS)
 - 각 지표의 로그 수익률을 계산하여 MARKET_FEATURES 테이블에 저장
 
-실행: python -m DB.update_market_data
+실행:
+  - python -m DB.update_market_data
+  - python DB/update_market_data.py
 """
 
-from common import pd, np, yf, datetime, timedelta, web
+if __package__ in (None, ""):
+    from datetime import datetime, timedelta
 
-from DB import StockDBManager
+    import numpy as np
+    import pandas as pd
+    import pandas_datareader.data as web
+    import yfinance as yf
+
+    from stock_db_manager import StockDBManager
+else:
+    from common import pd, np, yf, datetime, timedelta, web
+    from DB import StockDBManager
 
 START_DATE = "2015-01-01"
 

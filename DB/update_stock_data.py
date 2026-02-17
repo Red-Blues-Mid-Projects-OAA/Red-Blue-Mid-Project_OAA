@@ -1,6 +1,13 @@
-from common import yf, pd, datetime, timedelta
+if __package__ in (None, ""):
+    from datetime import datetime, timedelta
 
-from DB import StockDBManager
+    import pandas as pd
+    import yfinance as yf
+
+    from stock_db_manager import StockDBManager
+else:
+    from common import yf, pd, datetime, timedelta
+    from DB import StockDBManager
 
 
 TICKERS = [

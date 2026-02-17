@@ -1,5 +1,11 @@
-from common import pd, np
-from DB import StockDBManager
+if __package__ in (None, ""):
+    import numpy as np
+    import pandas as pd
+
+    from stock_db_manager import StockDBManager
+else:
+    from common import pd, np
+    from DB import StockDBManager
 
 def calculate_ewma_covariance(lambda_val=0.94):
     """
