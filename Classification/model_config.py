@@ -13,6 +13,7 @@ XGB_ARTIFACT_DIR = ARTIFACTS_DIR / "xgb"
 SVM_ARTIFACT_DIR = ARTIFACTS_DIR / "svm"
 LOGREG_ARTIFACT_DIR = ARTIFACTS_DIR / "logreg"
 RF_ARTIFACT_DIR = ARTIFACTS_DIR / "rf"
+ENSEMBLE_ARTIFACT_DIR = ARTIFACTS_DIR / "ensemble"
 
 # 목표 게이트 (소수 비율 단위)
 TARGET_ACC_MIN = 0.52
@@ -54,6 +55,8 @@ LOGREG_RESULT_LEGACY_PATHS = []
 RF_RESULT_ARTIFACT_PATH = RF_ARTIFACT_DIR / "rf_classifier_result.png"
 RF_RESULT_LEGACY_PATHS = []
 
+ENSEMBLE_RESULT_PATH = ENSEMBLE_ARTIFACT_DIR / "ensemble.json"
+
 
 def ensure_artifact_dirs() -> None:
     """아티팩트 디렉터리를 생성합니다."""
@@ -61,6 +64,7 @@ def ensure_artifact_dirs() -> None:
     SVM_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
     LOGREG_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
     RF_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
+    ENSEMBLE_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_json_artifact_only(artifact_path: Path) -> tuple[dict | None, Path | None]:
