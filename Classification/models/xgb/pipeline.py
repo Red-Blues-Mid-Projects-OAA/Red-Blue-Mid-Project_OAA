@@ -17,6 +17,20 @@ XGBoost 실전 파이프라인 (실전 엔진)
 """
 
 import hashlib
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
 
 import numpy as np
 import matplotlib.pyplot as plt

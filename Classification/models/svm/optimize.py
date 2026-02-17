@@ -13,6 +13,20 @@ SVM 하이퍼파라미터 최적화 (누수 방지 + Deep Scaling 버전).
 """
 
 import json
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
 
 import numpy as np
 import optuna

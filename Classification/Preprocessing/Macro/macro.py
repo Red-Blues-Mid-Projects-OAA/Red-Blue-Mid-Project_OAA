@@ -8,6 +8,21 @@
 
 ★ 외부 API 의존성 없음 — 모든 데이터를 Oracle DB에서 조회
 """
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
+
 from common import pd, np
 from DB import StockDBManager
 

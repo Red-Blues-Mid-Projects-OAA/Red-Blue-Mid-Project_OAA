@@ -18,6 +18,21 @@ Alpha Margin 전략:
 
 ★ DB 적재 없음
 """
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
+
 from common import pd, np
 
 from Classification.Preprocessing.build_master_dataset import build_master_dataset
@@ -27,16 +42,26 @@ FORWARD_DAYS = 60    # 3개월 ≈ 60거래일 (20d/60d/120d 규칙 통일)
 ALPHA_MARGIN = 0.01   # 1.0% 누적 초과수익률 임계값 (Alpha Margin)
 
 
-def generate_target():
+def generate_target(
+    auto_update=True,
+    persist_total_features_on_update=True,
+):
     """
     1. build_master_dataset()를 호출하여 통합 Feature DataFrame을 받고
     2. DB에서 AAPL/S&P500 로그수익률을 가져와 3개월 Forward Target을 생성
     3. 이진 분류 타겟 (AAPL이 시장을 이기는가?)을 추가하여 반환
+
+    Args:
+        auto_update: build_master_dataset의 소스 업데이트 수행 여부.
+        persist_total_features_on_update: TOTAL_FEATURES 적재/동기화 수행 여부.
     """
     # ──────────────────────────────────────────────────────────────
     #  1단계: Master Feature DataFrame 생성
     # ──────────────────────────────────────────────────────────────
-    master_df = build_master_dataset()
+    master_df = build_master_dataset(
+        auto_update=auto_update,
+        persist_total_features_on_update=persist_total_features_on_update,
+    )
     master_index = master_df.index
 
     # ──────────────────────────────────────────────────────────────

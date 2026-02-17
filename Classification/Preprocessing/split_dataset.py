@@ -15,6 +15,20 @@
 ★ 다른 모듈들이 이 모듈을 import 하여 데이터를 가져갑니다.
 """
 from collections import namedtuple
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
 
 from common import pd
 from sklearn.preprocessing import StandardScaler
@@ -121,18 +135,27 @@ def _print_split_policy():
     print("=" * 70)
 
 
-def split_dataset(drop_features=None):
+def split_dataset(
+    drop_features=None,
+    auto_update=True,
+    persist_total_features_on_update=True,
+):
     """
     generate_target()에서 피처+타겟 DataFrame을 받아 5단계 분할을 수행합니다.
 
     Args:
         drop_features: 피처 컬럼에서 제외할 컬럼명 리스트.
+        auto_update: generate_target/build_master_dataset 업데이트 수행 여부.
+        persist_total_features_on_update: TOTAL_FEATURES 적재/동기화 수행 여부.
 
     Returns:
         DataSplit namedtuple
     """
     # ── 데이터 로드 ──
-    df = generate_target()
+    df = generate_target(
+        auto_update=auto_update,
+        persist_total_features_on_update=persist_total_features_on_update,
+    )
 
     # ── 피처 컬럼 추출 (Target 컬럼 제외) ──
     exclude_cols = ["Target_AAPL_3M", "Target_SP500_3M", "Target_Class", "Alpha_Diff"]

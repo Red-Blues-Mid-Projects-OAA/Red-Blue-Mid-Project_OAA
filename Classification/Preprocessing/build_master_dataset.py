@@ -9,6 +9,21 @@ Master DataFrame 병합 모듈
   3. Forward Fill : 매크로 휴장일 등 빈칸은 직전 영업일 값으로 채움
 
 """
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
+
 from common import pd
 from DB import (
     StockDBManager,

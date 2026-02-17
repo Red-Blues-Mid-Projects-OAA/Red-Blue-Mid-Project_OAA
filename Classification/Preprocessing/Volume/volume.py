@@ -6,6 +6,21 @@ AAPL 거래량 분석 모듈 (Self-contained)
 
 ★ DB 적재 없음
 """
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
+
 from common import pd, np
 from DB import StockDBManager
 

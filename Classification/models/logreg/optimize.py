@@ -5,7 +5,21 @@ Logistic Regression 하이퍼파라미터 최적화 모듈 (단일 Holdout + str
 from __future__ import annotations
 
 import hashlib
+import sys
 from datetime import datetime
+from pathlib import Path
+
+if __package__ in (None, ""):
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
 
 import numpy as np
 import optuna
@@ -158,7 +172,12 @@ def create_objective(full_df, feature_cols: list[str], profile: str):
     return objective
 
 
-def optimize(profile: str = "balanced", n_trials: int = N_TRIALS):
+def optimize(
+    profile: str = "balanced",
+    n_trials: int = N_TRIALS,
+    auto_update: bool = True,
+    persist_total_features_on_update: bool = True,
+):
     if profile not in {"balanced", "regularized"}:
         raise ValueError(f"profile은 'balanced' 또는 'regularized'만 허용됩니다: {profile}")
 
@@ -166,7 +185,10 @@ def optimize(profile: str = "balanced", n_trials: int = N_TRIALS):
     print("Logistic Regression Hyperparameter Optimization (Single Holdout)")
     print("=" * 70)
 
-    full_df = generate_target()
+    full_df = generate_target(
+        auto_update=auto_update,
+        persist_total_features_on_update=persist_total_features_on_update,
+    )
     exclude = ["Target_AAPL_3M", "Target_SP500_3M", "Target_Class", "Alpha_Diff"]
     feature_cols = [c for c in full_df.columns if c not in exclude]
     full_df = full_df.dropna(subset=["Target_Class"])
