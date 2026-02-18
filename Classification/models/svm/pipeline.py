@@ -45,11 +45,46 @@ from Classification.models.common.importance import compute_permutation_importan
 
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v3_svm_no_class_weight"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
+TSM_GATE_PROFILE = "tsm_gatehard_v1"
+TSM_EXPECTED_OBJECTIVE_VERSIONS = {
+    "tsm_gatehard_v1_stage1",
+    "tsm_gatehard_v1_stage2",
+}
 
 
 def _get_feature_hash(feature_cols):
     raw = "|".join(feature_cols)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def _apply_direction(proba, direction_mode):
+    if direction_mode == "normal":
+        return proba
+    if direction_mode == "inverted":
+        return 1.0 - proba
+    raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
+
+
+def _compute_recency_weights(index, recency_weight_lambda):
+    if recency_weight_lambda <= 0.0:
+        return None
+    rank = np.arange(len(index), dtype=float)
+    weights = 1.0 + recency_weight_lambda * rank
+    weights = np.clip(weights, 1e-8, None)
+    return weights / np.mean(weights)
+
+
+def _normalize_class_weight_dict(class_weight):
+    if not isinstance(class_weight, dict):
+        return class_weight
+    out = {}
+    for k, v in class_weight.items():
+        try:
+            key = int(k)
+        except Exception:
+            key = k
+        out[key] = float(v)
+    return out
 
 
 def _get_current_data_end_date(split):
@@ -64,6 +99,16 @@ def _get_current_data_end_date(split):
 
 def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimize_profile):
     required_meta = ["feature_hash", "data_end_date", "profile", "objective_version", "cv_mode"]
+    if optimize_profile == TSM_GATE_PROFILE:
+        required_meta.extend(
+            [
+                "strategy_stage",
+                "direction_mode",
+                "recency_weight_lambda",
+                "class_weight_mode",
+                "gate_objective_version",
+            ]
+        )
     for key in required_meta:
         if key not in param_data:
             return True, f"메타데이터 누락: {key}"
@@ -79,10 +124,15 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     if param_data["profile"] != optimize_profile:
         return True, f"profile 불일치 ({param_data['profile']} != {optimize_profile})"
 
-    if param_data["objective_version"] != EXPECTED_OBJECTIVE_VERSION:
+    if optimize_profile == TSM_GATE_PROFILE:
+        expected_versions = TSM_EXPECTED_OBJECTIVE_VERSIONS
+    else:
+        expected_versions = {EXPECTED_OBJECTIVE_VERSION}
+
+    if param_data["objective_version"] not in expected_versions:
         return True, (
             f"objective_version 불일치 "
-            f"({param_data['objective_version']} != {EXPECTED_OBJECTIVE_VERSION})"
+            f"({param_data['objective_version']} not in {sorted(expected_versions)})"
         )
 
     if param_data["cv_mode"] != EXPECTED_CV_MODE:
@@ -125,6 +175,7 @@ def _ensure_best_params(split, params_path, auto_optimize=False, optimize_profil
                 auto_update=False,
                 persist_total_features_on_update=False,
                 feature_source_mode="db_first",
+                strategy_stage="stage2" if optimize_profile == TSM_GATE_PROFILE else "stage2",
             )
         else:
             raise RuntimeError(
@@ -146,29 +197,39 @@ def load_svm_params(params_path):
         "decision_threshold": 0.5,
         "fit_mode": "final_train",
     }
+    default_controls = {
+        "direction_mode": "normal",
+        "recency_weight_lambda": 0.0,
+    }
 
     data, used_path = load_json_artifact_only(params_path)
     if data is None:
-        return default_params, default_meta
+        return default_params, default_meta, default_controls
 
     try:
         params = data.get("best_params", data)
         if not isinstance(params, dict):
-            return default_params, default_meta
+            return default_params, default_meta, default_controls
 
         merged = {**default_params, **params}
         merged["probability"] = True
         merged.setdefault("random_state", 42)
-        merged["class_weight"] = None
+        merged["class_weight"] = _normalize_class_weight_dict(merged.get("class_weight"))
         meta = {
             "decision_threshold": 0.5,
             "fit_mode": data.get("fit_mode", "final_train"),
         }
+        controls = {
+            "direction_mode": str(data.get("direction_mode", "normal")),
+            "recency_weight_lambda": float(data.get("recency_weight_lambda", 0.0)),
+        }
+        if controls["direction_mode"] not in {"normal", "inverted"}:
+            controls["direction_mode"] = "normal"
         print(f"  SVM 파라미터 로드 경로: {used_path}")
-        return merged, meta
+        return merged, meta, controls
     except Exception as exc:
         print(f"[WARN] 파라미터 로드 실패: {exc}")
-        return default_params, default_meta
+        return default_params, default_meta, default_controls
 
 
 def safe_spearmanr(x, y):
@@ -176,10 +237,15 @@ def safe_spearmanr(x, y):
     x = np.asarray(x)
     y = np.asarray(y)
     if len(x) < 2 or len(y) < 2:
-        return np.nan, np.nan
+        return 0.0, 1.0, True
     if np.all(x == x[0]) or np.all(y == y[0]):
-        return np.nan, np.nan
-    return spearmanr(x, y)
+        return 0.0, 1.0, True
+    ic, p_value = spearmanr(x, y)
+    if np.isnan(ic):
+        return 0.0, 1.0, True
+    if np.isnan(p_value):
+        return float(ic), 1.0, True
+    return float(ic), float(p_value), False
 
 
 def ensemble_predict_proba(models, x_df):
@@ -235,11 +301,14 @@ def run_pipeline(
         auto_optimize=auto_optimize,
         optimize_profile=optimize_profile,
     )
-    svm_params, meta = load_svm_params(params_path)
+    svm_params, meta, controls = load_svm_params(params_path)
     threshold = 0.5
     fit_mode = meta.get("fit_mode", "final_train")
+    direction_mode = controls["direction_mode"]
+    recency_weight_lambda = controls["recency_weight_lambda"]
     print(f"\n사용 SVM 파라미터: {svm_params}")
     print(f"추론 임계값: {threshold:.2f} | 학습 모드: {fit_mode}")
+    print(f"direction_mode: {direction_mode} | recency λ: {recency_weight_lambda:.6f}")
 
     models = []
     train_accs = []
@@ -259,13 +328,24 @@ def run_pipeline(
 
         # split_dataset()에서 이미 스케일된 입력을 받아 추가 스케일링을 하지 않습니다.
         model = SVC(**svm_params)
-        model.fit(x_refit, y_refit)
+        fit_kwargs = {}
+        recency_weights = _compute_recency_weights(
+            ss.train.index if fit_mode == "train_only" else ss.final_train.index,
+            recency_weight_lambda,
+        )
+        if recency_weights is not None:
+            fit_kwargs["sample_weight"] = recency_weights
+        model.fit(x_refit, y_refit, **fit_kwargs)
         models.append((model, None, ss.offset))
 
-        y_refit_pred = model.predict(x_refit)
+        refit_proba = model.predict_proba(x_refit)[:, 1]
+        refit_proba = _apply_direction(refit_proba, direction_mode)
+        y_refit_pred = (refit_proba >= threshold).astype(int)
         train_acc = accuracy_score(y_refit, y_refit_pred)
         train_accs.append(train_acc)
-        all_test_probas.append(model.predict_proba(x_test)[:, 1])
+        test_proba = model.predict_proba(x_test)[:, 1]
+        test_proba = _apply_direction(test_proba, direction_mode)
+        all_test_probas.append(test_proba)
 
         print(
             f"  모델 {ss.offset}: Refit {len(x_refit):>4d}건 | "
@@ -278,10 +358,13 @@ def run_pipeline(
 
     acc = accuracy_score(y_test, ensemble_pred)
     prec = precision_score(y_test, ensemble_pred, zero_division=0)
-    gap = avg_train_acc - acc
+    gap_signed = avg_train_acc - acc
+    gap_abs = abs(gap_signed)
+    proba_std_test = float(np.std(ensemble_proba))
+    proba_unique_test = int(np.unique(np.round(ensemble_proba, 6)).size)
 
     excess_return = split.test[split.target_col] - split.test[split.benchmark_target_col]
-    ic, p_value = safe_spearmanr(ensemble_proba, excess_return)
+    ic, p_value, ic_degenerate = safe_spearmanr(ensemble_proba, excess_return)
 
     mid_idx = len(split.test) // 2
     first_half = split.test.iloc[:mid_idx]
@@ -290,8 +373,8 @@ def run_pipeline(
     proba_second = ensemble_proba[mid_idx:]
     excess_first = first_half[split.target_col] - first_half[split.benchmark_target_col]
     excess_second = second_half[split.target_col] - second_half[split.benchmark_target_col]
-    ic_first, p_first = safe_spearmanr(proba_first, excess_first)
-    ic_second, p_second = safe_spearmanr(proba_second, excess_second)
+    ic_first, p_first, _ = safe_spearmanr(proba_first, excess_first)
+    ic_second, p_second, _ = safe_spearmanr(proba_second, excess_second)
 
     baseline_ic_fi = np.nan
     feat_imp_df = None
@@ -304,7 +387,9 @@ def run_pipeline(
             x_test=x_test,
             y_test=y_test,
             alpha_diff=excess_return,
-            predict_proba_fn=lambda x_df: ensemble_predict_proba(models, x_df),
+            predict_proba_fn=(
+                lambda x_df: _apply_direction(ensemble_predict_proba(models, x_df), direction_mode)
+            ),
             threshold=threshold,
             n_repeats=PERM_IMPORTANCE_REPEATS,
             seed=PERM_IMPORTANCE_SEED,
@@ -323,7 +408,12 @@ def run_pipeline(
     print(f"Accuracy : {acc * 100:.2f}%")
     print(f"Precision: {prec * 100:.2f}%")
     print(f"IC       : {ic:+.4f} (p={p_value:.4f})")
-    print(f"Gap      : {gap * 100:.2f}%p ({gap * 10000:.0f}bp)")
+    print(
+        f"Gap      : signed={gap_signed * 100:.2f}%p "
+        f"/ abs={gap_abs * 100:.2f}%p ({gap_abs * 10000:.0f}bp)"
+    )
+    if ic_degenerate:
+        print("[WARN] IC degenerate: constant/near-constant probability input")
     print("\nClassification Report:")
     print(classification_report(y_test, ensemble_pred, target_names=["Lose(0)", "Win(1)"]))
 
@@ -437,7 +527,10 @@ def run_pipeline(
                 fontsize=12,
                 fontweight="bold",
             )
-        axes[1, 0].set_title(f"Ensemble Train-Test Gap ({gap * 100:.1f}%p)", fontsize=13)
+        axes[1, 0].set_title(
+            f"Ensemble Train-Test Gap (signed={gap_signed * 100:.1f}%p, abs={gap_abs * 100:.1f}%p)",
+            fontsize=13,
+        )
         axes[1, 0].set_ylabel("Accuracy (%)")
         axes[1, 0].set_ylim(0, 100)
         axes[1, 0].axhline(y=50, color="gray", linestyle="--", alpha=0.5, label="Random (50%)")
@@ -484,7 +577,10 @@ def run_pipeline(
     print(f"  IC (전체)      : {ic:+.4f} (p={p_value:.4f})")
     print(f"  IC (전반기)    : {ic_first:+.4f} (p={p_first:.4f})")
     print(f"  IC (후반기)    : {ic_second:+.4f} (p={p_second:.4f})")
-    print(f"  Train-Test Gap : {gap * 100:.1f}%p ({gap * 10000:.0f}bp)")
+    print(
+        f"  Train-Test Gap : signed={gap_signed * 100:.1f}%p, "
+        f"abs={gap_abs * 100:.1f}%p ({gap_abs * 10000:.0f}bp)"
+    )
     if feat_imp_df is not None and len(feat_imp_df) > 0:
         top_row = feat_imp_df.iloc[0]
         print(
@@ -503,7 +599,9 @@ def run_pipeline(
         {
             "accuracy": acc,
             "ic": ic,
-            "gap": gap,
+            "gap": gap_abs,
+            "gap_signed": gap_signed,
+            "gap_abs": gap_abs,
             "ic_first": ic_first,
             "ic_second": ic_second,
         }
@@ -515,9 +613,14 @@ def run_pipeline(
         "precision": float(prec),
         "ic": float(ic),
         "ic_p_value": float(p_value),
-        "gap": float(gap),
+        "gap": float(gap_abs),
+        "gap_signed": float(gap_signed),
+        "gap_abs": float(gap_abs),
         "ic_first": float(ic_first),
         "ic_second": float(ic_second),
+        "proba_std_test": float(proba_std_test),
+        "proba_unique_test": int(proba_unique_test),
+        "ic_degenerate": bool(ic_degenerate),
         "overall_pass": bool(gate["pass_all"]),
     }
 

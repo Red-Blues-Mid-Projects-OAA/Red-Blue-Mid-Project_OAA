@@ -41,15 +41,50 @@ from Classification.Preprocessing.split_dataset import N_MODELS, get_stride_spli
 
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v2_logreg_no_class_weight"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
+TSM_GATE_PROFILE = "tsm_gatehard_v1"
+TSM_EXPECTED_OBJECTIVE_VERSIONS = {
+    "tsm_gatehard_v1_stage1",
+    "tsm_gatehard_v1_stage2",
+}
 
 
 def _safe_spearman(x, y):
     ic, p_value = spearmanr(x, y)
     if np.isnan(ic):
-        return 0.0, 1.0
+        return 0.0, 1.0, True
     if np.isnan(p_value):
-        return float(ic), 1.0
-    return float(ic), float(p_value)
+        return float(ic), 1.0, True
+    return float(ic), float(p_value), False
+
+
+def _apply_direction(proba, direction_mode):
+    if direction_mode == "normal":
+        return proba
+    if direction_mode == "inverted":
+        return 1.0 - proba
+    raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
+
+
+def _compute_recency_weights(index, recency_weight_lambda):
+    if recency_weight_lambda <= 0.0:
+        return None
+    rank = np.arange(len(index), dtype=float)
+    weights = 1.0 + recency_weight_lambda * rank
+    weights = np.clip(weights, 1e-8, None)
+    return weights / np.mean(weights)
+
+
+def _normalize_class_weight_dict(class_weight):
+    if not isinstance(class_weight, dict):
+        return class_weight
+    out = {}
+    for k, v in class_weight.items():
+        try:
+            key = int(k)
+        except Exception:
+            key = k
+        out[key] = float(v)
+    return out
 
 
 def _get_feature_hash(feature_cols):
@@ -69,6 +104,16 @@ def _get_current_data_end_date(split):
 
 def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimize_profile):
     required_meta = ["feature_hash", "data_end_date", "profile", "objective_version", "cv_mode"]
+    if optimize_profile == TSM_GATE_PROFILE:
+        required_meta.extend(
+            [
+                "strategy_stage",
+                "direction_mode",
+                "recency_weight_lambda",
+                "class_weight_mode",
+                "gate_objective_version",
+            ]
+        )
     for key in required_meta:
         if key not in param_data:
             return True, f"메타데이터 누락: {key}"
@@ -84,10 +129,15 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     if param_data["profile"] != optimize_profile:
         return True, f"profile 불일치 ({param_data['profile']} != {optimize_profile})"
 
-    if param_data["objective_version"] != EXPECTED_OBJECTIVE_VERSION:
+    if optimize_profile == TSM_GATE_PROFILE:
+        expected_versions = TSM_EXPECTED_OBJECTIVE_VERSIONS
+    else:
+        expected_versions = {EXPECTED_OBJECTIVE_VERSION}
+
+    if param_data["objective_version"] not in expected_versions:
         return True, (
             f"objective_version 불일치 "
-            f"({param_data['objective_version']} != {EXPECTED_OBJECTIVE_VERSION})"
+            f"({param_data['objective_version']} not in {sorted(expected_versions)})"
         )
 
     if param_data["cv_mode"] != EXPECTED_CV_MODE:
@@ -109,7 +159,11 @@ def _load_params_or_default(params_path):
     data, used_path = load_json_artifact_only(params_path)
     if data is None:
         default_params["class_weight"] = None
-        return default_params, None
+        controls = {
+            "direction_mode": "normal",
+            "recency_weight_lambda": 0.0,
+        }
+        return default_params, None, controls
 
     best_params = data.get("best_params", {})
     common_params = data.get("common_params", {})
@@ -127,9 +181,18 @@ def _load_params_or_default(params_path):
         merged["penalty"] = "elasticnet"
         merged["solver"] = "saga"
 
-    merged["class_weight"] = None
+    merged["class_weight"] = _normalize_class_weight_dict(merged.get("class_weight"))
+    if merged.get("class_weight") is None:
+        merged["class_weight"] = None
+
+    controls = {
+        "direction_mode": str(data.get("direction_mode", "normal")),
+        "recency_weight_lambda": float(data.get("recency_weight_lambda", 0.0)),
+    }
+    if controls["direction_mode"] not in {"normal", "inverted"}:
+        controls["direction_mode"] = "normal"
     print(f"  logreg 파라미터 로드 경로: {used_path}")
-    return merged, data
+    return merged, data, controls
 
 
 def _ensure_best_params(split, params_path, auto_optimize=False, optimize_profile="balanced"):
@@ -166,6 +229,7 @@ def _ensure_best_params(split, params_path, auto_optimize=False, optimize_profil
                 auto_update=False,
                 persist_total_features_on_update=False,
                 feature_source_mode="db_first",
+                strategy_stage="stage2" if optimize_profile == TSM_GATE_PROFILE else "stage2",
             )
         else:
             raise RuntimeError(
@@ -211,11 +275,15 @@ def run_pipeline(
         auto_optimize=auto_optimize,
         optimize_profile=optimize_profile,
     )
-    params, _ = _load_params_or_default(params_path)
+    params, _, controls = _load_params_or_default(params_path)
+    direction_mode = controls["direction_mode"]
+    recency_weight_lambda = controls["recency_weight_lambda"]
 
     print("\n  적용할 파라미터:")
     for key, val in params.items():
         print(f"    {key:20s}: {val}")
+    print(f"    {'direction_mode':20s}: {direction_mode}")
+    print(f"    {'recency_weight_lambda':20s}: {recency_weight_lambda:.6f}")
 
     feature_cols = split.feature_cols
     x_test = split.test[feature_cols]
@@ -239,17 +307,25 @@ def run_pipeline(
         y_refit = ss.final_train["Target_Class"].astype(int)
 
         model = LogisticRegression(**params)
-        model.fit(x_refit, y_refit)
+        fit_kwargs = {}
+        recency_weights = _compute_recency_weights(ss.final_train.index, recency_weight_lambda)
+        if recency_weights is not None:
+            fit_kwargs["sample_weight"] = recency_weights
+        model.fit(x_refit, y_refit, **fit_kwargs)
         models.append(model)
 
-        y_refit_pred = model.predict(x_refit)
+        refit_proba = model.predict_proba(x_refit)[:, 1]
+        refit_proba = _apply_direction(refit_proba, direction_mode)
+        y_refit_pred = (refit_proba >= threshold).astype(int)
         t_acc = accuracy_score(y_refit, y_refit_pred)
         train_accs.append(t_acc)
 
         proba = model.predict_proba(x_test)[:, 1]
+        proba = _apply_direction(proba, direction_mode)
         all_test_probas.append(proba)
 
         train_full_proba = model.predict_proba(x_final_train_full)[:, 1]
+        train_full_proba = _apply_direction(train_full_proba, direction_mode)
         all_train_probas_full.append(train_full_proba)
 
         print(
@@ -277,8 +353,10 @@ def run_pipeline(
     print(classification_report(y_test, ensemble_pred, target_names=["Lose(0)", "Win(1)"]))
 
     actual_excess = split.test[split.target_col] - split.test[split.benchmark_target_col]
-    ic, p_value = _safe_spearman(ensemble_proba, actual_excess)
+    ic, p_value, ic_degenerate = _safe_spearman(ensemble_proba, actual_excess)
     print(f"    IC       : {ic:.4f} (p={p_value:.4f})")
+    if ic_degenerate:
+        print("    [WARN] IC degenerate: constant/near-constant probability input")
 
     baseline_ic_fi = np.nan
     feat_imp_df = None
@@ -289,6 +367,8 @@ def run_pipeline(
             y_test=y_test,
             alpha_diff=actual_excess,
             predict_proba_fn=lambda x_df: np.mean(
+                [m.predict_proba(x_df)[:, 1] for m in models], axis=0
+            ) if direction_mode == "normal" else 1.0 - np.mean(
                 [m.predict_proba(x_df)[:, 1] for m in models], axis=0
             ),
             threshold=threshold,
@@ -307,8 +387,11 @@ def run_pipeline(
     else:
         print("\n  [Permutation ΔIC Feature Importance] 생략 (compute_importance=False)")
 
-    gap = avg_train_acc - acc
-    print(f"\n  Train-Test Gap: {gap * 100:.1f}%p")
+    gap_signed = avg_train_acc - acc
+    gap_abs = abs(gap_signed)
+    proba_std_test = float(np.std(ensemble_proba))
+    proba_unique_test = int(np.unique(np.round(ensemble_proba, 6)).size)
+    print(f"\n  Train-Test Gap: signed={gap_signed * 100:.1f}%p, abs={gap_abs * 100:.1f}%p")
 
     mid_idx = len(split.test) // 2
     first_half = split.test.iloc[:mid_idx]
@@ -317,8 +400,8 @@ def run_pipeline(
     proba_second = ensemble_proba[mid_idx:]
     excess_first = first_half[split.target_col] - first_half[split.benchmark_target_col]
     excess_second = second_half[split.target_col] - second_half[split.benchmark_target_col]
-    ic_first, _ = _safe_spearman(proba_first, excess_first)
-    ic_second, _ = _safe_spearman(proba_second, excess_second)
+    ic_first, _, _ = _safe_spearman(proba_first, excess_first)
+    ic_second, _, _ = _safe_spearman(proba_second, excess_second)
 
     if save_plot:
         fig, axes = plt.subplots(2, 2, figsize=(16, 12))
@@ -404,7 +487,10 @@ def run_pipeline(
         for bar, val in zip(bars, gap_values):
             axes[1, 0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
                             f"{val:.1f}%", ha="center", fontsize=12, fontweight="bold")
-        axes[1, 0].set_title(f"Ensemble Train-Test Gap ({gap * 100:.1f}%p)", fontsize=13)
+        axes[1, 0].set_title(
+            f"Ensemble Train-Test Gap (signed={gap_signed * 100:.1f}%p, abs={gap_abs * 100:.1f}%p)",
+            fontsize=13,
+        )
         axes[1, 0].set_ylabel("Accuracy (%)")
         axes[1, 0].set_ylim(0, 100)
         axes[1, 0].axhline(y=50, color="gray", linestyle="--", alpha=0.5, label="Random (50%)")
@@ -437,7 +523,9 @@ def run_pipeline(
         {
             "accuracy": acc,
             "ic": ic,
-            "gap": gap,
+            "gap": gap_abs,
+            "gap_signed": gap_signed,
+            "gap_abs": gap_abs,
             "ic_first": ic_first,
             "ic_second": ic_second,
         }
@@ -449,9 +537,14 @@ def run_pipeline(
         "precision": float(prec),
         "ic": float(ic),
         "ic_p_value": float(p_value),
-        "gap": float(gap),
+        "gap": float(gap_abs),
+        "gap_signed": float(gap_signed),
+        "gap_abs": float(gap_abs),
         "ic_first": float(ic_first),
         "ic_second": float(ic_second),
+        "proba_std_test": float(proba_std_test),
+        "proba_unique_test": int(proba_unique_test),
+        "ic_degenerate": bool(ic_degenerate),
         "overall_pass": bool(gate["pass_all"]),
     }
 

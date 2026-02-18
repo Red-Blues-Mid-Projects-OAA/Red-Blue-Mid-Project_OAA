@@ -1,22 +1,23 @@
 {
   "best_params": {
-    "n_estimators": 252,
+    "n_estimators": 270,
     "max_depth": 2,
-    "min_samples_split": 103,
-    "min_samples_leaf": 48,
-    "max_features": 0.4178352438983738,
-    "ccp_alpha": 0.0256858138336296
+    "min_samples_split": 116,
+    "min_samples_leaf": 47,
+    "max_features": 0.5894633936788146,
+    "ccp_alpha": 0.005102549893051877,
+    "class_weight": null
   },
   "common_params": {
     "random_state": 42,
     "n_jobs": -1
   },
-  "best_logloss": 0.8917811007027314,
-  "best_objective_score": 1.5891880071298643,
-  "best_trial_number": 46,
+  "best_logloss": NaN,
+  "best_objective_score": 9000000000.0,
+  "best_trial_number": 0,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T14:54:38",
+  "created_at": "2026-02-18T19:21:17",
   "data_end_date": "2025-11-18",
   "feature_count": 16,
   "feature_hash": "4b8504c5383f1a1271e0190536cd22432e348247e15dc03354142604ef871173",
@@ -45,10 +46,26 @@
   "profile": "balanced",
   "objective_version": "target_aligned_v3_rf_no_class_weight",
   "cv_mode": "single_holdout_2024Q2Q3",
+  "strategy_stage": "default",
+  "direction_mode": "normal",
+  "recency_weight_lambda": 0.0,
+  "class_weight_mode": "none",
+  "gate_objective_version": "target_aligned_v3_rf_no_class_weight",
+  "train_val_gap_signed": NaN,
+  "train_val_gap_abs": NaN,
+  "val_proba_std": NaN,
+  "val_proba_unique": 0,
+  "val_pred_unique": 0,
+  "degenerate_rejected_count": 100,
   "selected_metrics": {
-    "validation_accuracy": 0.2125984251968504,
-    "validation_ic": 0.1327329827142291,
-    "validation_logloss": 0.8917811007027314,
-    "train_val_gap": 0.4208677102613169
+    "validation_accuracy": NaN,
+    "validation_ic": NaN,
+    "validation_logloss": NaN,
+    "train_val_gap": NaN,
+    "train_val_gap_signed": NaN,
+    "train_val_gap_abs": NaN,
+    "val_proba_std": NaN,
+    "val_proba_unique": 0,
+    "val_pred_unique": 0
   }
 }

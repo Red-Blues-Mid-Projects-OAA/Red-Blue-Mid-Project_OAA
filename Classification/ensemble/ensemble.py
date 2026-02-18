@@ -39,13 +39,13 @@ from Classification.Preprocessing.generate_target import generate_target
 from Classification.Preprocessing.split_dataset import SPLIT_CONFIG, split_dataset
 
 
-def _safe_spearman(x: np.ndarray, y: np.ndarray) -> tuple[float, float]:
+def _safe_spearman(x: np.ndarray, y: np.ndarray) -> tuple[float, float, bool]:
     ic, p_value = spearmanr(x, y)
     if np.isnan(ic):
-        return 0.0, 1.0
+        return 0.0, 1.0, True
     if np.isnan(p_value):
-        return float(ic), 1.0
-    return float(ic), float(p_value)
+        return float(ic), 1.0, True
+    return float(ic), float(p_value), False
 
 
 def _validate_proba_vector(name: str, proba: Any, expected_len: int) -> np.ndarray:
@@ -121,6 +121,7 @@ def run_equal_weight_ensemble(
     benchmark: str = "SP500",
     auto_update: bool = False,
     persist_total_features_on_update: bool = False,
+    optimize_profile: str = "balanced",
     save_json: bool = True,
 ) -> dict[str, Any]:
     """
@@ -143,6 +144,7 @@ def run_equal_weight_ensemble(
 
     xgb_models, p_xgb_raw, _ = run_xgb_pipeline(
         auto_optimize=False,
+        optimize_profile=optimize_profile,
         return_metrics=False,
         ticker=ticker,
         benchmark=benchmark,
@@ -151,6 +153,8 @@ def run_equal_weight_ensemble(
         split_override=split,
     )
     svm_models, p_svm_raw, _ = run_svm_pipeline(
+        auto_optimize=False,
+        optimize_profile=optimize_profile,
         return_metrics=False,
         ticker=ticker,
         benchmark=benchmark,
@@ -160,6 +164,7 @@ def run_equal_weight_ensemble(
     )
     rf_models, p_rf_raw, _ = run_rf_pipeline(
         auto_optimize=False,
+        optimize_profile=optimize_profile,
         return_metrics=False,
         ticker=ticker,
         benchmark=benchmark,
@@ -169,6 +174,7 @@ def run_equal_weight_ensemble(
     )
     logreg_models, p_logreg_raw, _ = run_logreg_pipeline(
         auto_optimize=False,
+        optimize_profile=optimize_profile,
         return_metrics=False,
         ticker=ticker,
         benchmark=benchmark,
@@ -187,13 +193,27 @@ def run_equal_weight_ensemble(
     y_pred_test = (p_ens_test >= 0.5).astype(int)
     alpha_diff_test = (split.test[split.target_col] - split.test[split.benchmark_target_col]).to_numpy()
 
-    ic_full, ic_pvalue = _safe_spearman(p_ens_test, alpha_diff_test)
+    ic_full, ic_pvalue, ic_degenerate = _safe_spearman(p_ens_test, alpha_diff_test)
     mid = len(p_ens_test) // 2
-    ic_first, _ = _safe_spearman(p_ens_test[:mid], alpha_diff_test[:mid])
-    ic_second, _ = _safe_spearman(p_ens_test[mid:], alpha_diff_test[mid:])
+    ic_first, _, _ = _safe_spearman(p_ens_test[:mid], alpha_diff_test[:mid])
+    ic_second, _, _ = _safe_spearman(p_ens_test[mid:], alpha_diff_test[mid:])
 
     accuracy_ref = float(accuracy_score(y_test, y_pred_test))
     precision_ref = float(precision_score(y_test, y_pred_test, zero_division=0))
+
+    x_final = split.final_train[split.feature_cols]
+    y_final = split.final_train["Target_Class"].astype(int).to_numpy()
+    p_xgb_train = _predict_mean_proba(xgb_models, x_final)
+    p_svm_train = _predict_mean_proba(svm_models, x_final)
+    p_rf_train = _predict_mean_proba(rf_models, x_final)
+    p_logreg_train = _predict_mean_proba(logreg_models, x_final)
+    p_ens_train = (p_xgb_train + p_svm_train + p_rf_train + p_logreg_train) / 4.0
+    y_pred_train = (p_ens_train >= 0.5).astype(int)
+    train_accuracy_ref = float(accuracy_score(y_final, y_pred_train))
+    gap_signed_ref = float(train_accuracy_ref - accuracy_ref)
+    gap_abs_ref = abs(gap_signed_ref)
+    proba_std_test = float(np.std(p_ens_test))
+    proba_unique_test = int(np.unique(np.round(p_ens_test, 6)).size)
 
     df_test_probs = pd.DataFrame(
         {
@@ -246,6 +266,14 @@ def run_equal_weight_ensemble(
         "ic_second_half": float(ic_second),
         "accuracy_ref": float(accuracy_ref),
         "precision_ref": float(precision_ref),
+        "train_accuracy_ref": float(train_accuracy_ref),
+        "gap_ref": float(gap_abs_ref),
+        "gap_signed_ref": float(gap_signed_ref),
+        "gap_abs_ref": float(gap_abs_ref),
+        "proba_std_test": float(proba_std_test),
+        "proba_unique_test": int(proba_unique_test),
+        "ic_degenerate": bool(ic_degenerate),
+        "optimize_profile": optimize_profile,
         "p_ens_test_stats": _distribution_summary(df_test_probs["p_ens"].to_numpy()),
         "future_window": {
             "n_samples": int(len(df_future_probs)),
@@ -278,6 +306,12 @@ def run_equal_weight_ensemble(
     print(f"  IC / p-value          : {ic_full:+.4f} / {ic_pvalue:.4f}")
     print(f"  IC first half         : {ic_first:+.4f}")
     print(f"  IC second half        : {ic_second:+.4f}")
+    print(
+        f"  Train-Test gap        : "
+        f"signed={gap_signed_ref * 100:.2f}%p / abs={gap_abs_ref * 100:.2f}%p"
+    )
+    if ic_degenerate:
+        print("  [WARN] IC degenerate: constant/near-constant probability input")
     test_stats = payload["p_ens_test_stats"]
     print(
         "  p_ens (test) min/mean/max: "

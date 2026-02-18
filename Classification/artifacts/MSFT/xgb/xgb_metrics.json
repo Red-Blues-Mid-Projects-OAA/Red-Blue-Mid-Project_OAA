@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-18T19:22:53",
+  "ticker": "MSFT",
+  "ticker_slug": "MSFT",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MSFT/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MSFT/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 221,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-18T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.19457013574660634,
+    "precision": 0.16296296296296298,
+    "ic": -0.5828554593260474,
+    "ic_p_value": 1.6677012692417837e-21,
+    "gap": 0.6361116824352119,
+    "gap_signed": 0.6361116824352119,
+    "gap_abs": 0.6361116824352119,
+    "ic_first": -0.282122489461939,
+    "ic_second": 0.42693927693927697,
+    "proba_std_test": 0.20923449099063873,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

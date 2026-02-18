@@ -33,13 +33,15 @@ def evaluate_gate(metrics: dict, thresholds: GateThresholds | None = None) -> di
 
     accuracy = float(metrics["accuracy"])
     ic = float(metrics["ic"])
-    gap = float(metrics["gap"])
+    gap_base = float(metrics.get("gap", 0.0))
+    gap_signed = float(metrics.get("gap_signed", gap_base))
+    gap_abs = float(metrics.get("gap_abs", abs(gap_signed)))
     ic_first = float(metrics.get("ic_first", float("nan")))
     ic_second = float(metrics.get("ic_second", float("nan")))
 
     acc_pass = accuracy >= t.accuracy_min
     ic_pass = ic >= t.ic_min
-    gap_pass = gap <= t.gap_max
+    gap_pass = gap_abs <= t.gap_max
     ic_first_pass = (not math.isnan(ic_first)) and (ic_first >= t.ic_half_min)
     ic_second_pass = (not math.isnan(ic_second)) and (ic_second >= t.ic_half_min)
     stability_pass = ic_first_pass and ic_second_pass
@@ -53,7 +55,9 @@ def evaluate_gate(metrics: dict, thresholds: GateThresholds | None = None) -> di
     return {
         "accuracy": accuracy,
         "ic": ic,
-        "gap": gap,
+        "gap": gap_abs,  # backward-compatible alias
+        "gap_signed": gap_signed,
+        "gap_abs": gap_abs,
         "ic_first": ic_first,
         "ic_second": ic_second,
         "acc_pass": acc_pass,
@@ -89,7 +93,8 @@ def print_gate_result(model_name: str, gate: dict) -> None:
     )
     print(
         f"  Gap <= {gate['thresholds']['gap_max']*100:.0f}%p    : "
-        f"{'PASS' if gate['gap_pass'] else 'FAIL'} ({gate['gap']*100:.2f}%p)"
+        f"{'PASS' if gate['gap_pass'] else 'FAIL'} "
+        f"(abs={gate['gap_abs']*100:.2f}%p, signed={gate['gap_signed']*100:.2f}%p)"
     )
     print(
         f"  IC(전반기) >= {gate['thresholds']['ic_half_min']:.2f} : "

@@ -30,7 +30,14 @@ from common import pd
 from DB import StockDBManager, TICKERS
 from Classification.ensemble.ensemble import run_equal_weight_ensemble
 from Classification.mapping.mapping import run_mapping
-from Classification.model_config import MULTI_TICKER_ARTIFACT_DIR, ticker_to_slug
+from Classification.model_config import (
+    MULTI_TICKER_ARTIFACT_DIR,
+    get_model_metrics_path,
+    get_model_params_path,
+    get_model_result_path,
+    save_json_artifact_only,
+    ticker_to_slug,
+)
 from Classification.Preprocessing.split_dataset import split_dataset
 from Classification.models.logreg.optimize import optimize as optimize_logreg
 from Classification.models.logreg.pipeline import run_pipeline as run_logreg
@@ -104,6 +111,82 @@ def _run_model_with_optional_retune(model_name, run_fn, run_kwargs, optimize_fn=
         except Exception:
             status = "retuned_once_failed"
             raise
+
+
+def _get_model_metric_warnings(model: str, metrics: dict) -> list[str]:
+    warnings = []
+    gap_abs = float(
+        metrics.get("gap_abs", abs(float(metrics.get("gap_signed", metrics.get("gap", 0.0)))))
+    )
+    if gap_abs > 0.25:
+        warnings.append(f"{model} train_test_gap > 0.25")
+    if bool(metrics.get("ic_degenerate", False)):
+        warnings.append(f"{model} ic_degenerate=true")
+    return warnings
+
+
+def _save_model_metrics_json(
+    *,
+    ticker: str,
+    benchmark: str,
+    model: str,
+    metrics: dict,
+    model_status: str,
+    split,
+    optimize_profile: str,
+    n_trials: int,
+    force_retune_all: bool,
+    warnings: list[str],
+) -> None:
+    metrics_path = get_model_metrics_path(model, ticker)
+    params_path = get_model_params_path(model, ticker)
+    result_plot_path = get_model_result_path(model, ticker)
+    test_start = None
+    test_end = None
+    n_test_samples = 0
+    if hasattr(split, "test") and split.test is not None and len(split.test) > 0:
+        n_test_samples = int(len(split.test))
+        test_start = split.test.index.min()
+        test_end = split.test.index.max()
+
+    payload = {
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "ticker": ticker,
+        "ticker_slug": ticker_to_slug(ticker),
+        "benchmark": benchmark,
+        "model": str(model).lower(),
+        "run_context": {
+            "source": "multi_ticker.run_all_tickers",
+            "optimize_profile": optimize_profile,
+            "n_trials": int(n_trials),
+            "force_retune_all": bool(force_retune_all),
+            "model_status": model_status,
+            "params_path": str(params_path),
+            "result_plot_path": str(result_plot_path),
+        },
+        "data_context": {
+            "n_test_samples": n_test_samples,
+            "test_period_start": test_start,
+            "test_period_end": test_end,
+        },
+        "metrics": {
+            "accuracy": float(metrics.get("accuracy", 0.0)),
+            "precision": float(metrics.get("precision", 0.0)),
+            "ic": float(metrics.get("ic", 0.0)),
+            "ic_p_value": float(metrics.get("ic_p_value", 1.0)),
+            "gap": float(metrics.get("gap_abs", abs(float(metrics.get("gap_signed", metrics.get("gap", 1.0)))))),
+            "gap_signed": float(metrics.get("gap_signed", metrics.get("gap", 0.0))),
+            "gap_abs": float(metrics.get("gap_abs", abs(float(metrics.get("gap_signed", metrics.get("gap", 1.0)))))),
+            "ic_first": float(metrics.get("ic_first", float("nan"))),
+            "ic_second": float(metrics.get("ic_second", float("nan"))),
+            "proba_std_test": float(metrics.get("proba_std_test", 0.0)),
+            "proba_unique_test": int(metrics.get("proba_unique_test", 0)),
+            "ic_degenerate": bool(metrics.get("ic_degenerate", False)),
+            "overall_pass": bool(metrics.get("overall_pass", False)),
+        },
+        "warnings": list(warnings),
+    }
+    save_json_artifact_only(_normalize_for_json(payload), metrics_path)
 
 
 def _coverage_precheck():
@@ -242,6 +325,18 @@ def run_all_tickers(
                 },
             )
             model_status["xgb"] = xgb_status
+            _save_model_metrics_json(
+                ticker=ticker,
+                benchmark=benchmark,
+                model="xgb",
+                metrics=xgb_metrics,
+                model_status=xgb_status,
+                split=split,
+                optimize_profile=optimize_profile,
+                n_trials=int(trial_map["xgb"]),
+                force_retune_all=force_retune_all,
+                warnings=_get_model_metric_warnings("xgb", xgb_metrics),
+            )
 
             svm_metrics, svm_status = _run_model_with_optional_retune(
                 "SVM",
@@ -268,6 +363,18 @@ def run_all_tickers(
                 },
             )
             model_status["svm"] = svm_status
+            _save_model_metrics_json(
+                ticker=ticker,
+                benchmark=benchmark,
+                model="svm",
+                metrics=svm_metrics,
+                model_status=svm_status,
+                split=split,
+                optimize_profile=optimize_profile,
+                n_trials=int(trial_map["svm"]),
+                force_retune_all=force_retune_all,
+                warnings=_get_model_metric_warnings("svm", svm_metrics),
+            )
 
             rf_metrics, rf_status = _run_model_with_optional_retune(
                 "RF",
@@ -294,6 +401,18 @@ def run_all_tickers(
                 },
             )
             model_status["rf"] = rf_status
+            _save_model_metrics_json(
+                ticker=ticker,
+                benchmark=benchmark,
+                model="rf",
+                metrics=rf_metrics,
+                model_status=rf_status,
+                split=split,
+                optimize_profile=optimize_profile,
+                n_trials=int(trial_map["rf"]),
+                force_retune_all=force_retune_all,
+                warnings=_get_model_metric_warnings("rf", rf_metrics),
+            )
 
             logreg_metrics, logreg_status = _run_model_with_optional_retune(
                 "LOGREG",
@@ -320,16 +439,36 @@ def run_all_tickers(
                 },
             )
             model_status["logreg"] = logreg_status
+            _save_model_metrics_json(
+                ticker=ticker,
+                benchmark=benchmark,
+                model="logreg",
+                metrics=logreg_metrics,
+                model_status=logreg_status,
+                split=split,
+                optimize_profile=optimize_profile,
+                n_trials=int(trial_map["logreg"]),
+                force_retune_all=force_retune_all,
+                warnings=_get_model_metric_warnings("logreg", logreg_metrics),
+            )
 
-            # Gap 경고(모델별)
+            # 모델별 경고(공통 규칙: abs-gap, ic_degenerate)
             for model_name, metrics in [
                 ("xgb", xgb_metrics),
                 ("svm", svm_metrics),
                 ("rf", rf_metrics),
                 ("logreg", logreg_metrics),
             ]:
-                if float(metrics.get("gap", 0.0)) > 0.25:
+                gap_abs = float(
+                    metrics.get(
+                        "gap_abs",
+                        abs(float(metrics.get("gap_signed", metrics.get("gap", 0.0)))),
+                    )
+                )
+                if gap_abs > 0.25:
                     warnings.append(f"{model_name} train_test_gap > 0.25")
+                if bool(metrics.get("ic_degenerate", False)):
+                    warnings.append(f"{model_name} ic_degenerate=true")
 
             ens = run_equal_weight_ensemble(
                 ticker=ticker,
@@ -358,6 +497,14 @@ def run_all_tickers(
             if abs(e_alpha_log) > LOG_E_ALPHA_WARN_THRESHOLD:
                 warnings.append("abs(E_alpha_3M_log) > ln(1.15)")
 
+            ens_gap_signed = float(ens.get("gap_signed_ref", ens.get("gap_ref", 0.0)))
+            ens_gap_abs = float(ens.get("gap_abs_ref", abs(ens_gap_signed)))
+            ens_ic_degenerate = bool(ens.get("ic_degenerate", False))
+            if ens_gap_abs > 0.25:
+                warnings.append("ensemble train_test_gap_abs > 0.25")
+            if ens_ic_degenerate:
+                warnings.append("ensemble ic_degenerate=true")
+
             for msg in mapping.get("warnings", []):
                 # summary/leaderboard는 로그수익률 기준 경고만 유지
                 if "E_alpha_3M_simple" in msg:
@@ -373,6 +520,9 @@ def run_all_tickers(
                 "p_latest": ens.get("latest_future_prediction", {}).get("p_ens"),
                 "ic_full": ens.get("ic_full"),
                 "ic_pvalue": ens.get("ic_pvalue"),
+                "gap_signed": ens_gap_signed,
+                "gap_abs": ens_gap_abs,
+                "ic_degenerate": ens_ic_degenerate,
                 "te_3m": mapping.get("TE_3M"),
                 "e_alpha_3m_log": mapping.get("E_alpha_3M_log"),
                 "test_acc": ens.get("accuracy_ref"),
@@ -387,6 +537,28 @@ def run_all_tickers(
                     "svm": svm_metrics,
                     "rf": rf_metrics,
                     "logreg": logreg_metrics,
+                },
+                "model_diagnostics": {
+                    "xgb": {
+                        "gap_signed": xgb_metrics.get("gap_signed"),
+                        "gap_abs": xgb_metrics.get("gap_abs"),
+                        "ic_degenerate": xgb_metrics.get("ic_degenerate"),
+                    },
+                    "svm": {
+                        "gap_signed": svm_metrics.get("gap_signed"),
+                        "gap_abs": svm_metrics.get("gap_abs"),
+                        "ic_degenerate": svm_metrics.get("ic_degenerate"),
+                    },
+                    "rf": {
+                        "gap_signed": rf_metrics.get("gap_signed"),
+                        "gap_abs": rf_metrics.get("gap_abs"),
+                        "ic_degenerate": rf_metrics.get("ic_degenerate"),
+                    },
+                    "logreg": {
+                        "gap_signed": logreg_metrics.get("gap_signed"),
+                        "gap_abs": logreg_metrics.get("gap_abs"),
+                        "ic_degenerate": logreg_metrics.get("ic_degenerate"),
+                    },
                 },
             }
             summary.append(row)
@@ -425,6 +597,9 @@ def run_all_tickers(
                 "p_latest": r.get("p_latest"),
                 "ic_full": r.get("ic_full"),
                 "ic_pvalue": r.get("ic_pvalue"),
+                "gap_signed": r.get("gap_signed"),
+                "gap_abs": r.get("gap_abs"),
+                "ic_degenerate": r.get("ic_degenerate"),
                 "te_3m": r.get("te_3m"),
                 "e_alpha_3m_log": r.get("e_alpha_3m_log"),
                 "test_acc": r.get("test_acc"),
@@ -438,6 +613,8 @@ def run_all_tickers(
         )
 
     leaderboard = pd.DataFrame(rows)
+    if not leaderboard.empty:
+        leaderboard.columns = [str(c).strip() for c in leaderboard.columns]
     if not leaderboard.empty and "e_alpha_3m_log" in leaderboard.columns:
         leaderboard = leaderboard.sort_values(by="e_alpha_3m_log", ascending=False, na_position="last")
 

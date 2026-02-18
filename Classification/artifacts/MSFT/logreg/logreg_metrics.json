@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-18T19:22:55",
+  "ticker": "MSFT",
+  "ticker_slug": "MSFT",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MSFT/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MSFT/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 221,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-18T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3936651583710407,
+    "precision": 0.3936651583710407,
+    "ic": 0.0,
+    "ic_p_value": 1.0,
+    "gap": 0.079062114356232,
+    "gap_signed": 0.079062114356232,
+    "gap_abs": 0.079062114356232,
+    "ic_first": 0.0,
+    "ic_second": 0.0,
+    "proba_std_test": 1.1102230246251565e-16,
+    "proba_unique_test": 1,
+    "ic_degenerate": true,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg ic_degenerate=true"
+  ]
+}

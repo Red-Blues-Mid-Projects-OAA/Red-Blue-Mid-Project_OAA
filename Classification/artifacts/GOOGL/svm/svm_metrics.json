@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-18T19:21:38",
+  "ticker": "GOOGL",
+  "ticker_slug": "GOOGL",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 221,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-18T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3393665158371041,
+    "precision": 0.7666666666666667,
+    "ic": 0.3625012507365448,
+    "ic_p_value": 2.885009024351347e-08,
+    "gap": 0.6606334841628959,
+    "gap_signed": 0.6606334841628959,
+    "gap_abs": 0.6606334841628959,
+    "ic_first": -0.16238306697022292,
+    "ic_second": 0.2772990522990523,
+    "proba_std_test": 0.039789125054586996,
+    "proba_unique_test": 212,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

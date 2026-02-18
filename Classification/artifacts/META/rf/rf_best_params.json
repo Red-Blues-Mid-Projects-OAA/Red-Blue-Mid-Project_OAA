@@ -1,22 +1,22 @@
 {
   "best_params": {
-    "n_estimators": 170,
+    "n_estimators": 169,
     "max_depth": 2,
-    "min_samples_split": 107,
-    "min_samples_leaf": 59,
-    "max_features": 0.5808931791985715,
-    "ccp_alpha": 0.026488536758800696
+    "min_samples_split": 117,
+    "min_samples_leaf": 20,
+    "max_features": 0.6717998470713852,
+    "ccp_alpha": 0.026343420749770797
   },
   "common_params": {
     "random_state": 42,
     "n_jobs": -1
   },
-  "best_logloss": 0.6423948678597382,
-  "best_objective_score": 0.7098113153901304,
-  "best_trial_number": 75,
+  "best_logloss": 0.642354790593858,
+  "best_objective_score": 0.7098012960736606,
+  "best_trial_number": 74,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T14:52:09",
+  "created_at": "2026-02-18T17:02:29",
   "data_end_date": "2025-11-18",
   "feature_count": 16,
   "feature_hash": "b32ca6d5d067f02c2de978750286af811c5a77de97ba2fa3fd3462d1f8cf47f9",
@@ -48,7 +48,7 @@
   "selected_metrics": {
     "validation_accuracy": 0.7007874015748031,
     "validation_ic": 0.0,
-    "validation_logloss": 0.6423948678597382,
+    "validation_logloss": 0.642354790593858,
     "train_val_gap": -0.1297382647886145
   }
 }

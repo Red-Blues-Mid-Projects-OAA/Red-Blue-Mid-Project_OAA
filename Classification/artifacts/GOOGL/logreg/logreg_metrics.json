@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-02-18T19:21:39",
+  "ticker": "GOOGL",
+  "ticker_slug": "GOOGL",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 221,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-18T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.2669683257918552,
+    "precision": 0.0,
+    "ic": 0.0,
+    "ic_p_value": 1.0,
+    "gap": 0.28303167420814485,
+    "gap_signed": 0.28303167420814485,
+    "gap_abs": 0.28303167420814485,
+    "ic_first": 0.0,
+    "ic_second": 0.0,
+    "proba_std_test": 5.551115123125783e-17,
+    "proba_unique_test": 1,
+    "ic_degenerate": true,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25",
+    "logreg ic_degenerate=true"
+  ]
+}

@@ -75,6 +75,21 @@ def get_model_result_path(model: str, ticker: str) -> Path:
     return dir_path / filename_map[model_key]
 
 
+def get_model_metrics_path(model: str, ticker: str) -> Path:
+    """종목별 모델 성능 metrics JSON 경로를 반환합니다."""
+    model_key = str(model).lower()
+    dir_path = get_model_artifact_dir(model_key, ticker)
+    filename_map = {
+        "xgb": "xgb_metrics.json",
+        "svm": "svm_metrics.json",
+        "logreg": "logreg_metrics.json",
+        "rf": "rf_metrics.json",
+    }
+    if model_key not in filename_map:
+        raise ValueError(f"지원하지 않는 model 입니다: {model}")
+    return dir_path / filename_map[model_key]
+
+
 def get_ensemble_result_path(ticker: str) -> Path:
     """종목별 ensemble 결과 JSON 경로를 반환합니다."""
     return get_ticker_artifact_dir(ticker) / "ensemble" / "ensemble.json"

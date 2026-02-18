@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-18T19:22:53",
+  "ticker": "MSFT",
+  "ticker_slug": "MSFT",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MSFT/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MSFT/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 221,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-18T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.34841628959276016,
+    "precision": 0.3442622950819672,
+    "ic": -0.4849967202908379,
+    "ic_p_value": 1.9339608662532913e-14,
+    "gap": 0.22390159120194175,
+    "gap_signed": 0.22390159120194175,
+    "gap_abs": 0.22390159120194175,
+    "ic_first": -0.20990915853301173,
+    "ic_second": -0.31445243945243945,
+    "proba_std_test": 0.058415602238370716,
+    "proba_unique_test": 220,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -14,7 +14,7 @@
   "best_trial_number": 49,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T14:58:37",
+  "created_at": "2026-02-18T17:09:29",
   "data_end_date": "2025-11-18",
   "feature_count": 16,
   "feature_hash": "07bb71971500706382db3c83395ed92f425bcb2081e97352b8cf399cd9dbc715",

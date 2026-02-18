@@ -53,6 +53,11 @@ from Classification.models.common.importance import compute_permutation_importan
 
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v5_no_class_weight"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
+TSM_GATE_PROFILE = "tsm_gatehard_v1"
+TSM_EXPECTED_OBJECTIVE_VERSIONS = {
+    "tsm_gatehard_v1_stage1",
+    "tsm_gatehard_v1_stage2",
+}
 
 
 def load_best_params(params_path):
@@ -81,10 +86,27 @@ def _safe_spearman(x, y):
     """
     ic, p_value = spearmanr(x, y)
     if np.isnan(ic):
-        return 0.0, 1.0
+        return 0.0, 1.0, True
     if np.isnan(p_value):
-        return float(ic), 1.0
-    return float(ic), float(p_value)
+        return float(ic), 1.0, True
+    return float(ic), float(p_value), False
+
+
+def _apply_direction(proba, direction_mode):
+    if direction_mode == "normal":
+        return proba
+    if direction_mode == "inverted":
+        return 1.0 - proba
+    raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
+
+
+def _compute_recency_weights(index, recency_weight_lambda):
+    if recency_weight_lambda <= 0.0:
+        return None
+    rank = np.arange(len(index), dtype=float)
+    weights = 1.0 + recency_weight_lambda * rank
+    weights = np.clip(weights, 1e-8, None)
+    return weights / np.mean(weights)
 
 
 def _get_current_data_end_date(split):
@@ -106,6 +128,16 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     - data_end_date가 현재 데이터보다 과거
     """
     required_meta = ["feature_hash", "data_end_date", "profile", "objective_version", "cv_mode"]
+    if optimize_profile == TSM_GATE_PROFILE:
+        required_meta.extend(
+            [
+                "strategy_stage",
+                "direction_mode",
+                "recency_weight_lambda",
+                "class_weight_mode",
+                "gate_objective_version",
+            ]
+        )
     for key in required_meta:
         if key not in param_data:
             return True, f"메타데이터 누락: {key}"
@@ -121,10 +153,15 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     if param_data["profile"] != optimize_profile:
         return True, f"profile 불일치 ({param_data['profile']} != {optimize_profile})"
 
-    if param_data["objective_version"] != EXPECTED_OBJECTIVE_VERSION:
+    if optimize_profile == TSM_GATE_PROFILE:
+        expected_versions = TSM_EXPECTED_OBJECTIVE_VERSIONS
+    else:
+        expected_versions = {EXPECTED_OBJECTIVE_VERSION}
+
+    if param_data["objective_version"] not in expected_versions:
         return True, (
             f"objective_version 불일치 "
-            f"({param_data['objective_version']} != {EXPECTED_OBJECTIVE_VERSION})"
+            f"({param_data['objective_version']} not in {sorted(expected_versions)})"
         )
 
     if param_data["cv_mode"] != EXPECTED_CV_MODE:
@@ -167,6 +204,7 @@ def _ensure_best_params(split, params_path, auto_optimize=True, optimize_profile
                 auto_update=False,
                 persist_total_features_on_update=False,
                 feature_source_mode="db_first",
+                strategy_stage="stage2" if optimize_profile == TSM_GATE_PROFILE else "stage2",
             )
             param_data = load_best_params(params_path)
         else:
@@ -230,8 +268,14 @@ def run_pipeline(
 
     best_params = param_data["best_params"]
     profile = param_data.get("profile", "unknown")
+    direction_mode = str(param_data.get("direction_mode", "normal"))
+    recency_weight_lambda = float(param_data.get("recency_weight_lambda", 0.0))
+    if direction_mode not in {"normal", "inverted"}:
+        direction_mode = "normal"
 
     print(f"\n  적용 프로파일: {profile}")
+    print(f"  Direction Mode : {direction_mode}")
+    print(f"  Recency λ      : {recency_weight_lambda:.6f}")
     print(f"  적용할 파라미터:")
     for key, val in best_params.items():
         print(f"    {key:20s}: {val}")
@@ -264,21 +308,31 @@ def run_pipeline(
         model_params["eval_metric"] = "logloss"
         model_params.pop("random_state", None)
         model_params.pop("early_stopping_rounds", None)
+        model_params.pop("recency_weight_lambda", None)
+        model_params.pop("class_weight_mode_key", None)
 
         model = XGBClassifier(**model_params)
         # Baseline 정책: 샘플 가중치 비활성화
-        model.fit(X_refit, y_refit)
+        fit_kwargs = {}
+        recency_weights = _compute_recency_weights(ss.final_train.index, recency_weight_lambda)
+        if recency_weights is not None:
+            fit_kwargs["sample_weight"] = recency_weights
+        model.fit(X_refit, y_refit, **fit_kwargs)
         models.append(model)
 
         # 개별 모델 Train Accuracy
-        y_refit_pred = model.predict(X_refit)
+        refit_proba = model.predict_proba(X_refit)[:, 1]
+        refit_proba = _apply_direction(refit_proba, direction_mode)
+        y_refit_pred = (refit_proba >= 0.5).astype(int)
         t_acc = accuracy_score(y_refit, y_refit_pred)
         train_accs.append(t_acc)
 
         # 개별 모델 Test 확률 예측
         proba = model.predict_proba(X_test)[:, 1]
+        proba = _apply_direction(proba, direction_mode)
         all_test_probas.append(proba)
         train_full_proba = model.predict_proba(X_final_train_full)[:, 1]
+        train_full_proba = _apply_direction(train_full_proba, direction_mode)
         all_train_probas_full.append(train_full_proba)
 
         print(f"  모델 {ss.offset}: Refit {len(X_refit):>4d}건 | "
@@ -315,7 +369,7 @@ def run_pipeline(
 
     # ── ② 정보계수(Information Coefficient, IC) ──
     actual_excess_return = split.test[split.target_col] - split.test[split.benchmark_target_col]
-    ic, p_value = _safe_spearman(ensemble_proba, actual_excess_return)
+    ic, p_value, ic_degenerate = _safe_spearman(ensemble_proba, actual_excess_return)
 
     print("  [★ 퀀트 핵심 지표: Information Coefficient (IC)]")
     print(f"    Test Set IC : {ic:.4f}")
@@ -342,7 +396,7 @@ def run_pipeline(
     if compute_importance:
         def _ensemble_predict_proba(x_df):
             probas = [m.predict_proba(x_df)[:, 1] for m in models]
-            return np.mean(probas, axis=0)
+            return _apply_direction(np.mean(probas, axis=0), direction_mode)
 
         baseline_ic_fi, _, feat_imp_df = compute_permutation_importance_ic(
             x_test=X_test,
@@ -380,16 +434,24 @@ def run_pipeline(
     print("=" * 70)
 
     # ── 진단 ①: Train-Test Accuracy Gap ──
-    gap = avg_train_acc - acc
+    gap_signed = avg_train_acc - acc
+    gap_abs = abs(gap_signed)
+    proba_std_test = float(np.std(ensemble_proba))
+    proba_unique_test = int(np.unique(np.round(ensemble_proba, 6)).size)
 
     print("\n  [진단 ①] Train-Test Accuracy Gap (앙상블)")
     print(f"    Avg Train Accuracy : {avg_train_acc * 100:.2f}%")
     print(f"    Test Accuracy      : {acc * 100:.2f}%")
-    print(f"    Gap                : {gap * 100:.2f}%p")
+    print(
+        f"    Gap (signed/abs)   : "
+        f"{gap_signed * 100:.2f}%p / {gap_abs * 100:.2f}%p"
+    )
+    if ic_degenerate:
+        print("    [WARN] IC degenerate: constant/near-constant probability input")
 
-    if gap <= 0.10:
+    if gap_abs <= 0.10:
         print("    → ✅ 건강 (Gap ≤ 10%p). 스트라이드 앙상블의 과적합 억제 효과가 나타났습니다.")
-    elif gap <= 0.20:
+    elif gap_abs <= 0.20:
         print("    → ⚠️ 주의 (Gap 10~20%p). 약간의 과적합 가능성이 있습니다.")
     else:
         print("    → 🚨 과적합 (Gap > 20%p). 추가적인 규제 강화가 필요합니다.")
@@ -405,8 +467,8 @@ def run_pipeline(
     excess_first = test_first_half[split.target_col] - test_first_half[split.benchmark_target_col]
     excess_second = test_second_half[split.target_col] - test_second_half[split.benchmark_target_col]
 
-    ic_first, p_first = _safe_spearman(proba_first, excess_first)
-    ic_second, p_second = _safe_spearman(proba_second, excess_second)
+    ic_first, p_first, _ = _safe_spearman(proba_first, excess_first)
+    ic_second, p_second, _ = _safe_spearman(proba_second, excess_second)
 
     mid_date = split.test.index[mid_idx].strftime("%Y-%m-%d")
 
@@ -530,7 +592,10 @@ def run_pipeline(
         for bar, val in zip(bars, gap_values):
             axes[1, 0].text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
                             f"{val:.1f}%", ha="center", fontsize=12, fontweight="bold")
-        axes[1, 0].set_title(f"Ensemble Train-Test Gap ({gap*100:.1f}%p)", fontsize=13)
+        axes[1, 0].set_title(
+            f"Ensemble Train-Test Gap (signed={gap_signed*100:.1f}%p, abs={gap_abs*100:.1f}%p)",
+            fontsize=13,
+        )
         axes[1, 0].set_ylabel("Accuracy (%)")
         axes[1, 0].set_ylim(0, 100)
         axes[1, 0].axhline(y=50, color="gray", linestyle="--", alpha=0.5, label="Random (50%)")
@@ -571,7 +636,7 @@ def run_pipeline(
     print(f"  IC (전체)      : {ic:+.4f} (p={p_value:.4f})")
     print(f"  IC (전반기)    : {ic_first:+.4f}")
     print(f"  IC (후반기)    : {ic_second:+.4f}")
-    print(f"  Train-Test Gap : {gap * 100:.1f}%p")
+    print(f"  Train-Test Gap : signed={gap_signed * 100:.1f}%p, abs={gap_abs * 100:.1f}%p")
     if feat_imp_df is not None and len(feat_imp_df) > 0:
         top_row = feat_imp_df.iloc[0]
         print(
@@ -590,7 +655,9 @@ def run_pipeline(
         {
             "accuracy": acc,
             "ic": ic,
-            "gap": gap,
+            "gap": gap_abs,
+            "gap_signed": gap_signed,
+            "gap_abs": gap_abs,
             "ic_first": ic_first,
             "ic_second": ic_second,
         }
@@ -602,9 +669,14 @@ def run_pipeline(
         "precision": float(prec),
         "ic": float(ic),
         "ic_p_value": float(p_value),
-        "gap": float(gap),
+        "gap": float(gap_abs),
+        "gap_signed": float(gap_signed),
+        "gap_abs": float(gap_abs),
         "ic_first": float(ic_first),
         "ic_second": float(ic_second),
+        "proba_std_test": float(proba_std_test),
+        "proba_unique_test": int(proba_unique_test),
+        "ic_degenerate": bool(ic_degenerate),
         "overall_pass": bool(gate["pass_all"]),
     }
 

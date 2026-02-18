@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-18T19:24:38",
+  "ticker": "AVGO",
+  "ticker_slug": "AVGO",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AVGO/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AVGO/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 221,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-18T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6153846153846154,
+    "precision": 0.8791208791208791,
+    "ic": 0.25275328804740566,
+    "ic_p_value": 0.0001458731849911286,
+    "gap": 0.0831407709288503,
+    "gap_signed": 0.0831407709288503,
+    "gap_abs": 0.0831407709288503,
+    "ic_first": 0.3694565290895566,
+    "ic_second": 0.09057564057564056,
+    "proba_std_test": 0.2303095360961271,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

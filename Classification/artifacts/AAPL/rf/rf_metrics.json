@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-18T19:22:16",
+  "ticker": "AAPL",
+  "ticker_slug": "AAPL",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AAPL/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AAPL/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 221,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-18T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5339366515837104,
+    "precision": 0.5056818181818182,
+    "ic": 0.4970193558428852,
+    "ic_p_value": 3.438089684186704e-15,
+    "gap": 0.14106334841628965,
+    "gap_signed": 0.14106334841628965,
+    "gap_abs": 0.14106334841628965,
+    "ic_first": 0.5256948357865789,
+    "ic_second": 0.7905668655668656,
+    "proba_std_test": 0.08692192808527781,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

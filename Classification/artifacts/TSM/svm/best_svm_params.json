@@ -14,7 +14,7 @@
   "stride": 5,
   "n_models": 5,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T16:09:51",
+  "created_at": "2026-02-18T19:16:53",
   "data_end_date": "2025-11-18",
   "feature_count": 16,
   "feature_hash": "4b8504c5383f1a1271e0190536cd22432e348247e15dc03354142604ef871173",
@@ -43,7 +43,7 @@
   "profile": "balanced",
   "objective_version": "target_aligned_v3_svm_no_class_weight",
   "cv_mode": "single_holdout_2024Q2Q3",
-  "objective": "deep_target_aligned_v3_fixed_threshold_0.5_no_class_weight",
+  "objective": "deep_target_aligned_v3_fixed_threshold_0.5",
   "targets": {
     "accuracy_min": 0.52,
     "ic_min": 0.05,
@@ -56,11 +56,21 @@
     "precision": 0.9142857142857143,
     "avg_train_acc": 1.0,
     "gap": 0.5821538461538462,
+    "gap_signed": 0.5821538461538462,
+    "gap_abs": 0.5821538461538462,
     "ic": -0.05203418803418802,
     "ic_p": 0.484025780400835,
     "val_logloss": 1.5396380418048676,
     "val_pos_rate": 0.2523076923076923,
-    "threshold": 0.5
+    "val_proba_std": 0.2944735020168507,
+    "val_proba_unique": 127,
+    "val_pred_unique": 2,
+    "threshold": 0.5,
+    "ic_early": 0.15831413210445472,
+    "ic_late": -0.1568223443223443,
+    "train_val_gap": 0.5821538461538462,
+    "train_val_gap_signed": 0.5821538461538462,
+    "train_val_gap_abs": 0.5821538461538462
   },
   "decision_threshold": 0.5,
   "decision_threshold_metric": "fixed_policy_0.5_validation_accuracy",
@@ -72,5 +82,16 @@
     "gap_ok": false,
     "balance_ok": false
   },
-  "leakage_policy": "test_not_used_in_tuning"
+  "leakage_policy": "test_not_used_in_tuning",
+  "strategy_stage": "default",
+  "direction_mode": "normal",
+  "recency_weight_lambda": 0.0,
+  "class_weight_mode": "none",
+  "gate_objective_version": "target_aligned_v3_svm_no_class_weight",
+  "train_val_gap_signed": 0.5821538461538462,
+  "train_val_gap_abs": 0.5821538461538462,
+  "val_proba_std": 0.2944735020168507,
+  "val_proba_unique": 127,
+  "val_pred_unique": 2,
+  "degenerate_rejected_count": 2
 }

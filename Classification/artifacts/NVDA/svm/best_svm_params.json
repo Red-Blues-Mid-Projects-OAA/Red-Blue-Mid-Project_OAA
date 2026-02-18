@@ -13,7 +13,7 @@
   "stride": 5,
   "n_models": 5,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T16:05:29",
+  "created_at": "2026-02-18T16:44:02",
   "data_end_date": "2025-11-18",
   "feature_count": 16,
   "feature_hash": "8a919c3a31cac97550a90148afa2459accefec6e89084baaeb8b4d9f5a131f10",

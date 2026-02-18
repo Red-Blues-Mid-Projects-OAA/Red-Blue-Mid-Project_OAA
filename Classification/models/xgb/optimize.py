@@ -11,7 +11,8 @@ Hyperparameter 최적화 모듈 (단일 Holdout 검증)
 결과는 xgb_best_params.json에 저장됩니다.
 """
 
-import json
+from __future__ import annotations
+
 import hashlib
 import sys
 from datetime import datetime
@@ -46,10 +47,12 @@ from Classification.model_config import (
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
 N_TRIALS = 100
-OBJECTIVE_VERSION = "target_aligned_v5_no_class_weight"
+BASE_OBJECTIVE_VERSION = "target_aligned_v5_no_class_weight"
 CV_MODE = "single_holdout_2024Q2Q3"
 STRIDE = 5
 N_STRIDE_MODELS = 5
+TSM_GATE_PROFILE = "tsm_gatehard_v1"
+TSM_STAGES = {"stage1", "stage2"}
 
 # 튜닝에 사용하는 단일 분할 정의
 TUNE_SPLIT = {
@@ -75,11 +78,45 @@ def _safe_spearman(x, y):
     return float(ic)
 
 
+def _apply_direction(proba: np.ndarray, direction_mode: str) -> np.ndarray:
+    if direction_mode == "normal":
+        return proba
+    if direction_mode == "inverted":
+        return 1.0 - proba
+    raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
+
+
+def _compute_recency_weights(index, recency_weight_lambda: float) -> np.ndarray | None:
+    if recency_weight_lambda <= 0.0:
+        return None
+    rank = np.arange(len(index), dtype=float)
+    weights = 1.0 + recency_weight_lambda * rank
+    weights = np.clip(weights, 1e-8, None)
+    return weights / np.mean(weights)
+
+
+def _split_half_ic(proba: np.ndarray, alpha_diff: np.ndarray) -> tuple[float, float]:
+    mid = len(proba) // 2
+    if mid == 0:
+        ic = _safe_spearman(proba, alpha_diff)
+        return ic, ic
+    first_ic = _safe_spearman(proba[:mid], alpha_diff[:mid])
+    second_ic = _safe_spearman(proba[mid:], alpha_diff[mid:])
+    return first_ic, second_ic
+
+
+def _get_objective_version(profile: str, strategy_stage: str) -> str:
+    if profile == TSM_GATE_PROFILE:
+        return f"{TSM_GATE_PROFILE}_{strategy_stage}"
+    return BASE_OBJECTIVE_VERSION
+
+
 def _get_search_space(trial, profile):
     """
     프로파일별 하이퍼파라미터 탐색 공간을 정의합니다.
     - balanced   : 경량 확장
     - regularized: 규제 강화 프로파일
+    - tsm_gatehard_v1 : 하드게이트 회복 프로파일
     """
     if profile == "balanced":
         return {
@@ -111,19 +148,87 @@ def _get_search_space(trial, profile):
             "early_stopping_rounds": 25,
         }
 
+    if profile == TSM_GATE_PROFILE:
+        return {
+            "max_depth": trial.suggest_int("max_depth", 1, 6),
+            "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.20, log=True),
+            "n_estimators": trial.suggest_int("n_estimators", 80, 420),
+            "min_child_weight": trial.suggest_int("min_child_weight", 1, 24),
+            "gamma": trial.suggest_float("gamma", 0.0, 8.0),
+            "reg_alpha": trial.suggest_float("reg_alpha", 0.0, 20.0),
+            "reg_lambda": trial.suggest_float("reg_lambda", 1.0, 200.0),
+            "subsample": trial.suggest_float("subsample", 0.55, 1.0),
+            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.45, 1.0),
+            "scale_pos_weight": trial.suggest_float("scale_pos_weight", 0.25, 8.0, log=True),
+            "eval_metric": "logloss",
+            "early_stopping_rounds": 25,
+        }
+
     raise ValueError(f"지원하지 않는 profile 입니다: {profile}")
 
 
-def create_objective(full_df, feature_cols, profile):
+def _compute_score(
+    *,
+    profile: str,
+    strategy_stage: str,
+    val_acc: float,
+    val_logloss: float,
+    val_ic: float,
+    gap_abs: float,
+    val_proba_std: float,
+    val_proba_unique: int,
+    pos_rate: float,
+    ic_first: float,
+    ic_second: float,
+) -> float:
+    balance = min(pos_rate, 1.0 - pos_rate)
+    flat_penalty = 4.0 * max(0.0, 0.03 - val_proba_std)
+    unique_penalty = 0.25 * max(0.0, 8 - float(val_proba_unique))
+
+    if profile in {"balanced", "regularized"}:
+        class_balance_penalty = 1.5 * max(0.0, 0.08 - balance)
+        return (
+            (1.0 - val_acc)
+            + 0.25 * val_logloss
+            + 1.8 * max(0.0, 0.05 - val_ic)
+            + 1.2 * max(0.0, gap_abs - 0.25)
+            + flat_penalty
+            + unique_penalty
+            + class_balance_penalty
+        )
+
+    # tsm_gatehard_v1
+    p_acc = max(0.0, 0.52 - val_acc)
+    p_ic = max(0.0, 0.05 - val_ic)
+    p_gap = max(0.0, gap_abs - 0.25)
+    class_balance_penalty = 1.4 * max(0.0, 0.08 - balance)
+
+    score = (
+        (1.0 - val_acc)
+        + 0.20 * val_logloss
+        + 3.8 * p_acc
+        + 3.8 * p_ic
+        + 2.6 * p_gap
+        + flat_penalty
+        + unique_penalty
+        + class_balance_penalty
+    )
+
+    if strategy_stage == "stage2":
+        stability_penalty = 2.2 * abs(ic_first - ic_second)
+        sign_penalty = 1.6 if ic_first * ic_second < 0 else 0.0
+        score += stability_penalty + sign_penalty
+
+    return float(score)
+
+
+def create_objective(full_df, feature_cols, profile, strategy_stage):
     """
     단일 Holdout 분할에서 'stride 5-모델 앙상블' 기준 점수를 최소화하는 Objective를 생성합니다.
 
     핵심:
     - 튜닝 단계에서도 실전과 동일하게 STRIDE=5, 5개 모델을 학습/평균합니다.
     - scaler는 Train 구간에만 fit하여 누수를 방지합니다.
-    score = (1 - val_acc) + 0.25*val_logloss + 1.8*max(0, 0.05 - val_ic) + 1.2*max(0, gap - 0.25)
-            + 2.2*max(0, 0.03 - std(val_proba))
-            + 1.5*max(0, 0.08 - min(pos_rate, 1-pos_rate))
     """
     train_start, train_end = TUNE_SPLIT["train"]
     val_start, val_end = TUNE_SPLIT["validation"]
@@ -142,80 +247,147 @@ def create_objective(full_df, feature_cols, profile):
 
         # Train 기준 스케일링으로 누수를 방지합니다.
         scaler = StandardScaler()
-        X_train = scaler.fit_transform(train_fold[feature_cols].values)
-        X_val = scaler.transform(val_fold[feature_cols].values)
+        x_train = scaler.fit_transform(train_fold[feature_cols].values)
+        x_val = scaler.transform(val_fold[feature_cols].values)
 
         y_train = train_fold["Target_Class"].astype(int).reset_index(drop=True)
         y_val = val_fold["Target_Class"].astype(int).reset_index(drop=True)
         alpha_val = val_fold["Alpha_Diff"].astype(float).values
 
-        # 튜닝도 실전과 같은 stride 5-모델 앙상블로 평가합니다.
+        recency_weight_lambda = 0.0
+        if profile == TSM_GATE_PROFILE and strategy_stage == "stage2":
+            recency_weight_lambda = float(
+                trial.suggest_float("recency_weight_lambda", 0.0, 0.02)
+            )
+
+        train_weight_full = _compute_recency_weights(train_fold.index, recency_weight_lambda)
+
         val_proba_list = []
         train_proba_list = []
 
         for offset in range(N_STRIDE_MODELS):
             stride_idx = np.arange(offset, len(y_train), STRIDE)
-            X_train_stride = X_train[stride_idx]
+            x_train_stride = x_train[stride_idx]
             y_train_stride = y_train.iloc[stride_idx]
 
-            # 정책 반영: 튜닝 단계에서만 random_state=42 사용
+            sw_stride = None
+            if train_weight_full is not None:
+                sw_stride = train_weight_full[stride_idx]
+
             model = XGBClassifier(**params, random_state=42)
+            fit_kwargs = {
+                "eval_set": [(x_val, y_val)],
+                "verbose": False,
+            }
+            if sw_stride is not None:
+                fit_kwargs["sample_weight"] = sw_stride
+
             model.fit(
-                X_train_stride,
+                x_train_stride,
                 y_train_stride,
-                eval_set=[(X_val, y_val)],
-                verbose=False,
+                **fit_kwargs,
             )
 
-            val_proba_list.append(model.predict_proba(X_val)[:, 1])
-            train_proba_list.append(model.predict_proba(X_train)[:, 1])
+            val_proba_list.append(model.predict_proba(x_val)[:, 1])
+            train_proba_list.append(model.predict_proba(x_train)[:, 1])
 
-        val_proba = np.mean(val_proba_list, axis=0)
-        train_proba = np.mean(train_proba_list, axis=0)
-        train_pred = (train_proba >= 0.5).astype(int)
-        val_pred = (val_proba >= 0.5).astype(int)
+        val_proba_raw = np.mean(val_proba_list, axis=0)
+        train_proba_raw = np.mean(train_proba_list, axis=0)
 
-        # 목표 정렬형 점수 계산 요소
-        train_acc = accuracy_score(y_train, train_pred)
-        val_acc = accuracy_score(y_val, val_pred)
-        val_logloss = log_loss(y_val, val_proba, labels=[0, 1])
-        val_ic = _safe_spearman(val_proba, alpha_val)
-        gap = train_acc - val_acc
-        val_proba_std = float(np.std(val_proba))
-        pos_rate = float(val_pred.mean())
-        balance = min(pos_rate, 1.0 - pos_rate)
+        direction_candidates = ["normal"]
+        if profile == TSM_GATE_PROFILE and strategy_stage == "stage2":
+            direction_candidates = ["normal", "inverted"]
 
-        # 상수 확률/단일 클래스 예측으로 붕괴되는 해를 억제합니다.
-        noncollapse_penalty = 2.2 * max(0.0, 0.03 - val_proba_std)
-        class_balance_penalty = 1.5 * max(0.0, 0.08 - balance)
+        best_candidate = None
+        non_degenerate_found = False
+        for direction_mode in direction_candidates:
+            val_proba = _apply_direction(val_proba_raw, direction_mode)
+            train_proba = _apply_direction(train_proba_raw, direction_mode)
 
-        # 목적함수(score)는 다음 신호를 동시에 반영합니다.
-        # 1) 기본 예측 성능: (1 - 정확도) + 0.25*로그손실
-        # 2) 퀀트 적합성: IC가 0.05 미만이면 부족분에 비례해 페널티 부여
-        # 3) 일반화 리스크: Train-Val Gap이 0.25를 넘으면 과적합 페널티 부여
-        # 4) 확률 붕괴 방지: 확률 분산/클래스 균형이 낮으면 추가 페널티 부여
-        score = (
-            (1.0 - val_acc)
-            + 0.25 * val_logloss
-            + 1.8 * max(0.0, 0.05 - val_ic)
-            + 1.2 * max(0.0, gap - 0.25)
-            + noncollapse_penalty
-            + class_balance_penalty
-        )
+            train_pred = (train_proba >= 0.5).astype(int)
+            val_pred = (val_proba >= 0.5).astype(int)
 
-        # 추후 디버깅/리포팅을 위한 메타 기록
-        trial.set_user_attr("train_acc", float(train_acc))
-        trial.set_user_attr("val_acc", float(val_acc))
-        trial.set_user_attr("val_logloss", float(val_logloss))
-        trial.set_user_attr("val_ic", float(val_ic))
-        trial.set_user_attr("gap", float(gap))
-        trial.set_user_attr("val_proba_std", val_proba_std)
-        trial.set_user_attr("pos_rate", pos_rate)
-        trial.set_user_attr("noncollapse_penalty", float(noncollapse_penalty))
-        trial.set_user_attr("class_balance_penalty", float(class_balance_penalty))
-        trial.set_user_attr("score", float(score))
+            train_acc = accuracy_score(y_train, train_pred)
+            val_acc = accuracy_score(y_val, val_pred)
+            val_logloss = log_loss(y_val, val_proba, labels=[0, 1])
+            val_ic = _safe_spearman(val_proba, alpha_val)
+            gap_signed = train_acc - val_acc
+            gap_abs = abs(gap_signed)
+            val_proba_std = float(np.std(val_proba))
+            val_proba_unique = int(np.unique(np.round(val_proba, 6)).size)
+            val_pred_unique = int(np.unique(val_pred).size)
+            pos_rate = float(val_pred.mean())
+            ic_first, ic_second = _split_half_ic(val_proba, alpha_val)
 
-        return score
+            is_degenerate = (val_proba_std < 1e-6) or (val_pred_unique < 2)
+            if is_degenerate:
+                score = 9e9
+            else:
+                non_degenerate_found = True
+
+                score = _compute_score(
+                    profile=profile,
+                    strategy_stage=strategy_stage,
+                    val_acc=val_acc,
+                    val_logloss=val_logloss,
+                    val_ic=val_ic,
+                    gap_abs=gap_abs,
+                    val_proba_std=val_proba_std,
+                    val_proba_unique=val_proba_unique,
+                    pos_rate=pos_rate,
+                    ic_first=ic_first,
+                    ic_second=ic_second,
+                )
+
+            candidate = {
+                "score": float(score),
+                "direction_mode": direction_mode,
+                "train_acc": float(train_acc),
+                "val_acc": float(val_acc),
+                "val_logloss": float(val_logloss),
+                "val_ic": float(val_ic),
+                "gap": float(gap_abs),
+                "gap_signed": float(gap_signed),
+                "gap_abs": float(gap_abs),
+                "val_proba_std": float(val_proba_std),
+                "val_proba_unique": int(val_proba_unique),
+                "val_pred_unique": int(val_pred_unique),
+                "pos_rate": float(pos_rate),
+                "ic_first": float(ic_first),
+                "ic_second": float(ic_second),
+                "is_degenerate": bool(is_degenerate),
+            }
+            if best_candidate is None or candidate["score"] < best_candidate["score"]:
+                best_candidate = candidate
+
+        if not non_degenerate_found:
+            trial.set_user_attr("degenerate_rejected", True)
+            trial.set_user_attr("score", float(9e9))
+            return float(9e9)
+
+        scale_pos_weight = float(params.get("scale_pos_weight", 1.0))
+        class_weight_mode = "none" if abs(scale_pos_weight - 1.0) < 1e-12 else f"scale_pos_weight:{scale_pos_weight:.4f}"
+
+        trial.set_user_attr("train_acc", best_candidate["train_acc"])
+        trial.set_user_attr("val_acc", best_candidate["val_acc"])
+        trial.set_user_attr("val_logloss", best_candidate["val_logloss"])
+        trial.set_user_attr("val_ic", best_candidate["val_ic"])
+        trial.set_user_attr("gap", best_candidate["gap"])
+        trial.set_user_attr("train_val_gap_signed", best_candidate["gap_signed"])
+        trial.set_user_attr("train_val_gap_abs", best_candidate["gap_abs"])
+        trial.set_user_attr("val_proba_std", best_candidate["val_proba_std"])
+        trial.set_user_attr("val_proba_unique", best_candidate["val_proba_unique"])
+        trial.set_user_attr("val_pred_unique", best_candidate["val_pred_unique"])
+        trial.set_user_attr("pos_rate", best_candidate["pos_rate"])
+        trial.set_user_attr("ic_first", best_candidate["ic_first"])
+        trial.set_user_attr("ic_second", best_candidate["ic_second"])
+        trial.set_user_attr("direction_mode", best_candidate["direction_mode"])
+        trial.set_user_attr("recency_weight_lambda", float(recency_weight_lambda))
+        trial.set_user_attr("class_weight_mode", class_weight_mode)
+        trial.set_user_attr("degenerate_rejected", bool(best_candidate["is_degenerate"]))
+        trial.set_user_attr("score", best_candidate["score"])
+
+        return best_candidate["score"]
 
     return objective
 
@@ -228,16 +400,29 @@ def optimize(
     auto_update=True,
     persist_total_features_on_update=True,
     feature_source_mode="db_first",
+    strategy_stage="stage2",
 ):
     """
     단일 Holdout 기준으로 XGBoost 하이퍼파라미터를 최적화합니다.
 
     Args:
-        profile (str): 'balanced' 또는 'regularized'
+        profile (str): 'balanced' | 'regularized' | 'tsm_gatehard_v1'
         n_trials (int): Optuna trial 수
+        strategy_stage (str): tsm_gatehard_v1에서 'stage1' 또는 'stage2'
     """
-    if profile not in {"balanced", "regularized"}:
-        raise ValueError(f"profile은 'balanced' 또는 'regularized'만 허용됩니다: {profile}")
+    if profile not in {"balanced", "regularized", TSM_GATE_PROFILE}:
+        raise ValueError(
+            "profile은 'balanced', 'regularized', 'tsm_gatehard_v1'만 허용됩니다: "
+            f"{profile}"
+        )
+
+    resolved_stage = "default"
+    if profile == TSM_GATE_PROFILE:
+        if strategy_stage not in TSM_STAGES:
+            raise ValueError(f"strategy_stage는 {sorted(TSM_STAGES)} 중 하나여야 합니다: {strategy_stage}")
+        resolved_stage = strategy_stage
+
+    objective_version = _get_objective_version(profile, resolved_stage)
 
     print("=" * 70)
     print("Hyperparameter 최적화 (Single Holdout)")
@@ -267,6 +452,7 @@ def optimize(
 
     print(f"\n  전체 데이터: {len(full_df)}건 ({full_df.index.min().date()} ~ {full_df.index.max().date()})")
     print(f"  튜닝 프로파일: {profile}")
+    print(f"  전략 스테이지: {resolved_stage}")
     print(f"  CV 모드      : {CV_MODE}")
     print(
         f"  Train 구간   : {TUNE_SPLIT['train'][0]} ~ {TUNE_SPLIT['train'][1]}\n"
@@ -277,11 +463,11 @@ def optimize(
     sampler = optuna.samplers.TPESampler(seed=42)
     study = optuna.create_study(
         direction="minimize",
-        study_name=f"xgb_{profile}_{CV_MODE}",
+        study_name=f"xgb_{profile}_{resolved_stage}_{CV_MODE}",
         sampler=sampler,
     )
     study.optimize(
-        create_objective(full_df, feature_cols, profile=profile),
+        create_objective(full_df, feature_cols, profile=profile, strategy_stage=resolved_stage),
         n_trials=n_trials,
         show_progress_bar=True,
     )
@@ -290,9 +476,19 @@ def optimize(
     best_logloss = float(best.user_attrs.get("val_logloss", np.nan))
     best_val_acc = float(best.user_attrs.get("val_acc", np.nan))
     best_val_ic = float(best.user_attrs.get("val_ic", np.nan))
-    best_gap = float(best.user_attrs.get("gap", np.nan))
+    best_gap_signed = float(best.user_attrs.get("train_val_gap_signed", np.nan))
+    if np.isnan(best_gap_signed):
+        best_gap_signed = float(best.user_attrs.get("gap", np.nan))
+    best_gap_abs = float(best.user_attrs.get("train_val_gap_abs", np.nan))
+    if np.isnan(best_gap_abs):
+        best_gap_abs = abs(best_gap_signed) if not np.isnan(best_gap_signed) else np.nan
     best_proba_std = float(best.user_attrs.get("val_proba_std", np.nan))
+    best_proba_unique = int(best.user_attrs.get("val_proba_unique", 0))
+    best_pred_unique = int(best.user_attrs.get("val_pred_unique", 0))
     best_pos_rate = float(best.user_attrs.get("pos_rate", np.nan))
+    best_direction_mode = str(best.user_attrs.get("direction_mode", "normal"))
+    best_recency_weight_lambda = float(best.user_attrs.get("recency_weight_lambda", 0.0))
+    best_class_weight_mode = str(best.user_attrs.get("class_weight_mode", "none"))
 
     print("\n" + "=" * 70)
     print("★ 최적화 결과")
@@ -300,17 +496,40 @@ def optimize(
     print(f"  Best Objective Score : {best.value:.6f}")
     print(f"  Validation Accuracy  : {best_val_acc * 100:.2f}%")
     print(f"  Validation IC        : {best_val_ic:+.4f}")
-    print(f"  Train-Val Gap        : {best_gap * 100:.2f}%p")
+    print(
+        f"  Train-Val Gap        : signed={best_gap_signed * 100:.2f}%p, "
+        f"abs={best_gap_abs * 100:.2f}%p"
+    )
     print(f"  Validation LogLoss   : {best_logloss:.6f}")
     print(f"  Val Proba Std        : {best_proba_std:.4f}")
+    print(f"  Val Proba Unique(6d) : {best_proba_unique}")
+    print(f"  Val Pred Unique      : {best_pred_unique}")
     print(f"  Val Positive Rate    : {best_pos_rate * 100:.2f}%")
+    print(f"  Direction Mode       : {best_direction_mode}")
+    print(f"  Recency λ            : {best_recency_weight_lambda:.6f}")
+    print(f"  Class Weight Mode    : {best_class_weight_mode}")
     print("  Best Parameters:")
     for key, val in best.params.items():
         print(f"    {key:20s}: {val}")
 
+    best_model_params = {
+        k: v
+        for k, v in best.params.items()
+        if k not in {"recency_weight_lambda", "class_weight_mode_key"}
+    }
+
     # 저장 (기존 스키마 호환 키 + 확장 메타데이터)
+    degenerate_rejected_count = int(
+        sum(
+            1
+            for t in study.trials
+            if t.state == optuna.trial.TrialState.COMPLETE
+            and bool(t.user_attrs.get("degenerate_rejected", False))
+        )
+    )
+
     save_data = {
-        "best_params": best.params,
+        "best_params": best_model_params,
         "best_logloss": best_logloss,
         "best_objective_score": float(best.value),
         "best_trial_number": best.number,
@@ -328,8 +547,19 @@ def optimize(
             "test": [TUNE_SPLIT["test"][0], TUNE_SPLIT["test"][1]],
         },
         "profile": profile,
-        "objective_version": OBJECTIVE_VERSION,
+        "objective_version": objective_version,
         "cv_mode": CV_MODE,
+        "strategy_stage": resolved_stage,
+        "direction_mode": best_direction_mode,
+        "recency_weight_lambda": best_recency_weight_lambda,
+        "class_weight_mode": best_class_weight_mode,
+        "gate_objective_version": objective_version,
+        "train_val_gap_signed": best_gap_signed,
+        "train_val_gap_abs": best_gap_abs,
+        "val_proba_std": best_proba_std,
+        "val_proba_unique": best_proba_unique,
+        "val_pred_unique": best_pred_unique,
+        "degenerate_rejected_count": degenerate_rejected_count,
     }
 
     save_json_artifact_only(save_data, params_path)

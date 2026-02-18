@@ -11,12 +11,12 @@
     "random_state": 42,
     "n_jobs": -1
   },
-  "best_logloss": 0.6588179765064176,
+  "best_logloss": 0.6588179765064175,
   "best_objective_score": 0.41667299806361224,
   "best_trial_number": 56,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T15:01:14",
+  "created_at": "2026-02-18T17:12:24",
   "data_end_date": "2025-11-18",
   "feature_count": 16,
   "feature_hash": "56ec793465f83060170216723a6d6dc8baf3bda461d12848e4108eb8e41f35d9",
@@ -48,7 +48,7 @@
   "selected_metrics": {
     "validation_accuracy": 0.7480314960629921,
     "validation_ic": 0.1329208848893888,
-    "validation_logloss": 0.6588179765064176,
+    "validation_logloss": 0.6588179765064175,
     "train_val_gap": -0.061444510671225916
   }
 }
