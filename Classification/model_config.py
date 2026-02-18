@@ -5,16 +5,12 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 ARTIFACTS_DIR = BASE_DIR / "artifacts"
-XGB_ARTIFACT_DIR = ARTIFACTS_DIR / "xgb"
-SVM_ARTIFACT_DIR = ARTIFACTS_DIR / "svm"
-LOGREG_ARTIFACT_DIR = ARTIFACTS_DIR / "logreg"
-RF_ARTIFACT_DIR = ARTIFACTS_DIR / "rf"
-ENSEMBLE_ARTIFACT_DIR = ARTIFACTS_DIR / "ensemble"
-MAPPING_ARTIFACT_DIR = ARTIFACTS_DIR / "mapping"
+MULTI_TICKER_ARTIFACT_DIR = ARTIFACTS_DIR / "multi_ticker"
 
 # 목표 게이트 (소수 비율 단위)
 TARGET_ACC_MIN = 0.52
@@ -30,44 +26,69 @@ PERM_IMPORTANCE_REPEATS = 20
 PERM_IMPORTANCE_SEED = 42
 PERM_IMPORTANCE_TOPK_TABLE = 8
 
-# 파라미터 파일 경로
-XGB_PARAMS_ARTIFACT_PATH = XGB_ARTIFACT_DIR / "xgb_best_params.json"
-XGB_PARAMS_LEGACY_PATHS = []
+def ticker_to_slug(ticker: str) -> str:
+    """파일/디렉터리/테이블명 안전 slug를 반환합니다. 예: BRK-A -> BRK_A"""
+    raw = str(ticker).strip().upper()
+    slug = re.sub(r"[^A-Z0-9]+", "_", raw).strip("_")
+    if not slug:
+        raise ValueError(f"유효하지 않은 ticker 입니다: {ticker}")
+    return slug
 
-SVM_PARAMS_ARTIFACT_PATH = SVM_ARTIFACT_DIR / "best_svm_params.json"
-SVM_PARAMS_LEGACY_PATHS = []
 
-LOGREG_PARAMS_ARTIFACT_PATH = LOGREG_ARTIFACT_DIR / "logreg_best_params.json"
-LOGREG_PARAMS_LEGACY_PATHS = []
+def get_ticker_artifact_dir(ticker: str) -> Path:
+    """종목별 아티팩트 루트 경로를 반환합니다."""
+    return ARTIFACTS_DIR / ticker_to_slug(ticker)
 
-RF_PARAMS_ARTIFACT_PATH = RF_ARTIFACT_DIR / "rf_best_params.json"
-RF_PARAMS_LEGACY_PATHS = []
 
-# 결과 이미지 경로
-XGB_RESULT_ARTIFACT_PATH = XGB_ARTIFACT_DIR / "xgb_classifier_result.png"
-XGB_RESULT_LEGACY_PATHS = []
+def get_model_artifact_dir(model: str, ticker: str) -> Path:
+    """종목별 모델 아티팩트 디렉터리를 반환합니다."""
+    return get_ticker_artifact_dir(ticker) / str(model).lower()
 
-SVM_RESULT_ARTIFACT_PATH = SVM_ARTIFACT_DIR / "svm_classifier_result.png"
-SVM_RESULT_LEGACY_PATHS = []
 
-LOGREG_RESULT_ARTIFACT_PATH = LOGREG_ARTIFACT_DIR / "logreg_classifier_result.png"
-LOGREG_RESULT_LEGACY_PATHS = []
+def get_model_params_path(model: str, ticker: str) -> Path:
+    """종목별 모델 파라미터 JSON 경로를 반환합니다."""
+    model_key = str(model).lower()
+    dir_path = get_model_artifact_dir(model_key, ticker)
+    filename_map = {
+        "xgb": "xgb_best_params.json",
+        "svm": "best_svm_params.json",
+        "logreg": "logreg_best_params.json",
+        "rf": "rf_best_params.json",
+    }
+    if model_key not in filename_map:
+        raise ValueError(f"지원하지 않는 model 입니다: {model}")
+    return dir_path / filename_map[model_key]
 
-RF_RESULT_ARTIFACT_PATH = RF_ARTIFACT_DIR / "rf_classifier_result.png"
-RF_RESULT_LEGACY_PATHS = []
 
-ENSEMBLE_RESULT_PATH = ENSEMBLE_ARTIFACT_DIR / "ensemble.json"
-MAPPING_RESULT_PATH = MAPPING_ARTIFACT_DIR / "mapping.json"
+def get_model_result_path(model: str, ticker: str) -> Path:
+    """종목별 모델 result.png 경로를 반환합니다."""
+    model_key = str(model).lower()
+    dir_path = get_model_artifact_dir(model_key, ticker)
+    filename_map = {
+        "xgb": "xgb_classifier_result.png",
+        "svm": "svm_classifier_result.png",
+        "logreg": "logreg_classifier_result.png",
+        "rf": "rf_classifier_result.png",
+    }
+    if model_key not in filename_map:
+        raise ValueError(f"지원하지 않는 model 입니다: {model}")
+    return dir_path / filename_map[model_key]
+
+
+def get_ensemble_result_path(ticker: str) -> Path:
+    """종목별 ensemble 결과 JSON 경로를 반환합니다."""
+    return get_ticker_artifact_dir(ticker) / "ensemble" / "ensemble.json"
+
+
+def get_mapping_result_path(ticker: str) -> Path:
+    """종목별 mapping 결과 JSON 경로를 반환합니다."""
+    return get_ticker_artifact_dir(ticker) / "mapping" / "mapping.json"
 
 
 def ensure_artifact_dirs() -> None:
     """아티팩트 디렉터리를 생성합니다."""
-    XGB_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-    SVM_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-    LOGREG_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-    RF_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-    ENSEMBLE_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-    MAPPING_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
+    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    MULTI_TICKER_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_json_artifact_only(artifact_path: Path) -> tuple[dict | None, Path | None]:

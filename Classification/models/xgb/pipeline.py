@@ -43,9 +43,9 @@ from Classification.model_config import (
     PERM_IMPORTANCE_REPEATS,
     PERM_IMPORTANCE_SEED,
     PERM_IMPORTANCE_TOPK_TABLE,
-    XGB_PARAMS_ARTIFACT_PATH,
-    XGB_RESULT_ARTIFACT_PATH,
     ensure_artifact_dirs,
+    get_model_params_path,
+    get_model_result_path,
     load_json_artifact_only,
 )
 from Classification.model_gate import evaluate_gate, print_gate_result
@@ -55,11 +55,11 @@ EXPECTED_OBJECTIVE_VERSION = "target_aligned_v5_no_class_weight"
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
 
 
-def load_best_params():
+def load_best_params(params_path):
     """xgb_best_params.json을 로드합니다."""
-    data, used_path = load_json_artifact_only(XGB_PARAMS_ARTIFACT_PATH)
+    data, used_path = load_json_artifact_only(params_path)
     if data is None:
-        print(f"  ⚠️ {XGB_PARAMS_ARTIFACT_PATH} 파일이 없습니다.")
+        print(f"  ⚠️ {params_path} 파일이 없습니다.")
         print("  먼저 `python3 -m Classification.models.xgb.optimize`를 실행하세요.")
         return None
 
@@ -133,9 +133,9 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     return False, "최신 파라미터 사용 가능"
 
 
-def _ensure_best_params(split, auto_optimize=True, optimize_profile="balanced"):
+def _ensure_best_params(split, params_path, auto_optimize=True, optimize_profile="balanced"):
     """파라미터 파일 존재/최신성 확인 후 필요 시 자동 튜닝을 수행합니다."""
-    param_data = load_best_params()
+    param_data = load_best_params(params_path)
     current_data_end_date = _get_current_data_end_date(split)
     feature_cols = split.feature_cols
 
@@ -154,12 +154,26 @@ def _ensure_best_params(split, auto_optimize=True, optimize_profile="balanced"):
         )
         needs_optimize = stale
 
-    if needs_optimize and auto_optimize:
-        print("\n  ⚠️ 자동 재튜닝을 실행합니다.")
-        print(f"    사유: {reason}")
-        from Classification.models.xgb.optimize import optimize
-        optimize(profile=optimize_profile, n_trials=100)
-        param_data = load_best_params()
+    if needs_optimize:
+        if auto_optimize:
+            print("\n  ⚠️ 자동 재튜닝을 실행합니다.")
+            print(f"    사유: {reason}")
+            from Classification.models.xgb.optimize import optimize
+            optimize(
+                profile=optimize_profile,
+                n_trials=100,
+                ticker=split.ticker,
+                benchmark=split.benchmark,
+                auto_update=False,
+                persist_total_features_on_update=False,
+                feature_source_mode="db_first",
+            )
+            param_data = load_best_params(params_path)
+        else:
+            raise RuntimeError(
+                "XGBoost 파라미터 아티팩트가 현재 정책과 불일치합니다. "
+                f"auto_optimize=False 상태에서는 실행할 수 없습니다. 사유: {reason}"
+            )
 
     return param_data
 
@@ -168,6 +182,8 @@ def run_pipeline(
     auto_optimize=True,
     optimize_profile="balanced",
     return_metrics=False,
+    ticker="AAPL",
+    benchmark="SP500",
     drop_features=None,
     save_plot=True,
     compute_importance=True,
@@ -180,11 +196,19 @@ def run_pipeline(
     #  1. 데이터 로드 및 분할
     # ══════════════════════════════════════════════════════════════
     if split_override is None:
-        split = split_dataset(drop_features=drop_features)
+        split = split_dataset(
+            ticker=ticker,
+            benchmark=benchmark,
+            drop_features=drop_features,
+        )
     else:
         split = split_override
         if drop_features:
             print("  [INFO] split_override가 제공되어 drop_features는 무시됩니다.")
+    ticker = split.ticker
+    benchmark = split.benchmark
+    params_path = get_model_params_path("xgb", ticker)
+    result_path = get_model_result_path("xgb", ticker)
     stride_splits = get_stride_splits(split)
 
     # ══════════════════════════════════════════════════════════════
@@ -196,6 +220,7 @@ def run_pipeline(
 
     param_data = _ensure_best_params(
         split,
+        params_path=params_path,
         auto_optimize=auto_optimize,
         optimize_profile=optimize_profile,
     )
@@ -289,7 +314,7 @@ def run_pipeline(
     print(classification_report(y_test, ensemble_pred, target_names=["Lose(0)", "Win(1)"]))
 
     # ── ② 정보계수(Information Coefficient, IC) ──
-    actual_excess_return = split.test["Target_AAPL_3M"] - split.test["Target_SP500_3M"]
+    actual_excess_return = split.test[split.target_col] - split.test[split.benchmark_target_col]
     ic, p_value = _safe_spearman(ensemble_proba, actual_excess_return)
 
     print("  [★ 퀀트 핵심 지표: Information Coefficient (IC)]")
@@ -377,8 +402,8 @@ def run_pipeline(
     proba_first = ensemble_proba[:mid_idx]
     proba_second = ensemble_proba[mid_idx:]
 
-    excess_first = test_first_half["Target_AAPL_3M"] - test_first_half["Target_SP500_3M"]
-    excess_second = test_second_half["Target_AAPL_3M"] - test_second_half["Target_SP500_3M"]
+    excess_first = test_first_half[split.target_col] - test_first_half[split.benchmark_target_col]
+    excess_second = test_second_half[split.target_col] - test_second_half[split.benchmark_target_col]
 
     ic_first, p_first = _safe_spearman(proba_first, excess_first)
     ic_second, p_second = _safe_spearman(proba_second, excess_second)
@@ -485,15 +510,15 @@ def run_pipeline(
         # (2) 예측 확률 분포
         axes[0, 1].hist(
             ensemble_proba[y_test == 1], bins=30, alpha=0.6,
-            label="Win (AAPL > SP500)", color="green", edgecolor="black"
+            label=f"Win ({ticker} > {benchmark})", color="green", edgecolor="black"
         )
         axes[0, 1].hist(
             ensemble_proba[y_test == 0], bins=30, alpha=0.6,
-            label="Lose (AAPL ≤ SP500)", color="red", edgecolor="black"
+            label=f"Lose ({ticker} ≤ {benchmark})", color="red", edgecolor="black"
         )
         axes[0, 1].axvline(x=0.5, color="black", linestyle="--", label="Threshold (0.5)")
         axes[0, 1].set_title("Ensemble Probability Distribution", fontsize=13)
-        axes[0, 1].set_xlabel("P(AAPL beats SP500)")
+        axes[0, 1].set_xlabel(f"P({ticker} beats {benchmark})")
         axes[0, 1].set_ylabel("Count")
         axes[0, 1].legend()
 
@@ -528,11 +553,12 @@ def run_pipeline(
 
         plt.tight_layout(rect=[0.0, 0.03, 0.83, 1.0])
         ensure_artifact_dirs()
-        plt.savefig(XGB_RESULT_ARTIFACT_PATH, dpi=150)
-        print(f"\n  차트 저장 완료: {XGB_RESULT_ARTIFACT_PATH}")
+        result_path.parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(result_path, dpi=150)
+        print(f"\n  차트 저장 완료: {result_path}")
         plt.close()
     else:
-        print(f"\n  차트 저장 생략: save_plot=False ({XGB_RESULT_ARTIFACT_PATH})")
+        print(f"\n  차트 저장 생략: save_plot=False ({result_path})")
 
     # ══════════════════════════════════════════════════════════════
     #  최종 요약

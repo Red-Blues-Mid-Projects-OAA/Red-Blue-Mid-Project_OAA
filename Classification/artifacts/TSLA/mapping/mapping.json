@@ -1,0 +1,18 @@
+{
+  "ticker": "TSLA",
+  "benchmark": "SP500",
+  "p_latest": 0.37863325476249765,
+  "signal_raw": -0.2427334904750047,
+  "signal_clipped": -0.2427334904750047,
+  "IC_full": 0.7612182729829788,
+  "TE_annual": 0.505000640105807,
+  "TE_3M": 0.24641508075915652,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.045530895216987555,
+  "E_alpha_3M_simple": -0.04450991795747894,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 252,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-17"
+}

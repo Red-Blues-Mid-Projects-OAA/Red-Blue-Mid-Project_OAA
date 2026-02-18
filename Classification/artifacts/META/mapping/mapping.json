@@ -1,0 +1,20 @@
+{
+  "ticker": "META",
+  "benchmark": "SP500",
+  "p_latest": 0.5857971420360457,
+  "signal_raw": 0.17159428407209143,
+  "signal_clipped": 0.17159428407209143,
+  "IC_full": -0.732695920931215,
+  "TE_annual": 0.299053728509765,
+  "TE_3M": 0.14592327773410527,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.018346413054485602,
+  "E_alpha_3M_simple": -0.01817914212107319,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 252,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-17"
+}

@@ -1,16 +1,10 @@
 """
-AAPL EWMA 기반 리스크 피처 생성 모듈 (Self-contained)
+EWMA 기반 리스크 피처 생성 모듈.
 
-DB/calculate_ewma.py와 동일한 EWMA 방식(λ=0.94)을 사용하여:
-  1. df_aapl_daily_vol    : AAPL 일별 EWMA 변동성 (√분산)
-  2. df_aapl_avg_vol      : AAPL 20일/60일 평균 변동성
-  3. df_aapl_ewma_corr    : AAPL–S&P500 일별 EWMA 상관계수
-
-데이터 소스:
-  - AAPL 로그 수익률 : LOG_RETURNS 테이블 (DB/calculate_log_returns.py 결과)
-  - S&P500 로그 수익률 : SP500_DATA 테이블 (DB/update_sp500_data.py 결과)
-
-★ DB 적재 없음 
+생성되는 DataFrame:
+  1. df_ticker_daily_vol : {ticker}_EWMA_Vol
+  2. df_ticker_avg_vol   : {ticker}_Vol_20d_Avg, {ticker}_Vol_60d_Avg
+  3. df_ticker_ewma_corr : {ticker}_{benchmark}_EWMA_Corr
 """
 import sys
 from pathlib import Path
@@ -27,20 +21,20 @@ if __package__ in (None, ""):
     if _PROJECT_ROOT is not None:
         sys.path.append(str(_PROJECT_ROOT))
 
-from common import pd, np
+from common import np, pd
 from DB import StockDBManager
 
 LAMBDA = 0.94
-ALPHA = 1 - LAMBDA  # 0.06
-TICKER = "AAPL"
+ALPHA = 1 - LAMBDA
 
 
-def calculate_risk_features(db=None):
+def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None):
+    ticker = str(ticker).upper()
+    benchmark = str(benchmark).upper()
+
     print("=" * 60)
-    print("AAPL EWMA 리스크 피처 생성 (λ=0.94)")
+    print(f"{ticker} EWMA 리스크 피처 생성 (benchmark={benchmark}, λ=0.94)")
     print("=" * 60)
-
-    # ─── 데이터 로드 ───
     print("\n[데이터 로드]")
 
     should_close = False
@@ -48,103 +42,68 @@ def calculate_risk_features(db=None):
         db = StockDBManager()
         db.connect()
         should_close = True
-        
-    try:
-        # AAPL 로그 수익률 (LOG_RETURNS)
-        lr_all = db.fetch_log_returns()
 
-        # S&P 500 로그 수익률 (SP500_DATA)
+    try:
+        lr_all = db.fetch_log_returns()
         sp500 = db.fetch_sp500_data()
     finally:
         if should_close:
             db.close()
 
-    aapl = lr_all[TICKER].dropna()
+    if lr_all.empty or ticker not in lr_all.columns:
+        print(f"{ticker} 로그수익률 데이터를 가져오지 못했습니다.")
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
+    if benchmark != "SP500":
+        raise ValueError(f"현재 benchmark는 SP500만 지원합니다: {benchmark}")
     if sp500.empty:
-        print("S&P 500 데이터를 가져오지 못했습니다. DB/update_sp500_data.py를 먼저 실행하세요.")
-        return
+        print("SP500 로그수익률 데이터를 가져오지 못했습니다.")
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
-    spx = sp500["LOG_RETURN"].astype(float).dropna()
+    ticker_lr = pd.to_numeric(lr_all[ticker], errors="coerce").dropna()
+    bench_lr = pd.to_numeric(sp500["LOG_RETURN"], errors="coerce").dropna()
 
-    # ─── EWMA 공분산 행렬 계산 (일별, λ=0.94) ───
-    combined = pd.DataFrame({"AAPL": aapl, "SP500": spx})
+    ticker_lr.index = pd.to_datetime(ticker_lr.index)
+    bench_lr.index = pd.to_datetime(bench_lr.index)
+
+    combined = pd.DataFrame({ticker: ticker_lr, benchmark: bench_lr}).dropna()
     ewma_cov = combined.ewm(alpha=ALPHA).cov()
-    # ewma_cov는 (날짜, 기준티커) 멀티 인덱스를 행으로 갖고,
-    # 열은 비교 티커를 갖는 공분산 행렬 시계열 구조입니다.
 
-    # ═══════════════════════════════════════════════════════════
-    # [1] AAPL 일별 EWMA 변동성
-    # ═══════════════════════════════════════════════════════════
-    # 공분산 행렬의 AAPL-AAPL 대각 원소 = AAPL 분산 → √ = 일일 변동성
-    aapl_var = ewma_cov.loc[(slice(None), "AAPL"), "AAPL"]
-    aapl_var.index = aapl_var.index.droplevel(1)
-    aapl_vol_raw = np.sqrt(aapl_var)               # 일일 변동성 (상관계수 계산용)
-    aapl_vol_ann = aapl_vol_raw * np.sqrt(252)      # 연율화 변동성 (출력용)
+    ticker_var = ewma_cov.loc[(slice(None), ticker), ticker]
+    ticker_var.index = ticker_var.index.droplevel(1)
+    ticker_vol_raw = np.sqrt(ticker_var)
+    ticker_vol_ann = ticker_vol_raw * np.sqrt(252)
 
-    df_aapl_daily_vol = pd.DataFrame({"AAPL_EWMA_Vol": aapl_vol_ann}).dropna()
+    daily_col = f"{ticker}_EWMA_Vol"
+    df_ticker_daily_vol = pd.DataFrame({daily_col: ticker_vol_ann}).dropna()
 
-    print(f"\n{'=' * 60}")
-    print("[1] AAPL 일별 EWMA 변동성 (df_aapl_daily_vol)")
-    print(f"{'=' * 60}")
-    print(f"  기간: {df_aapl_daily_vol.index[0].date()} ~ {df_aapl_daily_vol.index[-1].date()}")
-    print(f"  건수: {len(df_aapl_daily_vol)}")
-    print(df_aapl_daily_vol.head())
-    print("  ...")
-    print(df_aapl_daily_vol.tail())
+    avg20_col = f"{ticker}_Vol_20d_Avg"
+    avg60_col = f"{ticker}_Vol_60d_Avg"
+    df_ticker_avg_vol = pd.DataFrame(
+        {
+            avg20_col: ticker_vol_ann.rolling(window=20).mean(),
+            avg60_col: ticker_vol_ann.rolling(window=60).mean(),
+        }
+    ).dropna()
 
-    # ═══════════════════════════════════════════════════════════
-    # [2] 20일 / 60일 평균 변동성
-    # ═══════════════════════════════════════════════════════════
-    df_aapl_avg_vol = pd.DataFrame({
-        "AAPL_Vol_20d_Avg": aapl_vol_ann.rolling(window=20).mean(),
-        "AAPL_Vol_60d_Avg": aapl_vol_ann.rolling(window=60).mean()
-    }).dropna()
+    cross_cov = ewma_cov.loc[(slice(None), ticker), benchmark]
+    cross_cov.index = cross_cov.index.droplevel(1)
+    bench_var = ewma_cov.loc[(slice(None), benchmark), benchmark]
+    bench_var.index = bench_var.index.droplevel(1)
+    bench_vol_raw = np.sqrt(bench_var)
+    ewma_corr = cross_cov / (ticker_vol_raw * bench_vol_raw)
 
-    print(f"\n{'=' * 60}")
-    print("[2] AAPL 20일/60일 평균 변동성 (df_aapl_avg_vol)")
-    print(f"{'=' * 60}")
-    print(f"  기간: {df_aapl_avg_vol.index[0].date()} ~ {df_aapl_avg_vol.index[-1].date()}")
-    print(f"  건수: {len(df_aapl_avg_vol)}")
-    print(df_aapl_avg_vol.head())
-    print("  ...")
-    print(df_aapl_avg_vol.tail())
+    corr_col = f"{ticker}_{benchmark}_EWMA_Corr"
+    df_ticker_ewma_corr = pd.DataFrame({corr_col: ewma_corr}).dropna()
 
-    # ═══════════════════════════════════════════════════════════
-    # [3] AAPL–S&P500 EWMA 상관계수
-    # ═══════════════════════════════════════════════════════════
-    # 상관계수(Correlation)는 공분산(Covariance)을
-    # 각 자산 표준편차(σ_AAPL, σ_SP500)의 곱으로 정규화해 계산합니다.
-    # ★ 상관계수 계산에는 반드시 일일(raw) 변동성 사용 (연율화 X)
-    aapl_spx_cov = ewma_cov.loc[(slice(None), "AAPL"), "SP500"]
-    aapl_spx_cov.index = aapl_spx_cov.index.droplevel(1)
-
-    spx_var = ewma_cov.loc[(slice(None), "SP500"), "SP500"]
-    spx_var.index = spx_var.index.droplevel(1)
-    spx_vol_raw = np.sqrt(spx_var)
-
-    ewma_corr = aapl_spx_cov / (aapl_vol_raw * spx_vol_raw)
-
-    df_aapl_ewma_corr = pd.DataFrame({"AAPL_SP500_EWMA_Corr": ewma_corr}).dropna()
-
-    print(f"\n{'=' * 60}")
-    print("[3] AAPL–S&P500 EWMA 상관계수 (df_aapl_ewma_corr)")
-    print(f"{'=' * 60}")
-    print(f"  기간: {df_aapl_ewma_corr.index[0].date()} ~ {df_aapl_ewma_corr.index[-1].date()}")
-    print(f"  건수: {len(df_aapl_ewma_corr)}")
-    print(df_aapl_ewma_corr.head())
-    print("  ...")
-    print(df_aapl_ewma_corr.tail())
-
-    # ─── 요약 ───
     print(f"\n{'=' * 60}")
     print("생성된 DataFrame 목록")
     print(f"{'=' * 60}")
-    print(f"  1. df_aapl_daily_vol  : AAPL 일별 EWMA 변동성      ({len(df_aapl_daily_vol)}건)")
-    print(f"  2. df_aapl_avg_vol    : AAPL 20d/60d 평균 변동성   ({len(df_aapl_avg_vol)}건)")
-    print(f"  3. df_aapl_ewma_corr  : AAPL-S&P500 EWMA 상관계수 ({len(df_aapl_ewma_corr)}건)")
+    print(f"  1. df_ticker_daily_vol : {daily_col:24s} ({len(df_ticker_daily_vol)}건)")
+    print(f"  2. df_ticker_avg_vol   : {avg20_col}, {avg60_col} ({len(df_ticker_avg_vol)}건)")
+    print(f"  3. df_ticker_ewma_corr : {corr_col:24s} ({len(df_ticker_ewma_corr)}건)")
 
-    return df_aapl_daily_vol, df_aapl_avg_vol, df_aapl_ewma_corr
+    return df_ticker_daily_vol, df_ticker_avg_vol, df_ticker_ewma_corr
 
 
 if __name__ == "__main__":

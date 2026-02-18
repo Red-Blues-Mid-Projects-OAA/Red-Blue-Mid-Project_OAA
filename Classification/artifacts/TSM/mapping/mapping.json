@@ -1,0 +1,20 @@
+{
+  "ticker": "TSM",
+  "benchmark": "SP500",
+  "p_latest": 0.4653330188520421,
+  "signal_raw": -0.06933396229591582,
+  "signal_clipped": -0.06933396229591582,
+  "IC_full": -0.17497415144473968,
+  "TE_annual": 0.2766828037805003,
+  "TE_3M": 0.13500738419649747,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0016378624970654152,
+  "E_alpha_3M_simple": 0.0016392045264315147,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 252,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-17"
+}

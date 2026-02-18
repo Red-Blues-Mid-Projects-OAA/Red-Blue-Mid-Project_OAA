@@ -1,0 +1,47 @@
+{
+  "best_params": {
+    "max_depth": 2,
+    "learning_rate": 0.16343908949202485,
+    "n_estimators": 132,
+    "min_child_weight": 12,
+    "gamma": 1.7538191380266808,
+    "reg_alpha": 0.06423586080258736,
+    "reg_lambda": 7.650419301643783,
+    "subsample": 0.8424861944599807,
+    "colsample_bytree": 0.9748681768678552
+  },
+  "best_logloss": 0.6449522876872615,
+  "best_objective_score": 0.5313168120792957,
+  "best_trial_number": 44,
+  "n_trials": 100,
+  "optimization_method": "Single Holdout (Target-Aligned Objective)",
+  "created_at": "2026-02-18T15:59:57",
+  "data_end_date": "2025-11-18",
+  "feature_count": 16,
+  "feature_hash": "c69af9b673b2abf7aa96b15d806542da2d99b53594a2086d9c9a1a0a1d4214c7",
+  "split_definition": {
+    "train": [
+      "2021-01-01",
+      "2023-12-31"
+    ],
+    "embargo": [
+      "2024-01-01",
+      "2024-03-31"
+    ],
+    "validation": [
+      "2024-04-01",
+      "2024-09-30"
+    ],
+    "golden_gap": [
+      "2024-10-01",
+      "2024-12-31"
+    ],
+    "test": [
+      "2025-01-01",
+      null
+    ]
+  },
+  "profile": "balanced",
+  "objective_version": "target_aligned_v5_no_class_weight",
+  "cv_mode": "single_holdout_2024Q2Q3"
+}

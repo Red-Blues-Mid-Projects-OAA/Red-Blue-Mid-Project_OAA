@@ -1,0 +1,42 @@
+{
+  "ticker": "META",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 221,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-18",
+  "ic_full": -0.732695920931215,
+  "ic_pvalue": 1.827378306393528e-38,
+  "ic_first_half": -0.7841444446949034,
+  "ic_second_half": -0.5807037557037557,
+  "accuracy_ref": 0.35294117647058826,
+  "precision_ref": 0.35944700460829493,
+  "p_ens_test_stats": {
+    "min": 0.48187865961622167,
+    "mean": 0.5936805374660536,
+    "max": 0.6462396070377646
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-19",
+    "end": "2026-02-17"
+  },
+  "p_ens_future_stats": {
+    "min": 0.5498509305407833,
+    "mean": 0.5958798371885209,
+    "max": 0.6179374717600211
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-17",
+    "p_ens": 0.5857971420360457
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

@@ -1,5 +1,5 @@
 """
-AAPL 거래량 분석 모듈 (Self-contained)
+거래량 분석 모듈 (Self-contained)
 
 생성되는 DataFrame:
   df_volume_features : Volume_Ratio, OBV_ROC_20 (정상성 확보)
@@ -25,16 +25,14 @@ from common import pd, np
 from DB import StockDBManager
 
 
-def calculate_aapl_volume_analysis(db=None):
+def calculate_volume_analysis(ticker="AAPL", db=None):
     """
-    AAPL 거래량 분석 (Volume Ratio + OBV 변화율)
+    티커 거래량 분석 (Volume Ratio + OBV 변화율)
     - Volume_Ratio = 당일 거래량 / 직전 20일 평균 거래량
     - OBV_ROC_20   = OBV의 20일간 변화율 (정상성 확보)
     """
-    ticker = "AAPL"
-    
     print(f"[{ticker}] Oracle DB에서 데이터 로드 중...")
-    
+
     should_close = False
     if db is None:
         db = StockDBManager()
@@ -86,7 +84,7 @@ def calculate_aapl_volume_analysis(db=None):
     df_volume_features = result[["Volume_Ratio", "OBV_ROC_20"]].copy()
 
     print(f"\n{'=' * 60}")
-    print("[결과] AAPL 거래량 피처 (df_volume_features)")
+    print(f"[결과] {ticker} 거래량 피처 (df_volume_features)")
     print(f"{'=' * 60}")
     print(f"  기간: {df_volume_features.index[0].date()} ~ {df_volume_features.index[-1].date()}")
     print(f"  건수: {len(df_volume_features)}")
@@ -102,5 +100,10 @@ def calculate_aapl_volume_analysis(db=None):
     return df_volume_features
 
 
+# Backward compatibility alias
+def calculate_aapl_volume_analysis(db=None):
+    return calculate_volume_analysis(ticker="AAPL", db=db)
+
+
 if __name__ == "__main__":
-    calculate_aapl_volume_analysis()
+    calculate_volume_analysis()

@@ -1,13 +1,8 @@
 """
-Master DataFrame 병합 모듈
+Master DataFrame 병합 모듈.
 
-4개 Feature 모듈의 결과를 하나의 통합 테이블로 조립합니다.
-
-병합 3대 원칙:
-  1. Master Index : AAPL 거래일 (NYSE 영업일) 기준
-  2. Left Join    : AAPL 거래일에 나머지 데이터를 합침
-  3. Forward Fill : 매크로 휴장일 등 빈칸은 직전 영업일 값으로 채움
-
+종목별 피처 테이블(`{TICKER}_TOTAL_FEATURES`)을 우선 소스로 사용하며,
+없거나 무결성 실패 시 계산 후 DB에 적재합니다.
 """
 import sys
 from pathlib import Path
@@ -32,13 +27,13 @@ from DB import (
     update_sp500_data,
     update_stock_data,
 )
-from Classification.Preprocessing.Momentum.momentum import calculate_features
-from Classification.Preprocessing.Volume.volume import calculate_aapl_volume_analysis
 from Classification.Preprocessing.Macro.macro import get_market_features
+from Classification.Preprocessing.Momentum.momentum import calculate_features
 from Classification.Preprocessing.Volatility.volatility import calculate_risk_features
+from Classification.Preprocessing.Volume.volume import calculate_volume_analysis
 
 
-REQUIRED_FEATURE_COLUMNS = [
+BASE_FEATURE_COLUMNS = [
     "Log_Ret_20",
     "Log_Ret_120",
     "MA_Envelope",
@@ -51,26 +46,27 @@ REQUIRED_FEATURE_COLUMNS = [
     "VIX_Log_Return",
     "SP500_1M_Return",
     "SP500_3M_Return",
-    "AAPL_EWMA_Vol",
-    "AAPL_Vol_20d_Avg",
-    "AAPL_Vol_60d_Avg",
-    "AAPL_SP500_EWMA_Corr",
 ]
 
 
+def _required_feature_columns(ticker: str, benchmark: str) -> list[str]:
+    ticker = str(ticker).upper()
+    benchmark = str(benchmark).upper()
+    return BASE_FEATURE_COLUMNS + [
+        f"{ticker}_EWMA_Vol",
+        f"{ticker}_Vol_20d_Avg",
+        f"{ticker}_Vol_60d_Avg",
+        f"{ticker}_{benchmark}_EWMA_Corr",
+    ]
+
+
 def _to_date(value):
-    """DB 조회 결과를 date로 통일합니다."""
     if value is None:
         return None
     return value.date() if hasattr(value, "date") else value
 
 
 def _get_latest_snapshot(db):
-    """
-    DB의 최신 적재 상태를 조회합니다.
-    - 주가: 티커별 최신일 + 최소 최신일
-    - S&P500, VIX, DXY 최신일
-    """
     stock_latest_by_ticker = {}
     for ticker in TICKERS:
         stock_latest_by_ticker[ticker] = _to_date(db.get_latest_date(ticker))
@@ -88,7 +84,6 @@ def _get_latest_snapshot(db):
 
 
 def _print_latest_snapshot(snapshot, title):
-    """최신일 점검 결과를 로그로 출력합니다."""
     print("\n" + "=" * 70)
     print(title)
     print("=" * 70)
@@ -99,10 +94,6 @@ def _print_latest_snapshot(snapshot, title):
 
 
 def _run_latest_date_updates():
-    """
-    최신일 기반 업데이트를 실행합니다.
-    stale 임계치 없이 업데이트를 시도하고, 신규 데이터 건수를 집계합니다.
-    """
     print("\n" + "=" * 70)
     print("0. 최신일 기반 소스 데이터 업데이트 시도")
     print("=" * 70)
@@ -153,24 +144,63 @@ def _run_latest_date_updates():
     }
 
 
+def _canonicalize_feature_columns(df: pd.DataFrame, required_feature_cols: list[str]) -> pd.DataFrame:
+    """DB 조회 결과의 대문자 컬럼명을 프로젝트 표준 컬럼명으로 복원합니다."""
+    canonical = {col.upper(): col for col in required_feature_cols}
+    rename_map = {}
+    for col in df.columns:
+        upper = str(col).upper()
+        if upper in canonical:
+            rename_map[col] = canonical[upper]
+    return df.rename(columns=rename_map)
+
+
+def _try_load_features_from_db(db: StockDBManager, table_name: str, required_feature_cols: list[str]):
+    df_db = db.fetch_features_table(table_name)
+    if df_db.empty:
+        return None
+
+    df_db = _canonicalize_feature_columns(df_db, required_feature_cols)
+    missing = [c for c in required_feature_cols if c not in df_db.columns]
+    if missing:
+        print(f"  [DB-FIRST] {table_name} 필수 컬럼 누락: {missing}")
+        return None
+
+    df_db = df_db.sort_index()[required_feature_cols]
+    if df_db.isnull().any(axis=1).any():
+        print(f"  [DB-FIRST] {table_name}에 NULL 행이 있어 재계산합니다.")
+        return None
+
+    print(f"  [DB-FIRST] {table_name}에서 피처 로드 완료: {len(df_db)}건")
+    return df_db
+
+
 def build_master_dataset(
+    ticker="AAPL",
+    benchmark="SP500",
     auto_update=True,
     persist_total_features_on_update=True,
+    feature_source_mode="db_first",
     return_update_summary=False,
 ):
     """
-    4개 Feature 모듈을 호출하고, 결과를 Master Calendar 기반으로 병합하여
-    하나의 통합 Feature DataFrame을 반환합니다.
+    종목별 피처를 생성/조회하여 Master Feature DataFrame을 반환합니다.
 
     Args:
-        auto_update (bool): 최신일 기반 업데이트 수행 여부
-        persist_total_features_on_update (bool): 신규 소스 데이터가 있을 때만 TOTAL_FEATURES 적재 여부
-        return_update_summary (bool): True면 (master_df, update_summary)를 반환
-    
+        ticker: 예측 대상 티커
+        benchmark: 벤치마크 티커(현재 SP500 고정)
+        auto_update: 최신일 기준 원천 데이터 업데이트 수행 여부
+        persist_total_features_on_update: 피처 테이블 적재/동기화 수행 여부
+        feature_source_mode: "db_first" 또는 "compute"
+        return_update_summary: True면 (master_df, update_summary) 반환
     """
-    # ──────────────────────────────────────────────────────────────
-    #  0. 최신일 점검 + 업데이트 시도
-    # ──────────────────────────────────────────────────────────────
+    ticker = str(ticker).upper()
+    benchmark = str(benchmark).upper()
+    if benchmark != "SP500":
+        raise ValueError(f"현재 benchmark는 SP500만 지원합니다: {benchmark}")
+
+    required_feature_cols = _required_feature_columns(ticker, benchmark)
+
     db_for_check = StockDBManager()
     db_for_check.connect()
     try:
@@ -202,124 +232,98 @@ def build_master_dataset(
 
     _print_latest_snapshot(snapshot_after, "0-2. 업데이트 후 최신일 점검")
 
-    print("=" * 70)
-    print("1. 개별 Feature 모듈 실행 및 데이터 수집")
-    print("=" * 70)
+    table_name = StockDBManager().get_total_features_table_name(ticker)
 
-    # DB 연결 (전체 과정에서 공유)
+    if feature_source_mode not in {"db_first", "compute"}:
+        raise ValueError(f"지원하지 않는 feature_source_mode 입니다: {feature_source_mode}")
+
     db = StockDBManager()
     db.connect()
-
     try:
-        # ── [1] 가격 모멘텀 및 트렌드 지표 (Master Index 소스) ──
-        df_momentum = calculate_features("AAPL", db=db)
+        if feature_source_mode == "db_first" and not update_summary["updated_any"]:
+            loaded = _try_load_features_from_db(db, table_name, required_feature_cols)
+            if loaded is not None:
+                if return_update_summary:
+                    return loaded, update_summary
+                return loaded
 
-        # ── [2] 거래량 지표 ──
-        df_vol = calculate_aapl_volume_analysis(db=db)
-
-        # ── [3] 시장 매크로 지표 ──
-        df_dxy, df_vix, df_sp500_mom = get_market_features(db=db)
-
-        # ── [4] 리스크 지표 ──
-        df_aapl_daily_vol, df_aapl_avg_vol, df_aapl_ewma_corr = calculate_risk_features(db=db)
-
-    finally:
-        # 모든 데이터 로드 및 피처 생성 후 연결 해제
-        db.close()
-
-    # ──────────────────────────────────────────────────────────────
-    #  병합 시작
-    # ──────────────────────────────────────────────────────────────
-    print("\n" + "=" * 70)
-    print("2. Master DataFrame 병합 (Master Index: AAPL Trading Days)")
-    print("=" * 70)
-
-    # AAPL의 영업일을 Master Index로 설정
-    master_index = df_momentum.index
-    # timezone-naive 보장
-    if hasattr(master_index, "tz") and master_index.tz is not None:
-        master_index = master_index.tz_localize(None)
-
-    master_df = pd.DataFrame(index=master_index)
-
-    dfs_to_join = [
-        df_momentum,
-        df_vol,
-        df_dxy,
-        df_vix,
-        df_sp500_mom,
-        df_aapl_daily_vol,
-        df_aapl_avg_vol,
-        df_aapl_ewma_corr,
-    ]
-
-    # Left Join 수행
-    for df in dfs_to_join:
-        # timezone-naive 보장
-        if hasattr(df.index, "tz") and df.index.tz is not None:
-            df = df.copy()
-            df.index = df.index.tz_localize(None)
-        # 중복 인덱스 제거 (안전장치)
-        df = df[~df.index.duplicated(keep="first")]
-        master_df = master_df.join(df, how="left")
-
-    # 매크로 휴장일 빈칸 → 직전 영업일 값으로 채움 (Look-ahead Bias 방지)
-    master_df = master_df.ffill()
-
-    # ──────────────────────────────────────────────────────────────
-    print(f"\n★ Master DataFrame 생성 완료!")
-    print(f"  Shape  : {master_df.shape}")
-    
-    if not master_df.empty:
-        print(f"  기간   : {master_df.index.min().date()} ~ {master_df.index.max().date()}")
-        print(f"  컬럼({len(master_df.columns)}개): {list(master_df.columns)}")
-
-        pd.set_option("display.max_columns", None)
-        pd.set_option("display.width", 200)
-        print(f"\n  First 3 rows:")
-        print(master_df.head(3))
-        print(f"\n  Last 3 rows:")
-        print(master_df.tail(3))
-        
-        # ──────────────────────────────────────────────────────────────
-        # 3. DB 적재 및 Reorganization (TOTAL_FEATURES)
-        # ──────────────────────────────────────────────────────────────
-        print("\n" + "=" * 70)
-        print("3. DB 적재 및 Reorganization (TOTAL_FEATURES)")
+        print("=" * 70)
+        print("1. 개별 Feature 모듈 실행 및 데이터 수집")
         print("=" * 70)
 
-        if persist_total_features_on_update:
-            db.connect()
-            try:
-                if update_summary["updated_any"]:
-                    print("  [1] TOTAL_FEATURES 테이블에 데이터 저장 중...")
-                    db.insert_total_features(master_df)
-                else:
-                    print("  신규 소스 데이터가 없어 TOTAL_FEATURES 업서트를 생략합니다.")
+        df_momentum = calculate_features(ticker, db=db)
+        df_vol = calculate_volume_analysis(ticker=ticker, db=db)
+        df_dxy, df_vix, df_sp500_mom = get_market_features(db=db)
+        df_ticker_daily_vol, df_ticker_avg_vol, df_ticker_ewma_corr = calculate_risk_features(
+            ticker=ticker,
+            benchmark=benchmark,
+            db=db,
+        )
 
-                print("  [2] TOTAL_FEATURES 무결성 동기화 진행...")
-                db.sync_total_features_integrity(
+        print("\n" + "=" * 70)
+        print(f"2. Master DataFrame 병합 (Master Index: {ticker} Trading Days)")
+        print("=" * 70)
+
+        master_index = df_momentum.index
+        if hasattr(master_index, "tz") and master_index.tz is not None:
+            master_index = master_index.tz_localize(None)
+
+        master_df = pd.DataFrame(index=master_index)
+        dfs_to_join = [
+            df_momentum,
+            df_vol,
+            df_dxy,
+            df_vix,
+            df_sp500_mom,
+            df_ticker_daily_vol,
+            df_ticker_avg_vol,
+            df_ticker_ewma_corr,
+        ]
+
+        for frame in dfs_to_join:
+            if hasattr(frame.index, "tz") and frame.index.tz is not None:
+                frame = frame.copy()
+                frame.index = frame.index.tz_localize(None)
+            frame = frame[~frame.index.duplicated(keep="first")]
+            master_df = master_df.join(frame, how="left")
+
+        master_df = master_df.ffill()
+        master_df = master_df[required_feature_cols].dropna(subset=required_feature_cols)
+
+        print(f"\n★ Master DataFrame 생성 완료! ({ticker})")
+        print(f"  Shape  : {master_df.shape}")
+        if not master_df.empty:
+            print(f"  기간   : {master_df.index.min().date()} ~ {master_df.index.max().date()}")
+            print(f"  컬럼({len(master_df.columns)}개): {list(master_df.columns)}")
+
+        if persist_total_features_on_update and not master_df.empty:
+            print("\n" + "=" * 70)
+            print(f"3. DB 적재 및 Reorganization ({table_name})")
+            print("=" * 70)
+            try:
+                print(f"  [1] {table_name} 테이블에 데이터 저장 중...")
+                db.insert_features_table(master_df, table_name)
+
+                print(f"  [2] {table_name} 무결성 동기화 진행...")
+                db.sync_features_table_integrity(
+                    table_name=table_name,
                     min_trade_date=master_df.index.min(),
                     max_trade_date=master_df.index.max(),
-                    required_feature_cols=REQUIRED_FEATURE_COLUMNS,
+                    required_feature_cols=required_feature_cols,
                 )
 
-                print("  [3] TOTAL_FEATURES 테이블 재구조화(Reorganization) 진행...")
-                db.reorganize_total_features()
+                print(f"  [3] {table_name} 테이블 재구조화(Reorganization) 진행...")
+                db.reorganize_features_table(table_name)
             except Exception as e:
                 print(f"  🚨 DB 적재/동기화 중 오류 발생: {e}")
-            finally:
-                db.close()
-        else:
-            print("  TOTAL_FEATURES 적재/동기화가 비활성화되어 작업을 생략합니다.")
-            
-    else:
-        print("  WARNING: Master DataFrame is empty!")
+        elif not persist_total_features_on_update:
+            print("  피처 테이블 적재/동기화 비활성화: DB 저장 생략")
 
-    if return_update_summary:
-        return master_df, update_summary
-
-    return master_df
+        if return_update_summary:
+            return master_df, update_summary
+        return master_df
+    finally:
+        db.close()
 
 
 if __name__ == "__main__":

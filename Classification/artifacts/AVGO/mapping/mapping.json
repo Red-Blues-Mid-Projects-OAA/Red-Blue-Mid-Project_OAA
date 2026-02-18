@@ -1,0 +1,18 @@
+{
+  "ticker": "AVGO",
+  "benchmark": "SP500",
+  "p_latest": 0.6576330094296124,
+  "signal_raw": 0.3152660188592249,
+  "signal_clipped": 0.3152660188592249,
+  "IC_full": 0.004491533903298609,
+  "TE_annual": 0.3997042619191607,
+  "TE_3M": 0.19503570918237428,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0002761760275940536,
+  "E_alpha_3M_simple": 0.0002762141677041807,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 252,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-17"
+}

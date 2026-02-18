@@ -1,0 +1,42 @@
+{
+  "ticker": "TSLA",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 221,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-18",
+  "ic_full": 0.7612182729829788,
+  "ic_pvalue": 4.528568658461557e-43,
+  "ic_first_half": 0.7804116042648153,
+  "ic_second_half": 0.8578975078975078,
+  "accuracy_ref": 0.755656108597285,
+  "precision_ref": 0.8585858585858586,
+  "p_ens_test_stats": {
+    "min": 0.2424334534983455,
+    "mean": 0.4845434812646252,
+    "max": 0.7712734780375645
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-19",
+    "end": "2026-02-17"
+  },
+  "p_ens_future_stats": {
+    "min": 0.27938128100567805,
+    "mean": 0.3698607752915899,
+    "max": 0.46575794099729256
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-17",
+    "p_ens": 0.37863325476249765
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "best_params": {
+    "C": 12.020096720240925,
+    "kernel": "sigmoid",
+    "probability": true,
+    "random_state": 42,
+    "class_weight": null,
+    "gamma": 0.3077293811050871
+  },
+  "best_score": 1.141370054189049,
+  "best_trial_number": 67,
+  "best_source": "fallback_objective_best",
+  "n_trials": 100,
+  "stride": 5,
+  "n_models": 5,
+  "optimization_method": "Single Holdout (Target-Aligned Objective)",
+  "created_at": "2026-02-18T16:08:39",
+  "data_end_date": "2025-11-18",
+  "feature_count": 16,
+  "feature_hash": "8dca1427634b1adcac1e467a9c4b3dfc36c732c7001f4c1b000f219a90b0293e",
+  "split_definition": {
+    "train": [
+      "2021-01-01",
+      "2023-12-31"
+    ],
+    "embargo": [
+      "2024-01-01",
+      "2024-03-31"
+    ],
+    "validation": [
+      "2024-04-01",
+      "2024-09-30"
+    ],
+    "golden_gap": [
+      "2024-10-01",
+      "2024-12-31"
+    ],
+    "test": [
+      "2025-01-01",
+      null
+    ]
+  },
+  "profile": "balanced",
+  "objective_version": "target_aligned_v3_svm_no_class_weight",
+  "cv_mode": "single_holdout_2024Q2Q3",
+  "objective": "deep_target_aligned_v3_fixed_threshold_0.5_no_class_weight",
+  "targets": {
+    "accuracy_min": 0.52,
+    "ic_min": 0.05,
+    "gap_max": 0.25,
+    "balance_center": 0.5,
+    "balance_tolerance": 0.15
+  },
+  "selected_metrics": {
+    "accuracy": 0.26769230769230773,
+    "precision": 0.08514932126696832,
+    "avg_train_acc": 0.5723178807947019,
+    "gap": 0.3046255731023942,
+    "ic": 0.11042735042735041,
+    "ic_p": 0.5706810697645017,
+    "val_logloss": 0.8038887750852848,
+    "val_pos_rate": 0.7870769230769231,
+    "threshold": 0.5
+  },
+  "decision_threshold": 0.5,
+  "decision_threshold_metric": "fixed_policy_0.5_validation_accuracy",
+  "decision_threshold_score": 0.2677165354330709,
+  "fit_mode": "train_only",
+  "constraints_satisfied": {
+    "acc_ok": false,
+    "ic_ok": true,
+    "gap_ok": false,
+    "balance_ok": false
+  },
+  "leakage_policy": "test_not_used_in_tuning"
+}

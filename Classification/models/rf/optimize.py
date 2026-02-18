@@ -28,7 +28,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, log_loss
 
 from Classification.Preprocessing.generate_target import generate_target
-from Classification.model_config import RF_PARAMS_ARTIFACT_PATH, save_json_artifact_only
+from Classification.model_config import get_model_params_path, save_json_artifact_only
 
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
@@ -176,8 +176,11 @@ def create_objective(full_df, feature_cols: list[str], profile: str):
 def optimize(
     profile: str = "balanced",
     n_trials: int = N_TRIALS,
+    ticker: str = "AAPL",
+    benchmark: str = "SP500",
     auto_update: bool = True,
     persist_total_features_on_update: bool = True,
+    feature_source_mode: str = "db_first",
 ):
     if profile not in {"balanced", "regularized"}:
         raise ValueError(f"profile은 'balanced' 또는 'regularized'만 허용됩니다: {profile}")
@@ -186,11 +189,20 @@ def optimize(
     print("RandomForest Hyperparameter Optimization (Single Holdout)")
     print("=" * 70)
 
+    ticker = str(ticker).upper()
+    benchmark = str(benchmark).upper()
+    target_col = f"Target_{ticker}_3M"
+    benchmark_target_col = f"Target_{benchmark}_3M"
+    params_path = get_model_params_path("rf", ticker)
+
     full_df = generate_target(
+        ticker=ticker,
+        benchmark=benchmark,
         auto_update=auto_update,
         persist_total_features_on_update=persist_total_features_on_update,
+        feature_source_mode=feature_source_mode,
     )
-    exclude = ["Target_AAPL_3M", "Target_SP500_3M", "Target_Class", "Alpha_Diff"]
+    exclude = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff"]
     feature_cols = [c for c in full_df.columns if c not in exclude]
     full_df = full_df.dropna(subset=["Target_Class"])
 
@@ -273,8 +285,8 @@ def optimize(
         },
     }
 
-    save_json_artifact_only(save_data, RF_PARAMS_ARTIFACT_PATH)
-    print(f"\n  저장 완료: {RF_PARAMS_ARTIFACT_PATH}")
+    save_json_artifact_only(save_data, params_path)
+    print(f"\n  저장 완료: {params_path}")
     return save_data
 
 

@@ -1,0 +1,20 @@
+{
+  "ticker": "AMZN",
+  "benchmark": "SP500",
+  "p_latest": 0.565436586331439,
+  "signal_raw": 0.130873172662878,
+  "signal_clipped": 0.130873172662878,
+  "IC_full": -0.09061558473323178,
+  "TE_annual": 0.2517996635564051,
+  "TE_3M": 0.12286565501655593,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0014570821180239753,
+  "E_alpha_3M_simple": -0.0014560210892725634,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 252,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-17"
+}

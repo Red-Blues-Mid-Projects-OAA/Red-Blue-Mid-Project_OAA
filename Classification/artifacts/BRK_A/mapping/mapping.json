@@ -1,0 +1,18 @@
+{
+  "ticker": "BRK-A",
+  "benchmark": "SP500",
+  "p_latest": 0.5347224732326261,
+  "signal_raw": 0.06944494646525223,
+  "signal_clipped": 0.06944494646525223,
+  "IC_full": 0.40559218206277026,
+  "TE_annual": 0.18897581331196975,
+  "TE_3M": 0.09221075499832984,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.002597238312324638,
+  "E_alpha_3M_simple": 0.00260061405765577,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 252,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-17"
+}

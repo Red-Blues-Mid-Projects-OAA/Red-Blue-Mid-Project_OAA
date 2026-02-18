@@ -27,12 +27,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, precision_score
 
 from Classification.model_config import (
-    LOGREG_PARAMS_ARTIFACT_PATH,
-    LOGREG_RESULT_ARTIFACT_PATH,
     PERM_IMPORTANCE_REPEATS,
     PERM_IMPORTANCE_SEED,
     PERM_IMPORTANCE_TOPK_TABLE,
     ensure_artifact_dirs,
+    get_model_params_path,
+    get_model_result_path,
     load_json_artifact_only,
 )
 from Classification.model_gate import evaluate_gate, print_gate_result
@@ -96,7 +96,7 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     return False, "최신 파라미터 사용 가능"
 
 
-def _load_params_or_default():
+def _load_params_or_default(params_path):
     default_params = {
         "solver": "saga",
         "penalty": "elasticnet",
@@ -106,7 +106,7 @@ def _load_params_or_default():
         "max_iter": 5000,
         "random_state": 42,
     }
-    data, used_path = load_json_artifact_only(LOGREG_PARAMS_ARTIFACT_PATH)
+    data, used_path = load_json_artifact_only(params_path)
     if data is None:
         default_params["class_weight"] = None
         return default_params, None
@@ -132,8 +132,8 @@ def _load_params_or_default():
     return merged, data
 
 
-def _ensure_best_params(split, auto_optimize=False, optimize_profile="balanced"):
-    param_data, _ = load_json_artifact_only(LOGREG_PARAMS_ARTIFACT_PATH)
+def _ensure_best_params(split, params_path, auto_optimize=False, optimize_profile="balanced"):
+    param_data, _ = load_json_artifact_only(params_path)
     current_data_end_date = _get_current_data_end_date(split)
     feature_cols = split.feature_cols
 
@@ -158,7 +158,15 @@ def _ensure_best_params(split, auto_optimize=False, optimize_profile="balanced")
             print(f"    사유: {reason}")
             from Classification.models.logreg.optimize import optimize
 
-            optimize(profile=optimize_profile, n_trials=100)
+            optimize(
+                profile=optimize_profile,
+                n_trials=100,
+                ticker=split.ticker,
+                benchmark=split.benchmark,
+                auto_update=False,
+                persist_total_features_on_update=False,
+                feature_source_mode="db_first",
+            )
         else:
             raise RuntimeError(
                 "Logistic 파라미터 아티팩트가 현재 정책과 불일치합니다. "
@@ -170,6 +178,8 @@ def run_pipeline(
     auto_optimize=False,
     optimize_profile="balanced",
     return_metrics=False,
+    ticker="AAPL",
+    benchmark="SP500",
     drop_features=None,
     save_plot=True,
     compute_importance=True,
@@ -180,19 +190,28 @@ def run_pipeline(
     print("=" * 70)
 
     if split_override is None:
-        split = split_dataset(drop_features=drop_features)
+        split = split_dataset(
+            ticker=ticker,
+            benchmark=benchmark,
+            drop_features=drop_features,
+        )
     else:
         split = split_override
         if drop_features:
             print("  [INFO] split_override가 제공되어 drop_features는 무시됩니다.")
+    ticker = split.ticker
+    benchmark = split.benchmark
+    params_path = get_model_params_path("logreg", ticker)
+    result_path = get_model_result_path("logreg", ticker)
     stride_splits = get_stride_splits(split)
 
     _ensure_best_params(
         split,
+        params_path=params_path,
         auto_optimize=auto_optimize,
         optimize_profile=optimize_profile,
     )
-    params, _ = _load_params_or_default()
+    params, _ = _load_params_or_default(params_path)
 
     print("\n  적용할 파라미터:")
     for key, val in params.items():
@@ -257,7 +276,7 @@ def run_pipeline(
     print(f"    Precision: {prec * 100:.2f}%")
     print(classification_report(y_test, ensemble_pred, target_names=["Lose(0)", "Win(1)"]))
 
-    actual_excess = split.test["Target_AAPL_3M"] - split.test["Target_SP500_3M"]
+    actual_excess = split.test[split.target_col] - split.test[split.benchmark_target_col]
     ic, p_value = _safe_spearman(ensemble_proba, actual_excess)
     print(f"    IC       : {ic:.4f} (p={p_value:.4f})")
 
@@ -296,8 +315,8 @@ def run_pipeline(
     second_half = split.test.iloc[mid_idx:]
     proba_first = ensemble_proba[:mid_idx]
     proba_second = ensemble_proba[mid_idx:]
-    excess_first = first_half["Target_AAPL_3M"] - first_half["Target_SP500_3M"]
-    excess_second = second_half["Target_AAPL_3M"] - second_half["Target_SP500_3M"]
+    excess_first = first_half[split.target_col] - first_half[split.benchmark_target_col]
+    excess_second = second_half[split.target_col] - second_half[split.benchmark_target_col]
     ic_first, _ = _safe_spearman(proba_first, excess_first)
     ic_second, _ = _safe_spearman(proba_second, excess_second)
 
@@ -366,15 +385,15 @@ def run_pipeline(
 
         axes[0, 1].hist(
             ensemble_proba[y_test == 1], bins=30, alpha=0.6,
-            label="Win (AAPL > SP500)", color="green", edgecolor="black"
+            label=f"Win ({ticker} > {benchmark})", color="green", edgecolor="black"
         )
         axes[0, 1].hist(
             ensemble_proba[y_test == 0], bins=30, alpha=0.6,
-            label="Lose (AAPL <= SP500)", color="red", edgecolor="black"
+            label=f"Lose ({ticker} <= {benchmark})", color="red", edgecolor="black"
         )
         axes[0, 1].axvline(x=0.5, color="black", linestyle="--", label="Threshold (0.5)")
         axes[0, 1].set_title("Ensemble Probability Distribution", fontsize=13)
-        axes[0, 1].set_xlabel("P(AAPL beats SP500)")
+        axes[0, 1].set_xlabel(f"P({ticker} beats {benchmark})")
         axes[0, 1].set_ylabel("Count")
         axes[0, 1].legend()
 
@@ -407,11 +426,12 @@ def run_pipeline(
 
         plt.tight_layout(rect=[0.0, 0.03, 0.83, 1.0])
         ensure_artifact_dirs()
-        plt.savefig(LOGREG_RESULT_ARTIFACT_PATH, dpi=150)
-        print(f"\n  차트 저장 완료: {LOGREG_RESULT_ARTIFACT_PATH}")
+        result_path.parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(result_path, dpi=150)
+        print(f"\n  차트 저장 완료: {result_path}")
         plt.close()
     else:
-        print(f"\n  차트 저장 생략: save_plot=False ({LOGREG_RESULT_ARTIFACT_PATH})")
+        print(f"\n  차트 저장 생략: save_plot=False ({result_path})")
 
     gate = evaluate_gate(
         {

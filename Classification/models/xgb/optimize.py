@@ -38,7 +38,7 @@ from xgboost import XGBClassifier
 
 from Classification.Preprocessing.generate_target import generate_target
 from Classification.model_config import (
-    XGB_PARAMS_ARTIFACT_PATH,
+    get_model_params_path,
     save_json_artifact_only,
 )
 
@@ -220,7 +220,15 @@ def create_objective(full_df, feature_cols, profile):
     return objective
 
 
-def optimize(profile="balanced", n_trials=N_TRIALS):
+def optimize(
+    profile="balanced",
+    n_trials=N_TRIALS,
+    ticker="AAPL",
+    benchmark="SP500",
+    auto_update=True,
+    persist_total_features_on_update=True,
+    feature_source_mode="db_first",
+):
     """
     단일 Holdout 기준으로 XGBoost 하이퍼파라미터를 최적화합니다.
 
@@ -236,10 +244,22 @@ def optimize(profile="balanced", n_trials=N_TRIALS):
     print("=" * 70)
 
     # 1. 전체 데이터 로드
-    full_df = generate_target()
+    ticker = str(ticker).upper()
+    benchmark = str(benchmark).upper()
+    target_col = f"Target_{ticker}_3M"
+    benchmark_target_col = f"Target_{benchmark}_3M"
+    params_path = get_model_params_path("xgb", ticker)
+
+    full_df = generate_target(
+        ticker=ticker,
+        benchmark=benchmark,
+        auto_update=auto_update,
+        persist_total_features_on_update=persist_total_features_on_update,
+        feature_source_mode=feature_source_mode,
+    )
 
     # Feature 컬럼 발라내기
-    exclude = ["Target_AAPL_3M", "Target_SP500_3M", "Target_Class", "Alpha_Diff"]
+    exclude = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff"]
     feature_cols = [c for c in full_df.columns if c not in exclude]
 
     # 타겟 있는 데이터만 사용
@@ -312,8 +332,8 @@ def optimize(profile="balanced", n_trials=N_TRIALS):
         "cv_mode": CV_MODE,
     }
 
-    save_json_artifact_only(save_data, XGB_PARAMS_ARTIFACT_PATH)
-    print(f"\n  저장 완료: {XGB_PARAMS_ARTIFACT_PATH}")
+    save_json_artifact_only(save_data, params_path)
+    print(f"\n  저장 완료: {params_path}")
     return save_data
 
 

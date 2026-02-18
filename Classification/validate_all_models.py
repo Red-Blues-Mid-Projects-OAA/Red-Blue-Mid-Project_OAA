@@ -4,7 +4,7 @@ XGB/SVM/LogReg/RF 4모델 게이트 검증 스크립트.
 정책:
 1) validate 실행 중 DB 소스 업데이트는 수행하지 않음
 2) 공통 split을 1회 생성해 4개 모델이 공유
-3) LogReg/RF stale 파라미터 감지 시 1회 자동 재튜닝 후 재실행
+3) XGB/SVM/LogReg/RF stale 파라미터 감지 시 1회 자동 재튜닝 후 재실행
 """
 
 from __future__ import annotations
@@ -30,7 +30,9 @@ from Classification.models.logreg.optimize import optimize as optimize_logreg
 from Classification.models.logreg.pipeline import run_pipeline as run_logreg_pipeline
 from Classification.models.rf.optimize import optimize as optimize_rf
 from Classification.models.rf.pipeline import run_pipeline as run_rf_pipeline
+from Classification.models.svm.optimize import optimize as optimize_svm
 from Classification.models.svm.pipeline import run_pipeline as run_svm_pipeline
+from Classification.models.xgb.optimize import optimize as optimize_xgb
 from Classification.models.xgb.pipeline import run_pipeline as run_xgb_pipeline
 
 STALE_PATTERNS = (
@@ -61,12 +63,6 @@ def _is_stale_error(error_text: str | None) -> bool:
     if not error_text:
         return False
     return any(pattern in error_text for pattern in STALE_PATTERNS)
-
-
-def _status_from_error(error_text: str | None) -> str:
-    if error_text is None:
-        return "normal"
-    return "error_non_stale"
 
 
 def _execute_gate_only(model_name, run_fn):
@@ -107,6 +103,7 @@ def _execute_with_one_retune(model_name, run_fn, optimize_fn):
             n_trials=RETRY_N_TRIALS,
             auto_update=False,
             persist_total_features_on_update=False,
+            feature_source_mode="db_first",
         )
     except Exception as opt_error:
         combined = f"{error} | retune_failed: {opt_error}"
@@ -151,6 +148,8 @@ def validate_all_models():
         split_override=shared_split,
     )
     svm_run = lambda: run_svm_pipeline(
+        auto_optimize=False,
+        optimize_profile="balanced",
         return_metrics=True,
         split_override=shared_split,
     )
@@ -167,11 +166,17 @@ def validate_all_models():
         split_override=shared_split,
     )
 
-    xgb_metrics, xgb_gate, xgb_error = _execute_gate_only("XGBoost", xgb_run)
-    xgb_status = _status_from_error(xgb_error)
+    xgb_metrics, xgb_gate, xgb_error, xgb_status = _execute_with_one_retune(
+        "XGBoost",
+        xgb_run,
+        optimize_xgb,
+    )
 
-    svm_metrics, svm_gate, svm_error = _execute_gate_only("SVM", svm_run)
-    svm_status = _status_from_error(svm_error)
+    svm_metrics, svm_gate, svm_error, svm_status = _execute_with_one_retune(
+        "SVM",
+        svm_run,
+        optimize_svm,
+    )
 
     logreg_metrics, logreg_gate, logreg_error, logreg_status = _execute_with_one_retune(
         "LogisticRegression",

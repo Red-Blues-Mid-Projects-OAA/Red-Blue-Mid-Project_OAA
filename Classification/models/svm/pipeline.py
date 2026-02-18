@@ -9,6 +9,7 @@ SVM 분류 파이프라인 (Stride 앙상블).
 """
 
 import sys
+import hashlib
 from pathlib import Path
 
 if __package__ in (None, ""):
@@ -34,16 +35,105 @@ from Classification.model_config import (
     PERM_IMPORTANCE_REPEATS,
     PERM_IMPORTANCE_SEED,
     PERM_IMPORTANCE_TOPK_TABLE,
-    SVM_PARAMS_ARTIFACT_PATH,
-    SVM_RESULT_ARTIFACT_PATH,
     ensure_artifact_dirs,
+    get_model_params_path,
+    get_model_result_path,
     load_json_artifact_only,
 )
 from Classification.model_gate import evaluate_gate, print_gate_result
 from Classification.models.common.importance import compute_permutation_importance_ic
 
+EXPECTED_OBJECTIVE_VERSION = "target_aligned_v3_svm_no_class_weight"
+EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
 
-def load_svm_params():
+
+def _get_feature_hash(feature_cols):
+    raw = "|".join(feature_cols)
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def _get_current_data_end_date(split):
+    candidates = []
+    for df in [split.train, split.val, split.test, split.final_train]:
+        if len(df) > 0:
+            candidates.append(df.index.max())
+    if not candidates:
+        return None
+    return max(candidates).strftime("%Y-%m-%d")
+
+
+def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimize_profile):
+    required_meta = ["feature_hash", "data_end_date", "profile", "objective_version", "cv_mode"]
+    for key in required_meta:
+        if key not in param_data:
+            return True, f"메타데이터 누락: {key}"
+
+    current_feature_hash = _get_feature_hash(feature_cols)
+    if param_data["feature_hash"] != current_feature_hash:
+        return True, "feature_hash 불일치"
+
+    file_data_end = param_data["data_end_date"]
+    if current_data_end_date is not None and file_data_end < current_data_end_date:
+        return True, f"data_end_date 구버전 ({file_data_end} < {current_data_end_date})"
+
+    if param_data["profile"] != optimize_profile:
+        return True, f"profile 불일치 ({param_data['profile']} != {optimize_profile})"
+
+    if param_data["objective_version"] != EXPECTED_OBJECTIVE_VERSION:
+        return True, (
+            f"objective_version 불일치 "
+            f"({param_data['objective_version']} != {EXPECTED_OBJECTIVE_VERSION})"
+        )
+
+    if param_data["cv_mode"] != EXPECTED_CV_MODE:
+        return True, f"cv_mode 불일치 ({param_data['cv_mode']} != {EXPECTED_CV_MODE})"
+
+    return False, "최신 파라미터 사용 가능"
+
+
+def _ensure_best_params(split, params_path, auto_optimize=False, optimize_profile="balanced"):
+    param_data, _ = load_json_artifact_only(params_path)
+    current_data_end_date = _get_current_data_end_date(split)
+    feature_cols = split.feature_cols
+
+    needs_optimize = False
+    reason = ""
+
+    if param_data is None:
+        needs_optimize = True
+        reason = "파라미터 파일 미존재"
+    else:
+        stale, reason = _is_param_file_stale(
+            param_data,
+            feature_cols,
+            current_data_end_date,
+            optimize_profile=optimize_profile,
+        )
+        needs_optimize = stale
+
+    if needs_optimize:
+        if auto_optimize:
+            print("\n  ⚠️ SVM 자동 재튜닝을 실행합니다.")
+            print(f"    사유: {reason}")
+            from Classification.models.svm.optimize import optimize
+
+            optimize(
+                profile=optimize_profile,
+                n_trials=100,
+                ticker=split.ticker,
+                benchmark=split.benchmark,
+                auto_update=False,
+                persist_total_features_on_update=False,
+                feature_source_mode="db_first",
+            )
+        else:
+            raise RuntimeError(
+                "SVM 파라미터 아티팩트가 현재 정책과 불일치합니다. "
+                f"auto_optimize=False 상태에서는 실행할 수 없습니다. 사유: {reason}"
+            )
+
+
+def load_svm_params(params_path):
     """best_svm_params.json을 로드하고, 없으면 기본값을 반환합니다."""
     default_params = {
         "C": 1.0,
@@ -57,7 +147,7 @@ def load_svm_params():
         "fit_mode": "final_train",
     }
 
-    data, used_path = load_json_artifact_only(SVM_PARAMS_ARTIFACT_PATH)
+    data, used_path = load_json_artifact_only(params_path)
     if data is None:
         return default_params, default_meta
 
@@ -105,7 +195,11 @@ def ensemble_predict_proba(models, x_df):
 
 
 def run_pipeline(
+    auto_optimize=False,
+    optimize_profile="balanced",
     return_metrics=False,
+    ticker="AAPL",
+    benchmark="SP500",
     drop_features=None,
     save_plot=True,
     compute_importance=True,
@@ -117,17 +211,31 @@ def run_pipeline(
     print("=" * 70)
 
     if split_override is None:
-        split = split_dataset(drop_features=drop_features)
+        split = split_dataset(
+            ticker=ticker,
+            benchmark=benchmark,
+            drop_features=drop_features,
+        )
     else:
         split = split_override
         if drop_features:
             print("  [INFO] split_override가 제공되어 drop_features는 무시됩니다.")
+    ticker = split.ticker
+    benchmark = split.benchmark
+    params_path = get_model_params_path("svm", ticker)
+    result_path = get_model_result_path("svm", ticker)
     stride_splits = get_stride_splits(split)
     feature_cols = split.feature_cols
     x_test = split.test[feature_cols]
     y_test = split.test["Target_Class"].astype(int)
 
-    svm_params, meta = load_svm_params()
+    _ensure_best_params(
+        split,
+        params_path=params_path,
+        auto_optimize=auto_optimize,
+        optimize_profile=optimize_profile,
+    )
+    svm_params, meta = load_svm_params(params_path)
     threshold = 0.5
     fit_mode = meta.get("fit_mode", "final_train")
     print(f"\n사용 SVM 파라미터: {svm_params}")
@@ -172,7 +280,7 @@ def run_pipeline(
     prec = precision_score(y_test, ensemble_pred, zero_division=0)
     gap = avg_train_acc - acc
 
-    excess_return = split.test["Target_AAPL_3M"] - split.test["Target_SP500_3M"]
+    excess_return = split.test[split.target_col] - split.test[split.benchmark_target_col]
     ic, p_value = safe_spearmanr(ensemble_proba, excess_return)
 
     mid_idx = len(split.test) // 2
@@ -180,8 +288,8 @@ def run_pipeline(
     second_half = split.test.iloc[mid_idx:]
     proba_first = ensemble_proba[:mid_idx]
     proba_second = ensemble_proba[mid_idx:]
-    excess_first = first_half["Target_AAPL_3M"] - first_half["Target_SP500_3M"]
-    excess_second = second_half["Target_AAPL_3M"] - second_half["Target_SP500_3M"]
+    excess_first = first_half[split.target_col] - first_half[split.benchmark_target_col]
+    excess_second = second_half[split.target_col] - second_half[split.benchmark_target_col]
     ic_first, p_first = safe_spearmanr(proba_first, excess_first)
     ic_second, p_second = safe_spearmanr(proba_second, excess_second)
 
@@ -301,17 +409,17 @@ def run_pipeline(
         # (2) 예측 확률 분포
         axes[0, 1].hist(
             ensemble_proba[y_test == 1], bins=30, alpha=0.6,
-            label="Win (AAPL > SP500)", color="green", edgecolor="black"
+            label=f"Win ({ticker} > {benchmark})", color="green", edgecolor="black"
         )
         axes[0, 1].hist(
             ensemble_proba[y_test == 0], bins=30, alpha=0.6,
-            label="Lose (AAPL <= SP500)", color="red", edgecolor="black"
+            label=f"Lose ({ticker} <= {benchmark})", color="red", edgecolor="black"
         )
         axes[0, 1].axvline(
             x=threshold, color="black", linestyle="--", label=f"Threshold ({threshold:.2f})"
         )
         axes[0, 1].set_title("Ensemble Probability Distribution", fontsize=13)
-        axes[0, 1].set_xlabel("P(AAPL beats SP500)")
+        axes[0, 1].set_xlabel(f"P({ticker} beats {benchmark})")
         axes[0, 1].set_ylabel("Count")
         axes[0, 1].legend()
 
@@ -361,11 +469,12 @@ def run_pipeline(
 
         plt.tight_layout(rect=[0.0, 0.03, 0.83, 1.0])
         ensure_artifact_dirs()
-        plt.savefig(SVM_RESULT_ARTIFACT_PATH, dpi=150)
+        result_path.parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(result_path, dpi=150)
         plt.close()
-        print(f"차트 저장 완료: {SVM_RESULT_ARTIFACT_PATH}")
+        print(f"차트 저장 완료: {result_path}")
     else:
-        print(f"차트 저장 생략: save_plot=False ({SVM_RESULT_ARTIFACT_PATH})")
+        print(f"차트 저장 생략: save_plot=False ({result_path})")
 
     print("\n" + "=" * 70)
     print(f"최종 평가 요약 (Stride {N_MODELS}개 모델 SVM 앙상블)")
@@ -418,4 +527,4 @@ def run_pipeline(
 
 
 if __name__ == "__main__":
-    run_pipeline()
+    run_pipeline(auto_optimize=False, optimize_profile="balanced")

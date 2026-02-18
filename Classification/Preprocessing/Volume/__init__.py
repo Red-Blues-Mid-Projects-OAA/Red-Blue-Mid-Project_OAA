@@ -5,6 +5,6 @@
 패키지 외부에서 일관된 경로로 호출할 수 있도록 노출합니다.
 """
 
-from .volume import calculate_aapl_volume_analysis
+from .volume import calculate_aapl_volume_analysis, calculate_volume_analysis
 
-__all__ = ["calculate_aapl_volume_analysis"]
+__all__ = ["calculate_volume_analysis", "calculate_aapl_volume_analysis"]

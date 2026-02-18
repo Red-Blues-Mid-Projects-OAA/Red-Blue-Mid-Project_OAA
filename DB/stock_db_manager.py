@@ -695,92 +695,106 @@ class StockDBManager:
             print(f"MARKET_FEATURES 테이블 재정렬 실패: {e}")
             self.connection.rollback()
 
-    def insert_total_features(self, df):
+    def _safe_identifier(self, identifier):
         """
-        Master Features 데이터프레임을 DB의 TOTAL_FEATURES 테이블에 저장합니다.
-        테이블이 없으면 생성합니다.
+        테이블/컬럼 식별자를 Oracle-safe 대문자 식별자로 정규화합니다.
         """
-        df = df.copy()
-        df.index.name = "TRADE_DATE"
-        df.reset_index(inplace=True)
+        safe = str(identifier).strip().upper()
+        if not safe:
+            raise ValueError(f"유효하지 않은 식별자입니다: {identifier}")
+        if not safe.replace("_", "").replace("$", "").replace("#", "").isalnum():
+            raise ValueError(f"유효하지 않은 식별자입니다: {identifier}")
+        if safe[0].isdigit():
+            raise ValueError(f"식별자는 숫자로 시작할 수 없습니다: {identifier}")
+        return safe
 
-        cols = df.columns
+    def get_total_features_table_name(self, ticker):
+        """
+        티커별 피처 테이블명을 반환합니다.
+        예: BRK-A -> BRK_A_TOTAL_FEATURES
+        """
+        safe_ticker = self._safe_identifier(str(ticker).replace("-", "_"))
+        return f"{safe_ticker}_TOTAL_FEATURES"
+
+    def features_table_exists(self, table_name):
+        """피처 테이블 존재 여부를 반환합니다."""
+        safe_table = self._safe_identifier(table_name)
+        self.cursor.execute(
+            "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = :t",
+            {"t": safe_table},
+        )
+        return int(self.cursor.fetchone()[0] or 0) > 0
+
+    def insert_features_table(self, df, table_name):
+        """
+        Master Features 데이터프레임을 지정한 피처 테이블에 업서트합니다.
+        """
+        safe_table = self._safe_identifier(table_name)
+
+        df = df.copy()
+        if "TRADE_DATE" not in df.columns:
+            df.index.name = "TRADE_DATE"
+            df.reset_index(inplace=True)
+        else:
+            df = df.reset_index(drop=True)
+
+        cols = list(df.columns)
+        if "TRADE_DATE" not in cols:
+            raise ValueError("피처 테이블 적재에는 TRADE_DATE 컬럼이 필요합니다.")
+
         col_defs = []
         for col in cols:
-            if col == "TRADE_DATE":
-                col_type = "DATE PRIMARY KEY"
-            else:
-                col_type = "NUMBER"
-            
-            # DB 컬럼명 규칙(대문, 특수문자 제거 등 안전하게)
-            # 여기서는 DataFrame 컬럼명을 그대로 사용 (단, 최대 길이 등 오라클 제약 고려 필요)
-            safe_col = col.upper()
-            if not safe_col.replace("_", "").isalnum():
-                raise ValueError(f"TOTAL_FEATURES 컬럼명이 유효하지 않습니다: {col}")
+            safe_col = self._safe_identifier(col)
+            col_type = "DATE PRIMARY KEY" if safe_col == "TRADE_DATE" else "NUMBER"
             col_defs.append(f'"{safe_col}" {col_type}')
 
         create_table_query = f"""
         BEGIN
-            EXECUTE IMMEDIATE 'CREATE TABLE TOTAL_FEATURES ({", ".join(col_defs)})';
+            EXECUTE IMMEDIATE 'CREATE TABLE {safe_table} ({", ".join(col_defs)})';
         EXCEPTION
             WHEN OTHERS THEN
                 IF SQLCODE != -955 THEN RAISE; END IF;
         END;
         """
-        
-        try:
-            # 1. 테이블 생성 시도
-            self.cursor.execute(create_table_query) 
 
-            # 1-1. 테이블이 이미 존재하는 경우를 대비해 누락 컬럼을 동기화
+        try:
+            self.cursor.execute(create_table_query)
+
             self.cursor.execute(
                 """
                 SELECT COLUMN_NAME
                 FROM USER_TAB_COLUMNS
-                WHERE TABLE_NAME = 'TOTAL_FEATURES'
-                """
+                WHERE TABLE_NAME = :table_name
+                """,
+                {"table_name": safe_table},
             )
             existing_cols = {row[0] for row in self.cursor.fetchall()}
             added_cols = []
             for col in cols:
-                safe_col = col.upper()
-                if safe_col not in existing_cols:
-                    if safe_col == "TRADE_DATE":
-                        continue
-                    self.cursor.execute(f'ALTER TABLE TOTAL_FEATURES ADD "{safe_col}" NUMBER')
+                safe_col = self._safe_identifier(col)
+                if safe_col not in existing_cols and safe_col != "TRADE_DATE":
+                    self.cursor.execute(f'ALTER TABLE {safe_table} ADD "{safe_col}" NUMBER')
                     added_cols.append(safe_col)
             if added_cols:
                 self.connection.commit()
-                print(f"TOTAL_FEATURES 누락 컬럼 추가: {added_cols}")
-            
-            # 2. 데이터 준비 및 Insert
-            # MERGE 대신 단순 INSERT를 사용하되, 기존 데이터 삭제 후 재적재(일괄 적재 특성상)
-            # 혹은 요구사항대로 "재정렬" 과정을 거치므로 전체 Truncate 후 Insert도 가능
-            # 여기서는 UPSERT(Merge)를 구현하여 부분 업데이트도 가능하게 함
-            
-            # 컬럼 목록 (TRADE_DATE 제외한 나머지)
-            feature_cols = [c for c in cols if c != "TRADE_DATE"]
-            
-            # 동적 Merge Query 생성
-            # USING 절에서 단일 행을 바인딩해 소스(s)로 만들고,
-            # ON 절은 TRADE_DATE 기준으로 대상(d)과 매칭합니다.
-            # 매칭되면 UPDATE, 없으면 INSERT를 수행해 증분/재실행 모두
-            # 멱등(idempotent)하게 처리합니다.
-            
+                print(f"{safe_table} 누락 컬럼 추가: {added_cols}")
+
+            feature_cols = [c for c in cols if self._safe_identifier(c) != "TRADE_DATE"]
+
             select_parts = [":1 as TRADE_DATE"]
             update_parts = []
             insert_cols = ["TRADE_DATE"]
             insert_vals = ["s.TRADE_DATE"]
-            
-            for i, col in enumerate(feature_cols, 2): # 1은 TRADE_DATE
-                safe_col = col.upper()
+
+            for i, col in enumerate(feature_cols, 2):
+                safe_col = self._safe_identifier(col)
                 select_parts.append(f":{i} as \"{safe_col}\"")
-                update_parts.append(f"d.\"{safe_col}\" = s.\"{safe_col}\"")
-                insert_cols.append(f"\"{safe_col}\"")
-                insert_vals.append(f"s.\"{safe_col}\"")
-            
+                update_parts.append(f'd."{safe_col}" = s."{safe_col}"')
+                insert_cols.append(f'"{safe_col}"')
+                insert_vals.append(f's."{safe_col}"')
+
             merge_query = f"""
-            MERGE INTO TOTAL_FEATURES d
+            MERGE INTO {safe_table} d
             USING (SELECT {", ".join(select_parts)} FROM dual) s
             ON (d.TRADE_DATE = s.TRADE_DATE)
             WHEN MATCHED THEN
@@ -789,7 +803,7 @@ class StockDBManager:
                 INSERT ({", ".join(insert_cols)})
                 VALUES ({", ".join(insert_vals)})
             """
-            
+
             data_to_insert = []
             for _, row in df.iterrows():
                 trade_date = row["TRADE_DATE"]
@@ -797,20 +811,233 @@ class StockDBManager:
                     trade_date = trade_date.to_pydatetime().date()
                 elif hasattr(trade_date, "date"):
                     trade_date = trade_date.date()
+
                 row_data = [trade_date]
                 for col in feature_cols:
                     val = row[col]
                     row_data.append(float(val) if pd.notna(val) else None)
                 data_to_insert.append(tuple(row_data))
-                
+
             if data_to_insert:
                 self.cursor.executemany(merge_query, data_to_insert)
                 self.connection.commit()
-                print(f"TOTAL_FEATURES 데이터 {len(data_to_insert)}건 저장 완료.")
-                
+                print(f"{safe_table} 데이터 {len(data_to_insert)}건 저장 완료.")
         except oracledb.Error as e:
-            print(f"TOTAL_FEATURES 저장 실패: {e}")
+            print(f"{safe_table} 저장 실패: {e}")
             self.connection.rollback()
+            raise
+
+    def fetch_features_table(self, table_name):
+        """
+        지정한 피처 테이블을 DataFrame으로 조회합니다.
+        Index: TRADE_DATE
+        """
+        safe_table = self._safe_identifier(table_name)
+        if not self.features_table_exists(safe_table):
+            return pd.DataFrame()
+
+        query = f"SELECT * FROM {safe_table} ORDER BY TRADE_DATE"
+        try:
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.DataFrame()
+            col_names = [d[0] for d in self.cursor.description]
+            df = pd.DataFrame(rows, columns=col_names)
+            df["TRADE_DATE"] = pd.to_datetime(df["TRADE_DATE"])
+            df = df.set_index("TRADE_DATE").sort_index()
+            return df
+        except oracledb.Error as e:
+            print(f"{safe_table} 조회 실패: {e}")
+            return pd.DataFrame()
+
+    def sync_features_table_integrity(self, table_name, min_trade_date, max_trade_date, required_feature_cols):
+        """
+        지정 피처 테이블 무결성 동기화:
+        1) 범위 밖 TRADE_DATE 삭제
+        2) required_feature_cols 중 NULL 포함 행 삭제
+        """
+        safe_table = self._safe_identifier(table_name)
+
+        def _to_date(value):
+            if hasattr(value, "to_pydatetime"):
+                value = value.to_pydatetime()
+            if hasattr(value, "date"):
+                return value.date()
+            return value
+
+        safe_cols = [self._safe_identifier(c) for c in required_feature_cols]
+        if not self.features_table_exists(safe_table):
+            print(f"{safe_table} 테이블이 없어 무결성 동기화를 건너뜁니다.")
+            return {
+                "table_exists": False,
+                "deleted_out_of_range": 0,
+                "deleted_null_rows": 0,
+            }
+
+        self.cursor.execute(
+            """
+            SELECT COLUMN_NAME
+            FROM USER_TAB_COLUMNS
+            WHERE TABLE_NAME = :table_name
+            """,
+            {"table_name": safe_table},
+        )
+        existing_cols = {row[0] for row in self.cursor.fetchall()}
+        missing_cols = [c for c in safe_cols if c not in existing_cols]
+        if missing_cols:
+            raise ValueError(f"{safe_table} 필수 컬럼 누락: {missing_cols}")
+
+        min_dt = _to_date(min_trade_date)
+        max_dt = _to_date(max_trade_date)
+        if min_dt is None or max_dt is None:
+            raise ValueError("유효한 날짜 범위가 필요합니다.")
+
+        self.cursor.execute(f"SELECT COUNT(*) FROM {safe_table}")
+        before_rows = int(self.cursor.fetchone()[0] or 0)
+
+        self.cursor.execute(
+            f"""
+            DELETE FROM {safe_table}
+            WHERE TRADE_DATE < :min_dt OR TRADE_DATE > :max_dt
+            """,
+            {"min_dt": min_dt, "max_dt": max_dt},
+        )
+        deleted_out_of_range = int(self.cursor.rowcount or 0)
+
+        null_clause = " OR ".join([f'"{col}" IS NULL' for col in safe_cols])
+        self.cursor.execute(f"DELETE FROM {safe_table} WHERE {null_clause}")
+        deleted_null_rows = int(self.cursor.rowcount or 0)
+
+        self.connection.commit()
+        self.cursor.execute(f"SELECT COUNT(*) FROM {safe_table}")
+        after_rows = int(self.cursor.fetchone()[0] or 0)
+        print(
+            f"{safe_table} 무결성 동기화 완료: "
+            f"before={before_rows}, out_of_range_deleted={deleted_out_of_range}, "
+            f"null_deleted={deleted_null_rows}, after={after_rows}"
+        )
+        return {
+            "table_exists": True,
+            "deleted_out_of_range": deleted_out_of_range,
+            "deleted_null_rows": deleted_null_rows,
+            "rows_before": before_rows,
+            "rows_after": after_rows,
+        }
+
+    def reorganize_features_table(self, table_name):
+        """
+        지정 피처 테이블을 TRADE_DATE 오름차순 CTAS로 재구조화합니다.
+        """
+        safe_table = self._safe_identifier(table_name)
+        copy_table = f"{safe_table}_COPY"
+        pk_name = f"PK_{safe_table}"
+        if len(pk_name) > 30:
+            pk_name = f"PK_{safe_table[:27]}"
+
+        try:
+            print(f"{safe_table} 테이블 재구조화 시작...")
+            self.cursor.execute(
+                f"""
+                CREATE TABLE {copy_table} AS
+                SELECT * FROM {safe_table}
+                ORDER BY TRADE_DATE ASC
+                """
+            )
+            print(f"1. 정렬된 임시 테이블({copy_table}) 생성 완료")
+
+            self.cursor.execute(f"DROP TABLE {safe_table} PURGE")
+            print(f"2. 기존 {safe_table} 테이블 삭제 완료")
+
+            self.cursor.execute(f"ALTER TABLE {copy_table} RENAME TO {safe_table}")
+            print(f"3. 테이블명 변경 완료 ({copy_table} -> {safe_table})")
+
+            self.cursor.execute(
+                f"""
+                ALTER TABLE {safe_table}
+                ADD CONSTRAINT {pk_name} PRIMARY KEY (TRADE_DATE)
+                USING INDEX
+                """
+            )
+            print("4. PK(TRADE_DATE) 재생성 완료")
+            self.connection.commit()
+            print(f"{safe_table} 테이블 재구조화 완료!")
+        except oracledb.Error as e:
+            print(f"{safe_table} 재구조화 실패: {e}")
+            self.connection.rollback()
+            raise
+
+    def get_ticker_coverage_report(self, tickers):
+        """
+        종목별 데이터 커버리지(STOCK_DATA, LOG_RETURNS, SP500)를 조회합니다.
+        """
+        report = []
+        try:
+            self.cursor.execute(
+                "SELECT MIN(TRADE_DATE), MAX(TRADE_DATE), COUNT(*) FROM SP500_DATA"
+            )
+            sp500_min, sp500_max, sp500_rows = self.cursor.fetchone()
+            sp500_meta = {
+                "sp500_rows": int(sp500_rows or 0),
+                "sp500_start": sp500_min,
+                "sp500_end": sp500_max,
+            }
+        except oracledb.Error:
+            sp500_meta = {"sp500_rows": 0, "sp500_start": None, "sp500_end": None}
+
+        for ticker in tickers:
+            rec = {"ticker": ticker, **sp500_meta}
+            try:
+                self.cursor.execute(
+                    """
+                    SELECT MIN(TRADE_DATE), MAX(TRADE_DATE), COUNT(*)
+                    FROM STOCK_DATA
+                    WHERE TICKER = :ticker
+                    """,
+                    {"ticker": ticker},
+                )
+                s_min, s_max, s_cnt = self.cursor.fetchone()
+
+                self.cursor.execute(
+                    """
+                    SELECT MIN(TRADE_DATE), MAX(TRADE_DATE), COUNT(*)
+                    FROM LOG_RETURNS
+                    WHERE TICKER = :ticker
+                    """,
+                    {"ticker": ticker},
+                )
+                l_min, l_max, l_cnt = self.cursor.fetchone()
+
+                rec.update(
+                    {
+                        "stock_rows": int(s_cnt or 0),
+                        "stock_start": s_min,
+                        "stock_end": s_max,
+                        "logret_rows": int(l_cnt or 0),
+                        "logret_start": l_min,
+                        "logret_end": l_max,
+                        "status": "ok" if int(s_cnt or 0) > 0 and int(l_cnt or 0) > 0 else "missing",
+                    }
+                )
+            except oracledb.Error as e:
+                rec.update(
+                    {
+                        "stock_rows": 0,
+                        "stock_start": None,
+                        "stock_end": None,
+                        "logret_rows": 0,
+                        "logret_start": None,
+                        "logret_end": None,
+                        "status": "error",
+                        "error": str(e),
+                    }
+                )
+            report.append(rec)
+        return report
+
+    # Backward-compatible wrappers
+    def insert_total_features(self, df):
+        self.insert_features_table(df, "TOTAL_FEATURES")
 
     def drop_total_features_column_if_exists(self, column_name):
         """
@@ -846,127 +1073,15 @@ class StockDBManager:
             raise
 
     def sync_total_features_integrity(self, min_trade_date, max_trade_date, required_feature_cols):
-        """
-        TOTAL_FEATURES 무결성을 동기화합니다.
-        1) 지정한 날짜 범위를 벗어나는 행 삭제
-        2) 필수 피처 컬럼 중 하나라도 NULL인 행 삭제
-        """
-        def _to_date(value):
-            if hasattr(value, "to_pydatetime"):
-                value = value.to_pydatetime()
-            if hasattr(value, "date"):
-                return value.date()
-            return value
-
-        safe_cols = []
-        for col in required_feature_cols:
-            safe_col = str(col).strip().upper()
-            if not safe_col or not safe_col.replace("_", "").isalnum():
-                raise ValueError(f"유효하지 않은 컬럼명입니다: {col}")
-            safe_cols.append(safe_col)
-
-        self.cursor.execute(
-            "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = 'TOTAL_FEATURES'"
+        return self.sync_features_table_integrity(
+            "TOTAL_FEATURES",
+            min_trade_date,
+            max_trade_date,
+            required_feature_cols,
         )
-        table_exists = int(self.cursor.fetchone()[0] or 0) > 0
-        if not table_exists:
-            print("TOTAL_FEATURES 테이블이 없어 무결성 동기화를 건너뜁니다.")
-            return {
-                "table_exists": False,
-                "deleted_out_of_range": 0,
-                "deleted_null_rows": 0,
-            }
-
-        self.cursor.execute(
-            """
-            SELECT COLUMN_NAME
-            FROM USER_TAB_COLUMNS
-            WHERE TABLE_NAME = 'TOTAL_FEATURES'
-            """
-        )
-        existing_cols = {row[0] for row in self.cursor.fetchall()}
-        missing_cols = [c for c in safe_cols if c not in existing_cols]
-        if missing_cols:
-            raise ValueError(
-                f"TOTAL_FEATURES 필수 컬럼이 누락되었습니다: {missing_cols}"
-            )
-
-        min_dt = _to_date(min_trade_date)
-        max_dt = _to_date(max_trade_date)
-        if min_dt is None or max_dt is None:
-            raise ValueError("유효한 날짜 범위가 필요합니다.")
-
-        self.cursor.execute("SELECT COUNT(*) FROM TOTAL_FEATURES")
-        before_rows = int(self.cursor.fetchone()[0] or 0)
-
-        self.cursor.execute(
-            """
-            DELETE FROM TOTAL_FEATURES
-            WHERE TRADE_DATE < :min_dt OR TRADE_DATE > :max_dt
-            """,
-            {"min_dt": min_dt, "max_dt": max_dt},
-        )
-        deleted_out_of_range = int(self.cursor.rowcount or 0)
-
-        null_clause = " OR ".join([f'"{col}" IS NULL' for col in safe_cols])
-        self.cursor.execute(f"DELETE FROM TOTAL_FEATURES WHERE {null_clause}")
-        deleted_null_rows = int(self.cursor.rowcount or 0)
-
-        self.connection.commit()
-
-        self.cursor.execute("SELECT COUNT(*) FROM TOTAL_FEATURES")
-        after_rows = int(self.cursor.fetchone()[0] or 0)
-
-        print(
-            "TOTAL_FEATURES 무결성 동기화 완료: "
-            f"before={before_rows}, out_of_range_deleted={deleted_out_of_range}, "
-            f"null_deleted={deleted_null_rows}, after={after_rows}"
-        )
-        return {
-            "table_exists": True,
-            "deleted_out_of_range": deleted_out_of_range,
-            "deleted_null_rows": deleted_null_rows,
-            "rows_before": before_rows,
-            "rows_after": after_rows,
-        }
 
     def reorganize_total_features(self):
-        """
-        TOTAL_FEATURES 테이블을 TRADE_DATE 오름차순으로 정렬된 복사본으로 교체 (CTAS 방식)
-        """
-        try:
-            print("TOTAL_FEATURES 테이블 재구조화 시작...")
-
-            # 1. CTAS로 정렬된 복사본 생성
-            self.cursor.execute("""
-                CREATE TABLE TOTAL_FEATURES_COPY AS
-                SELECT * FROM TOTAL_FEATURES
-                ORDER BY TRADE_DATE ASC
-            """)
-            print("1. 정렬된 임시 테이블(TOTAL_FEATURES_COPY) 생성 완료")
-
-            # 2. 원본 테이블 삭제
-            self.cursor.execute("DROP TABLE TOTAL_FEATURES PURGE")
-            print("2. 기존 TOTAL_FEATURES 테이블 삭제 완료")
-
-            # 3. 임시 테이블명을 원본 테이블명으로 교체
-            self.cursor.execute("ALTER TABLE TOTAL_FEATURES_COPY RENAME TO TOTAL_FEATURES")
-            print("3. 테이블명 변경 완료 (COPY -> ORIG)")
-
-            # 4. PK 설정
-            self.cursor.execute("""
-                ALTER TABLE TOTAL_FEATURES 
-                ADD CONSTRAINT PK_TOTAL_FEATURES PRIMARY KEY (TRADE_DATE)
-                USING INDEX
-            """)
-            print("4. PK(TRADE_DATE) 재생성 완료")
-            
-            self.connection.commit()
-            print("TOTAL_FEATURES 테이블 재구조화 완료!")
-
-        except oracledb.Error as e:
-            print(f"TOTAL_FEATURES 재구조화 실패: {e}")
-            self.connection.rollback()
+        self.reorganize_features_table("TOTAL_FEATURES")
 
     def close(self):
         """

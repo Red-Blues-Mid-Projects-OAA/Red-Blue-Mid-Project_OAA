@@ -1,0 +1,42 @@
+{
+  "ticker": "NVDA",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 221,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-18",
+  "ic_full": -0.7438736144618496,
+  "ic_pvalue": 3.386821423782376e-40,
+  "ic_first_half": -0.9433311543403287,
+  "ic_second_half": -0.3389610389610389,
+  "accuracy_ref": 0.3755656108597285,
+  "precision_ref": 0.45108695652173914,
+  "p_ens_test_stats": {
+    "min": 0.37295855821709345,
+    "mean": 0.662766171017208,
+    "max": 0.8159884295687366
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-19",
+    "end": "2026-02-17"
+  },
+  "p_ens_future_stats": {
+    "min": 0.7184696883844368,
+    "mean": 0.7834741237223626,
+    "max": 0.8040445048187376
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-17",
+    "p_ens": 0.7741561258062276
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

@@ -12,8 +12,9 @@ SVM 하이퍼파라미터 최적화 (누수 방지 + Deep Scaling 버전).
 - 최종 test 평가는 `Classification.models.svm.pipeline`에서만 수행합니다.
 """
 
-import json
+import hashlib
 import sys
+from datetime import datetime
 from pathlib import Path
 
 if __package__ in (None, ""):
@@ -36,13 +37,15 @@ from sklearn.svm import SVC
 
 from Classification.Preprocessing.split_dataset import get_stride_splits, split_dataset
 from Classification.model_config import (
-    SVM_PARAMS_ARTIFACT_PATH,
+    get_model_params_path,
     save_json_artifact_only,
 )
 
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
-N_TRIALS = 400
+N_TRIALS = 100
+OBJECTIVE_VERSION = "target_aligned_v3_svm_no_class_weight"
+CV_MODE = "single_holdout_2024Q2Q3"
 
 TARGET_ACC = 0.52
 TARGET_IC = 0.05
@@ -58,6 +61,21 @@ SEED_PARAMS = {
 }
 
 
+def _get_feature_hash(feature_cols):
+    raw = "|".join(feature_cols)
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def _get_current_data_end_date(split):
+    candidates = []
+    for df in [split.train, split.val, split.test, split.final_train]:
+        if len(df) > 0:
+            candidates.append(df.index.max())
+    if not candidates:
+        return None
+    return max(candidates).strftime("%Y-%m-%d")
+
+
 def safe_ic(pred_proba, actual_excess_return):
     """짧은/상수열에서 NaN 안전 처리 포함 Spearman IC 계산."""
     x = np.asarray(pred_proba)
@@ -70,7 +88,14 @@ def safe_ic(pred_proba, actual_excess_return):
     return float(ic), float(p_value)
 
 
-def evaluate_params(params, stride_splits, feature_cols, threshold=FIXED_THRESHOLD):
+def evaluate_params(
+    params,
+    stride_splits,
+    feature_cols,
+    target_col,
+    benchmark_target_col,
+    threshold=FIXED_THRESHOLD,
+):
     """stride train/validation 기준으로 누수 없이 성능을 계산합니다."""
     train_accs = []
     val_accs = []
@@ -95,7 +120,7 @@ def evaluate_params(params, stride_splits, feature_cols, threshold=FIXED_THRESHO
         y_train_pred = (train_proba >= threshold).astype(int)
         y_val_pred = (val_proba >= threshold).astype(int)
 
-        val_excess = ss.val["Target_AAPL_3M"] - ss.val["Target_SP500_3M"]
+        val_excess = ss.val[target_col] - ss.val[benchmark_target_col]
         ic, ic_p = safe_ic(val_proba, val_excess)
 
         train_accs.append(accuracy_score(y_train, y_train_pred))
@@ -126,13 +151,16 @@ def evaluate_params(params, stride_splits, feature_cols, threshold=FIXED_THRESHO
     }
 
 
-def trial_to_params(trial):
+def trial_to_params(trial, profile):
     """Optuna trial 값을 SVC 파라미터 딕셔너리로 변환합니다."""
     # IC 안정성을 위해 과도한 굴곡을 만들기 쉬운 poly는 제외
     kernel = trial.suggest_categorical("kernel", ["linear", "rbf", "sigmoid"])
 
+    c_range = (1e-3, 100.0) if profile == "balanced" else (1e-3, 30.0)
+    gamma_range = (1e-4, 1.0) if profile == "balanced" else (1e-4, 0.5)
+
     params = {
-        "C": trial.suggest_float("C", 1e-3, 100.0, log=True),
+        "C": trial.suggest_float("C", c_range[0], c_range[1], log=True),
         "kernel": kernel,
         "probability": True,
         "random_state": 42,
@@ -140,17 +168,24 @@ def trial_to_params(trial):
     }
 
     if kernel in ["rbf", "sigmoid"]:
-        params["gamma"] = trial.suggest_float("gamma", 1e-4, 1.0, log=True)
+        params["gamma"] = trial.suggest_float("gamma", gamma_range[0], gamma_range[1], log=True)
 
     return params
 
 
-def build_objective(stride_splits, feature_cols):
+def build_objective(stride_splits, feature_cols, target_col, benchmark_target_col, profile):
     """목표 정렬형 강건 objective 함수를 생성합니다."""
 
     def objective(trial):
-        params = trial_to_params(trial)
-        metrics = evaluate_params(params, stride_splits, feature_cols, threshold=FIXED_THRESHOLD)
+        params = trial_to_params(trial, profile=profile)
+        metrics = evaluate_params(
+            params,
+            stride_splits,
+            feature_cols,
+            target_col=target_col,
+            benchmark_target_col=benchmark_target_col,
+            threshold=FIXED_THRESHOLD,
+        )
 
         acc = metrics["accuracy"]
         ic = metrics["ic"]
@@ -227,8 +262,19 @@ def compute_validation_threshold(params, stride_splits, feature_cols):
     return float(FIXED_THRESHOLD), float(fixed_acc)
 
 
-def optimize():
+def optimize(
+    profile="balanced",
+    n_trials=N_TRIALS,
+    ticker="AAPL",
+    benchmark="SP500",
+    auto_update=True,
+    persist_total_features_on_update=True,
+    feature_source_mode="db_first",
+):
     """제약조건 기반 튜닝 실행 후 best_svm_params.json에 저장합니다."""
+    if profile not in {"balanced", "regularized"}:
+        raise ValueError(f"profile은 'balanced' 또는 'regularized'만 허용됩니다: {profile}")
+
     print("=" * 70)
     print("SVM 제약조건 기반 최적화 (누수 방지, validation 기준)")
     print("=" * 70)
@@ -237,14 +283,33 @@ def optimize():
         f"gap<={TARGET_GAP_MAX:.2f}, threshold={FIXED_THRESHOLD:.2f} (고정)"
     )
 
-    split = split_dataset()
+    ticker = str(ticker).upper()
+    benchmark = str(benchmark).upper()
+
+    split = split_dataset(
+        ticker=ticker,
+        benchmark=benchmark,
+        auto_update=auto_update,
+        persist_total_features_on_update=persist_total_features_on_update,
+        feature_source_mode=feature_source_mode,
+    )
     stride_splits = get_stride_splits(split)
 
-    study = optuna.create_study(direction="minimize", study_name="svm_constraints_tuning")
+    study = optuna.create_study(
+        direction="minimize",
+        study_name=f"svm_constraints_tuning_{ticker}_{profile}",
+        sampler=optuna.samplers.TPESampler(seed=42),
+    )
     study.enqueue_trial(SEED_PARAMS)
     study.optimize(
-        build_objective(stride_splits, split.feature_cols),
-        n_trials=N_TRIALS,
+        build_objective(
+            stride_splits,
+            split.feature_cols,
+            target_col=split.target_col,
+            benchmark_target_col=split.benchmark_target_col,
+            profile=profile,
+        ),
+        n_trials=n_trials,
         show_progress_bar=True,
     )
 
@@ -285,12 +350,27 @@ def optimize():
 
     save_data = {
         "best_params": best_params,
-        "best_score": best.value,
-        "best_trial_number": best.number,
+        "best_score": float(best.value),
+        "best_trial_number": int(best.number),
         "best_source": best_source,
-        "n_trials": N_TRIALS,
+        "n_trials": int(n_trials),
         "stride": 5,
         "n_models": 5,
+        "optimization_method": "Single Holdout (Target-Aligned Objective)",
+        "created_at": datetime.now().isoformat(timespec="seconds"),
+        "data_end_date": _get_current_data_end_date(split),
+        "feature_count": len(split.feature_cols),
+        "feature_hash": _get_feature_hash(split.feature_cols),
+        "split_definition": {
+            "train": ["2021-01-01", "2023-12-31"],
+            "embargo": ["2024-01-01", "2024-03-31"],
+            "validation": ["2024-04-01", "2024-09-30"],
+            "golden_gap": ["2024-10-01", "2024-12-31"],
+            "test": ["2025-01-01", None],
+        },
+        "profile": profile,
+        "objective_version": OBJECTIVE_VERSION,
+        "cv_mode": CV_MODE,
         "objective": "deep_target_aligned_v3_fixed_threshold_0.5_no_class_weight",
         "targets": {
             "accuracy_min": TARGET_ACC,
@@ -308,8 +388,9 @@ def optimize():
         "leakage_policy": "test_not_used_in_tuning",
     }
 
-    save_json_artifact_only(save_data, SVM_PARAMS_ARTIFACT_PATH)
-    print(f"\n저장 완료: {SVM_PARAMS_ARTIFACT_PATH}")
+    params_path = get_model_params_path("svm", ticker)
+    save_json_artifact_only(save_data, params_path)
+    print(f"\n저장 완료: {params_path}")
     print("=" * 70)
     return save_data
 

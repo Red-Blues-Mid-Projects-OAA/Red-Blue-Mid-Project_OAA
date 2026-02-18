@@ -1,0 +1,826 @@
+{
+  "generated_at": "2026-02-18T16:11:22",
+  "benchmark": "SP500",
+  "coverage_report": [
+    {
+      "ticker": "NVDA",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "GOOGL",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "AAPL",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "MSFT",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "AMZN",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "META",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "TSM",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "TSLA",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "AVGO",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    },
+    {
+      "ticker": "BRK-A",
+      "sp500_rows": 2796,
+      "sp500_start": "2015-01-05T00:00:00",
+      "sp500_end": "2026-02-17T00:00:00",
+      "stock_rows": 2797,
+      "stock_start": "2015-01-02T00:00:00",
+      "stock_end": "2026-02-17T00:00:00",
+      "logret_rows": 2796,
+      "logret_start": "2015-01-05T00:00:00",
+      "logret_end": "2026-02-17T00:00:00",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ticker": "NVDA",
+      "ticker_slug": "NVDA",
+      "status": "success",
+      "reliability_tag": "LOW",
+      "p_latest": 0.7741561258062276,
+      "ic_full": -0.7438736144618496,
+      "ic_pvalue": 3.386821423782376e-40,
+      "te_3m": 0.15703984092790663,
+      "e_alpha_3m_log": -0.06405262770345126,
+      "test_acc": 0.3755656108597285,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [
+        "xgb train_test_gap > 0.25",
+        "svm train_test_gap > 0.25",
+        "rf train_test_gap > 0.25",
+        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
+        "예측력 부재/역방향 가능성: IC_full <= 0"
+      ],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "normal",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.34841628959276016,
+          "precision": 0.43258426966292135,
+          "ic": -0.6501237673985504,
+          "ic_p_value": 6.198291444370637e-28,
+          "gap": 0.4356746194981489,
+          "ic_first": -0.9365507292112797,
+          "ic_second": 0.06667280920040129,
+          "overall_pass": false
+        },
+        "svm": {
+          "accuracy": 0.26244343891402716,
+          "precision": 0.36129032258064514,
+          "ic": -0.7069162951515892,
+          "ic_p_value": 8.764664692432094e-35,
+          "gap": 0.5410355897835446,
+          "ic_first": -0.7912224150756261,
+          "ic_second": -0.4273517023517023,
+          "overall_pass": false
+        },
+        "rf": {
+          "accuracy": 0.4298642533936652,
+          "precision": 0.4846938775510204,
+          "ic": -0.7097524097524097,
+          "ic_p_value": 3.610377721021425e-35,
+          "gap": 0.32809029206088025,
+          "ic_first": -0.9402475035502558,
+          "ic_second": 0.023815373815373814,
+          "overall_pass": false
+        },
+        "logreg": {
+          "accuracy": 0.5429864253393665,
+          "precision": 0.5429864253393665,
+          "ic": 0.0,
+          "ic_p_value": 1.0,
+          "gap": 0.13201357466063357,
+          "ic_first": 0.0,
+          "ic_second": 0.0,
+          "overall_pass": false
+        }
+      }
+    },
+    {
+      "ticker": "GOOGL",
+      "ticker_slug": "GOOGL",
+      "status": "success",
+      "reliability_tag": "OK",
+      "p_latest": 0.4308001765145012,
+      "ic_full": 0.6451032274561685,
+      "ic_pvalue": 2.1291337598492454e-27,
+      "te_3m": 0.11811999292707286,
+      "e_alpha_3m_log": -0.010545996170481894,
+      "test_acc": 0.3257918552036199,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [
+        "svm train_test_gap > 0.25",
+        "rf train_test_gap > 0.25",
+        "logreg train_test_gap > 0.25"
+      ],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "normal",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.7420814479638009,
+          "precision": 0.972972972972973,
+          "ic": 0.7145360882382829,
+          "ic_p_value": 7.893105260228664e-36,
+          "gap": -0.030717811600164624,
+          "ic_first": -0.3194491351086864,
+          "ic_second": 0.23006856460259603,
+          "overall_pass": false
+        },
+        "svm": {
+          "accuracy": 0.3393665158371041,
+          "precision": 0.7666666666666667,
+          "ic": 0.3625012507365448,
+          "ic_p_value": 2.885009024351347e-08,
+          "gap": 0.6606334841628959,
+          "ic_first": -0.16238306697022292,
+          "ic_second": 0.2772990522990523,
+          "overall_pass": false
+        },
+        "rf": {
+          "accuracy": 0.2669683257918552,
+          "precision": 0.0,
+          "ic": 0.6407641158047939,
+          "ic_p_value": 6.072656254943015e-27,
+          "gap": 0.28303167420814485,
+          "ic_first": -0.16027793031735157,
+          "ic_second": -0.25418847599961747,
+          "overall_pass": false
+        },
+        "logreg": {
+          "accuracy": 0.2669683257918552,
+          "precision": 0.0,
+          "ic": 0.0,
+          "ic_p_value": 1.0,
+          "gap": 0.28303167420814485,
+          "ic_first": 0.0,
+          "ic_second": 0.0,
+          "overall_pass": false
+        }
+      }
+    },
+    {
+      "ticker": "AAPL",
+      "ticker_slug": "AAPL",
+      "status": "success",
+      "reliability_tag": "OK",
+      "p_latest": 0.4873777561625441,
+      "ic_full": 0.4467564232270114,
+      "ic_pvalue": 3.063647802893497e-12,
+      "te_3m": 0.10519779815155322,
+      "e_alpha_3m_log": -0.001186435181738897,
+      "test_acc": 0.6199095022624435,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "normal",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.6561085972850679,
+          "precision": 0.5986394557823129,
+          "ic": 0.5840366416085737,
+          "ic_p_value": 1.3239989763721253e-21,
+          "gap": 0.07684594816947754,
+          "ic_first": 0.7038705940060903,
+          "ic_second": 0.7561512811512812,
+          "overall_pass": true
+        },
+        "svm": {
+          "accuracy": 0.5656108597285068,
+          "precision": 0.5343511450381679,
+          "ic": 0.28500339088574383,
+          "ic_p_value": 1.6894248405889013e-05,
+          "gap": 0.1581595596975418,
+          "ic_first": 0.3886617226066767,
+          "ic_second": 0.6499210249210249,
+          "overall_pass": true
+        },
+        "rf": {
+          "accuracy": 0.5339366515837104,
+          "precision": 0.5056818181818182,
+          "ic": 0.4970193558428852,
+          "ic_p_value": 3.438089684186704e-15,
+          "gap": 0.14106334841628965,
+          "ic_first": 0.5256948357865789,
+          "ic_second": 0.7905668655668656,
+          "overall_pass": true
+        },
+        "logreg": {
+          "accuracy": 0.6425339366515838,
+          "precision": 0.5844155844155844,
+          "ic": 0.3619409207644501,
+          "ic_p_value": 3.0408678160881045e-08,
+          "gap": 0.08360242698477993,
+          "ic_first": 0.40415210873926466,
+          "ic_second": 0.7477974727974728,
+          "overall_pass": true
+        }
+      }
+    },
+    {
+      "ticker": "MSFT",
+      "ticker_slug": "MSFT",
+      "status": "success",
+      "reliability_tag": "LOW",
+      "p_latest": 0.5381736449522365,
+      "ic_full": -0.669914505208623,
+      "ic_pvalue": 3.7795116309367676e-30,
+      "te_3m": 0.09966713385853194,
+      "e_alpha_3m_log": -0.005097590870125773,
+      "test_acc": 0.18099547511312217,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [
+        "xgb train_test_gap > 0.25",
+        "rf train_test_gap > 0.25",
+        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
+        "예측력 부재/역방향 가능성: IC_full <= 0"
+      ],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "retuned_once_success",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.19457013574660634,
+          "precision": 0.16296296296296298,
+          "ic": -0.5828554593260474,
+          "ic_p_value": 1.6677012692417837e-21,
+          "gap": 0.6361116824352119,
+          "ic_first": -0.282122489461939,
+          "ic_second": 0.42693927693927697,
+          "overall_pass": false
+        },
+        "svm": {
+          "accuracy": 0.34841628959276016,
+          "precision": 0.3442622950819672,
+          "ic": -0.4849967202908379,
+          "ic_p_value": 1.9339608662532913e-14,
+          "gap": 0.19867421813350927,
+          "ic_first": -0.20990915853301173,
+          "ic_second": -0.31445243945243945,
+          "overall_pass": false
+        },
+        "rf": {
+          "accuracy": 0.27601809954751133,
+          "precision": 0.025974025974025976,
+          "ic": -0.6112519657421235,
+          "ic_p_value": 4.952615503157178e-24,
+          "gap": 0.3558000822706705,
+          "ic_first": 0.23081500717051354,
+          "ic_second": 0.13835556335556337,
+          "overall_pass": false
+        },
+        "logreg": {
+          "accuracy": 0.3936651583710407,
+          "precision": 0.3936651583710407,
+          "ic": 0.0,
+          "ic_p_value": 1.0,
+          "gap": 0.079062114356232,
+          "ic_first": 0.0,
+          "ic_second": 0.0,
+          "overall_pass": false
+        }
+      }
+    },
+    {
+      "ticker": "AMZN",
+      "ticker_slug": "AMZN",
+      "status": "success",
+      "reliability_tag": "LOW",
+      "p_latest": 0.565436586331439,
+      "ic_full": -0.09061558473323178,
+      "ic_pvalue": 0.1795242674864534,
+      "te_3m": 0.12286565501655593,
+      "e_alpha_3m_log": -0.0014570821180239753,
+      "test_acc": 0.45701357466063347,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [
+        "xgb train_test_gap > 0.25",
+        "rf train_test_gap > 0.25",
+        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
+        "예측력 부재/역방향 가능성: IC_full <= 0"
+      ],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "retuned_once_success",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.40271493212669685,
+          "precision": 0.3076923076923077,
+          "ic": -0.14615255977271385,
+          "ic_p_value": 0.029850422406224337,
+          "gap": 0.3597850678733031,
+          "ic_first": 0.016815670502898405,
+          "ic_second": -0.08608522723602068,
+          "overall_pass": false
+        },
+        "svm": {
+          "accuracy": 0.5520361990950227,
+          "precision": 0.36585365853658536,
+          "ic": -0.016580875404404814,
+          "ic_p_value": 0.8063701329589861,
+          "gap": 0.1557695404193261,
+          "ic_first": 0.2244437932511327,
+          "ic_second": -0.3847051597051597,
+          "overall_pass": false
+        },
+        "rf": {
+          "accuracy": 0.45248868778280543,
+          "precision": 0.36419753086419754,
+          "ic": 0.15439934316841367,
+          "ic_p_value": 0.021671274915500173,
+          "gap": 0.28955676676264913,
+          "ic_first": 0.5500419270255252,
+          "ic_second": -0.12921200421200418,
+          "overall_pass": false
+        },
+        "logreg": {
+          "accuracy": 0.34841628959276016,
+          "precision": 0.34841628959276016,
+          "ic": 0.0,
+          "ic_p_value": 1.0,
+          "gap": 0.1345382558617853,
+          "ic_first": 0.0,
+          "ic_second": 0.0,
+          "overall_pass": false
+        }
+      }
+    },
+    {
+      "ticker": "META",
+      "ticker_slug": "META",
+      "status": "success",
+      "reliability_tag": "LOW",
+      "p_latest": 0.5857971420360457,
+      "ic_full": -0.732695920931215,
+      "ic_pvalue": 1.827378306393528e-38,
+      "te_3m": 0.14592327773410527,
+      "e_alpha_3m_log": -0.018346413054485602,
+      "test_acc": 0.35294117647058826,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [
+        "svm train_test_gap > 0.25",
+        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
+        "예측력 부재/역방향 가능성: IC_full <= 0"
+      ],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "retuned_once_success",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.37104072398190047,
+          "precision": 0.37104072398190047,
+          "ic": -0.687257711428483,
+          "ic_p_value": 3.0990846475252696e-32,
+          "gap": 0.21873200329082676,
+          "ic_first": -0.8760559122661257,
+          "ic_second": -0.3544338489694245,
+          "overall_pass": false
+        },
+        "svm": {
+          "accuracy": 0.20361990950226244,
+          "precision": 0.24456521739130435,
+          "ic": -0.736747195570725,
+          "ic_p_value": 4.4082518763579206e-39,
+          "gap": 0.3674264481136315,
+          "ic_first": -0.7760746568086017,
+          "ic_second": -0.5920322920322921,
+          "overall_pass": false
+        },
+        "rf": {
+          "accuracy": 0.37104072398190047,
+          "precision": 0.37104072398190047,
+          "ic": -0.5704266314837284,
+          "ic_p_value": 1.7887979191946845e-20,
+          "gap": 0.21873200329082676,
+          "ic_first": -0.83467786739067,
+          "ic_second": -0.3463952025454374,
+          "overall_pass": false
+        },
+        "logreg": {
+          "accuracy": 0.37104072398190047,
+          "precision": 0.37104072398190047,
+          "ic": 0.0,
+          "ic_p_value": 1.0,
+          "gap": 0.21873200329082676,
+          "ic_first": 0.0,
+          "ic_second": 0.0,
+          "overall_pass": false
+        }
+      }
+    },
+    {
+      "ticker": "TSM",
+      "ticker_slug": "TSM",
+      "status": "success",
+      "reliability_tag": "LOW",
+      "p_latest": 0.4653330188520421,
+      "ic_full": -0.17497415144473968,
+      "ic_pvalue": 0.009145514578370394,
+      "te_3m": 0.13500738419649747,
+      "e_alpha_3m_log": 0.0016378624970654152,
+      "test_acc": 0.167420814479638,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [
+        "xgb train_test_gap > 0.25",
+        "svm train_test_gap > 0.25",
+        "rf train_test_gap > 0.25",
+        "logreg train_test_gap > 0.25",
+        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
+        "예측력 부재/역방향 가능성: IC_full <= 0"
+      ],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "retuned_once_success",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.17647058823529413,
+          "precision": 0.509090909090909,
+          "ic": -0.36471588824529994,
+          "ic_p_value": 2.341010963921497e-08,
+          "gap": 0.604211229946524,
+          "ic_first": -0.6263102134661768,
+          "ic_second": 0.09247981747981747,
+          "overall_pass": false
+        },
+        "svm": {
+          "accuracy": 0.22624434389140272,
+          "precision": 1.0,
+          "ic": 0.1948636419224654,
+          "ic_p_value": 0.003633295112542692,
+          "gap": 0.7737556561085973,
+          "ic_first": 0.5847169938913058,
+          "ic_second": -0.2714373464373464,
+          "overall_pass": false
+        },
+        "rf": {
+          "accuracy": 0.17194570135746606,
+          "precision": 0.0,
+          "ic": -0.14922217867851637,
+          "ic_p_value": 0.02654110497854961,
+          "gap": 0.5041906622788976,
+          "ic_first": -0.5704734447920203,
+          "ic_second": 0.09215534432135267,
+          "overall_pass": false
+        },
+        "logreg": {
+          "accuracy": 0.17194570135746606,
+          "precision": 0.0,
+          "ic": 0.0,
+          "ic_p_value": 1.0,
+          "gap": 0.4007815713698067,
+          "ic_first": 0.0,
+          "ic_second": 0.0,
+          "overall_pass": false
+        }
+      }
+    },
+    {
+      "ticker": "TSLA",
+      "ticker_slug": "TSLA",
+      "status": "success",
+      "reliability_tag": "OK",
+      "p_latest": 0.37863325476249765,
+      "ic_full": 0.7612182729829788,
+      "ic_pvalue": 4.528568658461557e-43,
+      "te_3m": 0.24641508075915652,
+      "e_alpha_3m_log": -0.045530895216987555,
+      "test_acc": 0.755656108597285,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "retuned_once_success",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.6425339366515838,
+          "precision": 0.7346938775510204,
+          "ic": 0.59411408613642,
+          "ic_p_value": 1.7779977204103387e-22,
+          "gap": 0.060875154257507114,
+          "ic_first": 0.5465377601568338,
+          "ic_second": 0.8234091422649293,
+          "overall_pass": true
+        },
+        "svm": {
+          "accuracy": 0.8099547511312217,
+          "precision": 0.8547008547008547,
+          "ic": 0.7836136836136836,
+          "ic_p_value": 3.639093248524319e-47,
+          "gap": -0.2269260535594778,
+          "ic_first": 0.7035908301963348,
+          "ic_second": 0.8494296244296244,
+          "overall_pass": true
+        },
+        "rf": {
+          "accuracy": 0.665158371040724,
+          "precision": 0.7475728155339806,
+          "ic": 0.5989238106885165,
+          "ic_p_value": 6.651036004932314e-23,
+          "gap": 0.03711435623200332,
+          "ic_first": 0.6566147465230034,
+          "ic_second": 0.7742979992979993,
+          "overall_pass": true
+        },
+        "logreg": {
+          "accuracy": 0.7194570135746606,
+          "precision": 0.8705882352941177,
+          "ic": 0.7396600220129631,
+          "ic_p_value": 1.560100800816584e-39,
+          "gap": 0.057815713698066595,
+          "ic_first": 0.6013885445078105,
+          "ic_second": 0.8292997542997542,
+          "overall_pass": true
+        }
+      }
+    },
+    {
+      "ticker": "AVGO",
+      "ticker_slug": "AVGO",
+      "status": "success",
+      "reliability_tag": "LOW",
+      "p_latest": 0.6576330094296124,
+      "ic_full": 0.004491533903298609,
+      "ic_pvalue": 0.9470648372497015,
+      "te_3m": 0.19503570918237428,
+      "e_alpha_3m_log": 0.0002761760275940536,
+      "test_acc": 0.5158371040723982,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [
+        "xgb train_test_gap > 0.25",
+        "logreg train_test_gap > 0.25",
+        "신뢰도 낮음(IC<=0 또는 p>=0.05)"
+      ],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "retuned_once_success",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.4117647058823529,
+          "precision": 0.59375,
+          "ic": -0.23304452428779077,
+          "ic_p_value": 0.0004775764578057765,
+          "gap": 0.3802807486631016,
+          "ic_first": -0.2553800585630963,
+          "ic_second": -0.16508424008424008,
+          "overall_pass": false
+        },
+        "svm": {
+          "accuracy": 0.6153846153846154,
+          "precision": 0.8791208791208791,
+          "ic": 0.25275328804740566,
+          "ic_p_value": 0.0001458731849911286,
+          "gap": 0.07252708439463407,
+          "ic_first": 0.3694565290895566,
+          "ic_second": 0.09057564057564056,
+          "overall_pass": true
+        },
+        "rf": {
+          "accuracy": 0.6968325791855203,
+          "precision": 0.6968325791855203,
+          "ic": -0.21730018788842317,
+          "ic_p_value": 0.0011499372361849834,
+          "gap": -0.005923488276429412,
+          "ic_first": -0.1619412573541014,
+          "ic_second": 0.06085468585468585,
+          "overall_pass": false
+        },
+        "logreg": {
+          "accuracy": 0.43891402714932126,
+          "precision": 0.7884615384615384,
+          "ic": -0.08403615462438992,
+          "ic_p_value": 0.2133505145442896,
+          "gap": 0.3463132455779515,
+          "ic_first": 0.13759664585352657,
+          "ic_second": -0.1262197262197262,
+          "overall_pass": false
+        }
+      }
+    },
+    {
+      "ticker": "BRK-A",
+      "ticker_slug": "BRK_A",
+      "status": "success",
+      "reliability_tag": "OK",
+      "p_latest": 0.5347224732326261,
+      "ic_full": 0.40559218206277026,
+      "ic_pvalue": 3.6856643242578725e-10,
+      "te_3m": 0.09221075499832984,
+      "e_alpha_3m_log": 0.002597238312324638,
+      "test_acc": 0.4434389140271493,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-18",
+      "n_test_samples": 221,
+      "warnings": [
+        "xgb train_test_gap > 0.25",
+        "rf train_test_gap > 0.25"
+      ],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "retuned_once_success",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false,
+      "model_metrics": {
+        "xgb": {
+          "accuracy": 0.3936651583710407,
+          "precision": 0.15328467153284672,
+          "ic": 0.4040334863864275,
+          "ic_p_value": 4.363948292215848e-10,
+          "gap": 0.45178938708350475,
+          "ic_first": 0.2842323557919888,
+          "ic_second": 0.2907686907686908,
+          "overall_pass": false
+        },
+        "svm": {
+          "accuracy": 0.4479638009049774,
+          "precision": 0.20567375886524822,
+          "ic": 0.3649627002568179,
+          "ic_p_value": 2.2869032510028767e-08,
+          "gap": 0.15224811962482393,
+          "ic_first": 0.3595293375109889,
+          "ic_second": 0.2336872586872587,
+          "overall_pass": false
+        },
+        "rf": {
+          "accuracy": 0.3936651583710407,
+          "precision": 0.12,
+          "ic": 0.36526176526176524,
+          "ic_p_value": 2.2229545220777816e-08,
+          "gap": 0.404062114356232,
+          "ic_first": 0.29810878434731647,
+          "ic_second": 0.40832748332748325,
+          "overall_pass": false
+        },
+        "logreg": {
+          "accuracy": 0.8235294117647058,
+          "precision": 0.0,
+          "ic": 0.0,
+          "ic_p_value": 1.0,
+          "gap": -0.316711229946524,
+          "ic_first": 0.0,
+          "ic_second": 0.0,
+          "overall_pass": false
+        }
+      }
+    }
+  ]
+}
