@@ -49,9 +49,14 @@ BASE_FEATURE_COLUMNS = [
 ]
 
 
+def _safe_symbol(symbol: str) -> str:
+    """DB/컬럼명 안전 심볼로 정규화합니다. 예: BRK-A -> BRK_A"""
+    return str(symbol).upper().replace("-", "_")
+
+
 def _required_feature_columns(ticker: str, benchmark: str) -> list[str]:
-    ticker = str(ticker).upper()
-    benchmark = str(benchmark).upper()
+    ticker = _safe_symbol(ticker)
+    benchmark = _safe_symbol(benchmark)
     return BASE_FEATURE_COLUMNS + [
         f"{ticker}_EWMA_Vol",
         f"{ticker}_Vol_20d_Avg",

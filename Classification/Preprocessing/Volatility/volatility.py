@@ -28,9 +28,16 @@ LAMBDA = 0.94
 ALPHA = 1 - LAMBDA
 
 
+def _safe_symbol(symbol: str) -> str:
+    """DB/컬럼명 안전 심볼로 정규화합니다. 예: BRK-A -> BRK_A"""
+    return str(symbol).upper().replace("-", "_")
+
+
 def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None):
     ticker = str(ticker).upper()
     benchmark = str(benchmark).upper()
+    safe_ticker = _safe_symbol(ticker)
+    safe_benchmark = _safe_symbol(benchmark)
 
     print("=" * 60)
     print(f"{ticker} EWMA 리스크 피처 생성 (benchmark={benchmark}, λ=0.94)")
@@ -74,11 +81,11 @@ def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None):
     ticker_vol_raw = np.sqrt(ticker_var)
     ticker_vol_ann = ticker_vol_raw * np.sqrt(252)
 
-    daily_col = f"{ticker}_EWMA_Vol"
+    daily_col = f"{safe_ticker}_EWMA_Vol"
     df_ticker_daily_vol = pd.DataFrame({daily_col: ticker_vol_ann}).dropna()
 
-    avg20_col = f"{ticker}_Vol_20d_Avg"
-    avg60_col = f"{ticker}_Vol_60d_Avg"
+    avg20_col = f"{safe_ticker}_Vol_20d_Avg"
+    avg60_col = f"{safe_ticker}_Vol_60d_Avg"
     df_ticker_avg_vol = pd.DataFrame(
         {
             avg20_col: ticker_vol_ann.rolling(window=20).mean(),
@@ -93,7 +100,7 @@ def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None):
     bench_vol_raw = np.sqrt(bench_var)
     ewma_corr = cross_cov / (ticker_vol_raw * bench_vol_raw)
 
-    corr_col = f"{ticker}_{benchmark}_EWMA_Corr"
+    corr_col = f"{safe_ticker}_{safe_benchmark}_EWMA_Corr"
     df_ticker_ewma_corr = pd.DataFrame({corr_col: ewma_corr}).dropna()
 
     print(f"\n{'=' * 60}")

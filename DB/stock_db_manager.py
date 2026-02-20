@@ -1,3 +1,5 @@
+import math
+
 if __package__ in (None, ""):
     from datetime import datetime
     import os
@@ -815,7 +817,15 @@ class StockDBManager:
                 row_data = [trade_date]
                 for col in feature_cols:
                     val = row[col]
-                    row_data.append(float(val) if pd.notna(val) else None)
+                    numeric_val = None
+                    if pd.notna(val):
+                        try:
+                            fval = float(val)
+                            if math.isfinite(fval):
+                                numeric_val = fval
+                        except (TypeError, ValueError):
+                            numeric_val = None
+                    row_data.append(numeric_val)
                 data_to_insert.append(tuple(row_data))
 
             if data_to_insert:
