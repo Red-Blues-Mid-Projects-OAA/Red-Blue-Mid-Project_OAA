@@ -51,8 +51,8 @@ if [ $? -ne 0 ]; then
 fi
 
 echo ""
-echo "[5/5] Running Master Dataset Generation (Feature Engineering)..."
-python3 -u scripts/build_all_master_datasets.py
+echo "[5/5] Running Unified MASTER_FEATURES Generation (Panel Data)..."
+python3 -u -m Classification.Preprocessing.build_master_dataset
 if [ $? -ne 0 ]; then
     echo "❌ Error in Master Dataset Generation. Exiting."
     exit 1

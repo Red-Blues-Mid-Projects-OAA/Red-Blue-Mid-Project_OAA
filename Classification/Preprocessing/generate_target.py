@@ -18,7 +18,6 @@ if __package__ in (None, ""):
 
 from common import np, pd
 
-from Classification.Preprocessing.build_master_dataset import build_master_dataset
 from DB import StockDBManager
 
 FORWARD_DAYS = 60
@@ -43,23 +42,20 @@ def generate_target(
     target_col = f"Target_{ticker}_3M"
     benchmark_target_col = f"Target_{benchmark}_3M"
 
-    master_df = build_master_dataset(
-        ticker=ticker,
-        benchmark=benchmark,
-        auto_update=auto_update,
-        persist_total_features_on_update=persist_total_features_on_update,
-        feature_source_mode=feature_source_mode,
-    )
-    master_index = master_df.index
-
-    print("\n" + "=" * 70)
-    print("3. Target Variable (정답지) 생성")
-    print("=" * 70)
-    print("  DB에서 로그 수익률 데이터 로드 중...")
-
     db = StockDBManager()
     db.connect()
     try:
+        master_df = db.fetch_master_features(ticker)
+        if master_df.empty:
+            raise ValueError(f"MASTER_FEATURES 테이블에 '{ticker}' 데이터가 없습니다. 파이프라인 Phase 2를 재실행하세요.")
+        master_df = master_df.set_index("TRADE_DATE")
+        master_index = master_df.index
+
+        print("\n" + "=" * 70)
+        print("3. Target Variable (정답지) 생성")
+        print("=" * 70)
+        print("  DB에서 로그 수익률 데이터 로드 중...")
+
         lr_all = db.fetch_log_returns()
         query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA ORDER BY TRADE_DATE"
         db.cursor.execute(query)

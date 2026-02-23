@@ -128,7 +128,7 @@ def split_dataset(
     benchmark = str(benchmark).upper()
     target_col = f"Target_{ticker}_3M"
     benchmark_target_col = f"Target_{benchmark}_3M"
-    feature_table_name = StockDBManager().get_total_features_table_name(ticker)
+    feature_table_name = "MASTER_FEATURES"
 
     df = generate_target(
         ticker=ticker,
