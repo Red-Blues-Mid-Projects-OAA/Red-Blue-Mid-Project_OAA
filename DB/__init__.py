@@ -8,18 +8,23 @@ DB 패키지 공개 인터페이스.
 
 from DB.stock_db_manager import StockDBManager
 
-TICKERS = [
-    "NVDA",
-    "GOOGL",
-    "AAPL",
-    "MSFT",
-    "AMZN",
-    "META",
-    "TSM",
-    "TSLA",
-    "AVGO",
-    "BRK-A",
-]
+import json
+import os
+
+_TOP300_JSON_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sp500_top300.json")
+
+def _load_tickers():
+    if os.path.exists(_TOP300_JSON_PATH):
+        try:
+            with open(_TOP300_JSON_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    # Fallback if json is missing
+    from DB.utils.sp500_scraper import scrape_sp500_top300_by_weight
+    return scrape_sp500_top300_by_weight()
+
+TICKERS = _load_tickers()
 
 
 def update_stock_data(*args, **kwargs):

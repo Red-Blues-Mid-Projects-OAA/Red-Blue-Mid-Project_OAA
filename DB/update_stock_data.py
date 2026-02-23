@@ -9,20 +9,7 @@ else:
     from common import yf, pd, datetime, timedelta
     from DB import StockDBManager
 
-
-TICKERS = [
-    "NVDA",
-    "GOOGL",
-    "AAPL",
-    "MSFT",
-    "AMZN",
-    "META",
-    "TSM",
-    "TSLA",
-    "AVGO",
-    "BRK-A",
-]
-
+from DB import TICKERS
 
 def _normalize_tickers(tickers):
     if tickers is None:

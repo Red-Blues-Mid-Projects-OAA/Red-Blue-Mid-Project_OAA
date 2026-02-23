@@ -268,7 +268,7 @@ def run_all_tickers(
         print("=" * 80)
 
         if int(cov.get("stock_rows", 0)) == 0 or int(cov.get("logret_rows", 0)) == 0 or int(cov.get("sp500_rows", 0)) == 0:
-            reason = "coverage 부족(STOCK_DATA/LOG_RETURNS/SP500_DATA)"
+            reason = f"coverage 부족 (STOCK_DATA={cov.get('stock_rows', 0)}, LOG_RETURNS={cov.get('logret_rows', 0)}, SP500_DATA={cov.get('sp500_rows', 0)})"
             summary.append(
                 {
                     "ticker": ticker,
@@ -278,7 +278,7 @@ def run_all_tickers(
                     "warnings": [reason],
                 }
             )
-            print(f"  [SKIP] {reason}")
+            print(f"  [SKIP] {ticker}: {reason}")
             continue
 
         warnings = []
