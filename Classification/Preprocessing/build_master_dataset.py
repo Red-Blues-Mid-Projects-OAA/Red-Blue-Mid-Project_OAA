@@ -155,6 +155,7 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True):
                 # Add Ticker column
                 master_df["TICKER"] = ticker
                 master_df.index.name = "TRADE_DATE"
+                master_df.reset_index(inplace=True)
                 
                 # Insert into DB
                 db.insert_master_features(master_df)
