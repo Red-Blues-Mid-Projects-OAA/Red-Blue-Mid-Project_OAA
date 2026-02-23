@@ -29,7 +29,7 @@ def calculate_and_save_log_returns():
 
         # 3. 첫 번째 행은 수익률을 계산할 수 없으므로(NaN) 제거
         로그_수익률 = np.log(주가_데이터 / 주가_데이터.shift(1))
-        로그_수익률.dropna(inplace=True)
+        로그_수익률.dropna(how='all', inplace=True)
         
         # 4. 로그 수익률 데이터 DB 저장
         # 정돈된 적재를 위해 기존 데이터를 비우고 날짜순으로 재입력

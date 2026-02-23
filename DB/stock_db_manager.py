@@ -428,7 +428,10 @@ class StockDBManager:
                 data_to_insert.append((str(row['TICKER']), trade_date, float(row['LOG_RETURN'])))
             
             if data_to_insert:
-                self.cursor.executemany(upsert_query, data_to_insert)
+                batch_size = 10000
+                for i in range(0, len(data_to_insert), batch_size):
+                    batch = data_to_insert[i:i + batch_size]
+                    self.cursor.executemany(upsert_query, batch)
                 self.connection.commit()
                 print(f"{len(data_to_insert)}개의 로그 수익률 데이터 저장 완료.")
         except oracledb.Error as e:
@@ -458,9 +461,12 @@ class StockDBManager:
                     data_to_insert.append((calc_date_val, str(ticker_x), str(ticker_y), float(value)))
             
             if data_to_insert:
-                self.cursor.executemany(insert_query, data_to_insert)
+                batch_size = 10000
+                for i in range(0, len(data_to_insert), batch_size):
+                    batch = data_to_insert[i:i + batch_size]
+                    self.cursor.executemany(insert_query, batch)
                 self.connection.commit()
-                print(f"EWMA 공분산 행렬 ({calc_date_val}) {len(data_to_insert)}건 저장 완료.")
+                print(f"[{calc_date_val}] EWMA 공분산 행렬 {len(data_to_insert)}건 저장 완료.")
                 
         except oracledb.Error as e:
             print(f"공분산 행렬 저장 실패: {e}")
@@ -580,7 +586,10 @@ class StockDBManager:
                 data_to_insert.append((indicator, trade_date, close_val, log_ret))
 
             if data_to_insert:
-                self.cursor.executemany(upsert_query, data_to_insert)
+                batch_size = 10000
+                for i in range(0, len(data_to_insert), batch_size):
+                    batch = data_to_insert[i:i + batch_size]
+                    self.cursor.executemany(upsert_query, batch)
                 self.connection.commit()
                 print(f"{indicator} 데이터 {len(data_to_insert)}건 저장 완료.")
         except oracledb.Error as e:
