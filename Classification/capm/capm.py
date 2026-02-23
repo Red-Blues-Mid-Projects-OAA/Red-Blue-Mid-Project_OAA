@@ -74,14 +74,12 @@ def calculate_capm_for_failed_tickers():
         sp500_df = sp500_df.loc['2015-01-05':].copy()
         sp500_df.rename(columns={'LOG_RETURN': 'Rm'}, inplace=True)
 
-        # Step 3: E(Rm) 3개월 기대수익률 산출
-        sp500_mean_ewma = sp500_df['Rm'].ewm(alpha=0.06, adjust=False).mean()
+        # Step 3: E(Rm) 3개월 기대수익률 산출 (하드코딩된 연평균 10.5% 사용)
+        E_Rm_annual = 0.105
+        E_Rm_3m = E_Rm_annual * (60 / 252)
         latest_date = sp500_df.index[-1]
         
-        daily_E_Rm = sp500_mean_ewma.iloc[-1]
-        E_Rm_3m = daily_E_Rm * 60  # 3개월 (60 거래일) 변환
-        
-        logger.info(f"Latest Date: {latest_date.date()}, E(Rm) Daily: {daily_E_Rm:.6f}, E(Rm) 3M: {E_Rm_3m:.6f}")
+        logger.info(f"Latest Date: {latest_date.date()}, E(Rm) Annual: {E_Rm_annual:.4f}, E(Rm) 3M: {E_Rm_3m:.6f}")
 
         # 개별 종목 수익률 로드
         logger.info("Fetching stock log returns from DB...")
@@ -116,18 +114,20 @@ def calculate_capm_for_failed_tickers():
                 beta_series = cov_ewma / var_ewma
                 beta_latest = beta_series.iloc[-1]
                 
-                # Step 5: CAPM 3개월 기대수익률 계산
-                # E(Ri) = Rf + β * (E(Rm) - Rf)
-                E_Ri_3m = Rf_3m + beta_latest * (E_Rm_3m - Rf_3m)
+                # Step 5: CAPM 3개월 기대수익률 계산 (단순/산술 수익률 기반 공식)
+                E_Ri_3m_simple = Rf_3m + beta_latest * (E_Rm_3m - Rf_3m)
                 
-                logger.info(f"[{ticker}] Beta: {beta_latest:.4f} | E(Ri)_3M: {E_Ri_3m:.6f} | E(Rm)_3M: {E_Rm_3m:.6f} | Rf_3M: {Rf_3m:.6f}")
+                # 로그 수익률 전환: Log_Return = ln(1 + Simple_Return)
+                E_Ri_3m_log = np.log(1 + E_Ri_3m_simple)
+                
+                logger.info(f"[{ticker}] Beta: {beta_latest:.4f} | E(Ri)_3M_Log: {E_Ri_3m_log:.6f} | E(Rm)_3M: {E_Rm_3m:.6f} | Rf_3M: {Rf_3m:.6f}")
                 
                 # Step 6: 결과 수집
                 results.append({
                     "ticker": ticker,
                     "beta": beta_latest,
                     "expected_market_return_3m": E_Rm_3m,
-                    "expected_capm_return_3m": E_Ri_3m,
+                    "expected_capm_return_3m_log": E_Ri_3m_log, # 컬럼명 및 값 변경
                     "risk_free_rate_3m": Rf_3m,
                     "market_risk_premium_3m": E_Rm_3m - Rf_3m,
                     "date": latest_date.strftime("%Y-%m-%d")
