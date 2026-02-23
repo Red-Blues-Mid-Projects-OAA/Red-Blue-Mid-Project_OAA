@@ -1,0 +1,161 @@
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+}
+
+.slider-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.slider-header h2 {
+    font-size: 1.75rem;
+    color: #a78bfa;
+    margin-bottom: 1rem;
+}
+
+.slider-header p {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.slider-header strong {
+    color: #fff;
+    background: rgba(139, 92, 246, 0.3);
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Card Wrapper */
+.slider-card {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem;
+}
+
+/* Big Percent Display */
+.loss-value {
+    margin-bottom: 1rem;
+}
+
+.percent {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Sub text */
+.money-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #cbd5e1;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+}
+
+.wallet-icon {
+    width: 24px;
+    height: 24px;
+    stroke: var(--accent-primary);
+}
+
+.remains {
+    letter-spacing: -0.02em;
+}
+
+/* The Native Range Slider */
+.range-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.1s;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+/* Dynamic Feedback Box */
+.feedback-box {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    border-left: 4px solid;
+    padding: 1.25rem;
+    border-radius: var(--radius-sm);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.feedback-box h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.feedback-box p {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Submit Btn */
+.submit-btn {
+    margin-top: auto;
+    font-size: 1.25rem;
+    padding: 1.2rem;
+    border-radius: 30px;
+}
+
+@media (max-width: 480px) {
+    .percent {
+        font-size: 3rem;
+    }
+
+    .slider-card {
+        padding: 1.5rem;
+    }
+
+    .money-indicator {
+        font-size: 1.1rem;
+    }
+}
