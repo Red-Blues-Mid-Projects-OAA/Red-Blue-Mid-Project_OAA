@@ -105,21 +105,33 @@ def run_mapping(ticker: str = "AAPL", benchmark: str = "SP500") -> dict[str, Any
     active_ret = _load_active_returns(ticker, benchmark)
 
     warnings: list[str] = []
-    lookback_series = active_ret.tail(LOOKBACK_DAYS)
-    lookback_used = int(len(lookback_series))
-    if lookback_used < LOOKBACK_DAYS:
-        warnings.append(f"최근 {LOOKBACK_DAYS}거래일 데이터 부족: 가용 {lookback_used}거래일로 TE 계산.")
-
-    if lookback_used < 2:
-        te_annual = 0.0
-        warnings.append("TE 계산 표본 부족으로 TE_annual=0 처리.")
+    
+    # Step 4: Shrinkage Volatility (Tracking Error) 산출
+    # 1. OLS Sigma (장기/2024-01-01 이후)
+    ols_series = active_ret.loc['2024-01-01':]
+    if len(ols_series) < 2:
+        sigma_ols = 0.0
+        warnings.append("OLS Sigma 계산 표본 부족 (2024-01-01 이후).")
     else:
-        sigma_active = float(np.std(lookback_series.to_numpy(), ddof=1))
-        if np.isnan(sigma_active) or np.isinf(sigma_active):
-            te_annual = 0.0
-            warnings.append("active return 표준편차 비정상값으로 TE_annual=0 처리.")
-        else:
-            te_annual = sigma_active * math.sqrt(252.0)
+        sigma_ols = float(np.std(ols_series.to_numpy(), ddof=1))
+    
+    # 2. EWMA Sigma (단기/최근 민감도)
+    if len(active_ret) < 2:
+        sigma_ewma = 0.0
+        warnings.append("EWMA Sigma 계산 표본 부족.")
+    else:
+        # alpha=0.06 (lambda=0.94)
+        sigma_ewma_series = active_ret.ewm(alpha=0.06, adjust=False).std()
+        sigma_ewma = float(sigma_ewma_series.iloc[-1])
+    
+    # 3. Shrinkage 결합 (70% OLS + 30% EWMA)
+    sigma_active = (0.7 * sigma_ols) + (0.3 * sigma_ewma)
+    
+    if sigma_active == 0:
+        te_annual = 0.0
+        warnings.append("sigma_active=0 처리 (입력 데이터 확인 필요).")
+    else:
+        te_annual = sigma_active * math.sqrt(252.0)
 
     te_3m = te_annual * math.sqrt(HORIZON_DAYS / 252.0)
     signal_raw = (p_latest - 0.5) / 0.5
@@ -143,6 +155,9 @@ def run_mapping(ticker: str = "AAPL", benchmark: str = "SP500") -> dict[str, Any
         "signal_raw": float(signal_raw),
         "signal_clipped": float(signal_clipped),
         "IC_full": float(ic_full),
+        "sigma_ols": float(sigma_ols),
+        "sigma_ewma": float(sigma_ewma),
+        "sigma_final": float(sigma_active),
         "TE_annual": float(te_annual),
         "TE_3M": float(te_3m),
         "phi": float(PHI),
@@ -150,7 +165,7 @@ def run_mapping(ticker: str = "AAPL", benchmark: str = "SP500") -> dict[str, Any
         "E_alpha_3M_simple": float(e_alpha_3m_simple),
         "warnings": warnings,
         "lookback_days_requested": int(LOOKBACK_DAYS),
-        "lookback_days_used": int(lookback_used),
+        "lookback_days_used": int(len(active_ret)),
         "horizon_days": int(HORIZON_DAYS),
         "latest_trade_date": latest_trade_date,
     }
@@ -164,6 +179,8 @@ def run_mapping(ticker: str = "AAPL", benchmark: str = "SP500") -> dict[str, Any
     print(f"  p_latest           : {result['p_latest']:.6f}")
     print(f"  signal(raw/clipped): {result['signal_raw']:.6f} / {result['signal_clipped']:.6f}")
     print(f"  IC_full            : {result['IC_full']:.6f}")
+    print(f"  Sigma (OLS/EWMA)   : {result['sigma_ols']:.6f} / {result['sigma_ewma']:.6f}")
+    print(f"  Sigma Final        : {result['sigma_final']:.6f}")
     print(f"  TE_annual          : {result['TE_annual']:.6f}")
     print(f"  TE_3M              : {result['TE_3M']:.6f}")
     print(f"  E_alpha_3M_log     : {result['E_alpha_3M_log']:.6f}")
@@ -181,4 +198,8 @@ def run_mapping(ticker: str = "AAPL", benchmark: str = "SP500") -> dict[str, Any
 
 
 if __name__ == "__main__":
-    run_mapping()
+    for ticker in ["AAPL", "TSLA"]:
+        try:
+            run_mapping(ticker)
+        except Exception as e:
+            print(f"Error for {ticker}: {e}")
