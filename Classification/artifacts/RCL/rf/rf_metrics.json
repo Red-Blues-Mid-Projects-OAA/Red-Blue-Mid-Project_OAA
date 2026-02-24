@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T12:03:59",
+  "ticker": "RCL",
+  "ticker_slug": "RCL",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/RCL/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/RCL/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4732142857142857,
+    "precision": 0.46846846846846846,
+    "ic": 0.424570060247355,
+    "ic_p_value": 3.2357758336435536e-11,
+    "gap": 0.22905844155844157,
+    "gap_signed": 0.22905844155844157,
+    "gap_abs": 0.22905844155844157,
+    "ic_first": 0.4521750272320056,
+    "ic_second": 0.26002464384998786,
+    "proba_std_test": 0.07408367522821617,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

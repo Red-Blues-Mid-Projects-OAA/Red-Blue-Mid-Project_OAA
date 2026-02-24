@@ -1,0 +1,21 @@
+{
+  "ticker": "BK",
+  "benchmark": "SP500",
+  "p_latest": 0.5202444758976273,
+  "signal_raw": 0.04048895179525469,
+  "signal_clipped": 0.04048895179525469,
+  "IC_full": 0.21819773649370064,
+  "sigma_ols": 0.010702547918818956,
+  "sigma_ewma": 0.017364475719740233,
+  "sigma_final": 0.012701126259095339,
+  "TE_annual": 0.20162412871199037,
+  "TE_3M": 0.09838250095910793,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0008691698102718745,
+  "E_alpha_3M_simple": 0.0008695476478117747,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

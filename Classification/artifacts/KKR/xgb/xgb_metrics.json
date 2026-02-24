@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T12:59:04",
+  "ticker": "KKR",
+  "ticker_slug": "KKR",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/KKR/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/KKR/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.34375,
+    "precision": 0.25384615384615383,
+    "ic": -0.48394044521153906,
+    "ic_p_value": 1.4937084841491368e-14,
+    "gap": 0.48011363636363635,
+    "gap_signed": 0.48011363636363635,
+    "gap_abs": 0.48011363636363635,
+    "ic_first": -0.5030890232376918,
+    "ic_second": -0.315927495131035,
+    "proba_std_test": 0.15783323347568512,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T12:18:36",
+  "ticker": "MRSH",
+  "ticker_slug": "MRSH",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MRSH/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MRSH/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.22321428571428573,
+    "precision": 0.18691588785046728,
+    "ic": -0.19952562282829886,
+    "ic_p_value": 0.00270210361582345,
+    "gap": 0.5529220779220779,
+    "gap_signed": 0.5529220779220779,
+    "gap_abs": 0.5529220779220779,
+    "ic_first": -0.46612523998915023,
+    "ic_second": -0.03349378345061886,
+    "proba_std_test": 0.12590962648391724,
+    "proba_unique_test": 212,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

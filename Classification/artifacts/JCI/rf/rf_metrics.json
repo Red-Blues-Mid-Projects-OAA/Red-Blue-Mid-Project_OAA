@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T12:35:45",
+  "ticker": "JCI",
+  "ticker_slug": "JCI",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/JCI/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/JCI/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.26785714285714285,
+    "precision": 0.4264705882352941,
+    "ic": -0.6063986760623533,
+    "ic_p_value": 6.970134850825504e-24,
+    "gap": 0.31737012987012986,
+    "gap_signed": 0.31737012987012986,
+    "gap_abs": 0.31737012987012986,
+    "ic_first": -0.5257371783920456,
+    "ic_second": -0.18288516076126696,
+    "proba_std_test": 0.019467816979178716,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "ticker": "JCI",
+  "benchmark": "SP500",
+  "p_latest": 0.4936570454873265,
+  "signal_raw": -0.012685909025347053,
+  "signal_clipped": -0.012685909025347053,
+  "IC_full": -0.1967563527653214,
+  "sigma_ols": 0.013972465772536068,
+  "sigma_ewma": 0.01816315563408371,
+  "sigma_final": 0.01522967273100036,
+  "TE_annual": 0.2417635595707731,
+  "TE_3M": 0.11796853771070727,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.000294453385659765,
+  "E_alpha_3M_simple": 0.00029449674131321046,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T12:43:10",
+  "ticker": "WMB",
+  "ticker_slug": "WMB",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/WMB/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/WMB/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6473214285714286,
+    "precision": 0.5751633986928104,
+    "ic": 0.32710335255178313,
+    "ic_p_value": 5.538328445711214e-07,
+    "gap": 0.049269480519480435,
+    "gap_signed": 0.049269480519480435,
+    "gap_abs": 0.049269480519480435,
+    "ic_first": 0.7024549834284347,
+    "ic_second": 0.11779478593637886,
+    "proba_std_test": 0.2711916981246279,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}
