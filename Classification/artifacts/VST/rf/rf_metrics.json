@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T13:12:33",
+  "ticker": "VST",
+  "ticker_slug": "VST",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\VST\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\VST\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5535714285714286,
+    "precision": 0.4791666666666667,
+    "ic": 0.38778538419726094,
+    "ic_p_value": 1.8768400459766013e-09,
+    "gap": 0.26574675324675323,
+    "gap_signed": 0.26574675324675323,
+    "gap_abs": 0.26574675324675323,
+    "ic_first": -0.4355274425686632,
+    "ic_second": 0.6555420781084498,
+    "proba_std_test": 0.07860426747378224,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "ticker": "PSA",
+  "benchmark": "SP500",
+  "p_latest": 0.49908617345883577,
+  "signal_raw": -0.001827653082328462,
+  "signal_clipped": -0.001827653082328462,
+  "IC_full": -0.11579970104633783,
+  "sigma_ols": 0.014800879463320489,
+  "sigma_ewma": 0.015492570225654074,
+  "sigma_final": 0.015008386692020564,
+  "TE_annual": 0.2382507526042666,
+  "TE_3M": 0.11625446342327335,
+  "phi": 1.0,
+  "E_alpha_3M_log": 2.4604290010346325e-05,
+  "E_alpha_3M_simple": 2.4604592698374006e-05,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

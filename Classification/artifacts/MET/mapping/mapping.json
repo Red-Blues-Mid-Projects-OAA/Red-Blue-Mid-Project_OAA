@@ -1,0 +1,23 @@
+{
+  "ticker": "MET",
+  "benchmark": "SP500",
+  "p_latest": 0.5903713818517785,
+  "signal_raw": 0.18074276370355702,
+  "signal_clipped": 0.18074276370355702,
+  "IC_full": -0.6080909673286355,
+  "sigma_ols": 0.012473960399591024,
+  "sigma_ewma": 0.01364445384513678,
+  "sigma_final": 0.01282510843325475,
+  "TE_annual": 0.20359228471097576,
+  "TE_3M": 0.09934286275059989,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.010918579533395941,
+  "E_alpha_3M_simple": -0.010859188196760017,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

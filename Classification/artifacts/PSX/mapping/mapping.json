@@ -1,0 +1,23 @@
+{
+  "ticker": "PSX",
+  "benchmark": "SP500",
+  "p_latest": 0.41541478542618293,
+  "signal_raw": -0.16917042914763414,
+  "signal_clipped": -0.16917042914763414,
+  "IC_full": -0.02587977792013667,
+  "sigma_ols": 0.017627170795863765,
+  "sigma_ewma": 0.01982184058634466,
+  "sigma_final": 0.018285571733008033,
+  "TE_annual": 0.29027445231702975,
+  "TE_3M": 0.14163942959564244,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0006201106146405667,
+  "E_alpha_3M_simple": 0.0006203029229765455,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

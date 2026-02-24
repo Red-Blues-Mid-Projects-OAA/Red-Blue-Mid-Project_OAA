@@ -1,0 +1,23 @@
+{
+  "ticker": "EXC",
+  "benchmark": "SP500",
+  "p_latest": 0.5420958795945496,
+  "signal_raw": 0.08419175918909927,
+  "signal_clipped": 0.08419175918909927,
+  "IC_full": -0.05081144565449498,
+  "sigma_ols": 0.015400151996239366,
+  "sigma_ewma": 0.02208374656481776,
+  "sigma_final": 0.017405230366812883,
+  "TE_annual": 0.27629946637425845,
+  "TE_3M": 0.13482033469513982,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0005767485834347124,
+  "E_alpha_3M_simple": -0.0005765822959407085,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

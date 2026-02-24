@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T14:51:28",
+  "ticker": "CVNA",
+  "ticker_slug": "CVNA",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CVNA\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CVNA\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.33035714285714285,
+    "precision": 0.5867768595041323,
+    "ic": -0.5032543241511852,
+    "ic_p_value": 8.758577755914876e-16,
+    "gap": 0.6037337662337663,
+    "gap_signed": 0.6037337662337663,
+    "gap_abs": 0.6037337662337663,
+    "ic_first": -0.5578638056514162,
+    "ic_second": -0.5964653022175146,
+    "proba_std_test": 0.2995867431163788,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

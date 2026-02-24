@@ -1,0 +1,23 @@
+{
+  "ticker": "CARR",
+  "benchmark": "SP500",
+  "p_latest": 0.36570648574176684,
+  "signal_raw": -0.2685870285164663,
+  "signal_clipped": -0.2685870285164663,
+  "IC_full": -0.628637625453769,
+  "sigma_ols": 0.016236121846965244,
+  "sigma_ewma": 0.018353338285733913,
+  "sigma_final": 0.016871286778595843,
+  "TE_annual": 0.2678233746828999,
+  "TE_3M": 0.1306844254451822,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.022065269607979245,
+  "E_alpha_3M_simple": 0.022310508098998705,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1488,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

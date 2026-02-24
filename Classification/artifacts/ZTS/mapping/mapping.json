@@ -1,0 +1,23 @@
+{
+  "ticker": "ZTS",
+  "benchmark": "SP500",
+  "p_latest": 0.48093673858945035,
+  "signal_raw": -0.038126522821099296,
+  "signal_clipped": -0.038126522821099296,
+  "IC_full": -0.14499252615844546,
+  "sigma_ols": 0.016384170666671305,
+  "sigma_ewma": 0.014571251748519682,
+  "sigma_final": 0.015840294991225815,
+  "TE_annual": 0.25145688744411343,
+  "TE_3M": 0.1226983974000607,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.000678284207941428,
+  "E_alpha_3M_simple": 0.0006785142946932332,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

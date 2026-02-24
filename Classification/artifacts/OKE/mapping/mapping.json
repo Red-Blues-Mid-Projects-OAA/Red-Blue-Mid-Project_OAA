@@ -1,0 +1,21 @@
+{
+  "ticker": "OKE",
+  "benchmark": "SP500",
+  "p_latest": 0.7166482396348974,
+  "signal_raw": 0.43329647926979487,
+  "signal_clipped": 0.43329647926979487,
+  "IC_full": 0.12081785180439891,
+  "sigma_ols": 0.014868429823797194,
+  "sigma_ewma": 0.017193531188183224,
+  "sigma_final": 0.015565960233113001,
+  "TE_annual": 0.24710195816842803,
+  "TE_3M": 0.12057340950114716,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.006312011936985548,
+  "E_alpha_3M_simple": 0.006331974663886575,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "SPG",
+  "benchmark": "SP500",
+  "p_latest": 0.450436620691797,
+  "signal_raw": -0.09912675861640596,
+  "signal_clipped": -0.09912675861640596,
+  "IC_full": 0.16621396540679054,
+  "sigma_ols": 0.012290076172246282,
+  "sigma_ewma": 0.01488914514346474,
+  "sigma_final": 0.013069796863611819,
+  "TE_annual": 0.20747659312349306,
+  "TE_3M": 0.10123821118216501,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00166802624176086,
+  "E_alpha_3M_simple": -0.0016666358591616026,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

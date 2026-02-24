@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T13:40:43",
+  "ticker": "FTNT",
+  "ticker_slug": "FTNT",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FTNT\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FTNT\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.16964285714285715,
+    "precision": 0.16216216216216217,
+    "ic": 0.021065556267349992,
+    "ic_p_value": 0.7538618786369461,
+    "gap": 0.47169047619047616,
+    "gap_signed": 0.47169047619047616,
+    "gap_abs": 0.47169047619047616,
+    "ic_first": 0.5431800321180853,
+    "ic_second": -0.5236272935387979,
+    "proba_std_test": 0.05514375777361047,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

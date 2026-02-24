@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T13:17:42",
+  "ticker": "NXPI",
+  "ticker_slug": "NXPI",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NXPI\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NXPI\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6964285714285714,
+    "precision": 0.5510204081632653,
+    "ic": 0.5286799710126039,
+    "ic_p_value": 1.5755167102031947e-17,
+    "gap": 0.006980519480519476,
+    "gap_signed": 0.006980519480519476,
+    "gap_abs": 0.006980519480519476,
+    "ic_first": 0.31684914804685793,
+    "ic_second": 0.7215122834591862,
+    "proba_std_test": 0.08090574288455536,
+    "proba_unique_test": 219,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

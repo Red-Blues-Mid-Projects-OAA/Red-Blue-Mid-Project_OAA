@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T12:17:45",
+  "ticker": "F",
+  "ticker_slug": "F",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\F\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\F\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5357142857142857,
+    "precision": 0.7647058823529411,
+    "ic": 0.00658552210121717,
+    "ic_p_value": 0.9219222109978802,
+    "gap": 0.18019480519480524,
+    "gap_signed": 0.18019480519480524,
+    "gap_abs": 0.18019480519480524,
+    "ic_first": -0.36679536679536684,
+    "ic_second": 0.4652680493388458,
+    "proba_std_test": 0.23690545208196906,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

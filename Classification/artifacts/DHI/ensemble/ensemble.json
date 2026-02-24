@@ -1,0 +1,50 @@
+{
+  "ticker": "DHI",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.23667627589152254,
+  "ic_pvalue": 0.00035246886503372064,
+  "ic_first_half": -0.20418901834831038,
+  "ic_second_half": 0.5145641849181672,
+  "accuracy_ref": 0.5,
+  "precision_ref": 0.43455497382198954,
+  "train_accuracy_ref": 0.7704545454545455,
+  "gap_ref": 0.2704545454545455,
+  "gap_signed_ref": 0.2704545454545455,
+  "gap_abs_ref": 0.2704545454545455,
+  "proba_std_test": 0.11533419595802173,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.4055358416459132,
+    "mean": 0.6591001744113824,
+    "max": 0.7826926984721558
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.4669314098864757,
+    "mean": 0.6039992407421974,
+    "max": 0.7499771489615509
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.5979585727096772
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

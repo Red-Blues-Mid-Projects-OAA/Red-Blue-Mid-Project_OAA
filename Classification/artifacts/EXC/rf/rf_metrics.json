@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T13:53:11",
+  "ticker": "EXC",
+  "ticker_slug": "EXC",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\EXC\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\EXC\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6294642857142857,
+    "precision": 0.35443037974683544,
+    "ic": -0.02031603672859279,
+    "ic_p_value": 0.7623527495212696,
+    "gap": 0.1443993506493506,
+    "gap_signed": 0.1443993506493506,
+    "gap_abs": 0.1443993506493506,
+    "ic_first": 0.3781989954556327,
+    "ic_second": -0.5355776130112414,
+    "proba_std_test": 0.16480162633207251,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

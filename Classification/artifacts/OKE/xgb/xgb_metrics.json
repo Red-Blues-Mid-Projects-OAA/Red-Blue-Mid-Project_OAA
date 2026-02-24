@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T12:45:44",
+  "ticker": "OKE",
+  "ticker_slug": "OKE",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OKE\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OKE\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.2857142857142857,
+    "precision": 0.19072164948453607,
+    "ic": 0.30678624813153965,
+    "ic_p_value": 2.880053470807901e-06,
+    "gap": 0.5233766233766234,
+    "gap_signed": 0.5233766233766234,
+    "gap_abs": 0.5233766233766234,
+    "ic_first": 0.13289711962278333,
+    "ic_second": -0.056249359346704476,
+    "proba_std_test": 0.17235882580280304,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

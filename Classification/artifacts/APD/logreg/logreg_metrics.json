@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T12:11:34",
+  "ticker": "APD",
+  "ticker_slug": "APD",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APD\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APD\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6473214285714286,
+    "precision": 0.27358490566037735,
+    "ic": 0.604222720478326,
+    "ic_p_value": 1.109662865804716e-23,
+    "gap": 0.15608766233766236,
+    "gap_signed": 0.15608766233766236,
+    "gap_abs": 0.15608766233766236,
+    "ic_first": 0.5098831448388971,
+    "ic_second": 0.805044931151126,
+    "proba_std_test": 0.17285605435456097,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

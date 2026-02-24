@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T16:14:04",
+  "ticker": "GRMN",
+  "ticker_slug": "GRMN",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GRMN\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GRMN\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5401785714285714,
+    "precision": 0.44025157232704404,
+    "ic": -0.12621773601797803,
+    "ic_p_value": 0.05929024875262338,
+    "gap": 0.30641233766233766,
+    "gap_signed": 0.30641233766233766,
+    "gap_abs": 0.30641233766233766,
+    "ic_first": 0.43578945570096017,
+    "ic_second": -0.2832334267983762,
+    "proba_std_test": 0.20151177048683167,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

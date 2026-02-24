@@ -1,0 +1,21 @@
+{
+  "ticker": "URI",
+  "benchmark": "SP500",
+  "p_latest": 0.8087150811423176,
+  "signal_raw": 0.6174301622846352,
+  "signal_clipped": 0.6174301622846352,
+  "IC_full": 0.6768225496476619,
+  "sigma_ols": 0.019232389374404545,
+  "sigma_ewma": 0.029950075517440493,
+  "sigma_final": 0.02244769521731533,
+  "TE_annual": 0.3563461143095423,
+  "TE_3M": 0.17387909947480432,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.07266245106016762,
+  "E_alpha_3M_simple": 0.07536748648951286,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

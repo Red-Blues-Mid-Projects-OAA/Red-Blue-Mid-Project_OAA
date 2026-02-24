@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T15:53:43",
+  "ticker": "TGT",
+  "ticker_slug": "TGT",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TGT\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TGT\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5758928571428571,
+    "precision": 0.061224489795918366,
+    "ic": -0.5743775357676705,
+    "ic_p_value": 4.63483252726994e-21,
+    "gap": 0.008784689372437704,
+    "gap_signed": -0.008784689372437704,
+    "gap_abs": 0.008784689372437704,
+    "ic_first": -0.654329107868931,
+    "ic_second": -0.3919602282434141,
+    "proba_std_test": 0.09308264435765866,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

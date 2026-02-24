@@ -1,0 +1,21 @@
+{
+  "ticker": "CIEN",
+  "benchmark": "SP500",
+  "p_latest": 0.0641392225776533,
+  "signal_raw": -0.8717215548446934,
+  "signal_clipped": -0.8,
+  "IC_full": 0.4230600042707666,
+  "sigma_ols": 0.029417173732525004,
+  "sigma_ewma": 0.037263129232114986,
+  "sigma_final": 0.031770960382402,
+  "TE_annual": 0.5043483605131276,
+  "TE_3M": 0.24609680090811717,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.08329097091456804,
+  "E_alpha_3M_simple": -0.07991660923834576,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

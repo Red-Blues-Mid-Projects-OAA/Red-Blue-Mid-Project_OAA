@@ -1,0 +1,21 @@
+{
+  "ticker": "CTVA",
+  "benchmark": "SP500",
+  "p_latest": 0.3631319783389797,
+  "signal_raw": -0.2737360433220406,
+  "signal_clipped": -0.2737360433220406,
+  "IC_full": 0.606289771513987,
+  "sigma_ols": 0.01611812970653721,
+  "sigma_ewma": 0.012935098592221703,
+  "sigma_final": 0.015163220372242556,
+  "TE_annual": 0.24070866107893232,
+  "TE_3M": 0.1174537999531369,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.019493027656245797,
+  "E_alpha_3M_simple": -0.019304267087403182,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1694,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

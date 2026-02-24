@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T13:08:59",
+  "ticker": "MPC",
+  "ticker_slug": "MPC",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MPC\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MPC\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7053571428571429,
+    "precision": 0.6987179487179487,
+    "ic": 0.43816784112748247,
+    "ic_p_value": 6.338953382637598e-12,
+    "gap": 0.0014610389610388852,
+    "gap_signed": 0.0014610389610388852,
+    "gap_abs": 0.0014610389610388852,
+    "ic_first": 0.20396692520586326,
+    "ic_second": 0.6060665596063827,
+    "proba_std_test": 0.1335163063340421,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

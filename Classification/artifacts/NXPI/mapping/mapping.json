@@ -1,0 +1,21 @@
+{
+  "ticker": "NXPI",
+  "benchmark": "SP500",
+  "p_latest": 0.39122607173391755,
+  "signal_raw": -0.2175478565321649,
+  "signal_clipped": -0.2175478565321649,
+  "IC_full": 0.46095024556907976,
+  "sigma_ols": 0.0205446822265217,
+  "sigma_ewma": 0.02476215224709272,
+  "sigma_final": 0.021809923232693006,
+  "TE_annual": 0.3462217979226936,
+  "TE_3M": 0.1689389389245645,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.01694098357608932,
+  "E_alpha_3M_simple": -0.016798292028484818,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

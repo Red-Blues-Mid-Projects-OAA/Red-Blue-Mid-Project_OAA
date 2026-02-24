@@ -1,0 +1,23 @@
+{
+  "ticker": "FTNT",
+  "benchmark": "SP500",
+  "p_latest": 0.609017379996259,
+  "signal_raw": 0.2180347599925181,
+  "signal_clipped": 0.2180347599925181,
+  "IC_full": -0.17434870809310277,
+  "sigma_ols": 0.02268325550844996,
+  "sigma_ewma": 0.022269118192053936,
+  "sigma_final": 0.02255901431353115,
+  "TE_annual": 0.3581132501780995,
+  "TE_3M": 0.1747413734863218,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.006642632328063821,
+  "E_alpha_3M_simple": -0.006620618815467383,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

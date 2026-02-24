@@ -1,0 +1,21 @@
+{
+  "ticker": "DHI",
+  "benchmark": "SP500",
+  "p_latest": 0.5979585727096772,
+  "signal_raw": 0.19591714541935445,
+  "signal_clipped": 0.19591714541935445,
+  "IC_full": 0.23667627589152254,
+  "sigma_ols": 0.021834785551275982,
+  "sigma_ewma": 0.02295858965040014,
+  "sigma_final": 0.022171926781013228,
+  "TE_annual": 0.35196842609816315,
+  "TE_3M": 0.17174300635238893,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.007963541218998643,
+  "E_alpha_3M_simple": 0.007995334553177136,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

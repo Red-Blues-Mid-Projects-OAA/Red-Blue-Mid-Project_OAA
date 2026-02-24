@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T12:11:34",
+  "ticker": "APD",
+  "ticker_slug": "APD",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APD\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APD\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5446428571428571,
+    "precision": 0.23308270676691728,
+    "ic": 0.5449706725394861,
+    "ic_p_value": 9.998734426298702e-19,
+    "gap": 0.24058441558441568,
+    "gap_signed": 0.24058441558441568,
+    "gap_abs": 0.24058441558441568,
+    "ic_first": 0.4633760942156089,
+    "ic_second": 0.748792353125752,
+    "proba_std_test": 0.18854561003692688,
+    "proba_unique_test": 199,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

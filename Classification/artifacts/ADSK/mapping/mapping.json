@@ -1,0 +1,21 @@
+{
+  "ticker": "ADSK",
+  "benchmark": "SP500",
+  "p_latest": 0.47145084602805376,
+  "signal_raw": -0.05709830794389248,
+  "signal_clipped": -0.05709830794389248,
+  "IC_full": 0.5566645312833655,
+  "sigma_ols": 0.014474272870278923,
+  "sigma_ewma": 0.02172150273342627,
+  "sigma_final": 0.016648441829223128,
+  "TE_annual": 0.26428582078109797,
+  "TE_3M": 0.12895827588976824,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.004098887580625066,
+  "E_alpha_3M_simple": -0.004090498606660109,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

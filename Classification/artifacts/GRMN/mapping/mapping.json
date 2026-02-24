@@ -1,0 +1,23 @@
+{
+  "ticker": "GRMN",
+  "benchmark": "SP500",
+  "p_latest": 0.37814972274491654,
+  "signal_raw": -0.24370055451016692,
+  "signal_clipped": -0.24370055451016692,
+  "IC_full": -0.04380952380952382,
+  "sigma_ols": 0.019002644201497866,
+  "sigma_ewma": 0.025223963285880377,
+  "sigma_final": 0.02086903992681262,
+  "TE_annual": 0.33128573848214266,
+  "TE_3M": 0.16165088817576587,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0017258503904121678,
+  "E_alpha_3M_simple": 0.0017273405273250386,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

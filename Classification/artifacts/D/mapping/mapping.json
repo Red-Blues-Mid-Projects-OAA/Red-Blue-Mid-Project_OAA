@@ -1,0 +1,23 @@
+{
+  "ticker": "D",
+  "benchmark": "SP500",
+  "p_latest": 0.6471299439641498,
+  "signal_raw": 0.2942598879282996,
+  "signal_clipped": 0.2942598879282996,
+  "IC_full": -0.060543455050181515,
+  "sigma_ols": 0.016166261901229793,
+  "sigma_ewma": 0.016107217976832542,
+  "sigma_final": 0.016148548723910618,
+  "TE_annual": 0.25635026374846165,
+  "TE_3M": 0.12508612054624973,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0022284730687108763,
+  "E_alpha_3M_simple": -0.0022259918660418876,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

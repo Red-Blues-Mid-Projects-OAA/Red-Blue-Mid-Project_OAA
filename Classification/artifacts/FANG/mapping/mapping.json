@@ -1,0 +1,21 @@
+{
+  "ticker": "FANG",
+  "benchmark": "SP500",
+  "p_latest": 0.25945578721935086,
+  "signal_raw": -0.48108842556129827,
+  "signal_clipped": -0.48108842556129827,
+  "IC_full": 0.07411061285500749,
+  "sigma_ols": 0.01936717732222803,
+  "sigma_ewma": 0.018915140860438683,
+  "sigma_final": 0.019231566383691223,
+  "TE_annual": 0.3052916518408606,
+  "TE_3M": 0.14896707265103704,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.005311235966580626,
+  "E_alpha_3M_simple": -0.005297156290690053,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

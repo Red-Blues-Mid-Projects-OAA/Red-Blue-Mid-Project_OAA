@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T13:29:22",
+  "ticker": "AFL",
+  "ticker_slug": "AFL",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AFL\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AFL\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3080357142857143,
+    "precision": 0.2995391705069124,
+    "ic": -0.476100357811066,
+    "ic_p_value": 4.493622051254995e-14,
+    "gap": 0.45332792207792205,
+    "gap_signed": 0.45332792207792205,
+    "gap_abs": 0.45332792207792205,
+    "ic_first": -0.5034851837165932,
+    "ic_second": 0.18250115851759957,
+    "proba_std_test": 0.07141883743008963,
+    "proba_unique_test": 217,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

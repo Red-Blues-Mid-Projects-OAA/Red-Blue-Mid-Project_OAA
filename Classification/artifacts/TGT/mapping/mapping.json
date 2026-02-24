@@ -1,0 +1,23 @@
+{
+  "ticker": "TGT",
+  "benchmark": "SP500",
+  "p_latest": 0.5232908918964135,
+  "signal_raw": 0.04658178379282707,
+  "signal_clipped": 0.04658178379282707,
+  "IC_full": -0.12731155242366005,
+  "sigma_ols": 0.021278060401529898,
+  "sigma_ewma": 0.01848136958587157,
+  "sigma_final": 0.020439053156832396,
+  "TE_annual": 0.32445991011964903,
+  "TE_3M": 0.15832022497732,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0009389021370261457,
+  "E_alpha_3M_simple": -0.0009384615063284807,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

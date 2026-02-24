@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T12:40:33",
+  "ticker": "ZTS",
+  "ticker_slug": "ZTS",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ZTS\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ZTS\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.48214285714285715,
+    "precision": 0.17985611510791366,
+    "ic": -0.08973307708733719,
+    "ic_p_value": 0.18083479522384324,
+    "gap": 0.19058441558441558,
+    "gap_signed": 0.19058441558441558,
+    "gap_abs": 0.19058441558441558,
+    "ic_first": -0.03929340212526053,
+    "ic_second": 0.5724536167014044,
+    "proba_std_test": 0.24515692192094038,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

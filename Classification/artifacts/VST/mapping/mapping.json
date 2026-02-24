@@ -1,0 +1,21 @@
+{
+  "ticker": "VST",
+  "benchmark": "SP500",
+  "p_latest": 0.5908662815958534,
+  "signal_raw": 0.18173256319170683,
+  "signal_clipped": 0.18173256319170683,
+  "IC_full": 4.591074097800556e-05,
+  "sigma_ols": 0.03544301860815915,
+  "sigma_ewma": 0.03193244100162702,
+  "sigma_final": 0.03438984532619951,
+  "TE_annual": 0.545921870154605,
+  "TE_3M": 0.26638259645403933,
+  "phi": 1.0,
+  "E_alpha_3M_log": 2.2225569697415653e-06,
+  "E_alpha_3M_simple": 2.2225594396019233e-06,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2356,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

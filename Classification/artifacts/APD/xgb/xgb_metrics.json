@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T12:11:32",
+  "ticker": "APD",
+  "ticker_slug": "APD",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APD\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APD\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6205357142857143,
+    "precision": 0.25,
+    "ic": 0.6525921698656545,
+    "ic_p_value": 1.4475858122988484e-28,
+    "gap": 0.21696428571428572,
+    "gap_signed": 0.21696428571428572,
+    "gap_abs": 0.21696428571428572,
+    "ic_first": 0.5502210263359814,
+    "ic_second": 0.7136108928144327,
+    "proba_std_test": 0.2787076532840729,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}
