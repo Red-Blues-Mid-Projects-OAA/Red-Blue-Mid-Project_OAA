@@ -1,0 +1,21 @@
+{
+  "ticker": "HAL",
+  "benchmark": "SP500",
+  "p_latest": 0.2557543750085592,
+  "signal_raw": -0.4884912499828816,
+  "signal_clipped": -0.4884912499828816,
+  "IC_full": 0.25708199871877,
+  "sigma_ols": 0.020348359392004405,
+  "sigma_ewma": 0.019942631573293384,
+  "sigma_final": 0.020226641046391096,
+  "TE_annual": 0.32108797240153264,
+  "TE_3M": 0.15667488784477615,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.019675593849195074,
+  "E_alpha_3M_simple": -0.01948329263129933,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

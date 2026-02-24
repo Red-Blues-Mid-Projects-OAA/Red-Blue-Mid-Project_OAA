@@ -1,0 +1,21 @@
+{
+  "ticker": "RMD",
+  "benchmark": "SP500",
+  "p_latest": 0.2744166917062684,
+  "signal_raw": -0.45116661658746315,
+  "signal_clipped": -0.45116661658746315,
+  "IC_full": 0.5582852872090542,
+  "sigma_ols": 0.018889646253033025,
+  "sigma_ewma": 0.01948114798981095,
+  "sigma_final": 0.0190670967740664,
+  "TE_annual": 0.30268077772908963,
+  "TE_3M": 0.14769309653296867,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.03720089050152764,
+  "E_alpha_3M_simple": -0.03651743858885326,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

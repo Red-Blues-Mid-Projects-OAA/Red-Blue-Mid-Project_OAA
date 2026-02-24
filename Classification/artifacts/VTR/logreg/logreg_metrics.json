@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T00:52:55",
+  "ticker": "VTR",
+  "ticker_slug": "VTR",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/VTR/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/VTR/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4642857142857143,
+    "precision": 0.0,
+    "ic": -0.5318812726884475,
+    "ic_p_value": 9.272148576689161e-18,
+    "gap": 0.12662337662337664,
+    "gap_signed": 0.12662337662337664,
+    "gap_abs": 0.12662337662337664,
+    "ic_first": -0.6019834626029317,
+    "ic_second": 0.21934260429835653,
+    "proba_std_test": 0.011354260318014932,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

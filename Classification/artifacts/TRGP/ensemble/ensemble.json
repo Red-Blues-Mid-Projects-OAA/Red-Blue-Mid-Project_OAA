@@ -1,0 +1,50 @@
+{
+  "ticker": "TRGP",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.5428635490070468,
+  "ic_pvalue": 1.4404713107505014e-18,
+  "ic_first_half": 0.7743021150100796,
+  "ic_second_half": -0.3975723511121741,
+  "accuracy_ref": 0.42857142857142855,
+  "precision_ref": 0.3402061855670103,
+  "train_accuracy_ref": 0.875,
+  "gap_ref": 0.44642857142857145,
+  "gap_signed_ref": 0.44642857142857145,
+  "gap_abs_ref": 0.44642857142857145,
+  "proba_std_test": 0.1759198684089833,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.2761828805179315,
+    "mean": 0.7316908442085232,
+    "max": 0.9149356005682012
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.5217048730375894,
+    "mean": 0.7277974193684233,
+    "max": 0.8598406428013293
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6859432942636292
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

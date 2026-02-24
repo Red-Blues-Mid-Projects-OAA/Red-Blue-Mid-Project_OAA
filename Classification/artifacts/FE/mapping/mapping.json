@@ -1,0 +1,21 @@
+{
+  "ticker": "FE",
+  "benchmark": "SP500",
+  "p_latest": 0.32922690386244335,
+  "signal_raw": -0.3415461922751133,
+  "signal_clipped": -0.3415461922751133,
+  "IC_full": 0.24229233397394837,
+  "sigma_ols": 0.014361071012570377,
+  "sigma_ewma": 0.014347443303798422,
+  "sigma_final": 0.01435698269993879,
+  "TE_annual": 0.2279100348077682,
+  "TE_3M": 0.11120870979730187,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.009202968249166941,
+  "E_alpha_3M_simple": -0.009160750545526342,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

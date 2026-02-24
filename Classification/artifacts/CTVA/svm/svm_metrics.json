@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T23:42:09",
+  "ticker": "CTVA",
+  "ticker_slug": "CTVA",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CTVA/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CTVA/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4642857142857143,
+    "precision": 1.0,
+    "ic": 0.44613922699124503,
+    "ic_p_value": 2.3556522051309642e-12,
+    "gap": 0.11873415326395453,
+    "gap_signed": 0.11873415326395453,
+    "gap_abs": 0.11873415326395453,
+    "ic_first": 0.1268322684251888,
+    "ic_second": 0.5020671746335464,
+    "proba_std_test": 0.039006644275106174,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

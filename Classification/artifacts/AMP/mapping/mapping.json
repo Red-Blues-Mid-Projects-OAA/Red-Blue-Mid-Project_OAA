@@ -1,0 +1,23 @@
+{
+  "ticker": "AMP",
+  "benchmark": "SP500",
+  "p_latest": 0.5842757532734955,
+  "signal_raw": 0.16855150654699091,
+  "signal_clipped": 0.16855150654699091,
+  "IC_full": -0.19871877001921848,
+  "sigma_ols": 0.01216270906804343,
+  "sigma_ewma": 0.020384791765815,
+  "sigma_final": 0.0146293338773749,
+  "TE_annual": 0.23223347571639763,
+  "TE_3M": 0.11331833294636193,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0037955236859534753,
+  "E_alpha_3M_simple": -0.0037883297903399393,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,50 @@
+{
+  "ticker": "UAL",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.7069133034379672,
+  "ic_pvalue": 3.083390960859689e-35,
+  "ic_first_half": 0.7702361020945092,
+  "ic_second_half": 0.7425940479037825,
+  "accuracy_ref": 0.6875,
+  "precision_ref": 0.8152173913043478,
+  "train_accuracy_ref": 0.7840909090909091,
+  "gap_ref": 0.09659090909090906,
+  "gap_signed_ref": 0.09659090909090906,
+  "gap_abs_ref": 0.09659090909090906,
+  "proba_std_test": 0.18635416766858584,
+  "proba_unique_test": 223,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.1327262760216077,
+    "mean": 0.4361402900962061,
+    "max": 0.7831384330619604
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.148784118288133,
+    "mean": 0.21693656510571677,
+    "max": 0.47050296156021476
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.20305136095356488
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

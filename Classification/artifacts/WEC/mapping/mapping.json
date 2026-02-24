@@ -1,0 +1,23 @@
+{
+  "ticker": "WEC",
+  "benchmark": "SP500",
+  "p_latest": 0.6630618790951384,
+  "signal_raw": 0.3261237581902767,
+  "signal_clipped": 0.3261237581902767,
+  "IC_full": -0.061961349562246436,
+  "sigma_ols": 0.014012929249741828,
+  "sigma_ewma": 0.013651807825171674,
+  "sigma_final": 0.013904592822370781,
+  "TE_annual": 0.22072856813764075,
+  "TE_3M": 0.10770451287367444,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0021763924351238776,
+  "E_alpha_3M_simple": -0.002174025810320779,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

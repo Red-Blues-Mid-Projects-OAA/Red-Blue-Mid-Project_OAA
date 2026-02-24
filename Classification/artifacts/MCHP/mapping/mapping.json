@@ -1,0 +1,21 @@
+{
+  "ticker": "MCHP",
+  "benchmark": "SP500",
+  "p_latest": 0.36179741879496186,
+  "signal_raw": -0.2764051624100763,
+  "signal_clipped": -0.2764051624100763,
+  "IC_full": 0.48345989554939717,
+  "sigma_ols": 0.025639061570434406,
+  "sigma_ewma": 0.02601276297594999,
+  "sigma_final": 0.02575117199208908,
+  "TE_annual": 0.4087871823571167,
+  "TE_3M": 0.19946772054136777,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.026655033253909895,
+  "E_alpha_3M_simple": -0.026302923292749636,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

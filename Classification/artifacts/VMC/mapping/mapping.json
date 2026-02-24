@@ -1,0 +1,21 @@
+{
+  "ticker": "VMC",
+  "benchmark": "SP500",
+  "p_latest": 0.6205355206503077,
+  "signal_raw": 0.2410710413006154,
+  "signal_clipped": 0.2410710413006154,
+  "IC_full": 0.30730407858210557,
+  "sigma_ols": 0.01343250857327122,
+  "sigma_ewma": 0.022814159782143194,
+  "sigma_final": 0.016247003935932813,
+  "TE_annual": 0.2579131917861948,
+  "TE_3M": 0.1258487513392683,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.009323141571124101,
+  "E_alpha_3M_simple": 0.00936673743364147,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-25T00:42:03",
+  "ticker": "TER",
+  "ticker_slug": "TER",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TER/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TER/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.10714285714285714,
+    "precision": 0.025,
+    "ic": -0.6619917712881189,
+    "ic_p_value": 1.2755650590504383e-29,
+    "gap": 0.764448051948052,
+    "gap_signed": 0.764448051948052,
+    "gap_abs": 0.764448051948052,
+    "ic_first": -0.26305134263455304,
+    "ic_second": -0.2823145522260566,
+    "proba_std_test": 0.21312004327774048,
+    "proba_unique_test": 220,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

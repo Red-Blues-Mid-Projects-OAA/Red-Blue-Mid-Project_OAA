@@ -1,0 +1,21 @@
+{
+  "ticker": "WTW",
+  "benchmark": "SP500",
+  "p_latest": 0.5477026218024805,
+  "signal_raw": 0.09540524360496105,
+  "signal_clipped": 0.09540524360496105,
+  "IC_full": 0.029181080503950463,
+  "sigma_ols": 0.014933779163282378,
+  "sigma_ewma": 0.03243951618220103,
+  "sigma_final": 0.020185500268957973,
+  "TE_annual": 0.3204348828065412,
+  "TE_3M": 0.15635621275307912,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.00043530008899717986,
+  "E_alpha_3M_simple": 0.0004353948458295509,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

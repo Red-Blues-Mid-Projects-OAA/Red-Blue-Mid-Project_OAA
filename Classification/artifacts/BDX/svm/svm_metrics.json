@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T00:15:51",
+  "ticker": "BDX",
+  "ticker_slug": "BDX",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BDX/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BDX/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.625,
+    "precision": 0.0,
+    "ic": 0.4239643390988683,
+    "ic_p_value": 3.473652945996731e-11,
+    "gap": 0.009781456953642409,
+    "gap_signed": 0.009781456953642409,
+    "gap_abs": 0.009781456953642409,
+    "ic_first": 0.2870895547886699,
+    "ic_second": 0.21560973109645679,
+    "proba_std_test": 0.033567021337277764,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

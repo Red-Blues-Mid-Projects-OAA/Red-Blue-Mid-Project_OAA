@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-25T06:51:00",
+  "ticker": "HAL",
+  "ticker_slug": "HAL",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HAL/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HAL/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.45535714285714285,
+    "precision": 0.4375,
+    "ic": 0.06832372410847748,
+    "ic_p_value": 0.30865658316501976,
+    "gap": 0.2605519480519481,
+    "gap_signed": 0.2605519480519481,
+    "gap_abs": 0.2605519480519481,
+    "ic_first": 0.6047425427956402,
+    "ic_second": -0.6437711415587521,
+    "proba_std_test": 0.1693212501326583,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

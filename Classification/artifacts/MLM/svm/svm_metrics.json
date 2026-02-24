@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T01:09:06",
+  "ticker": "MLM",
+  "ticker_slug": "MLM",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MLM/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MLM/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.71875,
+    "precision": 0.6910112359550562,
+    "ic": 0.5157345718556481,
+    "ic_p_value": 1.2708284901115412e-16,
+    "gap": 0.014283112582781365,
+    "gap_signed": 0.014283112582781365,
+    "gap_abs": 0.014283112582781365,
+    "ic_first": 0.5248488058222571,
+    "ic_second": 0.40858304575118737,
+    "proba_std_test": 0.10079457864320539,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

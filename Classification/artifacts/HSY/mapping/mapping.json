@@ -1,0 +1,23 @@
+{
+  "ticker": "HSY",
+  "benchmark": "SP500",
+  "p_latest": 0.5484577625048264,
+  "signal_raw": 0.09691552500965273,
+  "signal_clipped": 0.09691552500965273,
+  "IC_full": -0.42479393551142436,
+  "sigma_ols": 0.019059762072719182,
+  "sigma_ewma": 0.022379481524266345,
+  "sigma_final": 0.020055677908183328,
+  "TE_annual": 0.31837401671919113,
+  "TE_3M": 0.1553506130705881,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0063956491626853944,
+  "E_alpha_3M_simple": -0.006375240530575255,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

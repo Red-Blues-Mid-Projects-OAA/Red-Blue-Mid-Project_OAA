@@ -1,0 +1,21 @@
+{
+  "ticker": "JBL",
+  "benchmark": "SP500",
+  "p_latest": 0.3543423502474191,
+  "signal_raw": -0.2913152995051618,
+  "signal_clipped": -0.2913152995051618,
+  "IC_full": 0.5437230407858211,
+  "sigma_ols": 0.02090189930720909,
+  "sigma_ewma": 0.02256664496376695,
+  "sigma_final": 0.021401323004176447,
+  "TE_annual": 0.33973547038089974,
+  "TE_3M": 0.16577393516396216,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.026257736015105795,
+  "E_alpha_3M_simple": -0.02591599927590993,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

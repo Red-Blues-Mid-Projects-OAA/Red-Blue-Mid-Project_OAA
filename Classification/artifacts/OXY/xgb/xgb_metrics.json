@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T00:35:11",
+  "ticker": "OXY",
+  "ticker_slug": "OXY",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/OXY/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/OXY/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6517857142857143,
+    "precision": 0.2876712328767123,
+    "ic": 0.3042142601468879,
+    "ic_p_value": 3.5181915134035007e-06,
+    "gap": 0.2459415584415584,
+    "gap_signed": 0.2459415584415584,
+    "gap_abs": 0.2459415584415584,
+    "ic_first": 0.6582683958662887,
+    "ic_second": 0.03004236853794376,
+    "proba_std_test": 0.24078810214996338,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

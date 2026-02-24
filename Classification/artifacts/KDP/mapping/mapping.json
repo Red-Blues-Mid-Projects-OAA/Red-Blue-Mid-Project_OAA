@@ -1,0 +1,21 @@
+{
+  "ticker": "KDP",
+  "benchmark": "SP500",
+  "p_latest": 0.29557745550417797,
+  "signal_raw": -0.40884508899164407,
+  "signal_clipped": -0.40884508899164407,
+  "IC_full": 0.4085821054879351,
+  "sigma_ols": 0.016388052739828015,
+  "sigma_ewma": 0.015948726748380354,
+  "sigma_final": 0.016256254942393716,
+  "TE_annual": 0.25806004696103046,
+  "TE_3M": 0.12592040932718576,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.021034599830913665,
+  "E_alpha_3M_simple": -0.02081491565501359,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

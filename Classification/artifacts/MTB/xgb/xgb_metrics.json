@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T03:48:04",
+  "ticker": "MTB",
+  "ticker_slug": "MTB",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MTB/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MTB/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5758928571428571,
+    "precision": 0.40310077519379844,
+    "ic": 0.15169015588298101,
+    "ic_p_value": 0.023162432771321104,
+    "gap": 0.24683441558441566,
+    "gap_signed": 0.24683441558441566,
+    "gap_abs": 0.24683441558441566,
+    "ic_first": 0.18675470666621108,
+    "ic_second": 0.064962244165784,
+    "proba_std_test": 0.15630751848220825,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

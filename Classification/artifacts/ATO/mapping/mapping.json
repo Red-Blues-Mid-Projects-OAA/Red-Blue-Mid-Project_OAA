@@ -1,0 +1,23 @@
+{
+  "ticker": "ATO",
+  "benchmark": "SP500",
+  "p_latest": 0.5248166531869708,
+  "signal_raw": 0.04963330637394159,
+  "signal_clipped": 0.04963330637394159,
+  "IC_full": -0.6119036942131114,
+  "sigma_ols": 0.012821596623952759,
+  "sigma_ewma": 0.012948259194612797,
+  "sigma_final": 0.01285959539515077,
+  "TE_annual": 0.20413974825888193,
+  "TE_3M": 0.09960999760876904,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.003025235666623769,
+  "E_alpha_3M_simple": -0.003020664252235017,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,23 @@
+{
+  "ticker": "DTE",
+  "benchmark": "SP500",
+  "p_latest": 0.6333532717212451,
+  "signal_raw": 0.26670654344249023,
+  "signal_clipped": 0.26670654344249023,
+  "IC_full": -0.04946401879137306,
+  "sigma_ols": 0.013558937008086667,
+  "sigma_ewma": 0.01578773777738553,
+  "sigma_final": 0.014227577238876327,
+  "TE_annual": 0.22585578679817864,
+  "TE_3M": 0.11020633940609545,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0014538836297618772,
+  "E_alpha_3M_simple": -0.0014528272529691355,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

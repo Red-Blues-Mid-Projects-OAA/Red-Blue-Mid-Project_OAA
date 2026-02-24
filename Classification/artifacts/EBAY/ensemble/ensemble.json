@@ -1,0 +1,50 @@
+{
+  "ticker": "EBAY",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.10091394405295752,
+  "ic_pvalue": 0.13213444538394536,
+  "ic_first_half": 0.04382922745754604,
+  "ic_second_half": 0.154457238528035,
+  "accuracy_ref": 0.36607142857142855,
+  "precision_ref": 1.0,
+  "train_accuracy_ref": 0.6647727272727273,
+  "gap_ref": 0.29870129870129875,
+  "gap_signed_ref": 0.29870129870129875,
+  "gap_abs_ref": 0.29870129870129875,
+  "proba_std_test": 0.06604451205137826,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.25141219419282035,
+    "mean": 0.3794451198296039,
+    "max": 0.5074062881725312
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.3236938483493839,
+    "mean": 0.37356126181077814,
+    "max": 0.42935686008748297
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.383920750266056
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

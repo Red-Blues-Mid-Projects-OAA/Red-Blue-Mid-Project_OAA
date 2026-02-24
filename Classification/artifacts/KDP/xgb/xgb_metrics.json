@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-25T05:11:36",
+  "ticker": "KDP",
+  "ticker_slug": "KDP",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/KDP/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/KDP/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5223214285714286,
+    "precision": 0.32,
+    "ic": 0.10790575162976887,
+    "ic_p_value": 0.10725466731141872,
+    "gap": 0.36858766233766227,
+    "gap_signed": 0.36858766233766227,
+    "gap_abs": 0.36858766233766227,
+    "ic_first": -0.5822427990569583,
+    "ic_second": 0.6662338688509676,
+    "proba_std_test": 0.14173883199691772,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

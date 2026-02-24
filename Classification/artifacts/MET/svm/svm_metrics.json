@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T23:55:36",
+  "ticker": "MET",
+  "ticker_slug": "MET",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MET/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MET/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5848214285714286,
+    "precision": 0.0,
+    "ic": -0.43462096946401885,
+    "ic_p_value": 9.766382153652427e-12,
+    "gap": 0.09598210343740143,
+    "gap_signed": 0.09598210343740143,
+    "gap_abs": 0.09598210343740143,
+    "ic_first": -0.5490398742611132,
+    "ic_second": 0.09281784945501759,
+    "proba_std_test": 0.020441763307861335,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "MLM",
+  "benchmark": "SP500",
+  "p_latest": 0.6296561992020722,
+  "signal_raw": 0.25931239840414433,
+  "signal_clipped": 0.25931239840414433,
+  "IC_full": 0.4155733504163998,
+  "sigma_ols": 0.012903952723488894,
+  "sigma_ewma": 0.02029535366426773,
+  "sigma_final": 0.015121373005722544,
+  "TE_annual": 0.2400443547299228,
+  "TE_3M": 0.11712965164590762,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.012622280390583648,
+  "E_alpha_3M_simple": 0.012702277599780487,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

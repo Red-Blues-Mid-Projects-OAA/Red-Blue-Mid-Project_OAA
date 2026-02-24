@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-25T02:57:54",
+  "ticker": "ROK",
+  "ticker_slug": "ROK",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ROK/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ROK/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.39732142857142855,
+    "precision": 0.6338028169014085,
+    "ic": 0.2474236600469785,
+    "ic_p_value": 0.00018350150288031582,
+    "gap": 0.28676948051948054,
+    "gap_signed": 0.28676948051948054,
+    "gap_abs": 0.28676948051948054,
+    "ic_first": 0.5621519117094339,
+    "ic_second": -0.36875149485768954,
+    "proba_std_test": 0.22159476239432194,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

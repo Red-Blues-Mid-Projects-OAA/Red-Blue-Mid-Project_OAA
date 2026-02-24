@@ -1,0 +1,23 @@
+{
+  "ticker": "ED",
+  "benchmark": "SP500",
+  "p_latest": 0.37162423925689286,
+  "signal_raw": -0.2567515214862143,
+  "signal_clipped": -0.2567515214862143,
+  "IC_full": -0.08975229553704892,
+  "sigma_ols": 0.016155929655125797,
+  "sigma_ewma": 0.01763951611566248,
+  "sigma_final": 0.0166010055932868,
+  "TE_annual": 0.26353279388057493,
+  "TE_3M": 0.12859083638619193,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.002963252176203066,
+  "E_alpha_3M_simple": 0.002967646947799718,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

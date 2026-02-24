@@ -1,0 +1,21 @@
+{
+  "ticker": "CAH",
+  "benchmark": "SP500",
+  "p_latest": 0.14343319954433142,
+  "signal_raw": -0.7131336009113372,
+  "signal_clipped": -0.7131336009113372,
+  "IC_full": 0.01565876574845185,
+  "sigma_ols": 0.017318778061940706,
+  "sigma_ewma": 0.026457683035894464,
+  "sigma_final": 0.020060449554126832,
+  "TE_annual": 0.3184497642502569,
+  "TE_3M": 0.15538757408113446,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0017351807197733674,
+  "E_alpha_3M_simple": -0.0017336761640593945,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

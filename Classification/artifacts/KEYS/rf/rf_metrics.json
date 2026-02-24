@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T01:18:31",
+  "ticker": "KEYS",
+  "ticker_slug": "KEYS",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/KEYS/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/KEYS/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5401785714285714,
+    "precision": 0.36363636363636365,
+    "ic": -0.2492844454471117,
+    "ic_p_value": 0.00016340409278097994,
+    "gap": 0.1484577922077922,
+    "gap_signed": 0.1484577922077922,
+    "gap_abs": 0.1484577922077922,
+    "ic_first": 0.6012710670177596,
+    "ic_second": -0.5616619436193994,
+    "proba_std_test": 0.12075779727022817,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

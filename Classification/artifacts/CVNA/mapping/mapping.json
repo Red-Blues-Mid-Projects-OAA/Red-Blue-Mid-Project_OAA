@@ -1,0 +1,23 @@
+{
+  "ticker": "CVNA",
+  "benchmark": "SP500",
+  "p_latest": 0.5435576770495278,
+  "signal_raw": 0.08711535409905569,
+  "signal_clipped": 0.08711535409905569,
+  "IC_full": -0.6145088618407005,
+  "sigma_ols": 0.04221313649808877,
+  "sigma_ewma": 0.042511463321071565,
+  "sigma_final": 0.042302634544983606,
+  "TE_annual": 0.6715335048532597,
+  "TE_3M": 0.32767479818684014,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.017541466447821508,
+  "E_alpha_3M_simple": -0.017388510587776684,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2215,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

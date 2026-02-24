@@ -1,0 +1,97 @@
+{
+  "best_params": {
+    "C": 8.265431990222861,
+    "kernel": "sigmoid",
+    "probability": true,
+    "random_state": 42,
+    "class_weight": null,
+    "gamma": 0.7396017538517862
+  },
+  "best_score": 1.0887170192099445,
+  "best_trial_number": 86,
+  "best_source": "fallback_objective_best",
+  "n_trials": 100,
+  "stride": 5,
+  "n_models": 5,
+  "optimization_method": "Single Holdout (Target-Aligned Objective)",
+  "created_at": "2026-02-25T06:02:29",
+  "data_end_date": "2025-11-21",
+  "feature_count": 16,
+  "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
+  "split_definition": {
+    "train": [
+      "2021-01-01",
+      "2023-12-31"
+    ],
+    "embargo": [
+      "2024-01-01",
+      "2024-03-31"
+    ],
+    "validation": [
+      "2024-04-01",
+      "2024-09-30"
+    ],
+    "golden_gap": [
+      "2024-10-01",
+      "2024-12-31"
+    ],
+    "test": [
+      "2025-01-01",
+      null
+    ]
+  },
+  "profile": "balanced",
+  "objective_version": "target_aligned_v3_svm_no_class_weight",
+  "cv_mode": "single_holdout_2024Q2Q3",
+  "objective": "deep_target_aligned_v3_fixed_threshold_0.5",
+  "targets": {
+    "accuracy_min": 0.52,
+    "ic_min": 0.05,
+    "gap_max": 0.25,
+    "balance_center": 0.5,
+    "balance_tolerance": 0.15
+  },
+  "selected_metrics": {
+    "accuracy": 0.40123076923076917,
+    "precision": 0.5,
+    "avg_train_acc": 0.6174657836644591,
+    "gap": 0.21623501443368998,
+    "gap_signed": 0.21623501443368998,
+    "gap_abs": 0.21623501443368998,
+    "ic": 0.059008547008547005,
+    "ic_p": 0.4172499076682472,
+    "val_logloss": 0.776406538378239,
+    "val_pos_rate": 0.05415384615384615,
+    "val_proba_std": 0.06123169455319228,
+    "val_proba_unique": 126,
+    "val_pred_unique": 2,
+    "threshold": 0.5,
+    "ic_early": -0.05568356374807988,
+    "ic_late": -0.03184560263032164,
+    "train_val_gap": 0.21623501443368998,
+    "train_val_gap_signed": 0.21623501443368998,
+    "train_val_gap_abs": 0.21623501443368998
+  },
+  "decision_threshold": 0.5,
+  "decision_threshold_metric": "fixed_policy_0.5_validation_accuracy",
+  "decision_threshold_score": 0.4015748031496063,
+  "fit_mode": "train_only",
+  "constraints_satisfied": {
+    "acc_ok": false,
+    "ic_ok": true,
+    "gap_ok": true,
+    "balance_ok": false
+  },
+  "leakage_policy": "test_not_used_in_tuning",
+  "strategy_stage": "default",
+  "direction_mode": "normal",
+  "recency_weight_lambda": 0.0,
+  "class_weight_mode": "none",
+  "gate_objective_version": "target_aligned_v3_svm_no_class_weight",
+  "train_val_gap_signed": 0.21623501443368998,
+  "train_val_gap_abs": 0.21623501443368998,
+  "val_proba_std": 0.06123169455319228,
+  "val_proba_unique": 126,
+  "val_pred_unique": 2,
+  "degenerate_rejected_count": 15
+}

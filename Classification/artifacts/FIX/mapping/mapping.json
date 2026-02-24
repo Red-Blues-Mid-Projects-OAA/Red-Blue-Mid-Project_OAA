@@ -1,0 +1,21 @@
+{
+  "ticker": "FIX",
+  "benchmark": "SP500",
+  "p_latest": 0.5614006433278065,
+  "signal_raw": 0.12280128665561296,
+  "signal_clipped": 0.12280128665561296,
+  "IC_full": 0.5333397394832373,
+  "sigma_ols": 0.02944641420001731,
+  "sigma_ewma": 0.031682532575548726,
+  "sigma_final": 0.030117249712676732,
+  "TE_annual": 0.4780965174778448,
+  "TE_3M": 0.23328721314153422,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.015279100821367242,
+  "E_alpha_3M_simple": 0.015396423046779795,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

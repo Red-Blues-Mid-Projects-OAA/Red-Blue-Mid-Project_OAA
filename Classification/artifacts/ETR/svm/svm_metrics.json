@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T23:21:25",
+  "ticker": "ETR",
+  "ticker_slug": "ETR",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ETR/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ETR/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5,
+    "precision": 0.23333333333333334,
+    "ic": -0.26494554772581685,
+    "ic_p_value": 5.940920775639193e-05,
+    "gap": 0.27956732891832226,
+    "gap_signed": 0.27956732891832226,
+    "gap_abs": 0.27956732891832226,
+    "ic_first": -0.7961697474971812,
+    "ic_second": -0.37939488160727103,
+    "proba_std_test": 0.17410515315545672,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

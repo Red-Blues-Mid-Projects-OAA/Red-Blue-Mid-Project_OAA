@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T04:41:39",
+  "ticker": "HBAN",
+  "ticker_slug": "HBAN",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HBAN/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HBAN/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7142857142857143,
+    "precision": 0.75,
+    "ic": 0.5960687593423021,
+    "ic_p_value": 6.14301330298169e-23,
+    "gap": 0.08701298701298699,
+    "gap_signed": -0.08701298701298699,
+    "gap_abs": 0.08701298701298699,
+    "ic_first": 0.6647076912563639,
+    "ic_second": 0.5399255133768408,
+    "proba_std_test": 0.02802171273731761,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

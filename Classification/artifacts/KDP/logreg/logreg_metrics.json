@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-25T05:15:44",
+  "ticker": "KDP",
+  "ticker_slug": "KDP",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/KDP/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/KDP/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4375,
+    "precision": 0.33532934131736525,
+    "ic": 0.5037625453768952,
+    "ic_p_value": 8.108848112338518e-16,
+    "gap": 0.3954545454545455,
+    "gap_signed": 0.3954545454545455,
+    "gap_abs": 0.3954545454545455,
+    "ic_first": -0.13204291522875597,
+    "ic_second": 0.8571855673625586,
+    "proba_std_test": 0.2765525191697363,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

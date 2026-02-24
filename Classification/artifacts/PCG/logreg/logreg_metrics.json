@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T05:01:42",
+  "ticker": "PCG",
+  "ticker_slug": "PCG",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PCG/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PCG/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.45089285714285715,
+    "precision": 0.35877862595419846,
+    "ic": -0.3735372624386078,
+    "ic_p_value": 7.950019523633264e-09,
+    "gap": 0.19910714285714287,
+    "gap_signed": 0.19910714285714287,
+    "gap_abs": 0.19910714285714287,
+    "ic_first": -0.6223647794444255,
+    "ic_second": 0.11159326203573991,
+    "proba_std_test": 0.10157862158048635,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

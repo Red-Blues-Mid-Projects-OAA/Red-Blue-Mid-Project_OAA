@@ -1,0 +1,21 @@
+{
+  "ticker": "PEG",
+  "benchmark": "SP500",
+  "p_latest": 0.5342301635511628,
+  "signal_raw": 0.06846032710232564,
+  "signal_clipped": 0.06846032710232564,
+  "IC_full": 0.17130365150544524,
+  "sigma_ols": 0.013086159042968734,
+  "sigma_ewma": 0.016562775149886383,
+  "sigma_final": 0.014129143875044027,
+  "TE_annual": 0.2242932055897078,
+  "TE_3M": 0.1094438778484281,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0012835035169815312,
+  "E_alpha_3M_simple": 0.0012843275601370774,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

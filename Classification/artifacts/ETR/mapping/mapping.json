@@ -1,0 +1,21 @@
+{
+  "ticker": "ETR",
+  "benchmark": "SP500",
+  "p_latest": 0.7405150875979539,
+  "signal_raw": 0.48103017519590785,
+  "signal_clipped": 0.48103017519590785,
+  "IC_full": 0.0016431774503523385,
+  "sigma_ols": 0.0150222707715761,
+  "sigma_ewma": 0.014816888897207942,
+  "sigma_final": 0.014960656209265653,
+  "TE_annual": 0.23749305468030726,
+  "TE_3M": 0.11588474469364092,
+  "phi": 1.0,
+  "E_alpha_3M_log": 9.159738080977026e-05,
+  "E_alpha_3M_simple": 9.160157597798424e-05,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

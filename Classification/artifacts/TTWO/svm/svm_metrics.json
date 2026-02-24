@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T04:31:55",
+  "ticker": "TTWO",
+  "ticker_slug": "TTWO",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TTWO/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TTWO/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6785714285714286,
+    "precision": 0.7666666666666667,
+    "ic": 0.12724855861627163,
+    "ic_p_value": 0.05722815913606902,
+    "gap": 0.03818795332702618,
+    "gap_signed": 0.03818795332702618,
+    "gap_abs": 0.03818795332702618,
+    "ic_first": 0.29406840468787376,
+    "ic_second": -0.12126285577613012,
+    "proba_std_test": 0.14662494486012734,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

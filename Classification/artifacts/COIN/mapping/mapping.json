@@ -1,0 +1,21 @@
+{
+  "ticker": "COIN",
+  "benchmark": "SP500",
+  "p_latest": 0.7784383477879951,
+  "signal_raw": 0.5568766955759903,
+  "signal_clipped": 0.5568766955759903,
+  "IC_full": 0.08503950459107411,
+  "sigma_ols": 0.045461834986516826,
+  "sigma_ewma": 0.05546213581325399,
+  "sigma_final": 0.048461925234537975,
+  "TE_annual": 0.7693092133559581,
+  "TE_3M": 0.37538445871702913,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.017776900992558693,
+  "E_alpha_3M_simple": 0.017935850577061485,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1219,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

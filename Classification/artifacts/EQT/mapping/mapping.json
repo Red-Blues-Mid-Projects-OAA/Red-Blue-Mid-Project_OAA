@@ -1,0 +1,23 @@
+{
+  "ticker": "EQT",
+  "benchmark": "SP500",
+  "p_latest": 0.39090233487597936,
+  "signal_raw": -0.21819533024804127,
+  "signal_clipped": -0.21819533024804127,
+  "IC_full": -0.18252509075379034,
+  "sigma_ols": 0.021175548858447735,
+  "sigma_ewma": 0.02170367557016104,
+  "sigma_final": 0.021333986871961724,
+  "TE_annual": 0.338666542420365,
+  "TE_3M": 0.16525235172663086,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.006581360395936879,
+  "E_alpha_3M_simple": 0.006603065137717357,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

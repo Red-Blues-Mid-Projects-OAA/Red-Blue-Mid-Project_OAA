@@ -1,0 +1,23 @@
+{
+  "ticker": "STT",
+  "benchmark": "SP500",
+  "p_latest": 0.5471091754706877,
+  "signal_raw": 0.09421835094137543,
+  "signal_clipped": 0.09421835094137543,
+  "IC_full": -0.1676905829596413,
+  "sigma_ols": 0.012176396601623733,
+  "sigma_ewma": 0.014052117011050181,
+  "sigma_final": 0.012739112724451666,
+  "TE_annual": 0.20222714515510562,
+  "TE_3M": 0.09867674285452059,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0015590461782599712,
+  "E_alpha_3M_simple": -0.0015578314970969842,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

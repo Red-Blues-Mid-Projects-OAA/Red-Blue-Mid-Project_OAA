@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T02:25:22",
+  "ticker": "DAL",
+  "ticker_slug": "DAL",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DAL/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DAL/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6473214285714286,
+    "precision": 0.8089887640449438,
+    "ic": 0.47773756139227,
+    "ic_p_value": 3.578617223433194e-14,
+    "gap": 0.12767857142857142,
+    "gap_signed": 0.12767857142857142,
+    "gap_abs": 0.12767857142857142,
+    "ic_first": 0.8451583694946527,
+    "ic_second": 0.08315679775856767,
+    "proba_std_test": 0.2864773615213856,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

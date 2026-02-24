@@ -1,0 +1,21 @@
+{
+  "ticker": "MTB",
+  "benchmark": "SP500",
+  "p_latest": 0.5664495548310766,
+  "signal_raw": 0.13289910966215324,
+  "signal_clipped": 0.13289910966215324,
+  "IC_full": 0.2451718983557549,
+  "sigma_ols": 0.013912671439643266,
+  "sigma_ewma": 0.011441403452004633,
+  "sigma_final": 0.013171291043351675,
+  "TE_annual": 0.20908776327816597,
+  "TE_3M": 0.1020243817179039,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.003324273387188374,
+  "E_alpha_3M_simple": 0.003329804911699652,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-25T07:01:26",
+  "ticker": "FE",
+  "ticker_slug": "FE",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/FE/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/FE/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6651785714285714,
+    "precision": 0.6483516483516484,
+    "ic": 0.23681400811445658,
+    "ic_p_value": 0.00034959715274959205,
+    "gap": 0.255275974025974,
+    "gap_signed": 0.255275974025974,
+    "gap_abs": 0.255275974025974,
+    "ic_first": 0.49488331567977584,
+    "ic_second": -0.30515597772234937,
+    "proba_std_test": 0.2842892110347748,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

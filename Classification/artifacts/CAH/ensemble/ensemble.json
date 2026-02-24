@@ -1,0 +1,50 @@
+{
+  "ticker": "CAH",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.01565876574845185,
+  "ic_pvalue": 0.8157132155997125,
+  "ic_first_half": 0.03504800628694434,
+  "ic_second_half": 0.17394164075580007,
+  "accuracy_ref": 0.49107142857142855,
+  "precision_ref": 0.6607142857142857,
+  "train_accuracy_ref": 0.7875,
+  "gap_ref": 0.29642857142857143,
+  "gap_signed_ref": 0.29642857142857143,
+  "gap_abs_ref": 0.29642857142857143,
+  "proba_std_test": 0.1804143644827674,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.10569948114185855,
+    "mean": 0.49768273566763105,
+    "max": 0.9090861257609937
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.11130772646104763,
+    "mean": 0.20256213571007484,
+    "max": 0.35472115746993926
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.14343319954433142
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

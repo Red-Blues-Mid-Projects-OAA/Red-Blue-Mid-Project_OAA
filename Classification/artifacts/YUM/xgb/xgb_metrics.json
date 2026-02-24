@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-25T02:02:27",
+  "ticker": "YUM",
+  "ticker_slug": "YUM",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/YUM/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/YUM/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.45535714285714285,
+    "precision": 0.2073170731707317,
+    "ic": -0.397450564515626,
+    "ic_p_value": 6.772340672009851e-10,
+    "gap": 0.35941558441558447,
+    "gap_signed": 0.35941558441558447,
+    "gap_abs": 0.35941558441558447,
+    "ic_first": -0.5182907297119476,
+    "ic_second": 0.35230806027266204,
+    "proba_std_test": 0.21236424148082733,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

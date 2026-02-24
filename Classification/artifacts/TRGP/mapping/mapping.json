@@ -1,0 +1,21 @@
+{
+  "ticker": "TRGP",
+  "benchmark": "SP500",
+  "p_latest": 0.6859432942636292,
+  "signal_raw": 0.3718865885272584,
+  "signal_clipped": 0.3718865885272584,
+  "IC_full": 0.5428635490070468,
+  "sigma_ols": 0.01692827922370272,
+  "sigma_ewma": 0.015331611856668464,
+  "sigma_final": 0.016449279013592444,
+  "TE_annual": 0.2611242090976768,
+  "TE_3M": 0.1274155673535254,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.02572312276987922,
+  "E_alpha_3M_simple": 0.02605681737100074,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

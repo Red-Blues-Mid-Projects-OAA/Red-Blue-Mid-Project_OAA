@@ -1,0 +1,21 @@
+{
+  "ticker": "EA",
+  "benchmark": "SP500",
+  "p_latest": 0.26413641102168345,
+  "signal_raw": -0.4717271779566331,
+  "signal_clipped": -0.4717271779566331,
+  "IC_full": 0.2389579329489644,
+  "sigma_ols": 0.01676360405864882,
+  "sigma_ewma": 0.007342087126197371,
+  "sigma_final": 0.013937148978913384,
+  "TE_annual": 0.22124538110077566,
+  "TE_3M": 0.1079566917778865,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.01216919691630465,
+  "E_alpha_3M_simple": -0.012095451682711977,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

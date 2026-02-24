@@ -1,0 +1,23 @@
+{
+  "ticker": "CCL",
+  "benchmark": "SP500",
+  "p_latest": 0.33771452684469155,
+  "signal_raw": -0.3245709463106169,
+  "signal_clipped": -0.3245709463106169,
+  "IC_full": -0.1985714285714286,
+  "sigma_ols": 0.023982098625195705,
+  "sigma_ewma": 0.02839841317632448,
+  "sigma_final": 0.025306992990534335,
+  "TE_annual": 0.4017360593028518,
+  "TE_3M": 0.19602712478985465,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.012634049437124801,
+  "E_alpha_3M_simple": 0.012714196210153128,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

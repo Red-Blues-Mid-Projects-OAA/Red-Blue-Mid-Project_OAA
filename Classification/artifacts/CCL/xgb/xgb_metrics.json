@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-25T03:00:22",
+  "ticker": "CCL",
+  "ticker_slug": "CCL",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CCL/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CCL/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4107142857142857,
+    "precision": 0.44285714285714284,
+    "ic": -0.2727813367499467,
+    "ic_p_value": 3.495334525851577e-05,
+    "gap": 0.424512987012987,
+    "gap_signed": 0.424512987012987,
+    "gap_abs": 0.424512987012987,
+    "ic_first": -0.4792855434448355,
+    "ic_second": 0.14625687634537193,
+    "proba_std_test": 0.26995351910591125,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

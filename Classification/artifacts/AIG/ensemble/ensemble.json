@@ -1,0 +1,50 @@
+{
+  "ticker": "AIG",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.2329051889814222,
+  "ic_pvalue": 0.0004401467158608794,
+  "ic_first_half": 0.0880513889363447,
+  "ic_second_half": 0.566269176888646,
+  "accuracy_ref": 0.5714285714285714,
+  "precision_ref": 0.2571428571428571,
+  "train_accuracy_ref": 0.7727272727272727,
+  "gap_ref": 0.2012987012987013,
+  "gap_signed_ref": 0.2012987012987013,
+  "gap_abs_ref": 0.2012987012987013,
+  "proba_std_test": 0.09079311009959011,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.30026417029008856,
+    "mean": 0.4575640378608297,
+    "max": 0.7085143629651238
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.4396470669353184,
+    "mean": 0.649108740768569,
+    "max": 0.7863034832080007
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6216703113671316
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "ticker": "MCHP",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.48345989554939717,
+  "ic_pvalue": 1.5993266379049358e-14,
+  "ic_first_half": 0.5224579931813478,
+  "ic_second_half": 0.37172491997240253,
+  "accuracy_ref": 0.5714285714285714,
+  "precision_ref": 0.0,
+  "train_accuracy_ref": 0.8375,
+  "gap_ref": 0.2660714285714286,
+  "gap_signed_ref": 0.2660714285714286,
+  "gap_abs_ref": 0.2660714285714286,
+  "proba_std_test": 0.029130661568842805,
+  "proba_unique_test": 203,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.3724134635310188,
+    "mean": 0.4485015293973519,
+    "max": 0.4928025060674667
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.34232038726066577,
+    "mean": 0.3927653633795789,
+    "max": 0.48113929484598517
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.36179741879496186
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

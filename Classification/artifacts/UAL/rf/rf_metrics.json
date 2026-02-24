@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T03:15:56",
+  "ticker": "UAL",
+  "ticker_slug": "UAL",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/UAL/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/UAL/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6651785714285714,
+    "precision": 0.7572815533980582,
+    "ic": 0.6086600469784327,
+    "ic_p_value": 4.282666809744826e-24,
+    "gap": 0.060957792207792294,
+    "gap_signed": 0.060957792207792294,
+    "gap_abs": 0.060957792207792294,
+    "ic_first": 0.6709604674206445,
+    "ic_second": 0.6025386954590495,
+    "proba_std_test": 0.17396208481530415,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

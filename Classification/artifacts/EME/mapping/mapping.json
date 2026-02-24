@@ -1,0 +1,21 @@
+{
+  "ticker": "EME",
+  "benchmark": "SP500",
+  "p_latest": 0.7828038743429455,
+  "signal_raw": 0.565607748685891,
+  "signal_clipped": 0.565607748685891,
+  "IC_full": 0.771335682254965,
+  "sigma_ols": 0.020887501311118762,
+  "sigma_ewma": 0.02094632668871044,
+  "sigma_final": 0.020905148924396266,
+  "TE_annual": 0.33185895104833163,
+  "TE_3M": 0.16193058726834528,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.07064601414172485,
+  "E_alpha_3M_simple": 0.07320126055183218,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

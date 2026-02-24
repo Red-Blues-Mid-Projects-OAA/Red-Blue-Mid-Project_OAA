@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T00:03:41",
+  "ticker": "EA",
+  "ticker_slug": "EA",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/EA/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/EA/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5669642857142857,
+    "precision": 0.847457627118644,
+    "ic": 0.16990291266406835,
+    "ic_p_value": 0.01085930904227645,
+    "gap": 0.180762987012987,
+    "gap_signed": 0.180762987012987,
+    "gap_abs": 0.180762987012987,
+    "ic_first": 0.5202416570330333,
+    "ic_second": 0.3559942211282455,
+    "proba_std_test": 0.16731105076413558,
+    "proba_unique_test": 200,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

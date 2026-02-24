@@ -1,0 +1,23 @@
+{
+  "ticker": "EBAY",
+  "benchmark": "SP500",
+  "p_latest": 0.383920750266056,
+  "signal_raw": -0.23215849946788802,
+  "signal_clipped": -0.23215849946788802,
+  "IC_full": -0.10091394405295752,
+  "sigma_ols": 0.019890853480891656,
+  "sigma_ewma": 0.026619066221895415,
+  "sigma_final": 0.02190931730319278,
+  "TE_annual": 0.34779962987671453,
+  "TE_3M": 0.16970884208407927,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0039759438142040965,
+  "E_alpha_3M_simple": 0.003983858364603909,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

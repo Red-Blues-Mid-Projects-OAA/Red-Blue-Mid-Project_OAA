@@ -1,0 +1,23 @@
+{
+  "ticker": "PYPL",
+  "benchmark": "SP500",
+  "p_latest": 0.211066756517465,
+  "signal_raw": -0.57786648696507,
+  "signal_clipped": -0.57786648696507,
+  "IC_full": -0.019347640401452065,
+  "sigma_ols": 0.021270505617130175,
+  "sigma_ewma": 0.03976252698457049,
+  "sigma_final": 0.02681811202736227,
+  "TE_annual": 0.42572433034002477,
+  "TE_3M": 0.20773220251739782,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.002322519351503631,
+  "E_alpha_3M_simple": 0.0023252184887676552,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2673,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

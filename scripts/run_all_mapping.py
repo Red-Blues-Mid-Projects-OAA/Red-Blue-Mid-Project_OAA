@@ -19,28 +19,7 @@ def run_all_mapping():
     print("🚀 Final Aggregation: Mapping & CAPM Fallback 🚀")
     print("=" * 80)
 
-    if not os.path.exists(leaderboard_path):
-        print(f"❌ Leaderboard not found: {leaderboard_path}")
-        return
-
-    # 1. Load Leaderboard
-    lb_df = pd.read_csv(leaderboard_path)
-    lb_df.columns = lb_df.columns.str.strip()
-    
-    # Identify failures (Gate_Passed logic)
-    # A ticker passes if it has NO warnings
-    pass_map = {}
-    for _, row in lb_df.iterrows():
-        ticker = str(row['ticker']).strip().upper()
-        warnings = str(row.get('warnings', ''))
-        # If warnings is empty or nan, it passed the gate
-        passed = pd.isna(row.get('warnings')) or warnings.strip() == ""
-        pass_map[ticker] = passed
-
-    # Also handle tickers that might have failed before making it to leaderboard
-    for ticker in TICKERS:
-        if ticker not in pass_map:
-            pass_map[ticker] = False
+    results = []
 
     db = StockDBManager()
     db.connect()
@@ -59,12 +38,14 @@ def run_all_mapping():
         # 3. Process each ticker
         for i, ticker in enumerate(TICKERS):
             ticker = ticker.upper()
-            passed = pass_map.get(ticker, False)
             
             try:
-                if passed:
+                # Try Grinold-Kahn mapping first
+                res = run_mapping(ticker)
+                warnings = res.get("warnings", 0)
+                
+                if warnings == 0:
                     print(f"[{i+1}/{len(TICKERS)}] {ticker}: Gate Passed -> Grinold-Kahn Mapping")
-                    res = run_mapping(ticker)
                     results.append({
                         "Ticker": ticker,
                         "Gate_Passed": True,
@@ -73,27 +54,39 @@ def run_all_mapping():
                         "Warnings": ""
                     })
                 else:
-                    print(f"[{i+1}/{len(TICKERS)}] {ticker}: Gate Failed -> CAPM Fallback")
+                    print(f"[{i+1}/{len(TICKERS)}] {ticker}: Gate Failed (Warnings={warnings}) -> CAPM Fallback")
                     if sp500_df.empty or stock_returns_df.empty:
                         raise ValueError("CAPM required data is missing from DB")
                         
-                    res = run_capm_single(ticker, db, sp500_df, stock_returns_df)
+                    capm_res = run_capm_single(ticker, db, sp500_df, stock_returns_df)
                     results.append({
                         "Ticker": ticker,
                         "Gate_Passed": False,
-                        "Expected_Return_3M": res.get("expected_capm_return_3m_log", 0.0),
+                        "Expected_Return_3M": capm_res.get("expected_capm_return_3m_log", 0.0),
                         "Return_Type": "CAPM",
-                        "Warnings": ""
+                        "Warnings": f"GK Warnings: {warnings}"
                     })
             except Exception as e:
-                print(f"❌ Error processing {ticker}: {e}")
-                results.append({
-                    "Ticker": ticker,
-                    "Gate_Passed": passed,
-                    "Expected_Return_3M": 0.0,
-                    "Return_Type": "Error",
-                    "Warnings": str(e)
-                })
+                # If GK fails (e.g., ensemble.json missing), fallback to CAPM
+                try:
+                    print(f"[{i+1}/{len(TICKERS)}] {ticker}: Error in GK ({e}) -> CAPM Fallback")
+                    capm_res = run_capm_single(ticker, db, sp500_df, stock_returns_df)
+                    results.append({
+                        "Ticker": ticker,
+                        "Gate_Passed": False,
+                        "Expected_Return_3M": capm_res.get("expected_capm_return_3m_log", 0.0),
+                        "Return_Type": "CAPM",
+                        "Warnings": str(e)
+                    })
+                except Exception as capm_e:
+                    print(f"❌ Error processing {ticker} (Both GK & CAPM failed): {capm_e}")
+                    results.append({
+                        "Ticker": ticker,
+                        "Gate_Passed": False,
+                        "Expected_Return_3M": 0.0,
+                        "Return_Type": "Error",
+                        "Warnings": f"GK Error: {e} | CAPM Error: {capm_e}"
+                    })
     finally:
         db.close()
 

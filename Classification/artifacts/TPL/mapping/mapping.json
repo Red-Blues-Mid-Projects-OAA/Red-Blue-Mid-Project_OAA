@@ -1,0 +1,23 @@
+{
+  "ticker": "TPL",
+  "benchmark": "SP500",
+  "p_latest": 0.7305075707959946,
+  "signal_raw": 0.4610151415919892,
+  "signal_clipped": 0.4610151415919892,
+  "IC_full": -0.34896220371556697,
+  "sigma_ols": 0.027317920809954647,
+  "sigma_ewma": 0.033042483407730305,
+  "sigma_final": 0.029035289589287343,
+  "TE_annual": 0.4609209329879823,
+  "TE_3M": 0.22490638606323896,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.03618223312896602,
+  "E_alpha_3M_simple": -0.0355354799195301,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}
