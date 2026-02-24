@@ -1,0 +1,23 @@
+{
+  "ticker": "PCAR",
+  "benchmark": "SP500",
+  "p_latest": 0.47354897073111557,
+  "signal_raw": -0.05290205853776886,
+  "signal_clipped": -0.05290205853776886,
+  "IC_full": -0.21424300661968826,
+  "sigma_ols": 0.014960611673623763,
+  "sigma_ewma": 0.01464976357285596,
+  "sigma_final": 0.014867357243393421,
+  "TE_annual": 0.2360119795126427,
+  "TE_3M": 0.11516205401155787,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0013052347522387094,
+  "E_alpha_3M_simple": 0.0013060869418468624,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

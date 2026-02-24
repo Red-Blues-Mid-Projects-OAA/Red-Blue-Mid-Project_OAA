@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T11:17:11",
+  "ticker": "COR",
+  "ticker_slug": "COR",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\COR\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\COR\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.41517857142857145,
+    "precision": 0.5111111111111111,
+    "ic": -0.047115097159940215,
+    "ic_p_value": 0.4829293989466618,
+    "gap": 0.5170863292336803,
+    "gap_signed": 0.5170863292336803,
+    "gap_abs": 0.5170863292336803,
+    "ic_first": -0.24679673352239728,
+    "ic_second": 0.6277718932586189,
+    "proba_std_test": 0.2558125435682307,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

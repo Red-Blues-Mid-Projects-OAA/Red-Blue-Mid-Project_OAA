@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T10:54:02",
+  "ticker": "TEL",
+  "ticker_slug": "TEL",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TEL\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TEL\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.41517857142857145,
+    "precision": 0.9090909090909091,
+    "ic": 0.362939355114243,
+    "ic_p_value": 2.2255703088644856e-08,
+    "gap": 0.33482142857142855,
+    "gap_signed": 0.33482142857142855,
+    "gap_abs": 0.33482142857142855,
+    "ic_first": 0.5958929852735163,
+    "ic_second": 0.061374585710868894,
+    "proba_std_test": 0.26034325687641763,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

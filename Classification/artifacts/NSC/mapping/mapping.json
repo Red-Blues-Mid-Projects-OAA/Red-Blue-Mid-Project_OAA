@@ -1,0 +1,21 @@
+{
+  "ticker": "NSC",
+  "benchmark": "SP500",
+  "p_latest": 0.3377506429673354,
+  "signal_raw": -0.32449871406532915,
+  "signal_clipped": -0.32449871406532915,
+  "IC_full": 0.26870275464445875,
+  "sigma_ols": 0.013814479224973782,
+  "sigma_ewma": 0.013474814516559016,
+  "sigma_final": 0.01371257981244935,
+  "TE_annual": 0.21768045610119424,
+  "TE_3M": 0.10621718649431272,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.009261469318551832,
+  "E_alpha_3M_simple": -0.009218714005729156,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "COR",
+  "benchmark": "SP500",
+  "p_latest": 0.3606467104018222,
+  "signal_raw": -0.27870657919635555,
+  "signal_clipped": -0.27870657919635555,
+  "IC_full": 0.08809737347853941,
+  "sigma_ols": 0.016649638777147473,
+  "sigma_ewma": 0.024151290159086777,
+  "sigma_final": 0.018900134191729263,
+  "TE_annual": 0.3000303289023864,
+  "TE_3M": 0.14639980993130564,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.003594601029586905,
+  "E_alpha_3M_simple": -0.0035881481854215247,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

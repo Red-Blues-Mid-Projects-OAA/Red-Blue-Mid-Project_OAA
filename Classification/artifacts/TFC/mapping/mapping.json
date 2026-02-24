@@ -1,0 +1,21 @@
+{
+  "ticker": "TFC",
+  "benchmark": "SP500",
+  "p_latest": 0.417161157414234,
+  "signal_raw": -0.16567768517153203,
+  "signal_clipped": -0.16567768517153203,
+  "IC_full": 0.1601889814221653,
+  "sigma_ols": 0.013409333856275244,
+  "sigma_ewma": 0.013836808100778985,
+  "sigma_final": 0.013537576129626364,
+  "TE_annual": 0.21490235876157396,
+  "TE_3M": 0.10486161379611594,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.002782999927541294,
+  "E_alpha_3M_simple": -0.002779130973175059,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

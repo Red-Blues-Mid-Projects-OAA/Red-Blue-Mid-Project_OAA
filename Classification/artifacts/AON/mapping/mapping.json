@@ -1,0 +1,21 @@
+{
+  "ticker": "AON",
+  "benchmark": "SP500",
+  "p_latest": 0.8372834128416096,
+  "signal_raw": 0.6745668256832191,
+  "signal_clipped": 0.6745668256832191,
+  "IC_full": 0.2626948537262439,
+  "sigma_ols": 0.015094621968585267,
+  "sigma_ewma": 0.025911347997863342,
+  "sigma_final": 0.018339639777368688,
+  "TE_annual": 0.29113275591255316,
+  "TE_3M": 0.14205823886638408,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.02517346340332532,
+  "E_alpha_3M_simple": 0.025492990601244436,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

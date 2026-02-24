@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T10:42:36",
+  "ticker": "RSG",
+  "ticker_slug": "RSG",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\RSG\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\RSG\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.29017857142857145,
+    "precision": 0.29017857142857145,
+    "ic": 0.10097693786034594,
+    "ic_p_value": 0.13189199196584825,
+    "gap": 0.40172429832860285,
+    "gap_signed": 0.40172429832860285,
+    "gap_abs": 0.40172429832860285,
+    "ic_first": 0.3314056787508115,
+    "ic_second": 0.7506919055591622,
+    "proba_std_test": 0.07710010206194301,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

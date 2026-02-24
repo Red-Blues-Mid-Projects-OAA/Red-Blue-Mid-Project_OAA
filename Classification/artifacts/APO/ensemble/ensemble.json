@@ -1,0 +1,50 @@
+{
+  "ticker": "APO",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.1783867179158659,
+  "ic_pvalue": 0.007441510314343772,
+  "ic_first_half": 0.49570335189804227,
+  "ic_second_half": -0.02103051218095466,
+  "accuracy_ref": 0.24107142857142858,
+  "precision_ref": 0.18660287081339713,
+  "train_accuracy_ref": 0.7204545454545455,
+  "gap_ref": 0.47938311688311686,
+  "gap_signed_ref": 0.47938311688311686,
+  "gap_abs_ref": 0.47938311688311686,
+  "proba_std_test": 0.12779660414971455,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.38239368531514767,
+    "mean": 0.752873191683262,
+    "max": 0.872003390573687
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.6917846431496458,
+    "mean": 0.7998578964108544,
+    "max": 0.8539170551558244
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.8155418696843528
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

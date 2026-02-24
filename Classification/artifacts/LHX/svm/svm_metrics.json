@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T10:24:54",
+  "ticker": "LHX",
+  "ticker_slug": "LHX",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LHX\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LHX\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.44642857142857145,
+    "precision": 0.8181818181818182,
+    "ic": 0.27671364509929536,
+    "ic_p_value": 2.661907710509797e-05,
+    "gap": 0.18038820561337116,
+    "gap_signed": 0.18038820561337116,
+    "gap_abs": 0.18038820561337116,
+    "ic_first": 0.7747633853828545,
+    "ic_second": 0.37878839648751156,
+    "proba_std_test": 0.1005438634931651,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

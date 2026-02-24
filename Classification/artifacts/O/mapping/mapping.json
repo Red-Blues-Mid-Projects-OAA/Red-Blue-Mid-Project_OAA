@@ -1,0 +1,23 @@
+{
+  "ticker": "O",
+  "benchmark": "SP500",
+  "p_latest": 0.3454337721818608,
+  "signal_raw": -0.30913245563627845,
+  "signal_clipped": -0.30913245563627845,
+  "IC_full": -0.13022528293828742,
+  "sigma_ols": 0.013638458629968224,
+  "sigma_ewma": 0.015063038558838518,
+  "sigma_final": 0.01406583260862931,
+  "TE_annual": 0.2232881703929764,
+  "TE_3M": 0.10895347088752509,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0043861247875333215,
+  "E_alpha_3M_simple": 0.004395757911738185,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

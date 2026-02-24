@@ -1,0 +1,21 @@
+{
+  "ticker": "WBD",
+  "benchmark": "SP500",
+  "p_latest": 0.2811322535542745,
+  "signal_raw": -0.437735492891451,
+  "signal_clipped": -0.437735492891451,
+  "IC_full": 0.13323937646807607,
+  "sigma_ols": 0.03040288970362441,
+  "sigma_ewma": 0.013593342172848648,
+  "sigma_final": 0.02536002544439168,
+  "TE_annual": 0.402577923408784,
+  "TE_3M": 0.19643791241105066,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.011456967039743447,
+  "E_alpha_3M_simple": -0.011391585920851655,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

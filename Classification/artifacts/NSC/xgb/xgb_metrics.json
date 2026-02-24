@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T11:23:43",
+  "ticker": "NSC",
+  "ticker_slug": "NSC",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NSC\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NSC\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5267857142857143,
+    "precision": 0.6818181818181818,
+    "ic": 0.026645312833653644,
+    "ic_p_value": 0.6916404489848602,
+    "gap": 0.27775974025974026,
+    "gap_signed": 0.27775974025974026,
+    "gap_abs": 0.27775974025974026,
+    "ic_first": -0.22568934294598011,
+    "ic_second": 0.04655413947449346,
+    "proba_std_test": 0.23128727078437805,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

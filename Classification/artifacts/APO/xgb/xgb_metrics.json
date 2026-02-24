@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T11:01:15",
+  "ticker": "APO",
+  "ticker_slug": "APO",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APO\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APO\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.2857142857142857,
+    "precision": 0.19597989949748743,
+    "ic": -0.07663527204159085,
+    "ic_p_value": 0.25335622676265607,
+    "gap": 0.40974025974025974,
+    "gap_signed": 0.40974025974025974,
+    "gap_abs": 0.40974025974025974,
+    "ic_first": 0.4008354208404606,
+    "ic_second": -0.6307445245498343,
+    "proba_std_test": 0.13684123754501343,
+    "proba_unique_test": 219,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T11:46:25",
+  "ticker": "VLO",
+  "ticker_slug": "VLO",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\VLO\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\VLO\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3392857142857143,
+    "precision": 0.5041322314049587,
+    "ic": -0.14138666178399453,
+    "ic_p_value": 0.03444031790028357,
+    "gap": 0.3243506493506494,
+    "gap_signed": 0.3243506493506494,
+    "gap_abs": 0.3243506493506494,
+    "ic_first": 0.48831751257418166,
+    "ic_second": 0.4021167184883999,
+    "proba_std_test": 0.11464590152258074,
+    "proba_unique_test": 219,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

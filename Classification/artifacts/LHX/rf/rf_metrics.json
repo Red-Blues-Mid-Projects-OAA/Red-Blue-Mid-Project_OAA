@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T10:24:56",
+  "ticker": "LHX",
+  "ticker_slug": "LHX",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LHX\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LHX\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.2857142857142857,
+    "precision": 0.6063829787234043,
+    "ic": -0.18090923601819578,
+    "ic_p_value": 0.006629763201482887,
+    "gap": 0.3551948051948052,
+    "gap_signed": 0.3551948051948052,
+    "gap_abs": 0.3551948051948052,
+    "ic_first": 0.5879403423651212,
+    "ic_second": 0.041177098682759664,
+    "proba_std_test": 0.05457434186272924,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

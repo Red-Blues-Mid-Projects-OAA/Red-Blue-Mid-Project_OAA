@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T11:01:15",
+  "ticker": "APO",
+  "ticker_slug": "APO",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APO\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APO\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.21875,
+    "precision": 0.1822429906542056,
+    "ic": 0.43404548366431783,
+    "ic_p_value": 1.0470950252488602e-11,
+    "gap": 0.5115899558498896,
+    "gap_signed": 0.5115899558498896,
+    "gap_abs": 0.5115899558498896,
+    "ic_first": 0.47712440632794617,
+    "ic_second": 0.6921618204804046,
+    "proba_std_test": 0.12741967862548856,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "DLR",
+  "benchmark": "SP500",
+  "p_latest": 0.41930816200676946,
+  "signal_raw": -0.16138367598646108,
+  "signal_clipped": -0.16138367598646108,
+  "IC_full": 0.15710442024343374,
+  "sigma_ols": 0.014653840734479232,
+  "sigma_ewma": 0.016234878866831063,
+  "sigma_final": 0.01512815217418478,
+  "TE_annual": 0.24015197069300412,
+  "TE_3M": 0.11718216285901836,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0029710469690682304,
+  "E_alpha_3M_simple": -0.0029666377767421093,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

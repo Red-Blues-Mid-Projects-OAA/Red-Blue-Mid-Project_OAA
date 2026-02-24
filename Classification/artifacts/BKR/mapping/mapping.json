@@ -1,0 +1,21 @@
+{
+  "ticker": "BKR",
+  "benchmark": "SP500",
+  "p_latest": 0.3081946906833799,
+  "signal_raw": -0.3836106186332402,
+  "signal_clipped": -0.3836106186332402,
+  "IC_full": 0.43671044202434345,
+  "sigma_ols": 0.017435465080419262,
+  "sigma_ewma": 0.01854494825408094,
+  "sigma_final": 0.017768310032517765,
+  "TE_annual": 0.28206317738361597,
+  "TE_3M": 0.13763273769238293,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.023057167004836444,
+  "E_alpha_3M_simple": -0.02279338179901036,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}
