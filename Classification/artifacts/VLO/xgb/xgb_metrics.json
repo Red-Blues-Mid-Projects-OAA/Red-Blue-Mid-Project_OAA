@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T20:04:42",
+  "ticker": "VLO",
+  "ticker_slug": "VLO",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/VLO/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/VLO/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5803571428571429,
+    "precision": 0.7310924369747899,
+    "ic": -0.013889608098233934,
+    "ic_p_value": 0.8362226371345848,
+    "gap": 0.30373376623376613,
+    "gap_signed": 0.30373376623376613,
+    "gap_abs": 0.30373376623376613,
+    "ic_first": 0.13576782625532252,
+    "ic_second": 0.3742440291112858,
+    "proba_std_test": 0.2854233384132385,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

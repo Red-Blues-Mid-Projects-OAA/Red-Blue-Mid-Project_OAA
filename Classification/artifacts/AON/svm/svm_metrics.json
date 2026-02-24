@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T18:09:09",
+  "ticker": "AON",
+  "ticker_slug": "AON",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AON/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AON/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.29910714285714285,
+    "precision": 0.07547169811320754,
+    "ic": 0.3320275464445869,
+    "ic_p_value": 3.6459924386202657e-07,
+    "gap": 0.5242570955534531,
+    "gap_signed": 0.5242570955534531,
+    "gap_abs": 0.5242570955534531,
+    "ic_first": 0.48304404277855606,
+    "ic_second": 0.4946868486691495,
+    "proba_std_test": 0.2921116824102458,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

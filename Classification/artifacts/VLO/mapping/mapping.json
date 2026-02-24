@@ -1,0 +1,23 @@
+{
+  "ticker": "VLO",
+  "benchmark": "SP500",
+  "p_latest": 0.3548798314322616,
+  "signal_raw": -0.2902403371354768,
+  "signal_clipped": -0.2902403371354768,
+  "IC_full": -0.09873265001067694,
+  "sigma_ols": 0.01988938108618784,
+  "sigma_ewma": 0.021284717533291142,
+  "sigma_final": 0.02030798202031883,
+  "TE_annual": 0.32237922033200805,
+  "TE_3M": 0.15730495231954897,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.004507761801119645,
+  "E_alpha_3M_simple": 0.00451793704279102,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

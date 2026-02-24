@@ -1,0 +1,23 @@
+{
+  "ticker": "AZO",
+  "benchmark": "SP500",
+  "p_latest": 0.6650761261795228,
+  "signal_raw": 0.33015225235904566,
+  "signal_clipped": 0.33015225235904566,
+  "IC_full": -0.1322603032244288,
+  "sigma_ols": 0.015641200310633624,
+  "sigma_ewma": 0.016195570260516316,
+  "sigma_final": 0.01580751129559843,
+  "TE_annual": 0.25093646240998724,
+  "TE_3M": 0.1224444559856767,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00534666414640138,
+  "E_alpha_3M_simple": -0.005332396177659016,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

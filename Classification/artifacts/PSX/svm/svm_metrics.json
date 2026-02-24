@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T20:24:36",
+  "ticker": "PSX",
+  "ticker_slug": "PSX",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PSX/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PSX/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.48660714285714285,
+    "precision": 0.4948453608247423,
+    "ic": -0.39262545376895164,
+    "ic_p_value": 1.1311714667840325e-09,
+    "gap": 0.08985201829076,
+    "gap_signed": 0.08985201829076,
+    "gap_abs": 0.08985201829076,
+    "ic_first": -0.3954966344346875,
+    "ic_second": -0.018057880889739298,
+    "proba_std_test": 0.09617271051474248,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

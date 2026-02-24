@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T18:05:15",
+  "ticker": "APO",
+  "ticker_slug": "APO",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/APO/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/APO/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.25,
+    "precision": 0.18840579710144928,
+    "ic": 0.40408071748878926,
+    "ic_p_value": 3.3014547475779004e-10,
+    "gap": 0.4636363636363636,
+    "gap_signed": 0.4636363636363636,
+    "gap_abs": 0.4636363636363636,
+    "ic_first": 0.43151843373082316,
+    "ic_second": 0.6235606655960639,
+    "proba_std_test": 0.1769553597886592,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

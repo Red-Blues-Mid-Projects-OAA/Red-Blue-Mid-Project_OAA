@@ -1,0 +1,21 @@
+{
+  "ticker": "AEP",
+  "benchmark": "SP500",
+  "p_latest": 0.48570610738418446,
+  "signal_raw": -0.02858778523163108,
+  "signal_clipped": -0.02858778523163108,
+  "IC_full": 0.06241618620542389,
+  "sigma_ols": 0.015319884037712216,
+  "sigma_ewma": 0.01718591571334135,
+  "sigma_final": 0.015879693540400957,
+  "TE_annual": 0.25208232002291847,
+  "TE_3M": 0.12300357724970082,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00021948026775644636,
+  "E_alpha_3M_simple": -0.00021945618372454234,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

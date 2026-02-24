@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T19:42:20",
+  "ticker": "BKR",
+  "ticker_slug": "BKR",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BKR/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BKR/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7008928571428571,
+    "precision": 0.725,
+    "ic": 0.42004697843262867,
+    "ic_p_value": 5.477162794936973e-11,
+    "gap": 0.05251623376623382,
+    "gap_signed": 0.05251623376623382,
+    "gap_abs": 0.05251623376623382,
+    "ic_first": 0.6414647896948782,
+    "ic_second": 0.006329654559743055,
+    "proba_std_test": 0.08979937606828578,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

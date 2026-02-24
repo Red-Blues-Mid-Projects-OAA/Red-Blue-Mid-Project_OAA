@@ -1,0 +1,21 @@
+{
+  "ticker": "APO",
+  "benchmark": "SP500",
+  "p_latest": 0.8060244907776197,
+  "signal_raw": 0.6120489815552395,
+  "signal_clipped": 0.6120489815552395,
+  "IC_full": 0.15450032030749522,
+  "sigma_ols": 0.018388479429225526,
+  "sigma_ewma": 0.023489486010519207,
+  "sigma_final": 0.01991878140361363,
+  "TE_annual": 0.31620085208051846,
+  "TE_3M": 0.15429021730588316,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.014589955069199632,
+  "E_alpha_3M_simple": 0.014696907976675222,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

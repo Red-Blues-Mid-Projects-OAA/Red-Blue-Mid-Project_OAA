@@ -1,0 +1,50 @@
+{
+  "ticker": "ROST",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.38528080290412137,
+  "ic_pvalue": 2.431221296864082e-09,
+  "ic_first_half": 0.19160658762428673,
+  "ic_second_half": -0.36970820377900027,
+  "accuracy_ref": 0.29464285714285715,
+  "precision_ref": 0.38461538461538464,
+  "train_accuracy_ref": 0.925,
+  "gap_ref": 0.6303571428571428,
+  "gap_signed_ref": 0.6303571428571428,
+  "gap_abs_ref": 0.6303571428571428,
+  "proba_std_test": 0.14347938742961538,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.1437812110423298,
+    "mean": 0.3380486399500756,
+    "max": 0.7747742596366849
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.14161976317364666,
+    "mean": 0.2669324860654874,
+    "max": 0.3914103959506185
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.33711769032111705
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

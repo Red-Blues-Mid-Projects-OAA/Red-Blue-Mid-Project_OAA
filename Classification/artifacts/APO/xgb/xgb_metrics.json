@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T17:59:56",
+  "ticker": "APO",
+  "ticker_slug": "APO",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/APO/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/APO/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.32142857142857145,
+    "precision": 0.19786096256684493,
+    "ic": -0.06864918437374831,
+    "ic_p_value": 0.3063523471527945,
+    "gap": 0.3967532467532467,
+    "gap_signed": 0.3967532467532467,
+    "gap_abs": 0.3967532467532467,
+    "ic_first": 0.4307311190119068,
+    "ic_second": -0.5960450167692694,
+    "proba_std_test": 0.15063123404979706,
+    "proba_unique_test": 214,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}
