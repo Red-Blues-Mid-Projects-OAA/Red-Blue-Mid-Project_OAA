@@ -1,0 +1,23 @@
+{
+  "ticker": "BAC",
+  "benchmark": "SP500",
+  "p_latest": 0.5867310830188683,
+  "signal_raw": 0.17346216603773668,
+  "signal_clipped": 0.17346216603773668,
+  "IC_full": -0.14354046551355973,
+  "sigma_ols": 0.012472766050168994,
+  "sigma_ewma": 0.012332002222312856,
+  "sigma_final": 0.012430536901812152,
+  "TE_annual": 0.19732865583123765,
+  "TE_3M": 0.09628652481027042,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.002397422781381254,
+  "E_alpha_3M_simple": -0.0023945512585946682,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

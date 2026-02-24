@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T07:12:42",
+  "ticker": "VRTX",
+  "ticker_slug": "VRTX",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/VRTX/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/VRTX/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.33482142857142855,
+    "precision": 0.25773195876288657,
+    "ic": -0.30787644348614257,
+    "ic_p_value": 2.644288990746373e-06,
+    "gap": 0.319724025974026,
+    "gap_signed": 0.319724025974026,
+    "gap_abs": 0.319724025974026,
+    "ic_first": -0.15256123056982582,
+    "ic_second": -0.3640789968223596,
+    "proba_std_test": 0.13898141473250158,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

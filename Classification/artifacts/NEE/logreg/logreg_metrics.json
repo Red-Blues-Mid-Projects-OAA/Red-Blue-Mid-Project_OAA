@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T03:16:53",
+  "ticker": "NEE",
+  "ticker_slug": "NEE",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NEE/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NEE/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.32142857142857145,
+    "precision": 0.1590909090909091,
+    "ic": 0.08915118513773225,
+    "ic_p_value": 0.18369080612756333,
+    "gap": 0.3797077922077922,
+    "gap_signed": 0.3797077922077922,
+    "gap_abs": 0.3797077922077922,
+    "ic_first": -0.08701780161957154,
+    "ic_second": 0.7094252912836984,
+    "proba_std_test": 0.12450549381716654,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

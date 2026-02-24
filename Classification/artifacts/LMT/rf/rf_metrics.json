@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T05:08:08",
+  "ticker": "LMT",
+  "ticker_slug": "LMT",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/LMT/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/LMT/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5401785714285714,
+    "precision": 0.0,
+    "ic": 0.13793129746769098,
+    "ic_p_value": 0.039142432413130625,
+    "gap": 0.05073051948051954,
+    "gap_signed": 0.05073051948051954,
+    "gap_abs": 0.05073051948051954,
+    "ic_first": 0.5616910609506051,
+    "ic_second": -0.19780763712095414,
+    "proba_std_test": 0.006478805327119658,
+    "proba_unique_test": 133,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

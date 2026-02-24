@@ -1,0 +1,23 @@
+{
+  "ticker": "VRTX",
+  "benchmark": "SP500",
+  "p_latest": 0.6395281211852576,
+  "signal_raw": 0.2790562423705152,
+  "signal_clipped": 0.2790562423705152,
+  "IC_full": -0.32287102284860136,
+  "sigma_ols": 0.019154038124657068,
+  "sigma_ewma": 0.01988361921638714,
+  "sigma_final": 0.019372912452176087,
+  "TE_annual": 0.3075354511169065,
+  "TE_3M": 0.15006193458962455,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.01352045641636069,
+  "E_alpha_3M_simple": -0.013429465586312528,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

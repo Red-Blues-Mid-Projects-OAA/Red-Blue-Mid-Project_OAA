@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T00:38:34",
+  "ticker": "CSCO",
+  "ticker_slug": "CSCO",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CSCO/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CSCO/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.39732142857142855,
+    "precision": 0.5454545454545454,
+    "ic": 0.06826073030108906,
+    "ic_p_value": 0.30910388628090374,
+    "gap": 0.3242694805194805,
+    "gap_signed": 0.3242694805194805,
+    "gap_abs": 0.3242694805194805,
+    "ic_first": -0.13736460860354666,
+    "ic_second": 0.27321727542966484,
+    "proba_std_test": 0.06558351787015888,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

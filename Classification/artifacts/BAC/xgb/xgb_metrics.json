@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T23:26:14",
+  "ticker": "BAC",
+  "ticker_slug": "BAC",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BAC/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BAC/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4375,
+    "precision": 0.5555555555555556,
+    "ic": -0.03171739048617198,
+    "ic_p_value": 0.6368087190622413,
+    "gap": 0.23636363636363633,
+    "gap_signed": 0.23636363636363633,
+    "gap_abs": 0.23636363636363633,
+    "ic_first": -0.1606334793317791,
+    "ic_second": 0.0866077835104384,
+    "proba_std_test": 0.11479306221008301,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

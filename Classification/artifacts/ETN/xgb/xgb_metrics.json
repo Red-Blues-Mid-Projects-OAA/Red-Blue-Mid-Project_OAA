@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T05:34:16",
+  "ticker": "ETN",
+  "ticker_slug": "ETN",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ETN/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ETN/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4107142857142857,
+    "precision": 0.3944954128440367,
+    "ic": 0.2589110927349786,
+    "ic_p_value": 8.840003933471351e-05,
+    "gap": 0.4438311688311688,
+    "gap_signed": 0.4438311688311688,
+    "gap_abs": 0.4438311688311688,
+    "ic_first": 0.19638669998257155,
+    "ic_second": 0.43748078040113436,
+    "proba_std_test": 0.11122257262468338,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

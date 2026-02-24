@@ -1,0 +1,21 @@
+{
+  "ticker": "PLD",
+  "benchmark": "SP500",
+  "p_latest": 0.7328311187550056,
+  "signal_raw": 0.46566223751001123,
+  "signal_clipped": 0.46566223751001123,
+  "IC_full": 0.229632714072176,
+  "sigma_ols": 0.014410442105025846,
+  "sigma_ewma": 0.01593900438644637,
+  "sigma_final": 0.014869010789452002,
+  "TE_annual": 0.2360382287425571,
+  "TE_3M": 0.11517486232425202,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.012315795848397435,
+  "E_alpha_3M_simple": 0.012391947563967998,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

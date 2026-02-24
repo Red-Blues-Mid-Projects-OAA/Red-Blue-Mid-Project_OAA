@@ -1,25 +1,26 @@
 {
   "best_params": {
-    "n_estimators": 169,
+    "n_estimators": 260,
     "max_depth": 2,
-    "min_samples_split": 117,
-    "min_samples_leaf": 20,
-    "max_features": 0.6717998470713852,
-    "ccp_alpha": 0.026343420749770797
+    "min_samples_split": 95,
+    "min_samples_leaf": 24,
+    "max_features": 0.3634964670082522,
+    "ccp_alpha": 0.0207500461495359,
+    "class_weight": null
   },
   "common_params": {
     "random_state": 42,
     "n_jobs": -1
   },
-  "best_logloss": 0.642354790593858,
-  "best_objective_score": 0.7098012960736606,
-  "best_trial_number": 74,
+  "best_logloss": 0.6366207690179965,
+  "best_objective_score": 1.2128960996410758,
+  "best_trial_number": 12,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T17:02:29",
-  "data_end_date": "2025-11-18",
+  "created_at": "2026-02-23T21:07:42",
+  "data_end_date": "2025-11-21",
   "feature_count": 16,
-  "feature_hash": "b32ca6d5d067f02c2de978750286af811c5a77de97ba2fa3fd3462d1f8cf47f9",
+  "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
   "split_definition": {
     "train": [
       "2021-01-01",
@@ -45,10 +46,26 @@
   "profile": "balanced",
   "objective_version": "target_aligned_v3_rf_no_class_weight",
   "cv_mode": "single_holdout_2024Q2Q3",
+  "strategy_stage": "default",
+  "direction_mode": "normal",
+  "recency_weight_lambda": 0.0,
+  "class_weight_mode": "none",
+  "gate_objective_version": "target_aligned_v3_rf_no_class_weight",
+  "train_val_gap_signed": 0.026874130773493987,
+  "train_val_gap_abs": 0.026874130773493987,
+  "val_proba_std": 0.04642975515851777,
+  "val_proba_unique": 127,
+  "val_pred_unique": 2,
+  "degenerate_rejected_count": 32,
   "selected_metrics": {
-    "validation_accuracy": 0.7007874015748031,
-    "validation_ic": 0.0,
-    "validation_logloss": 0.642354790593858,
-    "train_val_gap": -0.1297382647886145
+    "validation_accuracy": 0.6929133858267716,
+    "validation_ic": -0.2500468691413573,
+    "validation_logloss": 0.6366207690179965,
+    "train_val_gap": 0.026874130773493987,
+    "train_val_gap_signed": 0.026874130773493987,
+    "train_val_gap_abs": 0.026874130773493987,
+    "val_proba_std": 0.04642975515851777,
+    "val_proba_unique": 127,
+    "val_pred_unique": 2
   }
 }

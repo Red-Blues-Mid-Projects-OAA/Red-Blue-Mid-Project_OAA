@@ -1,0 +1,21 @@
+{
+  "ticker": "APP",
+  "benchmark": "SP500",
+  "p_latest": 0.587200674659071,
+  "signal_raw": 0.174401349318142,
+  "signal_clipped": 0.174401349318142,
+  "IC_full": 0.07554879350843477,
+  "sigma_ols": 0.046029005545749305,
+  "sigma_ewma": 0.07358392968146639,
+  "sigma_final": 0.05429548278646443,
+  "TE_annual": 0.8619140686030391,
+  "TE_3M": 0.42057100121253643,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.005541364245794257,
+  "E_alpha_3M_simple": 0.0055567460034957605,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1218,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

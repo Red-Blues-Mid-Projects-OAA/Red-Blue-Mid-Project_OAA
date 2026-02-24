@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T06:18:48",
+  "ticker": "BKNG",
+  "ticker_slug": "BKNG",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BKNG/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BKNG/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6741071428571429,
+    "precision": 0.5221238938053098,
+    "ic": 0.3410536419536878,
+    "ic_p_value": 1.662156433404649e-07,
+    "gap": 0.009983766233766178,
+    "gap_signed": 0.009983766233766178,
+    "gap_abs": 0.009983766233766178,
+    "ic_first": 0.7418145165005368,
+    "ic_second": 0.3022345986947757,
+    "proba_std_test": 0.11660399534626603,
+    "proba_unique_test": 220,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

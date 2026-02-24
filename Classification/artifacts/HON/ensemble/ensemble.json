@@ -1,0 +1,50 @@
+{
+  "ticker": "HON",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.27182468503096313,
+  "ic_pvalue": 3.732455912322899e-05,
+  "ic_first_half": 0.11983633443810436,
+  "ic_second_half": 0.3442870810127448,
+  "accuracy_ref": 0.6830357142857143,
+  "precision_ref": 0.8181818181818182,
+  "train_accuracy_ref": 0.8170454545454545,
+  "gap_ref": 0.13400974025974022,
+  "gap_signed_ref": 0.13400974025974022,
+  "gap_abs_ref": 0.13400974025974022,
+  "proba_std_test": 0.08919057579103484,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.23840944571508058,
+    "mean": 0.3947165355923709,
+    "max": 0.6188476898948075
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.21377133370917706,
+    "mean": 0.3090704175478372,
+    "max": 0.5158826820116641
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.22796025747198062
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

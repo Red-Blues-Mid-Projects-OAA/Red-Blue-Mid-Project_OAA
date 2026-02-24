@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T02:18:23",
+  "ticker": "PEP",
+  "ticker_slug": "PEP",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PEP/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PEP/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5803571428571429,
+    "precision": 0.3157894736842105,
+    "ic": -0.13618855891843046,
+    "ic_p_value": 0.04171246033782681,
+    "gap": 0.09237012987012982,
+    "gap_signed": 0.09237012987012982,
+    "gap_abs": 0.09237012987012982,
+    "ic_first": -0.49480212187989214,
+    "ic_second": 0.372011873495182,
+    "proba_std_test": 0.08345497984489818,
+    "proba_unique_test": 218,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

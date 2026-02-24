@@ -1,20 +1,23 @@
 {
   "ticker": "NVDA",
   "benchmark": "SP500",
-  "p_latest": 0.7741561258062276,
-  "signal_raw": 0.5483122516124552,
-  "signal_clipped": 0.5483122516124552,
-  "IC_full": -0.7438736144618496,
-  "TE_annual": 0.32183590365647724,
-  "TE_3M": 0.15703984092790663,
+  "p_latest": 0.8738095919468603,
+  "signal_raw": 0.7476191838937205,
+  "signal_clipped": 0.7476191838937205,
+  "IC_full": -0.748209481101858,
+  "sigma_ols": 0.02586640314888842,
+  "sigma_ewma": 0.01813493489733321,
+  "sigma_final": 0.023546962673421858,
+  "TE_annual": 0.3737964441887692,
+  "TE_3M": 0.1823939885758611,
   "phi": 1.0,
-  "E_alpha_3M_log": -0.06405262770345126,
-  "E_alpha_3M_simple": -0.06204436421925985,
+  "E_alpha_3M_log": -0.10202677627871148,
+  "E_alpha_3M_simple": -0.0969946277783641,
   "warnings": [
     "예측력 부재/역방향 가능성: IC_full <= 0"
   ],
   "lookback_days_requested": 252,
-  "lookback_days_used": 252,
+  "lookback_days_used": 2799,
   "horizon_days": 60,
-  "latest_trade_date": "2026-02-17"
+  "latest_trade_date": "2026-02-20"
 }

@@ -1,0 +1,21 @@
+{
+  "ticker": "PANW",
+  "benchmark": "SP500",
+  "p_latest": 0.8215385016993337,
+  "signal_raw": 0.6430770033986675,
+  "signal_clipped": 0.6430770033986675,
+  "IC_full": 0.542483450779415,
+  "sigma_ols": 0.023169329262326427,
+  "sigma_ewma": 0.02637809951332665,
+  "sigma_final": 0.02413196033762649,
+  "TE_annual": 0.38308299421100395,
+  "TE_3M": 0.18692536099793064,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.06521052570900138,
+  "E_alpha_3M_simple": 0.06738371244489505,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

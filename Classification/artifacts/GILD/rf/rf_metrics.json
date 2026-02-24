@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T03:28:43",
+  "ticker": "GILD",
+  "ticker_slug": "GILD",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GILD/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GILD/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5178571428571429,
+    "precision": 0.5,
+    "ic": -0.20526667707834723,
+    "ic_p_value": 0.0020156909517986244,
+    "gap": 0.15714285714285714,
+    "gap_signed": 0.15714285714285714,
+    "gap_abs": 0.15714285714285714,
+    "ic_first": -0.29703883729988156,
+    "ic_second": 0.29380673848006145,
+    "proba_std_test": 0.07151420400654071,
+    "proba_unique_test": 214,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

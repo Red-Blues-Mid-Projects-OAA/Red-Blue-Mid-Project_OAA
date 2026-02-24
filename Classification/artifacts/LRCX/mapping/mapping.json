@@ -1,0 +1,23 @@
+{
+  "ticker": "LRCX",
+  "benchmark": "SP500",
+  "p_latest": 0.6129297053904489,
+  "signal_raw": 0.22585941078089777,
+  "signal_clipped": 0.22585941078089777,
+  "IC_full": -0.28389280375827464,
+  "sigma_ols": 0.02410768790286761,
+  "sigma_ewma": 0.031922166748629605,
+  "sigma_final": 0.026452031556596207,
+  "TE_annual": 0.41991298302711805,
+  "TE_3M": 0.20489655538410034,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.013137938728832918,
+  "E_alpha_3M_simple": -0.013052012720309203,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

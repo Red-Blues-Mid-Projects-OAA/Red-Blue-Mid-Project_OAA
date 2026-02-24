@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T23:14:06",
+  "ticker": "ORCL",
+  "ticker_slug": "ORCL",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ORCL/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ORCL/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.8080357142857143,
+    "precision": 0.7404580152671756,
+    "ic": 0.5788569657729001,
+    "ic_p_value": 1.9483823342975776e-21,
+    "gap": 0.02378246753246749,
+    "gap_signed": 0.02378246753246749,
+    "gap_abs": 0.02378246753246749,
+    "ic_first": 0.04881809387439513,
+    "ic_second": 0.711219120511156,
+    "proba_std_test": 0.16655968129634857,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T06:06:31",
+  "ticker": "ACN",
+  "ticker_slug": "ACN",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ACN/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ACN/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.53125,
+    "precision": 0.23333333333333334,
+    "ic": 0.33788063207345725,
+    "ic_p_value": 2.1970324998049548e-07,
+    "gap": 0.22897727272727275,
+    "gap_signed": 0.22897727272727275,
+    "gap_abs": 0.22897727272727275,
+    "ic_first": 0.429955239689753,
+    "ic_second": 0.33972562954863844,
+    "proba_std_test": 0.1064775025952906,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

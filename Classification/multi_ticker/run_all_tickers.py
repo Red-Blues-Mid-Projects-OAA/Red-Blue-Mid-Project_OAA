@@ -125,6 +125,27 @@ def _get_model_metric_warnings(model: str, metrics: dict) -> list[str]:
     return warnings
 
 
+def _is_fail_fast(metrics: dict, model_name: str, ticker: str) -> bool:
+    """
+    Fail-Fast 조건 판정: 세 가지 조건이 모두 동시에 충족되면 True를 반환합니다.
+    - Test Accuracy ≤ 25%
+    - Test IC < 0 (음수)
+    - Train-Test Gap ≥ 30%
+    """
+    test_acc = float(metrics.get("accuracy", 1.0))
+    test_ic = float(metrics.get("ic", 0.0))
+    gap_abs = float(
+        metrics.get("gap_abs", abs(float(metrics.get("gap_signed", metrics.get("gap", 0.0)))))
+    )
+    triggered = (test_acc <= 0.25) and (test_ic < 0.0) and (gap_abs >= 0.30)
+    if triggered:
+        print(
+            f"  ⚡ [FAIL-FAST] {ticker}/{model_name}: "
+            f"Acc={test_acc:.1%}, IC={test_ic:+.4f}, Gap={gap_abs:.1%} → 나머지 모델 스킵"
+        )
+    return triggered
+
+
 def _save_model_metrics_json(
     *,
     ticker: str,
@@ -337,6 +358,17 @@ def run_all_tickers(
                 force_retune_all=force_retune_all,
                 warnings=_get_model_metric_warnings("xgb", xgb_metrics),
             )
+            # Fail-Fast: XGB 결과가 극도로 나쁘면 나머지 3개 모델 스킵
+            if _is_fail_fast(xgb_metrics, "XGB", ticker):
+                summary.append({
+                    "ticker": ticker, "ticker_slug": slug,
+                    "status": "fail_fast_skipped",
+                    "skipped_after": "xgb",
+                    "reason": "XGB fail-fast 조건 충족",
+                    "warnings": warnings + ["fail_fast: XGB"],
+                    "model_status": model_status,
+                })
+                continue
 
             svm_metrics, svm_status = _run_model_with_optional_retune(
                 "SVM",
@@ -375,6 +407,17 @@ def run_all_tickers(
                 force_retune_all=force_retune_all,
                 warnings=_get_model_metric_warnings("svm", svm_metrics),
             )
+            # Fail-Fast: SVM 결과가 극도로 나쁘면 나머지 2개 모델 스킵
+            if _is_fail_fast(svm_metrics, "SVM", ticker):
+                summary.append({
+                    "ticker": ticker, "ticker_slug": slug,
+                    "status": "fail_fast_skipped",
+                    "skipped_after": "svm",
+                    "reason": "SVM fail-fast 조건 충족",
+                    "warnings": warnings + ["fail_fast: SVM"],
+                    "model_status": model_status,
+                })
+                continue
 
             rf_metrics, rf_status = _run_model_with_optional_retune(
                 "RF",
@@ -413,6 +456,17 @@ def run_all_tickers(
                 force_retune_all=force_retune_all,
                 warnings=_get_model_metric_warnings("rf", rf_metrics),
             )
+            # Fail-Fast: RF 결과가 극도로 나쁘면 남은 1개 모델(LogReg) 스킵
+            if _is_fail_fast(rf_metrics, "RF", ticker):
+                summary.append({
+                    "ticker": ticker, "ticker_slug": slug,
+                    "status": "fail_fast_skipped",
+                    "skipped_after": "rf",
+                    "reason": "RF fail-fast 조건 충족",
+                    "warnings": warnings + ["fail_fast: RF"],
+                    "model_status": model_status,
+                })
+                continue
 
             logreg_metrics, logreg_status = _run_model_with_optional_retune(
                 "LOGREG",
@@ -451,6 +505,17 @@ def run_all_tickers(
                 force_retune_all=force_retune_all,
                 warnings=_get_model_metric_warnings("logreg", logreg_metrics),
             )
+            # Fail-Fast: LogReg 결과까지 극도로 나쁘면 앙상블/매핑 생략
+            if _is_fail_fast(logreg_metrics, "LOGREG", ticker):
+                summary.append({
+                    "ticker": ticker, "ticker_slug": slug,
+                    "status": "fail_fast_skipped",
+                    "skipped_after": "logreg",
+                    "reason": "LOGREG fail-fast 조건 충족",
+                    "warnings": warnings + ["fail_fast: LOGREG"],
+                    "model_status": model_status,
+                })
+                continue
 
             # 모델별 경고(공통 규칙: abs-gap, ic_degenerate)
             for model_name, metrics in [

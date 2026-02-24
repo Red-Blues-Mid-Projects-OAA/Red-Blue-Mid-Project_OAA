@@ -7,41 +7,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 221,
+  "n_test_samples": 224,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-18",
-  "ic_full": 0.6433310727428374,
-  "ic_pvalue": 3.273331782826276e-27,
-  "ic_first_half": -0.20704190428961072,
-  "ic_second_half": 0.2510793260793261,
-  "accuracy_ref": 0.31221719457013575,
-  "precision_ref": 0.9166666666666666,
-  "train_accuracy_ref": 0.8181818181818182,
-  "gap_ref": 0.5059646236116825,
-  "gap_signed_ref": 0.5059646236116825,
-  "gap_abs_ref": 0.5059646236116825,
-  "proba_std_test": 0.02889562978126351,
-  "proba_unique_test": 214,
+  "test_end": "2025-11-21",
+  "ic_full": 0.6868385650224216,
+  "ic_pvalue": 1.332644608827929e-32,
+  "ic_first_half": 0.022226398332593024,
+  "ic_second_half": -0.0598626439334404,
+  "accuracy_ref": 0.7723214285714286,
+  "precision_ref": 0.9745762711864406,
+  "train_accuracy_ref": 0.8204545454545454,
+  "gap_ref": 0.04813311688311683,
+  "gap_signed_ref": 0.04813311688311683,
+  "gap_abs_ref": 0.04813311688311683,
+  "proba_std_test": 0.13685985075677976,
+  "proba_unique_test": 224,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.3974854577260658,
-    "mean": 0.45991437952214803,
-    "max": 0.5232509502296354
+    "min": 0.2267838243607481,
+    "mean": 0.5064486380762524,
+    "max": 0.7194914040114586
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-19",
-    "end": "2026-02-17"
+    "start": "2025-11-24",
+    "end": "2026-02-20"
   },
   "p_ens_future_stats": {
-    "min": 0.42324931998997417,
-    "mean": 0.44372264132967204,
-    "max": 0.47938430606896687
+    "min": 0.39313289243602945,
+    "mean": 0.4865733486840034,
+    "max": 0.5921464633504462
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-17",
-    "p_ens": 0.43192785493489005
+    "trade_date": "2026-02-20",
+    "p_ens": 0.5169247647390823
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

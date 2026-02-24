@@ -1,0 +1,23 @@
+{
+  "ticker": "AMD",
+  "benchmark": "SP500",
+  "p_latest": 0.24529511413476918,
+  "signal_raw": -0.5094097717304616,
+  "signal_clipped": -0.5094097717304616,
+  "IC_full": -0.06669122357463166,
+  "sigma_ols": 0.029730417639922367,
+  "sigma_ewma": 0.042148353890100784,
+  "sigma_final": 0.03345579851497589,
+  "TE_annual": 0.5310943367022615,
+  "TE_3M": 0.25914750096514494,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.008804059767225994,
+  "E_alpha_3M_simple": 0.008842929488127815,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

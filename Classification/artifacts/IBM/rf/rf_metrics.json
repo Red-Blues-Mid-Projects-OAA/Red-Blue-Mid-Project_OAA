@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:43:33",
+  "ticker": "IBM",
+  "ticker_slug": "IBM",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/IBM/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/IBM/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7321428571428571,
+    "precision": 0.7777777777777778,
+    "ic": 0.5510183926203832,
+    "ic_p_value": 3.4563626793068867e-19,
+    "gap": 0.018993506493506507,
+    "gap_signed": 0.018993506493506507,
+    "gap_abs": 0.018993506493506507,
+    "ic_first": 0.2837929318712947,
+    "ic_second": 0.8382678295640983,
+    "proba_std_test": 0.10888954278903296,
+    "proba_unique_test": 218,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

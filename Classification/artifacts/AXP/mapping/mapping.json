@@ -1,0 +1,21 @@
+{
+  "ticker": "AXP",
+  "benchmark": "SP500",
+  "p_latest": 0.5412397333574372,
+  "signal_raw": 0.0824794667148745,
+  "signal_clipped": 0.0824794667148745,
+  "IC_full": 0.37251014307068125,
+  "sigma_ols": 0.012769136375932683,
+  "sigma_ewma": 0.014102248741952846,
+  "sigma_final": 0.01316907008573873,
+  "TE_annual": 0.20905250666906836,
+  "TE_3M": 0.10200717825420877,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0031341132183538424,
+  "E_alpha_3M_simple": 0.0031390296861002476,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

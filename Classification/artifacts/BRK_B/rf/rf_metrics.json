@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T22:46:13",
+  "ticker": "BRK-B",
+  "ticker_slug": "BRK_B",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BRK_B/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BRK_B/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.38839285714285715,
+    "precision": 0.1111111111111111,
+    "ic": 0.4322613709160795,
+    "ic_p_value": 1.2984123911213903e-11,
+    "gap": 0.40024350649350654,
+    "gap_signed": 0.40024350649350654,
+    "gap_abs": 0.40024350649350654,
+    "ic_first": 0.44341750093962484,
+    "ic_second": 0.4599463559640551,
+    "proba_std_test": 0.062189006464829596,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

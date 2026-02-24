@@ -1,0 +1,23 @@
+{
+  "ticker": "INTC",
+  "benchmark": "SP500",
+  "p_latest": 0.5135571594604076,
+  "signal_raw": 0.027114318920815172,
+  "signal_clipped": 0.027114318920815172,
+  "IC_full": -0.37154922058509504,
+  "sigma_ols": 0.03485930255563537,
+  "sigma_ewma": 0.044974266075110285,
+  "sigma_final": 0.037893791611477844,
+  "TE_annual": 0.6015452930236553,
+  "TE_3M": 0.293524047671816,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.002957050505674013,
+  "E_alpha_3M_simple": -0.0029526827381245457,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "NFLX",
+  "benchmark": "SP500",
+  "p_latest": 0.5914707776906041,
+  "signal_raw": 0.18294155538120815,
+  "signal_clipped": 0.18294155538120815,
+  "IC_full": 0.10068545803971815,
+  "sigma_ols": 0.01766880183819889,
+  "sigma_ewma": 0.017308579474923824,
+  "sigma_final": 0.017560735129216368,
+  "TE_annual": 0.2787680279482933,
+  "TE_3M": 0.1360248694052291,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.002505517467895513,
+  "E_alpha_3M_simple": 0.0025086588998761705,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

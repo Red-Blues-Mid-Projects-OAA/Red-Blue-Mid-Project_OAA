@@ -1,0 +1,23 @@
+{
+  "ticker": "PEP",
+  "benchmark": "SP500",
+  "p_latest": 0.42179119013081207,
+  "signal_raw": -0.15641761973837587,
+  "signal_clipped": -0.15641761973837587,
+  "IC_full": -0.07125560538116593,
+  "sigma_ols": 0.015535749209604294,
+  "sigma_ewma": 0.017228710273289847,
+  "sigma_final": 0.016043637528709957,
+  "TE_annual": 0.25468485015497666,
+  "TE_3M": 0.12427348192256399,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0013851065200742544,
+  "E_alpha_3M_simple": 0.0013860662231561793,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

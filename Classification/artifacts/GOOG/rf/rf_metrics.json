@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T22:39:30",
+  "ticker": "GOOG",
+  "ticker_slug": "GOOG",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOG/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOG/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7678571428571429,
+    "precision": 0.9655172413793104,
+    "ic": 0.6660837070254112,
+    "ic_p_value": 4.3099159189767184e-30,
+    "gap": 0.056493506493506596,
+    "gap_signed": -0.056493506493506596,
+    "gap_abs": 0.056493506493506596,
+    "ic_first": -0.1688847507431578,
+    "ic_second": -0.11492465917244678,
+    "proba_std_test": 0.14619543383167696,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

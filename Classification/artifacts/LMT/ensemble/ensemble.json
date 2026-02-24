@@ -1,0 +1,50 @@
+{
+  "ticker": "LMT",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.07205957719410636,
+  "ic_pvalue": 0.2828891175809868,
+  "ic_first_half": 0.3068302183346431,
+  "ic_second_half": 0.2577134656780674,
+  "accuracy_ref": 0.5178571428571429,
+  "precision_ref": 0.48717948717948717,
+  "train_accuracy_ref": 0.9090909090909091,
+  "gap_ref": 0.39123376623376616,
+  "gap_signed_ref": 0.39123376623376616,
+  "gap_abs_ref": 0.39123376623376616,
+  "proba_std_test": 0.10439764776151361,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.3590915096517417,
+    "mean": 0.6443947966159546,
+    "max": 0.7957838774502694
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.24711259319717638,
+    "mean": 0.39030278412366537,
+    "max": 0.7488053517821045
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.3252368721527182
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

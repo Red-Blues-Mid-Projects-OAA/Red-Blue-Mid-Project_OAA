@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:21:39",
+  "generated_at": "2026-02-23T22:37:26",
   "ticker": "GOOGL",
   "ticker_slug": "GOOGL",
   "benchmark": "SP500",
@@ -14,27 +14,24 @@
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/logreg/logreg_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.2669683257918552,
-    "precision": 0.0,
-    "ic": 0.0,
-    "ic_p_value": 1.0,
-    "gap": 0.28303167420814485,
-    "gap_signed": 0.28303167420814485,
-    "gap_abs": 0.28303167420814485,
-    "ic_first": 0.0,
-    "ic_second": 0.0,
-    "proba_std_test": 5.551115123125783e-17,
-    "proba_unique_test": 1,
-    "ic_degenerate": true,
+    "accuracy": 0.7767857142857143,
+    "precision": 0.9669421487603306,
+    "ic": 0.6960506085842411,
+    "ic_p_value": 8.754752386718142e-34,
+    "gap": 0.038149350649350655,
+    "gap_signed": -0.038149350649350655,
+    "gap_abs": 0.038149350649350655,
+    "ic_first": -0.11983633443810436,
+    "ic_second": 0.09200635528069157,
+    "proba_std_test": 0.2045857423028498,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
     "overall_pass": false
   },
-  "warnings": [
-    "logreg train_test_gap > 0.25",
-    "logreg ic_degenerate=true"
-  ]
+  "warnings": []
 }

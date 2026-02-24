@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T05:02:42",
+  "ticker": "PFE",
+  "ticker_slug": "PFE",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PFE/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PFE/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7544642857142857,
+    "precision": 0.0,
+    "ic": 0.37891736066623966,
+    "ic_p_value": 4.646977016015011e-09,
+    "gap": 0.13287337662337662,
+    "gap_signed": -0.13287337662337662,
+    "gap_abs": 0.13287337662337662,
+    "ic_first": -0.2839802507944101,
+    "ic_second": 0.5386356647418594,
+    "proba_std_test": 0.04668626804904048,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T22:52:01",
+  "ticker": "JPM",
+  "ticker_slug": "JPM",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/JPM/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/JPM/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5535714285714286,
+    "precision": 0.6060606060606061,
+    "ic": 0.20049706398064562,
+    "ic_p_value": 0.002572777733715786,
+    "gap": 0.1771103896103896,
+    "gap_signed": 0.1771103896103896,
+    "gap_abs": 0.1771103896103896,
+    "ic_first": 0.3312569003853617,
+    "ic_second": -0.052217514606895145,
+    "proba_std_test": 0.08081073989540126,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

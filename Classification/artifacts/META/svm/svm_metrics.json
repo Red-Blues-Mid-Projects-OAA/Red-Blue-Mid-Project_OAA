@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:23:49",
+  "generated_at": "2026-02-23T22:41:32",
   "ticker": "META",
   "ticker_slug": "META",
   "benchmark": "SP500",
@@ -14,22 +14,22 @@
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/META/svm/svm_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.20361990950226244,
-    "precision": 0.24456521739130435,
-    "ic": -0.736747195570725,
-    "ic_p_value": 4.4082518763579206e-39,
-    "gap": 0.47753682338956976,
-    "gap_signed": 0.47753682338956976,
-    "gap_abs": 0.47753682338956976,
-    "ic_first": -0.7760746568086017,
-    "ic_second": -0.5920322920322921,
-    "proba_std_test": 0.13209377210345785,
-    "proba_unique_test": 221,
+    "accuracy": 0.20535714285714285,
+    "precision": 0.24864864864864866,
+    "ic": -0.7412630792227206,
+    "ic_p_value": 2.630007812598413e-40,
+    "gap": 0.47579959003468936,
+    "gap_signed": 0.47579959003468936,
+    "gap_abs": 0.47579959003468936,
+    "ic_first": -0.7751734034919876,
+    "ic_second": -0.6130795776813477,
+    "proba_std_test": 0.1321939480031419,
+    "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false
   },

@@ -903,6 +903,55 @@ class StockDBManager:
         self.cursor.execute("TRUNCATE TABLE MASTER_FEATURES")
         self.connection.commit()
 
+    def get_ticker_coverage_report(self, tickers):
+        """
+        각 종목별 DB 적재 현황을 요약하여 리포트를 반환합니다.
+        MASTER_FEATURES 통합 테이블 기준으로 조회합니다.
+        """
+        report = []
+        try:
+            # SP500_DATA 총 행수 (공통)
+            self.cursor.execute("SELECT COUNT(*) FROM SP500_DATA")
+            sp500_total = self.cursor.fetchone()[0]
+
+            # MASTER_FEATURES 종목별 행수 일괄 조회
+            mf_counts = {}
+            if self.master_features_exists():
+                self.cursor.execute(
+                    "SELECT TICKER, COUNT(*) FROM MASTER_FEATURES GROUP BY TICKER"
+                )
+                for row in self.cursor.fetchall():
+                    mf_counts[row[0]] = row[1]
+
+            for ticker in tickers:
+                ticker = str(ticker).upper()
+
+                # STOCK_DATA 행수
+                self.cursor.execute(
+                    "SELECT COUNT(*) FROM STOCK_DATA WHERE TICKER = :1",
+                    [ticker],
+                )
+                stock_rows = self.cursor.fetchone()[0]
+
+                # LOG_RETURNS 행수
+                self.cursor.execute(
+                    "SELECT COUNT(*) FROM LOG_RETURNS WHERE TICKER = :1",
+                    [ticker],
+                )
+                logret_rows = self.cursor.fetchone()[0]
+
+                report.append({
+                    "ticker": ticker,
+                    "stock_rows": stock_rows,
+                    "logret_rows": logret_rows,
+                    "sp500_rows": sp500_total,
+                    "feature_rows": mf_counts.get(ticker, 0),
+                })
+        except Exception as e:
+            print(f"Coverage report 생성 실패: {e}")
+
+        return report
+
     def close(self):
         """
         리소스 해제

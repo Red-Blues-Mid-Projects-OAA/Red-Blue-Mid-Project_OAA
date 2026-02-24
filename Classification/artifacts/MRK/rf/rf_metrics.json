@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T00:51:27",
+  "ticker": "MRK",
+  "ticker_slug": "MRK",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MRK/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MRK/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.49107142857142855,
+    "precision": 0.037037037037037035,
+    "ic": -0.5871701421090512,
+    "ic_p_value": 3.764428879865038e-22,
+    "gap": 0.12938311688311693,
+    "gap_signed": 0.12938311688311693,
+    "gap_abs": 0.12938311688311693,
+    "ic_first": -0.36513512651832647,
+    "ic_second": 0.15159759625048022,
+    "proba_std_test": 0.030730005483708,
+    "proba_unique_test": 212,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

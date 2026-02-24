@@ -1,0 +1,23 @@
+{
+  "ticker": "DHR",
+  "benchmark": "SP500",
+  "p_latest": 0.5031805341475531,
+  "signal_raw": 0.006361068295106298,
+  "signal_clipped": 0.006361068295106298,
+  "IC_full": -0.046125346999786467,
+  "sigma_ols": 0.015439355040103901,
+  "sigma_ewma": 0.0151268674289627,
+  "sigma_final": 0.015345608756761539,
+  "TE_annual": 0.24360398692371663,
+  "TE_3M": 0.11886657430470429,
+  "phi": 1.0,
+  "E_alpha_3M_log": -3.487622344181442e-05,
+  "E_alpha_3M_simple": -3.487561527337757e-05,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

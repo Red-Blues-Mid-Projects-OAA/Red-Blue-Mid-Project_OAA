@@ -1,0 +1,23 @@
+{
+  "ticker": "GE",
+  "benchmark": "SP500",
+  "p_latest": 0.2747911391233272,
+  "signal_raw": -0.4504177217533456,
+  "signal_clipped": -0.4504177217533456,
+  "IC_full": -0.7602242152466369,
+  "sigma_ols": 0.015773041901737058,
+  "sigma_ewma": 0.019730050609218543,
+  "sigma_final": 0.016960144513981503,
+  "TE_annual": 0.2692339475022689,
+  "TE_3M": 0.1313727145038429,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.044984442462030726,
+  "E_alpha_3M_simple": 0.046011586417157524,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

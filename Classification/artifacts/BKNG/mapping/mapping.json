@@ -1,0 +1,21 @@
+{
+  "ticker": "BKNG",
+  "benchmark": "SP500",
+  "p_latest": 0.6922363051022526,
+  "signal_raw": 0.3844726102045053,
+  "signal_clipped": 0.3844726102045053,
+  "IC_full": 0.26421417894512067,
+  "sigma_ols": 0.014911501464570277,
+  "sigma_ewma": 0.025933307226933964,
+  "sigma_final": 0.018218043193279382,
+  "TE_annual": 0.2892024699819016,
+  "TE_3M": 0.14111635577611686,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.014335039001711907,
+  "E_alpha_3M_simple": 0.014438278397020055,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T01:34:48",
+  "ticker": "UNH",
+  "ticker_slug": "UNH",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/UNH/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/UNH/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3794642857142857,
+    "precision": 0.12745098039215685,
+    "ic": -0.4005242366004699,
+    "ic_p_value": 4.863382089198253e-10,
+    "gap": 0.6192023809523809,
+    "gap_signed": 0.6192023809523809,
+    "gap_abs": 0.6192023809523809,
+    "ic_first": -0.09970273687087848,
+    "ic_second": -0.7048980079953531,
+    "proba_std_test": 0.22521259386479442,
+    "proba_unique_test": 188,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

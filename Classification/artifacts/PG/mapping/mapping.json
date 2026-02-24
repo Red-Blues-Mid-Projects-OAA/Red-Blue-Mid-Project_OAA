@@ -1,0 +1,23 @@
+{
+  "ticker": "PG",
+  "benchmark": "SP500",
+  "p_latest": 0.27413147041589564,
+  "signal_raw": -0.4517370591682087,
+  "signal_clipped": -0.4517370591682087,
+  "IC_full": -0.0003929105274396755,
+  "sigma_ols": 0.014140522052377898,
+  "sigma_ewma": 0.0152148019028999,
+  "sigma_final": 0.014462806007534499,
+  "TE_annual": 0.22958992773664344,
+  "TE_3M": 0.1120284136132194,
+  "phi": 1.0,
+  "E_alpha_3M_log": 1.988417476839728e-05,
+  "E_alpha_3M_simple": 1.9884372459921806e-05,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "CVX",
+  "benchmark": "SP500",
+  "p_latest": 0.3852496712573775,
+  "signal_raw": -0.22950065748524495,
+  "signal_clipped": -0.22950065748524495,
+  "IC_full": 0.13846893017296605,
+  "sigma_ols": 0.013640261114339408,
+  "sigma_ewma": 0.014404538697765961,
+  "sigma_final": 0.013869544389367373,
+  "TE_annual": 0.2201721915122236,
+  "TE_3M": 0.10743302887900871,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0034140831246003123,
+  "E_alpha_3M_simple": -0.0034082617695572193,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

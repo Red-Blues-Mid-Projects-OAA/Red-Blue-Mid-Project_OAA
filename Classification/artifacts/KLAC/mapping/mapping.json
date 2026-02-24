@@ -1,0 +1,23 @@
+{
+  "ticker": "KLAC",
+  "benchmark": "SP500",
+  "p_latest": 0.1151549131090109,
+  "signal_raw": -0.7696901737819782,
+  "signal_clipped": -0.7696901737819782,
+  "IC_full": -0.07112641469143713,
+  "sigma_ols": 0.023122126791349628,
+  "sigma_ewma": 0.03563430641530009,
+  "sigma_final": 0.026875780678534765,
+  "TE_annual": 0.4266397917967065,
+  "TE_3M": 0.20817890196857647,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.011396816959127752,
+  "E_alpha_3M_simple": 0.011462008099304422,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,23 @@
+{
+  "ticker": "CMCSA",
+  "benchmark": "SP500",
+  "p_latest": 0.25487184108597744,
+  "signal_raw": -0.49025631782804513,
+  "signal_clipped": -0.49025631782804513,
+  "IC_full": -0.19394939141575915,
+  "sigma_ols": 0.015886983105708994,
+  "sigma_ewma": 0.015480732950406704,
+  "sigma_final": 0.015765108059118307,
+  "TE_annual": 0.25026333189892325,
+  "TE_3M": 0.12211600192825109,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.011611389600045928,
+  "E_alpha_3M_simple": 0.011679063459808958,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

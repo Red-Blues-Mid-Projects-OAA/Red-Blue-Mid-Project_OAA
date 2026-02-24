@@ -1,0 +1,23 @@
+{
+  "ticker": "PLTR",
+  "benchmark": "SP500",
+  "p_latest": 0.6184955176354766,
+  "signal_raw": 0.23699103527095322,
+  "signal_clipped": 0.23699103527095322,
+  "IC_full": -0.4618140081144566,
+  "sigma_ols": 0.03584334742499914,
+  "sigma_ewma": 0.0347789261282338,
+  "sigma_final": 0.035524021035969536,
+  "TE_annual": 0.5639263513812149,
+  "TE_3M": 0.2751678837252639,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.030115963633801823,
+  "E_alpha_3M_simple": -0.029666996317156635,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1353,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

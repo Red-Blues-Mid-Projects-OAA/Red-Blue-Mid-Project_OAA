@@ -15,10 +15,10 @@
   "best_trial_number": 93,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T17:06:05",
-  "data_end_date": "2025-11-18",
+  "created_at": "2026-02-23T21:18:53",
+  "data_end_date": "2025-11-21",
   "feature_count": 16,
-  "feature_hash": "07bb71971500706382db3c83395ed92f425bcb2081e97352b8cf399cd9dbc715",
+  "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
   "split_definition": {
     "train": [
       "2021-01-01",
@@ -43,5 +43,16 @@
   },
   "profile": "balanced",
   "objective_version": "target_aligned_v5_no_class_weight",
-  "cv_mode": "single_holdout_2024Q2Q3"
+  "cv_mode": "single_holdout_2024Q2Q3",
+  "strategy_stage": "default",
+  "direction_mode": "normal",
+  "recency_weight_lambda": 0.0,
+  "class_weight_mode": "none",
+  "gate_objective_version": "target_aligned_v5_no_class_weight",
+  "train_val_gap_signed": 0.028013928537817256,
+  "train_val_gap_abs": 0.028013928537817256,
+  "val_proba_std": 0.12952108681201935,
+  "val_proba_unique": 123,
+  "val_pred_unique": 2,
+  "degenerate_rejected_count": 9
 }

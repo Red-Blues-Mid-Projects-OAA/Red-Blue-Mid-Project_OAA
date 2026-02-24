@@ -1,0 +1,21 @@
+{
+  "ticker": "HON",
+  "benchmark": "SP500",
+  "p_latest": 0.22796025747198062,
+  "signal_raw": -0.5440794850560388,
+  "signal_clipped": -0.5440794850560388,
+  "IC_full": 0.27182468503096313,
+  "sigma_ols": 0.012044773064549623,
+  "sigma_ewma": 0.012761828511862068,
+  "sigma_final": 0.012259889698743356,
+  "TE_annual": 0.194619715463745,
+  "TE_3M": 0.09496469725914576,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.014044731220590865,
+  "E_alpha_3M_simple": -0.013946564097396918,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

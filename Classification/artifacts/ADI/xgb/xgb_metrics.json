@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T04:05:40",
+  "ticker": "ADI",
+  "ticker_slug": "ADI",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ADI/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ADI/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6071428571428571,
+    "precision": 0.7833333333333333,
+    "ic": 0.30293524606840005,
+    "ic_p_value": 3.883621006651336e-06,
+    "gap": 0.18717532467532472,
+    "gap_signed": 0.18717532467532472,
+    "gap_abs": 0.18717532467532472,
+    "ic_first": 0.7424947145945101,
+    "ic_second": 0.37360337581576525,
+    "proba_std_test": 0.2266334444284439,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:23:28",
+  "generated_at": "2026-02-23T22:35:24",
   "ticker": "AMZN",
   "ticker_slug": "AMZN",
   "benchmark": "SP500",
@@ -14,22 +14,22 @@
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AMZN/svm/svm_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.5520361990950227,
+    "accuracy": 0.5580357142857143,
     "precision": 0.36585365853658536,
-    "ic": -0.016580875404404814,
-    "ic_p_value": 0.8063701329589861,
-    "gap": 0.18363709008820028,
-    "gap_signed": 0.18363709008820028,
-    "gap_abs": 0.18363709008820028,
-    "ic_first": 0.2244437932511327,
-    "ic_second": -0.3847051597051597,
-    "proba_std_test": 0.06187148636155237,
-    "proba_unique_test": 221,
+    "ic": 0.0005039504591074098,
+    "ic_p_value": 0.9940157286069853,
+    "gap": 0.17763757489750864,
+    "gap_signed": 0.17763757489750864,
+    "gap_abs": 0.17763757489750864,
+    "ic_first": 0.23649502853042678,
+    "ic_second": -0.35465712235623736,
+    "proba_std_test": 0.06191134531715702,
+    "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false
   },

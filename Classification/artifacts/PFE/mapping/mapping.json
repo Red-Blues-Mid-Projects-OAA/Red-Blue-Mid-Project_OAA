@@ -1,0 +1,21 @@
+{
+  "ticker": "PFE",
+  "benchmark": "SP500",
+  "p_latest": 0.45253780147306394,
+  "signal_raw": -0.09492439705387212,
+  "signal_clipped": -0.09492439705387212,
+  "IC_full": 0.2743412342515482,
+  "sigma_ols": 0.01599491620878863,
+  "sigma_ewma": 0.014506716691063576,
+  "sigma_final": 0.015548456353471112,
+  "TE_annual": 0.24682409269336056,
+  "TE_3M": 0.12043782503245304,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.003136402847549759,
+  "E_alpha_3M_simple": -0.003131489474253679,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

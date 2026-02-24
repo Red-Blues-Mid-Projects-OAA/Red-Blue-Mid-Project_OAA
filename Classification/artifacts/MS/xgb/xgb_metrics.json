@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:07:56",
+  "ticker": "MS",
+  "ticker_slug": "MS",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MS/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MS/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6741071428571429,
+    "precision": 0.8181818181818182,
+    "ic": 0.3349039077514414,
+    "ic_p_value": 2.8463021860781483e-07,
+    "gap": 0.1827110389610389,
+    "gap_signed": 0.1827110389610389,
+    "gap_abs": 0.1827110389610389,
+    "ic_first": 0.2747377592510336,
+    "ic_second": 0.4880325964396761,
+    "proba_std_test": 0.1460554450750351,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

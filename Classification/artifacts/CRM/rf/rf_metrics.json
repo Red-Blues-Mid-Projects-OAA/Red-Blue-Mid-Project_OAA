@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T04:16:51",
+  "ticker": "CRM",
+  "ticker_slug": "CRM",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CRM/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CRM/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4017857142857143,
+    "precision": 0.15723270440251572,
+    "ic": 0.2961285500747385,
+    "ic_p_value": 6.519879773881703e-06,
+    "gap": 0.33798701298701295,
+    "gap_signed": 0.33798701298701295,
+    "gap_abs": 0.33798701298701295,
+    "ic_first": 0.1021884716574982,
+    "ic_second": 0.35938087265520896,
+    "proba_std_test": 0.14349234740922306,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

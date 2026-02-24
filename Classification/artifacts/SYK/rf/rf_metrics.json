@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T05:49:53",
+  "ticker": "SYK",
+  "ticker_slug": "SYK",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/SYK/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/SYK/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6116071428571429,
+    "precision": 0.03508771929824561,
+    "ic": 0.07682895579756567,
+    "ic_p_value": 0.25215502962971775,
+    "gap": 0.14521103896103893,
+    "gap_signed": 0.14521103896103893,
+    "gap_abs": 0.14521103896103893,
+    "ic_first": -0.6954419653534698,
+    "ic_second": 0.7964174667714491,
+    "proba_std_test": 0.1330207711887674,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

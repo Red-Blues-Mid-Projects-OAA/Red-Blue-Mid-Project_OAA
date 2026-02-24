@@ -1,0 +1,23 @@
+{
+  "ticker": "GLW",
+  "benchmark": "SP500",
+  "p_latest": 0.5211335423484539,
+  "signal_raw": 0.042267084696907764,
+  "signal_clipped": 0.042267084696907764,
+  "IC_full": -0.12482810164424518,
+  "sigma_ols": 0.018323261141402522,
+  "sigma_ewma": 0.035432578437769986,
+  "sigma_final": 0.02345605633031276,
+  "TE_annual": 0.37235335072997927,
+  "TE_3M": 0.18168983107000877,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0009586173414670082,
+  "E_alpha_3M_simple": -0.0009581580146479363,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

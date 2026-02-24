@@ -1,0 +1,21 @@
+{
+  "ticker": "TXN",
+  "benchmark": "SP500",
+  "p_latest": 0.1816923394813993,
+  "signal_raw": -0.6366153210372014,
+  "signal_clipped": -0.6366153210372014,
+  "IC_full": 0.6791565235959856,
+  "sigma_ols": 0.017939211497251074,
+  "sigma_ewma": 0.02233948224341453,
+  "sigma_final": 0.019259292721100107,
+  "TE_annual": 0.30573179380216403,
+  "TE_3M": 0.1491818399371089,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.06450047637579946,
+  "E_alpha_3M_simple": -0.06246433235735982,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

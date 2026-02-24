@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T05:21:03",
+  "ticker": "QCOM",
+  "ticker_slug": "QCOM",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/QCOM/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/QCOM/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.59375,
+    "precision": 0.3119266055045872,
+    "ic": 0.06333762100620048,
+    "ic_p_value": 0.3453766611565853,
+    "gap": 0.2176136363636364,
+    "gap_signed": 0.2176136363636364,
+    "gap_abs": 0.2176136363636364,
+    "ic_first": -0.07491815636689012,
+    "ic_second": 0.6308470290771176,
+    "proba_std_test": 0.23566147685050964,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

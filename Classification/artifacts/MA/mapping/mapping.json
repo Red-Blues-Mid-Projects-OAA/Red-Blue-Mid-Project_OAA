@@ -1,0 +1,23 @@
+{
+  "ticker": "MA",
+  "benchmark": "SP500",
+  "p_latest": 0.6277761560135858,
+  "signal_raw": 0.25555231202717166,
+  "signal_clipped": 0.25555231202717166,
+  "IC_full": -0.32923126201153113,
+  "sigma_ols": 0.010671276149853443,
+  "sigma_ewma": 0.015100760732881628,
+  "sigma_final": 0.012000121524761898,
+  "TE_annual": 0.19049602354243925,
+  "TE_3M": 0.09295254163573598,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.007820637400548282,
+  "E_alpha_3M_simple": -0.0077901357817004024,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

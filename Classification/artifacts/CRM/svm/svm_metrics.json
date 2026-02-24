@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T04:13:57",
+  "ticker": "CRM",
+  "ticker_slug": "CRM",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CRM/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CRM/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.41517857142857145,
+    "precision": 0.009259259259259259,
+    "ic": -0.38627802690582963,
+    "ic_p_value": 2.1937424823141033e-09,
+    "gap": 0.023179044465468313,
+    "gap_signed": 0.023179044465468313,
+    "gap_abs": 0.023179044465468313,
+    "ic_first": -0.0206888304233437,
+    "ic_second": -0.5555574537875424,
+    "proba_std_test": 0.005372925233877779,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

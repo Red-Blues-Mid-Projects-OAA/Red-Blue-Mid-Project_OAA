@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:10:36",
+  "ticker": "MS",
+  "ticker_slug": "MS",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MS/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MS/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5133928571428571,
+    "precision": 0.7567567567567568,
+    "ic": -0.21014767800744125,
+    "ic_p_value": 0.0015615177768865747,
+    "gap": 0.05592532467532474,
+    "gap_signed": 0.05592532467532474,
+    "gap_abs": 0.05592532467532474,
+    "ic_first": 0.6982881597972309,
+    "ic_second": -0.3399150063028847,
+    "proba_std_test": 0.05813251178051404,
+    "proba_unique_test": 217,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

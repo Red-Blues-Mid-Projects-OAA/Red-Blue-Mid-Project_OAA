@@ -1,22 +1,22 @@
 {
   "best_params": {
-    "C": 98.0021019812174,
+    "C": 95.48789719147908,
     "kernel": "linear",
     "probability": true,
     "random_state": 42,
     "class_weight": null
   },
-  "best_score": 0.7390948604796325,
-  "best_trial_number": 66,
+  "best_score": 0.7391145425215699,
+  "best_trial_number": 71,
   "best_source": "fallback_objective_best",
   "n_trials": 100,
   "stride": 5,
   "n_models": 5,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T16:44:02",
-  "data_end_date": "2025-11-18",
+  "created_at": "2026-02-23T20:21:22",
+  "data_end_date": "2025-11-21",
   "feature_count": 16,
-  "feature_hash": "8a919c3a31cac97550a90148afa2459accefec6e89084baaeb8b4d9f5a131f10",
+  "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
   "split_definition": {
     "train": [
       "2021-01-01",
@@ -42,7 +42,7 @@
   "profile": "balanced",
   "objective_version": "target_aligned_v3_svm_no_class_weight",
   "cv_mode": "single_holdout_2024Q2Q3",
-  "objective": "deep_target_aligned_v3_fixed_threshold_0.5_no_class_weight",
+  "objective": "deep_target_aligned_v3_fixed_threshold_0.5",
   "targets": {
     "accuracy_min": 0.52,
     "ic_min": 0.05,
@@ -55,11 +55,21 @@
     "precision": 0.7271664008506115,
     "avg_train_acc": 0.8048300220750552,
     "gap": 0.23867617592120893,
+    "gap_signed": 0.23867617592120893,
+    "gap_abs": 0.23867617592120893,
     "ic": 0.21617094017094018,
     "ic_p": 0.32974234046630335,
-    "val_logloss": 0.7071486726877614,
+    "val_logloss": 0.7072274008555115,
     "val_pos_rate": 0.7784615384615383,
-    "threshold": 0.5
+    "val_proba_std": 0.1650597529784613,
+    "val_proba_unique": 127,
+    "val_pred_unique": 2,
+    "threshold": 0.5,
+    "ic_early": 0.49447964669738864,
+    "ic_late": -0.24079670329670327,
+    "train_val_gap": 0.23867617592120893,
+    "train_val_gap_signed": 0.23867617592120893,
+    "train_val_gap_abs": 0.23867617592120893
   },
   "decision_threshold": 0.5,
   "decision_threshold_metric": "fixed_policy_0.5_validation_accuracy",
@@ -71,5 +81,16 @@
     "gap_ok": true,
     "balance_ok": false
   },
-  "leakage_policy": "test_not_used_in_tuning"
+  "leakage_policy": "test_not_used_in_tuning",
+  "strategy_stage": "default",
+  "direction_mode": "normal",
+  "recency_weight_lambda": 0.0,
+  "class_weight_mode": "none",
+  "gate_objective_version": "target_aligned_v3_svm_no_class_weight",
+  "train_val_gap_signed": 0.23867617592120893,
+  "train_val_gap_abs": 0.23867617592120893,
+  "val_proba_std": 0.1650597529784613,
+  "val_proba_unique": 127,
+  "val_pred_unique": 2,
+  "degenerate_rejected_count": 0
 }

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T04:46:35",
+  "ticker": "LOW",
+  "ticker_slug": "LOW",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/LOW/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/LOW/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.42857142857142855,
+    "precision": 0.3952380952380952,
+    "ic": 0.48684603886397615,
+    "ic_p_value": 9.85981135149648e-15,
+    "gap": 0.44301948051948054,
+    "gap_signed": 0.44301948051948054,
+    "gap_abs": 0.44301948051948054,
+    "ic_first": 0.3699730071411488,
+    "ic_second": 0.28051218095465885,
+    "proba_std_test": 0.15920884907245636,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

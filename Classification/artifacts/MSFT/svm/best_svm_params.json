@@ -7,17 +7,17 @@
     "class_weight": null,
     "gamma": 0.3077293811050871
   },
-  "best_score": 1.141370054189049,
+  "best_score": 1.1413381077776106,
   "best_trial_number": 67,
   "best_source": "fallback_objective_best",
   "n_trials": 100,
   "stride": 5,
   "n_models": 5,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T16:53:28",
-  "data_end_date": "2025-11-18",
+  "created_at": "2026-02-23T20:36:02",
+  "data_end_date": "2025-11-21",
   "feature_count": 16,
-  "feature_hash": "8dca1427634b1adcac1e467a9c4b3dfc36c732c7001f4c1b000f219a90b0293e",
+  "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
   "split_definition": {
     "train": [
       "2021-01-01",
@@ -43,7 +43,7 @@
   "profile": "balanced",
   "objective_version": "target_aligned_v3_svm_no_class_weight",
   "cv_mode": "single_holdout_2024Q2Q3",
-  "objective": "deep_target_aligned_v3_fixed_threshold_0.5_no_class_weight",
+  "objective": "deep_target_aligned_v3_fixed_threshold_0.5",
   "targets": {
     "accuracy_min": 0.52,
     "ic_min": 0.05,
@@ -56,11 +56,21 @@
     "precision": 0.08514932126696832,
     "avg_train_acc": 0.5723178807947019,
     "gap": 0.3046255731023942,
+    "gap_signed": 0.3046255731023942,
+    "gap_abs": 0.3046255731023942,
     "ic": 0.11042735042735041,
     "ic_p": 0.5706810697645017,
-    "val_logloss": 0.8038887750852848,
+    "val_logloss": 0.8037609894395311,
     "val_pos_rate": 0.7870769230769231,
-    "threshold": 0.5
+    "val_proba_std": 0.09900916832246735,
+    "val_proba_unique": 127,
+    "val_pred_unique": 2,
+    "threshold": 0.5,
+    "ic_early": 0.16085829493087558,
+    "ic_late": 0.17957875457875455,
+    "train_val_gap": 0.3046255731023942,
+    "train_val_gap_signed": 0.3046255731023942,
+    "train_val_gap_abs": 0.3046255731023942
   },
   "decision_threshold": 0.5,
   "decision_threshold_metric": "fixed_policy_0.5_validation_accuracy",
@@ -72,5 +82,16 @@
     "gap_ok": false,
     "balance_ok": false
   },
-  "leakage_policy": "test_not_used_in_tuning"
+  "leakage_policy": "test_not_used_in_tuning",
+  "strategy_stage": "default",
+  "direction_mode": "normal",
+  "recency_weight_lambda": 0.0,
+  "class_weight_mode": "none",
+  "gate_objective_version": "target_aligned_v3_svm_no_class_weight",
+  "train_val_gap_signed": 0.3046255731023942,
+  "train_val_gap_abs": 0.3046255731023942,
+  "val_proba_std": 0.09900916832246735,
+  "val_proba_unique": 127,
+  "val_pred_unique": 2,
+  "degenerate_rejected_count": 0
 }

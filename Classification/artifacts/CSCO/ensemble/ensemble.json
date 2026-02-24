@@ -1,0 +1,50 @@
+{
+  "ticker": "CSCO",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.029201366645312834,
+  "ic_pvalue": 0.6637848442958685,
+  "ic_first_half": -0.1386715413264086,
+  "ic_second_half": 0.02797519390439744,
+  "accuracy_ref": 0.34375,
+  "precision_ref": 0.4691358024691358,
+  "train_accuracy_ref": 0.7761363636363636,
+  "gap_ref": 0.4323863636363636,
+  "gap_signed_ref": 0.4323863636363636,
+  "gap_abs_ref": 0.4323863636363636,
+  "proba_std_test": 0.0902805339715933,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.3243075677845464,
+    "mean": 0.4661446031468587,
+    "max": 0.6561716915559912
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.3614386946689413,
+    "mean": 0.4396770045637242,
+    "max": 0.5453542154788489
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.42331324118726976
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

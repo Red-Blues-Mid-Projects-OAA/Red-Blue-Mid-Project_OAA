@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T02:44:10",
+  "ticker": "AMGN",
+  "ticker_slug": "AMGN",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AMGN/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AMGN/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5625,
+    "precision": 0.0,
+    "ic": 0.1766837497330771,
+    "ic_p_value": 0.008038463246691357,
+    "gap": 0.12727272727272732,
+    "gap_signed": 0.12727272727272732,
+    "gap_abs": 0.12727272727272732,
+    "ic_first": 0.21027095363378548,
+    "ic_second": 0.7993900980626645,
+    "proba_std_test": 0.04513143935896678,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

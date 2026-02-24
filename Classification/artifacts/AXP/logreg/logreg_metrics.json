@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:52:09",
+  "ticker": "AXP",
+  "ticker_slug": "AXP",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AXP/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AXP/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5178571428571429,
+    "precision": 0.6031746031746031,
+    "ic": 0.4400330984411702,
+    "ic_p_value": 5.0399113174672224e-12,
+    "gap": 0.1525974025974025,
+    "gap_signed": 0.1525974025974025,
+    "gap_abs": 0.1525974025974025,
+    "ic_first": 0.6405422489493285,
+    "ic_second": 0.138372569788499,
+    "proba_std_test": 0.16575796556109929,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

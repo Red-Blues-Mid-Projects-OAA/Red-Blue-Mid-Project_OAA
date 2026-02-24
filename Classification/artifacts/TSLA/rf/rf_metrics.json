@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:24:22",
+  "generated_at": "2026-02-23T22:44:09",
   "ticker": "TSLA",
   "ticker_slug": "TSLA",
   "benchmark": "SP500",
@@ -14,22 +14,22 @@
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TSLA/rf/rf_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.665158371040724,
+    "accuracy": 0.6651785714285714,
     "precision": 0.7475728155339806,
-    "ic": 0.5989238106885165,
-    "ic_p_value": 6.651036004932314e-23,
-    "gap": 0.03711435623200332,
-    "gap_signed": 0.03711435623200332,
-    "gap_abs": 0.03711435623200332,
-    "ic_first": 0.6566147465230034,
-    "ic_second": 0.7742979992979993,
-    "proba_std_test": 0.11972766019634608,
-    "proba_unique_test": 221,
+    "ic": 0.5968631219303866,
+    "ic_p_value": 5.210842234727534e-23,
+    "gap": 0.037094155844155874,
+    "gap_signed": 0.037094155844155874,
+    "gap_abs": 0.037094155844155874,
+    "ic_first": 0.646538763795401,
+    "ic_second": 0.802277308914477,
+    "proba_std_test": 0.1197084283544416,
+    "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": true
   },

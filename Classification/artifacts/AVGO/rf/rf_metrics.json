@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:24:40",
+  "generated_at": "2026-02-23T22:42:05",
   "ticker": "AVGO",
   "ticker_slug": "AVGO",
   "benchmark": "SP500",
@@ -14,22 +14,22 @@
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AVGO/rf/rf_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.6968325791855203,
-    "precision": 0.6968325791855203,
-    "ic": -0.21730018788842317,
-    "ic_p_value": 0.0011499372361849834,
-    "gap": 0.005923488276429412,
-    "gap_signed": -0.005923488276429412,
-    "gap_abs": 0.005923488276429412,
-    "ic_first": -0.1619412573541014,
-    "ic_second": 0.06085468585468585,
-    "proba_std_test": 0.049248465906245244,
-    "proba_unique_test": 219,
+    "accuracy": 0.6875,
+    "precision": 0.6875,
+    "ic": -0.1628635490070468,
+    "ic_p_value": 0.014679315878926883,
+    "gap": 0.003409090909090917,
+    "gap_signed": 0.003409090909090917,
+    "gap_abs": 0.003409090909090917,
+    "ic_first": -0.07620357399118462,
+    "ic_second": 0.18054464072163187,
+    "proba_std_test": 0.04438777407503555,
+    "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false
   },

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:21:38",
+  "generated_at": "2026-02-23T22:37:24",
   "ticker": "GOOGL",
   "ticker_slug": "GOOGL",
   "benchmark": "SP500",
@@ -14,22 +14,22 @@
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/xgb/xgb_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.7420814479638009,
-    "precision": 0.972972972972973,
-    "ic": 0.7145360882382829,
-    "ic_p_value": 7.893105260228664e-36,
-    "gap": 0.030717811600164624,
-    "gap_signed": -0.030717811600164624,
-    "gap_abs": 0.030717811600164624,
-    "ic_first": -0.3194491351086864,
-    "ic_second": 0.23006856460259603,
-    "proba_std_test": 0.08596188575029373,
-    "proba_unique_test": 32,
+    "accuracy": 0.78125,
+    "precision": 0.8653846153846154,
+    "ic": 0.6333237241084775,
+    "ic_p_value": 1.6226101125760764e-26,
+    "gap": 0.04943181818181819,
+    "gap_signed": 0.04943181818181819,
+    "gap_abs": 0.04943181818181819,
+    "ic_first": 0.3269552738579287,
+    "ic_second": -0.08161922984931835,
+    "proba_std_test": 0.20745238661766052,
+    "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false
   },

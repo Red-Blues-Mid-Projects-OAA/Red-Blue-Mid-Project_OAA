@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T02:11:13",
+  "ticker": "LIN",
+  "ticker_slug": "LIN",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/LIN/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/LIN/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.33035714285714285,
+    "precision": 0.19205298013245034,
+    "ic": 0.06942237881699766,
+    "ic_p_value": 0.3009236988538888,
+    "gap": 0.41623376623376623,
+    "gap_signed": 0.41623376623376623,
+    "gap_abs": 0.41623376623376623,
+    "ic_first": -0.4390183483103838,
+    "ic_second": 0.7348634981378345,
+    "proba_std_test": 0.10668544842582398,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

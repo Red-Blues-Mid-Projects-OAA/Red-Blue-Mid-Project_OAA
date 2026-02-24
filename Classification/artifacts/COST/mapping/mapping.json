@@ -1,0 +1,21 @@
+{
+  "ticker": "COST",
+  "benchmark": "SP500",
+  "p_latest": 0.786497520351313,
+  "signal_raw": 0.5729950407026261,
+  "signal_clipped": 0.5729950407026261,
+  "IC_full": 0.579106342088405,
+  "sigma_ols": 0.012363230232140764,
+  "sigma_ewma": 0.015858874925893624,
+  "sigma_final": 0.01341192364026662,
+  "TE_annual": 0.21290768733080154,
+  "TE_3M": 0.10388831379871635,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.034472746173162074,
+  "E_alpha_3M_simple": 0.03507381826909173,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

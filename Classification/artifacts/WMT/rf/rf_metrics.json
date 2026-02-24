@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T22:48:14",
+  "ticker": "WMT",
+  "ticker_slug": "WMT",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "normal",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/WMT/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/WMT/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.65625,
+    "precision": 0.6378378378378379,
+    "ic": 0.4315524236600471,
+    "ic_p_value": 1.4137934798067776e-11,
+    "gap": 0.14034090909090913,
+    "gap_signed": 0.14034090909090913,
+    "gap_abs": 0.14034090909090913,
+    "ic_first": 0.34995045614514647,
+    "ic_second": 0.2728328834523525,
+    "proba_std_test": 0.09849561924398427,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

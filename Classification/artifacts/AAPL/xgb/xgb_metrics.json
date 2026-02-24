@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:22:13",
+  "generated_at": "2026-02-23T22:32:37",
   "ticker": "AAPL",
   "ticker_slug": "AAPL",
   "benchmark": "SP500",
@@ -14,22 +14,22 @@
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AAPL/xgb/xgb_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.6561085972850679,
+    "accuracy": 0.6607142857142857,
     "precision": 0.5986394557823129,
-    "ic": 0.5840366416085737,
-    "ic_p_value": 1.3239989763721253e-21,
-    "gap": 0.07684594816947754,
-    "gap_signed": 0.07684594816947754,
-    "gap_abs": 0.07684594816947754,
-    "ic_first": 0.7038705940060903,
-    "ic_second": 0.7561512811512812,
-    "proba_std_test": 0.146399587392807,
-    "proba_unique_test": 218,
+    "ic": 0.5810686907983053,
+    "ic_p_value": 1.263885091021082e-21,
+    "gap": 0.07224025974025972,
+    "gap_signed": 0.07224025974025972,
+    "gap_abs": 0.07224025974025972,
+    "ic_first": 0.7072644142721314,
+    "ic_second": 0.7771636997300715,
+    "proba_std_test": 0.15276551246643066,
+    "proba_unique_test": 221,
     "ic_degenerate": false,
     "overall_pass": true
   },

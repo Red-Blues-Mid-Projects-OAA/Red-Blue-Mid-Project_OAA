@@ -1,0 +1,21 @@
+{
+  "ticker": "LOW",
+  "benchmark": "SP500",
+  "p_latest": 0.6325683698373644,
+  "signal_raw": 0.26513673967472884,
+  "signal_clipped": 0.26513673967472884,
+  "IC_full": 0.6076404014520607,
+  "sigma_ols": 0.013457698285612467,
+  "sigma_ewma": 0.014019693799238519,
+  "sigma_final": 0.013626296939700282,
+  "TE_annual": 0.21631075795900465,
+  "TE_3M": 0.10554884223587258,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.017004741230631466,
+  "E_alpha_3M_simple": 0.017150144857231986,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

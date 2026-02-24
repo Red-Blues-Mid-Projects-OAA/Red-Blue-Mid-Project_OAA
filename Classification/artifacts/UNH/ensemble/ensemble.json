@@ -1,0 +1,50 @@
+{
+  "ticker": "UNH",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.02387144992526159,
+  "ic_pvalue": 0.7223446819422477,
+  "ic_first_half": 0.36461714559059694,
+  "ic_second_half": -0.6232787781460348,
+  "accuracy_ref": 0.30357142857142855,
+  "precision_ref": 0.2876712328767123,
+  "train_accuracy_ref": 0.8170454545454545,
+  "gap_ref": 0.513474025974026,
+  "gap_signed_ref": 0.513474025974026,
+  "gap_abs_ref": 0.513474025974026,
+  "proba_std_test": 0.06504433768906004,
+  "proba_unique_test": 221,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.45537796369722616,
+    "mean": 0.6951279025155986,
+    "max": 0.7975804669350626
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.6561676182440465,
+    "mean": 0.7477112028454123,
+    "max": 0.8052035161921686
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6567530321023983
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "LMT",
+  "benchmark": "SP500",
+  "p_latest": 0.3252368721527182,
+  "signal_raw": -0.34952625569456364,
+  "signal_clipped": -0.34952625569456364,
+  "IC_full": 0.07205957719410636,
+  "sigma_ols": 0.0170244795530227,
+  "sigma_ewma": 0.01899858518680183,
+  "sigma_final": 0.01761671124315644,
+  "TE_annual": 0.2796566212093648,
+  "TE_3M": 0.1364584585193797,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.003436940195389971,
+  "E_alpha_3M_simple": -0.0034310406771357327,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

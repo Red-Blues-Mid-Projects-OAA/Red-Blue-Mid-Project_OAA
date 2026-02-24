@@ -1,0 +1,23 @@
+{
+  "ticker": "PH",
+  "benchmark": "SP500",
+  "p_latest": 0.1678314631514185,
+  "signal_raw": -0.664337073697163,
+  "signal_clipped": -0.664337073697163,
+  "IC_full": -0.18284753363228703,
+  "sigma_ols": 0.012700308374755491,
+  "sigma_ewma": 0.012433728940822569,
+  "sigma_final": 0.012620334544575614,
+  "TE_annual": 0.20034160000430806,
+  "TE_3M": 0.09775669102941505,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.01187473942826409,
+  "E_alpha_3M_simple": 0.011945524052018541,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

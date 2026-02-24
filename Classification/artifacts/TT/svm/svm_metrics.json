@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T09:23:09",
+  "ticker": "TT",
+  "ticker_slug": "TT",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TT/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TT/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.36607142857142855,
+    "precision": 0.3444976076555024,
+    "ic": -0.5588554345505019,
+    "ic_p_value": 8.447675396064615e-20,
+    "gap": 0.35495285398927773,
+    "gap_signed": 0.35495285398927773,
+    "gap_abs": 0.35495285398927773,
+    "ic_first": -0.5121297023951892,
+    "ic_second": -0.23031058871766838,
+    "proba_std_test": 0.11503806318118638,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

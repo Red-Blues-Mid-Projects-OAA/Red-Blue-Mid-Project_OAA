@@ -1,0 +1,21 @@
+{
+  "ticker": "MDT",
+  "benchmark": "SP500",
+  "p_latest": 0.2867593640218925,
+  "signal_raw": -0.426481271956215,
+  "signal_clipped": -0.426481271956215,
+  "IC_full": 0.3143946188340808,
+  "sigma_ols": 0.013333014740477746,
+  "sigma_ewma": 0.014738397719922568,
+  "sigma_final": 0.013754629634311191,
+  "TE_annual": 0.21834797632912023,
+  "TE_3M": 0.10654290301387652,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.014285636486439822,
+  "E_alpha_3M_simple": -0.014184080951835099,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

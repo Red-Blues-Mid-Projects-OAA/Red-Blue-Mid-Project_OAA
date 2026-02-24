@@ -1,0 +1,21 @@
+{
+  "ticker": "LLY",
+  "benchmark": "SP500",
+  "p_latest": 0.5380806069195463,
+  "signal_raw": 0.07616121383909258,
+  "signal_clipped": 0.07616121383909258,
+  "IC_full": 0.08236173393124067,
+  "sigma_ols": 0.022072223732373355,
+  "sigma_ewma": 0.028814087027618705,
+  "sigma_final": 0.024094782720946957,
+  "TE_annual": 0.38249281784257116,
+  "TE_3M": 0.1866373844174276,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0011707333168141305,
+  "E_alpha_3M_simple": 0.0011714188925797675,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T03:36:34",
+  "ticker": "DIS",
+  "ticker_slug": "DIS",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DIS/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DIS/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7455357142857143,
+    "precision": 0.0,
+    "ic": 0.6780920350202863,
+    "ic_p_value": 1.6125354913801657e-31,
+    "gap": 0.16469155844155847,
+    "gap_signed": 0.16469155844155847,
+    "gap_abs": 0.16469155844155847,
+    "ic_first": 0.5255663375132402,
+    "ic_second": 0.7402364437762667,
+    "proba_std_test": 0.007795359662400848,
+    "proba_unique_test": 158,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

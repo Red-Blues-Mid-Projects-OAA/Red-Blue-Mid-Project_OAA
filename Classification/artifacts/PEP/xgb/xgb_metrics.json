@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T02:15:54",
+  "ticker": "PEP",
+  "ticker_slug": "PEP",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PEP/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/PEP/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5803571428571429,
+    "precision": 0.36538461538461536,
+    "ic": 0.003838886354603584,
+    "ic_p_value": 0.9544384898403416,
+    "gap": 0.11623376623376613,
+    "gap_signed": 0.11623376623376613,
+    "gap_abs": 0.11623376623376613,
+    "ic_first": -0.2940135092720112,
+    "ic_second": 0.482574230361841,
+    "proba_std_test": 0.17226266860961914,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "MCK",
+  "benchmark": "SP500",
+  "p_latest": 0.46120698216151174,
+  "signal_raw": -0.07758603567697653,
+  "signal_clipped": -0.07758603567697653,
+  "IC_full": 0.05029895366218237,
+  "sigma_ols": 0.019032199785292823,
+  "sigma_ewma": 0.03332488149573068,
+  "sigma_final": 0.02332000429842418,
+  "TE_annual": 0.370193591679526,
+  "TE_3M": 0.18063597656256447,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0007049312506571424,
+  "E_alpha_3M_simple": -0.0007046828449961406,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

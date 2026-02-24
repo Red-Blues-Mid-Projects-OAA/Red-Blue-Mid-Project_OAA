@@ -1,0 +1,23 @@
+{
+  "ticker": "MCD",
+  "benchmark": "SP500",
+  "p_latest": 0.2842629657891078,
+  "signal_raw": -0.4314740684217844,
+  "signal_clipped": -0.4314740684217844,
+  "IC_full": -0.33395472987401237,
+  "sigma_ols": 0.013465046493769053,
+  "sigma_ewma": 0.012508261201022558,
+  "sigma_final": 0.013178010905945104,
+  "TE_annual": 0.2091944377897664,
+  "TE_3M": 0.10207643354973021,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.014708479733329366,
+  "E_alpha_3M_simple": 0.014817181714448013,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

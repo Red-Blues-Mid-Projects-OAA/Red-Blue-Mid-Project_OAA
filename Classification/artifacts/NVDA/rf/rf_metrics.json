@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:21:00",
+  "generated_at": "2026-02-23T22:30:15",
   "ticker": "NVDA",
   "ticker_slug": "NVDA",
   "benchmark": "SP500",
@@ -14,22 +14,22 @@
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NVDA/rf/rf_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.4298642533936652,
-    "precision": 0.4846938775510204,
-    "ic": -0.7097524097524097,
-    "ic_p_value": 3.610377721021425e-35,
-    "gap": 0.32809029206088025,
-    "gap_signed": 0.32809029206088025,
-    "gap_abs": 0.32809029206088025,
-    "ic_first": -0.9402475035502558,
-    "ic_second": 0.023815373815373814,
-    "proba_std_test": 0.13399088068751666,
-    "proba_unique_test": 221,
+    "accuracy": 0.42857142857142855,
+    "precision": 0.4824120603015075,
+    "ic": -0.7062449284646596,
+    "ic_p_value": 3.805054927939469e-35,
+    "gap": 0.3316558441558442,
+    "gap_signed": 0.3316558441558442,
+    "gap_abs": 0.3316558441558442,
+    "ic_first": -0.9436908463457137,
+    "ic_second": 0.06830218334643114,
+    "proba_std_test": 0.13303871223579347,
+    "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false
   },

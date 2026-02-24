@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T04:06:11",
+  "ticker": "ADI",
+  "ticker_slug": "ADI",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ADI/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ADI/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.53125,
+    "precision": 0.5876288659793815,
+    "ic": 0.06888853299167201,
+    "ic_p_value": 0.3046650195395368,
+    "gap": 0.2614828918322296,
+    "gap_signed": 0.2614828918322296,
+    "gap_abs": 0.2614828918322296,
+    "ic_first": 0.6274814637646496,
+    "ic_second": 0.08073939932347013,
+    "proba_std_test": 0.2615942652509212,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

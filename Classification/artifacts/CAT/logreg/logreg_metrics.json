@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T00:05:27",
+  "ticker": "CAT",
+  "ticker_slug": "CAT",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CAT/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CAT/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5580357142857143,
+    "precision": 0.8990825688073395,
+    "ic": -0.36624065769805686,
+    "ic_p_value": 1.6214567111136663e-08,
+    "gap": 0.2146915584415584,
+    "gap_signed": 0.2146915584415584,
+    "gap_abs": 0.2146915584415584,
+    "ic_first": 0.8104178767895582,
+    "ic_second": -0.48521372193938567,
+    "proba_std_test": 0.36348610525694547,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

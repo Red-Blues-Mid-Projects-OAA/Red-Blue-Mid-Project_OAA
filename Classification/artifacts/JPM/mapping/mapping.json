@@ -1,0 +1,21 @@
+{
+  "ticker": "JPM",
+  "benchmark": "SP500",
+  "p_latest": 0.5494121075697855,
+  "signal_raw": 0.09882421513957107,
+  "signal_clipped": 0.09882421513957107,
+  "IC_full": 0.3095206064488576,
+  "sigma_ols": 0.012145497843837328,
+  "sigma_ewma": 0.013515888252154286,
+  "sigma_final": 0.012556614966332414,
+  "TE_annual": 0.19933008305824348,
+  "TE_3M": 0.0972631212986885,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0029750970959314,
+  "E_alpha_3M_simple": 0.0029795270894272807,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T03:19:39",
+  "ticker": "TMO",
+  "ticker_slug": "TMO",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TMO/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TMO/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5491071428571429,
+    "precision": 0.5782312925170068,
+    "ic": -0.2500619261157378,
+    "ic_p_value": 0.00015563245205324234,
+    "gap": 0.33952922077922076,
+    "gap_signed": 0.33952922077922076,
+    "gap_abs": 0.33952922077922076,
+    "ic_first": -0.06063142788806506,
+    "ic_second": 0.45767417227594226,
+    "proba_std_test": 0.17912285029888153,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

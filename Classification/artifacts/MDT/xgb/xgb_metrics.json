@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T06:43:25",
+  "ticker": "MDT",
+  "ticker_slug": "MDT",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MDT/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MDT/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5982142857142857,
+    "precision": 0.0,
+    "ic": 0.4160224258014311,
+    "ic_p_value": 8.691573857100056e-11,
+    "gap": 0.24837662337662336,
+    "gap_signed": 0.24837662337662336,
+    "gap_abs": 0.24837662337662336,
+    "ic_first": 0.37794781227196134,
+    "ic_second": 0.4986332729695562,
+    "proba_std_test": 0.08428703248500824,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T07:41:10",
+  "ticker": "HCA",
+  "ticker_slug": "HCA",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HCA/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HCA/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7098214285714286,
+    "precision": 0.7268518518518519,
+    "ic": 0.2689493914157592,
+    "ic_p_value": 4.5397465935161966e-05,
+    "gap": 0.034496753246753165,
+    "gap_signed": 0.034496753246753165,
+    "gap_abs": 0.034496753246753165,
+    "ic_first": 0.17693989817883626,
+    "ic_second": 0.44635596405507916,
+    "proba_std_test": 0.09302981050010371,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

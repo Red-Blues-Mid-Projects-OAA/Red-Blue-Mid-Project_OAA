@@ -1,0 +1,23 @@
+{
+  "ticker": "BMY",
+  "benchmark": "SP500",
+  "p_latest": 0.5886441419275958,
+  "signal_raw": 0.1772882838551917,
+  "signal_clipped": 0.1772882838551917,
+  "IC_full": -0.0488735853085629,
+  "sigma_ols": 0.019180651380681625,
+  "sigma_ewma": 0.016891153513269624,
+  "sigma_final": 0.018493802020458024,
+  "TE_annual": 0.29358000565317477,
+  "TE_3M": 0.143252374466582,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.001241240863914668,
+  "E_alpha_3M_simple": -0.0012404708431003053,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

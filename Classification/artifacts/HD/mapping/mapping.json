@@ -1,0 +1,21 @@
+{
+  "ticker": "HD",
+  "benchmark": "SP500",
+  "p_latest": 0.4976803649793371,
+  "signal_raw": -0.004639270041325805,
+  "signal_clipped": -0.004639270041325805,
+  "IC_full": 0.5227994875080078,
+  "sigma_ols": 0.012561268850347296,
+  "sigma_ewma": 0.013162651002449436,
+  "sigma_final": 0.012741683495977938,
+  "TE_annual": 0.20226795488792212,
+  "TE_3M": 0.09869665596513691,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00023937965895270792,
+  "E_alpha_3M_simple": -0.00023935100992822367,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

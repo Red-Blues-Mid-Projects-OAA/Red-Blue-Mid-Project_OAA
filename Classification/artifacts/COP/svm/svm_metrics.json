@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T05:54:31",
+  "ticker": "COP",
+  "ticker_slug": "COP",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/COP/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/COP/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4375,
+    "precision": 0.2645161290322581,
+    "ic": 0.029134102071321808,
+    "ic_p_value": 0.6645122117725966,
+    "gap": 0.2727693156732892,
+    "gap_signed": 0.2727693156732892,
+    "gap_abs": 0.2727693156732892,
+    "ic_first": 0.2540062186079885,
+    "ic_second": -0.3572026514504391,
+    "proba_std_test": 0.09164229891799938,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}
