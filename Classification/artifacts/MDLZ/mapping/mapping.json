@@ -1,0 +1,21 @@
+{
+  "ticker": "MDLZ",
+  "benchmark": "SP500",
+  "p_latest": 0.4538877490060953,
+  "signal_raw": -0.0922245019878094,
+  "signal_clipped": -0.0922245019878094,
+  "IC_full": 0.4719880418535128,
+  "sigma_ols": 0.015582768764698005,
+  "sigma_ewma": 0.01811723742567146,
+  "sigma_final": 0.016343109362990042,
+  "TE_annual": 0.25943881814401737,
+  "TE_3M": 0.1265931807762139,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.005510457109332479,
+  "E_alpha_3M_simple": -0.0054953023898108855,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

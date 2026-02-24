@@ -1,0 +1,50 @@
+{
+  "ticker": "HOOD",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.12951099722400172,
+  "ic_pvalue": 0.052909545355175586,
+  "ic_first_half": 0.21902654867256638,
+  "ic_second_half": -0.4884682406806301,
+  "accuracy_ref": 0.5669642857142857,
+  "precision_ref": 0.6946107784431138,
+  "train_accuracy_ref": 0.6358024691358025,
+  "gap_ref": 0.06883818342151682,
+  "gap_signed_ref": 0.06883818342151682,
+  "gap_abs_ref": 0.06883818342151682,
+  "proba_std_test": 0.030009035042551927,
+  "proba_unique_test": 223,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.4425753007544217,
+    "mean": 0.5187132893099572,
+    "max": 0.6145971192228499
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.4967393879820478,
+    "mean": 0.5768572379593117,
+    "max": 0.636722767234166
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.5564848988702449
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

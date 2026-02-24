@@ -302,6 +302,14 @@ def run_all_tickers(
             print(f"  [SKIP] {ticker}: {reason}")
             continue
 
+        # ── 빠른 스킵: 이미 앙상블 결과가 존재하는 종목은 재실행하지 않음 ──
+        if not force_retune_all:
+            from Classification.model_config import get_ensemble_result_path
+            _existing_ens = get_ensemble_result_path(ticker)
+            if _existing_ens.exists():
+                print(f"  [SKIP] {ticker}: ensemble.json 이미 존재 → 빠른 스킵")
+                continue
+
         warnings = []
         model_status = {}
         try:

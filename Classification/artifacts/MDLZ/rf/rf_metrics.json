@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T14:56:21",
+  "ticker": "MDLZ",
+  "ticker_slug": "MDLZ",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MDLZ/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/MDLZ/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6875,
+    "precision": 0.4230769230769231,
+    "ic": 0.4232393764680761,
+    "ic_p_value": 3.780756702990256e-11,
+    "gap": 0.054545454545454564,
+    "gap_signed": 0.054545454545454564,
+    "gap_abs": 0.054545454545454564,
+    "ic_first": 0.17670926299244885,
+    "ic_second": 0.6293777975193904,
+    "proba_std_test": 0.1382219638512975,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

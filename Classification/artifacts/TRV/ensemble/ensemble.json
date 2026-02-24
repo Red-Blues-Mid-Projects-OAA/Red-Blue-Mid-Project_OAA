@@ -1,0 +1,50 @@
+{
+  "ticker": "TRV",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.22959427717275255,
+  "ic_pvalue": 0.000533376319098975,
+  "ic_first_half": 0.0013752690743841188,
+  "ic_second_half": 0.450404892882769,
+  "accuracy_ref": 0.6116071428571429,
+  "precision_ref": 0.5301204819277109,
+  "train_accuracy_ref": 0.759090909090909,
+  "gap_ref": 0.14748376623376613,
+  "gap_signed_ref": 0.14748376623376613,
+  "gap_abs_ref": 0.14748376623376613,
+  "proba_std_test": 0.15074880189146803,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.18307084311777505,
+    "mean": 0.449106968560538,
+    "max": 0.7951943118927495
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.4402974488618342,
+    "mean": 0.5722767493476371,
+    "max": 0.703644413859162
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6337902307675272
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

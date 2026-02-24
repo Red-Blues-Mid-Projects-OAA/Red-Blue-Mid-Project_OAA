@@ -1,0 +1,50 @@
+{
+  "ticker": "MDLZ",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.4719880418535128,
+  "ic_pvalue": 7.91871137288723e-14,
+  "ic_first_half": 0.26869853418525985,
+  "ic_second_half": 0.6511429254792088,
+  "accuracy_ref": 0.7857142857142857,
+  "precision_ref": 0.578125,
+  "train_accuracy_ref": 0.7522727272727273,
+  "gap_ref": 0.03344155844155838,
+  "gap_signed_ref": -0.03344155844155838,
+  "gap_abs_ref": 0.03344155844155838,
+  "proba_std_test": 0.12700501557464305,
+  "proba_unique_test": 223,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.17002952049861114,
+    "mean": 0.42114245115534715,
+    "max": 0.6930164563844445
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.25395944621060085,
+    "mean": 0.42382214656677675,
+    "max": 0.6447217529009078
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.4538877490060953
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

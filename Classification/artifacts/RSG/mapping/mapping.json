@@ -1,0 +1,23 @@
+{
+  "ticker": "RSG",
+  "benchmark": "SP500",
+  "p_latest": 0.6512167098954539,
+  "signal_raw": 0.30243341979090776,
+  "signal_clipped": 0.30243341979090776,
+  "IC_full": -0.058557548579970115,
+  "sigma_ols": 0.01229465758490954,
+  "sigma_ewma": 0.013606414715907022,
+  "sigma_final": 0.012688184724208783,
+  "TE_annual": 0.2014186882146306,
+  "TE_3M": 0.09828225626092793,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0017405551383648742,
+  "E_alpha_3M_simple": -0.0017390412507324315,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

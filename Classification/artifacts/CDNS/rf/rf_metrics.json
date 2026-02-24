@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T13:36:15",
+  "ticker": "CDNS",
+  "ticker_slug": "CDNS",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CDNS/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CDNS/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7053571428571429,
+    "precision": 0.6107784431137725,
+    "ic": 0.6717024504704023,
+    "ic_p_value": 9.443324882170578e-31,
+    "gap": 0.012175324675324672,
+    "gap_signed": -0.012175324675324672,
+    "gap_abs": 0.012175324675324672,
+    "ic_first": 0.01884850297462555,
+    "ic_second": 0.6065876242867394,
+    "proba_std_test": 0.129644748258574,
+    "proba_unique_test": 218,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

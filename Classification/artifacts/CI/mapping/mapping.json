@@ -1,0 +1,21 @@
+{
+  "ticker": "CI",
+  "benchmark": "SP500",
+  "p_latest": 0.5495259614202775,
+  "signal_raw": 0.09905192284055508,
+  "signal_clipped": 0.09905192284055508,
+  "IC_full": 0.029849455477258174,
+  "sigma_ols": 0.020269233962844538,
+  "sigma_ewma": 0.0193640348191358,
+  "sigma_final": 0.019997674219731913,
+  "TE_annual": 0.31745323671058967,
+  "TE_3M": 0.1549013184318062,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.00045798835745872174,
+  "E_alpha_3M_simple": 0.00045809325013901336,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

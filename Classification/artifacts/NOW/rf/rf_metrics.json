@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T09:55:55",
+  "generated_at": "2026-02-24T17:08:04",
   "ticker": "NOW",
   "ticker_slug": "NOW",
   "benchmark": "SP500",
@@ -9,7 +9,7 @@
     "optimize_profile": "balanced",
     "n_trials": 100,
     "force_retune_all": false,
-    "model_status": "retuned_once_success",
+    "model_status": "normal",
     "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NOW/rf/rf_best_params.json",
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NOW/rf/rf_classifier_result.png"
   },
@@ -28,7 +28,7 @@
     "gap_abs": 0.5392045454545454,
     "ic_first": -0.11963986742747805,
     "ic_second": 0.307855263607476,
-    "proba_std_test": 0.14438571900317432,
+    "proba_std_test": 0.14438571900317435,
     "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false

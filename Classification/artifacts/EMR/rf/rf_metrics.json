@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T14:33:12",
+  "ticker": "EMR",
+  "ticker_slug": "EMR",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/EMR/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/EMR/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6741071428571429,
+    "precision": 0.7959183673469388,
+    "ic": 0.3625532251404793,
+    "ic_p_value": 2.309014245339874e-08,
+    "gap": 0.07362012987012978,
+    "gap_signed": 0.07362012987012978,
+    "gap_abs": 0.07362012987012978,
+    "ic_first": 0.6293269920985928,
+    "ic_second": 0.002682201797246045,
+    "proba_std_test": 0.13155175366130786,
+    "proba_unique_test": 212,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "GM",
+  "benchmark": "SP500",
+  "p_latest": 0.3363236056965293,
+  "signal_raw": -0.3273527886069414,
+  "signal_clipped": -0.3273527886069414,
+  "IC_full": 0.0018385650224215248,
+  "sigma_ols": 0.01980523975210619,
+  "sigma_ewma": 0.021895904296540987,
+  "sigma_final": 0.02043243911543663,
+  "TE_annual": 0.32435491546748335,
+  "TE_3M": 0.15826899283296617,
+  "phi": 1.0,
+  "E_alpha_3M_log": -9.525567902731943e-05,
+  "E_alpha_3M_simple": -9.52511423492064e-05,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

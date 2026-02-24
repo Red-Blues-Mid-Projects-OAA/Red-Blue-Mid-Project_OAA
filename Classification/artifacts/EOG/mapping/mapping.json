@@ -1,0 +1,23 @@
+{
+  "ticker": "EOG",
+  "benchmark": "SP500",
+  "p_latest": 0.3288372216055026,
+  "signal_raw": -0.3423255567889948,
+  "signal_clipped": -0.3423255567889948,
+  "IC_full": -0.040656630365150555,
+  "sigma_ols": 0.01586920448174661,
+  "sigma_ewma": 0.02007584842228604,
+  "sigma_final": 0.01713119766390844,
+  "TE_annual": 0.27194933207635447,
+  "TE_3M": 0.1326976865058096,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0018468603425337224,
+  "E_alpha_3M_simple": 0.0018485668394883081,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

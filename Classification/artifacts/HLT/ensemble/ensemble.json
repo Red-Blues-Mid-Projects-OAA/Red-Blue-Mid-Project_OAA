@@ -1,0 +1,50 @@
+{
+  "ticker": "HLT",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.222663890668375,
+  "ic_pvalue": 0.0007904552053178159,
+  "ic_first_half": -0.2844842313868863,
+  "ic_second_half": -0.19117094338333276,
+  "accuracy_ref": 0.36160714285714285,
+  "precision_ref": 0.37628865979381443,
+  "train_accuracy_ref": 0.7306818181818182,
+  "gap_ref": 0.36907467532467536,
+  "gap_signed_ref": 0.36907467532467536,
+  "gap_abs_ref": 0.36907467532467536,
+  "proba_std_test": 0.13123502983967653,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.34611211557381394,
+    "mean": 0.6731731882413327,
+    "max": 0.8463804295227109
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.5767284505471961,
+    "mean": 0.7423575720540642,
+    "max": 0.8568293356756672
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6438081041165944
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T15:01:19",
+  "ticker": "HLT",
+  "ticker_slug": "HLT",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HLT/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HLT/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.35714285714285715,
+    "precision": 0.37037037037037035,
+    "ic": -0.27670937433269277,
+    "ic_p_value": 2.662701324619079e-05,
+    "gap": 0.3759697256385998,
+    "gap_signed": 0.3759697256385998,
+    "gap_abs": 0.3759697256385998,
+    "ic_first": -0.4156558581337343,
+    "ic_second": -0.24674548125875562,
+    "proba_std_test": 0.16181228903711933,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

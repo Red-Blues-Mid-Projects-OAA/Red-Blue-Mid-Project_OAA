@@ -1,0 +1,21 @@
+{
+  "ticker": "CL",
+  "benchmark": "SP500",
+  "p_latest": 0.3866268961633204,
+  "signal_raw": -0.22674620767335918,
+  "signal_clipped": -0.22674620767335918,
+  "IC_full": 0.09922378816997653,
+  "sigma_ols": 0.015392406216545291,
+  "sigma_ewma": 0.017200421088126337,
+  "sigma_final": 0.015934810678019603,
+  "TE_annual": 0.2529572774576184,
+  "TE_3M": 0.12343051276187608,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0027770159164939847,
+  "E_alpha_3M_simple": -0.0027731635746237604,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

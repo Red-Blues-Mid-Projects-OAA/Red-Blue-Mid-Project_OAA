@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T13:42:25",
+  "ticker": "DELL",
+  "ticker_slug": "DELL",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DELL/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DELL/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.38839285714285715,
+    "precision": 0.4024390243902439,
+    "ic": -0.43207403383824766,
+    "ic_p_value": 1.3279786223465612e-11,
+    "gap": 0.29683441558441553,
+    "gap_signed": 0.29683441558441553,
+    "gap_abs": 0.29683441558441553,
+    "ic_first": -0.4296779401740244,
+    "ic_second": 0.10786893087778045,
+    "proba_std_test": 0.07638119107644749,
+    "proba_unique_test": 219,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

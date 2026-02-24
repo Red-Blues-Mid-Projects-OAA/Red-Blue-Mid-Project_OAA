@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T12:53:50",
+  "generated_at": "2026-02-24T17:10:57",
   "ticker": "STX",
   "ticker_slug": "STX",
   "benchmark": "SP500",
@@ -9,7 +9,7 @@
     "optimize_profile": "balanced",
     "n_trials": 100,
     "force_retune_all": false,
-    "model_status": "retuned_once_success",
+    "model_status": "normal",
     "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/STX/svm/best_svm_params.json",
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/STX/svm/svm_classifier_result.png"
   },

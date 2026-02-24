@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T11:14:18",
+  "generated_at": "2026-02-24T17:08:33",
   "ticker": "BX",
   "ticker_slug": "BX",
   "benchmark": "SP500",
@@ -9,7 +9,7 @@
     "optimize_profile": "balanced",
     "n_trials": 100,
     "force_retune_all": false,
-    "model_status": "retuned_once_success",
+    "model_status": "normal",
     "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BX/xgb/xgb_best_params.json",
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BX/xgb/xgb_classifier_result.png"
   },

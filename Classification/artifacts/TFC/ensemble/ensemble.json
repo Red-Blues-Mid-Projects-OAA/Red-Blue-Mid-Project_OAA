@@ -1,0 +1,50 @@
+{
+  "ticker": "TFC",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.15490284005979077,
+  "ic_pvalue": 0.020372264619043515,
+  "ic_first_half": -0.14651313766358015,
+  "ic_second_half": 0.23828031571394406,
+  "accuracy_ref": 0.46875,
+  "precision_ref": 0.4421768707482993,
+  "train_accuracy_ref": 0.8670454545454546,
+  "gap_ref": 0.39829545454545456,
+  "gap_signed_ref": 0.39829545454545456,
+  "gap_abs_ref": 0.39829545454545456,
+  "proba_std_test": 0.13602850524562837,
+  "proba_unique_test": 223,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.21803712697141595,
+    "mean": 0.5453769812894653,
+    "max": 0.794235347851157
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.2736747599686239,
+    "mean": 0.5192008069685693,
+    "max": 0.7949925137870046
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.403332102531943
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

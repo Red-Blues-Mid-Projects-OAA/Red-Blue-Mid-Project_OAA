@@ -1,0 +1,21 @@
+{
+  "ticker": "CDNS",
+  "benchmark": "SP500",
+  "p_latest": 0.7858921669510022,
+  "signal_raw": 0.5717843339020043,
+  "signal_clipped": 0.5717843339020043,
+  "IC_full": 0.6647640401452062,
+  "sigma_ols": 0.01891196112136726,
+  "sigma_ewma": 0.030362713588499856,
+  "sigma_final": 0.022347186861507037,
+  "TE_annual": 0.35475059362462585,
+  "TE_3M": 0.1731005650984039,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.06579581281531596,
+  "E_alpha_3M_simple": 0.0680086212269666,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

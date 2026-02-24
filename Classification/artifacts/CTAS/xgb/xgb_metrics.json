@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T13:24:55",
+  "ticker": "CTAS",
+  "ticker_slug": "CTAS",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CTAS/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CTAS/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3794642857142857,
+    "precision": 0.35348837209302325,
+    "ic": 0.2047597693786035,
+    "ic_p_value": 0.0020691787173189495,
+    "gap": 0.4921266233766234,
+    "gap_signed": 0.4921266233766234,
+    "gap_abs": 0.4921266233766234,
+    "ic_first": 0.23995455632623777,
+    "ic_second": 0.6963901322308402,
+    "proba_std_test": 0.10666680335998535,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

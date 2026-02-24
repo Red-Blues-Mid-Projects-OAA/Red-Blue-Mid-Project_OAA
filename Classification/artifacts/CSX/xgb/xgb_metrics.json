@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T13:47:04",
+  "ticker": "CSX",
+  "ticker_slug": "CSX",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CSX/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CSX/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.71875,
+    "precision": 0.8863636363636364,
+    "ic": 0.5193456436434212,
+    "ic_p_value": 7.162225086309189e-17,
+    "gap": 0.09602272727272732,
+    "gap_signed": 0.09602272727272732,
+    "gap_abs": 0.09602272727272732,
+    "ic_first": 0.5403494984754064,
+    "ic_second": 0.5335873167731575,
+    "proba_std_test": 0.23323118686676025,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

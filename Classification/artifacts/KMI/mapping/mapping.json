@@ -1,0 +1,21 @@
+{
+  "ticker": "KMI",
+  "benchmark": "SP500",
+  "p_latest": 0.6822208362383804,
+  "signal_raw": 0.36444167247676074,
+  "signal_clipped": 0.36444167247676074,
+  "IC_full": 0.6193946188340808,
+  "sigma_ols": 0.013711600120387482,
+  "sigma_ewma": 0.014102370494293331,
+  "sigma_final": 0.013828831232559236,
+  "TE_annual": 0.21952589018420735,
+  "TE_3M": 0.10711766612242982,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.02418001470839656,
+  "E_alpha_3M_simple": 0.02447472181072108,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

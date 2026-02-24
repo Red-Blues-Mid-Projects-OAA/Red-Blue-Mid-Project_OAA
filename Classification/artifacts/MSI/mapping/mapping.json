@@ -1,0 +1,21 @@
+{
+  "ticker": "MSI",
+  "benchmark": "SP500",
+  "p_latest": 0.5931100976665189,
+  "signal_raw": 0.1862201953330378,
+  "signal_clipped": 0.1862201953330378,
+  "IC_full": 0.027181294042280594,
+  "sigma_ols": 0.0128853846583097,
+  "sigma_ewma": 0.021169612717188036,
+  "sigma_final": 0.015370653075973198,
+  "TE_annual": 0.24400155316605043,
+  "TE_3M": 0.11906056676715202,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0006026495715908159,
+  "E_alpha_3M_simple": 0.0006028312013284243,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

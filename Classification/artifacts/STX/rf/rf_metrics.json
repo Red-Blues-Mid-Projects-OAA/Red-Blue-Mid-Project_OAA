@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T12:56:31",
+  "generated_at": "2026-02-24T17:10:59",
   "ticker": "STX",
   "ticker_slug": "STX",
   "benchmark": "SP500",
@@ -9,7 +9,7 @@
     "optimize_profile": "balanced",
     "n_trials": 100,
     "force_retune_all": false,
-    "model_status": "retuned_once_success",
+    "model_status": "normal",
     "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/STX/rf/rf_best_params.json",
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/STX/rf/rf_classifier_result.png"
   },
@@ -28,7 +28,7 @@
     "gap_abs": 0.32930194805194807,
     "ic_first": -0.7101599070625619,
     "ic_second": -0.23013974783886287,
-    "proba_std_test": 0.24245551098953194,
+    "proba_std_test": 0.24245551098953197,
     "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false

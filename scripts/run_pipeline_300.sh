@@ -76,6 +76,14 @@ if [ $? -ne 0 ]; then
 fi
 
 echo ""
+echo "[8/5] Applying Regime Shift Overlay (Graduated Momentum Tracking)..."
+python3 -u -m Classification.multi_ticker.adjust_regime
+if [ $? -ne 0 ]; then
+    echo "❌ Error in Regime Shift Overlay. Exiting."
+    exit 1
+fi
+
+echo ""
 echo "=========================================================="
 echo "🎉 PIPELINE COMPLETE! 🎉"
 echo "End Time: $(date)"

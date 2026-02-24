@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T09:20:19",
+  "generated_at": "2026-02-24T17:06:34",
   "ticker": "BSX",
   "ticker_slug": "BSX",
   "benchmark": "SP500",
@@ -9,7 +9,7 @@
     "optimize_profile": "balanced",
     "n_trials": 100,
     "force_retune_all": false,
-    "model_status": "retuned_once_success",
+    "model_status": "normal",
     "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BSX/xgb/xgb_best_params.json",
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/BSX/xgb/xgb_classifier_result.png"
   },

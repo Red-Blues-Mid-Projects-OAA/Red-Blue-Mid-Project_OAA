@@ -1,0 +1,21 @@
+{
+  "ticker": "MNST",
+  "benchmark": "SP500",
+  "p_latest": 0.11054006753346518,
+  "signal_raw": -0.7789198649330696,
+  "signal_clipped": -0.7789198649330696,
+  "IC_full": 0.039735212470638485,
+  "sigma_ols": 0.016097489051744622,
+  "sigma_ewma": 0.014749055918085193,
+  "sigma_final": 0.015692959111646792,
+  "TE_annual": 0.2491180028647351,
+  "TE_3M": 0.12155713858424394,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.003762259849580975,
+  "E_alpha_3M_simple": -0.003755191417198045,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

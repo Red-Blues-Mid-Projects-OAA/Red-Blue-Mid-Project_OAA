@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T11:34:21",
+  "generated_at": "2026-02-24T17:09:32",
   "ticker": "WDC",
   "ticker_slug": "WDC",
   "benchmark": "SP500",
@@ -9,7 +9,7 @@
     "optimize_profile": "balanced",
     "n_trials": 100,
     "force_retune_all": false,
-    "model_status": "retuned_once_success",
+    "model_status": "normal",
     "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/WDC/rf/rf_best_params.json",
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/WDC/rf/rf_classifier_result.png"
   },
@@ -28,7 +28,7 @@
     "gap_abs": 0.5053571428571428,
     "ic_first": -0.06383069596658471,
     "ic_second": 0.1790167617367802,
-    "proba_std_test": 0.06248341583148619,
+    "proba_std_test": 0.06248341583148617,
     "proba_unique_test": 219,
     "ic_degenerate": false,
     "overall_pass": false

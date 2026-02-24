@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T13:40:05",
+  "ticker": "DELL",
+  "ticker_slug": "DELL",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DELL/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DELL/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.32589285714285715,
+    "precision": 0.38095238095238093,
+    "ic": -0.40433419211446503,
+    "ic_p_value": 3.2109915385229395e-10,
+    "gap": 0.542288961038961,
+    "gap_signed": 0.542288961038961,
+    "gap_abs": 0.542288961038961,
+    "ic_first": -0.5625240247243252,
+    "ic_second": 0.27550654320565826,
+    "proba_std_test": 0.22984306514263153,
+    "proba_unique_test": 220,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

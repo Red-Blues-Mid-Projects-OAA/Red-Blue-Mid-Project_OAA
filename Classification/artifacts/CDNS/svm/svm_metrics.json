@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T13:33:12",
+  "ticker": "CDNS",
+  "ticker_slug": "CDNS",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CDNS/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/CDNS/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5401785714285714,
+    "precision": 0.5,
+    "ic": 0.4217766389066838,
+    "ic_p_value": 4.4827776890931795e-11,
+    "gap": 0.13311944181646185,
+    "gap_signed": 0.13311944181646185,
+    "gap_abs": 0.13311944181646185,
+    "ic_first": 0.02194451088256398,
+    "ic_second": 0.3694006901971504,
+    "proba_std_test": 0.10664607939327021,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

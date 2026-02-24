@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T15:48:40",
+  "ticker": "SLB",
+  "ticker_slug": "SLB",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/SLB/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/SLB/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.32142857142857145,
+    "precision": 0.25748502994011974,
+    "ic": -0.12872304078582109,
+    "ic_p_value": 0.054381856978457974,
+    "gap": 0.4129378744875433,
+    "gap_signed": 0.4129378744875433,
+    "gap_abs": 0.4129378744875433,
+    "ic_first": 0.5158113233334473,
+    "ic_second": -0.8472340861721392,
+    "proba_std_test": 0.16135232689616624,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

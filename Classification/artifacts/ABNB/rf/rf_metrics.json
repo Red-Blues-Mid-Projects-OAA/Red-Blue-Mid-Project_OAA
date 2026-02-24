@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T16:11:32",
+  "ticker": "ABNB",
+  "ticker_slug": "ABNB",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ABNB/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ABNB/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5803571428571429,
+    "precision": 0.2711864406779661,
+    "ic": -0.2077450352338245,
+    "ic_p_value": 0.0017718752845950246,
+    "gap": 0.2472826086956521,
+    "gap_signed": 0.2472826086956521,
+    "gap_abs": 0.2472826086956521,
+    "ic_first": -0.26031024703591077,
+    "ic_second": -0.35627156866094917,
+    "proba_std_test": 0.19988085417102633,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

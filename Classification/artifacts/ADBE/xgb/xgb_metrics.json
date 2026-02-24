@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T09:44:09",
+  "generated_at": "2026-02-24T17:07:34",
   "ticker": "ADBE",
   "ticker_slug": "ADBE",
   "benchmark": "SP500",
@@ -9,7 +9,7 @@
     "optimize_profile": "balanced",
     "n_trials": 100,
     "force_retune_all": false,
-    "model_status": "retuned_once_success",
+    "model_status": "normal",
     "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ADBE/xgb/xgb_best_params.json",
     "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ADBE/xgb/xgb_classifier_result.png"
   },

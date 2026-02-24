@@ -1,0 +1,23 @@
+{
+  "ticker": "ELV",
+  "benchmark": "SP500",
+  "p_latest": 0.799779353968241,
+  "signal_raw": 0.5995587079364819,
+  "signal_clipped": 0.5995587079364819,
+  "IC_full": -0.3087273115524237,
+  "sigma_ols": 0.021785277452134905,
+  "sigma_ewma": 0.030130048715362578,
+  "sigma_final": 0.024288708831103206,
+  "TE_annual": 0.38557129940374446,
+  "TE_3M": 0.18813952960748748,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.034824654778585054,
+  "E_alpha_3M_simple": -0.03422525460182635,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

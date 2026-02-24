@@ -1,0 +1,23 @@
+{
+  "ticker": "DELL",
+  "benchmark": "SP500",
+  "p_latest": 0.3780956732863523,
+  "signal_raw": -0.2438086534272954,
+  "signal_clipped": -0.2438086534272954,
+  "IC_full": -0.33484304932735437,
+  "sigma_ols": 0.030204999879448875,
+  "sigma_ewma": 0.030317314742414874,
+  "sigma_final": 0.030238694338338673,
+  "TE_annual": 0.48002439114324574,
+  "TE_3M": 0.23422791916688437,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.019121812895334083,
+  "E_alpha_3M_simple": 0.019305805646707475,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2390,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}
