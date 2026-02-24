@@ -1,0 +1,23 @@
+{
+  "ticker": "BX",
+  "benchmark": "SP500",
+  "p_latest": 0.7053312498865809,
+  "signal_raw": 0.4106624997731618,
+  "signal_clipped": 0.4106624997731618,
+  "IC_full": -0.5276724322015803,
+  "sigma_ols": 0.016300884265225826,
+  "sigma_ewma": 0.02318101919926759,
+  "sigma_final": 0.018364924745438355,
+  "TE_annual": 0.2915341423370764,
+  "TE_3M": 0.14225409538687048,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.030825791040860716,
+  "E_alpha_3M_simple": -0.030355520881431786,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

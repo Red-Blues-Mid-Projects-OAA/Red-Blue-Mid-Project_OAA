@@ -1,0 +1,50 @@
+{
+  "ticker": "PFE",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.3037251761691224,
+  "ic_pvalue": 3.6538833188649787e-06,
+  "ic_first_half": -0.49918850582567403,
+  "ic_second_half": 0.6005996514846073,
+  "accuracy_ref": 0.75,
+  "precision_ref": 0.0,
+  "train_accuracy_ref": 0.7147727272727272,
+  "gap_ref": 0.035227272727272774,
+  "gap_signed_ref": -0.035227272727272774,
+  "gap_abs_ref": 0.035227272727272774,
+  "proba_std_test": 0.0636639737246485,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.27705719511696,
+    "mean": 0.3531112716516091,
+    "max": 0.5008558691756804
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.38143541263717906,
+    "mean": 0.429358305557505,
+    "max": 0.49056096190894966
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.4598809284753065
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

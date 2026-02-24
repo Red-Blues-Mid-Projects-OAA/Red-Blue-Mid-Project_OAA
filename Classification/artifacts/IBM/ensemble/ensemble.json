@@ -1,0 +1,50 @@
+{
+  "ticker": "IBM",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.6707826179799276,
+  "ic_pvalue": 1.2135398519172083e-30,
+  "ic_first_half": 0.551773328322001,
+  "ic_second_half": 0.887842963064202,
+  "accuracy_ref": 0.65625,
+  "precision_ref": 0.8840579710144928,
+  "train_accuracy_ref": 0.8022727272727272,
+  "gap_ref": 0.14602272727272725,
+  "gap_signed_ref": 0.14602272727272725,
+  "gap_abs_ref": 0.14602272727272725,
+  "proba_std_test": 0.18194398560795602,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.23424685965651068,
+    "mean": 0.45125284818155953,
+    "max": 0.8315767604533453
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.29462608156805,
+    "mean": 0.4756124428156455,
+    "max": 0.6433336414555522
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.47261300423333485
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

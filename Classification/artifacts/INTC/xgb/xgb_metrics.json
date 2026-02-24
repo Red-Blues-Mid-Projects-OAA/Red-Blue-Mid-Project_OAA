@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T00:04:47",
+  "ticker": "INTC",
+  "ticker_slug": "INTC",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\INTC\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\INTC\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.42410714285714285,
+    "precision": 0.625,
+    "ic": -0.16530322442878498,
+    "ic_p_value": 0.013239664613108292,
+    "gap": 0.404301948051948,
+    "gap_signed": 0.404301948051948,
+    "gap_abs": 0.404301948051948,
+    "ic_first": -0.16806471452489152,
+    "ic_second": 0.4558803430484846,
+    "proba_std_test": 0.18235526978969574,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

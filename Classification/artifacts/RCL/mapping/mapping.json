@@ -1,0 +1,21 @@
+{
+  "ticker": "RCL",
+  "benchmark": "SP500",
+  "p_latest": 0.46182151780260416,
+  "signal_raw": -0.07635696439479167,
+  "signal_clipped": -0.07635696439479167,
+  "IC_full": 0.12199444800341663,
+  "sigma_ols": 0.022152341168081152,
+  "sigma_ewma": 0.03634501901336305,
+  "sigma_final": 0.02641014452166572,
+  "TE_annual": 0.4192480469616144,
+  "TE_3M": 0.20457209980668478,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0019056148290271869,
+  "E_alpha_3M_simple": -0.0019038002978710722,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "ANET",
+  "benchmark": "SP500",
+  "p_latest": 0.9717893058648409,
+  "signal_raw": 0.9435786117296818,
+  "signal_clipped": 0.8,
+  "IC_full": 0.5464830237027547,
+  "sigma_ols": 0.027159964634399694,
+  "sigma_ewma": 0.031077716998027437,
+  "sigma_final": 0.028335290343488015,
+  "TE_annual": 0.44980878945407554,
+  "TE_3M": 0.21948421522056186,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.09595551807100706,
+  "E_alpha_3M_simple": 0.10071010119644397,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

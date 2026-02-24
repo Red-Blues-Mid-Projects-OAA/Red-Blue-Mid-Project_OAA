@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T03:19:24",
+  "ticker": "BKNG",
+  "ticker_slug": "BKNG",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\BKNG\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\BKNG\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.53125,
+    "precision": 0.40559440559440557,
+    "ic": 0.2642152466367713,
+    "ic_p_value": 6.236821349532742e-05,
+    "gap": 0.31420454545454546,
+    "gap_signed": 0.31420454545454546,
+    "gap_abs": 0.31420454545454546,
+    "ic_first": 0.7530409676427375,
+    "ic_second": 0.3224963269211057,
+    "proba_std_test": 0.19616371393203735,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

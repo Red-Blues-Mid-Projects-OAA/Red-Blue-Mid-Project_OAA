@@ -1,0 +1,23 @@
+{
+  "ticker": "SYK",
+  "benchmark": "SP500",
+  "p_latest": 0.590832185856936,
+  "signal_raw": 0.18166437171387195,
+  "signal_clipped": 0.18166437171387195,
+  "IC_full": -0.29611573777493067,
+  "sigma_ols": 0.011763856149355562,
+  "sigma_ewma": 0.015202257673013647,
+  "sigma_final": 0.012795376606452986,
+  "TE_annual": 0.20312030659252908,
+  "TE_3M": 0.09911256101048878,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.005331629337207414,
+  "E_alpha_3M_simple": -0.0053174414276034865,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

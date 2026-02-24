@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T08:31:54",
+  "ticker": "CSX",
+  "ticker_slug": "CSX",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CSX\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CSX\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6071428571428571,
+    "precision": 1.0,
+    "ic": 0.6219325218876789,
+    "ic_p_value": 2.266433723607023e-25,
+    "gap": 0.3928571428571429,
+    "gap_signed": 0.3928571428571429,
+    "gap_abs": 0.3928571428571429,
+    "ic_first": 0.3814962244165784,
+    "ic_second": 0.843706222024806,
+    "proba_std_test": 0.07765239253315481,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

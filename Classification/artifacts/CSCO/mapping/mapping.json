@@ -1,0 +1,21 @@
+{
+  "ticker": "CSCO",
+  "benchmark": "SP500",
+  "p_latest": 0.37732428473891977,
+  "signal_raw": -0.24535143052216046,
+  "signal_clipped": -0.24535143052216046,
+  "IC_full": 0.035402519752295546,
+  "sigma_ols": 0.01185585696641297,
+  "sigma_ewma": 0.028472771375093683,
+  "sigma_final": 0.01684093128901718,
+  "TE_annual": 0.26734149622479536,
+  "TE_3M": 0.1304492928339739,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0011330902364945796,
+  "E_alpha_3M_simple": -0.0011324485321451139,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

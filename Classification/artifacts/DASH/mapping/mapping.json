@@ -1,0 +1,23 @@
+{
+  "ticker": "DASH",
+  "benchmark": "SP500",
+  "p_latest": 0.5501296310725508,
+  "signal_raw": 0.1002592621451015,
+  "signal_clipped": 0.1002592621451015,
+  "IC_full": -0.11243433696348497,
+  "sigma_ols": 0.02211893340177686,
+  "sigma_ewma": 0.029450080376672953,
+  "sigma_final": 0.024318277494245685,
+  "TE_annual": 0.3860406873793983,
+  "TE_3M": 0.18836856748732833,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.002123400436618391,
+  "E_alpha_3M_simple": -0.0021211476167396492,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1304,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

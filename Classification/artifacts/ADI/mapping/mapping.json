@@ -1,0 +1,21 @@
+{
+  "ticker": "ADI",
+  "benchmark": "SP500",
+  "p_latest": 0.136297632239486,
+  "signal_raw": -0.727404735521028,
+  "signal_clipped": -0.727404735521028,
+  "IC_full": 0.11072923339739485,
+  "sigma_ols": 0.016571362629850057,
+  "sigma_ewma": 0.016289347369512885,
+  "sigma_final": 0.016486758051748904,
+  "TE_annual": 0.26171917038371617,
+  "TE_3M": 0.1277058787347491,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.010286066009822806,
+  "E_alpha_3M_simple": -0.01023334535040965,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

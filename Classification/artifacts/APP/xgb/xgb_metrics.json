@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T02:46:21",
+  "ticker": "APP",
+  "ticker_slug": "APP",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APP\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\APP\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4330357142857143,
+    "precision": 0.5670731707317073,
+    "ic": 0.054610472968896845,
+    "ic_p_value": 0.4160064576512559,
+    "gap": 0.3862845003833376,
+    "gap_signed": 0.3862845003833376,
+    "gap_abs": 0.3862845003833376,
+    "ic_first": -0.6168355652647393,
+    "ic_second": 0.006718489730135053,
+    "proba_std_test": 0.16964589059352875,
+    "proba_unique_test": 207,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

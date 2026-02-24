@@ -1,0 +1,23 @@
+{
+  "ticker": "INTU",
+  "benchmark": "SP500",
+  "p_latest": 0.4778194264063404,
+  "signal_raw": -0.044361147187319205,
+  "signal_clipped": -0.044361147187319205,
+  "IC_full": -0.4459481101857784,
+  "sigma_ols": 0.017194263621171043,
+  "sigma_ewma": 0.029788590657281153,
+  "sigma_final": 0.020972561732004076,
+  "TE_annual": 0.3329290961929971,
+  "TE_3M": 0.16245276463071756,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0032137656385671978,
+  "E_alpha_3M_simple": 0.0032189353199216786,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

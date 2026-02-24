@@ -1,20 +1,21 @@
 {
   "ticker": "AMZN",
   "benchmark": "SP500",
-  "p_latest": 0.565436586331439,
-  "signal_raw": 0.130873172662878,
-  "signal_clipped": 0.130873172662878,
-  "IC_full": -0.09061558473323178,
-  "TE_annual": 0.2517996635564051,
-  "TE_3M": 0.12286565501655593,
+  "p_latest": 0.5235861788737566,
+  "signal_raw": 0.04717235774751316,
+  "signal_clipped": 0.04717235774751316,
+  "IC_full": 0.0592462096946402,
+  "sigma_ols": 0.014573542749390054,
+  "sigma_ewma": 0.019329328749240704,
+  "sigma_final": 0.01600027854934525,
+  "TE_annual": 0.2539965476959731,
+  "TE_3M": 0.12393762471258786,
   "phi": 1.0,
-  "E_alpha_3M_log": -0.0014570821180239753,
-  "E_alpha_3M_simple": -0.0014560210892725634,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
+  "E_alpha_3M_log": 0.00034637881604580796,
+  "E_alpha_3M_simple": 0.0003464388121148243,
+  "warnings": [],
   "lookback_days_requested": 252,
-  "lookback_days_used": 252,
+  "lookback_days_used": 2799,
   "horizon_days": 60,
-  "latest_trade_date": "2026-02-17"
+  "latest_trade_date": "2026-02-20"
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:23:49",
+  "generated_at": "2026-02-23T20:28:22",
   "ticker": "META",
   "ticker_slug": "META",
   "benchmark": "SP500",
@@ -8,30 +8,32 @@
     "source": "multi_ticker.run_all_tickers",
     "optimize_profile": "balanced",
     "n_trials": 100,
-    "force_retune_all": false,
+    "force_retune_all": true,
     "model_status": "normal",
-    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/META/xgb/xgb_best_params.json",
-    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/META/xgb/xgb_classifier_result.png"
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\META\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\META\\xgb\\xgb_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.37104072398190047,
-    "precision": 0.37104072398190047,
-    "ic": -0.687257711428483,
-    "ic_p_value": 3.0990846475252696e-32,
-    "gap": 0.21873200329082676,
-    "gap_signed": 0.21873200329082676,
-    "gap_abs": 0.21873200329082676,
-    "ic_first": -0.8760559122661257,
-    "ic_second": -0.3544338489694245,
-    "proba_std_test": 0.0032771092373877764,
-    "proba_unique_test": 39,
+    "accuracy": 0.2857142857142857,
+    "precision": 0.19008264462809918,
+    "ic": -0.7129147982062781,
+    "ic_p_value": 4.542026656908312e-36,
+    "gap": 0.5847402597402598,
+    "gap_signed": 0.5847402597402598,
+    "gap_abs": 0.5847402597402598,
+    "ic_first": -0.45069532237673826,
+    "ic_second": -0.8200105921344859,
+    "proba_std_test": 0.23975832760334015,
+    "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false
   },
-  "warnings": []
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
 }

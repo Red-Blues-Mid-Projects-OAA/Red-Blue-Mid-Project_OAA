@@ -1,0 +1,21 @@
+{
+  "ticker": "WELL",
+  "benchmark": "SP500",
+  "p_latest": 0.5718233001148394,
+  "signal_raw": 0.1436466002296788,
+  "signal_clipped": 0.1436466002296788,
+  "IC_full": 0.4619464018791373,
+  "sigma_ols": 0.01398220641170863,
+  "sigma_ewma": 0.017810964632139548,
+  "sigma_final": 0.015130833877837903,
+  "TE_annual": 0.24019454141874094,
+  "TE_3M": 0.11720293524619438,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.007777238704081483,
+  "E_alpha_3M_simple": 0.007807559979305934,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

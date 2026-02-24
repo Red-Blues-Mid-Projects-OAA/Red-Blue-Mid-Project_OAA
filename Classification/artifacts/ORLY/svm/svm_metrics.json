@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T08:07:29",
+  "ticker": "ORLY",
+  "ticker_slug": "ORLY",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ORLY\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ORLY\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4955357142857143,
+    "precision": 0.45,
+    "ic": 0.07843369634849458,
+    "ic_p_value": 0.24235430062537927,
+    "gap": 0.28795214443393247,
+    "gap_signed": 0.28795214443393247,
+    "gap_abs": 0.28795214443393247,
+    "ic_first": 0.34304848464140497,
+    "ic_second": 0.6764188334984796,
+    "proba_std_test": 0.16961315066902452,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

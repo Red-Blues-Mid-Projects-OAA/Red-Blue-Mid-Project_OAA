@@ -1,0 +1,23 @@
+{
+  "ticker": "TMO",
+  "benchmark": "SP500",
+  "p_latest": 0.5085009340174305,
+  "signal_raw": 0.017001868034860923,
+  "signal_clipped": 0.017001868034860923,
+  "IC_full": -0.28304719197095884,
+  "sigma_ols": 0.014977419535632358,
+  "sigma_ewma": 0.014037944972173345,
+  "sigma_final": 0.014695577166594653,
+  "TE_annual": 0.233285055332212,
+  "TE_3M": 0.11383145125825414,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0005477946222943672,
+  "E_alpha_3M_simple": -0.0005476446102133936,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

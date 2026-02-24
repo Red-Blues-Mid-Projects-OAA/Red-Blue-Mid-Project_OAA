@@ -1,0 +1,23 @@
+{
+  "ticker": "NEE",
+  "benchmark": "SP500",
+  "p_latest": 0.36443944260158667,
+  "signal_raw": -0.27112111479682666,
+  "signal_clipped": -0.27112111479682666,
+  "IC_full": -0.044837710869101,
+  "sigma_ols": 0.01756921861813965,
+  "sigma_ewma": 0.014532398286086937,
+  "sigma_final": 0.016658172518523837,
+  "TE_annual": 0.26444029068494745,
+  "TE_3M": 0.12903364948498577,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0015685911283811274,
+  "E_alpha_3M_simple": 0.0015698220109447991,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

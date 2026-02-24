@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T23:56:23",
+  "ticker": "LIN",
+  "ticker_slug": "LIN",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LIN\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LIN\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4419642857142857,
+    "precision": 0.2671232876712329,
+    "ic": 0.03043775357676703,
+    "ic_p_value": 0.6504717633500472,
+    "gap": 0.5208966414380322,
+    "gap_signed": 0.5208966414380322,
+    "gap_abs": 0.5208966414380322,
+    "ic_first": -0.06120374483206342,
+    "ic_second": 0.36073905764171255,
+    "proba_std_test": 0.21237434023841928,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

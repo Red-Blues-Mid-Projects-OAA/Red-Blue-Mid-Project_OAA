@@ -1,0 +1,23 @@
+{
+  "ticker": "AMGN",
+  "benchmark": "SP500",
+  "p_latest": 0.36291261250763074,
+  "signal_raw": -0.2741747749847385,
+  "signal_clipped": -0.2741747749847385,
+  "IC_full": -0.04654281443519113,
+  "sigma_ols": 0.01712077045927422,
+  "sigma_ewma": 0.02107215467959754,
+  "sigma_final": 0.018306185725371217,
+  "TE_annual": 0.29060168930095676,
+  "TE_3M": 0.14179910489388534,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0018094793303754665,
+  "E_alpha_3M_simple": 0.0018111174259833884,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

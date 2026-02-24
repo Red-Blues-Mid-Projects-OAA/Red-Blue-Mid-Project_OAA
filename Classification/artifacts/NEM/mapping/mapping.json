@@ -1,0 +1,21 @@
+{
+  "ticker": "NEM",
+  "benchmark": "SP500",
+  "p_latest": 0.2889875389173395,
+  "signal_raw": -0.42202492216532095,
+  "signal_clipped": -0.42202492216532095,
+  "IC_full": 0.3334304932735426,
+  "sigma_ols": 0.025240372378186035,
+  "sigma_ewma": 0.03675231414032415,
+  "sigma_final": 0.028693954906827468,
+  "TE_annual": 0.45550241288620213,
+  "TE_3M": 0.22226241898193877,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.03127587365331288,
+  "E_alpha_3M_simple": -0.03079184280392222,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

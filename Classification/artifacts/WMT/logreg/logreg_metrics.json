@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T20:53:16",
+  "ticker": "WMT",
+  "ticker_slug": "WMT",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\WMT\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\WMT\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6830357142857143,
+    "precision": 0.654054054054054,
+    "ic": 0.5680450565876577,
+    "ic_p_value": 1.543042017134992e-20,
+    "gap": 0.031737012987012925,
+    "gap_signed": 0.031737012987012925,
+    "gap_abs": 0.031737012987012925,
+    "ic_first": 0.2194109406498787,
+    "ic_second": 0.7900109338162435,
+    "proba_std_test": 0.098734121206051,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

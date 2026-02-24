@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:21:38",
+  "generated_at": "2026-02-23T20:18:19",
   "ticker": "GOOGL",
   "ticker_slug": "GOOGL",
   "benchmark": "SP500",
@@ -8,28 +8,28 @@
     "source": "multi_ticker.run_all_tickers",
     "optimize_profile": "balanced",
     "n_trials": 100,
-    "force_retune_all": false,
+    "force_retune_all": true,
     "model_status": "normal",
-    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/xgb/xgb_best_params.json",
-    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/xgb/xgb_classifier_result.png"
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GOOGL\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GOOGL\\xgb\\xgb_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.7420814479638009,
-    "precision": 0.972972972972973,
-    "ic": 0.7145360882382829,
-    "ic_p_value": 7.893105260228664e-36,
-    "gap": 0.030717811600164624,
-    "gap_signed": -0.030717811600164624,
-    "gap_abs": 0.030717811600164624,
-    "ic_first": -0.3194491351086864,
-    "ic_second": 0.23006856460259603,
-    "proba_std_test": 0.08596188575029373,
-    "proba_unique_test": 32,
+    "accuracy": 0.7455357142857143,
+    "precision": 0.847682119205298,
+    "ic": 0.6901697629724536,
+    "ic_p_value": 5.0375632295132623e-33,
+    "gap": 0.1078733766233766,
+    "gap_signed": 0.1078733766233766,
+    "gap_abs": 0.1078733766233766,
+    "ic_first": 0.18581508183278095,
+    "ic_second": -0.027488297399801825,
+    "proba_std_test": 0.1994168907403946,
+    "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false
   },

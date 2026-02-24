@@ -1,0 +1,21 @@
+{
+  "ticker": "ORLY",
+  "benchmark": "SP500",
+  "p_latest": 0.8839336139854741,
+  "signal_raw": 0.7678672279709482,
+  "signal_clipped": 0.7678672279709482,
+  "IC_full": 0.1683739056160581,
+  "sigma_ols": 0.01456848603694121,
+  "sigma_ewma": 0.017500266521060126,
+  "sigma_final": 0.015448020182176884,
+  "TE_annual": 0.2452297179020805,
+  "TE_3M": 0.11965984979489429,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.015470678886909721,
+  "E_alpha_3M_simple": 0.015590969364074558,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

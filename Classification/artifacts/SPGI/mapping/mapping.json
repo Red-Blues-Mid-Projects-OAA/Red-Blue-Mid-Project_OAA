@@ -1,0 +1,21 @@
+{
+  "ticker": "SPGI",
+  "benchmark": "SP500",
+  "p_latest": 0.6099905859721964,
+  "signal_raw": 0.2199811719443927,
+  "signal_clipped": 0.2199811719443927,
+  "IC_full": 0.18459000640614995,
+  "sigma_ols": 0.01296445002804712,
+  "sigma_ewma": 0.03157359478769587,
+  "sigma_final": 0.018547193455941746,
+  "TE_annual": 0.29442756841575884,
+  "TE_3M": 0.14366594274749916,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.005833746097459336,
+  "E_alpha_3M_simple": 0.005850795532124531,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

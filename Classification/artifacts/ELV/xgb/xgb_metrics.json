@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T09:41:39",
+  "ticker": "ELV",
+  "ticker_slug": "ELV",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ELV\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ELV\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.53125,
+    "precision": 0.50625,
+    "ic": -0.1148598438179937,
+    "ic_p_value": 0.0863217831690144,
+    "gap": 0.2414772727272727,
+    "gap_signed": 0.2414772727272727,
+    "gap_abs": 0.2414772727272727,
+    "ic_first": -0.4626016242895548,
+    "ic_second": 0.04440628957664194,
+    "proba_std_test": 0.16631723940372467,
+    "proba_unique_test": 215,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

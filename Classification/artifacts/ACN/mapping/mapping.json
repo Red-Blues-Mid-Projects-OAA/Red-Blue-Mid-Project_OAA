@@ -1,0 +1,21 @@
+{
+  "ticker": "ACN",
+  "benchmark": "SP500",
+  "p_latest": 0.2431893975395802,
+  "signal_raw": -0.5136212049208396,
+  "signal_clipped": -0.5136212049208396,
+  "IC_full": 0.29531283365364086,
+  "sigma_ols": 0.01607000429903586,
+  "sigma_ewma": 0.024694531385587366,
+  "sigma_final": 0.018657362425001312,
+  "TE_annual": 0.2961764465817267,
+  "TE_3M": 0.14451930791237222,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.021920534487047595,
+  "E_alpha_3M_simple": -0.021682025497959168,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

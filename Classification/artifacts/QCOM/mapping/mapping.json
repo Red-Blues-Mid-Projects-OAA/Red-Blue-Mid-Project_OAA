@@ -1,0 +1,23 @@
+{
+  "ticker": "QCOM",
+  "benchmark": "SP500",
+  "p_latest": 0.5335044141561232,
+  "signal_raw": 0.0670088283122463,
+  "signal_clipped": 0.0670088283122463,
+  "IC_full": -0.014456544949818495,
+  "sigma_ols": 0.018786584132648453,
+  "sigma_ewma": 0.018806235601294324,
+  "sigma_final": 0.018792479573242215,
+  "TE_annual": 0.2983213648143608,
+  "TE_3M": 0.14556592084222034,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00014101205673993524,
+  "E_alpha_3M_simple": -0.00014100211500711612,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

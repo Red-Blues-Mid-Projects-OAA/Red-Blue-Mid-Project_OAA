@@ -1,0 +1,23 @@
+{
+  "ticker": "CAT",
+  "benchmark": "SP500",
+  "p_latest": 0.4838744424767633,
+  "signal_raw": -0.03225111504647338,
+  "signal_clipped": -0.03225111504647338,
+  "IC_full": -0.36543668588511646,
+  "sigma_ols": 0.01455598296307862,
+  "sigma_ewma": 0.02055926247687545,
+  "sigma_final": 0.01635696681721767,
+  "TE_annual": 0.25965879841016193,
+  "TE_3M": 0.12670052015510275,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0014932594642662286,
+  "E_alpha_3M_simple": 0.0014943749313383048,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

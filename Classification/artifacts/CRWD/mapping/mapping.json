@@ -1,0 +1,21 @@
+{
+  "ticker": "CRWD",
+  "benchmark": "SP500",
+  "p_latest": 0.7232577444944087,
+  "signal_raw": 0.44651548898881743,
+  "signal_clipped": 0.44651548898881743,
+  "IC_full": 0.4538960068332266,
+  "sigma_ols": 0.02510570671742653,
+  "sigma_ewma": 0.03368088872015228,
+  "sigma_final": 0.027678261318244253,
+  "TE_annual": 0.4393787770243985,
+  "TE_3M": 0.21439489027507388,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.04345175489528212,
+  "E_alpha_3M_simple": 0.04440960544574479,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1682,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

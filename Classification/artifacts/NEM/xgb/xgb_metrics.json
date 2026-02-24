@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T03:03:22",
+  "ticker": "NEM",
+  "ticker_slug": "NEM",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NEM\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NEM\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5178571428571429,
+    "precision": 0.9905660377358491,
+    "ic": 0.33685885116378395,
+    "ic_p_value": 2.401967015399502e-07,
+    "gap": 0.3594155844155844,
+    "gap_signed": 0.3594155844155844,
+    "gap_abs": 0.3594155844155844,
+    "ic_first": 0.439308777804353,
+    "ic_second": 0.13172685960296582,
+    "proba_std_test": 0.2696788012981415,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

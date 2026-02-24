@@ -1,0 +1,50 @@
+{
+  "ticker": "LIN",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.13198697416186206,
+  "ic_pvalue": 0.048496902186929515,
+  "ic_first_half": -0.05734274097105956,
+  "ic_second_half": 0.684473980934158,
+  "accuracy_ref": 0.4375,
+  "precision_ref": 0.2653061224489796,
+  "train_accuracy_ref": 0.8568181818181818,
+  "gap_ref": 0.4193181818181818,
+  "gap_signed_ref": 0.4193181818181818,
+  "gap_abs_ref": 0.4193181818181818,
+  "proba_std_test": 0.18398308278584166,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.14775519593448583,
+    "mean": 0.5603416706669014,
+    "max": 0.8749561361902218
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.25169076854809846,
+    "mean": 0.576019003049094,
+    "max": 0.8032578844580829
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.3296029108657748
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

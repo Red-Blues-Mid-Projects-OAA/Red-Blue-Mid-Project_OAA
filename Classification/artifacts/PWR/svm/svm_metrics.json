@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T08:43:09",
+  "ticker": "PWR",
+  "ticker_slug": "PWR",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PWR\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PWR\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7008928571428571,
+    "precision": 0.7840909090909091,
+    "ic": 0.21130151612214396,
+    "ic_p_value": 0.0014688442344548067,
+    "gap": 0.2991071428571429,
+    "gap_signed": 0.2991071428571429,
+    "gap_abs": 0.2991071428571429,
+    "ic_first": 0.05454095055864967,
+    "ic_second": 0.11983633443810436,
+    "proba_std_test": 0.2392342301650972,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

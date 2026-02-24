@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T21:33:56",
+  "ticker": "COST",
+  "ticker_slug": "COST",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\COST\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\COST\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.42857142857142855,
+    "precision": 0.3298429319371728,
+    "ic": 0.35929639120222084,
+    "ic_p_value": 3.143518122074969e-08,
+    "gap": 0.3284351939451278,
+    "gap_signed": 0.3284351939451278,
+    "gap_abs": 0.3284351939451278,
+    "ic_first": 0.8516076126695596,
+    "ic_second": -0.05107288071889842,
+    "proba_std_test": 0.19423934464573622,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

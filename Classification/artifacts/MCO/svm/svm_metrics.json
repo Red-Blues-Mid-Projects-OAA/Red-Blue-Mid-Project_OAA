@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T08:11:20",
+  "ticker": "MCO",
+  "ticker_slug": "MCO",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MCO\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MCO\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.42857142857142855,
+    "precision": 0.2774566473988439,
+    "ic": 0.33423339739483243,
+    "ic_p_value": 3.0161052958247345e-07,
+    "gap": 0.10252790917691584,
+    "gap_signed": 0.10252790917691584,
+    "gap_abs": 0.10252790917691584,
+    "ic_first": 0.33865787405610415,
+    "ic_second": 0.45980114121707044,
+    "proba_std_test": 0.019247827407048466,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "CEG",
+  "benchmark": "SP500",
+  "p_latest": 0.8344375755300285,
+  "signal_raw": 0.668875151060057,
+  "signal_clipped": 0.668875151060057,
+  "IC_full": 0.33476297245355546,
+  "sigma_ols": 0.032368865210482156,
+  "sigma_ewma": 0.031187898673226317,
+  "sigma_final": 0.0320145752493054,
+  "TE_annual": 0.5082156266341545,
+  "TE_3M": 0.24798383355292797,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.05552720927068255,
+  "E_alpha_3M_simple": 0.05709777954073969,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1025,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

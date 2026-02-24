@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T07:09:09",
+  "ticker": "ECL",
+  "ticker_slug": "ECL",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ECL\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ECL\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.8660714285714286,
+    "precision": 0.88,
+    "ic": 0.379724535554132,
+    "ic_p_value": 4.283673755036783e-09,
+    "gap": 0.07061688311688319,
+    "gap_signed": -0.07061688311688319,
+    "gap_abs": 0.07061688311688319,
+    "ic_first": 0.5022550996002324,
+    "ic_second": 0.23906618375644925,
+    "proba_std_test": 0.19473707675933838,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

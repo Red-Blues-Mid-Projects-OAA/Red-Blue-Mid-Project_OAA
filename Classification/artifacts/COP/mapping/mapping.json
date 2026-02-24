@@ -1,0 +1,23 @@
+{
+  "ticker": "COP",
+  "benchmark": "SP500",
+  "p_latest": 0.5390564229281678,
+  "signal_raw": 0.0781128458563356,
+  "signal_clipped": 0.0781128458563356,
+  "IC_full": -0.16647234678624814,
+  "sigma_ols": 0.017058561526284446,
+  "sigma_ewma": 0.019710365025862604,
+  "sigma_final": 0.017854102576157892,
+  "TE_annual": 0.2834250917925086,
+  "TE_3M": 0.13829728387787693,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0017983665385976084,
+  "E_alpha_3M_simple": -0.0017967504464145856,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

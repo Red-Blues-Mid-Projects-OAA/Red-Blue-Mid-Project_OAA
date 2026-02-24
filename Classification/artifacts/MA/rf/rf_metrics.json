@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T21:29:06",
+  "ticker": "MA",
+  "ticker_slug": "MA",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MA\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MA\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.375,
+    "precision": 0.020833333333333332,
+    "ic": -0.38570574418108056,
+    "ic_p_value": 2.327132357507893e-09,
+    "gap": 0.38863636363636367,
+    "gap_signed": 0.38863636363636367,
+    "gap_abs": 0.38863636363636367,
+    "ic_first": -0.6445826357330783,
+    "ic_second": 0.1300782451224929,
+    "proba_std_test": 0.18630627365931793,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

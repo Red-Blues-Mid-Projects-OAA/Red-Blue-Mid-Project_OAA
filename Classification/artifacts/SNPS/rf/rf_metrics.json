@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T09:03:32",
+  "ticker": "SNPS",
+  "ticker_slug": "SNPS",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\SNPS\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\SNPS\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.53125,
+    "precision": 0.5138888888888888,
+    "ic": 0.6170503031638579,
+    "ic_p_value": 6.790461422216289e-25,
+    "gap": 0.15397727272727268,
+    "gap_signed": 0.15397727272727268,
+    "gap_abs": 0.15397727272727268,
+    "ic_first": 0.08454331706800275,
+    "ic_second": 0.8392558171319233,
+    "proba_std_test": 0.0748357671246009,
+    "proba_unique_test": 216,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "ABT",
+  "benchmark": "SP500",
+  "p_latest": 0.48177676350173537,
+  "signal_raw": -0.036446472996529256,
+  "signal_clipped": -0.036446472996529256,
+  "IC_full": 0.19364082852872094,
+  "sigma_ols": 0.015322505270707436,
+  "sigma_ewma": 0.01862158885771623,
+  "sigma_final": 0.016312230346810074,
+  "TE_annual": 0.25894862895876214,
+  "TE_3M": 0.12635399294538932,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0008917464928703133,
+  "E_alpha_3M_simple": -0.0008913490051281059,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "ABBV",
+  "benchmark": "SP500",
+  "p_latest": 0.2964645299796129,
+  "signal_raw": -0.40707094004077415,
+  "signal_clipped": -0.40707094004077415,
+  "IC_full": 0.44448964339098873,
+  "sigma_ols": 0.016905995331177953,
+  "sigma_ewma": 0.018378914073892087,
+  "sigma_final": 0.017347870953992192,
+  "TE_annual": 0.27538891392422504,
+  "TE_3M": 0.13437603059393427,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.02431384000526914,
+  "E_alpha_3M_simple": -0.024020639679516287,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

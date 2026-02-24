@@ -1,0 +1,21 @@
+{
+  "ticker": "AMT",
+  "benchmark": "SP500",
+  "p_latest": 0.5169556338421628,
+  "signal_raw": 0.03391126768432562,
+  "signal_clipped": 0.03391126768432562,
+  "IC_full": 0.17937753576767035,
+  "sigma_ols": 0.018557078426352087,
+  "sigma_ewma": 0.02167071546632382,
+  "sigma_final": 0.019491169538343605,
+  "TE_annual": 0.3094127241615288,
+  "TE_3M": 0.1509779500402202,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0009183867362945676,
+  "E_alpha_3M_simple": 0.0009188085825226899,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

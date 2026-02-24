@@ -1,0 +1,23 @@
+{
+  "ticker": "CMI",
+  "benchmark": "SP500",
+  "p_latest": 0.6204515076074141,
+  "signal_raw": 0.24090301521482815,
+  "signal_clipped": 0.24090301521482815,
+  "IC_full": -0.23494020926756357,
+  "sigma_ols": 0.014463827025801387,
+  "sigma_ewma": 0.02496100214889927,
+  "sigma_final": 0.01761297956273075,
+  "TE_annual": 0.2795973826190924,
+  "TE_3M": 0.13642955304709561,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00772161321336929,
+  "E_alpha_3M_simple": -0.007691878141524056,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

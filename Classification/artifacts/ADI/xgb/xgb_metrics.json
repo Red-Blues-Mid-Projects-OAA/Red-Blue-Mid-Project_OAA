@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:24:18",
+  "ticker": "ADI",
+  "ticker_slug": "ADI",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ADI\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ADI\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.59375,
+    "precision": 0.7540983606557377,
+    "ic": 0.3011233723699833,
+    "ic_p_value": 4.463623396574113e-06,
+    "gap": 0.1982954545454545,
+    "gap_signed": 0.1982954545454545,
+    "gap_abs": 0.1982954545454545,
+    "ic_first": 0.7223866572769672,
+    "ic_second": 0.38038575870434277,
+    "proba_std_test": 0.22613386809825897,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

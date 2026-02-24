@@ -1,0 +1,23 @@
+{
+  "ticker": "MMM",
+  "benchmark": "SP500",
+  "p_latest": 0.5372672002480797,
+  "signal_raw": 0.07453440049615945,
+  "signal_clipped": 0.07453440049615945,
+  "IC_full": -0.27990817851804406,
+  "sigma_ols": 0.017153564366331565,
+  "sigma_ewma": 0.02039309147062411,
+  "sigma_final": 0.01812542249761933,
+  "TE_annual": 0.2877321620200558,
+  "TE_3M": 0.1403989189525058,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0029291129208209488,
+  "E_alpha_3M_simple": -0.0029248272549904364,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

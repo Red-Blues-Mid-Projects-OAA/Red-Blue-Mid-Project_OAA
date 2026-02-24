@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:19:51",
+  "ticker": "DE",
+  "ticker_slug": "DE",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\DE\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\DE\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6071428571428571,
+    "precision": 0.6,
+    "ic": 0.5453187543444858,
+    "ic_p_value": 9.411196173207114e-19,
+    "gap": 0.2439935064935066,
+    "gap_signed": 0.2439935064935066,
+    "gap_abs": 0.2439935064935066,
+    "ic_first": 0.21603867871323873,
+    "ic_second": 0.753647452762497,
+    "proba_std_test": 0.12844018638134003,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

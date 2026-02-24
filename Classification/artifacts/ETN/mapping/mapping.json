@@ -1,0 +1,21 @@
+{
+  "ticker": "ETN",
+  "benchmark": "SP500",
+  "p_latest": 0.8429084763627759,
+  "signal_raw": 0.6858169527255518,
+  "signal_clipped": 0.6858169527255518,
+  "IC_full": 0.42100149476831095,
+  "sigma_ols": 0.015685406369659666,
+  "sigma_ewma": 0.01890628198095578,
+  "sigma_final": 0.0166516690530485,
+  "TE_annual": 0.2643370513711005,
+  "TE_3M": 0.12898327385802855,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.03724133578996303,
+  "E_alpha_3M_simple": 0.0379434835246697,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T09:37:18",
+  "ticker": "TDG",
+  "ticker_slug": "TDG",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TDG\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TDG\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.42410714285714285,
+    "precision": 0.3375796178343949,
+    "ic": 0.14014947683109122,
+    "ic_p_value": 0.03606563227054337,
+    "gap": 0.526753784295175,
+    "gap_signed": 0.526753784295175,
+    "gap_abs": 0.526753784295175,
+    "ic_first": -0.10124884682406808,
+    "ic_second": 0.4326118153551782,
+    "proba_std_test": 0.15240417239133583,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

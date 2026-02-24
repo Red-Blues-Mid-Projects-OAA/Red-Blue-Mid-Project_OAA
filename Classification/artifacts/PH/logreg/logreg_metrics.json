@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T03:37:03",
+  "ticker": "PH",
+  "ticker_slug": "PH",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PH\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PH\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6071428571428571,
+    "precision": 0.7560975609756098,
+    "ic": -0.16054665812513347,
+    "ic_p_value": 0.016171555928899097,
+    "gap": 0.25649350649350655,
+    "gap_signed": 0.25649350649350655,
+    "gap_abs": 0.25649350649350655,
+    "ic_first": 0.6921191102607032,
+    "ic_second": -0.35664741859432125,
+    "proba_std_test": 0.37055993126905956,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

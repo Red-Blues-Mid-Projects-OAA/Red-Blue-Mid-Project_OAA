@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T03:08:25",
+  "ticker": "ACN",
+  "ticker_slug": "ACN",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ACN\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ACN\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5758928571428571,
+    "precision": 0.25,
+    "ic": 0.262240760923179,
+    "ic_p_value": 7.107723725614244e-05,
+    "gap": 0.17865259740259742,
+    "gap_signed": 0.17865259740259742,
+    "gap_abs": 0.17865259740259742,
+    "ic_first": 0.4077357245598541,
+    "ic_second": 0.13848361635972256,
+    "proba_std_test": 0.15374355018138885,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

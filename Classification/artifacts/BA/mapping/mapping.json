@@ -1,0 +1,21 @@
+{
+  "ticker": "BA",
+  "benchmark": "SP500",
+  "p_latest": 0.21686621047446697,
+  "signal_raw": -0.5662675790510661,
+  "signal_clipped": -0.5662675790510661,
+  "IC_full": 0.43592355327781346,
+  "sigma_ols": 0.019896389945071608,
+  "sigma_ewma": 0.01759318465846482,
+  "sigma_final": 0.01920542835908957,
+  "TE_annual": 0.3048767235637098,
+  "TE_3M": 0.1487646083830671,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.03672245062616972,
+  "E_alpha_3M_simple": -0.036056359821823536,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

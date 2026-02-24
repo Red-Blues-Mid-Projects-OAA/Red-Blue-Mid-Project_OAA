@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T08:31:54",
+  "ticker": "CSX",
+  "ticker_slug": "CSX",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CSX\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CSX\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7142857142857143,
+    "precision": 0.8837209302325582,
+    "ic": 0.5175850196415462,
+    "ic_p_value": 9.480673033171375e-17,
+    "gap": 0.10616883116883113,
+    "gap_signed": 0.10616883116883113,
+    "gap_abs": 0.10616883116883113,
+    "ic_first": 0.5446119875042049,
+    "ic_second": 0.5202873543581509,
+    "proba_std_test": 0.23544488847255707,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

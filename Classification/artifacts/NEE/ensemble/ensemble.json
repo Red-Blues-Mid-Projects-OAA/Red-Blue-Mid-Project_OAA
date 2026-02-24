@@ -1,0 +1,50 @@
+{
+  "ticker": "NEE",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.044837710869101,
+  "ic_pvalue": 0.5043565021084687,
+  "ic_first_half": -0.16799637817336932,
+  "ic_second_half": 0.5606058017562442,
+  "accuracy_ref": 0.2857142857142857,
+  "precision_ref": 0.06818181818181818,
+  "train_accuracy_ref": 0.7204545454545455,
+  "gap_ref": 0.43474025974025976,
+  "gap_signed_ref": 0.43474025974025976,
+  "gap_abs_ref": 0.43474025974025976,
+  "proba_std_test": 0.10607292523427808,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.23896141620600267,
+    "mean": 0.4091113916773406,
+    "max": 0.7292387446855061
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.26719105697043566,
+    "mean": 0.35528302767842634,
+    "max": 0.4676186494864214
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.36443944260158667
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

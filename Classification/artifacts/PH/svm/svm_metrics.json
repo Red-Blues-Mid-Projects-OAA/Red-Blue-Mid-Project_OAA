@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T03:37:00",
+  "ticker": "PH",
+  "ticker_slug": "PH",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PH\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PH\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5401785714285714,
+    "precision": 0.6764705882352942,
+    "ic": -0.25033205210335263,
+    "ic_p_value": 0.0001530141653320019,
+    "gap": 0.24999361400189224,
+    "gap_signed": 0.24999361400189224,
+    "gap_abs": 0.24999361400189224,
+    "ic_first": 0.6757610961150784,
+    "ic_second": -0.6251153175931937,
+    "proba_std_test": 0.25114603631332527,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

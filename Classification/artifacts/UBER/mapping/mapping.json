@@ -1,0 +1,23 @@
+{
+  "ticker": "UBER",
+  "benchmark": "SP500",
+  "p_latest": 0.4008470766402349,
+  "signal_raw": -0.19830584671953022,
+  "signal_clipped": -0.19830584671953022,
+  "IC_full": -0.6151644245142004,
+  "sigma_ols": 0.021417078540888892,
+  "sigma_ewma": 0.020376321381944357,
+  "sigma_final": 0.02110485139320553,
+  "TE_annual": 0.3350291294603813,
+  "TE_3M": 0.16347747594013484,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.01994273206338941,
+  "E_alpha_3M_simple": 0.020142916873987726,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1704,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

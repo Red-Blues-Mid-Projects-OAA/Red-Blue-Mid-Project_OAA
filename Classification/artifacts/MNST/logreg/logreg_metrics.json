@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T08:36:44",
+  "ticker": "MNST",
+  "ticker_slug": "MNST",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MNST\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MNST\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4732142857142857,
+    "precision": 0.8695652173913043,
+    "ic": 0.12164638052530431,
+    "ic_p_value": 0.06918576411155125,
+    "gap": 0.3631493506493506,
+    "gap_signed": 0.3631493506493506,
+    "gap_abs": 0.3631493506493506,
+    "ic_first": 0.4211569344312707,
+    "ic_second": -0.25884101547818367,
+    "proba_std_test": 0.2841172224705211,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

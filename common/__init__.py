@@ -9,7 +9,6 @@ import numpy as np
 import os
 import sys
 import yfinance as yf
-import pandas_datareader.data as web
 import oracledb
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
@@ -21,7 +20,6 @@ __all__ = [
     "os",
     "sys",
     "yf",
-    "web",
     "datetime",
     "timedelta",
     "oracledb",

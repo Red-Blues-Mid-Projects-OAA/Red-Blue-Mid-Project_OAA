@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T09:26:44",
+  "ticker": "GM",
+  "ticker_slug": "GM",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GM\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GM\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.2767857142857143,
+    "precision": 0.0,
+    "ic": -0.5167377396491271,
+    "ic_p_value": 1.084424077071961e-16,
+    "gap": 0.3686688311688312,
+    "gap_signed": 0.3686688311688312,
+    "gap_abs": 0.3686688311688312,
+    "ic_first": 0.3015422858195794,
+    "ic_second": -0.02694645306020408,
+    "proba_std_test": 0.011229418663751389,
+    "proba_unique_test": 210,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

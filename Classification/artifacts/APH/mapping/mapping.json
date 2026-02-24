@@ -1,0 +1,21 @@
+{
+  "ticker": "APH",
+  "benchmark": "SP500",
+  "p_latest": 0.27357881137750445,
+  "signal_raw": -0.4528423772449911,
+  "signal_clipped": -0.4528423772449911,
+  "IC_full": 0.4938532991672006,
+  "sigma_ols": 0.017438120655768313,
+  "sigma_ewma": 0.03687289415986899,
+  "sigma_final": 0.023268552706998513,
+  "TE_annual": 0.3693768229867011,
+  "TE_3M": 0.1802374342491095,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.04030788561077641,
+  "E_alpha_3M_simple": -0.039506328557330384,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

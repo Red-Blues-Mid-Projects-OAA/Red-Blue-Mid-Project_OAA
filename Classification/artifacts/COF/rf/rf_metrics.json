@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T03:24:50",
+  "ticker": "COF",
+  "ticker_slug": "COF",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\COF\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\COF\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5133928571428571,
+    "precision": 0.5263157894736842,
+    "ic": -0.34334721332479184,
+    "ic_p_value": 1.355955045641249e-07,
+    "gap": 0.08547077922077928,
+    "gap_signed": 0.08547077922077928,
+    "gap_abs": 0.08547077922077928,
+    "ic_first": -0.5905798339426659,
+    "ic_second": 0.12543137321898384,
+    "proba_std_test": 0.04374131431868363,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

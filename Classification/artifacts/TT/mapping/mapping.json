@@ -1,0 +1,23 @@
+{
+  "ticker": "TT",
+  "benchmark": "SP500",
+  "p_latest": 0.7408045571418721,
+  "signal_raw": 0.4816091142837442,
+  "signal_clipped": 0.4816091142837442,
+  "IC_full": -0.4165321375186847,
+  "sigma_ols": 0.013520569380367506,
+  "sigma_ewma": 0.018543477276809186,
+  "sigma_final": 0.01502744174930001,
+  "TE_annual": 0.2385532422609436,
+  "TE_3M": 0.11640206326228199,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.023350914334895046,
+  "E_alpha_3M_simple": -0.02308039147779528,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,50 @@
+{
+  "ticker": "DELL",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.3349647661755285,
+  "ic_pvalue": 2.8313523671315125e-07,
+  "ic_first_half": -0.5823880138039431,
+  "ic_second_half": 0.23510267536816212,
+  "accuracy_ref": 0.40625,
+  "precision_ref": 0.453125,
+  "train_accuracy_ref": 0.7715909090909091,
+  "gap_ref": 0.3653409090909091,
+  "gap_signed_ref": 0.3653409090909091,
+  "gap_abs_ref": 0.3653409090909091,
+  "proba_std_test": 0.16986595056510856,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.16635499938306497,
+    "mean": 0.5199821353044464,
+    "max": 0.8165091813073622
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.39488206752955834,
+    "mean": 0.5991527900149859,
+    "max": 0.7408408623245035
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.4133088937081012
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

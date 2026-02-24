@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T06:18:11",
+  "ticker": "FCX",
+  "ticker_slug": "FCX",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FCX\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FCX\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5982142857142857,
+    "precision": 0.6194690265486725,
+    "ic": 0.38417574204569727,
+    "ic_p_value": 2.7234286242136643e-09,
+    "gap": 0.2551948051948052,
+    "gap_signed": 0.2551948051948052,
+    "gap_abs": 0.2551948051948052,
+    "ic_first": -0.13889363446885572,
+    "ic_second": 0.6474527624970102,
+    "proba_std_test": 0.22033080458641052,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

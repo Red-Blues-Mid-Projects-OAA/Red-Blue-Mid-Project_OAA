@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:20:53",
+  "generated_at": "2026-02-23T19:56:12",
   "ticker": "NVDA",
   "ticker_slug": "NVDA",
   "benchmark": "SP500",
@@ -8,28 +8,28 @@
     "source": "multi_ticker.run_all_tickers",
     "optimize_profile": "balanced",
     "n_trials": 100,
-    "force_retune_all": false,
+    "force_retune_all": true,
     "model_status": "normal",
-    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NVDA/xgb/xgb_best_params.json",
-    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NVDA/xgb/xgb_classifier_result.png"
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NVDA\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NVDA\\xgb\\xgb_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.34841628959276016,
-    "precision": 0.43258426966292135,
-    "ic": -0.6501237673985504,
-    "ic_p_value": 6.198291444370637e-28,
-    "gap": 0.4356746194981489,
-    "gap_signed": 0.4356746194981489,
-    "gap_abs": 0.4356746194981489,
-    "ic_first": -0.9365507292112797,
-    "ic_second": 0.06667280920040129,
-    "proba_std_test": 0.17533010244369507,
-    "proba_unique_test": 219,
+    "accuracy": 0.32142857142857145,
+    "precision": 0.4114285714285714,
+    "ic": -0.6152829382874228,
+    "ic_p_value": 1.0054690043814632e-24,
+    "gap": 0.47288961038961036,
+    "gap_signed": 0.47288961038961036,
+    "gap_abs": 0.47288961038961036,
+    "ic_first": -0.9146478969487819,
+    "ic_second": 0.36456589332695527,
+    "proba_std_test": 0.2177732139825821,
+    "proba_unique_test": 223,
     "ic_degenerate": false,
     "overall_pass": false
   },

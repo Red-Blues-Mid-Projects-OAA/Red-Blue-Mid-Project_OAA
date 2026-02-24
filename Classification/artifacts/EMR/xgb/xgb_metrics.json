@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T08:58:09",
+  "ticker": "EMR",
+  "ticker_slug": "EMR",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\EMR\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\EMR\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6696428571428571,
+    "precision": 0.6944444444444444,
+    "ic": 0.2936493065068466,
+    "ic_p_value": 7.848441769051221e-06,
+    "gap": 0.12353896103896111,
+    "gap_signed": 0.12353896103896111,
+    "gap_abs": 0.12353896103896111,
+    "ic_first": 0.3437789632670635,
+    "ic_second": 0.1815611439505245,
+    "proba_std_test": 0.19864337146282196,
+    "proba_unique_test": 220,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

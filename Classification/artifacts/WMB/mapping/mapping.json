@@ -1,0 +1,21 @@
+{
+  "ticker": "WMB",
+  "benchmark": "SP500",
+  "p_latest": 0.6717868599294612,
+  "signal_raw": 0.3435737198589224,
+  "signal_clipped": 0.3435737198589224,
+  "IC_full": 0.33147768524450144,
+  "sigma_ols": 0.01442927122455051,
+  "sigma_ewma": 0.01675011076525983,
+  "sigma_final": 0.015125523086763305,
+  "TE_annual": 0.2401102352240505,
+  "TE_3M": 0.11716179803542018,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.01334320819656984,
+  "E_alpha_3M_simple": 0.013432626063513142,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

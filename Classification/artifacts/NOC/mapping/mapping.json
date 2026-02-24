@@ -1,0 +1,21 @@
+{
+  "ticker": "NOC",
+  "benchmark": "SP500",
+  "p_latest": 0.46051511207954504,
+  "signal_raw": -0.07896977584090992,
+  "signal_clipped": -0.07896977584090992,
+  "IC_full": 0.16441170190049115,
+  "sigma_ols": 0.017918022796465125,
+  "sigma_ewma": 0.02038869019308076,
+  "sigma_final": 0.018659223015449814,
+  "TE_annual": 0.2962059825394376,
+  "TE_3M": 0.14453371998401454,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.001876561538135073,
+  "E_alpha_3M_simple": -0.0018748018973953062,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

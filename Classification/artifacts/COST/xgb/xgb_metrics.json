@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T21:33:56",
+  "ticker": "COST",
+  "ticker_slug": "COST",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\COST\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\COST\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5580357142857143,
+    "precision": 0.3888888888888889,
+    "ic": 0.6571503309844117,
+    "ic_p_value": 4.50589797234001e-29,
+    "gap": 0.2953733766233766,
+    "gap_signed": 0.2953733766233766,
+    "gap_abs": 0.2953733766233766,
+    "ic_first": 0.80953804626371,
+    "ic_second": 0.2789233607817679,
+    "proba_std_test": 0.25237953662872314,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

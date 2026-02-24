@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T22:56:26",
+  "ticker": "AMAT",
+  "ticker_slug": "AMAT",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AMAT\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AMAT\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.40625,
+    "precision": 0.6105263157894737,
+    "ic": -0.09909409008490908,
+    "ic_p_value": 0.1392878479466904,
+    "gap": 0.24488636363636362,
+    "gap_signed": 0.24488636363636362,
+    "gap_abs": 0.24488636363636362,
+    "ic_first": -0.4328818141641533,
+    "ic_second": -0.2524430245669184,
+    "proba_std_test": 0.07212233195106191,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

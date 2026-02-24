@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T08:53:41",
+  "ticker": "CRH",
+  "ticker_slug": "CRH",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CRH\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CRH\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5401785714285714,
+    "precision": 0.5539906103286385,
+    "ic": -0.002775998291693359,
+    "ic_p_value": 0.9670447982959581,
+    "gap": 0.0643668831168831,
+    "gap_signed": 0.0643668831168831,
+    "gap_abs": 0.0643668831168831,
+    "ic_first": -0.032903953257935555,
+    "ic_second": 0.09112652475484334,
+    "proba_std_test": 0.07680058371684556,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

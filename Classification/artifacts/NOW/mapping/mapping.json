@@ -1,0 +1,23 @@
+{
+  "ticker": "NOW",
+  "benchmark": "SP500",
+  "p_latest": 0.7932878341014562,
+  "signal_raw": 0.5865756682029124,
+  "signal_clipped": 0.5865756682029124,
+  "IC_full": -0.014062566730728168,
+  "sigma_ols": 0.020736158812494104,
+  "sigma_ewma": 0.034458594585006476,
+  "sigma_final": 0.024852889544247816,
+  "TE_annual": 0.3945273905726227,
+  "TE_3M": 0.19250965462000846,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.001587965837907836,
+  "E_alpha_3M_simple": -0.0015867056872702623,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

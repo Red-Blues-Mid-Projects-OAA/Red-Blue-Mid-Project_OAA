@@ -1,0 +1,21 @@
+{
+  "ticker": "SBUX",
+  "benchmark": "SP500",
+  "p_latest": 0.41040085023807193,
+  "signal_raw": -0.17919829952385613,
+  "signal_clipped": -0.17919829952385613,
+  "IC_full": 0.03824578261797993,
+  "sigma_ols": 0.01991978721734939,
+  "sigma_ewma": 0.016720894441189876,
+  "sigma_final": 0.018960119384501536,
+  "TE_annual": 0.3009825643169166,
+  "TE_3M": 0.14686445323655775,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0010065471632580668,
+  "E_alpha_3M_simple": -0.0010060407645811065,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

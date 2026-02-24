@@ -1,0 +1,23 @@
+{
+  "ticker": "SLB",
+  "benchmark": "SP500",
+  "p_latest": 0.3679248960540785,
+  "signal_raw": -0.26415020789184296,
+  "signal_clipped": -0.26415020789184296,
+  "IC_full": -0.1631176596199018,
+  "sigma_ols": 0.018039027954659646,
+  "sigma_ewma": 0.020990957357757394,
+  "sigma_final": 0.01892460677558897,
+  "TE_annual": 0.30041881912737817,
+  "TE_3M": 0.14658937375076028,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.006316178979145133,
+  "E_alpha_3M_simple": 0.006336168100388617,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

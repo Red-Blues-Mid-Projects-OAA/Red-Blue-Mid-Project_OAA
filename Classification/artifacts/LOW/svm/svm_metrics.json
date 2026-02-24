@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T02:01:17",
+  "ticker": "LOW",
+  "ticker_slug": "LOW",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LOW\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LOW\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.41964285714285715,
+    "precision": 0.3925233644859813,
+    "ic": 0.7041768097373481,
+    "ic_p_value": 7.266839846776039e-35,
+    "gap": 0.37851166824345645,
+    "gap_signed": 0.37851166824345645,
+    "gap_abs": 0.37851166824345645,
+    "ic_first": 0.36185806539788845,
+    "ic_second": 0.6321966720196809,
+    "proba_std_test": 0.1525314747355926,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

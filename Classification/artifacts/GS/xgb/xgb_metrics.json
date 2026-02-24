@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T23:12:16",
+  "ticker": "GS",
+  "ticker_slug": "GS",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GS\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GS\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5714285714285714,
+    "precision": 0.7793103448275862,
+    "ic": 0.3710774989737338,
+    "ic_p_value": 1.0129232235382228e-08,
+    "gap": 0.286525974025974,
+    "gap_signed": 0.286525974025974,
+    "gap_abs": 0.286525974025974,
+    "ic_first": 0.06739274350329476,
+    "ic_second": 0.7076997984077631,
+    "proba_std_test": 0.1132025495171547,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

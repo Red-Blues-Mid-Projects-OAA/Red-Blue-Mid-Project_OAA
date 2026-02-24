@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T00:46:01",
+  "ticker": "NEE",
+  "ticker_slug": "NEE",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NEE\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NEE\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.36607142857142855,
+    "precision": 0.36486486486486486,
+    "ic": -0.3051922659599367,
+    "ic_p_value": 3.261109469716446e-06,
+    "gap": 0.4350649350649351,
+    "gap_signed": 0.4350649350649351,
+    "gap_abs": 0.4350649350649351,
+    "ic_first": -0.4065081971773483,
+    "ic_second": 0.16700550107629755,
+    "proba_std_test": 0.15689235925674438,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

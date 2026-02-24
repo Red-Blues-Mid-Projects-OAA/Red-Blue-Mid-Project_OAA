@@ -1,0 +1,21 @@
+{
+  "ticker": "CTAS",
+  "benchmark": "SP500",
+  "p_latest": 0.9298808214892819,
+  "signal_raw": 0.8597616429785637,
+  "signal_clipped": 0.8,
+  "IC_full": 0.40198697416186213,
+  "sigma_ols": 0.012461864276031338,
+  "sigma_ewma": 0.011047706413560412,
+  "sigma_final": 0.01203761691729006,
+  "TE_annual": 0.19109124444608086,
+  "TE_3M": 0.09324297969737814,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.029985970616307988,
+  "E_alpha_3M_simple": 0.03044007741289123,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

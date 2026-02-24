@@ -1,0 +1,21 @@
+{
+  "ticker": "EMR",
+  "benchmark": "SP500",
+  "p_latest": 0.36747279800352733,
+  "signal_raw": -0.26505440399294533,
+  "signal_clipped": -0.26505440399294533,
+  "IC_full": 0.033081358103779636,
+  "sigma_ols": 0.01341600569043581,
+  "sigma_ewma": 0.02207640440324274,
+  "sigma_final": 0.016014125304277888,
+  "TE_annual": 0.2542163581160752,
+  "TE_3M": 0.1240448812150941,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.001087670131914558,
+  "E_alpha_3M_simple": -0.001087078833155397,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

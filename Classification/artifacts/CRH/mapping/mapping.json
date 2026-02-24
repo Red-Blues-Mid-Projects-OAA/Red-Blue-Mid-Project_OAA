@@ -1,0 +1,21 @@
+{
+  "ticker": "CRH",
+  "benchmark": "SP500",
+  "p_latest": 0.6768436261416919,
+  "signal_raw": 0.3536872522833838,
+  "signal_clipped": 0.3536872522833838,
+  "IC_full": 0.13078582105487938,
+  "sigma_ols": 0.014928326077229825,
+  "sigma_ewma": 0.018428656927869363,
+  "sigma_final": 0.015978425332421685,
+  "TE_annual": 0.25364963863201406,
+  "TE_3M": 0.12376835042217581,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.005725186954281919,
+  "E_alpha_3M_simple": 0.005741607158402662,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

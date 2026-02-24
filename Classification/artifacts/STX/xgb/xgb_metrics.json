@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T07:51:31",
+  "ticker": "STX",
+  "ticker_slug": "STX",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\STX\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\STX\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.47767857142857145,
+    "precision": 0.968421052631579,
+    "ic": 0.007399144590265678,
+    "ic_p_value": 0.912312462154771,
+    "gap": 0.27345779220779215,
+    "gap_signed": 0.27345779220779215,
+    "gap_abs": 0.27345779220779215,
+    "ic_first": -0.5996018131293123,
+    "ic_second": -0.16002826727490094,
+    "proba_std_test": 0.1576186865568161,
+    "proba_unique_test": 80,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

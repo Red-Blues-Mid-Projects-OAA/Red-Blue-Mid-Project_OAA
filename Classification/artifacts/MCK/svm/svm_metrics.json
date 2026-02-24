@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T04:22:57",
+  "ticker": "MCK",
+  "ticker_slug": "MCK",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MCK\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MCK\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4642857142857143,
+    "precision": 0.6041666666666666,
+    "ic": -0.0679414904975443,
+    "ic_p_value": 0.31137726720033065,
+    "gap": 0.5250741091138441,
+    "gap_signed": 0.5250741091138441,
+    "gap_abs": 0.5250741091138441,
+    "ic_first": -0.2501281306591041,
+    "ic_second": 0.18546485803122972,
+    "proba_std_test": 0.19707107977665994,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

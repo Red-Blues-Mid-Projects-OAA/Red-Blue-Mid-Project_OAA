@@ -1,0 +1,21 @@
+{
+  "ticker": "FDX",
+  "benchmark": "SP500",
+  "p_latest": 0.3920524621585234,
+  "signal_raw": -0.21589507568295319,
+  "signal_clipped": -0.21589507568295319,
+  "IC_full": 0.004990390775144139,
+  "sigma_ols": 0.017568877626391078,
+  "sigma_ewma": 0.01537915057002875,
+  "sigma_final": 0.016911959509482377,
+  "TE_annual": 0.26846903426930563,
+  "TE_3M": 0.13099947506391882,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00014113893845887972,
+  "E_alpha_3M_simple": -0.0001411289788274539,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

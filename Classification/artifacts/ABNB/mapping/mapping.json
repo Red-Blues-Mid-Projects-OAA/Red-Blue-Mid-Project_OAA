@@ -1,0 +1,23 @@
+{
+  "ticker": "ABNB",
+  "benchmark": "SP500",
+  "p_latest": 0.3505722922386968,
+  "signal_raw": -0.2988554155226064,
+  "signal_clipped": -0.2988554155226064,
+  "IC_full": -0.20934443732650015,
+  "sigma_ols": 0.018452718242312205,
+  "sigma_ewma": 0.020173000623240702,
+  "sigma_final": 0.018968802956590754,
+  "TE_annual": 0.30112041175035525,
+  "TE_3M": 0.146931715896732,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.009192594556834265,
+  "E_alpha_3M_simple": 0.009234976220449553,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1303,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T22:19:43",
+  "ticker": "KO",
+  "ticker_slug": "KO",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\KO\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\KO\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.59375,
+    "precision": 0.0,
+    "ic": -0.4440658865239267,
+    "ic_p_value": 3.054976763272903e-12,
+    "gap": 0.015340909090909127,
+    "gap_signed": 0.015340909090909127,
+    "gap_abs": 0.015340909090909127,
+    "ic_first": -0.7295849180855688,
+    "ic_second": 0.06253283390723167,
+    "proba_std_test": 0.01058037460253557,
+    "proba_unique_test": 205,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

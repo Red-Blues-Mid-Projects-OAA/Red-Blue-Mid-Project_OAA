@@ -1,0 +1,21 @@
+{
+  "ticker": "MAR",
+  "benchmark": "SP500",
+  "p_latest": 0.6360602177699237,
+  "signal_raw": 0.27212043553984744,
+  "signal_clipped": 0.27212043553984744,
+  "IC_full": 0.2525613922699125,
+  "sigma_ols": 0.012606909282717715,
+  "sigma_ewma": 0.021199720848606687,
+  "sigma_final": 0.015184752752484407,
+  "TE_annual": 0.24105047701846363,
+  "TE_3M": 0.1176205890532987,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.008083723875504297,
+  "E_alpha_3M_simple": 0.008116485390198047,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

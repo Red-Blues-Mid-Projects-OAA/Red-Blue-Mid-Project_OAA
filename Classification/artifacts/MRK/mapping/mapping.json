@@ -1,0 +1,23 @@
+{
+  "ticker": "MRK",
+  "benchmark": "SP500",
+  "p_latest": 0.4000493068387114,
+  "signal_raw": -0.19990138632257715,
+  "signal_clipped": -0.19990138632257715,
+  "IC_full": -0.6297330770873373,
+  "sigma_ols": 0.01750154038107065,
+  "sigma_ewma": 0.016449029700541396,
+  "sigma_final": 0.017185787176911875,
+  "TE_annual": 0.27281591372994973,
+  "TE_3M": 0.13312053505528934,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.01675781400834158,
+  "E_alpha_3M_simple": 0.01689901380413339,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,23 @@
+{
+  "ticker": "COF",
+  "benchmark": "SP500",
+  "p_latest": 0.37699288601876324,
+  "signal_raw": -0.24601422796247352,
+  "signal_clipped": -0.24601422796247352,
+  "IC_full": -0.10459214178945123,
+  "sigma_ols": 0.016681220847593756,
+  "sigma_ewma": 0.018473726741921666,
+  "sigma_final": 0.017218972615892128,
+  "TE_annual": 0.2733427162420913,
+  "TE_3M": 0.13337758836030356,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0034319594013955414,
+  "E_alpha_3M_simple": 0.003437855316980043,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "TJX",
+  "benchmark": "SP500",
+  "p_latest": 0.27073560571321076,
+  "signal_raw": -0.4585287885735785,
+  "signal_clipped": -0.4585287885735785,
+  "IC_full": 0.04959534486440317,
+  "sigma_ols": 0.011302014391729695,
+  "sigma_ewma": 0.015152861752553686,
+  "sigma_final": 0.012457268599976892,
+  "TE_annual": 0.19775300838403573,
+  "TE_3M": 0.09649358765388619,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.002194350390578475,
+  "E_alpha_3M_simple": -0.0021919445638242108,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

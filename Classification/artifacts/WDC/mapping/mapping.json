@@ -1,0 +1,21 @@
+{
+  "ticker": "WDC",
+  "benchmark": "SP500",
+  "p_latest": 0.27938874894327936,
+  "signal_raw": -0.4412225021134413,
+  "signal_clipped": -0.4412225021134413,
+  "IC_full": 0.03205530642750374,
+  "sigma_ols": 0.028331207993074026,
+  "sigma_ewma": 0.04960618524437709,
+  "sigma_final": 0.03471370116846494,
+  "TE_annual": 0.5510629222702232,
+  "TE_3M": 0.2688911730213714,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.003803068357818532,
+  "E_alpha_3M_simple": -0.003795845852146651,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

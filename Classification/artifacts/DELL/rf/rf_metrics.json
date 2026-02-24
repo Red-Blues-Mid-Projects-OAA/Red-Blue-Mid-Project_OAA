@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T08:26:24",
+  "ticker": "DELL",
+  "ticker_slug": "DELL",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\DELL\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\DELL\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.40625,
+    "precision": 0.4189189189189189,
+    "ic": -0.4203925161106974,
+    "ic_p_value": 5.262757463568182e-11,
+    "gap": 0.2801136363636364,
+    "gap_signed": 0.2801136363636364,
+    "gap_abs": 0.2801136363636364,
+    "ic_first": -0.39445101718929537,
+    "ic_second": 0.11461714559059692,
+    "proba_std_test": 0.06806694357730006,
+    "proba_unique_test": 218,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

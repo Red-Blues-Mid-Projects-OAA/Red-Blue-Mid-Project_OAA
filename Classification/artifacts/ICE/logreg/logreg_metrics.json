@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T07:25:20",
+  "ticker": "ICE",
+  "ticker_slug": "ICE",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ICE\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ICE\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7142857142857143,
+    "precision": 0.625,
+    "ic": 0.50768844757634,
+    "ic_p_value": 4.451359409310467e-16,
+    "gap": 0.09383116883116882,
+    "gap_signed": -0.09383116883116882,
+    "gap_abs": 0.09383116883116882,
+    "ic_first": 0.5060221409778932,
+    "ic_second": 0.7381180168790789,
+    "proba_std_test": 0.035199546038285186,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

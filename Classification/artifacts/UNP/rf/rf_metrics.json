@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:56:13",
+  "ticker": "UNP",
+  "ticker_slug": "UNP",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UNP\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UNP\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7857142857142857,
+    "precision": 0.5057471264367817,
+    "ic": 0.6448718595495285,
+    "ic_p_value": 9.989028785215662e-28,
+    "gap": 0.10844155844155845,
+    "gap_signed": -0.10844155844155845,
+    "gap_abs": 0.10844155844155845,
+    "ic_first": 0.19440066628404618,
+    "ic_second": 0.7577919623483179,
+    "proba_std_test": 0.12471030681194,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "TDG",
+  "benchmark": "SP500",
+  "p_latest": 0.7485292788286754,
+  "signal_raw": 0.49705855765735074,
+  "signal_clipped": 0.49705855765735074,
+  "IC_full": 0.2279468289557976,
+  "sigma_ols": 0.014479397535678425,
+  "sigma_ewma": 0.01903064480609587,
+  "sigma_final": 0.01584477171680366,
+  "TE_annual": 0.25152795325951455,
+  "TE_3M": 0.12273307396727774,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.013906015909398748,
+  "E_alpha_3M_simple": 0.01400315429567911,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

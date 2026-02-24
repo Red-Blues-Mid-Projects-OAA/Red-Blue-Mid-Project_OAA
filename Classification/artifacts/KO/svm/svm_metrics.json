@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T22:19:40",
+  "ticker": "KO",
+  "ticker_slug": "KO",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\KO\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\KO\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.59375,
+    "precision": 0.0,
+    "ic": -0.3724578261797993,
+    "ic_p_value": 8.843940562189294e-09,
+    "gap": 0.04768929359823404,
+    "gap_signed": 0.04768929359823404,
+    "gap_abs": 0.04768929359823404,
+    "ic_first": -0.15154440154440155,
+    "ic_second": -0.607168483274678,
+    "proba_std_test": 0.04084386771040263,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -1,18 +1,23 @@
 {
   "ticker": "AVGO",
   "benchmark": "SP500",
-  "p_latest": 0.6576330094296124,
-  "signal_raw": 0.3152660188592249,
-  "signal_clipped": 0.3152660188592249,
-  "IC_full": 0.004491533903298609,
-  "TE_annual": 0.3997042619191607,
-  "TE_3M": 0.19503570918237428,
+  "p_latest": 0.671633072412577,
+  "signal_raw": 0.34326614482515394,
+  "signal_clipped": 0.34326614482515394,
+  "IC_full": -0.048115524236600475,
+  "sigma_ols": 0.02761554008176136,
+  "sigma_ewma": 0.0216044618058022,
+  "sigma_final": 0.02581221659897361,
+  "TE_annual": 0.40975623544930573,
+  "TE_3M": 0.1999405700330469,
   "phi": 1.0,
-  "E_alpha_3M_log": 0.0002761760275940536,
-  "E_alpha_3M_simple": 0.0002762141677041807,
-  "warnings": [],
+  "E_alpha_3M_log": -0.0033023045312683724,
+  "E_alpha_3M_simple": -0.0032968579207648396,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
   "lookback_days_requested": 252,
-  "lookback_days_used": 252,
+  "lookback_days_used": 2799,
   "horizon_days": 60,
-  "latest_trade_date": "2026-02-17"
+  "latest_trade_date": "2026-02-20"
 }

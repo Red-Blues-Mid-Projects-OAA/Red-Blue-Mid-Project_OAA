@@ -1,0 +1,23 @@
+{
+  "ticker": "PGR",
+  "benchmark": "SP500",
+  "p_latest": 0.6970329586479019,
+  "signal_raw": 0.39406591729580387,
+  "signal_clipped": 0.39406591729580387,
+  "IC_full": -0.40211830023489226,
+  "sigma_ols": 0.015959085898951123,
+  "sigma_ewma": 0.01862132334579482,
+  "sigma_final": 0.01675775713300423,
+  "TE_annual": 0.2660211474308876,
+  "TE_3M": 0.12980502859182785,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.02056904980256249,
+  "E_alpha_3M_simple": -0.020358949882031796,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

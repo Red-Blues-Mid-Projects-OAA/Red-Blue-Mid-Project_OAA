@@ -1,0 +1,21 @@
+{
+  "ticker": "SHW",
+  "benchmark": "SP500",
+  "p_latest": 0.42582866549916876,
+  "signal_raw": -0.14834266900166249,
+  "signal_clipped": -0.14834266900166249,
+  "IC_full": 0.4800373692077729,
+  "sigma_ols": 0.012748138311863744,
+  "sigma_ewma": 0.014533677713866053,
+  "sigma_final": 0.013283800132464437,
+  "TE_annual": 0.2108737896983266,
+  "TE_3M": 0.10289587337476529,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.007327217671046971,
+  "E_alpha_3M_simple": -0.0073004390558115695,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

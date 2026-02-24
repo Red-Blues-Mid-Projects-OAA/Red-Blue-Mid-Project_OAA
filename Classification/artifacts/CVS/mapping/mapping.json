@@ -1,0 +1,23 @@
+{
+  "ticker": "CVS",
+  "benchmark": "SP500",
+  "p_latest": 0.4581687626017079,
+  "signal_raw": -0.08366247479658417,
+  "signal_clipped": -0.08366247479658417,
+  "IC_full": -0.3982810164424515,
+  "sigma_ols": 0.02313741386094304,
+  "sigma_ewma": 0.028562764082523142,
+  "sigma_final": 0.02476501892741707,
+  "TE_annual": 0.3931324877745187,
+  "TE_3M": 0.19182901174879557,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.006391968166487475,
+  "E_alpha_3M_simple": 0.0064124403910330585,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

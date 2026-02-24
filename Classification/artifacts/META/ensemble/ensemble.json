@@ -7,41 +7,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 221,
+  "n_test_samples": 224,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-18",
-  "ic_full": -0.748337354219707,
-  "ic_pvalue": 6.496981107901967e-41,
-  "ic_first_half": -0.773901674819106,
-  "ic_second_half": -0.6141189891189891,
-  "accuracy_ref": 0.35294117647058826,
-  "precision_ref": 0.35944700460829493,
-  "train_accuracy_ref": 0.6113636363636363,
-  "gap_ref": 0.2584224598930481,
-  "gap_signed_ref": 0.2584224598930481,
-  "gap_abs_ref": 0.2584224598930481,
-  "proba_std_test": 0.03546223326206119,
-  "proba_unique_test": 221,
+  "test_end": "2025-11-21",
+  "ic_full": -0.7272624386077302,
+  "ic_pvalue": 3.796098273385295e-38,
+  "ic_first_half": -0.6118238972221274,
+  "ic_second_half": -0.7282946663477637,
+  "accuracy_ref": 0.12946428571428573,
+  "precision_ref": 0.17261904761904762,
+  "train_accuracy_ref": 0.7681818181818182,
+  "gap_ref": 0.6387175324675325,
+  "gap_signed_ref": 0.6387175324675325,
+  "gap_abs_ref": 0.6387175324675325,
+  "proba_std_test": 0.11284486280859818,
+  "proba_unique_test": 224,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.48045579468864874,
-    "mean": 0.5932331750458087,
-    "max": 0.6436958137820575
+    "min": 0.32308237750029434,
+    "mean": 0.5868723060129276,
+    "max": 0.7503236818921583
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-19",
-    "end": "2026-02-17"
+    "start": "2025-11-24",
+    "end": "2026-02-20"
   },
   "p_ens_future_stats": {
-    "min": 0.5502812425812076,
-    "mean": 0.5971494709165017,
-    "max": 0.6182882172217105
+    "min": 0.44230818356264157,
+    "mean": 0.6009512076216191,
+    "max": 0.7069606480909989
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-17",
-    "p_ens": 0.587381394473104
+    "trade_date": "2026-02-20",
+    "p_ens": 0.5724240285554094
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

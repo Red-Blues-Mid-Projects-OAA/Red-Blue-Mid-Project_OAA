@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T03:13:00",
+  "ticker": "PLD",
+  "ticker_slug": "PLD",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PLD\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PLD\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6785714285714286,
+    "precision": 0.71875,
+    "ic": 0.42178838351484094,
+    "ic_p_value": 4.476666171599858e-11,
+    "gap": 0.18204667297382526,
+    "gap_signed": 0.18204667297382526,
+    "gap_abs": 0.18204667297382526,
+    "ic_first": 0.2735504151433355,
+    "ic_second": 0.6209895103700414,
+    "proba_std_test": 0.21048669143806684,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "MS",
+  "benchmark": "SP500",
+  "p_latest": 0.5167580438183936,
+  "signal_raw": 0.03351608763678726,
+  "signal_clipped": 0.03351608763678726,
+  "IC_full": 0.04446401879137306,
+  "sigma_ols": 0.013074625657572702,
+  "sigma_ewma": 0.01497255614752416,
+  "sigma_final": 0.01364400480455814,
+  "TE_annual": 0.21659186159898763,
+  "TE_3M": 0.10568600676725531,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.000157499623213028,
+  "E_alpha_3M_simple": 0.00015751202692992905,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

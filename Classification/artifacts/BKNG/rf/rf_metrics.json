@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T03:19:28",
+  "ticker": "BKNG",
+  "ticker_slug": "BKNG",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\BKNG\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\BKNG\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6875,
+    "precision": 0.5357142857142857,
+    "ic": 0.3394338613874632,
+    "ic_p_value": 1.917316247116531e-07,
+    "gap": 0.007954545454545436,
+    "gap_signed": -0.007954545454545436,
+    "gap_abs": 0.007954545454545436,
+    "ic_first": 0.7361708761568126,
+    "ic_second": 0.29635767246386713,
+    "proba_std_test": 0.12164135095092915,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

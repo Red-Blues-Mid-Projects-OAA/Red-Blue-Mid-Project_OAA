@@ -1,0 +1,21 @@
+{
+  "ticker": "TRV",
+  "benchmark": "SP500",
+  "p_latest": 0.6349720225156315,
+  "signal_raw": 0.2699440450312629,
+  "signal_clipped": 0.2699440450312629,
+  "IC_full": 0.23983450779414908,
+  "sigma_ols": 0.014695296726445142,
+  "sigma_ewma": 0.014834538954775156,
+  "sigma_final": 0.014737069394944145,
+  "TE_annual": 0.23394372403753996,
+  "TE_3M": 0.11415284867704338,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.007390471990943964,
+  "E_alpha_3M_simple": 0.007417848930346471,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

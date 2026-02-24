@@ -1,0 +1,21 @@
+{
+  "ticker": "LIN",
+  "benchmark": "SP500",
+  "p_latest": 0.3296029108657748,
+  "signal_raw": -0.3407941782684504,
+  "signal_clipped": -0.3407941782684504,
+  "IC_full": 0.13198697416186206,
+  "sigma_ols": 0.010361905161931258,
+  "sigma_ewma": 0.014074773084362311,
+  "sigma_final": 0.011475765538660573,
+  "TE_annual": 0.18217213031628637,
+  "TE_3M": 0.08889089763242679,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.003998347456439766,
+  "E_alpha_3M_simple": -0.0039903647080598015,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T07:34:41",
+  "ticker": "JCI",
+  "ticker_slug": "JCI",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\JCI\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\JCI\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.48214285714285715,
+    "precision": 0.6439393939393939,
+    "ic": -0.010579756566303652,
+    "ic_p_value": 0.8748809001295415,
+    "gap": 0.10219268369599493,
+    "gap_signed": 0.10219268369599493,
+    "gap_abs": 0.10219268369599493,
+    "ic_first": 0.10830457511873443,
+    "ic_second": -0.0795947654354734,
+    "proba_std_test": 0.0795733350091174,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

@@ -1,0 +1,21 @@
+{
+  "ticker": "CME",
+  "benchmark": "SP500",
+  "p_latest": 0.483169143137716,
+  "signal_raw": -0.033661713724568054,
+  "signal_clipped": -0.033661713724568054,
+  "IC_full": 0.42735426008968613,
+  "sigma_ols": 0.015254906766928415,
+  "sigma_ewma": 0.011358267706808036,
+  "sigma_final": 0.0140859150488923,
+  "TE_annual": 0.22360696924890752,
+  "TE_3M": 0.10910902880090463,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0015695853983521985,
+  "E_alpha_3M_simple": -0.0015683542434093978,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

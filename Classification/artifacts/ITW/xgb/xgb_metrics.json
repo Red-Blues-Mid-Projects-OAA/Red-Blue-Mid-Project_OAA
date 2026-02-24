@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T06:58:26",
+  "ticker": "ITW",
+  "ticker_slug": "ITW",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ITW\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ITW\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5267857142857143,
+    "precision": 0.22857142857142856,
+    "ic": 0.13295170454395688,
+    "ic_p_value": 0.046862775401703534,
+    "gap": 0.34025974025974026,
+    "gap_signed": 0.34025974025974026,
+    "gap_abs": 0.34025974025974026,
+    "ic_first": -0.18373160783476356,
+    "ic_second": 0.4234376601633239,
+    "proba_std_test": 0.3228442370891571,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

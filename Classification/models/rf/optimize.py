@@ -411,7 +411,7 @@ def optimize(
         persist_total_features_on_update=persist_total_features_on_update,
         feature_source_mode=feature_source_mode,
     )
-    exclude = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff"]
+    exclude = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff", "TICKER"]
     feature_cols = [c for c in full_df.columns if c not in exclude]
     full_df = full_df.dropna(subset=["Target_Class"])
 

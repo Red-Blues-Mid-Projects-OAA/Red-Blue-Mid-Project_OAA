@@ -1,0 +1,23 @@
+{
+  "ticker": "RTX",
+  "benchmark": "SP500",
+  "p_latest": 0.4363680868005928,
+  "signal_raw": -0.1272638263988144,
+  "signal_clipped": -0.1272638263988144,
+  "IC_full": -0.25864509929532353,
+  "sigma_ols": 0.014622300781980334,
+  "sigma_ewma": 0.014700057559707262,
+  "sigma_final": 0.01464562781529841,
+  "TE_annual": 0.23249213396213883,
+  "TE_3M": 0.11344454524680572,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0037341593714662995,
+  "E_alpha_3M_simple": 0.0037411400308324794,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:21:39",
+  "generated_at": "2026-02-23T20:18:23",
   "ticker": "GOOGL",
   "ticker_slug": "GOOGL",
   "benchmark": "SP500",
@@ -8,32 +8,30 @@
     "source": "multi_ticker.run_all_tickers",
     "optimize_profile": "balanced",
     "n_trials": 100,
-    "force_retune_all": false,
+    "force_retune_all": true,
     "model_status": "normal",
-    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/rf/rf_best_params.json",
-    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GOOGL/rf/rf_classifier_result.png"
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GOOGL\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\GOOGL\\rf\\rf_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.2669683257918552,
-    "precision": 0.0,
-    "ic": 0.6544539972076273,
-    "ic_p_value": 2.0981694841814394e-28,
-    "gap": 0.28303167420814485,
-    "gap_signed": 0.28303167420814485,
-    "gap_abs": 0.28303167420814485,
-    "ic_first": -0.0769495679566303,
-    "ic_second": -0.2870403921712467,
-    "proba_std_test": 0.008485382406293727,
-    "proba_unique_test": 47,
+    "accuracy": 0.75,
+    "precision": 0.9732142857142857,
+    "ic": 0.6591266221921467,
+    "ic_p_value": 2.699463474092195e-29,
+    "gap": 0.03863636363636369,
+    "gap_signed": -0.03863636363636369,
+    "gap_abs": 0.03863636363636369,
+    "ic_first": -0.20965637419405403,
+    "ic_second": -0.07824545668168832,
+    "proba_std_test": 0.16087961155307864,
+    "proba_unique_test": 221,
     "ic_degenerate": false,
     "overall_pass": false
   },
-  "warnings": [
-    "rf train_test_gap > 0.25"
-  ]
+  "warnings": []
 }

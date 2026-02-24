@@ -1,0 +1,21 @@
+{
+  "ticker": "PM",
+  "benchmark": "SP500",
+  "p_latest": 0.5015311026160715,
+  "signal_raw": 0.003062205232142956,
+  "signal_clipped": 0.003062205232142956,
+  "IC_full": 0.08915118513773225,
+  "sigma_ols": 0.017175997419479325,
+  "sigma_ewma": 0.015288704794481092,
+  "sigma_final": 0.016609809631979854,
+  "TE_annual": 0.26367255366206377,
+  "TE_3M": 0.12865903217666702,
+  "phi": 1.0,
+  "E_alpha_3M_log": 3.512381614816789e-05,
+  "E_alpha_3M_simple": 3.5124432996580524e-05,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

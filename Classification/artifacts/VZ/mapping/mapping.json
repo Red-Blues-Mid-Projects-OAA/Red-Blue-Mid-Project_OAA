@@ -1,0 +1,21 @@
+{
+  "ticker": "VZ",
+  "benchmark": "SP500",
+  "p_latest": 0.37054745747792206,
+  "signal_raw": -0.2589050850441559,
+  "signal_clipped": -0.2589050850441559,
+  "IC_full": 0.2827322229340167,
+  "sigma_ols": 0.01705536812391364,
+  "sigma_ewma": 0.02512687269785247,
+  "sigma_final": 0.01947681949609529,
+  "TE_annual": 0.30918492430297495,
+  "TE_3M": 0.15086679509092998,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.011043571636472013,
+  "E_alpha_3M_simple": -0.010982815260701329,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

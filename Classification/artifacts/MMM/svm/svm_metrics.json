@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T07:29:58",
+  "ticker": "MMM",
+  "ticker_slug": "MMM",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MMM\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MMM\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5669642857142857,
+    "precision": 0.24,
+    "ic": -0.49035127055306443,
+    "ic_p_value": 5.9423353564031495e-15,
+    "gap": 0.3759143014821824,
+    "gap_signed": 0.3759143014821824,
+    "gap_abs": 0.3759143014821824,
+    "ic_first": -0.47607373492329247,
+    "ic_second": -0.44961048279632354,
+    "proba_std_test": 0.17762564576375073,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T04:33:30",
+  "ticker": "CMCSA",
+  "ticker_slug": "CMCSA",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CMCSA\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CMCSA\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.46875,
+    "precision": 0.10714285714285714,
+    "ic": -0.29484099264388003,
+    "ic_p_value": 7.180625484084637e-06,
+    "gap": 0.3789772727272728,
+    "gap_signed": 0.3789772727272728,
+    "gap_abs": 0.3789772727272728,
+    "ic_first": -0.19633929925237661,
+    "ic_second": -0.16170089178938737,
+    "proba_std_test": 0.16816446185112,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

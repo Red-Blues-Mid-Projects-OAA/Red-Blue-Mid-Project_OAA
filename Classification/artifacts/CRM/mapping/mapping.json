@@ -1,0 +1,21 @@
+{
+  "ticker": "CRM",
+  "benchmark": "SP500",
+  "p_latest": 0.7098655680441908,
+  "signal_raw": 0.41973113608838153,
+  "signal_clipped": 0.41973113608838153,
+  "IC_full": 0.3269762972453556,
+  "sigma_ols": 0.019124243602001514,
+  "sigma_ewma": 0.023687219689026734,
+  "sigma_final": 0.020493136428109078,
+  "TE_annual": 0.3253184554349707,
+  "TE_3M": 0.158739152195246,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.021785699792926782,
+  "E_alpha_3M_simple": 0.022024740887127914,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

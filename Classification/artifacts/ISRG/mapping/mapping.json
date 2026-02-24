@@ -1,0 +1,21 @@
+{
+  "ticker": "ISRG",
+  "benchmark": "SP500",
+  "p_latest": 0.743723428839449,
+  "signal_raw": 0.48744685767889795,
+  "signal_clipped": 0.48744685767889795,
+  "IC_full": 0.22903160367285932,
+  "sigma_ols": 0.015769317984776134,
+  "sigma_ewma": 0.01318549597795167,
+  "sigma_final": 0.014994171382728794,
+  "TE_annual": 0.23802509156509125,
+  "TE_3M": 0.11614435211097691,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.012966440896104561,
+  "E_alpha_3M_simple": 0.013050869709958945,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:56:10",
+  "ticker": "UNP",
+  "ticker_slug": "UNP",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UNP\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UNP\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7366071428571429,
+    "precision": 0.4519230769230769,
+    "ic": 0.5517958573563956,
+    "ic_p_value": 3.0104695170828564e-19,
+    "gap": 0.05316558441558439,
+    "gap_signed": 0.05316558441558439,
+    "gap_abs": 0.05316558441558439,
+    "ic_first": -0.03478320292479584,
+    "ic_second": 0.8127327706973726,
+    "proba_std_test": 0.21396951377391815,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

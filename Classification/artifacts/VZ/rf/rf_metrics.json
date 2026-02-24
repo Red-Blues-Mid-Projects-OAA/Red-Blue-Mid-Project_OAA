@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T00:10:06",
+  "ticker": "VZ",
+  "ticker_slug": "VZ",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\VZ\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\VZ\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7366071428571429,
+    "precision": 0.0,
+    "ic": 0.2698180002825811,
+    "ic_p_value": 4.279997503059004e-05,
+    "gap": 0.053652597402597424,
+    "gap_signed": -0.053652597402597424,
+    "gap_abs": 0.053652597402597424,
+    "ic_first": 0.21375134847439334,
+    "ic_second": 0.4374440749497702,
+    "proba_std_test": 0.007911137758688883,
+    "proba_unique_test": 183,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

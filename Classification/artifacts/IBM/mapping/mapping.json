@@ -1,0 +1,21 @@
+{
+  "ticker": "IBM",
+  "benchmark": "SP500",
+  "p_latest": 0.47261300423333485,
+  "signal_raw": -0.05477399153333029,
+  "signal_clipped": -0.05477399153333029,
+  "IC_full": 0.6707826179799276,
+  "sigma_ols": 0.016004966328475714,
+  "sigma_ewma": 0.023388596876777017,
+  "sigma_final": 0.018220055492966104,
+  "TE_annual": 0.289234414249108,
+  "TE_3M": 0.1411319429824654,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.005185391018112612,
+  "E_alpha_3M_simple": -0.0051719700857219,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

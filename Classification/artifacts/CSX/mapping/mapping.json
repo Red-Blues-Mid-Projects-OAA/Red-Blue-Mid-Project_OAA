@@ -1,0 +1,21 @@
+{
+  "ticker": "CSX",
+  "benchmark": "SP500",
+  "p_latest": 0.2677116681302455,
+  "signal_raw": -0.464576663739509,
+  "signal_clipped": -0.464576663739509,
+  "IC_full": 0.6431827888105917,
+  "sigma_ols": 0.012648503471557217,
+  "sigma_ewma": 0.01037331929050296,
+  "sigma_final": 0.011965948217240941,
+  "TE_annual": 0.18995353910337734,
+  "TE_3M": 0.092687836333909,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.027695840509106666,
+  "E_alpha_3M_simple": -0.027315827064315124,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

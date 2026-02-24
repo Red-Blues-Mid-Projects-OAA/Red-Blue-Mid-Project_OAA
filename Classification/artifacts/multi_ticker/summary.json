@@ -1,1290 +1,4808 @@
 {
-  "generated_at": "2026-02-18T19:25:15",
+  "generated_at": "2026-02-23T19:20:37",
   "benchmark": "SP500",
   "coverage_report": [
     {
       "ticker": "NVDA",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
-    },
-    {
-      "ticker": "GOOGL",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
     },
     {
       "ticker": "AAPL",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
     },
     {
       "ticker": "MSFT",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
     },
     {
       "ticker": "AMZN",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GOOGL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GOOG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
     },
     {
       "ticker": "META",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
-    },
-    {
-      "ticker": "TSM",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
-    },
-    {
-      "ticker": "TSLA",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
     },
     {
       "ticker": "AVGO",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
     },
     {
-      "ticker": "BRK-A",
-      "sp500_rows": 2796,
-      "sp500_start": "2015-01-05T00:00:00",
-      "sp500_end": "2026-02-17T00:00:00",
-      "stock_rows": 2797,
-      "stock_start": "2015-01-02T00:00:00",
-      "stock_end": "2026-02-17T00:00:00",
-      "logret_rows": 2796,
-      "logret_start": "2015-01-05T00:00:00",
-      "logret_end": "2026-02-17T00:00:00",
-      "status": "ok"
+      "ticker": "TSLA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BRK-B",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WMT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LLY",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "JPM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "V",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "XOM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "JNJ",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MU",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "COST",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ORCL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ABBV",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BAC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CVX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CAT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NFLX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AMD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PLTR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CSCO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LRCX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MRK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AMAT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "RTX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WFC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "UNH",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "IBM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AXP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TMUS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MCD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LIN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GEV",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PEP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "INTC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "VZ",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "C",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AMGN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TXN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KLAC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "T",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ABT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NEE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TMO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GILD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DIS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "APH",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ISRG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ADI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TJX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CRM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ANET",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SCHW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BLK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "UNP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LOW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HON",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PFE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LMT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DHR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "UBER",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "QCOM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WELL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ETN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "APP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SYK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "COP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NEM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ACN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PLD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BKNG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "COF",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PH",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MDT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BMY",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SPGI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "VRTX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PANW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GLW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PGR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HCA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MCK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CMCSA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SBUX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CME",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BSX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HWM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "INTU",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ADBE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CEG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NOW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NOC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "UPS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DUK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CRWD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CVS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EQIX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "USB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "FDX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MAR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "FCX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PNC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SNDK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WDC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NKE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AMT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ITW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "RCL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ECL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ADP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MRSH",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ICE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MMM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "JCI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WMB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SHW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "STX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KKR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ORLY",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MCO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CTAS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CDNS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DELL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CSX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MNST",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PWR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "REGN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CRH",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EMR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SNPS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CMI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MDLZ",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HLT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KMI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TDG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ELV",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DASH",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SLB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MSI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ABNB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HOOD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TRV",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TFC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LHX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EOG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PCAR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "RSG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WBD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TEL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "APO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AON",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AEP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "COR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NSC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BKR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DLR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "O",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SRE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "VLO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ROST",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AZO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PSX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SPG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "APD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "F",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PSA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GWW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CARR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ALL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ZTS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "OKE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AJG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AME",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "D",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MPC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "VST",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NXPI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MPWR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AFL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "URI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "FTNT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ADSK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EXC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "FITB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "XEL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CIEN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GRMN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CVNA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DHI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ETR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TRGP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CMG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CTVA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "FANG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MET",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EA",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TGT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CAH",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "BDX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "FAST",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "FIX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "OXY",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TER",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "IDXX",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "VTR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AIG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MLM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KEYS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MCHP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ODFL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PEG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AMP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NUE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "SYY",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "YUM",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CBRE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NDAQ",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DAL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "COIN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WAB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HSY",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ROK",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CCL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ROP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "UAL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EME",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WDAY",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KMB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "OTIS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PRU",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KVUE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "A",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MTB",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "STT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ACGL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CPRT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WEC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "AXON",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TPL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "TTWO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HBAN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "IR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HIG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "RMD",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PCG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "VMC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KDP",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "MSCI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EBAY",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ED",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DDOG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LVS",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "GEHC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "PYPL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CCI",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LYV",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "EQT",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "NRG",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "KHC",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CBOE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "DTE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ATO",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "ROL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HAL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "CHTR",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "FE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "JBL",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "LEN",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "WTW",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
+    },
+    {
+      "ticker": "HPE",
+      "stock_rows": 2800,
+      "logret_rows": 255,
+      "sp500_rows": 2799
     }
   ],
   "results": [
     {
       "ticker": "NVDA",
       "ticker_slug": "NVDA",
-      "status": "success",
-      "reliability_tag": "LOW",
-      "p_latest": 0.7741561258062276,
-      "ic_full": -0.7438736144618496,
-      "ic_pvalue": 3.386821423782376e-40,
-      "gap_signed": 0.3937525709584533,
-      "gap_abs": 0.3937525709584533,
-      "ic_degenerate": false,
-      "te_3m": 0.15703984092790663,
-      "e_alpha_3m_log": -0.06405262770345126,
-      "test_acc": 0.3755656108597285,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
       "warnings": [
-        "xgb train_test_gap > 0.25",
-        "svm train_test_gap > 0.25",
-        "rf train_test_gap > 0.25",
-        "logreg ic_degenerate=true",
-        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
-        "ensemble train_test_gap_abs > 0.25",
-        "예측력 부재/역방향 가능성: IC_full <= 0"
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
       ],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.34841628959276016,
-          "precision": 0.43258426966292135,
-          "ic": -0.6501237673985504,
-          "ic_p_value": 6.198291444370637e-28,
-          "gap": 0.4356746194981489,
-          "gap_signed": 0.4356746194981489,
-          "gap_abs": 0.4356746194981489,
-          "ic_first": -0.9365507292112797,
-          "ic_second": 0.06667280920040129,
-          "proba_std_test": 0.17533010244369507,
-          "proba_unique_test": 219,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "svm": {
-          "accuracy": 0.26244343891402716,
-          "precision": 0.36129032258064514,
-          "ic": -0.7069162951515892,
-          "ic_p_value": 8.764664692432094e-35,
-          "gap": 0.542386583161028,
-          "gap_signed": 0.542386583161028,
-          "gap_abs": 0.542386583161028,
-          "ic_first": -0.7912224150756261,
-          "ic_second": -0.4273517023517023,
-          "proba_std_test": 0.25136736431132606,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "rf": {
-          "accuracy": 0.4298642533936652,
-          "precision": 0.4846938775510204,
-          "ic": -0.7097524097524097,
-          "ic_p_value": 3.610377721021425e-35,
-          "gap": 0.32809029206088025,
-          "gap_signed": 0.32809029206088025,
-          "gap_abs": 0.32809029206088025,
-          "ic_first": -0.9402475035502558,
-          "ic_second": 0.023815373815373814,
-          "proba_std_test": 0.13399088068751666,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "logreg": {
-          "accuracy": 0.5429864253393665,
-          "precision": 0.5429864253393665,
-          "ic": 0.0,
-          "ic_p_value": 1.0,
-          "gap": 0.13201357466063357,
-          "gap_signed": 0.13201357466063357,
-          "gap_abs": 0.13201357466063357,
-          "ic_first": 0.0,
-          "ic_second": 0.0,
-          "proba_std_test": 2.220446049250313e-16,
-          "proba_unique_test": 1,
-          "ic_degenerate": true,
-          "overall_pass": false
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.4356746194981489,
-          "gap_abs": 0.4356746194981489,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.542386583161028,
-          "gap_abs": 0.542386583161028,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.32809029206088025,
-          "gap_abs": 0.32809029206088025,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.13201357466063357,
-          "gap_abs": 0.13201357466063357,
-          "ic_degenerate": true
-        }
-      }
-    },
-    {
-      "ticker": "GOOGL",
-      "ticker_slug": "GOOGL",
-      "status": "success",
-      "reliability_tag": "OK",
-      "p_latest": 0.43192785493489005,
-      "ic_full": 0.6433310727428374,
-      "ic_pvalue": 3.273331782826276e-27,
-      "gap_signed": 0.5059646236116825,
-      "gap_abs": 0.5059646236116825,
-      "ic_degenerate": false,
-      "te_3m": 0.11811999292707286,
-      "e_alpha_3m_log": -0.010345640244417524,
-      "test_acc": 0.31221719457013575,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
-      "warnings": [
-        "svm train_test_gap > 0.25",
-        "rf train_test_gap > 0.25",
-        "logreg train_test_gap > 0.25",
-        "logreg ic_degenerate=true",
-        "ensemble train_test_gap_abs > 0.25"
-      ],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.7420814479638009,
-          "precision": 0.972972972972973,
-          "ic": 0.7145360882382829,
-          "ic_p_value": 7.893105260228664e-36,
-          "gap": 0.030717811600164624,
-          "gap_signed": -0.030717811600164624,
-          "gap_abs": 0.030717811600164624,
-          "ic_first": -0.3194491351086864,
-          "ic_second": 0.23006856460259603,
-          "proba_std_test": 0.08596188575029373,
-          "proba_unique_test": 32,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "svm": {
-          "accuracy": 0.3393665158371041,
-          "precision": 0.7666666666666667,
-          "ic": 0.3625012507365448,
-          "ic_p_value": 2.885009024351347e-08,
-          "gap": 0.6606334841628959,
-          "gap_signed": 0.6606334841628959,
-          "gap_abs": 0.6606334841628959,
-          "ic_first": -0.16238306697022292,
-          "ic_second": 0.2772990522990523,
-          "proba_std_test": 0.039789125054586996,
-          "proba_unique_test": 212,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "rf": {
-          "accuracy": 0.2669683257918552,
-          "precision": 0.0,
-          "ic": 0.6544539972076273,
-          "ic_p_value": 2.0981694841814394e-28,
-          "gap": 0.28303167420814485,
-          "gap_signed": 0.28303167420814485,
-          "gap_abs": 0.28303167420814485,
-          "ic_first": -0.0769495679566303,
-          "ic_second": -0.2870403921712467,
-          "proba_std_test": 0.008485382406293727,
-          "proba_unique_test": 47,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "logreg": {
-          "accuracy": 0.2669683257918552,
-          "precision": 0.0,
-          "ic": 0.0,
-          "ic_p_value": 1.0,
-          "gap": 0.28303167420814485,
-          "gap_signed": 0.28303167420814485,
-          "gap_abs": 0.28303167420814485,
-          "ic_first": 0.0,
-          "ic_second": 0.0,
-          "proba_std_test": 5.551115123125783e-17,
-          "proba_unique_test": 1,
-          "ic_degenerate": true,
-          "overall_pass": false
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": -0.030717811600164624,
-          "gap_abs": 0.030717811600164624,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.6606334841628959,
-          "gap_abs": 0.6606334841628959,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.28303167420814485,
-          "gap_abs": 0.28303167420814485,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.28303167420814485,
-          "gap_abs": 0.28303167420814485,
-          "ic_degenerate": true
-        }
-      }
+      "model_status": {}
     },
     {
       "ticker": "AAPL",
       "ticker_slug": "AAPL",
-      "status": "success",
-      "reliability_tag": "OK",
-      "p_latest": 0.4873777561625441,
-      "ic_full": 0.4467564232270114,
-      "ic_pvalue": 3.063647802893497e-12,
-      "gap_signed": 0.13577231591937478,
-      "gap_abs": 0.13577231591937478,
-      "ic_degenerate": false,
-      "te_3m": 0.10519779815155322,
-      "e_alpha_3m_log": -0.001186435181738897,
-      "test_acc": 0.6199095022624435,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
-      "warnings": [],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.6561085972850679,
-          "precision": 0.5986394557823129,
-          "ic": 0.5840366416085737,
-          "ic_p_value": 1.3239989763721253e-21,
-          "gap": 0.07684594816947754,
-          "gap_signed": 0.07684594816947754,
-          "gap_abs": 0.07684594816947754,
-          "ic_first": 0.7038705940060903,
-          "ic_second": 0.7561512811512812,
-          "proba_std_test": 0.146399587392807,
-          "proba_unique_test": 218,
-          "ic_degenerate": false,
-          "overall_pass": true
-        },
-        "svm": {
-          "accuracy": 0.5656108597285068,
-          "precision": 0.5343511450381679,
-          "ic": 0.28500339088574383,
-          "ic_p_value": 1.6894248405889013e-05,
-          "gap": 0.16219487978584213,
-          "gap_signed": 0.16219487978584213,
-          "gap_abs": 0.16219487978584213,
-          "ic_first": 0.3886617226066767,
-          "ic_second": 0.6499210249210249,
-          "proba_std_test": 0.16018573349232398,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": true
-        },
-        "rf": {
-          "accuracy": 0.5339366515837104,
-          "precision": 0.5056818181818182,
-          "ic": 0.4970193558428852,
-          "ic_p_value": 3.438089684186704e-15,
-          "gap": 0.14106334841628965,
-          "gap_signed": 0.14106334841628965,
-          "gap_abs": 0.14106334841628965,
-          "ic_first": 0.5256948357865789,
-          "ic_second": 0.7905668655668656,
-          "proba_std_test": 0.08692192808527781,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": true
-        },
-        "logreg": {
-          "accuracy": 0.6425339366515838,
-          "precision": 0.5844155844155844,
-          "ic": 0.3619409207644501,
-          "ic_p_value": 3.0408678160881045e-08,
-          "gap": 0.08360242698477993,
-          "gap_signed": 0.08360242698477993,
-          "gap_abs": 0.08360242698477993,
-          "ic_first": 0.40415210873926466,
-          "ic_second": 0.7477974727974728,
-          "proba_std_test": 0.25982611238011316,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": true
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.07684594816947754,
-          "gap_abs": 0.07684594816947754,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.16219487978584213,
-          "gap_abs": 0.16219487978584213,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.14106334841628965,
-          "gap_abs": 0.14106334841628965,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.08360242698477993,
-          "gap_abs": 0.08360242698477993,
-          "ic_degenerate": false
-        }
-      }
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
     },
     {
       "ticker": "MSFT",
       "ticker_slug": "MSFT",
-      "status": "success",
-      "reliability_tag": "LOW",
-      "p_latest": 0.5381736449522365,
-      "ic_full": -0.669914505208623,
-      "ic_pvalue": 3.7795116309367676e-30,
-      "gap_signed": 0.6144590703414232,
-      "gap_abs": 0.6144590703414232,
-      "ic_degenerate": false,
-      "te_3m": 0.09966713385853194,
-      "e_alpha_3m_log": -0.005097590870125773,
-      "test_acc": 0.18099547511312217,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
       "warnings": [
-        "xgb train_test_gap > 0.25",
-        "rf train_test_gap > 0.25",
-        "logreg ic_degenerate=true",
-        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
-        "ensemble train_test_gap_abs > 0.25",
-        "예측력 부재/역방향 가능성: IC_full <= 0"
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
       ],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.19457013574660634,
-          "precision": 0.16296296296296298,
-          "ic": -0.5828554593260474,
-          "ic_p_value": 1.6677012692417837e-21,
-          "gap": 0.6361116824352119,
-          "gap_signed": 0.6361116824352119,
-          "gap_abs": 0.6361116824352119,
-          "ic_first": -0.282122489461939,
-          "ic_second": 0.42693927693927697,
-          "proba_std_test": 0.20923449099063873,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "svm": {
-          "accuracy": 0.34841628959276016,
-          "precision": 0.3442622950819672,
-          "ic": -0.4849967202908379,
-          "ic_p_value": 1.9339608662532913e-14,
-          "gap": 0.22390159120194175,
-          "gap_signed": 0.22390159120194175,
-          "gap_abs": 0.22390159120194175,
-          "ic_first": -0.20990915853301173,
-          "ic_second": -0.31445243945243945,
-          "proba_std_test": 0.058415602238370716,
-          "proba_unique_test": 220,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "rf": {
-          "accuracy": 0.27601809954751133,
-          "precision": 0.025974025974025976,
-          "ic": -0.6112519657421235,
-          "ic_p_value": 4.952615503157178e-24,
-          "gap": 0.3558000822706705,
-          "gap_signed": 0.3558000822706705,
-          "gap_abs": 0.3558000822706705,
-          "ic_first": 0.23081500717051354,
-          "ic_second": 0.13835556335556337,
-          "proba_std_test": 0.038909106650228564,
-          "proba_unique_test": 219,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "logreg": {
-          "accuracy": 0.3936651583710407,
-          "precision": 0.3936651583710407,
-          "ic": 0.0,
-          "ic_p_value": 1.0,
-          "gap": 0.079062114356232,
-          "gap_signed": 0.079062114356232,
-          "gap_abs": 0.079062114356232,
-          "ic_first": 0.0,
-          "ic_second": 0.0,
-          "proba_std_test": 1.1102230246251565e-16,
-          "proba_unique_test": 1,
-          "ic_degenerate": true,
-          "overall_pass": false
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.6361116824352119,
-          "gap_abs": 0.6361116824352119,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.22390159120194175,
-          "gap_abs": 0.22390159120194175,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.3558000822706705,
-          "gap_abs": 0.3558000822706705,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.079062114356232,
-          "gap_abs": 0.079062114356232,
-          "ic_degenerate": true
-        }
-      }
+      "model_status": {}
     },
     {
       "ticker": "AMZN",
       "ticker_slug": "AMZN",
-      "status": "success",
-      "reliability_tag": "LOW",
-      "p_latest": 0.565436586331439,
-      "ic_full": -0.09061558473323178,
-      "ic_pvalue": 0.1795242674864534,
-      "gap_signed": 0.288440970793912,
-      "gap_abs": 0.288440970793912,
-      "ic_degenerate": false,
-      "te_3m": 0.12286565501655593,
-      "e_alpha_3m_log": -0.0014570821180239753,
-      "test_acc": 0.45701357466063347,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
       "warnings": [
-        "xgb train_test_gap > 0.25",
-        "rf train_test_gap > 0.25",
-        "logreg ic_degenerate=true",
-        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
-        "ensemble train_test_gap_abs > 0.25",
-        "예측력 부재/역방향 가능성: IC_full <= 0"
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
       ],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.40271493212669685,
-          "precision": 0.3076923076923077,
-          "ic": -0.14615255977271385,
-          "ic_p_value": 0.029850422406224337,
-          "gap": 0.3597850678733031,
-          "gap_signed": 0.3597850678733031,
-          "gap_abs": 0.3597850678733031,
-          "ic_first": 0.016815670502898405,
-          "ic_second": -0.08608522723602068,
-          "proba_std_test": 0.17498992383480072,
-          "proba_unique_test": 108,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "svm": {
-          "accuracy": 0.5520361990950227,
-          "precision": 0.36585365853658536,
-          "ic": -0.016580875404404814,
-          "ic_p_value": 0.8063701329589861,
-          "gap": 0.18363709008820028,
-          "gap_signed": 0.18363709008820028,
-          "gap_abs": 0.18363709008820028,
-          "ic_first": 0.2244437932511327,
-          "ic_second": -0.3847051597051597,
-          "proba_std_test": 0.06187148636155237,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "rf": {
-          "accuracy": 0.45248868778280543,
-          "precision": 0.36419753086419754,
-          "ic": 0.15439934316841367,
-          "ic_p_value": 0.021671274915500173,
-          "gap": 0.28955676676264913,
-          "gap_signed": 0.28955676676264913,
-          "gap_abs": 0.28955676676264913,
-          "ic_first": 0.5500419270255252,
-          "ic_second": -0.12921200421200418,
-          "proba_std_test": 0.14914218539233082,
-          "proba_unique_test": 219,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "logreg": {
-          "accuracy": 0.34841628959276016,
-          "precision": 0.34841628959276016,
-          "ic": 0.0,
-          "ic_p_value": 1.0,
-          "gap": 0.1345382558617853,
-          "gap_signed": 0.1345382558617853,
-          "gap_abs": 0.1345382558617853,
-          "ic_first": 0.0,
-          "ic_second": 0.0,
-          "proba_std_test": 1.1102230246251565e-16,
-          "proba_unique_test": 1,
-          "ic_degenerate": true,
-          "overall_pass": false
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.3597850678733031,
-          "gap_abs": 0.3597850678733031,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.18363709008820028,
-          "gap_abs": 0.18363709008820028,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.28955676676264913,
-          "gap_abs": 0.28955676676264913,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.1345382558617853,
-          "gap_abs": 0.1345382558617853,
-          "ic_degenerate": true
-        }
-      }
+      "model_status": {}
+    },
+    {
+      "ticker": "GOOGL",
+      "ticker_slug": "GOOGL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GOOG",
+      "ticker_slug": "GOOG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
     },
     {
       "ticker": "META",
       "ticker_slug": "META",
-      "status": "success",
-      "reliability_tag": "LOW",
-      "p_latest": 0.587381394473104,
-      "ic_full": -0.748337354219707,
-      "ic_pvalue": 6.496981107901967e-41,
-      "gap_signed": 0.2584224598930481,
-      "gap_abs": 0.2584224598930481,
-      "ic_degenerate": false,
-      "te_3m": 0.14592327773410527,
-      "e_alpha_3m_log": -0.01908406851723601,
-      "test_acc": 0.35294117647058826,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
       "warnings": [
-        "svm train_test_gap > 0.25",
-        "logreg ic_degenerate=true",
-        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
-        "ensemble train_test_gap_abs > 0.25",
-        "예측력 부재/역방향 가능성: IC_full <= 0"
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
       ],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.37104072398190047,
-          "precision": 0.37104072398190047,
-          "ic": -0.687257711428483,
-          "ic_p_value": 3.0990846475252696e-32,
-          "gap": 0.21873200329082676,
-          "gap_signed": 0.21873200329082676,
-          "gap_abs": 0.21873200329082676,
-          "ic_first": -0.8760559122661257,
-          "ic_second": -0.3544338489694245,
-          "proba_std_test": 0.0032771092373877764,
-          "proba_unique_test": 39,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "svm": {
-          "accuracy": 0.20361990950226244,
-          "precision": 0.24456521739130435,
-          "ic": -0.736747195570725,
-          "ic_p_value": 4.4082518763579206e-39,
-          "gap": 0.47753682338956976,
-          "gap_signed": 0.47753682338956976,
-          "gap_abs": 0.47753682338956976,
-          "ic_first": -0.7760746568086017,
-          "ic_second": -0.5920322920322921,
-          "proba_std_test": 0.13209377210345785,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "rf": {
-          "accuracy": 0.37104072398190047,
-          "precision": 0.37104072398190047,
-          "ic": -0.7360059521420895,
-          "ic_p_value": 5.7293993901237174e-39,
-          "gap": 0.21873200329082676,
-          "gap_signed": 0.21873200329082676,
-          "gap_abs": 0.21873200329082676,
-          "ic_first": -0.4083389844329478,
-          "ic_second": -0.7946109243562395,
-          "proba_std_test": 0.008531382878319626,
-          "proba_unique_test": 132,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "logreg": {
-          "accuracy": 0.37104072398190047,
-          "precision": 0.37104072398190047,
-          "ic": 0.0,
-          "ic_p_value": 1.0,
-          "gap": 0.21873200329082676,
-          "gap_signed": 0.21873200329082676,
-          "gap_abs": 0.21873200329082676,
-          "ic_first": 0.0,
-          "ic_second": 0.0,
-          "proba_std_test": 2.220446049250313e-16,
-          "proba_unique_test": 1,
-          "ic_degenerate": true,
-          "overall_pass": false
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.21873200329082676,
-          "gap_abs": 0.21873200329082676,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.47753682338956976,
-          "gap_abs": 0.47753682338956976,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.21873200329082676,
-          "gap_abs": 0.21873200329082676,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.21873200329082676,
-          "gap_abs": 0.21873200329082676,
-          "ic_degenerate": true
-        }
-      }
-    },
-    {
-      "ticker": "TSM",
-      "ticker_slug": "TSM",
-      "status": "success",
-      "reliability_tag": "LOW",
-      "p_latest": 0.4465377374114371,
-      "ic_full": -0.21555471555471553,
-      "ic_pvalue": 0.0012629553320657357,
-      "gap_signed": 0.654211229946524,
-      "gap_abs": 0.654211229946524,
-      "ic_degenerate": false,
-      "te_3m": 0.13500738419649747,
-      "e_alpha_3m_log": 0.0031116617489941175,
-      "test_acc": 0.17647058823529413,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
-      "warnings": [
-        "xgb train_test_gap > 0.25",
-        "svm train_test_gap > 0.25",
-        "rf train_test_gap > 0.25",
-        "logreg train_test_gap > 0.25",
-        "신뢰도 낮음(IC<=0 또는 p>=0.05)",
-        "ensemble train_test_gap_abs > 0.25",
-        "예측력 부재/역방향 가능성: IC_full <= 0"
-      ],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.17194570135746606,
-          "precision": 0.5,
-          "ic": -0.3637530990472167,
-          "ic_p_value": 2.5641168458634657e-08,
-          "gap": 0.6189633895516249,
-          "gap_signed": 0.6189633895516249,
-          "gap_abs": 0.6189633895516249,
-          "ic_first": -0.6391497419020354,
-          "ic_second": 0.1844068094068094,
-          "proba_std_test": 0.16539891064167023,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "svm": {
-          "accuracy": 0.22624434389140272,
-          "precision": 1.0,
-          "ic": 0.1948636419224654,
-          "ic_p_value": 0.003633295112542692,
-          "gap": 0.7737556561085973,
-          "gap_signed": 0.7737556561085973,
-          "gap_abs": 0.7737556561085973,
-          "ic_first": 0.5847169938913058,
-          "ic_second": -0.2714373464373464,
-          "proba_std_test": 0.15981708180113155,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "rf": {
-          "accuracy": 0.17194570135746606,
-          "precision": 0.0,
-          "ic": -0.2305894857420878,
-          "ic_p_value": 0.0005498843878574934,
-          "gap": 0.4007815713698067,
-          "gap_signed": 0.4007815713698067,
-          "gap_abs": 0.4007815713698067,
-          "ic_first": -0.5651357474391911,
-          "ic_second": 0.00309763246155921,
-          "proba_std_test": 0.009171899316732084,
-          "proba_unique_test": 192,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "logreg": {
-          "accuracy": 0.27601809954751133,
-          "precision": 1.0,
-          "ic": -0.1942210412798648,
-          "ic_p_value": 0.0037485402642315224,
-          "gap": 0.4546637186343069,
-          "gap_signed": 0.4546637186343069,
-          "gap_abs": 0.4546637186343069,
-          "ic_first": -0.6121091900908414,
-          "ic_second": 0.05608108108108107,
-          "proba_std_test": 0.11437998241837562,
-          "proba_unique_test": 220,
-          "ic_degenerate": false,
-          "overall_pass": false
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.6189633895516249,
-          "gap_abs": 0.6189633895516249,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.7737556561085973,
-          "gap_abs": 0.7737556561085973,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.4007815713698067,
-          "gap_abs": 0.4007815713698067,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.4546637186343069,
-          "gap_abs": 0.4546637186343069,
-          "ic_degenerate": false
-        }
-      }
-    },
-    {
-      "ticker": "TSLA",
-      "ticker_slug": "TSLA",
-      "status": "success",
-      "reliability_tag": "OK",
-      "p_latest": 0.3786332547624976,
-      "ic_full": 0.7612182729829788,
-      "ic_pvalue": 4.528568658461557e-43,
-      "gap_signed": -0.019292472233648716,
-      "gap_abs": 0.019292472233648716,
-      "ic_degenerate": false,
-      "te_3m": 0.24641508075915652,
-      "e_alpha_3m_log": -0.045530895216987576,
-      "test_acc": 0.755656108597285,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
-      "warnings": [],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.6425339366515838,
-          "precision": 0.7346938775510204,
-          "ic": 0.59411408613642,
-          "ic_p_value": 1.7779977204103387e-22,
-          "gap": 0.060875154257507114,
-          "gap_signed": 0.060875154257507114,
-          "gap_abs": 0.060875154257507114,
-          "ic_first": 0.5465377601568338,
-          "ic_second": 0.8234091422649293,
-          "proba_std_test": 0.15203630924224854,
-          "proba_unique_test": 219,
-          "ic_degenerate": false,
-          "overall_pass": true
-        },
-        "svm": {
-          "accuracy": 0.8099547511312217,
-          "precision": 0.8547008547008547,
-          "ic": 0.7836136836136836,
-          "ic_p_value": 3.639093248524319e-47,
-          "gap": 0.1379106010208464,
-          "gap_signed": -0.1379106010208464,
-          "gap_abs": 0.1379106010208464,
-          "ic_first": 0.7035908301963348,
-          "ic_second": 0.8494296244296244,
-          "proba_std_test": 0.1655587518705562,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": true
-        },
-        "rf": {
-          "accuracy": 0.665158371040724,
-          "precision": 0.7475728155339806,
-          "ic": 0.5989238106885165,
-          "ic_p_value": 6.651036004932314e-23,
-          "gap": 0.03711435623200332,
-          "gap_signed": 0.03711435623200332,
-          "gap_abs": 0.03711435623200332,
-          "ic_first": 0.6566147465230034,
-          "ic_second": 0.7742979992979993,
-          "proba_std_test": 0.11972766019634608,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": true
-        },
-        "logreg": {
-          "accuracy": 0.7194570135746606,
-          "precision": 0.8705882352941177,
-          "ic": 0.7396600220129631,
-          "ic_p_value": 1.560100800816584e-39,
-          "gap": 0.057815713698066595,
-          "gap_signed": 0.057815713698066595,
-          "gap_abs": 0.057815713698066595,
-          "ic_first": 0.6013885445078105,
-          "ic_second": 0.8292997542997542,
-          "proba_std_test": 0.2746764105378297,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": true
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.060875154257507114,
-          "gap_abs": 0.060875154257507114,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": -0.1379106010208464,
-          "gap_abs": 0.1379106010208464,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.03711435623200332,
-          "gap_abs": 0.03711435623200332,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.057815713698066595,
-          "gap_abs": 0.057815713698066595,
-          "ic_degenerate": false
-        }
-      }
+      "model_status": {}
     },
     {
       "ticker": "AVGO",
       "ticker_slug": "AVGO",
-      "status": "success",
-      "reliability_tag": "LOW",
-      "p_latest": 0.6576330094296124,
-      "ic_full": 0.004491533903298609,
-      "ic_pvalue": 0.9470648372497015,
-      "gap_signed": 0.23870835047305627,
-      "gap_abs": 0.23870835047305627,
-      "ic_degenerate": false,
-      "te_3m": 0.19503570918237428,
-      "e_alpha_3m_log": 0.0002761760275940536,
-      "test_acc": 0.5158371040723982,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
       "warnings": [
-        "xgb train_test_gap > 0.25",
-        "logreg train_test_gap > 0.25",
-        "신뢰도 낮음(IC<=0 또는 p>=0.05)"
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
       ],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.4117647058823529,
-          "precision": 0.59375,
-          "ic": -0.23304452428779077,
-          "ic_p_value": 0.0004775764578057765,
-          "gap": 0.3802807486631016,
-          "gap_signed": 0.3802807486631016,
-          "gap_abs": 0.3802807486631016,
-          "ic_first": -0.2553800585630963,
-          "ic_second": -0.16508424008424008,
-          "proba_std_test": 0.1632237285375595,
-          "proba_unique_test": 220,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "svm": {
-          "accuracy": 0.6153846153846154,
-          "precision": 0.8791208791208791,
-          "ic": 0.25275328804740566,
-          "ic_p_value": 0.0001458731849911286,
-          "gap": 0.0831407709288503,
-          "gap_signed": 0.0831407709288503,
-          "gap_abs": 0.0831407709288503,
-          "ic_first": 0.3694565290895566,
-          "ic_second": 0.09057564057564056,
-          "proba_std_test": 0.2303095360961271,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": true
-        },
-        "rf": {
-          "accuracy": 0.6968325791855203,
-          "precision": 0.6968325791855203,
-          "ic": -0.21730018788842317,
-          "ic_p_value": 0.0011499372361849834,
-          "gap": 0.005923488276429412,
-          "gap_signed": -0.005923488276429412,
-          "gap_abs": 0.005923488276429412,
-          "ic_first": -0.1619412573541014,
-          "ic_second": 0.06085468585468585,
-          "proba_std_test": 0.049248465906245244,
-          "proba_unique_test": 219,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "logreg": {
-          "accuracy": 0.43891402714932126,
-          "precision": 0.7884615384615384,
-          "ic": -0.08403615462438992,
-          "ic_p_value": 0.2133505145442896,
-          "gap": 0.3463132455779515,
-          "gap_signed": 0.3463132455779515,
-          "gap_abs": 0.3463132455779515,
-          "ic_first": 0.13759664585352657,
-          "ic_second": -0.1262197262197262,
-          "proba_std_test": 0.2877978438647237,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.3802807486631016,
-          "gap_abs": 0.3802807486631016,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.0831407709288503,
-          "gap_abs": 0.0831407709288503,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": -0.005923488276429412,
-          "gap_abs": 0.005923488276429412,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": 0.3463132455779515,
-          "gap_abs": 0.3463132455779515,
-          "ic_degenerate": false
-        }
-      }
+      "model_status": {}
     },
     {
-      "ticker": "BRK-A",
-      "ticker_slug": "BRK_A",
-      "status": "success",
-      "reliability_tag": "OK",
-      "p_latest": 0.5347224732326261,
-      "ic_full": 0.40559218206277026,
-      "ic_pvalue": 3.6856643242578725e-10,
-      "gap_signed": 0.33951563142739616,
-      "gap_abs": 0.33951563142739616,
-      "ic_degenerate": false,
-      "te_3m": 0.09221075499832984,
-      "e_alpha_3m_log": 0.002597238312324638,
-      "test_acc": 0.4434389140271493,
-      "test_period_start": "2025-01-02",
-      "test_period_end": "2025-11-18",
-      "n_test_samples": 221,
+      "ticker": "TSLA",
+      "ticker_slug": "TSLA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
       "warnings": [
-        "xgb train_test_gap > 0.25",
-        "rf train_test_gap > 0.25",
-        "logreg train_test_gap > 0.25",
-        "logreg ic_degenerate=true",
-        "ensemble train_test_gap_abs > 0.25"
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
       ],
-      "model_status": {
-        "xgb": "normal",
-        "svm": "normal",
-        "rf": "normal",
-        "logreg": "normal"
-      },
-      "force_retune_all": false,
-      "model_metrics": {
-        "xgb": {
-          "accuracy": 0.3936651583710407,
-          "precision": 0.15328467153284672,
-          "ic": 0.4040334863864275,
-          "ic_p_value": 4.363948292215848e-10,
-          "gap": 0.45178938708350475,
-          "gap_signed": 0.45178938708350475,
-          "gap_abs": 0.45178938708350475,
-          "ic_first": 0.2842323557919888,
-          "ic_second": 0.2907686907686908,
-          "proba_std_test": 0.07368822395801544,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "svm": {
-          "accuracy": 0.4479638009049774,
-          "precision": 0.20567375886524822,
-          "ic": 0.3649627002568179,
-          "ic_p_value": 2.2869032510028767e-08,
-          "gap": 0.15357262293608226,
-          "gap_signed": 0.15357262293608226,
-          "gap_abs": 0.15357262293608226,
-          "ic_first": 0.3595293375109889,
-          "ic_second": 0.2336872586872587,
-          "proba_std_test": 0.12348764077426655,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "rf": {
-          "accuracy": 0.3936651583710407,
-          "precision": 0.12,
-          "ic": 0.36526176526176524,
-          "ic_p_value": 2.2229545220777816e-08,
-          "gap": 0.404062114356232,
-          "gap_signed": 0.404062114356232,
-          "gap_abs": 0.404062114356232,
-          "ic_first": 0.29810878434731647,
-          "ic_second": 0.40832748332748325,
-          "proba_std_test": 0.0604981522349643,
-          "proba_unique_test": 221,
-          "ic_degenerate": false,
-          "overall_pass": false
-        },
-        "logreg": {
-          "accuracy": 0.8235294117647058,
-          "precision": 0.0,
-          "ic": 0.0,
-          "ic_p_value": 1.0,
-          "gap": 0.316711229946524,
-          "gap_signed": -0.316711229946524,
-          "gap_abs": 0.316711229946524,
-          "ic_first": 0.0,
-          "ic_second": 0.0,
-          "proba_std_test": 1.1102230246251565e-16,
-          "proba_unique_test": 1,
-          "ic_degenerate": true,
-          "overall_pass": false
-        }
-      },
-      "model_diagnostics": {
-        "xgb": {
-          "gap_signed": 0.45178938708350475,
-          "gap_abs": 0.45178938708350475,
-          "ic_degenerate": false
-        },
-        "svm": {
-          "gap_signed": 0.15357262293608226,
-          "gap_abs": 0.15357262293608226,
-          "ic_degenerate": false
-        },
-        "rf": {
-          "gap_signed": 0.404062114356232,
-          "gap_abs": 0.404062114356232,
-          "ic_degenerate": false
-        },
-        "logreg": {
-          "gap_signed": -0.316711229946524,
-          "gap_abs": 0.316711229946524,
-          "ic_degenerate": true
-        }
-      }
+      "model_status": {}
+    },
+    {
+      "ticker": "BRK-B",
+      "ticker_slug": "BRK_B",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WMT",
+      "ticker_slug": "WMT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LLY",
+      "ticker_slug": "LLY",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "JPM",
+      "ticker_slug": "JPM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "V",
+      "ticker_slug": "V",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "XOM",
+      "ticker_slug": "XOM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "JNJ",
+      "ticker_slug": "JNJ",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MU",
+      "ticker_slug": "MU",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MA",
+      "ticker_slug": "MA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "COST",
+      "ticker_slug": "COST",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ORCL",
+      "ticker_slug": "ORCL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ABBV",
+      "ticker_slug": "ABBV",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BAC",
+      "ticker_slug": "BAC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HD",
+      "ticker_slug": "HD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PG",
+      "ticker_slug": "PG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CVX",
+      "ticker_slug": "CVX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GE",
+      "ticker_slug": "GE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CAT",
+      "ticker_slug": "CAT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KO",
+      "ticker_slug": "KO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NFLX",
+      "ticker_slug": "NFLX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AMD",
+      "ticker_slug": "AMD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PLTR",
+      "ticker_slug": "PLTR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CSCO",
+      "ticker_slug": "CSCO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LRCX",
+      "ticker_slug": "LRCX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MRK",
+      "ticker_slug": "MRK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AMAT",
+      "ticker_slug": "AMAT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PM",
+      "ticker_slug": "PM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MS",
+      "ticker_slug": "MS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GS",
+      "ticker_slug": "GS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "RTX",
+      "ticker_slug": "RTX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WFC",
+      "ticker_slug": "WFC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "UNH",
+      "ticker_slug": "UNH",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "IBM",
+      "ticker_slug": "IBM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AXP",
+      "ticker_slug": "AXP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TMUS",
+      "ticker_slug": "TMUS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MCD",
+      "ticker_slug": "MCD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LIN",
+      "ticker_slug": "LIN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GEV",
+      "ticker_slug": "GEV",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PEP",
+      "ticker_slug": "PEP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "INTC",
+      "ticker_slug": "INTC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "VZ",
+      "ticker_slug": "VZ",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "C",
+      "ticker_slug": "C",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AMGN",
+      "ticker_slug": "AMGN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TXN",
+      "ticker_slug": "TXN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KLAC",
+      "ticker_slug": "KLAC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "T",
+      "ticker_slug": "T",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ABT",
+      "ticker_slug": "ABT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NEE",
+      "ticker_slug": "NEE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TMO",
+      "ticker_slug": "TMO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GILD",
+      "ticker_slug": "GILD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DIS",
+      "ticker_slug": "DIS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "APH",
+      "ticker_slug": "APH",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ISRG",
+      "ticker_slug": "ISRG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BA",
+      "ticker_slug": "BA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DE",
+      "ticker_slug": "DE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ADI",
+      "ticker_slug": "ADI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TJX",
+      "ticker_slug": "TJX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CRM",
+      "ticker_slug": "CRM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ANET",
+      "ticker_slug": "ANET",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SCHW",
+      "ticker_slug": "SCHW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BLK",
+      "ticker_slug": "BLK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "UNP",
+      "ticker_slug": "UNP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LOW",
+      "ticker_slug": "LOW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HON",
+      "ticker_slug": "HON",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PFE",
+      "ticker_slug": "PFE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LMT",
+      "ticker_slug": "LMT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DHR",
+      "ticker_slug": "DHR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "UBER",
+      "ticker_slug": "UBER",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "QCOM",
+      "ticker_slug": "QCOM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WELL",
+      "ticker_slug": "WELL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ETN",
+      "ticker_slug": "ETN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "APP",
+      "ticker_slug": "APP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SYK",
+      "ticker_slug": "SYK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "COP",
+      "ticker_slug": "COP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NEM",
+      "ticker_slug": "NEM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ACN",
+      "ticker_slug": "ACN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PLD",
+      "ticker_slug": "PLD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BKNG",
+      "ticker_slug": "BKNG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "COF",
+      "ticker_slug": "COF",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CB",
+      "ticker_slug": "CB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PH",
+      "ticker_slug": "PH",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MDT",
+      "ticker_slug": "MDT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BMY",
+      "ticker_slug": "BMY",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SPGI",
+      "ticker_slug": "SPGI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "VRTX",
+      "ticker_slug": "VRTX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PANW",
+      "ticker_slug": "PANW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GLW",
+      "ticker_slug": "GLW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PGR",
+      "ticker_slug": "PGR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HCA",
+      "ticker_slug": "HCA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MCK",
+      "ticker_slug": "MCK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MO",
+      "ticker_slug": "MO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CMCSA",
+      "ticker_slug": "CMCSA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SBUX",
+      "ticker_slug": "SBUX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CME",
+      "ticker_slug": "CME",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BSX",
+      "ticker_slug": "BSX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TT",
+      "ticker_slug": "TT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HWM",
+      "ticker_slug": "HWM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SO",
+      "ticker_slug": "SO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "INTU",
+      "ticker_slug": "INTU",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ADBE",
+      "ticker_slug": "ADBE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CEG",
+      "ticker_slug": "CEG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NOW",
+      "ticker_slug": "NOW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NOC",
+      "ticker_slug": "NOC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "UPS",
+      "ticker_slug": "UPS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DUK",
+      "ticker_slug": "DUK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CRWD",
+      "ticker_slug": "CRWD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CVS",
+      "ticker_slug": "CVS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WM",
+      "ticker_slug": "WM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EQIX",
+      "ticker_slug": "EQIX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "USB",
+      "ticker_slug": "USB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "FDX",
+      "ticker_slug": "FDX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MAR",
+      "ticker_slug": "MAR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "FCX",
+      "ticker_slug": "FCX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BX",
+      "ticker_slug": "BX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PNC",
+      "ticker_slug": "PNC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GD",
+      "ticker_slug": "GD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SNDK",
+      "ticker_slug": "SNDK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WDC",
+      "ticker_slug": "WDC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NKE",
+      "ticker_slug": "NKE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AMT",
+      "ticker_slug": "AMT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ITW",
+      "ticker_slug": "ITW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "RCL",
+      "ticker_slug": "RCL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ECL",
+      "ticker_slug": "ECL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ADP",
+      "ticker_slug": "ADP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MRSH",
+      "ticker_slug": "MRSH",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ICE",
+      "ticker_slug": "ICE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MMM",
+      "ticker_slug": "MMM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "JCI",
+      "ticker_slug": "JCI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WMB",
+      "ticker_slug": "WMB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SHW",
+      "ticker_slug": "SHW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "STX",
+      "ticker_slug": "STX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KKR",
+      "ticker_slug": "KKR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BK",
+      "ticker_slug": "BK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ORLY",
+      "ticker_slug": "ORLY",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MCO",
+      "ticker_slug": "MCO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CTAS",
+      "ticker_slug": "CTAS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CDNS",
+      "ticker_slug": "CDNS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DELL",
+      "ticker_slug": "DELL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CSX",
+      "ticker_slug": "CSX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MNST",
+      "ticker_slug": "MNST",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PWR",
+      "ticker_slug": "PWR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "REGN",
+      "ticker_slug": "REGN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CRH",
+      "ticker_slug": "CRH",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EMR",
+      "ticker_slug": "EMR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SNPS",
+      "ticker_slug": "SNPS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CMI",
+      "ticker_slug": "CMI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MDLZ",
+      "ticker_slug": "MDLZ",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HLT",
+      "ticker_slug": "HLT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KMI",
+      "ticker_slug": "KMI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GM",
+      "ticker_slug": "GM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CI",
+      "ticker_slug": "CI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TDG",
+      "ticker_slug": "TDG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ELV",
+      "ticker_slug": "ELV",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DASH",
+      "ticker_slug": "DASH",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SLB",
+      "ticker_slug": "SLB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CL",
+      "ticker_slug": "CL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MSI",
+      "ticker_slug": "MSI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ABNB",
+      "ticker_slug": "ABNB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HOOD",
+      "ticker_slug": "HOOD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TRV",
+      "ticker_slug": "TRV",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TFC",
+      "ticker_slug": "TFC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LHX",
+      "ticker_slug": "LHX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EOG",
+      "ticker_slug": "EOG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PCAR",
+      "ticker_slug": "PCAR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "RSG",
+      "ticker_slug": "RSG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WBD",
+      "ticker_slug": "WBD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TEL",
+      "ticker_slug": "TEL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "APO",
+      "ticker_slug": "APO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AON",
+      "ticker_slug": "AON",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AEP",
+      "ticker_slug": "AEP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "COR",
+      "ticker_slug": "COR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NSC",
+      "ticker_slug": "NSC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BKR",
+      "ticker_slug": "BKR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DLR",
+      "ticker_slug": "DLR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "O",
+      "ticker_slug": "O",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SRE",
+      "ticker_slug": "SRE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "VLO",
+      "ticker_slug": "VLO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ROST",
+      "ticker_slug": "ROST",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AZO",
+      "ticker_slug": "AZO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PSX",
+      "ticker_slug": "PSX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SPG",
+      "ticker_slug": "SPG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "APD",
+      "ticker_slug": "APD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "F",
+      "ticker_slug": "F",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PSA",
+      "ticker_slug": "PSA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GWW",
+      "ticker_slug": "GWW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CARR",
+      "ticker_slug": "CARR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ALL",
+      "ticker_slug": "ALL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ZTS",
+      "ticker_slug": "ZTS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "OKE",
+      "ticker_slug": "OKE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AJG",
+      "ticker_slug": "AJG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AME",
+      "ticker_slug": "AME",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "D",
+      "ticker_slug": "D",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MPC",
+      "ticker_slug": "MPC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "VST",
+      "ticker_slug": "VST",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NXPI",
+      "ticker_slug": "NXPI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MPWR",
+      "ticker_slug": "MPWR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AFL",
+      "ticker_slug": "AFL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "URI",
+      "ticker_slug": "URI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "FTNT",
+      "ticker_slug": "FTNT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ADSK",
+      "ticker_slug": "ADSK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EXC",
+      "ticker_slug": "EXC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "FITB",
+      "ticker_slug": "FITB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "XEL",
+      "ticker_slug": "XEL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CIEN",
+      "ticker_slug": "CIEN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GRMN",
+      "ticker_slug": "GRMN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CVNA",
+      "ticker_slug": "CVNA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DHI",
+      "ticker_slug": "DHI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ETR",
+      "ticker_slug": "ETR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TRGP",
+      "ticker_slug": "TRGP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CMG",
+      "ticker_slug": "CMG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CTVA",
+      "ticker_slug": "CTVA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "FANG",
+      "ticker_slug": "FANG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MET",
+      "ticker_slug": "MET",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EA",
+      "ticker_slug": "EA",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TGT",
+      "ticker_slug": "TGT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CAH",
+      "ticker_slug": "CAH",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "BDX",
+      "ticker_slug": "BDX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "FAST",
+      "ticker_slug": "FAST",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "FIX",
+      "ticker_slug": "FIX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "OXY",
+      "ticker_slug": "OXY",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TER",
+      "ticker_slug": "TER",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "IDXX",
+      "ticker_slug": "IDXX",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "VTR",
+      "ticker_slug": "VTR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AIG",
+      "ticker_slug": "AIG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EL",
+      "ticker_slug": "EL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MLM",
+      "ticker_slug": "MLM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KEYS",
+      "ticker_slug": "KEYS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KR",
+      "ticker_slug": "KR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MCHP",
+      "ticker_slug": "MCHP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ODFL",
+      "ticker_slug": "ODFL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PEG",
+      "ticker_slug": "PEG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AMP",
+      "ticker_slug": "AMP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NUE",
+      "ticker_slug": "NUE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "SYY",
+      "ticker_slug": "SYY",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "YUM",
+      "ticker_slug": "YUM",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CBRE",
+      "ticker_slug": "CBRE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NDAQ",
+      "ticker_slug": "NDAQ",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DAL",
+      "ticker_slug": "DAL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "COIN",
+      "ticker_slug": "COIN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EW",
+      "ticker_slug": "EW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WAB",
+      "ticker_slug": "WAB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HSY",
+      "ticker_slug": "HSY",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ROK",
+      "ticker_slug": "ROK",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CCL",
+      "ticker_slug": "CCL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ROP",
+      "ticker_slug": "ROP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "UAL",
+      "ticker_slug": "UAL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EME",
+      "ticker_slug": "EME",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WDAY",
+      "ticker_slug": "WDAY",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KMB",
+      "ticker_slug": "KMB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "OTIS",
+      "ticker_slug": "OTIS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PRU",
+      "ticker_slug": "PRU",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KVUE",
+      "ticker_slug": "KVUE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "A",
+      "ticker_slug": "A",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MTB",
+      "ticker_slug": "MTB",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "STT",
+      "ticker_slug": "STT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ACGL",
+      "ticker_slug": "ACGL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CPRT",
+      "ticker_slug": "CPRT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WEC",
+      "ticker_slug": "WEC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "AXON",
+      "ticker_slug": "AXON",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TPL",
+      "ticker_slug": "TPL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "TTWO",
+      "ticker_slug": "TTWO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HBAN",
+      "ticker_slug": "HBAN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "IR",
+      "ticker_slug": "IR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HIG",
+      "ticker_slug": "HIG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "RMD",
+      "ticker_slug": "RMD",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PCG",
+      "ticker_slug": "PCG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "VMC",
+      "ticker_slug": "VMC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KDP",
+      "ticker_slug": "KDP",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "MSCI",
+      "ticker_slug": "MSCI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EBAY",
+      "ticker_slug": "EBAY",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ED",
+      "ticker_slug": "ED",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DDOG",
+      "ticker_slug": "DDOG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LVS",
+      "ticker_slug": "LVS",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "GEHC",
+      "ticker_slug": "GEHC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "PYPL",
+      "ticker_slug": "PYPL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CCI",
+      "ticker_slug": "CCI",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LYV",
+      "ticker_slug": "LYV",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "EQT",
+      "ticker_slug": "EQT",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "NRG",
+      "ticker_slug": "NRG",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "KHC",
+      "ticker_slug": "KHC",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CBOE",
+      "ticker_slug": "CBOE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "DTE",
+      "ticker_slug": "DTE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ATO",
+      "ticker_slug": "ATO",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "ROL",
+      "ticker_slug": "ROL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HAL",
+      "ticker_slug": "HAL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "CHTR",
+      "ticker_slug": "CHTR",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "FE",
+      "ticker_slug": "FE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "JBL",
+      "ticker_slug": "JBL",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "LEN",
+      "ticker_slug": "LEN",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "WTW",
+      "ticker_slug": "WTW",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
+    },
+    {
+      "ticker": "HPE",
+      "ticker_slug": "HPE",
+      "status": "error",
+      "error": "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]",
+      "warnings": [
+        "튜닝 분할 데이터가 비어 있습니다. Train[2021-01-01~2023-12-31] / Val[2024-04-01~2024-09-30]"
+      ],
+      "model_status": {}
     }
   ]
 }

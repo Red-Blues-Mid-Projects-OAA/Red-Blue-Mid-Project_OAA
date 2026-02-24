@@ -1,0 +1,21 @@
+{
+  "ticker": "MCO",
+  "benchmark": "SP500",
+  "p_latest": 0.534284692335087,
+  "signal_raw": 0.06856938467017404,
+  "signal_clipped": 0.06856938467017404,
+  "IC_full": 0.28586269485372634,
+  "sigma_ols": 0.012562931434507915,
+  "sigma_ewma": 0.027268584065883977,
+  "sigma_final": 0.016974627223920735,
+  "TE_annual": 0.26946385339512585,
+  "TE_3M": 0.1314848970926481,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.002577291886278068,
+  "E_alpha_3M_simple": 0.0025806159580992194,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

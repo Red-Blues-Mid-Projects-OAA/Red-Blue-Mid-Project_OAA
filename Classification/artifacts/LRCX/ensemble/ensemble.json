@@ -1,0 +1,50 @@
+{
+  "ticker": "LRCX",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.2632756779841982,
+  "ic_pvalue": 6.637918042332774e-05,
+  "ic_first_half": -0.4930296921447364,
+  "ic_second_half": 0.008354118973588,
+  "accuracy_ref": 0.625,
+  "precision_ref": 0.8433734939759037,
+  "train_accuracy_ref": 0.7715909090909091,
+  "gap_ref": 0.1465909090909091,
+  "gap_signed_ref": 0.1465909090909091,
+  "gap_abs_ref": 0.1465909090909091,
+  "proba_std_test": 0.13666531763627113,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.25504894158876823,
+    "mean": 0.6018666038111024,
+    "max": 0.8482723078461091
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.3256645610964862,
+    "mean": 0.5435872028211478,
+    "max": 0.7311715762656331
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6050318514661934
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

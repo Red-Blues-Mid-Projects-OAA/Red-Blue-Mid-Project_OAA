@@ -1,0 +1,50 @@
+{
+  "ticker": "CVS",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.3982810164424515,
+  "ic_pvalue": 6.194859177677933e-10,
+  "ic_first_half": -0.5988997847404927,
+  "ic_second_half": -0.6782553729456384,
+  "accuracy_ref": 0.39732142857142855,
+  "precision_ref": 0.30952380952380953,
+  "train_accuracy_ref": 0.7852272727272728,
+  "gap_ref": 0.3879058441558442,
+  "gap_signed_ref": 0.3879058441558442,
+  "gap_abs_ref": 0.3879058441558442,
+  "proba_std_test": 0.06507004465395941,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.2882553641196318,
+    "mean": 0.43941033290138404,
+    "max": 0.5685026809688756
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.42216726502208146,
+    "mean": 0.5340445369877261,
+    "max": 0.6189870392740211
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.4581687626017079
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

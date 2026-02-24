@@ -1,0 +1,21 @@
+{
+  "ticker": "WMT",
+  "benchmark": "SP500",
+  "p_latest": 0.7718124356517784,
+  "signal_raw": 0.5436248713035567,
+  "signal_clipped": 0.5436248713035567,
+  "IC_full": 0.5987422592355328,
+  "sigma_ols": 0.014109039995774165,
+  "sigma_ewma": 0.02166620228585778,
+  "sigma_final": 0.016376188682799248,
+  "TE_annual": 0.25996393606654333,
+  "TE_3M": 0.12684941208566372,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.041288365281380184,
+  "E_alpha_3M_simple": 0.04215258284257972,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

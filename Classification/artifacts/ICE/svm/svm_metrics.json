@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T07:25:18",
+  "ticker": "ICE",
+  "ticker_slug": "ICE",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ICE\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ICE\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7589285714285714,
+    "precision": 0.6944444444444444,
+    "ic": 0.4353363228699552,
+    "ic_p_value": 8.954661847310713e-12,
+    "gap": 0.1838998738568276,
+    "gap_signed": -0.1838998738568276,
+    "gap_abs": 0.1838998738568276,
+    "ic_first": 0.5698312092117402,
+    "ic_second": 0.7469761164451431,
+    "proba_std_test": 0.0807893340346335,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

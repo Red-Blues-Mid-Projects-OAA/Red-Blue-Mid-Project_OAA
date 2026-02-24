@@ -1,0 +1,23 @@
+{
+  "ticker": "MU",
+  "benchmark": "SP500",
+  "p_latest": 0.0658197904549095,
+  "signal_raw": -0.868360419090181,
+  "signal_clipped": -0.8,
+  "IC_full": -0.2679681827888107,
+  "sigma_ols": 0.031937643371599815,
+  "sigma_ewma": 0.04141851345406654,
+  "sigma_final": 0.03478190439633983,
+  "TE_annual": 0.5521456149476361,
+  "TE_3M": 0.26941947295280544,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.057756677260065926,
+  "E_alpha_3M_simple": 0.05945717432215747,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

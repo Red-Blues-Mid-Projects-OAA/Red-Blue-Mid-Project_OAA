@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:24:20",
+  "generated_at": "2026-02-23T20:40:33",
   "ticker": "TSLA",
   "ticker_slug": "TSLA",
   "benchmark": "SP500",
@@ -8,28 +8,28 @@
     "source": "multi_ticker.run_all_tickers",
     "optimize_profile": "balanced",
     "n_trials": 100,
-    "force_retune_all": false,
+    "force_retune_all": true,
     "model_status": "normal",
-    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TSLA/xgb/xgb_best_params.json",
-    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/TSLA/xgb/xgb_classifier_result.png"
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TSLA\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TSLA\\xgb\\xgb_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.6425339366515838,
-    "precision": 0.7346938775510204,
-    "ic": 0.59411408613642,
-    "ic_p_value": 1.7779977204103387e-22,
-    "gap": 0.060875154257507114,
-    "gap_signed": 0.060875154257507114,
-    "gap_abs": 0.060875154257507114,
-    "ic_first": 0.5465377601568338,
-    "ic_second": 0.8234091422649293,
-    "proba_std_test": 0.15203630924224854,
-    "proba_unique_test": 219,
+    "accuracy": 0.65625,
+    "precision": 0.74,
+    "ic": 0.6027177578886392,
+    "ic_p_value": 1.5274395731479355e-23,
+    "gap": 0.04147727272727275,
+    "gap_signed": 0.04147727272727275,
+    "gap_abs": 0.04147727272727275,
+    "ic_first": 0.5304119418332702,
+    "ic_second": 0.8420380506179096,
+    "proba_std_test": 0.13946330547332764,
+    "proba_unique_test": 221,
     "ic_degenerate": false,
     "overall_pass": true
   },

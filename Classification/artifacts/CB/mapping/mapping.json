@@ -1,0 +1,21 @@
+{
+  "ticker": "CB",
+  "benchmark": "SP500",
+  "p_latest": 0.40567752246646105,
+  "signal_raw": -0.1886449550670779,
+  "signal_clipped": -0.1886449550670779,
+  "IC_full": 0.2507238949391416,
+  "sigma_ols": 0.014029663649100728,
+  "sigma_ewma": 0.017102075305603863,
+  "sigma_final": 0.014951387146051667,
+  "TE_annual": 0.2373459128634028,
+  "TE_3M": 0.1158129468387155,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.005477697353206245,
+  "E_alpha_3M_simple": -0.005462722124792929,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

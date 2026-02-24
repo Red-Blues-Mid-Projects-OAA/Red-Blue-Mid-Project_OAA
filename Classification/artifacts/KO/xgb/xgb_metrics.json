@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T22:19:39",
+  "ticker": "KO",
+  "ticker_slug": "KO",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\KO\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\KO\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.41517857142857145,
+    "precision": 0.16666666666666666,
+    "ic": -0.3433707025411062,
+    "ic_p_value": 1.3531190403378307e-07,
+    "gap": 0.4245941558441558,
+    "gap_signed": 0.4245941558441558,
+    "gap_abs": 0.4245941558441558,
+    "ic_first": -0.31845594013735606,
+    "ic_second": -0.12075033313971369,
+    "proba_std_test": 0.142323300242424,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

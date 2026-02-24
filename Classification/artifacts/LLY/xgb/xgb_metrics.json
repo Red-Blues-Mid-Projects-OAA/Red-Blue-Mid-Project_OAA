@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T20:58:19",
+  "ticker": "LLY",
+  "ticker_slug": "LLY",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LLY\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LLY\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4732142857142857,
+    "precision": 0.4527363184079602,
+    "ic": -0.10771995694116267,
+    "ic_p_value": 0.10786437377663795,
+    "gap": 0.2972402597402598,
+    "gap_signed": 0.2972402597402598,
+    "gap_abs": 0.2972402597402598,
+    "ic_first": 0.5240111819427691,
+    "ic_second": -0.06202056960227209,
+    "proba_std_test": 0.08087158203125,
+    "proba_unique_test": 209,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

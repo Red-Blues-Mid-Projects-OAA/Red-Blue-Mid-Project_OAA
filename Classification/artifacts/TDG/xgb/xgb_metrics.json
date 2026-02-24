@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T09:37:18",
+  "ticker": "TDG",
+  "ticker_slug": "TDG",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TDG\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TDG\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4017857142857143,
+    "precision": 0.3181818181818182,
+    "ic": 0.15173926969891097,
+    "ic_p_value": 0.02311741493293948,
+    "gap": 0.39707792207792203,
+    "gap_signed": 0.39707792207792203,
+    "gap_abs": 0.39707792207792203,
+    "ic_first": 0.05363549390098062,
+    "ic_second": 0.3659838726210408,
+    "proba_std_test": 0.14043620228767395,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

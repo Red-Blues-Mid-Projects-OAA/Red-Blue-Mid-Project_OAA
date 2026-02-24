@@ -1,0 +1,21 @@
+{
+  "ticker": "ADBE",
+  "benchmark": "SP500",
+  "p_latest": 0.4790527692515043,
+  "signal_raw": -0.041894461496991386,
+  "signal_clipped": -0.041894461496991386,
+  "IC_full": 0.0867648942985266,
+  "sigma_ols": 0.019437319070069327,
+  "sigma_ewma": 0.021128003739771528,
+  "sigma_final": 0.019944524470979986,
+  "TE_annual": 0.3166095106059307,
+  "TE_3M": 0.15448962224826357,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0005615649140767768,
+  "E_alpha_3M_simple": -0.0005614072660116154,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

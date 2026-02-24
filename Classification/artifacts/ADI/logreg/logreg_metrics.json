@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:24:20",
+  "ticker": "ADI",
+  "ticker_slug": "ADI",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ADI\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ADI\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5625,
+    "precision": 0.6276595744680851,
+    "ic": 0.054927396967755726,
+    "ic_p_value": 0.41330208015472847,
+    "gap": 0.18977272727272732,
+    "gap_signed": 0.18977272727272732,
+    "gap_abs": 0.18977272727272732,
+    "ic_first": 0.7320702497693647,
+    "ic_second": -0.058513000990877105,
+    "proba_std_test": 0.24435216430520681,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

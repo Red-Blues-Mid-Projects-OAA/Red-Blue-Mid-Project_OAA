@@ -1,0 +1,23 @@
+{
+  "ticker": "XOM",
+  "benchmark": "SP500",
+  "p_latest": 0.33923930654215023,
+  "signal_raw": -0.32152138691569954,
+  "signal_clipped": -0.32152138691569954,
+  "IC_full": -0.5256950672645742,
+  "sigma_ols": 0.014606042801499429,
+  "sigma_ewma": 0.01937739791554553,
+  "sigma_final": 0.016037449335713258,
+  "TE_annual": 0.2545866156365718,
+  "TE_3M": 0.1242255483857253,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.02099687636905235,
+  "E_alpha_3M_simple": 0.02121886172170573,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

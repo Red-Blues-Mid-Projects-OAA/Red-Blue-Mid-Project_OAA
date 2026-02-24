@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T21:48:44",
+  "ticker": "BAC",
+  "ticker_slug": "BAC",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\BAC\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\BAC\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.38839285714285715,
+    "precision": 0.5256410256410257,
+    "ic": -0.26023864556739057,
+    "ic_p_value": 8.106579436558034e-05,
+    "gap": 0.36615259740259737,
+    "gap_signed": 0.36615259740259737,
+    "gap_abs": 0.36615259740259737,
+    "ic_first": -0.5386818131918754,
+    "ic_second": 0.1643913211717522,
+    "proba_std_test": 0.06541606038808823,
+    "proba_unique_test": 129,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

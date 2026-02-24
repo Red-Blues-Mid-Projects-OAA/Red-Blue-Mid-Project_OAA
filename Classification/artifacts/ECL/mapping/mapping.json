@@ -1,0 +1,21 @@
+{
+  "ticker": "ECL",
+  "benchmark": "SP500",
+  "p_latest": 0.17970538863939886,
+  "signal_raw": -0.6405892227212022,
+  "signal_clipped": -0.6405892227212022,
+  "IC_full": 0.33924407431133896,
+  "sigma_ols": 0.012103102339995474,
+  "sigma_ewma": 0.012313414709158404,
+  "sigma_final": 0.012166196050744352,
+  "TE_annual": 0.1931323749115543,
+  "TE_3M": 0.09423894938245465,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.020479640747717087,
+  "E_alpha_3M_simple": -0.020271357185921324,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

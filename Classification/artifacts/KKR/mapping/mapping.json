@@ -1,0 +1,23 @@
+{
+  "ticker": "KKR",
+  "benchmark": "SP500",
+  "p_latest": 0.6027607432488067,
+  "signal_raw": 0.20552148649761337,
+  "signal_clipped": 0.20552148649761337,
+  "IC_full": -0.7331496903694216,
+  "sigma_ols": 0.0192927524983806,
+  "sigma_ewma": 0.023856035761223547,
+  "sigma_final": 0.02066173747723348,
+  "TE_annual": 0.32799491411557724,
+  "TE_3M": 0.16004513030606984,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.02411528241529655,
+  "E_alpha_3M_simple": -0.023826832329544634,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T21:38:51",
+  "ticker": "ORCL",
+  "ticker_slug": "ORCL",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ORCL\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ORCL\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5089285714285714,
+    "precision": 0.35714285714285715,
+    "ic": 0.4215118513773223,
+    "ic_p_value": 4.6227363775185385e-11,
+    "gap": 0.1989478082623778,
+    "gap_signed": 0.1989478082623778,
+    "gap_abs": 0.1989478082623778,
+    "ic_first": -0.16387911299415725,
+    "ic_second": 0.7061536884545734,
+    "proba_std_test": 0.15826935014546842,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

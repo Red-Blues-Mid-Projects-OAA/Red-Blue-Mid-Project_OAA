@@ -1,8 +1,9 @@
 {
   "best_params": {
-    "C": 0.005673047080581905,
-    "l1_ratio": 0.6644063858048083,
-    "tol": 0.00014339413217980866
+    "C": 28.009385501798654,
+    "l1_ratio": 0.620797723969507,
+    "tol": 0.0009172347066239604,
+    "class_weight": null
   },
   "common_params": {
     "solver": "saga",
@@ -10,14 +11,14 @@
     "random_state": 42,
     "max_iter": 5000
   },
-  "best_objective_score": 0.9493629344559282,
-  "best_trial_number": 87,
+  "best_objective_score": 1.0324614399647007,
+  "best_trial_number": 99,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-18T17:00:16",
-  "data_end_date": "2025-11-18",
+  "created_at": "2026-02-23T20:12:17",
+  "data_end_date": "2025-11-21",
   "feature_count": 16,
-  "feature_hash": "251bf95a77d4137ac507a551bb44c996076b198ab649f15f84fc0ebea5299fb6",
+  "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
   "split_definition": {
     "train": [
       "2021-01-01",
@@ -43,10 +44,26 @@
   "profile": "balanced",
   "objective_version": "target_aligned_v2_logreg_no_class_weight",
   "cv_mode": "single_holdout_2024Q2Q3",
+  "strategy_stage": "default",
+  "direction_mode": "normal",
+  "recency_weight_lambda": 0.0,
+  "class_weight_mode": "none",
+  "gate_objective_version": "target_aligned_v2_logreg_no_class_weight",
+  "train_val_gap_signed": 0.3235247984440192,
+  "train_val_gap_abs": 0.3235247984440192,
+  "val_proba_std": 0.07279631987711271,
+  "val_proba_unique": 127,
+  "val_pred_unique": 2,
+  "degenerate_rejected_count": 2,
   "selected_metrics": {
-    "validation_accuracy": 0.36220472440944884,
-    "validation_ic": 0.10642224409448818,
-    "validation_logloss": 0.6939889621974534,
-    "train_val_gap": 0.13713126496638117
+    "validation_accuracy": 0.4015748031496063,
+    "validation_ic": -0.03852643419572553,
+    "validation_logloss": 0.7458356137167117,
+    "train_val_gap": 0.3235247984440192,
+    "train_val_gap_signed": 0.3235247984440192,
+    "train_val_gap_abs": 0.3235247984440192,
+    "val_proba_std": 0.07279631987711271,
+    "val_proba_unique": 127,
+    "val_pred_unique": 2
   }
 }

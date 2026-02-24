@@ -1,0 +1,50 @@
+{
+  "ticker": "BAC",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.22095024556907966,
+  "ic_pvalue": 0.0008696260742757344,
+  "ic_first_half": -0.575844808145693,
+  "ic_second_half": 0.223596542180613,
+  "accuracy_ref": 0.33482142857142855,
+  "precision_ref": 0.4473684210526316,
+  "train_accuracy_ref": 0.7136363636363636,
+  "gap_ref": 0.3788149350649351,
+  "gap_signed_ref": 0.3788149350649351,
+  "gap_abs_ref": 0.3788149350649351,
+  "proba_std_test": 0.06995932482543865,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.3319524679256953,
+    "mean": 0.46771796139700045,
+    "max": 0.6196272024868783
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.44271332660392015,
+    "mean": 0.5395053971145313,
+    "max": 0.6351376668571207
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.5817738117939535
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

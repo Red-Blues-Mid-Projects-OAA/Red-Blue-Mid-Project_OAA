@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T19:23:30",
+  "generated_at": "2026-02-23T20:12:21",
   "ticker": "AMZN",
   "ticker_slug": "AMZN",
   "benchmark": "SP500",
@@ -8,28 +8,28 @@
     "source": "multi_ticker.run_all_tickers",
     "optimize_profile": "balanced",
     "n_trials": 100,
-    "force_retune_all": false,
+    "force_retune_all": true,
     "model_status": "normal",
-    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AMZN/rf/rf_best_params.json",
-    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AMZN/rf/rf_classifier_result.png"
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AMZN\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AMZN\\rf\\rf_classifier_result.png"
   },
   "data_context": {
-    "n_test_samples": 221,
+    "n_test_samples": 224,
     "test_period_start": "2025-01-02T00:00:00",
-    "test_period_end": "2025-11-18T00:00:00"
+    "test_period_end": "2025-11-21T00:00:00"
   },
   "metrics": {
-    "accuracy": 0.45248868778280543,
-    "precision": 0.36419753086419754,
-    "ic": 0.15439934316841367,
-    "ic_p_value": 0.021671274915500173,
-    "gap": 0.28955676676264913,
-    "gap_signed": 0.28955676676264913,
-    "gap_abs": 0.28955676676264913,
-    "ic_first": 0.5500419270255252,
-    "ic_second": -0.12921200421200418,
-    "proba_std_test": 0.14914218539233082,
-    "proba_unique_test": 219,
+    "accuracy": 0.375,
+    "precision": 0.2857142857142857,
+    "ic": -0.11376150805080164,
+    "ic_p_value": 0.0893909388511144,
+    "gap": 0.38522727272727275,
+    "gap_signed": 0.38522727272727275,
+    "gap_abs": 0.38522727272727275,
+    "ic_first": -0.022572399315832294,
+    "ic_second": 0.029888611747018824,
+    "proba_std_test": 0.19750352570732221,
+    "proba_unique_test": 223,
     "ic_degenerate": false,
     "overall_pass": false
   },

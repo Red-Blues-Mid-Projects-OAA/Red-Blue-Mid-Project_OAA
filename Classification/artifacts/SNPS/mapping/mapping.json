@@ -1,0 +1,21 @@
+{
+  "ticker": "SNPS",
+  "benchmark": "SP500",
+  "p_latest": 0.8581019668496028,
+  "signal_raw": 0.7162039336992057,
+  "signal_clipped": 0.7162039336992057,
+  "IC_full": 0.40669442664958366,
+  "sigma_ols": 0.028100004401473998,
+  "sigma_ewma": 0.026679434209526925,
+  "sigma_final": 0.027673833343889877,
+  "TE_annual": 0.43930848511067777,
+  "TE_3M": 0.21436059133321003,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.062438127365119125,
+  "E_alpha_3M_simple": 0.06442859787838917,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

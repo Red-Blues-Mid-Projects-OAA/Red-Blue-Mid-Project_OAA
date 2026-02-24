@@ -1,0 +1,50 @@
+{
+  "ticker": "SCHW",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.335027759982917,
+  "ic_pvalue": 2.815957329679624e-07,
+  "ic_first_half": -0.859910479379506,
+  "ic_second_half": -0.26011378002528446,
+  "accuracy_ref": 0.4107142857142857,
+  "precision_ref": 0.5145631067961165,
+  "train_accuracy_ref": 0.7806818181818181,
+  "gap_ref": 0.36996753246753245,
+  "gap_signed_ref": 0.36996753246753245,
+  "gap_abs_ref": 0.36996753246753245,
+  "proba_std_test": 0.1614569247098924,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.1983259749992708,
+    "mean": 0.4905293984236026,
+    "max": 0.8339767488101784
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.3221155314837324,
+    "mean": 0.46368038279723595,
+    "max": 0.644260251745136
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.39469276036320994
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

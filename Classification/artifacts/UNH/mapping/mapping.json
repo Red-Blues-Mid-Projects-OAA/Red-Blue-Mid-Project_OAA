@@ -1,0 +1,23 @@
+{
+  "ticker": "UNH",
+  "benchmark": "SP500",
+  "p_latest": 0.6595685606653008,
+  "signal_raw": 0.31913712133060157,
+  "signal_clipped": 0.31913712133060157,
+  "IC_full": -0.004109545163356824,
+  "sigma_ols": 0.02743482285101029,
+  "sigma_ewma": 0.037148360054593,
+  "sigma_final": 0.030348884012085103,
+  "TE_annual": 0.48177359798592817,
+  "TE_3M": 0.23508144470957232,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00030831129257360344,
+  "E_alpha_3M_simple": -0.0003082637695310808,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

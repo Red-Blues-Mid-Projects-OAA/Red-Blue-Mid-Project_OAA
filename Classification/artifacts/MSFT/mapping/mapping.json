@@ -1,20 +1,23 @@
 {
   "ticker": "MSFT",
   "benchmark": "SP500",
-  "p_latest": 0.5381736449522365,
-  "signal_raw": 0.07634728990447304,
-  "signal_clipped": 0.07634728990447304,
-  "IC_full": -0.669914505208623,
-  "TE_annual": 0.20425684272653635,
-  "TE_3M": 0.09966713385853194,
+  "p_latest": 0.5775872730792938,
+  "signal_raw": 0.1551745461585876,
+  "signal_clipped": 0.1551745461585876,
+  "IC_full": -0.598760409993594,
+  "sigma_ols": 0.011155140500338688,
+  "sigma_ewma": 0.021509692038905983,
+  "sigma_final": 0.014261505961908876,
+  "TE_annual": 0.22639438857885533,
+  "TE_3M": 0.11046915016462175,
   "phi": 1.0,
-  "E_alpha_3M_log": -0.005097590870125773,
-  "E_alpha_3M_simple": -0.005084620202863821,
+  "E_alpha_3M_log": -0.010263951092603078,
+  "E_alpha_3M_simple": -0.010211456500741067,
   "warnings": [
     "예측력 부재/역방향 가능성: IC_full <= 0"
   ],
   "lookback_days_requested": 252,
-  "lookback_days_used": 252,
+  "lookback_days_used": 2799,
   "horizon_days": 60,
-  "latest_trade_date": "2026-02-17"
+  "latest_trade_date": "2026-02-20"
 }

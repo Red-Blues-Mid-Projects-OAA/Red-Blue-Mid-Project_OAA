@@ -1,0 +1,21 @@
+{
+  "ticker": "WFC",
+  "benchmark": "SP500",
+  "p_latest": 0.34803180564153535,
+  "signal_raw": -0.3039363887169293,
+  "signal_clipped": -0.3039363887169293,
+  "IC_full": 0.14769805680119583,
+  "sigma_ols": 0.015138990815800205,
+  "sigma_ewma": 0.014093131911107316,
+  "sigma_final": 0.014825233144392339,
+  "TE_annual": 0.23534328017168551,
+  "TE_3M": 0.1148357621437475,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.00515507083947873,
+  "E_alpha_3M_simple": -0.0051418062648610485,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

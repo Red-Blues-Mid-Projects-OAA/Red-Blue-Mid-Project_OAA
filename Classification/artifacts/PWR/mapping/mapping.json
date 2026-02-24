@@ -1,0 +1,21 @@
+{
+  "ticker": "PWR",
+  "benchmark": "SP500",
+  "p_latest": 0.4644893770736169,
+  "signal_raw": -0.07102124585276615,
+  "signal_clipped": -0.07102124585276615,
+  "IC_full": 0.39152146060217813,
+  "sigma_ols": 0.019332139958301277,
+  "sigma_ewma": 0.025084922822372145,
+  "sigma_final": 0.021057974817522536,
+  "TE_annual": 0.3342849868909523,
+  "TE_3M": 0.16311437154623992,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.004535613985659536,
+  "E_alpha_3M_simple": -0.004525343621881728,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

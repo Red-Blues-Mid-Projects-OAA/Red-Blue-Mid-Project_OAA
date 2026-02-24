@@ -1,0 +1,21 @@
+{
+  "ticker": "TMUS",
+  "benchmark": "SP500",
+  "p_latest": 0.6479205171007845,
+  "signal_raw": 0.29584103420156893,
+  "signal_clipped": 0.29584103420156893,
+  "IC_full": 0.1601953875720692,
+  "sigma_ols": 0.016538686236294484,
+  "sigma_ewma": 0.022903589546729896,
+  "sigma_final": 0.018448157229425107,
+  "TE_annual": 0.2928554170588631,
+  "TE_3M": 0.1428988114355588,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0067723132203127215,
+  "E_alpha_3M_simple": 0.006795297189073235,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

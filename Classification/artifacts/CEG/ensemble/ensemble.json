@@ -1,0 +1,50 @@
+{
+  "ticker": "CEG",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.33476297245355546,
+  "ic_pvalue": 2.8812140509516926e-07,
+  "ic_first_half": 0.5521577202993132,
+  "ic_second_half": 0.1386032049748864,
+  "accuracy_ref": 0.6651785714285714,
+  "precision_ref": 0.6306818181818182,
+  "train_accuracy_ref": 0.9590163934426229,
+  "gap_ref": 0.2938378220140515,
+  "gap_signed_ref": 0.2938378220140515,
+  "gap_abs_ref": 0.2938378220140515,
+  "proba_std_test": 0.1667989400003462,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.1756269524647146,
+    "mean": 0.6083687740185904,
+    "max": 0.8804834330199959
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.45968907705792483,
+    "mean": 0.7680433759428701,
+    "max": 0.8804010074713567
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.8344375755300285
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

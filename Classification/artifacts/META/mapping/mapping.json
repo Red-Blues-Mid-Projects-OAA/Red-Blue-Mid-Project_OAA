@@ -1,20 +1,23 @@
 {
   "ticker": "META",
   "benchmark": "SP500",
-  "p_latest": 0.587381394473104,
-  "signal_raw": 0.174762788946208,
-  "signal_clipped": 0.174762788946208,
-  "IC_full": -0.748337354219707,
-  "TE_annual": 0.299053728509765,
-  "TE_3M": 0.14592327773410527,
+  "p_latest": 0.5724240285554094,
+  "signal_raw": 0.14484805711081883,
+  "signal_clipped": 0.14484805711081883,
+  "IC_full": -0.7272624386077302,
+  "sigma_ols": 0.01886445013862003,
+  "sigma_ewma": 0.022116709781571684,
+  "sigma_final": 0.019840128031505526,
+  "TE_annual": 0.3149522685062705,
+  "TE_3M": 0.1536809709052877,
   "phi": 1.0,
-  "E_alpha_3M_log": -0.01908406851723601,
-  "E_alpha_3M_simple": -0.01890312058416721,
+  "E_alpha_3M_log": -0.016189145552511486,
+  "E_alpha_3M_simple": -0.01605880564742901,
   "warnings": [
     "예측력 부재/역방향 가능성: IC_full <= 0"
   ],
   "lookback_days_requested": 252,
-  "lookback_days_used": 252,
+  "lookback_days_used": 2799,
   "horizon_days": 60,
-  "latest_trade_date": "2026-02-17"
+  "latest_trade_date": "2026-02-20"
 }

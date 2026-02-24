@@ -1,0 +1,21 @@
+{
+  "ticker": "UNP",
+  "benchmark": "SP500",
+  "p_latest": 0.26070257538554853,
+  "signal_raw": -0.47859484922890294,
+  "signal_clipped": -0.47859484922890294,
+  "IC_full": 0.6236675208199873,
+  "sigma_ols": 0.012174753277094622,
+  "sigma_ewma": 0.014551469837009808,
+  "sigma_final": 0.012887768245069178,
+  "TE_annual": 0.20458697838653025,
+  "TE_3M": 0.09982822356586743,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.02979713378157655,
+  "E_alpha_3M_simple": -0.029357575865365804,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

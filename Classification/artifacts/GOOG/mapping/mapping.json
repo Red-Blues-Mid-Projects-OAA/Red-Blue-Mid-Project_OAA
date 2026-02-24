@@ -1,0 +1,21 @@
+{
+  "ticker": "GOOG",
+  "benchmark": "SP500",
+  "p_latest": 0.5246733979908114,
+  "signal_raw": 0.049346795981622726,
+  "signal_clipped": 0.049346795981622726,
+  "IC_full": 0.693714499252616,
+  "sigma_ols": 0.014988703548859065,
+  "sigma_ewma": 0.015288298665305344,
+  "sigma_final": 0.015078582083792948,
+  "TE_annual": 0.23936506990314144,
+  "TE_3M": 0.11679819458990325,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.003998304458668562,
+  "E_alpha_3M_simple": 0.0040063083417059,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

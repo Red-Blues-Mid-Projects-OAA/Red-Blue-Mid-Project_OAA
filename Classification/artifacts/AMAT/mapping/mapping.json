@@ -1,0 +1,23 @@
+{
+  "ticker": "AMAT",
+  "benchmark": "SP500",
+  "p_latest": 0.4957105919422655,
+  "signal_raw": -0.008578816115468957,
+  "signal_clipped": -0.008578816115468957,
+  "IC_full": -0.19902946828955803,
+  "sigma_ols": 0.023195384580129055,
+  "sigma_ewma": 0.029414005019107032,
+  "sigma_final": 0.025060970711822447,
+  "TE_annual": 0.3978305767041333,
+  "TE_3M": 0.19412144441336035,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0003314501774533616,
+  "E_alpha_3M_simple": 0.0003315051131327351,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

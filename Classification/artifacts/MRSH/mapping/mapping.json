@@ -1,0 +1,21 @@
+{
+  "ticker": "MRSH",
+  "benchmark": "SP500",
+  "p_latest": 0.9060705980383155,
+  "signal_raw": 0.8121411960766309,
+  "signal_clipped": 0.8,
+  "IC_full": 0.09164317745035234,
+  "sigma_ols": 0.013320047567964982,
+  "sigma_ewma": 0.022852015816312576,
+  "sigma_final": 0.01617963804246926,
+  "TE_annual": 0.25684379138048147,
+  "TE_3M": 0.12532693737229486,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.009188287008734732,
+  "E_alpha_3M_simple": 0.009230628901608862,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

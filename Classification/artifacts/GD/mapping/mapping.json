@@ -1,0 +1,21 @@
+{
+  "ticker": "GD",
+  "benchmark": "SP500",
+  "p_latest": 0.4468286895076651,
+  "signal_raw": -0.10634262098466984,
+  "signal_clipped": -0.10634262098466984,
+  "IC_full": 0.1445974802477045,
+  "sigma_ols": 0.012273718371459272,
+  "sigma_ewma": 0.015697433256541382,
+  "sigma_final": 0.013300832836983904,
+  "TE_annual": 0.21114417550020675,
+  "TE_3M": 0.10302780813665484,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0015842457310863143,
+  "E_alpha_3M_simple": -0.001582991476254847,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

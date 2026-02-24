@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T09:45:46",
+  "ticker": "DASH",
+  "ticker_slug": "DASH",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\DASH\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\DASH\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5669642857142857,
+    "precision": 0.5779816513761468,
+    "ic": -0.30268524450138806,
+    "ic_p_value": 3.959150009162679e-06,
+    "gap": 0.05086618478608773,
+    "gap_signed": 0.05086618478608773,
+    "gap_abs": 0.05086618478608773,
+    "ic_first": -0.4267605152560905,
+    "ic_second": -0.0220043051901459,
+    "proba_std_test": 0.029725567852683977,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

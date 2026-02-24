@@ -1,0 +1,23 @@
+{
+  "ticker": "EQIX",
+  "benchmark": "SP500",
+  "p_latest": 0.299498835388817,
+  "signal_raw": -0.401002329222366,
+  "signal_clipped": -0.401002329222366,
+  "IC_full": -0.17477364937006193,
+  "sigma_ols": 0.01537287728497929,
+  "sigma_ewma": 0.02727667092295351,
+  "sigma_final": 0.018944015376371554,
+  "TE_annual": 0.30072692111317684,
+  "TE_3M": 0.14673971212596854,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.010284199969087065,
+  "E_alpha_3M_simple": 0.010337264104979482,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

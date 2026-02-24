@@ -1,0 +1,21 @@
+{
+  "ticker": "NKE",
+  "benchmark": "SP500",
+  "p_latest": 0.22851218225192485,
+  "signal_raw": -0.5429756354961504,
+  "signal_clipped": -0.5429756354961504,
+  "IC_full": 0.4261701900491139,
+  "sigma_ols": 0.021901958744480574,
+  "sigma_ewma": 0.021047189774319026,
+  "sigma_final": 0.02164552805343211,
+  "TE_annual": 0.3436121053563203,
+  "TE_3M": 0.16766553934161604,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.038797810795293285,
+  "E_alpha_3M_simple": -0.03805481558288726,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

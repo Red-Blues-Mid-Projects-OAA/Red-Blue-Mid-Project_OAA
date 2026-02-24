@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T22:56:24",
+  "ticker": "AMAT",
+  "ticker_slug": "AMAT",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AMAT\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AMAT\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.40625,
+    "precision": 0.6153846153846154,
+    "ic": -0.10980888319453344,
+    "ic_p_value": 0.1011643464111362,
+    "gap": 0.3176136363636364,
+    "gap_signed": 0.3176136363636364,
+    "gap_abs": 0.3176136363636364,
+    "ic_first": -0.09682406806300613,
+    "ic_second": -0.23119041924351658,
+    "proba_std_test": 0.17271403968334198,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

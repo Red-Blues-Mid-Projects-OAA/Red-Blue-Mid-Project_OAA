@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T05:14:25",
+  "ticker": "CEG",
+  "ticker_slug": "CEG",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CEG\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CEG\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6517857142857143,
+    "precision": 0.6091370558375635,
+    "ic": 0.4649304384987919,
+    "ic_p_value": 2.0575114960807536e-13,
+    "gap": 0.24985362997658078,
+    "gap_signed": 0.24985362997658078,
+    "gap_abs": 0.24985362997658078,
+    "ic_first": 0.7324123527439109,
+    "ic_second": 0.1614360884272389,
+    "proba_std_test": 0.11393911391496658,
+    "proba_unique_test": 221,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

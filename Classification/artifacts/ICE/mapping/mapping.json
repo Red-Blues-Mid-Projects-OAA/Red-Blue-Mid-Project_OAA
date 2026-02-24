@@ -1,0 +1,21 @@
+{
+  "ticker": "ICE",
+  "benchmark": "SP500",
+  "p_latest": 0.4432928211395999,
+  "signal_raw": -0.11341435772080022,
+  "signal_clipped": -0.11341435772080022,
+  "IC_full": 0.15990711082639336,
+  "sigma_ols": 0.012239950244686498,
+  "sigma_ewma": 0.022693898321171635,
+  "sigma_final": 0.015376134667632038,
+  "TE_annual": 0.24408857073595902,
+  "TE_3M": 0.1191030269935628,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.002160024183116925,
+  "E_alpha_3M_simple": -0.002157693009646855,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

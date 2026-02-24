@@ -1,0 +1,50 @@
+{
+  "ticker": "NKE",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.4261701900491139,
+  "ic_pvalue": 2.681005495204482e-11,
+  "ic_first_half": 0.40225339119144427,
+  "ic_second_half": 0.41830389175521926,
+  "accuracy_ref": 0.7008928571428571,
+  "precision_ref": 0.2,
+  "train_accuracy_ref": 0.759090909090909,
+  "gap_ref": 0.05819805194805194,
+  "gap_signed_ref": 0.05819805194805194,
+  "gap_abs_ref": 0.05819805194805194,
+  "proba_std_test": 0.09387032490901338,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.1363529700281917,
+    "mean": 0.3378964282941245,
+    "max": 0.5205967327352259
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.10338177664632867,
+    "mean": 0.2543279531239999,
+    "max": 0.4426452421326949
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.22851218225192485
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

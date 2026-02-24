@@ -1,0 +1,23 @@
+{
+  "ticker": "HOOD",
+  "benchmark": "SP500",
+  "p_latest": 0.5502284380569183,
+  "signal_raw": 0.10045687611383669,
+  "signal_clipped": 0.10045687611383669,
+  "IC_full": -0.20500000000000004,
+  "sigma_ols": 0.03822006066234609,
+  "sigma_ewma": 0.0482506589012395,
+  "sigma_final": 0.041229240134014106,
+  "TE_annual": 0.654493896832588,
+  "TE_3M": 0.31936032083164617,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.006576797738019264,
+  "E_alpha_3M_simple": -0.006555217938352009,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1145,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

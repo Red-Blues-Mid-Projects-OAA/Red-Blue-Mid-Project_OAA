@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-23T22:46:23",
+  "ticker": "LRCX",
+  "ticker_slug": "LRCX",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LRCX\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LRCX\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.39285714285714285,
+    "precision": 0.7719298245614035,
+    "ic": -0.2477930813581038,
+    "ic_p_value": 0.00017933661847912912,
+    "gap": 0.31737012987012986,
+    "gap_signed": 0.31737012987012986,
+    "gap_abs": 0.31737012987012986,
+    "ic_first": -0.3474305531827656,
+    "ic_second": 0.3027214951993713,
+    "proba_std_test": 0.07735617200273252,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

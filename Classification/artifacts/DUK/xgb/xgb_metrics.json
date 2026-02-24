@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T05:36:40",
+  "ticker": "DUK",
+  "ticker_slug": "DUK",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\DUK\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\DUK\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3482142857142857,
+    "precision": 0.13846153846153847,
+    "ic": -0.36297031817211195,
+    "ic_p_value": 2.2190064817405898e-08,
+    "gap": 0.47564935064935066,
+    "gap_signed": 0.47564935064935066,
+    "gap_abs": 0.47564935064935066,
+    "ic_first": -0.36683807701506815,
+    "ic_second": -0.2842108859807975,
+    "proba_std_test": 0.13688386976718903,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

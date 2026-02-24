@@ -1,0 +1,21 @@
+{
+  "ticker": "BLK",
+  "benchmark": "SP500",
+  "p_latest": 0.36792258950908274,
+  "signal_raw": -0.2641548209818345,
+  "signal_clipped": -0.2641548209818345,
+  "IC_full": 0.11134742686312195,
+  "sigma_ols": 0.010767018215693652,
+  "sigma_ewma": 0.01436171308108847,
+  "sigma_final": 0.011845426675312097,
+  "TE_annual": 0.18804031893795875,
+  "TE_3M": 0.0917542804844097,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.002698764945915661,
+  "E_alpha_3M_simple": -0.002695126553590166,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

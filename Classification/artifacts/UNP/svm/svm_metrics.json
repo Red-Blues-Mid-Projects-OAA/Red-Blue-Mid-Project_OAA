@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T01:56:10",
+  "ticker": "UNP",
+  "ticker_slug": "UNP",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UNP\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UNP\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7589285714285714,
+    "precision": 0.391304347826087,
+    "ic": 0.3971449925261585,
+    "ic_p_value": 6.997687944352179e-10,
+    "gap": 0.17591753390097764,
+    "gap_signed": -0.17591753390097764,
+    "gap_abs": 0.17591753390097764,
+    "ic_first": 0.05148289882803158,
+    "ic_second": 0.6068011753852461,
+    "proba_std_test": 0.06309722115640867,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

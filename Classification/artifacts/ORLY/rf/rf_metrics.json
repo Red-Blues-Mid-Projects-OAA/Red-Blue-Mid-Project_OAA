@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T08:07:31",
+  "ticker": "ORLY",
+  "ticker_slug": "ORLY",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ORLY\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ORLY\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.42410714285714285,
+    "precision": 0.42410714285714285,
+    "ic": 0.11641205328103482,
+    "ic_p_value": 0.08212911337642237,
+    "gap": 0.26339285714285715,
+    "gap_signed": 0.26339285714285715,
+    "gap_abs": 0.26339285714285715,
+    "ic_first": -0.08501042129360714,
+    "ic_second": 0.6524726066758282,
+    "proba_std_test": 0.008374704826044225,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

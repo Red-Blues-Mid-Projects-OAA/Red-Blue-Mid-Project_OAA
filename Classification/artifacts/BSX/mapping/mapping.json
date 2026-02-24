@@ -1,0 +1,23 @@
+{
+  "ticker": "BSX",
+  "benchmark": "SP500",
+  "p_latest": 0.6803874466732152,
+  "signal_raw": 0.3607748933464303,
+  "signal_clipped": 0.3607748933464303,
+  "IC_full": -0.3245387572069187,
+  "sigma_ols": 0.014934982004375784,
+  "sigma_ewma": 0.03799107770593799,
+  "sigma_final": 0.021851810714844443,
+  "TE_annual": 0.34688674108760975,
+  "TE_3M": 0.16926339796613865,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.019818278668140375,
+  "E_alpha_3M_simple": -0.01962318749948877,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

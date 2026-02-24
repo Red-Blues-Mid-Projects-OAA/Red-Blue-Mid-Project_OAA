@@ -1,0 +1,21 @@
+{
+  "ticker": "ORCL",
+  "benchmark": "SP500",
+  "p_latest": 0.2522527132692792,
+  "signal_raw": -0.49549457346144155,
+  "signal_clipped": -0.49549457346144155,
+  "IC_full": 0.6524514200298955,
+  "sigma_ols": 0.026689012868753158,
+  "sigma_ewma": 0.03506830289384908,
+  "sigma_final": 0.02920279987628193,
+  "TE_annual": 0.4635800763565787,
+  "TE_3M": 0.2262039151669359,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.07312859015109065,
+  "E_alpha_3M_simple": -0.07051869980005043,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

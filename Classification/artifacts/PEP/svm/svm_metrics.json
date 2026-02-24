@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-23T23:59:54",
+  "ticker": "PEP",
+  "ticker_slug": "PEP",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PEP\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\PEP\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6428571428571429,
+    "precision": 0.0,
+    "ic": -0.03313153961136024,
+    "ic_p_value": 0.6218510191387266,
+    "gap": 0.15580952380952373,
+    "gap_signed": 0.15580952380952373,
+    "gap_abs": 0.15580952380952373,
+    "ic_first": -0.3556223733214884,
+    "ic_second": 0.21677999111627433,
+    "proba_std_test": 0.002562870250257621,
+    "proba_unique_test": 45,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

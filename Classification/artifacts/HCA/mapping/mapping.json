@@ -1,0 +1,21 @@
+{
+  "ticker": "HCA",
+  "benchmark": "SP500",
+  "p_latest": 0.7603572174989712,
+  "signal_raw": 0.5207144349979425,
+  "signal_clipped": 0.5207144349979425,
+  "IC_full": 0.4413089899636986,
+  "sigma_ols": 0.01780330015160169,
+  "sigma_ewma": 0.0230755750786385,
+  "sigma_final": 0.019384982629712732,
+  "TE_annual": 0.3077270592451607,
+  "TE_3M": 0.15015542978279495,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.03450511134163165,
+  "E_alpha_3M_simple": 0.035107319149726424,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

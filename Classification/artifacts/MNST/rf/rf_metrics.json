@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T08:36:44",
+  "ticker": "MNST",
+  "ticker_slug": "MNST",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MNST\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MNST\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.28125,
+    "precision": 0.09090909090909091,
+    "ic": -0.08725819113234114,
+    "ic_p_value": 0.1932113363652198,
+    "gap": 0.5369318181818182,
+    "gap_signed": 0.5369318181818182,
+    "gap_abs": 0.5369318181818182,
+    "ic_first": -0.09951481190419244,
+    "ic_second": -0.06928466635788676,
+    "proba_std_test": 0.12599243815670558,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

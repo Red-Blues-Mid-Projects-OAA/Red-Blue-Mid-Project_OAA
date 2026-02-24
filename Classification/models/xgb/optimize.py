@@ -444,7 +444,7 @@ def optimize(
     )
 
     # Feature 컬럼 발라내기
-    exclude = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff"]
+    exclude = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff", "TICKER"]
     feature_cols = [c for c in full_df.columns if c not in exclude]
 
     # 타겟 있는 데이터만 사용

@@ -1,0 +1,23 @@
+{
+  "ticker": "PNC",
+  "benchmark": "SP500",
+  "p_latest": 0.701644718976863,
+  "signal_raw": 0.40328943795372596,
+  "signal_clipped": 0.40328943795372596,
+  "IC_full": -0.08060965193252191,
+  "sigma_ols": 0.01253251799392686,
+  "sigma_ewma": 0.01294023760788866,
+  "sigma_final": 0.012654833878115399,
+  "TE_annual": 0.20088925994597048,
+  "TE_3M": 0.09802392171792472,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.003186661751343869,
+  "E_alpha_3M_simple": -0.003181589733816992,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

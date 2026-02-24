@@ -1,0 +1,23 @@
+{
+  "ticker": "SCHW",
+  "benchmark": "SP500",
+  "p_latest": 0.39469276036320994,
+  "signal_raw": -0.21061447927358012,
+  "signal_clipped": -0.21061447927358012,
+  "IC_full": -0.335027759982917,
+  "sigma_ols": 0.01417516167966416,
+  "sigma_ewma": 0.019498429263168412,
+  "sigma_final": 0.015772141954715435,
+  "TE_annual": 0.2503749915299112,
+  "TE_3M": 0.12217048624926437,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.008620556858840748,
+  "E_alpha_3M_simple": 0.008657820860968002,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

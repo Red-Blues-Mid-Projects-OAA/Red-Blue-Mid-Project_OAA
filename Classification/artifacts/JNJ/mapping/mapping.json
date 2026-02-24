@@ -1,0 +1,23 @@
+{
+  "ticker": "JNJ",
+  "benchmark": "SP500",
+  "p_latest": 0.257865076287591,
+  "signal_raw": -0.48426984742481805,
+  "signal_clipped": -0.48426984742481805,
+  "IC_full": -0.29735426008968613,
+  "sigma_ols": 0.014756606032027409,
+  "sigma_ewma": 0.014037341082315146,
+  "sigma_final": 0.014540826547113729,
+  "TE_annual": 0.2308284654059337,
+  "TE_3M": 0.11263275811412435,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.016219083622428458,
+  "E_alpha_3M_simple": 0.016351326947014133,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}
