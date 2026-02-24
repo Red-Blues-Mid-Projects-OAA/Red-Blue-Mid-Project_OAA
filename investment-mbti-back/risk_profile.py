@@ -46,35 +46,38 @@ def calculate_risk_profile(answers, loss_limit_value):
     mbti += "F" if answers[6:9].count('B') >= 2 else "T"
     mbti += "P" if answers[9:12].count('B') >= 2 else "J"
 
-    # 2. 투자자 유형 구분 및 임시 람다(lambda_mbti) 산출 (2.0 ~ 13.2 범위)
+    # 2. 투자자 유형 구분 및 MBTI 람다(lambda_mbti) 산출
     count_b = answers.count('B')
 
     if count_b <= 3:
         persona = "안전 지향 (거북이)"
-        lambda_mbti = 13.2
+        lambda_mbti = 23.10
         desc = "특징: 리스크에 매우 민감하며 원금 보존을 최우선으로 합니다."
     elif count_b <= 6:
         persona = "신중한 탐험가 (강아지)"
-        lambda_mbti = 9.47
+        lambda_mbti = 16.57
         desc = "특징: 평균적인 투자자보다 다소 보수적이며, 분석적 근거를 중시합니다."
     elif count_b <= 9:
         persona = "균형 잡힌 사자 (사자)"
-        lambda_mbti = 5.73
+        lambda_mbti = 10.04
         desc = "특징: 수익을 위해 적정 수준의 리스크를 감내할 수 있습니다."
     else:
         persona = "공격적 독수리 (독수리)"
-        lambda_mbti = 2.0
+        lambda_mbti = 3.50
         desc = "특징: 리스크보다는 기회와 수익에 집중하며 높은 변동성을 견딥니다."
 
-    # 3. 슬라이더 기반 기초 람다(lambda_slider) 산출 (0.66 / |L|)
+    # 3. 슬라이더 기반 기초 람다(lambda_numeric) 산출 (0.66 / |L|)
     loss_ratio = abs((loss_limit_value - 10000000) / 10000000)
     if loss_ratio <= 0.01: # 0 또는 과도하게 작은 값 방어
         loss_ratio = 0.05
-    
-    lambda_slider = round(0.66 / loss_ratio, 4)
 
-    # 4. 최종 람다(lambda_final) 산출: 허세 방지 필터링 (Conservative fallback)
-    lambda_final = max(lambda_mbti, lambda_slider)
+    # 0.7 (시장 샤프지수, SR): 위험 한 단위를 감수할 때 기대할 수 있는 초과 수익의 정도
+    # 1.65 (통계적 하방 위험 계수, Z): 95% 신뢰수준에서 발생할 수 있는 최악의 손실(VaR)을 정의할 때 사용하는 통계 상수
+    # 0.7 * 1.65 = 1.155
+    lambda_numeric = round(1.155 / loss_ratio, 4)
+
+    # 4. 최종 람다(lambda_final) 산출: 7:3 가중 평균으로 변경 (슬라이더 0.7, MBTI 0.3)
+    lambda_final = round((0.7 * lambda_numeric) + (0.3 * lambda_mbti), 4)
 
     # 5. MBTI 별칭 매핑
     mbti_desc_map = {
@@ -94,8 +97,8 @@ def calculate_risk_profile(answers, loss_limit_value):
         "persona": persona,
         "persona_desc": desc,
         "lambda_mbti": lambda_mbti,
-        "lambda_slider": lambda_slider,
-        "lambda_final": round(lambda_final, 4),
+        "lambda_numeric": lambda_numeric,
+        "lambda_final": lambda_final,
         "loss_ratio_percent": round(loss_ratio * 100, 2)
     }
 

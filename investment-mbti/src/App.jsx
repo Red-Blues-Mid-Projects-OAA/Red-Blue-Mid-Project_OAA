@@ -41,8 +41,8 @@ function App() {
     console.log('손실 한도(%):', sliderValue);
 
     try {
-      // 1. 프론트엔드 포맷팅: answers (객체 -> 문자열), lossLimit (퍼센트 -> 원화 계산)
-      const payloadAnswers = mbtiAnswers.map(a => a.value);
+      // 1. 프론트엔드 포맷팅: answers (객체 -> 문자열 A/B), lossLimit (퍼센트 -> 원화 계산)
+      const payloadAnswers = mbtiAnswers.map(a => a.optionKey);
       const krwLossLimit = 100000 * (100 + Number(sliderValue)); // -5% -> 9500000
 
       const response = await fetch('http://localhost:8000/api/analyze', {

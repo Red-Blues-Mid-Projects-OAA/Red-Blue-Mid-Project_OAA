@@ -1,43 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, X, Search, TrendingUp } from 'lucide-react';
-import { STOCKS_DATA } from '../constants/stocks';
+import React from 'react';
+import { TrendingUp } from 'lucide-react';
 import './Result.css';
 
 function Result({ personaData, onRestart }) {
     if (!personaData) return null;
 
-    // Initialize selected stocks with the 10 recommended stocks by default
-    const [selectedStocks, setSelectedStocks] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
+    const recommendedStocks = personaData.recommendedStocks || [];
 
-    useEffect(() => {
-        if (personaData && personaData.recommendedStocks) {
-            setSelectedStocks(personaData.recommendedStocks.map(s => s.ticker));
-        }
-    }, [personaData]);
-
-    const toggleStock = (ticker) => {
-        setSelectedStocks(prev =>
-            prev.includes(ticker)
-                ? prev.filter(t => t !== ticker)
-                : [...prev, ticker]
-        );
-    };
-
-    // Calculate average expected return using STOCKS_DATA (which contains expectedReturn3M)
-    const currentSelectedStockObjects = STOCKS_DATA.filter(s =>
-        selectedStocks.includes(s.ticker)
-    );
-
-    const avgExpectedReturn = currentSelectedStockObjects.length > 0
-        ? (currentSelectedStockObjects.reduce((acc, stock) => acc + stock.expectedReturn3M, 0) / currentSelectedStockObjects.length).toFixed(2)
-        : 0.00;
-
-    // Filter ALL 50 stocks for the modal based on search query
-    const filteredStocks = STOCKS_DATA.filter(stock =>
-        stock.name.includes(searchQuery) || stock.ticker.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    // MVO 최적 비중(weight) 기반으로 가중평균된 정확한 포트폴리오 3개월 기대수익률 산출
+    const mvoExpectedReturn = recommendedStocks.reduce((acc, stock) =>
+        acc + (stock.weight / 100) * stock.expectedReturn3M, 0
+    ).toFixed(2);
 
     return (
         <div className="result-container animate-fade-in">
@@ -58,42 +31,35 @@ function Result({ personaData, onRestart }) {
                 <div className="divider"></div>
 
                 <div className="portfolio-header">
-                    <h3 className="section-title">📈 나만의 맞춤 포트폴리오</h3>
-                    <button className="btn-add-stock" onClick={() => setIsModalOpen(true)}>
-                        <Plus size={16} /> 종목 추가하기
-                    </button>
+                    <h3 className="section-title">📈 MVO 맞춤형 핵심 포트폴리오</h3>
                 </div>
-                <p className="section-desc">체크박스를 통해 담고 싶은 종목만 선택해 보세요.</p>
+                <p className="section-desc">투자 성향과 손실 한도를 최적화한 인공지능 추천 비중입니다.</p>
 
                 <div className="return-badge animate-pulse">
                     <TrendingUp size={20} className="text-blue-400" />
-                    3개월 후 포트폴리오 기대수익률: <span>+{avgExpectedReturn}%</span>
+                    3개월 후 포트폴리오 예상 기대수익률: <span>+{mvoExpectedReturn}%</span>
                 </div>
 
                 <div className="stock-list-container wrap-list">
-                    {currentSelectedStockObjects.map((stock) => (
-                        <label
-                            key={stock.id}
-                            className="stock-item selectable selected"
+                    {recommendedStocks.map((stock) => (
+                        <div
+                            key={stock.id || stock.ticker}
+                            className="stock-item animate-fade-in"
                         >
-                            <input
-                                type="checkbox"
-                                checked={true}
-                                onChange={() => toggleStock(stock.ticker)}
-                                className="hidden-checkbox"
-                            />
-                            <div className="custom-checkbox"></div>
+                            <div className="stock-weight-badge">
+                                {stock.weight}%
+                            </div>
 
                             <div className="stock-info">
                                 <span className="stock-ticker">{stock.ticker}</span>
                                 <span className="stock-name">{stock.name}</span>
                             </div>
                             <div className="stock-volatility">
-                                수익률 <span>+{stock.expectedReturn3M}%</span>
+                                기대수익 <span className="text-green-400">+{stock.expectedReturn3M}%</span>
                             </div>
-                        </label>
+                        </div>
                     ))}
-                    {currentSelectedStockObjects.length === 0 && (
+                    {recommendedStocks.length === 0 && (
                         <div className="empty-portfolio-state">
                             선택된 종목이 없습니다. 종목을 추가해보세요!
                         </div>
@@ -109,52 +75,6 @@ function Result({ personaData, onRestart }) {
                     테스트 다시하기 🔄
                 </button>
             </div>
-
-            {/* Portfolio Customization Modal */}
-            {isModalOpen && (
-                <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-                    <div className="modal-content" onClick={e => e.stopPropagation()}>
-                        <div className="modal-header">
-                            <h3>전체 종목 리스트 (Top 50)</h3>
-                            <button className="close-btn" onClick={() => setIsModalOpen(false)}>
-                                <X size={24} />
-                            </button>
-                        </div>
-
-                        <div className="search-bar">
-                            <Search size={18} />
-                            <input
-                                type="text"
-                                placeholder="종목명 또는 심볼 검색..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="modal-stock-list">
-                            {filteredStocks.map(stock => (
-                                <label key={stock.id} className={`modal-stock-item ${selectedStocks.includes(stock.ticker) ? 'selected' : ''}`}>
-                                    <div className="stock-info-left">
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedStocks.includes(stock.ticker)}
-                                            onChange={() => toggleStock(stock.ticker)}
-                                        />
-                                        <div className="modal-stock-details">
-                                            <span className="stock-ticker">{stock.ticker}</span>
-                                            <span className="stock-name">{stock.name}</span>
-                                        </div>
-                                    </div>
-                                    <div className="stock-info-right">
-                                        <span className={`volatility-badge ${stock.volatility.toLowerCase()}`}>{stock.volatility}</span>
-                                        <span className="stock-return">+{stock.expectedReturn3M}%</span>
-                                    </div>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

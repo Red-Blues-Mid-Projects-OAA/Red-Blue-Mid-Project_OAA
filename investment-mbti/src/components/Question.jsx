@@ -13,12 +13,13 @@ function Question({ data, step, totalSteps, onAnswer }) {
         return () => clearTimeout(timer);
     }, [data.id]);
 
-    const handleSelect = (value, optionText) => {
+    const handleSelect = (value, optionText, optionKey) => {
         onAnswer({
             questionId: data.id,
             type: data.type,
             value: value,
-            selectedText: optionText
+            selectedText: optionText,
+            optionKey: optionKey
         });
     };
 
@@ -43,13 +44,13 @@ function Question({ data, step, totalSteps, onAnswer }) {
             <div className="options-container">
                 <button
                     className="btn option-btn"
-                    onClick={() => handleSelect(data.optionA.value, data.optionA.text)}
+                    onClick={() => handleSelect(data.optionA.value, data.optionA.text, 'A')}
                 >
                     {data.optionA.text}
                 </button>
                 <button
                     className="btn option-btn"
-                    onClick={() => handleSelect(data.optionB.value, data.optionB.text)}
+                    onClick={() => handleSelect(data.optionB.value, data.optionB.text, 'B')}
                 >
                     {data.optionB.text}
                 </button>

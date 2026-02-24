@@ -145,38 +145,33 @@
     }
 }
 
-.stock-item.selectable {
-    cursor: pointer;
-    position: relative;
-    transition: all 0.2s;
-    padding-left: 3rem;
-}
-
 .stock-item {
     display: flex;
     align-items: center;
     background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: none;
     border-radius: var(--radius-sm);
     padding: 1rem;
     transition: all 0.2s ease;
     gap: 0.5rem;
 }
 
-.stock-item.selectable:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.05);
-}
-
 .stock-item:hover {
     background: rgba(0, 0, 0, 0.4);
     transform: translateX(4px);
-    border-color: rgba(255, 255, 255, 0.1);
 }
 
-.stock-item.selectable.selected {
-    background: rgba(59, 130, 246, 0.15);
-    border-color: rgba(59, 130, 246, 0.4);
+.stock-weight-badge {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    margin-right: 0.5rem;
+    min-width: 65px;
+    text-align: center;
 }
 
 .hidden-checkbox {
@@ -531,7 +526,29 @@
         font-size: 1rem;
     }
 }
-.portfolio-analysis-box { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; } 
-.analysis-summary { margin-bottom: 0.5rem; font-weight: 500; } 
-.analysis-stats { display: flex; gap: 1rem; font-size: 0.85rem; color: #9ca3af; } 
-.highlight-stat { background: rgba(255, 255, 255, 0.1); padding: 0.2rem 0.5rem; border-radius: 4px; }
+
+.portfolio-analysis-box {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+}
+
+.analysis-summary {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.analysis-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #9ca3af;
+}
+
+.highlight-stat {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
