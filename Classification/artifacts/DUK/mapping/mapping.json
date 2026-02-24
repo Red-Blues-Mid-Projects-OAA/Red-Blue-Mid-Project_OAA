@@ -1,0 +1,23 @@
+{
+  "ticker": "DUK",
+  "benchmark": "SP500",
+  "p_latest": 0.6599259800985237,
+  "signal_raw": 0.3198519601970473,
+  "signal_clipped": 0.3198519601970473,
+  "IC_full": -0.3124418108050395,
+  "sigma_ols": 0.014660810132883536,
+  "sigma_ewma": 0.01532924038024328,
+  "sigma_final": 0.01486133920709146,
+  "TE_annual": 0.235916446148027,
+  "TE_3M": 0.11511543850280913,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.011504075809134467,
+  "E_alpha_3M_simple": -0.011438156949687972,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

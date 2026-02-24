@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T10:04:42",
+  "ticker": "UPS",
+  "ticker_slug": "UPS",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/UPS/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/UPS/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4732142857142857,
+    "precision": 0.10204081632653061,
+    "ic": -0.3748387785607517,
+    "ic_p_value": 6.987851689170141e-09,
+    "gap": 0.4188311688311689,
+    "gap_signed": 0.4188311688311689,
+    "gap_abs": 0.4188311688311689,
+    "ic_first": -0.27525028188745004,
+    "ic_second": -0.059102402022756004,
+    "proba_std_test": 0.1852060854434967,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

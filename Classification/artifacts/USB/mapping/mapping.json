@@ -1,0 +1,21 @@
+{
+  "ticker": "USB",
+  "benchmark": "SP500",
+  "p_latest": 0.4449906447112879,
+  "signal_raw": -0.11001871057742418,
+  "signal_clipped": -0.11001871057742418,
+  "IC_full": 0.6380162289130901,
+  "sigma_ols": 0.012911205294527201,
+  "sigma_ewma": 0.012412940466792085,
+  "sigma_final": 0.012761725846206665,
+  "TE_annual": 0.20258611733428894,
+  "TE_3M": 0.09885190334244634,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.006938783104683659,
+  "E_alpha_3M_simple": -0.006914765332673656,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

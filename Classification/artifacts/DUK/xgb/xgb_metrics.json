@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T10:12:09",
+  "ticker": "DUK",
+  "ticker_slug": "DUK",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DUK/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/DUK/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.2857142857142857,
+    "precision": 0.10869565217391304,
+    "ic": -0.3714232329703182,
+    "ic_p_value": 9.791335929767392e-09,
+    "gap": 0.5279220779220779,
+    "gap_signed": 0.5279220779220779,
+    "gap_abs": 0.5279220779220779,
+    "ic_first": -0.4702736870878464,
+    "ic_second": -0.2103051218095466,
+    "proba_std_test": 0.11995063722133636,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

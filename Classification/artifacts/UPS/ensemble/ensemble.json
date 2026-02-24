@@ -1,0 +1,50 @@
+{
+  "ticker": "UPS",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.3369218449711724,
+  "ic_pvalue": 2.3888192814233323e-07,
+  "ic_first_half": -0.06453514196877029,
+  "ic_second_half": -0.2954351317183176,
+  "accuracy_ref": 0.5446428571428571,
+  "precision_ref": 0.04,
+  "train_accuracy_ref": 0.8022727272727272,
+  "gap_ref": 0.25762987012987015,
+  "gap_signed_ref": 0.25762987012987015,
+  "gap_abs_ref": 0.25762987012987015,
+  "proba_std_test": 0.10472854989632265,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.17589907990434203,
+    "mean": 0.36777396746356406,
+    "max": 0.6532303767861475
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.1164653127604108,
+    "mean": 0.2017784240044474,
+    "max": 0.39545014702601017
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.2779446520816212
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "ticker": "SO",
+  "benchmark": "SP500",
+  "p_latest": 0.4199090803191384,
+  "signal_raw": -0.16018183936172325,
+  "signal_clipped": -0.16018183936172325,
+  "IC_full": -0.14407858210548793,
+  "sigma_ols": 0.01484652179047078,
+  "sigma_ewma": 0.019911578507201818,
+  "sigma_final": 0.01636603880549009,
+  "TE_annual": 0.25980281175935627,
+  "TE_3M": 0.12677079147409492,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0029257142299970655,
+  "E_alpha_3M_simple": 0.002929998308852877,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

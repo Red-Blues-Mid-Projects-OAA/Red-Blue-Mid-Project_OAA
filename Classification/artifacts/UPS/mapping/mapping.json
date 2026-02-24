@@ -1,0 +1,23 @@
+{
+  "ticker": "UPS",
+  "benchmark": "SP500",
+  "p_latest": 0.2779446520816212,
+  "signal_raw": -0.44411069583675755,
+  "signal_clipped": -0.44411069583675755,
+  "IC_full": -0.3369218449711724,
+  "sigma_ols": 0.01784568943951915,
+  "sigma_ewma": 0.015012606341855783,
+  "sigma_final": 0.01699576451022014,
+  "TE_annual": 0.2697993974127599,
+  "TE_3M": 0.13164862580829134,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.01969866221230571,
+  "E_alpha_3M_simple": 0.019893961126714155,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

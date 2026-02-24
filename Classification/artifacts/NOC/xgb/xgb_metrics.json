@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T09:57:20",
+  "ticker": "NOC",
+  "ticker_slug": "NOC",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NOC/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/NOC/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.625,
+    "precision": 0.6890756302521008,
+    "ic": 0.08854580397181296,
+    "ic_p_value": 0.18669718142082997,
+    "gap": 0.21818181818181814,
+    "gap_signed": 0.21818181818181814,
+    "gap_abs": 0.21818181818181814,
+    "ic_first": -0.5415655858133734,
+    "ic_second": 0.7384682406806301,
+    "proba_std_test": 0.11569646745920181,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

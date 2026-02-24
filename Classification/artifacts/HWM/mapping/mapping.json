@@ -1,0 +1,21 @@
+{
+  "ticker": "HWM",
+  "benchmark": "SP500",
+  "p_latest": 0.7414222427357136,
+  "signal_raw": 0.4828444854714271,
+  "signal_clipped": 0.4828444854714271,
+  "IC_full": 0.4248099508861841,
+  "sigma_ols": 0.01764000904457969,
+  "sigma_ewma": 0.022628653645746885,
+  "sigma_final": 0.019136602424929847,
+  "TE_annual": 0.3037841457304798,
+  "TE_3M": 0.14823148498949154,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.030404818578996868,
+  "E_alpha_3M_simple": 0.030871765539523643,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2337,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

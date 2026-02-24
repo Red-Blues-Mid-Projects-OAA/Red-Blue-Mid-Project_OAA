@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T09:30:22",
+  "ticker": "HWM",
+  "ticker_slug": "HWM",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HWM/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/HWM/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7276785714285714,
+    "precision": 0.7276785714285714,
+    "ic": 0.4666004697843264,
+    "ic_p_value": 1.6446509957861593e-13,
+    "gap": 0.022460028382213837,
+    "gap_signed": -0.022460028382213837,
+    "gap_abs": 0.022460028382213837,
+    "ic_first": 0.442674343116821,
+    "ic_second": -0.23974100522773092,
+    "proba_std_test": 0.05944814381386667,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

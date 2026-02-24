@@ -138,7 +138,7 @@ def split_dataset(
         feature_source_mode=feature_source_mode,
     )
 
-    exclude_cols = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff"]
+    exclude_cols = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff", "TICKER"]
     feature_cols = [c for c in df.columns if c not in exclude_cols]
 
     requested_drop = list(drop_features or [])

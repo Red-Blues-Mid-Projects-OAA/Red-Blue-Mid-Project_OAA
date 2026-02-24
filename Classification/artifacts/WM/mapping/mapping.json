@@ -1,0 +1,21 @@
+{
+  "ticker": "WM",
+  "benchmark": "SP500",
+  "p_latest": 0.49115508720844847,
+  "signal_raw": -0.017689825583103058,
+  "signal_clipped": -0.017689825583103058,
+  "IC_full": 0.3323489216314329,
+  "sigma_ols": 0.013613584027209906,
+  "sigma_ewma": 0.012813667449574564,
+  "sigma_final": 0.013373609053919303,
+  "TE_annual": 0.21229946212843365,
+  "TE_3M": 0.10359153028903638,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0006090347506045118,
+  "E_alpha_3M_simple": -0.0006088493265858919,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

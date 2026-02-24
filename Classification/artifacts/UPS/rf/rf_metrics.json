@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T10:07:58",
+  "ticker": "UPS",
+  "ticker_slug": "UPS",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/UPS/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/UPS/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4375,
+    "precision": 0.0,
+    "ic": -0.3907110826393338,
+    "ic_p_value": 1.3833443629085034e-09,
+    "gap": 0.32499999999999996,
+    "gap_signed": 0.32499999999999996,
+    "gap_abs": 0.32499999999999996,
+    "ic_first": -0.18340622544162366,
+    "ic_second": 0.005620664912700311,
+    "proba_std_test": 0.1405080037849535,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}
