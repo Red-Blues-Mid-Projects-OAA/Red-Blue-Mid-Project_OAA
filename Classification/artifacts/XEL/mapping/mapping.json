@@ -1,0 +1,23 @@
+{
+  "ticker": "XEL",
+  "benchmark": "SP500",
+  "p_latest": 0.6034104535745122,
+  "signal_raw": 0.20682090714902435,
+  "signal_clipped": 0.20682090714902435,
+  "IC_full": -0.552685244501388,
+  "sigma_ols": 0.015699799158868294,
+  "sigma_ewma": 0.015796553461938423,
+  "sigma_final": 0.015728825449789333,
+  "TE_annual": 0.24968736333171737,
+  "TE_3M": 0.12183495804487494,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.013926571935291558,
+  "E_alpha_3M_simple": -0.01383004584442249,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,50 @@
+{
+  "ticker": "ADSK",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.5593070681187274,
+  "ic_pvalue": 7.780047819583341e-20,
+  "ic_first_half": 0.10522089725629549,
+  "ic_second_half": 0.5694468172344278,
+  "accuracy_ref": 0.84375,
+  "precision_ref": 0.782608695652174,
+  "train_accuracy_ref": 0.7954545454545454,
+  "gap_ref": 0.048295454545454586,
+  "gap_signed_ref": -0.048295454545454586,
+  "gap_abs_ref": 0.048295454545454586,
+  "proba_std_test": 0.12013809211293615,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.14213417434623707,
+    "mean": 0.34635776871794055,
+    "max": 0.643972076519082
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.31149795175873024,
+    "mean": 0.5112781932837485,
+    "max": 0.645695464055462
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.4955819976695692
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

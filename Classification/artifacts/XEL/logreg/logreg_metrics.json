@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T22:50:02",
+  "ticker": "XEL",
+  "ticker_slug": "XEL",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/XEL/logreg/logreg_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/XEL/logreg/logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3169642857142857,
+    "precision": 0.08,
+    "ic": -0.44944373265001075,
+    "ic_p_value": 1.550920270037831e-12,
+    "gap": 0.4125811688311688,
+    "gap_signed": 0.4125811688311688,
+    "gap_abs": 0.4125811688311688,
+    "ic_first": -0.5206802883794034,
+    "ic_second": -0.2554669081217754,
+    "proba_std_test": 0.2215565366206141,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}
