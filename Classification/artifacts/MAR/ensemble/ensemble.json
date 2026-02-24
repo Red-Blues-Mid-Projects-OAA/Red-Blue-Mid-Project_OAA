@@ -1,0 +1,50 @@
+{
+  "ticker": "MAR",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.2633215887251762,
+  "ic_pvalue": 6.617768410256331e-05,
+  "ic_first_half": 0.561254997095705,
+  "ic_second_half": 0.11909317661530051,
+  "accuracy_ref": 0.45089285714285715,
+  "precision_ref": 0.45089285714285715,
+  "train_accuracy_ref": 0.6852272727272727,
+  "gap_ref": 0.23433441558441553,
+  "gap_signed_ref": 0.23433441558441553,
+  "gap_abs_ref": 0.23433441558441553,
+  "proba_std_test": 0.050909400831900896,
+  "proba_unique_test": 223,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.5112821913554637,
+    "mean": 0.6428519611256583,
+    "max": 0.7303032633545794
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.5472974124794392,
+    "mean": 0.6451299210020646,
+    "max": 0.7031756634547518
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6166383057536687
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

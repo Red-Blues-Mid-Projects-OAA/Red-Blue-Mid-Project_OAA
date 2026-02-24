@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T11:26:59",
+  "ticker": "GD",
+  "ticker_slug": "GD",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GD/rf/rf_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GD/rf/rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5535714285714286,
+    "precision": 0.7301587301587301,
+    "ic": 0.09814648729446937,
+    "ic_p_value": 0.1431280248002989,
+    "gap": 0.14415584415584415,
+    "gap_signed": 0.14415584415584415,
+    "gap_abs": 0.14415584415584415,
+    "ic_first": -0.6425581713192333,
+    "ic_second": 0.3210868896709605,
+    "proba_std_test": 0.15140201196785003,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

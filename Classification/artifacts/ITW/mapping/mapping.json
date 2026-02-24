@@ -1,0 +1,21 @@
+{
+  "ticker": "ITW",
+  "benchmark": "SP500",
+  "p_latest": 0.1148504917207483,
+  "signal_raw": -0.7702990165585034,
+  "signal_clipped": -0.7702990165585034,
+  "IC_full": 0.1445707879564382,
+  "sigma_ols": 0.010884614350909937,
+  "sigma_ewma": 0.015871494651387326,
+  "sigma_final": 0.012380678441053153,
+  "TE_annual": 0.19653717730371295,
+  "TE_3M": 0.09590032283389614,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.010679722313536784,
+  "E_alpha_3M_simple": -0.010622896553544425,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

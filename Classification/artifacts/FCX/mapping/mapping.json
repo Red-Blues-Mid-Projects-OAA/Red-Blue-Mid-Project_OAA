@@ -1,0 +1,21 @@
+{
+  "ticker": "FCX",
+  "benchmark": "SP500",
+  "p_latest": 0.19143617220007889,
+  "signal_raw": -0.6171276555998422,
+  "signal_clipped": -0.6171276555998422,
+  "IC_full": 0.26038970745248774,
+  "sigma_ols": 0.023371633699164764,
+  "sigma_ewma": 0.0286119993708458,
+  "sigma_final": 0.02494374340066907,
+  "TE_annual": 0.39596965083107355,
+  "TE_3M": 0.19321340556572494,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.03104817504033851,
+  "E_alpha_3M_simple": -0.03057113032383607,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

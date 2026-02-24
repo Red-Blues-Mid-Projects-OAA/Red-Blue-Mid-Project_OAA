@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T11:44:28",
+  "ticker": "AMT",
+  "ticker_slug": "AMT",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AMT/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/AMT/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.71875,
+    "precision": 0.32432432432432434,
+    "ic": 0.12790839205637414,
+    "ic_p_value": 0.05593957498656994,
+    "gap": 0.28125,
+    "gap_signed": 0.28125,
+    "gap_abs": 0.28125,
+    "ic_first": 0.2178392045648683,
+    "ic_second": 0.40684046878737146,
+    "proba_std_test": 0.07876162624700539,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

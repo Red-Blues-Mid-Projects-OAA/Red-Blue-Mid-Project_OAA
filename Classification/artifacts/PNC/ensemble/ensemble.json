@@ -1,0 +1,50 @@
+{
+  "ticker": "PNC",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.1009385009609225,
+  "ic_pvalue": 0.13203988888860876,
+  "ic_first_half": -0.7723374449038166,
+  "ic_second_half": 0.33571941094064983,
+  "accuracy_ref": 0.3080357142857143,
+  "precision_ref": 0.3129251700680272,
+  "train_accuracy_ref": 0.7704545454545455,
+  "gap_ref": 0.4624188311688312,
+  "gap_signed_ref": 0.4624188311688312,
+  "gap_abs_ref": 0.4624188311688312,
+  "proba_std_test": 0.25453114305128643,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.11212780983682517,
+    "mean": 0.5900710026602852,
+    "max": 0.8804839519528476
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.5852896785472033,
+    "mean": 0.73161664321756,
+    "max": 0.8559217252989236
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6946997590906212
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}
