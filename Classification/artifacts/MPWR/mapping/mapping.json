@@ -1,0 +1,23 @@
+{
+  "ticker": "MPWR",
+  "benchmark": "SP500",
+  "p_latest": 0.2815326866390684,
+  "signal_raw": -0.43693462672186323,
+  "signal_clipped": -0.43693462672186323,
+  "IC_full": -0.013778560751654925,
+  "sigma_ols": 0.029435518878964034,
+  "sigma_ewma": 0.025799299749593586,
+  "sigma_final": 0.0283446531401529,
+  "TE_annual": 0.4499574192433836,
+  "TE_3M": 0.2195567391316759,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0013218040888977101,
+  "E_alpha_3M_simple": 0.0013226780569515206,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

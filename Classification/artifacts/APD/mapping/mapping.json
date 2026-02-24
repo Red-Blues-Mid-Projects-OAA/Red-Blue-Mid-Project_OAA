@@ -1,0 +1,21 @@
+{
+  "ticker": "APD",
+  "benchmark": "SP500",
+  "p_latest": 0.3293114979752191,
+  "signal_raw": -0.34137700404956184,
+  "signal_clipped": -0.34137700404956184,
+  "IC_full": 0.5928913089899638,
+  "sigma_ols": 0.016851481221970874,
+  "sigma_ewma": 0.01993928807359915,
+  "sigma_final": 0.017777823277459356,
+  "TE_annual": 0.28221419546527615,
+  "TE_3M": 0.1377064269708373,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.027871706290804453,
+  "E_alpha_3M_simple": -0.027486873885651186,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

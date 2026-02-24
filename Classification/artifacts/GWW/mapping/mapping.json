@@ -1,0 +1,23 @@
+{
+  "ticker": "GWW",
+  "benchmark": "SP500",
+  "p_latest": 0.8833949888941827,
+  "signal_raw": 0.7667899777883653,
+  "signal_clipped": 0.7667899777883653,
+  "IC_full": -0.2475763399530216,
+  "sigma_ols": 0.013035509098861768,
+  "sigma_ewma": 0.019797594922850277,
+  "sigma_final": 0.01506413484605832,
+  "TE_annual": 0.23913572711407552,
+  "TE_3M": 0.11668628676761342,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.022151614553021805,
+  "E_alpha_3M_simple": -0.021908069161952648,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T20:58:01",
+  "ticker": "GWW",
+  "ticker_slug": "GWW",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GWW/xgb/xgb_best_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/GWW/xgb/xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4107142857142857,
+    "precision": 0.39906103286384975,
+    "ic": -0.21462951099722402,
+    "ic_p_value": 0.0012290239412206974,
+    "gap": 0.5358766233766233,
+    "gap_signed": 0.5358766233766233,
+    "gap_abs": 0.5358766233766233,
+    "ic_first": -0.3546485803122971,
+    "ic_second": 0.02427648887825879,
+    "proba_std_test": 0.17653289437294006,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

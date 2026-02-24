@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T21:12:54",
+  "ticker": "ZTS",
+  "ticker_slug": "ZTS",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": false,
+    "model_status": "retuned_once_success",
+    "params_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ZTS/svm/best_svm_params.json",
+    "result_plot_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA/Classification/artifacts/ZTS/svm/svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5446428571428571,
+    "precision": 0.17391304347826086,
+    "ic": 0.02416292974588939,
+    "ic_p_value": 0.7190962677665763,
+    "gap": 0.1205933459476507,
+    "gap_signed": 0.1205933459476507,
+    "gap_abs": 0.1205933459476507,
+    "ic_first": 0.035458024396077495,
+    "ic_second": 0.6521423446202207,
+    "proba_std_test": 0.07930429444652236,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

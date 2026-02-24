@@ -1,0 +1,23 @@
+{
+  "ticker": "F",
+  "benchmark": "SP500",
+  "p_latest": 0.36415514374568114,
+  "signal_raw": -0.2716897125086377,
+  "signal_clipped": -0.2716897125086377,
+  "IC_full": -0.02503630151612215,
+  "sigma_ols": 0.019795421146022837,
+  "sigma_ewma": 0.015679047833406026,
+  "sigma_final": 0.018560509152237795,
+  "TE_annual": 0.29463894854135686,
+  "TE_3M": 0.14376908568749464,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0009779324972827986,
+  "E_alpha_3M_simple": 0.000978410829180154,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

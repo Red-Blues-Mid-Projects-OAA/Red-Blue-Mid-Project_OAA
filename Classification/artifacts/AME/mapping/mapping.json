@@ -1,0 +1,23 @@
+{
+  "ticker": "AME",
+  "benchmark": "SP500",
+  "p_latest": 0.1568747449694568,
+  "signal_raw": -0.6862505100610864,
+  "signal_clipped": -0.6862505100610864,
+  "IC_full": -0.49827354260089696,
+  "sigma_ols": 0.011573648580662357,
+  "sigma_ewma": 0.010037084554686214,
+  "sigma_final": 0.011112679372869513,
+  "TE_annual": 0.17640831612125968,
+  "TE_3M": 0.08607844428573261,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.029433703933492372,
+  "E_alpha_3M_simple": 0.02987115680190744,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}
