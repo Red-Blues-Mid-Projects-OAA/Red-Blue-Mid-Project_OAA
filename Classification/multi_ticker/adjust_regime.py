@@ -44,9 +44,11 @@ E_RM_3M = E_RM_ANNUAL * (HORIZON_DAYS / 252)
 # 벤치마크 3개월 로그 기대수익률 (완벽한 덧셈 호환용)
 E_RM_3M_LOG = math.log(1 + E_RM_3M)
 
-# Tanh 비선형 조정을 위한 상수 (가중치 최대 허용치 3.0배, 기준 스케일 20% 괴리율)
-MAX_ADJUSTMENT_WEIGHT = 3.0
+# Tanh 비선형 조정을 위한 상수 (가중치 최대 허용치 2.0배, 기준 스케일 20% 괴리율)
+# 하위 구간 가중치 유지보존 계수: 1.5
+MAX_ADJUSTMENT_WEIGHT = 2.0
 GAP_SCALE_FACTOR = 0.20
+MAINTAIN_CURVE_FACTOR = 1.5
 
 
 def _load_final_csv() -> pd.DataFrame:
@@ -138,10 +140,10 @@ def run_regime_adjustment() -> pd.DataFrame:
         gap = abs(e_total - realized)
         
         # Tanh (쌍곡탄젠트) 비선형 가중치 산출
-        # - 작은 Gap (ex: 2%): 가중치를 거의 0으로 억눌러 노이즈 차단
-        # - 중간 Gap (ex: 20%): S커브의 가파른 구간을 타며 적극 보정
-        # - 극단적 Gap (ex: 50%+): 최대 MAX_ADJUSTMENT_WEIGHT(3.0) 배수로 부드럽게 수렴 (무한폭주 방지)
-        adj_weight = MAX_ADJUSTMENT_WEIGHT * math.tanh((gap / GAP_SCALE_FACTOR) ** 2)
+        # - 작은 Gap (ex: 2~10%): 기존 3.0 함수와 동일한 가중치 궤적 유지 (MAINTAIN_CURVE_FACTOR 보정)
+        # - 중간 Gap (ex: 20%): 자연스럽게 S커브를 그리며 감속
+        # - 극단적 Gap (ex: 30%+): 최대 MAX_ADJUSTMENT_WEIGHT(2.0) 배수로 부드럽게 한도 수렴
+        adj_weight = MAX_ADJUSTMENT_WEIGHT * math.tanh(MAINTAIN_CURVE_FACTOR * (gap / GAP_SCALE_FACTOR) ** 2)
 
         # 실현 수익률의 방향(부호)으로 변동성 부호 결정
         sign = 1.0 if realized >= 0 else -1.0
