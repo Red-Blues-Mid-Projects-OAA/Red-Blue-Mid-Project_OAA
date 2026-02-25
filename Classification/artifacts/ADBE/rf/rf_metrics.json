@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T05:10:33",
+  "ticker": "ADBE",
+  "ticker_slug": "ADBE",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ADBE\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ADBE\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6517857142857143,
+    "precision": 0.0,
+    "ic": 0.1494928464659407,
+    "ic_p_value": 0.025255352296557263,
+    "gap": 0.05633116883116884,
+    "gap_signed": -0.05633116883116884,
+    "gap_abs": 0.05633116883116884,
+    "ic_first": 0.33009020398400934,
+    "ic_second": 0.08493354289814467,
+    "proba_std_test": 0.024478493614379326,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

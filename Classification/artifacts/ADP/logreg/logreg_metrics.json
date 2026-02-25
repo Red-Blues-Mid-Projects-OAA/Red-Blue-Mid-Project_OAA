@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T07:15:22",
+  "ticker": "ADP",
+  "ticker_slug": "ADP",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ADP\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ADP\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.20089285714285715,
+    "precision": 0.17733990147783252,
+    "ic": -0.42141896220371566,
+    "ic_p_value": 4.6728335867535774e-11,
+    "gap": 0.46728896103896106,
+    "gap_signed": 0.46728896103896106,
+    "gap_abs": 0.46728896103896106,
+    "ic_first": -0.6003861003861003,
+    "ic_second": 0.17145590596918028,
+    "proba_std_test": 0.16800232711627625,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

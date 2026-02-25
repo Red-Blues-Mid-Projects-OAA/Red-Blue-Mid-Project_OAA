@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T04:48:47",
+  "ticker": "BSX",
+  "ticker_slug": "BSX",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\BSX\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\BSX\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.07589285714285714,
+    "precision": 0.04864864864864865,
+    "ic": -0.20938351985029668,
+    "ic_p_value": 0.0016258043939218342,
+    "gap": 0.5752435064935065,
+    "gap_signed": 0.5752435064935065,
+    "gap_abs": 0.5752435064935065,
+    "ic_first": -0.6468519297600978,
+    "ic_second": 0.34325849775101713,
+    "proba_std_test": 0.06396195656299014,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

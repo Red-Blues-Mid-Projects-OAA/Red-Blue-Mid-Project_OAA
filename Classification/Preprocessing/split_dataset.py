@@ -139,7 +139,11 @@ def split_dataset(
     )
 
     exclude_cols = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff", "TICKER"]
-    feature_cols = [c for c in df.columns if c not in exclude_cols]
+    feature_cols = [
+        c
+        for c in df.columns
+        if c not in exclude_cols and pd.api.types.is_numeric_dtype(df[c])
+    ]
 
     requested_drop = list(drop_features or [])
     unknown_drop = [c for c in requested_drop if c not in feature_cols]

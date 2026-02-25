@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T05:05:25",
+  "ticker": "INTU",
+  "ticker_slug": "INTU",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\INTU\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\INTU\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.36160714285714285,
+    "precision": 0.3767441860465116,
+    "ic": -0.18729446935724967,
+    "ic_p_value": 0.0049171044656769304,
+    "gap": 0.319646720277515,
+    "gap_signed": 0.319646720277515,
+    "gap_abs": 0.319646720277515,
+    "ic_first": -0.002015922369904671,
+    "ic_second": 0.013914989578706393,
+    "proba_std_test": 0.06867514128614297,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

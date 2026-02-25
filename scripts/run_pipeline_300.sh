@@ -1,79 +1,64 @@
-#!/bin/bash
-# Scale-Up Pipeline Run for 300 S&P 500 Tickers
-# 100 Trials per Model for Hyperparameter Tuning
+#!/usr/bin/env bash
+# Scale-up pipeline for top-300 S&P tickers (100 trials per model)
 
-PROJECT_ROOT="/Users/wowjd/Desktop/Private/授業/Project-2_OAA"
-cd $PROJECT_ROOT
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+cd "${PROJECT_ROOT}"
+
+# Windows cp949 콘솔에서도 이모지/유니코드 출력으로 중단되지 않도록 UTF-8 강제
+export PYTHONUTF8=1
+export PYTHONIOENCODING=UTF-8
+
+if command -v python3 >/dev/null 2>&1; then
+    PYTHON_BIN="python3"
+elif command -v python >/dev/null 2>&1; then
+    PYTHON_BIN="python"
+else
+    echo "Python executable not found (python3/python)."
+    exit 1
+fi
 
 echo "=========================================================="
-echo "🚀 STARTING 300-TICKER ML & MAPPING PIPELINE 🚀"
+echo "STARTING 300-TICKER ML & MAPPING PIPELINE"
+echo "Project Root: ${PROJECT_ROOT}"
+echo "Python: ${PYTHON_BIN}"
 echo "Start Time: $(date)"
 echo "=========================================================="
 
 echo ""
-echo "[0/5] Downloading Raw Stock Data from Yahoo Finance..."
-python3 -u -m DB.update_stock_data --mode auto
-if [ $? -ne 0 ]; then
-    echo "❌ Error in Downloading Raw Stock Data. Exiting."
-    exit 1
-fi
+echo "[0/7] Downloading Raw Stock Data from Yahoo Finance..."
+"${PYTHON_BIN}" -u -m DB.update_stock_data --mode auto
 
 echo ""
-echo "[1/5] Calculating Log Returns for All Tickers..."
-python3 -u -m DB.calculate_log_returns
-if [ $? -ne 0 ]; then
-    echo "❌ Error in Calculating Log Returns. Exiting."
-    exit 1
-fi
+echo "[1/7] Calculating Log Returns for All Tickers..."
+"${PYTHON_BIN}" -u -m DB.calculate_log_returns
 
 echo ""
-echo "[2/5] Updating Market Features (VIX, DXY)..."
-python3 -u -m DB.update_market_data
-if [ $? -ne 0 ]; then
-    echo "❌ Error in Updating Market Features. Exiting."
-    exit 1
-fi
+echo "[2/7] Updating Market Features (VIX, DXY)..."
+"${PYTHON_BIN}" -u -m DB.update_market_data
 
 echo ""
-echo "[3/5] Updating S&P 500 Benchmark Data..."
-python3 -u -m DB.update_sp500_data
-if [ $? -ne 0 ]; then
-    echo "❌ Error in Updating S&P 500 Data. Exiting."
-    exit 1
-fi
+echo "[3/7] Updating S&P 500 Benchmark Data..."
+"${PYTHON_BIN}" -u -m DB.update_sp500_data
 
 echo ""
-echo "[4/5] Calculating EWMA Covariance Matrix..."
-python3 -u -m DB.calculate_ewma
-if [ $? -ne 0 ]; then
-    echo "❌ Error in Calculating EWMA. Exiting."
-    exit 1
-fi
+echo "[4/7] Calculating EWMA Covariance Matrix..."
+"${PYTHON_BIN}" -u -m DB.calculate_ewma
 
 echo ""
-echo "[5/5] Running Unified MASTER_FEATURES Generation (Panel Data)..."
-python3 -u -m Classification.Preprocessing.build_master_dataset
-if [ $? -ne 0 ]; then
-    echo "❌ Error in Master Dataset Generation. Exiting."
-    exit 1
-fi
+echo "[5/7] Running Unified MASTER_FEATURES Generation (Panel Data)..."
+"${PYTHON_BIN}" -u -m Classification.Preprocessing.build_master_dataset
 
 echo ""
-echo "[6/5] Running ML Pipeline with 100 Trials per Model (Phase 3)..."
+echo "[6/7] Running ML Pipeline with 100 Trials per Model (Phase 3)..."
 echo "      (This step will take a long time!)"
-python3 -u -m Classification.multi_ticker.run_all_tickers --force-retune-all --xgb-trials 100 --svm-trials 100 --rf-trials 100 --logreg-trials 100
-if [ $? -ne 0 ]; then
-    echo "❌ Error in ML Pipeline. Exiting."
-    exit 1
-fi
+"${PYTHON_BIN}" -u -m Classification.multi_ticker.run_all_tickers --force-retune-all --xgb-trials 100 --svm-trials 100 --rf-trials 100 --logreg-trials 100
 
 echo ""
-echo "[7/5] Running Mapping & Final Aggregation (Phase 4 & 5)..."
-python3 -u scripts/run_all_mapping.py
-if [ $? -ne 0 ]; then
-    echo "❌ Error in Final Mapping Aggregation. Exiting."
-    exit 1
-fi
+echo "[7/7] Running Mapping & Final Aggregation (Phase 4 & 5)..."
+"${PYTHON_BIN}" -u -m scripts.run_all_mapping
 
 echo ""
 echo "[8/5] Applying Regime Shift Overlay (Graduated Momentum Tracking)..."
@@ -85,6 +70,6 @@ fi
 
 echo ""
 echo "=========================================================="
-echo "🎉 PIPELINE COMPLETE! 🎉"
+echo "PIPELINE COMPLETE!"
 echo "End Time: $(date)"
 echo "=========================================================="

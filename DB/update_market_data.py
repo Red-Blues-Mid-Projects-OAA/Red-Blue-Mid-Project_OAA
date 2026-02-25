@@ -15,15 +15,38 @@ if __package__ in (None, ""):
 
     import numpy as np
     import pandas as pd
-    import pandas_datareader.data as web
     import yfinance as yf
 
     from stock_db_manager import StockDBManager
 else:
-    from common import pd, np, yf, datetime, timedelta, web
+    from common import pd, np, yf, datetime, timedelta
     from DB import StockDBManager
 
 START_DATE = "2015-01-01"
+
+
+def _fetch_fred_series(series_id, start_date, end_date):
+    """
+    FRED CSV endpoint를 통해 시계열을 조회하고 Date index + Close 컬럼 형태로 반환합니다.
+    pandas-datareader가 Python 3.14 환경에서 호환되지 않아 HTTP CSV 방식을 사용합니다.
+    """
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
+    raw_df = pd.read_csv(url)
+
+    date_col = None
+    for candidate in raw_df.columns:
+        if str(candidate).strip().lower() in {"date", "observation_date"}:
+            date_col = candidate
+            break
+    if date_col is None or series_id not in raw_df.columns:
+        raise ValueError(f"FRED 응답 컬럼이 예상과 다릅니다: {series_id}")
+
+    series_df = raw_df.rename(columns={date_col: "TRADE_DATE", series_id: "Close"})
+    series_df["TRADE_DATE"] = pd.to_datetime(series_df["TRADE_DATE"], errors="coerce")
+    series_df["Close"] = pd.to_numeric(series_df["Close"], errors="coerce")
+    series_df = series_df.dropna(subset=["TRADE_DATE", "Close"]).set_index("TRADE_DATE")
+    series_df = series_df.sort_index()
+    return series_df.loc[str(start_date):str(end_date)]
 
 
 def fetch_and_store_vix(db_manager):
@@ -95,8 +118,7 @@ def fetch_and_store_dxy(db_manager):
         fetch_start = START_DATE
         print(f"  기존 데이터 없음 -> {START_DATE}부터 전체 다운로드")
 
-    dxy = web.DataReader("DTWEXBGS", "fred", fetch_start, end_date)
-    dxy.columns = ["Close"]
+    dxy = _fetch_fred_series("DTWEXBGS", fetch_start, end_date)
     dxy = dxy.dropna()
 
     dxy["Log_Return"] = np.log(dxy["Close"] / dxy["Close"].shift(1))

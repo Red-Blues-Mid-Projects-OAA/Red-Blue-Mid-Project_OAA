@@ -259,6 +259,55 @@ class StockDBManager:
             print(f"S&P 500 최신 날짜 조회 실패: {e}")
             return None
 
+    def get_ticker_coverage_report(self, tickers):
+        """
+        다중 티커의 최소 커버리지를 점검해 리스트(dict) 형태로 반환합니다.
+        반환 컬럼:
+          - ticker
+          - stock_rows
+          - logret_rows
+          - sp500_rows
+        """
+        normalized = [str(t).strip().upper() for t in tickers if str(t).strip()]
+        if not normalized:
+            return []
+
+        sp500_rows = 0
+        try:
+            self.cursor.execute("SELECT COUNT(*) FROM SP500_DATA")
+            sp500_rows = int(self.cursor.fetchone()[0] or 0)
+        except oracledb.Error:
+            sp500_rows = 0
+
+        report = []
+        for ticker in normalized:
+            stock_rows = 0
+            logret_rows = 0
+            try:
+                self.cursor.execute(
+                    "SELECT COUNT(*) FROM STOCK_DATA WHERE TICKER = :ticker",
+                    {"ticker": ticker},
+                )
+                stock_rows = int(self.cursor.fetchone()[0] or 0)
+                self.cursor.execute(
+                    "SELECT COUNT(*) FROM LOG_RETURNS WHERE TICKER = :ticker",
+                    {"ticker": ticker},
+                )
+                logret_rows = int(self.cursor.fetchone()[0] or 0)
+            except oracledb.Error as e:
+                print(f"{ticker} coverage query failed: {e}")
+
+            report.append(
+                {
+                    "ticker": ticker,
+                    "stock_rows": stock_rows,
+                    "logret_rows": logret_rows,
+                    "sp500_rows": sp500_rows,
+                }
+            )
+
+        return report
+
     def insert_data(self, df):
         """
         DataFrame 데이터를 DB에 삽입 (Upsert 방식: )
@@ -424,8 +473,18 @@ class StockDBManager:
             df_long = df_long.sort_values(by=['TRADE_DATE', 'TICKER'])
             
             for _, row in df_long.iterrows():
+                log_ret = row['LOG_RETURN']
+                if pd.isna(log_ret):
+                    continue
+                try:
+                    log_ret_val = float(log_ret)
+                except (TypeError, ValueError):
+                    continue
+                if not math.isfinite(log_ret_val):
+                    continue
+
                 trade_date = row['TRADE_DATE'].to_pydatetime().date()
-                data_to_insert.append((str(row['TICKER']), trade_date, float(row['LOG_RETURN'])))
+                data_to_insert.append((str(row['TICKER']), trade_date, log_ret_val))
             
             if data_to_insert:
                 batch_size = 10000

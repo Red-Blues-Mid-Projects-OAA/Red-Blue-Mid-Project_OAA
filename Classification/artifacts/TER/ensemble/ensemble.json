@@ -1,0 +1,50 @@
+{
+  "ticker": "TER",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.5455156950672647,
+  "ic_pvalue": 9.093916144227529e-19,
+  "ic_first_half": -0.3227611302832542,
+  "ic_second_half": -0.25373287320189974,
+  "accuracy_ref": 0.14285714285714285,
+  "precision_ref": 0.2413793103448276,
+  "train_accuracy_ref": 0.8534090909090909,
+  "gap_ref": 0.710551948051948,
+  "gap_signed_ref": 0.710551948051948,
+  "gap_abs_ref": 0.710551948051948,
+  "proba_std_test": 0.19604912327127783,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.05640643374634345,
+    "mean": 0.34105608901448053,
+    "max": 0.7079849178085764
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.05127758573798855,
+    "mean": 0.06609136618738717,
+    "max": 0.12423356345183355
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.07230734954827946
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

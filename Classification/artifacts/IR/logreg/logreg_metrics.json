@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T21:38:36",
+  "ticker": "IR",
+  "ticker_slug": "IR",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\IR\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\IR\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.20982142857142858,
+    "precision": 0.20982142857142858,
+    "ic": -0.31543561819346577,
+    "ic_p_value": 1.44881189076809e-06,
+    "gap": 0.5856331168831168,
+    "gap_signed": 0.5856331168831168,
+    "gap_abs": 0.5856331168831168,
+    "ic_first": -0.13950866163255546,
+    "ic_second": -0.4706580790651587,
+    "proba_std_test": 0.05480724921181845,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

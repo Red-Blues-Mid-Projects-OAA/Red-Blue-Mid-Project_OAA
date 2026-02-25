@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T02:28:02",
+  "ticker": "UBER",
+  "ticker_slug": "UBER",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UBER\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UBER\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.21875,
+    "precision": 0.2616279069767442,
+    "ic": -0.6867467435404656,
+    "ic_p_value": 1.3686099759711217e-32,
+    "gap": 0.64375,
+    "gap_signed": 0.64375,
+    "gap_abs": 0.64375,
+    "ic_first": -0.17740971059555133,
+    "ic_second": -0.36112344961902487,
+    "proba_std_test": 0.16824354667567384,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

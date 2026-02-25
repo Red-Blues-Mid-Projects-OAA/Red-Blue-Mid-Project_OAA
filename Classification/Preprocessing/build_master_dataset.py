@@ -168,7 +168,7 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True):
         print(f"3. DB 재구조화 (Reorganization)")
         print("======================================================================")
         db.reorganize_master_features()
-        print(f"✅ 처리가 완료되었습니다. {total_tickers} 중 {success_count} 종목 저장 완료.")
+        print(f"처리가 완료되었습니다. {total_tickers} 중 {success_count} 종목 저장 완료.")
         
     finally:
         db.close()

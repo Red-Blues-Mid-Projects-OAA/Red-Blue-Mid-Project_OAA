@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T20:34:10",
+  "ticker": "OTIS",
+  "ticker_slug": "OTIS",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OTIS\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OTIS\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.27232142857142855,
+    "precision": 0.09271523178807947,
+    "ic": 0.1739045483664318,
+    "ic_p_value": 0.009104461431838604,
+    "gap": 0.473155049112528,
+    "gap_signed": 0.473155049112528,
+    "gap_abs": 0.473155049112528,
+    "ic_first": -0.28063176956982266,
+    "ic_second": 0.6216130795776814,
+    "proba_std_test": 0.3190903236783291,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "logreg train_test_gap > 0.25"
+  ]
+}

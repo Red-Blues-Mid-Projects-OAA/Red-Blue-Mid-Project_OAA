@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T17:21:25",
+  "ticker": "TGT",
+  "ticker_slug": "TGT",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TGT\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\TGT\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5580357142857143,
+    "precision": 0.25263157894736843,
+    "ic": 0.008000213538330131,
+    "ic_p_value": 0.9052212891744952,
+    "gap": 0.1476461038961039,
+    "gap_signed": 0.1476461038961039,
+    "gap_abs": 0.1476461038961039,
+    "ic_first": -0.02236307103563741,
+    "ic_second": 0.3104947551850207,
+    "proba_std_test": 0.4101227071678254,
+    "proba_unique_test": 193,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}
