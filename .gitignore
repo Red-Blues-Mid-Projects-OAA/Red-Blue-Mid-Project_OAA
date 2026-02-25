@@ -218,3 +218,5 @@ nul
 
 # vscode
 .vscode/
+# 임시 폴더 (폰트 설치 잔여물 등)
+tmp_*/
