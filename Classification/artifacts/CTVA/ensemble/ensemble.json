@@ -25,7 +25,7 @@
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.24174059009412868,
+    "min": 0.2417405900941287,
     "mean": 0.40296203388770163,
     "max": 0.6153633584976927
   },
@@ -35,13 +35,13 @@
     "end": "2026-02-20"
   },
   "p_ens_future_stats": {
-    "min": 0.2355947916377774,
-    "mean": 0.3042948047832899,
+    "min": 0.23559479163777736,
+    "mean": 0.3042948047832898,
     "max": 0.4049238027218274
   },
   "latest_future_prediction": {
     "trade_date": "2026-02-20",
-    "p_ens": 0.3631319783389797
+    "p_ens": 0.36313197833897964
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

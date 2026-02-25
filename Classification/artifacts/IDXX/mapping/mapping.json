@@ -1,0 +1,21 @@
+{
+  "ticker": "IDXX",
+  "benchmark": "SP500",
+  "p_latest": 0.22245016363044876,
+  "signal_raw": -0.5550996727391024,
+  "signal_clipped": -0.5550996727391024,
+  "IC_full": 0.46174567584881493,
+  "sigma_ols": 0.019691228501441706,
+  "sigma_ewma": 0.016199158556201115,
+  "sigma_final": 0.018643607517869525,
+  "TE_annual": 0.2959580942002617,
+  "TE_3M": 0.14441276285987212,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.03701513905177693,
+  "E_alpha_3M_simple": -0.03633845368342348,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

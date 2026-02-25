@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T21:17:04",
+  "ticker": "AXON",
+  "ticker_slug": "AXON",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AXON\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\AXON\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.3705357142857143,
+    "precision": 0.3705357142857143,
+    "ic": 0.18021567371343158,
+    "ic_p_value": 0.006844673083081383,
+    "gap": 0.24764610389610386,
+    "gap_signed": 0.24764610389610386,
+    "gap_abs": 0.24764610389610386,
+    "ic_first": -0.5450678238288859,
+    "ic_second": 0.03484299723237776,
+    "proba_std_test": 0.037071460421783636,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

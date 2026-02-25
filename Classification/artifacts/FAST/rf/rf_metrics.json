@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T17:38:11",
+  "ticker": "FAST",
+  "ticker_slug": "FAST",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FAST\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FAST\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.625,
+    "precision": 0.7590361445783133,
+    "ic": 0.400903267136451,
+    "ic_p_value": 4.66770638572116e-10,
+    "gap": 0.13068181818181823,
+    "gap_signed": 0.13068181818181823,
+    "gap_abs": 0.13068181818181823,
+    "ic_first": 0.25547545016571566,
+    "ic_second": 0.2933850411726518,
+    "proba_std_test": 0.11572500316985926,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

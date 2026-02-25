@@ -1,0 +1,23 @@
+{
+  "ticker": "EW",
+  "benchmark": "SP500",
+  "p_latest": 0.5945931916190986,
+  "signal_raw": 0.18918638323819725,
+  "signal_clipped": 0.18918638323819725,
+  "IC_full": -0.4427300875507154,
+  "sigma_ols": 0.02218454591776208,
+  "sigma_ewma": 0.015214527360754652,
+  "sigma_final": 0.020093540350659852,
+  "TE_annual": 0.31897506436012535,
+  "TE_3M": 0.1556438942889047,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.013036499744621899,
+  "E_alpha_3M_simple": -0.012951892641056784,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

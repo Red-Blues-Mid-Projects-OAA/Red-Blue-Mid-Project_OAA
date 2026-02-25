@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T20:02:01",
+  "ticker": "CCL",
+  "ticker_slug": "CCL",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CCL\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CCL\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.48214285714285715,
+    "precision": 0.0,
+    "ic": 0.427529361520393,
+    "ic_p_value": 2.283385340880022e-11,
+    "gap": 0.10422077922077916,
+    "gap_signed": 0.10422077922077916,
+    "gap_abs": 0.10422077922077916,
+    "ic_first": 0.28275019646701066,
+    "ic_second": 0.6210493046776233,
+    "proba_std_test": 0.027485824670090957,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

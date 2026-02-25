@@ -1,0 +1,23 @@
+{
+  "ticker": "KEYS",
+  "benchmark": "SP500",
+  "p_latest": 0.3855209966100849,
+  "signal_raw": -0.22895800677983025,
+  "signal_clipped": -0.22895800677983025,
+  "IC_full": -0.06385543455050183,
+  "sigma_ols": 0.01520196077534952,
+  "sigma_ewma": 0.01371549291714126,
+  "sigma_final": 0.01475602041788704,
+  "TE_annual": 0.23424456220032305,
+  "TE_3M": 0.11429964266954624,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.001671085123566351,
+  "E_alpha_3M_simple": 0.0016724821643945287,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

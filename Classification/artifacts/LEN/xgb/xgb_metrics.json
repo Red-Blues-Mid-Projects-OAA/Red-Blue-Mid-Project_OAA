@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T23:50:12",
+  "ticker": "LEN",
+  "ticker_slug": "LEN",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LEN\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LEN\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.24553571428571427,
+    "precision": 0.24324324324324326,
+    "ic": 0.0035767689391255045,
+    "ic_p_value": 0.9575463846107615,
+    "gap": 0.5385551948051948,
+    "gap_signed": 0.5385551948051948,
+    "gap_abs": 0.5385551948051948,
+    "ic_first": 0.4070540198858783,
+    "ic_second": -0.4297221688381391,
+    "proba_std_test": 0.06852632015943527,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

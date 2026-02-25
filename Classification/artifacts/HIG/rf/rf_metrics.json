@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T21:43:53",
+  "ticker": "HIG",
+  "ticker_slug": "HIG",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\HIG\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\HIG\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.78125,
+    "precision": 0.7008547008547008,
+    "ic": 0.6880172966047408,
+    "ic_p_value": 9.459463384594169e-33,
+    "gap": 0.015340909090909127,
+    "gap_signed": -0.015340909090909127,
+    "gap_abs": 0.015340909090909127,
+    "ic_first": 0.7164468514026036,
+    "ic_second": 0.6429425632965455,
+    "proba_std_test": 0.08936108003595306,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

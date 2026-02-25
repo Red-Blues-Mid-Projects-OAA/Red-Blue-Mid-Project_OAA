@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T19:38:48",
+  "ticker": "EW",
+  "ticker_slug": "EW",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\EW\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\EW\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5535714285714286,
+    "precision": 0.0,
+    "ic": -0.3699551569506727,
+    "ic_p_value": 1.130549324529893e-08,
+    "gap": 0.18733766233766236,
+    "gap_signed": 0.18733766233766236,
+    "gap_abs": 0.18733766233766236,
+    "ic_first": -0.2549287593535381,
+    "ic_second": -0.4953702121843716,
+    "proba_std_test": 0.0548398680365776,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

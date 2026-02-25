@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T15:20:46",
+  "generated_at": "2026-02-24T16:48:51",
   "ticker": "CMG",
   "ticker_slug": "CMG",
   "benchmark": "SP500",
@@ -28,7 +28,7 @@
     "gap_abs": 0.6542207792207793,
     "ic_first": 0.3927204701540985,
     "ic_second": 0.45298459015273174,
-    "proba_std_test": 0.06065675047940504,
+    "proba_std_test": 0.060656750479404956,
     "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false

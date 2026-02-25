@@ -1,0 +1,23 @@
+{
+  "ticker": "ROL",
+  "benchmark": "SP500",
+  "p_latest": 0.30341896621011843,
+  "signal_raw": -0.39316206757976313,
+  "signal_clipped": -0.39316206757976313,
+  "IC_full": -0.19285393978219095,
+  "sigma_ols": 0.015135812166520211,
+  "sigma_ewma": 0.024442531669471048,
+  "sigma_final": 0.01792782801740546,
+  "TE_annual": 0.28459544688954597,
+  "TE_3M": 0.13886835869016415,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.010529395245310729,
+  "E_alpha_3M_simple": 0.010585024403116927,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

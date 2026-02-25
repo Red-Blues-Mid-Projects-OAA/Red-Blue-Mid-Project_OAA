@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T18:08:48",
+  "ticker": "VTR",
+  "ticker_slug": "VTR",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\VTR\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\VTR\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4642857142857143,
+    "precision": 0.0,
+    "ic": 0.18769378603459325,
+    "ic_p_value": 0.0048245649542131295,
+    "gap": 0.186469252601703,
+    "gap_signed": 0.186469252601703,
+    "gap_abs": 0.186469252601703,
+    "ic_first": 0.00032459766973041315,
+    "ic_second": 0.784945501759661,
+    "proba_std_test": 0.030348079587111772,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

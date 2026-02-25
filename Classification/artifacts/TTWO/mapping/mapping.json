@@ -1,0 +1,21 @@
+{
+  "ticker": "TTWO",
+  "benchmark": "SP500",
+  "p_latest": 0.6489780041072712,
+  "signal_raw": 0.2979560082145425,
+  "signal_clipped": 0.2979560082145425,
+  "IC_full": 0.08149903907751443,
+  "sigma_ols": 0.01684752029668587,
+  "sigma_ewma": 0.02610691093395292,
+  "sigma_final": 0.019625337487865983,
+  "TE_annual": 0.3115425743316389,
+  "TE_3M": 0.1520172105084101,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0036914534352271056,
+  "E_alpha_3M_simple": 0.0036982752410026354,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

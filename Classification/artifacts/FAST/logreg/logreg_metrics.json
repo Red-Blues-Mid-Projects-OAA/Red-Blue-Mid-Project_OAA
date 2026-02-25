@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T17:38:11",
+  "ticker": "FAST",
+  "ticker_slug": "FAST",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FAST\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FAST\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6026785714285714,
+    "precision": 0.7878787878787878,
+    "ic": 0.3311894084988256,
+    "ic_p_value": 3.916916600225708e-07,
+    "gap": 0.09050324675324684,
+    "gap_signed": 0.09050324675324684,
+    "gap_abs": 0.09050324675324684,
+    "ic_first": 0.6551491440871972,
+    "ic_second": 0.29483718864249836,
+    "proba_std_test": 0.23656484303268074,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

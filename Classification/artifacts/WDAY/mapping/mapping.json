@@ -1,0 +1,21 @@
+{
+  "ticker": "WDAY",
+  "benchmark": "SP500",
+  "p_latest": 0.7087093241550977,
+  "signal_raw": 0.4174186483101954,
+  "signal_clipped": 0.4174186483101954,
+  "IC_full": 0.11719730941704037,
+  "sigma_ols": 0.01992679456156198,
+  "sigma_ewma": 0.027906957321834784,
+  "sigma_final": 0.022320843389643817,
+  "TE_annual": 0.3543324039733052,
+  "TE_3M": 0.17289650944278884,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.008458156455961851,
+  "E_alpha_3M_simple": 0.00849402772488883,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

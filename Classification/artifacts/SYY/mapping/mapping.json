@@ -1,0 +1,21 @@
+{
+  "ticker": "SYY",
+  "benchmark": "SP500",
+  "p_latest": 0.32000354521728097,
+  "signal_raw": -0.35999290956543806,
+  "signal_clipped": -0.35999290956543806,
+  "IC_full": 0.40032137518684613,
+  "sigma_ols": 0.014725424424797469,
+  "sigma_ewma": 0.019505412944767996,
+  "sigma_final": 0.016159420980788625,
+  "TE_annual": 0.25652285547579695,
+  "TE_3M": 0.12517033668589814,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.018038654783234832,
+  "E_alpha_3M_simple": -0.017876932129747503,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T20:12:42",
+  "ticker": "UAL",
+  "ticker_slug": "UAL",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UAL\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\UAL\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6651785714285714,
+    "precision": 0.9076923076923077,
+    "ic": 0.7180877642536836,
+    "ic_p_value": 8.374780235151376e-37,
+    "gap": 0.04163961038961039,
+    "gap_signed": 0.04163961038961039,
+    "gap_abs": 0.04163961038961039,
+    "ic_first": 0.8126046400382684,
+    "ic_second": 0.724467830662521,
+    "proba_std_test": 0.18278890061452732,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

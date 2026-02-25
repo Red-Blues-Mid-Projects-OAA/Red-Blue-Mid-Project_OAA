@@ -1,0 +1,23 @@
+{
+  "ticker": "CBRE",
+  "benchmark": "SP500",
+  "p_latest": 0.5474218794666429,
+  "signal_raw": 0.09484375893328578,
+  "signal_clipped": 0.09484375893328578,
+  "IC_full": -0.3168108050395046,
+  "sigma_ols": 0.01649857197716157,
+  "sigma_ewma": 0.03817494500713885,
+  "sigma_final": 0.023001483886154753,
+  "TE_annual": 0.36513723688934996,
+  "TE_3M": 0.17816872805827125,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0053535297774628815,
+  "E_alpha_3M_simple": -0.005339225175012952,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,50 @@
+{
+  "ticker": "HIG",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.8322175955584028,
+  "ic_pvalue": 8.800060477860978e-59,
+  "ic_first_half": 0.8184473980934157,
+  "ic_second_half": 0.7562186079885195,
+  "accuracy_ref": 0.8883928571428571,
+  "precision_ref": 0.808695652173913,
+  "train_accuracy_ref": 0.8238636363636364,
+  "gap_ref": 0.06452922077922074,
+  "gap_signed_ref": -0.06452922077922074,
+  "gap_abs_ref": 0.06452922077922074,
+  "proba_std_test": 0.1728666194527936,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.19051516925896678,
+    "mean": 0.5274515023344822,
+    "max": 0.8208889164084692
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.5243866005798511,
+    "mean": 0.6525068259379799,
+    "max": 0.7596498478440243
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6194475620069565
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

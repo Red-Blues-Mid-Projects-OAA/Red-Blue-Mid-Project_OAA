@@ -1,0 +1,50 @@
+{
+  "ticker": "EME",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.82504911381593,
+  "ic_pvalue": 5.971149742991734e-57,
+  "ic_first_half": 0.6375867017459937,
+  "ic_second_half": 0.789865719069259,
+  "accuracy_ref": 0.7946428571428571,
+  "precision_ref": 0.7631578947368421,
+  "train_accuracy_ref": 0.7977272727272727,
+  "gap_ref": 0.003084415584415634,
+  "gap_signed_ref": 0.003084415584415634,
+  "gap_abs_ref": 0.003084415584415634,
+  "proba_std_test": 0.15923788380981085,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.31960844257401533,
+    "mean": 0.703150995937828,
+    "max": 0.8494310685616856
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.6851378688855595,
+    "mean": 0.8018862574523099,
+    "max": 0.8354217924897107
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.7615661964169868
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

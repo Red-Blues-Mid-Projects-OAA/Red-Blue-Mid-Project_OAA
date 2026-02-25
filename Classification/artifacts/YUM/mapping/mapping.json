@@ -1,0 +1,23 @@
+{
+  "ticker": "YUM",
+  "benchmark": "SP500",
+  "p_latest": 0.272410239946168,
+  "signal_raw": -0.45517952010766405,
+  "signal_clipped": -0.45517952010766405,
+  "IC_full": -0.2971513986760624,
+  "sigma_ols": 0.013930467734719308,
+  "sigma_ewma": 0.015003862300414008,
+  "sigma_final": 0.014252486104427718,
+  "TE_annual": 0.226251202780317,
+  "TE_3M": 0.11039928264900237,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.014932301280865881,
+  "E_alpha_3M_simple": 0.015044345087606548,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

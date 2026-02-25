@@ -1,0 +1,21 @@
+{
+  "ticker": "HBAN",
+  "benchmark": "SP500",
+  "p_latest": 0.5592285889577637,
+  "signal_raw": 0.11845717791552746,
+  "signal_clipped": 0.11845717791552746,
+  "IC_full": 0.5560666239590007,
+  "sigma_ols": 0.014733168581913002,
+  "sigma_ewma": 0.019994940302838785,
+  "sigma_final": 0.016311700098190735,
+  "TE_annual": 0.2589402115228833,
+  "TE_3M": 0.12634988565724523,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.008322677456192727,
+  "E_alpha_3M_simple": 0.008357407217553403,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

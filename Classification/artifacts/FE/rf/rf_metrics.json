@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T23:38:40",
+  "ticker": "FE",
+  "ticker_slug": "FE",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FE\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\FE\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6160714285714286,
+    "precision": 0.6052631578947368,
+    "ic": 0.2290187913730515,
+    "ic_p_value": 0.0005513353501519369,
+    "gap": 0.2975649350649351,
+    "gap_signed": 0.2975649350649351,
+    "gap_abs": 0.2975649350649351,
+    "ic_first": 0.4735623740048519,
+    "ic_second": -0.262907028393754,
+    "proba_std_test": 0.12181640066266501,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

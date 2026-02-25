@@ -1,0 +1,21 @@
+{
+  "ticker": "VTR",
+  "benchmark": "SP500",
+  "p_latest": 0.37341582666487394,
+  "signal_raw": -0.2531683466702521,
+  "signal_clipped": -0.2531683466702521,
+  "IC_full": 0.449127695921418,
+  "sigma_ols": 0.01490933570767864,
+  "sigma_ewma": 0.013905251405253565,
+  "sigma_final": 0.014608110416951117,
+  "TE_annual": 0.23189656372694833,
+  "TE_3M": 0.11315393672882153,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.01286615889574157,
+  "E_alpha_3M_simple": -0.012783743707654116,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

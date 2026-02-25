@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T18:48:51",
+  "ticker": "ODFL",
+  "ticker_slug": "ODFL",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ODFL\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ODFL\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.26785714285714285,
+    "precision": 0.2300469483568075,
+    "ic": -0.4405915011744609,
+    "ic_p_value": 4.704234180954423e-12,
+    "gap": 0.5378246753246754,
+    "gap_signed": 0.5378246753246754,
+    "gap_abs": 0.5378246753246754,
+    "ic_first": -0.23526497420302733,
+    "ic_second": -0.6692776847644105,
+    "proba_std_test": 0.11852746033945259,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

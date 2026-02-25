@@ -1,0 +1,21 @@
+{
+  "ticker": "PRU",
+  "benchmark": "SP500",
+  "p_latest": 0.6585396954864536,
+  "signal_raw": 0.31707939097290727,
+  "signal_clipped": 0.31707939097290727,
+  "IC_full": 0.13588831945334193,
+  "sigma_ols": 0.012357733200199268,
+  "sigma_ewma": 0.014784582660469645,
+  "sigma_final": 0.01308578803828038,
+  "TE_annual": 0.20773044515156192,
+  "TE_3M": 0.10136207828852027,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.004367426949657289,
+  "E_alpha_3M_simple": 0.004376978058265202,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T23:33:37",
+  "ticker": "CHTR",
+  "ticker_slug": "CHTR",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CHTR\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CHTR\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.4642857142857143,
+    "precision": 0.017241379310344827,
+    "ic": -0.08944535806250535,
+    "ic_p_value": 0.1822428422487814,
+    "gap": 0.25545821507410904,
+    "gap_signed": 0.25545821507410904,
+    "gap_abs": 0.25545821507410904,
+    "ic_first": 0.463371715584105,
+    "ic_second": 0.2029551264123055,
+    "proba_std_test": 0.23566921526343984,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T22:48:15",
+  "ticker": "LYV",
+  "ticker_slug": "LYV",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LYV\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\LYV\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6071428571428571,
+    "precision": 0.0,
+    "ic": 0.19808135810377966,
+    "ic_p_value": 0.0029053011351676933,
+    "gap": 0.010930936613055775,
+    "gap_signed": -0.010930936613055775,
+    "gap_abs": 0.010930936613055775,
+    "ic_first": -0.2282604981720026,
+    "ic_second": -0.1293265452557488,
+    "proba_std_test": 0.02753678282453182,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

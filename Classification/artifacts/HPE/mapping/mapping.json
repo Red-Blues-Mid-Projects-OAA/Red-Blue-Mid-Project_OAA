@@ -1,0 +1,21 @@
+{
+  "ticker": "HPE",
+  "benchmark": "SP500",
+  "p_latest": 0.7769265957912879,
+  "signal_raw": 0.5538531915825757,
+  "signal_clipped": 0.5538531915825757,
+  "IC_full": 0.7702861413623747,
+  "sigma_ols": 0.02197602510931237,
+  "sigma_ewma": 0.023493362924335254,
+  "sigma_final": 0.022431226453819234,
+  "TE_annual": 0.3560846807938738,
+  "TE_3M": 0.1737515329812983,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.07412682383097705,
+  "E_alpha_3M_simple": 0.07694337892071457,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2599,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

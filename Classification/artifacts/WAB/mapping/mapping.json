@@ -1,0 +1,21 @@
+{
+  "ticker": "WAB",
+  "benchmark": "SP500",
+  "p_latest": 0.595741910273994,
+  "signal_raw": 0.19148382054798807,
+  "signal_clipped": 0.19148382054798807,
+  "IC_full": 0.5393423019431989,
+  "sigma_ols": 0.011414378030662652,
+  "sigma_ewma": 0.011390938913297118,
+  "sigma_final": 0.01140734629545299,
+  "TE_annual": 0.1810860085017753,
+  "TE_3M": 0.08836092445342061,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.009125503151280643,
+  "E_alpha_3M_simple": 0.009167267498723097,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

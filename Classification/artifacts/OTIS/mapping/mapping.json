@@ -1,0 +1,21 @@
+{
+  "ticker": "OTIS",
+  "benchmark": "SP500",
+  "p_latest": 0.560165706135485,
+  "signal_raw": 0.12033141227097,
+  "signal_clipped": 0.12033141227097,
+  "IC_full": 0.005649156523595987,
+  "sigma_ols": 0.013801257214137054,
+  "sigma_ewma": 0.01804825954556281,
+  "sigma_final": 0.01507535791356478,
+  "TE_annual": 0.23931388778749182,
+  "TE_3M": 0.11677322027470519,
+  "phi": 1.0,
+  "E_alpha_3M_log": 7.937904669031311e-05,
+  "E_alpha_3M_simple": 7.93821972902009e-05,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1488,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

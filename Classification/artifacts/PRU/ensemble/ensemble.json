@@ -1,0 +1,50 @@
+{
+  "ticker": "PRU",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.13588831945334193,
+  "ic_pvalue": 0.0421692492456869,
+  "ic_first_half": 0.5050910581884034,
+  "ic_second_half": -0.48988621997471554,
+  "accuracy_ref": 0.35267857142857145,
+  "precision_ref": 0.21978021978021978,
+  "train_accuracy_ref": 0.7625,
+  "gap_ref": 0.4098214285714285,
+  "gap_signed_ref": 0.4098214285714285,
+  "gap_abs_ref": 0.4098214285714285,
+  "proba_std_test": 0.0795213825023284,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.3884213483737838,
+    "mean": 0.5722856160216211,
+    "max": 0.752297459621866
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.2981880042012688,
+    "mean": 0.4739688577745072,
+    "max": 0.6608663754179032
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.6585396954864536
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

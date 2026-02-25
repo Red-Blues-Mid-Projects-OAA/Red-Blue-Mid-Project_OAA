@@ -1,0 +1,50 @@
+{
+  "ticker": "NRG",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.4549156523595987,
+  "ic_pvalue": 7.685541145289451e-13,
+  "ic_first_half": 0.5555659958314826,
+  "ic_second_half": 0.6882581063996994,
+  "accuracy_ref": 0.65625,
+  "precision_ref": 0.7659574468085106,
+  "train_accuracy_ref": 0.7102272727272727,
+  "gap_ref": 0.05397727272727271,
+  "gap_signed_ref": 0.05397727272727271,
+  "gap_abs_ref": 0.05397727272727271,
+  "proba_std_test": 0.08787878177024099,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.37359167449560526,
+    "mean": 0.5056393875595404,
+    "max": 0.7098497858012127
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.40340372556783066,
+    "mean": 0.5659303696350242,
+    "max": 0.6959953549538225
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.45912077195513024
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

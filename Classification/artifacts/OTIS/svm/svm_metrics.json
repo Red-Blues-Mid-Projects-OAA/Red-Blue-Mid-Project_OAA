@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T20:34:08",
+  "ticker": "OTIS",
+  "ticker_slug": "OTIS",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OTIS\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OTIS\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.16071428571428573,
+    "precision": 0.06470588235294118,
+    "ic": -0.4298964339098869,
+    "ic_p_value": 1.7235186606788924e-11,
+    "gap": 0.7467527862208713,
+    "gap_signed": 0.7467527862208713,
+    "gap_abs": 0.7467527862208713,
+    "ic_first": -0.789430074828305,
+    "ic_second": 0.12124577168824958,
+    "proba_std_test": 0.09691716930782203,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

@@ -25,7 +25,7 @@
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.30784522853673857,
+    "min": 0.3078452285367387,
     "mean": 0.5389799934607638,
     "max": 0.7509521345164005
   },
@@ -41,7 +41,7 @@
   },
   "latest_future_prediction": {
     "trade_date": "2026-02-20",
-    "p_ens": 0.5903713818517785
+    "p_ens": 0.5903713818517784
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

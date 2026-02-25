@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T23:17:31",
+  "ticker": "ATO",
+  "ticker_slug": "ATO",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ATO\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ATO\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.40625,
+    "precision": 0.1111111111111111,
+    "ic": -0.493979952482388,
+    "ic_p_value": 3.4965374525056473e-15,
+    "gap": 0.3630681818181818,
+    "gap_signed": 0.3630681818181818,
+    "gap_abs": 0.3630681818181818,
+    "ic_first": -0.5920973111737269,
+    "ic_second": -0.5238323025933646,
+    "proba_std_test": 0.07624199441452402,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "rf train_test_gap > 0.25"
+  ]
+}

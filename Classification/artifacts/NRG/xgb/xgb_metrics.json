@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T22:57:29",
+  "ticker": "NRG",
+  "ticker_slug": "NRG",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NRG\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\NRG\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.75,
+    "precision": 0.961038961038961,
+    "ic": 0.4729950520252184,
+    "ic_p_value": 6.897707385373047e-14,
+    "gap": 0.022727272727272707,
+    "gap_signed": 0.022727272727272707,
+    "gap_abs": 0.022727272727272707,
+    "ic_first": 0.5113749207474597,
+    "ic_second": 0.7162587277185305,
+    "proba_std_test": 0.14494501054286957,
+    "proba_unique_test": 211,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

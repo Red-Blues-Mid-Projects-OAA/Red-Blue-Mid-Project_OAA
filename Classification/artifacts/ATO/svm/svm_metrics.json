@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T23:17:30",
+  "ticker": "ATO",
+  "ticker_slug": "ATO",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ATO\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ATO\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.36160714285714285,
+    "precision": 0.06666666666666667,
+    "ic": -0.39605701473414484,
+    "ic_p_value": 7.860531551839519e-10,
+    "gap": 0.326207426679281,
+    "gap_signed": 0.326207426679281,
+    "gap_abs": 0.326207426679281,
+    "ic_first": -0.34473126729763903,
+    "ic_second": -0.44170909215157006,
+    "proba_std_test": 0.13789935418714475,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "svm train_test_gap > 0.25"
+  ]
+}

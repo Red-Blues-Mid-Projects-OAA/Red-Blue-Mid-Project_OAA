@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T22:42:23",
+  "ticker": "CCI",
+  "ticker_slug": "CCI",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CCI\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CCI\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6741071428571429,
+    "precision": 0.3706896551724138,
+    "ic": 0.4268667026845152,
+    "ic_p_value": 2.46950007104747e-11,
+    "gap": 0.14862012987012985,
+    "gap_signed": 0.14862012987012985,
+    "gap_abs": 0.14862012987012985,
+    "ic_first": 0.6323459379247329,
+    "ic_second": 0.6379779058038049,
+    "proba_std_test": 0.1862032413482666,
+    "proba_unique_test": 217,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T21:50:21",
+  "ticker": "RMD",
+  "ticker_slug": "RMD",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\RMD\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\RMD\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6160714285714286,
+    "precision": 0.8076923076923077,
+    "ic": 0.3192696989109546,
+    "ic_p_value": 1.0609821350904872e-06,
+    "gap": 0.041323714916430054,
+    "gap_signed": 0.041323714916430054,
+    "gap_abs": 0.041323714916430054,
+    "ic_first": 0.044751768203095635,
+    "ic_second": -0.062459425291283704,
+    "proba_std_test": 0.11227301119579357,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

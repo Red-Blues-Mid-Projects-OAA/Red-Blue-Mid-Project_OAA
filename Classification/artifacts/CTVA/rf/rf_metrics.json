@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T15:26:20",
+  "generated_at": "2026-02-24T16:54:34",
   "ticker": "CTVA",
   "ticker_slug": "CTVA",
   "benchmark": "SP500",
@@ -28,7 +28,7 @@
     "gap_abs": 0.15584415584415584,
     "ic_first": -0.4540676754055015,
     "ic_second": 0.8071386532232704,
-    "proba_std_test": 0.009973386473640851,
+    "proba_std_test": 0.009973386473640853,
     "proba_unique_test": 199,
     "ic_degenerate": false,
     "overall_pass": false

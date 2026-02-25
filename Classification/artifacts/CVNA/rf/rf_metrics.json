@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T14:51:33",
+  "generated_at": "2026-02-24T16:21:09",
   "ticker": "CVNA",
   "ticker_slug": "CVNA",
   "benchmark": "SP500",
@@ -28,7 +28,7 @@
     "gap_abs": 0.47962662337662343,
     "ic_first": -0.5505518160385418,
     "ic_second": -0.4582806573957016,
-    "proba_std_test": 0.13868405884841187,
+    "proba_std_test": 0.1386840588484118,
     "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false

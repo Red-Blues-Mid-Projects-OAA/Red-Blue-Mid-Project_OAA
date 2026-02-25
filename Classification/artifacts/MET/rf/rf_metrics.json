@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T15:41:14",
+  "generated_at": "2026-02-24T17:08:43",
   "ticker": "MET",
   "ticker_slug": "MET",
   "benchmark": "SP500",
@@ -28,7 +28,7 @@
     "gap_abs": 0.17605519480519483,
     "ic_first": -0.6254911675265659,
     "ic_second": -0.2168483274677965,
-    "proba_std_test": 0.11443300758862614,
+    "proba_std_test": 0.11443300758862616,
     "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false

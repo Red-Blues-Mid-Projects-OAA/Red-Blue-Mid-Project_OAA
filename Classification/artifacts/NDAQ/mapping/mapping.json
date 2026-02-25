@@ -1,0 +1,23 @@
+{
+  "ticker": "NDAQ",
+  "benchmark": "SP500",
+  "p_latest": 0.5146713460218635,
+  "signal_raw": 0.02934269204372697,
+  "signal_clipped": 0.02934269204372697,
+  "IC_full": -0.7106470211402948,
+  "sigma_ols": 0.011573659196010862,
+  "sigma_ewma": 0.020639608075484667,
+  "sigma_final": 0.014293443859853004,
+  "TE_annual": 0.22690138699100526,
+  "TE_3M": 0.1107165400583227,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0023086941421309203,
+  "E_alpha_3M_simple": -0.0023060311575431314,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,23 @@
+{
+  "ticker": "TER",
+  "benchmark": "SP500",
+  "p_latest": 0.07230734954827946,
+  "signal_raw": -0.8553853009034411,
+  "signal_clipped": -0.8,
+  "IC_full": -0.5455156950672647,
+  "sigma_ols": 0.028296241533656237,
+  "sigma_ewma": 0.03575978825867079,
+  "sigma_final": 0.030535305551160602,
+  "TE_annual": 0.48473294817444623,
+  "TE_3M": 0.23652545974199982,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.1032226804578091,
+  "E_alpha_3M_simple": 0.10873827593565033,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

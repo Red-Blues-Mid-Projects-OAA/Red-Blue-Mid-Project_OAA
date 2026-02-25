@@ -1,0 +1,21 @@
+{
+  "ticker": "MSCI",
+  "benchmark": "SP500",
+  "p_latest": 0.45712095494275296,
+  "signal_raw": -0.08575809011449409,
+  "signal_clipped": -0.08575809011449409,
+  "IC_full": 0.19917360666239592,
+  "sigma_ols": 0.01652779629948386,
+  "sigma_ewma": 0.026385372711505838,
+  "sigma_final": 0.01948506922309045,
+  "TE_annual": 0.3093158846590552,
+  "TE_3M": 0.15093069720145602,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.0025780092207508152,
+  "E_alpha_3M_simple": -0.002574689008771558,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

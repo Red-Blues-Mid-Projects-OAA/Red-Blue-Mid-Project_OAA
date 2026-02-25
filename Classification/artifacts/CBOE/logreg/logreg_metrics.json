@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T23:09:07",
+  "ticker": "CBOE",
+  "ticker_slug": "CBOE",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CBOE\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CBOE\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.47767857142857145,
+    "precision": 0.4782608695652174,
+    "ic": 0.26987080931027124,
+    "ic_p_value": 4.26466589015477e-05,
+    "gap": 0.19391233766233767,
+    "gap_signed": 0.19391233766233767,
+    "gap_abs": 0.19391233766233767,
+    "ic_first": 0.29241124816346054,
+    "ic_second": 0.071010011275498,
+    "proba_std_test": 0.07063125553157898,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

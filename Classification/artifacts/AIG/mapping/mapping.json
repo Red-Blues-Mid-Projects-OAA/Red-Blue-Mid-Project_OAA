@@ -1,0 +1,21 @@
+{
+  "ticker": "AIG",
+  "benchmark": "SP500",
+  "p_latest": 0.6291171997229463,
+  "signal_raw": 0.25823439944589266,
+  "signal_clipped": 0.25823439944589266,
+  "IC_full": 0.24349348708093105,
+  "sigma_ols": 0.014159472244160387,
+  "sigma_ewma": 0.018920727287736607,
+  "sigma_final": 0.015587848757233253,
+  "TE_annual": 0.2474494277167586,
+  "TE_3M": 0.12074295727992876,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.007592123289513327,
+  "E_alpha_3M_simple": 0.007621016531601965,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

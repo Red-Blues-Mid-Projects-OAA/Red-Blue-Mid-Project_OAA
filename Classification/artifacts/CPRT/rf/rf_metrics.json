@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T21:05:57",
+  "ticker": "CPRT",
+  "ticker_slug": "CPRT",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CPRT\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CPRT\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7008928571428571,
+    "precision": 0.3469387755102041,
+    "ic": 0.444981849241939,
+    "ic_p_value": 2.724121313557905e-12,
+    "gap": 0.011607142857142927,
+    "gap_signed": 0.011607142857142927,
+    "gap_abs": 0.011607142857142927,
+    "ic_first": 0.748846824068063,
+    "ic_second": 0.0147350257969727,
+    "proba_std_test": 0.1513530662304534,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

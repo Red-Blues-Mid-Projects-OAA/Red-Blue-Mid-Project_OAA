@@ -1,0 +1,23 @@
+{
+  "ticker": "BDX",
+  "benchmark": "SP500",
+  "p_latest": 0.3263680942481356,
+  "signal_raw": -0.34726381150372876,
+  "signal_clipped": -0.34726381150372876,
+  "IC_full": -0.37327674567584884,
+  "sigma_ols": 0.016632013663752596,
+  "sigma_ewma": 0.018635293164010105,
+  "sigma_final": 0.017232997513829847,
+  "TE_annual": 0.2735653545947289,
+  "TE_3M": 0.13348622475259364,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.017303219354047553,
+  "E_alpha_3M_simple": 0.01745378723675084,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

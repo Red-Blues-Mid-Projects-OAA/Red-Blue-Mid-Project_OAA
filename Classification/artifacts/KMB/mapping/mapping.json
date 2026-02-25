@@ -1,0 +1,23 @@
+{
+  "ticker": "KMB",
+  "benchmark": "SP500",
+  "p_latest": 0.39311397096422357,
+  "signal_raw": -0.21377205807155286,
+  "signal_clipped": -0.21377205807155286,
+  "IC_full": -0.11757740764467223,
+  "sigma_ols": 0.016626495226902016,
+  "sigma_ewma": 0.016342496939246963,
+  "sigma_final": 0.016541295740605498,
+  "TE_annual": 0.26258492935448474,
+  "TE_3M": 0.12812832585611356,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0032204752852714553,
+  "E_alpha_3M_simple": 0.003225666587126863,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

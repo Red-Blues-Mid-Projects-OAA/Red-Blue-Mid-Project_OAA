@@ -1,0 +1,50 @@
+{
+  "ticker": "COIN",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.09262972453555415,
+  "ic_pvalue": 0.16710358777321532,
+  "ic_first_half": 0.06042641883349848,
+  "ic_second_half": -0.3074367034544026,
+  "accuracy_ref": 0.53125,
+  "precision_ref": 0.4117647058823529,
+  "train_accuracy_ref": 0.7767857142857143,
+  "gap_ref": 0.2455357142857143,
+  "gap_signed_ref": 0.2455357142857143,
+  "gap_abs_ref": 0.2455357142857143,
+  "proba_std_test": 0.1143137693059722,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.26810554153484756,
+    "mean": 0.5020894807740315,
+    "max": 0.790379354914889
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.6538780268384716,
+    "mean": 0.7683648542792413,
+    "max": 0.8317542327567471
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.7747782653895798
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

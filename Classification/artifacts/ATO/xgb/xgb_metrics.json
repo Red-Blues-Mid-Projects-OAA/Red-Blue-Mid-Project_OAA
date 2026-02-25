@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T23:17:30",
+  "ticker": "ATO",
+  "ticker_slug": "ATO",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ATO\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\ATO\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.32142857142857145,
+    "precision": 0.20388349514563106,
+    "ic": -0.546880204996797,
+    "ic_p_value": 7.16620309055679e-19,
+    "gap": 0.549025974025974,
+    "gap_signed": 0.549025974025974,
+    "gap_abs": 0.549025974025974,
+    "ic_first": -0.5504834796870196,
+    "ic_second": -0.6242269450234053,
+    "proba_std_test": 0.18402957916259766,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T17:51:53",
+  "ticker": "OXY",
+  "ticker_slug": "OXY",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OXY\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OXY\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6875,
+    "precision": 0.1891891891891892,
+    "ic": 0.5226767029681829,
+    "ic_p_value": 4.1945357306546556e-17,
+    "gap": 0.02840909090909094,
+    "gap_signed": 0.02840909090909094,
+    "gap_abs": 0.02840909090909094,
+    "ic_first": 0.6325212696894114,
+    "ic_second": 0.37998428263914996,
+    "proba_std_test": 0.16222691198756828,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

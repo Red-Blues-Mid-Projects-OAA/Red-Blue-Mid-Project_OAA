@@ -1,0 +1,21 @@
+{
+  "ticker": "EL",
+  "benchmark": "SP500",
+  "p_latest": 0.44473189950161574,
+  "signal_raw": -0.11053620099676853,
+  "signal_clipped": -0.11053620099676853,
+  "IC_full": 0.08957399103139015,
+  "sigma_ols": 0.02785094365152568,
+  "sigma_ewma": 0.04172119770221378,
+  "sigma_final": 0.032012019866732105,
+  "TE_annual": 0.5081750611933932,
+  "TE_3M": 0.24796403964462888,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.002455133782284459,
+  "E_alpha_3M_simple": -0.0024521224062877822,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

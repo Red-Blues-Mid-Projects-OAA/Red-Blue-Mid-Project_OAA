@@ -1,0 +1,21 @@
+{
+  "ticker": "FAST",
+  "benchmark": "SP500",
+  "p_latest": 0.5824967755437862,
+  "signal_raw": 0.1649935510875724,
+  "signal_clipped": 0.1649935510875724,
+  "IC_full": 0.44655882980995093,
+  "sigma_ols": 0.014054292781276612,
+  "sigma_ewma": 0.017450018049606407,
+  "sigma_final": 0.015073010361775552,
+  "TE_annual": 0.23927662155814697,
+  "TE_3M": 0.1167550362167371,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.008602432503968353,
+  "E_alpha_3M_simple": 0.00863953975434506,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

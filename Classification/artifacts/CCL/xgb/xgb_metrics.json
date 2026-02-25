@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-02-24T20:01:57",
+  "ticker": "CCL",
+  "ticker_slug": "CCL",
+  "benchmark": "SP500",
+  "model": "xgb",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CCL\\xgb\\xgb_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\CCL\\xgb\\xgb_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.40625,
+    "precision": 0.43884892086330934,
+    "ic": -0.28446417065142354,
+    "ic_p_value": 1.5371039787819082e-05,
+    "gap": 0.4244318181818182,
+    "gap_signed": 0.4244318181818182,
+    "gap_abs": 0.4244318181818182,
+    "ic_first": -0.4819868879109458,
+    "ic_second": 0.13750982335053133,
+    "proba_std_test": 0.2681211531162262,
+    "proba_unique_test": 222,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": [
+    "xgb train_test_gap > 0.25"
+  ]
+}

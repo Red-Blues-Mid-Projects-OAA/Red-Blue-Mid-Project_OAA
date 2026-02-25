@@ -1,0 +1,21 @@
+{
+  "ticker": "AXON",
+  "benchmark": "SP500",
+  "p_latest": 0.39589888738287726,
+  "signal_raw": -0.20820222523424547,
+  "signal_clipped": -0.20820222523424547,
+  "IC_full": 0.36789344437326504,
+  "sigma_ols": 0.028423332574652817,
+  "sigma_ewma": 0.03228295704810286,
+  "sigma_final": 0.02958121991668783,
+  "TE_annual": 0.46958730826480083,
+  "TE_3M": 0.22913514419566225,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.017550889069184797,
+  "E_alpha_3M_simple": -0.01739776932016779,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

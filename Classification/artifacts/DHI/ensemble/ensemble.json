@@ -25,7 +25,7 @@
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.4055358416459132,
+    "min": 0.4055358416459133,
     "mean": 0.6591001744113824,
     "max": 0.7826926984721558
   },

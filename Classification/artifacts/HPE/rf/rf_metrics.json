@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-25T00:00:52",
+  "ticker": "HPE",
+  "ticker_slug": "HPE",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\HPE\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\HPE\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.8348214285714286,
+    "precision": 0.7692307692307693,
+    "ic": 0.7787913213320751,
+    "ic_p_value": 7.456235369980895e-47,
+    "gap": 0.12004870129870138,
+    "gap_signed": -0.12004870129870138,
+    "gap_abs": 0.12004870129870138,
+    "ic_first": 0.7820222332513029,
+    "ic_second": 0.8058837724327591,
+    "proba_std_test": 0.16551772076931887,
+    "proba_unique_test": 212,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

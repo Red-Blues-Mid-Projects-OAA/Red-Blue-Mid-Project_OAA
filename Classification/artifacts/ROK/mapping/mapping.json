@@ -1,0 +1,21 @@
+{
+  "ticker": "ROK",
+  "benchmark": "SP500",
+  "p_latest": 0.4485575516738341,
+  "signal_raw": -0.1028848966523318,
+  "signal_clipped": -0.1028848966523318,
+  "IC_full": 0.39657164210975876,
+  "sigma_ols": 0.01680235054370892,
+  "sigma_ewma": 0.018283433590904268,
+  "sigma_final": 0.017246675457867525,
+  "TE_annual": 0.273782485224951,
+  "TE_3M": 0.1335921736515302,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.005450725325808528,
+  "E_alpha_3M_simple": -0.005435897076324636,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

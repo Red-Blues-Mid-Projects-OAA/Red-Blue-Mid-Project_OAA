@@ -1,0 +1,21 @@
+{
+  "ticker": "CCI",
+  "benchmark": "SP500",
+  "p_latest": 0.3143918328933512,
+  "signal_raw": -0.3712163342132976,
+  "signal_clipped": -0.3712163342132976,
+  "IC_full": 0.58111467008328,
+  "sigma_ols": 0.0179575021886033,
+  "sigma_ewma": 0.02644045817364893,
+  "sigma_final": 0.020502388984116986,
+  "TE_annual": 0.32546533520810245,
+  "TE_3M": 0.158810822185903,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.034258552658547,
+  "E_alpha_3M_simple": -0.03367837269007745,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

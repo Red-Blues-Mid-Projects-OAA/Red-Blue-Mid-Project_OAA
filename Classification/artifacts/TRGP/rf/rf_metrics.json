@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T15:12:40",
+  "generated_at": "2026-02-24T16:41:07",
   "ticker": "TRGP",
   "ticker_slug": "TRGP",
   "benchmark": "SP500",
@@ -28,7 +28,7 @@
     "gap_abs": 0.39626623376623377,
     "ic_first": 0.5825930228585096,
     "ic_second": -0.2801277889773465,
-    "proba_std_test": 0.09370598487018685,
+    "proba_std_test": 0.09370598487018682,
     "proba_unique_test": 224,
     "ic_degenerate": false,
     "overall_pass": false

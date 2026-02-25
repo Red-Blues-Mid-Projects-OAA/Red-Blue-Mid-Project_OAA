@@ -1,0 +1,21 @@
+{
+  "ticker": "NRG",
+  "benchmark": "SP500",
+  "p_latest": 0.45912077195513024,
+  "signal_raw": -0.08175845608973953,
+  "signal_clipped": -0.08175845608973953,
+  "IC_full": 0.4549156523595987,
+  "sigma_ols": 0.025269100495427906,
+  "sigma_ewma": 0.02656534857121487,
+  "sigma_final": 0.025657974918163993,
+  "TE_annual": 0.4073077246739686,
+  "TE_3M": 0.19874581911091352,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.007391993275210747,
+  "E_alpha_3M_simple": -0.007364739687046207,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

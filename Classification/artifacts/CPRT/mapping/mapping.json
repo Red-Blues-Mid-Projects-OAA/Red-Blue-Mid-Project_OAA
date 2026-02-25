@@ -1,0 +1,21 @@
+{
+  "ticker": "CPRT",
+  "benchmark": "SP500",
+  "p_latest": 0.605232508684881,
+  "signal_raw": 0.21046501736976198,
+  "signal_clipped": 0.21046501736976198,
+  "IC_full": 0.491322869955157,
+  "sigma_ols": 0.013985004399275967,
+  "sigma_ewma": 0.020335953063210965,
+  "sigma_final": 0.015890288998456466,
+  "TE_annual": 0.2522505177051686,
+  "TE_3M": 0.12308564931488965,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.012727828668916093,
+  "E_alpha_3M_simple": 0.012809172222816967,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

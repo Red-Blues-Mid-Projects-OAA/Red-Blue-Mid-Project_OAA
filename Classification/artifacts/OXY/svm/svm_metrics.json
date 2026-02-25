@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T17:51:51",
+  "ticker": "OXY",
+  "ticker_slug": "OXY",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OXY\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\OXY\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6785714285714286,
+    "precision": 0.2549019607843137,
+    "ic": 0.43614456544949826,
+    "ic_p_value": 8.116429767371584e-12,
+    "gap": 0.031909807631661846,
+    "gap_signed": 0.031909807631661846,
+    "gap_abs": 0.031909807631661846,
+    "ic_first": 0.5992072983223425,
+    "ic_second": 0.3173027642054191,
+    "proba_std_test": 0.09936775528524845,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

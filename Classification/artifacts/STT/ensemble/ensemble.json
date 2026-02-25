@@ -1,0 +1,50 @@
+{
+  "ticker": "STT",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": -0.15586269485372628,
+  "ic_pvalue": 0.019597285246242872,
+  "ic_first_half": -0.16552772747463013,
+  "ic_second_half": -0.09632008747052996,
+  "accuracy_ref": 0.5267857142857143,
+  "precision_ref": 0.7027027027027027,
+  "train_accuracy_ref": 0.8375,
+  "gap_ref": 0.3107142857142857,
+  "gap_signed_ref": 0.3107142857142857,
+  "gap_abs_ref": 0.3107142857142857,
+  "proba_std_test": 0.04749801535426385,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.3783551752935051,
+    "mean": 0.4994595427896607,
+    "max": 0.588157642452282
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.400520823773545,
+    "mean": 0.4782996112205814,
+    "max": 0.5910155073660562
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.5556678855855269
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "ticker": "HBAN",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.5560666239590007,
+  "ic_pvalue": 1.4006275382117035e-19,
+  "ic_first_half": 0.5465626815184337,
+  "ic_second_half": 0.5867273721256022,
+  "accuracy_ref": 0.7232142857142857,
+  "precision_ref": 0.6555555555555556,
+  "train_accuracy_ref": 0.8318181818181818,
+  "gap_ref": 0.10860389610389609,
+  "gap_signed_ref": 0.10860389610389609,
+  "gap_abs_ref": 0.10860389610389609,
+  "proba_std_test": 0.10257143728774502,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.27777386022222006,
+    "mean": 0.483228832131008,
+    "max": 0.662429351812804
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.3602558920999714,
+    "mean": 0.5273289255311487,
+    "max": 0.6526040706267012
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.5592285889577637
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

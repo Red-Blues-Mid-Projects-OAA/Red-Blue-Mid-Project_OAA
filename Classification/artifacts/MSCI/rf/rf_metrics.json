@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T22:13:51",
+  "ticker": "MSCI",
+  "ticker_slug": "MSCI",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MSCI\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\MSCI\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.5803571428571429,
+    "precision": 0.13157894736842105,
+    "ic": -0.21167046008714724,
+    "ic_p_value": 0.0014402911989433713,
+    "gap": 0.09009740259740251,
+    "gap_signed": 0.09009740259740251,
+    "gap_abs": 0.09009740259740251,
+    "ic_first": -0.6559406839217043,
+    "ic_second": 0.44225578296374757,
+    "proba_std_test": 0.06093175874982693,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

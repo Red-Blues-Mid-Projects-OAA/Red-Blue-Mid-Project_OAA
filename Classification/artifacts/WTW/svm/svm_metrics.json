@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T23:55:13",
+  "ticker": "WTW",
+  "ticker_slug": "WTW",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\WTW\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\WTW\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.2767857142857143,
+    "precision": 0.2767857142857143,
+    "ic": 0.17877021009001232,
+    "ic_p_value": 0.0073126580113217965,
+    "gap": 0.2145608640807316,
+    "gap_signed": 0.2145608640807316,
+    "gap_abs": 0.2145608640807316,
+    "ic_first": 0.17123527553222817,
+    "ic_second": 0.14700003416817575,
+    "proba_std_test": 2.022017151517928e-06,
+    "proba_unique_test": 15,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

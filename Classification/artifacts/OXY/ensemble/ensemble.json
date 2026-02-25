@@ -1,0 +1,50 @@
+{
+  "ticker": "OXY",
+  "benchmark": "SP500",
+  "weights": {
+    "xgb": 0.25,
+    "svm": 0.25,
+    "rf": 0.25,
+    "logreg": 0.25
+  },
+  "n_test_samples": 224,
+  "test_start": "2025-01-02",
+  "test_end": "2025-11-21",
+  "ic_full": 0.47798740123852235,
+  "ic_pvalue": 3.4560451987016827e-14,
+  "ic_first_half": 0.6411914442887895,
+  "ic_second_half": 0.27064612020364237,
+  "accuracy_ref": 0.6964285714285714,
+  "precision_ref": 0.23076923076923078,
+  "train_accuracy_ref": 0.7909090909090909,
+  "gap_ref": 0.0944805194805195,
+  "gap_signed_ref": 0.0944805194805195,
+  "gap_abs_ref": 0.0944805194805195,
+  "proba_std_test": 0.11079553571301799,
+  "proba_unique_test": 224,
+  "ic_degenerate": false,
+  "optimize_profile": "balanced",
+  "p_ens_test_stats": {
+    "min": 0.24102259284225347,
+    "mean": 0.3758824994876781,
+    "max": 0.6528243258578572
+  },
+  "future_window": {
+    "n_samples": 60,
+    "start": "2025-11-24",
+    "end": "2026-02-20"
+  },
+  "p_ens_future_stats": {
+    "min": 0.2511089949233145,
+    "mean": 0.2830351470579752,
+    "max": 0.3488349410534167
+  },
+  "latest_future_prediction": {
+    "trade_date": "2026-02-20",
+    "p_ens": 0.30743220657984427
+  },
+  "p_ens_column_location": {
+    "test": "df_test_probs['p_ens'] (runtime)",
+    "future": "df_future_probs['p_ens'] (runtime)"
+  }
+}

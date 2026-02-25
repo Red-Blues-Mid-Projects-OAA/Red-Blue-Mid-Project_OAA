@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T21:50:25",
+  "ticker": "RMD",
+  "ticker_slug": "RMD",
+  "benchmark": "SP500",
+  "model": "rf",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\RMD\\rf\\rf_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\RMD\\rf\\rf_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.6071428571428571,
+    "precision": 0.8181818181818182,
+    "ic": 0.649317918353087,
+    "ic_p_value": 3.306658254534349e-28,
+    "gap": 0.11785714285714288,
+    "gap_signed": 0.11785714285714288,
+    "gap_abs": 0.11785714285714288,
+    "ic_first": 0.0010165032288926095,
+    "ic_second": 0.059034191739533386,
+    "proba_std_test": 0.12376160302430453,
+    "proba_unique_test": 223,
+    "ic_degenerate": false,
+    "overall_pass": false
+  },
+  "warnings": []
+}

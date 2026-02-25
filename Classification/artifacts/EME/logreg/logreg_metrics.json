@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T20:18:56",
+  "ticker": "EME",
+  "ticker_slug": "EME",
+  "benchmark": "SP500",
+  "model": "logreg",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\EME\\logreg\\logreg_best_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\EME\\logreg\\logreg_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.8035714285714286,
+    "precision": 0.7712765957446809,
+    "ic": 0.8847715139867608,
+    "ic_p_value": 1.4715256754203936e-75,
+    "gap": 0.0728896103896104,
+    "gap_signed": -0.0728896103896104,
+    "gap_abs": 0.0728896103896104,
+    "ic_first": 0.8201301807496497,
+    "ic_second": 0.8474561793145864,
+    "proba_std_test": 0.29182752060550426,
+    "proba_unique_test": 215,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

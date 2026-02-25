@@ -1,0 +1,21 @@
+{
+  "ticker": "DDOG",
+  "benchmark": "SP500",
+  "p_latest": 0.6413208917154674,
+  "signal_raw": 0.2826417834309347,
+  "signal_clipped": 0.2826417834309347,
+  "IC_full": 0.24262331838565027,
+  "sigma_ols": 0.025324549522746504,
+  "sigma_ewma": 0.04181851926666277,
+  "sigma_final": 0.030272740445921383,
+  "TE_annual": 0.48056485634588736,
+  "TE_3M": 0.23449163918222643,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.016080378450596945,
+  "E_alpha_3M_simple": 0.016210363537971784,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 1613,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

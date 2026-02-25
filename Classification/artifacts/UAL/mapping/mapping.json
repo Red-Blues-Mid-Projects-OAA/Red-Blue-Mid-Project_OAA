@@ -1,0 +1,21 @@
+{
+  "ticker": "UAL",
+  "benchmark": "SP500",
+  "p_latest": 0.23252431109768829,
+  "signal_raw": -0.5349513778046234,
+  "signal_clipped": -0.5349513778046234,
+  "IC_full": 0.7066058082425797,
+  "sigma_ols": 0.02703996039025712,
+  "sigma_ewma": 0.028725614062098868,
+  "sigma_final": 0.027545656491809643,
+  "TE_annual": 0.4372737406640413,
+  "TE_3M": 0.21336773770625794,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.08065295165699969,
+  "E_alpha_3M_simple": -0.07748620722074462,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

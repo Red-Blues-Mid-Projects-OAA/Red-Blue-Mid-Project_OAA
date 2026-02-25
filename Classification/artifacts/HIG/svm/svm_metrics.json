@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-02-24T21:43:51",
+  "ticker": "HIG",
+  "ticker_slug": "HIG",
+  "benchmark": "SP500",
+  "model": "svm",
+  "run_context": {
+    "source": "multi_ticker.run_all_tickers",
+    "optimize_profile": "balanced",
+    "n_trials": 100,
+    "force_retune_all": true,
+    "model_status": "normal",
+    "params_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\HIG\\svm\\best_svm_params.json",
+    "result_plot_path": "C:\\Users\\user\\Desktop\\Project\\Classification\\artifacts\\HIG\\svm\\svm_classifier_result.png"
+  },
+  "data_context": {
+    "n_test_samples": 224,
+    "test_period_start": "2025-01-02T00:00:00",
+    "test_period_end": "2025-11-21T00:00:00"
+  },
+  "metrics": {
+    "accuracy": 0.7410714285714286,
+    "precision": 0.6233766233766234,
+    "ic": 0.8651174460815717,
+    "ic_p_value": 1.836657770304257e-68,
+    "gap": 0.002669662567013731,
+    "gap_signed": -0.002669662567013731,
+    "gap_abs": 0.002669662567013731,
+    "ic_first": 0.883196091160693,
+    "ic_second": 0.7524259404790379,
+    "proba_std_test": 0.17149015143233895,
+    "proba_unique_test": 224,
+    "ic_degenerate": false,
+    "overall_pass": true
+  },
+  "warnings": []
+}

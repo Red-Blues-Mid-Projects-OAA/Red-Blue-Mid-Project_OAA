@@ -1,0 +1,21 @@
+{
+  "ticker": "LEN",
+  "benchmark": "SP500",
+  "p_latest": 0.6041837963806218,
+  "signal_raw": 0.20836759276124361,
+  "signal_clipped": 0.20836759276124361,
+  "IC_full": 0.24009929532351063,
+  "sigma_ols": 0.02033686999497288,
+  "sigma_ewma": 0.024114154028001974,
+  "sigma_final": 0.021470055204881607,
+  "TE_annual": 0.3408265602416679,
+  "TE_3M": 0.16630633250132068,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.008320124905387903,
+  "E_alpha_3M_simple": 0.008354833337326895,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

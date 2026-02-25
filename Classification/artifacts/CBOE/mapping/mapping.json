@@ -1,0 +1,23 @@
+{
+  "ticker": "CBOE",
+  "benchmark": "SP500",
+  "p_latest": 0.38208984622535,
+  "signal_raw": -0.23582030754929995,
+  "signal_clipped": -0.23582030754929995,
+  "IC_full": -0.004218449711723254,
+  "sigma_ols": 0.018005571683834286,
+  "sigma_ewma": 0.01670275246552708,
+  "sigma_final": 0.017614725918342122,
+  "TE_annual": 0.27962510515498257,
+  "TE_3M": 0.13644308025949436,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.00013573304526023113,
+  "E_alpha_3M_simple": 0.00013574225740686785,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

@@ -1,0 +1,23 @@
+{
+  "ticker": "ACGL",
+  "benchmark": "SP500",
+  "p_latest": 0.457515497830137,
+  "signal_raw": -0.08496900433972598,
+  "signal_clipped": -0.08496900433972598,
+  "IC_full": -0.24848281016442458,
+  "sigma_ols": 0.015577348333250498,
+  "sigma_ewma": 0.01953235879260309,
+  "sigma_final": 0.016763851471056274,
+  "TE_annual": 0.2661178920482352,
+  "TE_3M": 0.12985223513139132,
+  "phi": 1.0,
+  "E_alpha_3M_log": 0.0027416139973130468,
+  "E_alpha_3M_simple": 0.002745375657856375,
+  "warnings": [
+    "예측력 부재/역방향 가능성: IC_full <= 0"
+  ],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}

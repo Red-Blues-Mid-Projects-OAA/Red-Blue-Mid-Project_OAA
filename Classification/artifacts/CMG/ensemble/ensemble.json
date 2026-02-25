@@ -41,7 +41,7 @@
   },
   "latest_future_prediction": {
     "trade_date": "2026-02-20",
-    "p_ens": 0.8943671057005762
+    "p_ens": 0.894367105700576
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

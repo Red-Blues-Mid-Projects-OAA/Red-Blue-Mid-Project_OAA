@@ -20,7 +20,7 @@
   "gap_ref": 0.3940746753246754,
   "gap_signed_ref": 0.3940746753246754,
   "gap_abs_ref": 0.3940746753246754,
-  "proba_std_test": 0.17376766093597137,
+  "proba_std_test": 0.1737676609359714,
   "proba_unique_test": 224,
   "ic_degenerate": false,
   "optimize_profile": "balanced",

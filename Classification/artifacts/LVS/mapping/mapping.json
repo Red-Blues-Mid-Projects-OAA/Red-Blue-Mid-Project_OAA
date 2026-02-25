@@ -1,0 +1,21 @@
+{
+  "ticker": "LVS",
+  "benchmark": "SP500",
+  "p_latest": 0.319592880742412,
+  "signal_raw": -0.360814238515176,
+  "signal_clipped": -0.360814238515176,
+  "IC_full": 0.4622891308989965,
+  "sigma_ols": 0.020581392560987583,
+  "sigma_ewma": 0.028105088778708303,
+  "sigma_final": 0.0228385014263038,
+  "TE_annual": 0.3625499705483628,
+  "TE_3M": 0.17690627135281792,
+  "phi": 1.0,
+  "E_alpha_3M_log": -0.029508054645548443,
+  "E_alpha_3M_simple": -0.029076942831381514,
+  "warnings": [],
+  "lookback_days_requested": 252,
+  "lookback_days_used": 2799,
+  "horizon_days": 60,
+  "latest_trade_date": "2026-02-20"
+}
