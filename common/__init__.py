@@ -2,6 +2,7 @@
 
 from datetime import datetime, timedelta
 import builtins
+import locale
 import os
 import sys
 
@@ -39,12 +40,31 @@ def _try_repair_mojibake(text: str) -> str:
 
 
 def _configure_console_encoding() -> None:
-    # Enforce UTF-8 output for redirected logs and terminal output.
+    """
+    Normalize output encoding without breaking legacy Windows cp949 terminals.
+
+    - Interactive non-UTF terminals (e.g., code page 949): keep stream encoding as-is.
+    - Redirected output / UTF terminals: prefer UTF-8 for stable log files.
+    """
+
+    streams = [getattr(sys, "stdout", None), getattr(sys, "stderr", None)]
+
+    interactive_non_utf_terminal = any(
+        stream is not None
+        and hasattr(stream, "isatty")
+        and stream.isatty()
+        and "utf" not in str(getattr(stream, "encoding", "")).lower()
+        for stream in streams
+    )
+
+    preferred = str(locale.getpreferredencoding(False) or "").lower()
+    if interactive_non_utf_terminal and "utf" not in preferred:
+        return
+
     os.environ.setdefault("PYTHONUTF8", "1")
     os.environ.setdefault("PYTHONIOENCODING", "utf-8")
 
-    for stream_name in ("stdout", "stderr"):
-        stream = getattr(sys, stream_name, None)
+    for stream in streams:
         if stream is not None and hasattr(stream, "reconfigure"):
             try:
                 stream.reconfigure(encoding="utf-8", errors="replace")
