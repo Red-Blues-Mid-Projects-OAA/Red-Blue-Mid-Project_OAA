@@ -29,6 +29,15 @@ function App() {
     }
   };
 
+  // 새로운 UX 요구사항: 뒤로 가기
+  const handleBack = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prev => prev - 1);
+      // 가장 최근에 고른 답변을 제거
+      setAnswers(prev => prev.slice(0, -1));
+    }
+  };
+
   const handleSliderComplete = (value) => {
     setLossLimit(value);
     setCurrentView('LOADING');
@@ -96,7 +105,8 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    // 전체 컨테이너 및 뷰포트 확장 반응형 대응
+    <div className="app-container max-w-6xl mx-auto px-4 min-h-screen py-8">
       {currentView === 'INTRO' && <Intro onStart={handleStart} />}
 
       {currentView === 'QUESTION' && (
@@ -105,6 +115,7 @@ function App() {
           step={currentQuestionIndex + 1}
           totalSteps={QUESTIONS.length}
           onAnswer={handleAnswer}
+          onBack={handleBack}
         />
       )}
 

@@ -4,6 +4,9 @@ import './LossSlider.css';
 function LossSlider({ onComplete }) {
     // Value goes from -5 to -33 (represented as positive numbers for the slider 5 to 33)
     const [lossValue, setLossValue] = useState(5);
+    // 슬라이더 건드렸는지 여부 추적 (Bonus UX requirement)
+    const [isSliderTouched, setIsSliderTouched] = useState(false);
+    const [showWarning, setShowWarning] = useState(false);
 
     const getFeedback = (value) => {
         if (value <= 10) return { label: '초보수적', color: '#10b981', desc: '은행 예적금과 원금 보장을 사랑하는 당신' };
@@ -22,10 +25,17 @@ function LossSlider({ onComplete }) {
     };
 
     const handleSliderChange = (e) => {
+        setIsSliderTouched(true);
+        if (showWarning) setShowWarning(false);
         setLossValue(parseInt(e.target.value, 10));
     };
 
     const submitLoss = () => {
+        if (!isSliderTouched) {
+            setShowWarning(true);
+            setTimeout(() => setShowWarning(false), 3000);
+            return;
+        }
         // 백엔드로 전송할 때는 음수 변환
         onComplete(-lossValue);
     };
@@ -33,7 +43,7 @@ function LossSlider({ onComplete }) {
     const feedback = getFeedback(lossValue);
 
     return (
-        <div className="slider-container animate-fade-in">
+        <div className="slider-container animate-fade-in max-w-xl mx-auto">
             <div className="slider-header animate-slide-up" style={{ animationDelay: '0.1s' }}>
                 <h2>마지막으로 묻습니다.</h2>
                 <p>당신의 소중한 투자금 <strong>1,000만 원</strong>.</p>
@@ -56,25 +66,31 @@ function LossSlider({ onComplete }) {
                     max="33"
                     value={lossValue}
                     onChange={handleSliderChange}
-                    className="range-slider"
+                    className="range-slider cursor-pointer"
                     style={{
                         background: `linear-gradient(to right, ${feedback.color} ${((lossValue - 5) / 28) * 100}%, rgba(255,255,255,0.1) ${((lossValue - 5) / 28) * 100}%)`
                     }}
                 />
 
-                <div className="slider-labels">
+                <div className="slider-labels text-sm mt-2 text-gray-400">
                     <span>안전 (-5%)</span>
                     <span>위험 (-33%)</span>
                 </div>
 
-                <div className="feedback-box" style={{ borderColor: feedback.color }}>
-                    <h3 style={{ color: feedback.color }}>{feedback.label}</h3>
-                    <p>{feedback.desc}</p>
+                <div className="feedback-box mt-6" style={{ borderColor: feedback.color }}>
+                    <h3 className="font-bold text-xl mb-2" style={{ color: feedback.color }}>{feedback.label}</h3>
+                    <p className="text-gray-300">{feedback.desc}</p>
                 </div>
             </div>
 
+            {showWarning && (
+                <div className="text-red-400 text-sm font-bold mt-4 animate-bounce bg-red-500/10 border border-red-500/20 py-2 px-4 rounded-xl">
+                    ⚠️ 위험한도를 슬라이더로 직접 조절해주세요!
+                </div>
+            )}
+
             <button
-                className="btn btn-primary submit-btn animate-slide-up"
+                className="btn btn-primary submit-btn animate-slide-up mt-6 hover:-translate-y-1 hover:shadow-lg transition-all"
                 style={{ animationDelay: '0.3s' }}
                 onClick={submitLoss}
             >
