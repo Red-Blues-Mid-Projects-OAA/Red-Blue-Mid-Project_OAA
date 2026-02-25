@@ -41,10 +41,12 @@ E_RM_ANNUAL = 0.105
 HORIZON_DAYS = 60
 # 벤치마크 3개월 기대수익률
 E_RM_3M = E_RM_ANNUAL * (HORIZON_DAYS / 252)
-# 완벽한 덧셈 호환을 위한 벤치마크 3개월 로그 기대수익률
+# 벤치마크 3개월 로그 기대수익률 (완벽한 덧셈 호환용)
 E_RM_3M_LOG = math.log(1 + E_RM_3M)
-# 비례 조정 최대 강도 도달 기준 (괴리가 이 값 이상이면 weight=1.0)
-ADJUSTMENT_THRESHOLD = 0.10
+
+# Tanh 비선형 조정을 위한 상수 (가중치 최대 허용치 3.0배, 기준 스케일 20% 괴리율)
+MAX_ADJUSTMENT_WEIGHT = 3.0
+GAP_SCALE_FACTOR = 0.20
 
 
 def _load_final_csv() -> pd.DataFrame:
@@ -134,8 +136,12 @@ def run_regime_adjustment() -> pd.DataFrame:
 
         # ── Step 4: Graduated Momentum Tracking Overlay ─────────
         gap = abs(e_total - realized)
-        # 비례 가중치: gap이 작으면 약한 조정, 클수록 강한 조정
-        adj_weight = min(1.0, gap / ADJUSTMENT_THRESHOLD)
+        
+        # Tanh (쌍곡탄젠트) 비선형 가중치 산출
+        # - 작은 Gap (ex: 2%): 가중치를 거의 0으로 억눌러 노이즈 차단
+        # - 중간 Gap (ex: 20%): S커브의 가파른 구간을 타며 적극 보정
+        # - 극단적 Gap (ex: 50%+): 최대 MAX_ADJUSTMENT_WEIGHT(3.0) 배수로 부드럽게 수렴 (무한폭주 방지)
+        adj_weight = MAX_ADJUSTMENT_WEIGHT * math.tanh((gap / GAP_SCALE_FACTOR) ** 2)
 
         # 실현 수익률의 방향(부호)으로 변동성 부호 결정
         sign = 1.0 if realized >= 0 else -1.0
