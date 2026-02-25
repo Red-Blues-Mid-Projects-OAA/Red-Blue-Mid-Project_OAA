@@ -1,23 +1,12 @@
 {
   "ticker": "PEP",
-  "benchmark": "SP500",
-  "p_latest": 0.42179119013081207,
-  "signal_raw": -0.15641761973837587,
-  "signal_clipped": -0.15641761973837587,
-  "IC_full": -0.07125560538116593,
-  "sigma_ols": 0.015535749209604294,
-  "sigma_ewma": 0.017228710273289847,
-  "sigma_final": 0.016043637528709957,
-  "TE_annual": 0.25468485015497666,
-  "TE_3M": 0.12427348192256399,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.0013851065200742544,
-  "E_alpha_3M_simple": 0.0013860662231561793,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.08629549017596741,
+  "beta_ewma": 0.04085669529927798,
+  "beta_final": 0.07266385171296058,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.009936455678285395,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

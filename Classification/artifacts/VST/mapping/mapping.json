@@ -1,23 +1,12 @@
 {
   "ticker": "VST",
-  "benchmark": "SP500",
-  "p_latest": 0.5901305163543431,
-  "signal_raw": 0.1802610327086862,
-  "signal_clipped": 0.1802610327086862,
-  "IC_full": -0.030415332052103356,
-  "sigma_ols": 0.03545024253172762,
-  "sigma_ewma": 0.032134447359020886,
-  "sigma_final": 0.0344555039799156,
-  "TE_annual": 0.5469641689695175,
-  "TE_3M": 0.266891186198793,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.0014632840839554496,
-  "E_alpha_3M_simple": -0.0014622140058067057,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2356,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 2.0465814129314426,
+  "beta_ewma": 1.103027935171384,
+  "beta_final": 1.763515369603425,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.036680641258637015,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

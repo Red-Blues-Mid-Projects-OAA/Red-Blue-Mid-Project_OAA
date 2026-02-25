@@ -1,23 +1,12 @@
 {
   "ticker": "PG",
-  "benchmark": "SP500",
-  "p_latest": 0.27413147041589564,
-  "signal_raw": -0.4517370591682087,
-  "signal_clipped": -0.4517370591682087,
-  "IC_full": -0.0003929105274396755,
-  "sigma_ols": 0.014140522052377898,
-  "sigma_ewma": 0.0152148019028999,
-  "sigma_final": 0.014462806007534499,
-  "TE_annual": 0.22958992773664344,
-  "TE_3M": 0.1120284136132194,
-  "phi": 1.0,
-  "E_alpha_3M_log": 1.988417476839728e-05,
-  "E_alpha_3M_simple": 1.9884372459921806e-05,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.07888930229404845,
+  "beta_ewma": -0.4173669288032121,
+  "beta_final": -0.0699875670351297,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.00764707819591661,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

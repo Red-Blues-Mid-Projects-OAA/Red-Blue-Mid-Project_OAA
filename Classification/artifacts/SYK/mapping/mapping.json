@@ -1,23 +1,12 @@
 {
   "ticker": "SYK",
-  "benchmark": "SP500",
-  "p_latest": 0.5465770159776546,
-  "signal_raw": 0.09315403195530925,
-  "signal_clipped": 0.09315403195530925,
-  "IC_full": -0.2829649797138587,
-  "sigma_ols": 0.011775977875060453,
-  "sigma_ewma": 0.015378215077347547,
-  "sigma_final": 0.01285664903574658,
-  "TE_annual": 0.20409297625334294,
-  "TE_3M": 0.09958717520696031,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.002625051091808779,
-  "E_alpha_3M_simple": -0.00262160865803851,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.6426077868100533,
+  "beta_ewma": 0.11118615345223738,
+  "beta_final": 0.48318129680270844,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.016495654589496797,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

@@ -1,0 +1,12 @@
+{
+  "ticker": "PGR",
+  "beta_ols": 0.26946241014001243,
+  "beta_ewma": -0.3561065363320289,
+  "beta_final": 0.08179172619840004,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.010082768424625766,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
+}

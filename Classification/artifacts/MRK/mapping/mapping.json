@@ -1,23 +1,12 @@
 {
   "ticker": "MRK",
-  "benchmark": "SP500",
-  "p_latest": 0.40637380744391816,
-  "signal_raw": -0.1872523851121637,
-  "signal_clipped": -0.1872523851121637,
-  "IC_full": -0.6355253042921205,
-  "sigma_ols": 0.017506481687724,
-  "sigma_ewma": 0.01646985083547335,
-  "sigma_final": 0.017195492432048803,
-  "TE_annual": 0.2729699798789662,
-  "TE_3M": 0.1331957116383214,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.01585077305590504,
-  "E_alpha_3M_simple": 0.01597706294092438,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.31271150148749477,
+  "beta_ewma": -0.012284233260169851,
+  "beta_final": 0.21521278106319536,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.012218964682296671,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

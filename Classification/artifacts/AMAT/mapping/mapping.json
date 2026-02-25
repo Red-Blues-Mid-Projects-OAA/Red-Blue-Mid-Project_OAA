@@ -1,23 +1,12 @@
 {
   "ticker": "AMAT",
-  "benchmark": "SP500",
-  "p_latest": 0.5193130844396396,
-  "signal_raw": 0.03862616887927928,
-  "signal_clipped": 0.03862616887927928,
-  "IC_full": -0.11810271193679267,
-  "sigma_ols": 0.023208970756994185,
-  "sigma_ewma": 0.029577922001888215,
-  "sigma_final": 0.02511965613046239,
-  "TE_annual": 0.39876217884397536,
-  "TE_3M": 0.19457601971147578,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.0008876276460676669,
-  "E_alpha_3M_simple": -0.0008872338211804998,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 1.873842391208079,
+  "beta_ewma": 2.3604260921642966,
+  "beta_final": 2.019817501494944,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.04067286113794654,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

@@ -1,23 +1,12 @@
 {
   "ticker": "WEC",
-  "benchmark": "SP500",
-  "p_latest": 0.6630618790951384,
-  "signal_raw": 0.3261237581902767,
-  "signal_clipped": 0.3261237581902767,
-  "IC_full": -0.061961349562246436,
-  "sigma_ols": 0.014012929249741828,
-  "sigma_ewma": 0.013651807825171674,
-  "sigma_final": 0.013904592822370781,
-  "TE_annual": 0.22072856813764075,
-  "TE_3M": 0.10770451287367444,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.0021763924351238776,
-  "E_alpha_3M_simple": -0.002174025810320779,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.061298012677500624,
+  "beta_ewma": -0.3127440335793902,
+  "beta_final": -0.05091460119956662,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.007953479234779745,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

@@ -1,23 +1,12 @@
 {
   "ticker": "V",
-  "benchmark": "SP500",
-  "p_latest": 0.7889585847302525,
-  "signal_raw": 0.577917169460505,
-  "signal_clipped": 0.577917169460505,
-  "IC_full": -0.3553694213111254,
-  "sigma_ols": 0.010984062023643063,
-  "sigma_ewma": 0.015123820581035717,
-  "sigma_final": 0.012225989590860858,
-  "TE_annual": 0.19408156793449294,
-  "TE_3M": 0.09470210815261867,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.01944935929021233,
-  "E_alpha_3M_simple": -0.019261440772100125,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.7187138121422156,
+  "beta_ewma": 0.5154255092691202,
+  "beta_final": 0.657727321280287,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.0192715474203201,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

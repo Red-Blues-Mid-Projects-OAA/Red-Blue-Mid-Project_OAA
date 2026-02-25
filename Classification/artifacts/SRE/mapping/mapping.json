@@ -1,23 +1,12 @@
 {
   "ticker": "SRE",
-  "benchmark": "SP500",
-  "p_latest": 0.6063079283229271,
-  "signal_raw": 0.21261585664585425,
-  "signal_clipped": 0.21261585664585425,
-  "IC_full": -0.17681614349775787,
-  "sigma_ols": 0.01586822675288721,
-  "sigma_ewma": 0.015807275102341443,
-  "sigma_final": 0.01584994125772348,
-  "TE_annual": 0.25161001717751186,
-  "TE_3M": 0.12277311705905776,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.004615522227504369,
-  "E_alpha_3M_simple": -0.004604887073342945,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.5683294041973256,
+  "beta_ewma": 0.04921747491409667,
+  "beta_final": 0.4125958254123569,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.015370906710261565,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

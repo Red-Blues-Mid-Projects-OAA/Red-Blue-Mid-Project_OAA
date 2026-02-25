@@ -1,23 +1,12 @@
 {
   "ticker": "PLTR",
-  "benchmark": "SP500",
-  "p_latest": 0.6184955176354766,
-  "signal_raw": 0.23699103527095322,
-  "signal_clipped": 0.23699103527095322,
-  "IC_full": -0.4618140081144566,
-  "sigma_ols": 0.03584334742499914,
-  "sigma_ewma": 0.0347789261282338,
-  "sigma_final": 0.035524021035969536,
-  "TE_annual": 0.5639263513812149,
-  "TE_3M": 0.2751678837252639,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.030115963633801823,
-  "E_alpha_3M_simple": -0.029666996317156635,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 1353,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 2.184542312943014,
+  "beta_ewma": 2.308337525750188,
+  "beta_final": 2.2216808767851663,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.043805949437325985,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

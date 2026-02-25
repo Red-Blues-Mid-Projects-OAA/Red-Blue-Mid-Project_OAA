@@ -1,23 +1,12 @@
 {
   "ticker": "XEL",
-  "benchmark": "SP500",
-  "p_latest": 0.6034104535745122,
-  "signal_raw": 0.20682090714902435,
-  "signal_clipped": 0.20682090714902435,
-  "IC_full": -0.552685244501388,
-  "sigma_ols": 0.015699799158868294,
-  "sigma_ewma": 0.015796553461938423,
-  "sigma_final": 0.015728825449789333,
-  "TE_annual": 0.24968736333171737,
-  "TE_3M": 0.12183495804487494,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.013926571935291558,
-  "E_alpha_3M_simple": -0.01383004584442249,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.13140151297404712,
+  "beta_ewma": -0.3370475037273565,
+  "beta_final": -0.009133192036373972,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.008624356178083438,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

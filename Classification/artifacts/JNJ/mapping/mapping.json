@@ -1,23 +1,12 @@
 {
   "ticker": "JNJ",
-  "benchmark": "SP500",
-  "p_latest": 0.2601479183275882,
-  "signal_raw": -0.4797041633448236,
-  "signal_clipped": -0.4797041633448236,
-  "IC_full": -0.29581891949604955,
-  "sigma_ols": 0.014757410412569727,
-  "sigma_ewma": 0.01396444901047841,
-  "sigma_final": 0.014519521991942331,
-  "TE_annual": 0.2304902660772755,
-  "TE_3M": 0.11246773373937,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.015959797556803837,
-  "E_alpha_3M_simple": 0.01608783537148084,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.00591959428181307,
+  "beta_ewma": -0.3054697303097492,
+  "beta_final": -0.08749720309565562,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.007365708866903163,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

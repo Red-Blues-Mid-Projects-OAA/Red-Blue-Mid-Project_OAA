@@ -1,23 +1,12 @@
 {
   "ticker": "PSA",
-  "benchmark": "SP500",
-  "p_latest": 0.48554649865022154,
-  "signal_raw": -0.028907002699556927,
-  "signal_clipped": -0.028907002699556927,
-  "IC_full": -0.06405295750587232,
-  "sigma_ols": 0.014811634320037277,
-  "sigma_ewma": 0.015646878519885173,
-  "sigma_final": 0.015062207579991644,
-  "TE_annual": 0.23910513271373945,
-  "TE_3M": 0.11667135822885352,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.00021602623861072853,
-  "E_alpha_3M_simple": 0.00021604957395893187,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.44311889478458816,
+  "beta_ewma": 0.4461944998888359,
+  "beta_final": 0.4440415763158625,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.015872136929617676,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

@@ -1,23 +1,12 @@
 {
   "ticker": "MSFT",
-  "benchmark": "SP500",
-  "p_latest": 0.571028356216635,
-  "signal_raw": 0.1420567124332699,
-  "signal_clipped": 0.1420567124332699,
-  "IC_full": -0.598919496049541,
-  "sigma_ols": 0.011145595746201241,
-  "sigma_ewma": 0.021453862380343774,
-  "sigma_final": 0.014238075736444,
-  "TE_annual": 0.2260224452804019,
-  "TE_3M": 0.11028766041857505,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.009383333110510404,
-  "E_alpha_3M_simple": -0.009339447013601565,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.9977055827869951,
+  "beta_ewma": 1.0624658388726045,
+  "beta_final": 1.0171336596126779,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.024963212177941823,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

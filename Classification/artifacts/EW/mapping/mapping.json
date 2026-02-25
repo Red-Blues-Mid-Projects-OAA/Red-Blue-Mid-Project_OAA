@@ -1,23 +1,12 @@
 {
   "ticker": "EW",
-  "benchmark": "SP500",
-  "p_latest": 0.462019756494268,
-  "signal_raw": -0.07596048701146396,
-  "signal_clipped": -0.07596048701146396,
-  "IC_full": -0.4406021780909674,
-  "sigma_ols": 0.022204848176080427,
-  "sigma_ewma": 0.01601363106725465,
-  "sigma_final": 0.020347483043432694,
-  "TE_annual": 0.32300627963415945,
-  "TE_3M": 0.15761092592890527,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.005274978582592139,
-  "E_alpha_3M_simple": 0.005288915777474035,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.6339582416978672,
+  "beta_ewma": 0.9009455901797203,
+  "beta_final": 0.7140544462424231,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.020165703846612624,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

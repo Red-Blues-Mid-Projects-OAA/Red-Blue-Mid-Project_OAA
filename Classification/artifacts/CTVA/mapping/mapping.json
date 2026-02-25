@@ -17,5 +17,6 @@
   "lookback_days_requested": 252,
   "lookback_days_used": 1694,
   "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "latest_trade_date": "2026-02-20",
+  "Return_Type": "Grinold-Kahn"
 }

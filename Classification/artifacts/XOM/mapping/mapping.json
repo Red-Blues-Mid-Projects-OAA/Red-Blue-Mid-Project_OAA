@@ -1,23 +1,12 @@
 {
   "ticker": "XOM",
-  "benchmark": "SP500",
-  "p_latest": 0.31898542780649586,
-  "signal_raw": -0.3620291443870083,
-  "signal_clipped": -0.3620291443870083,
-  "IC_full": -0.5328870382233611,
-  "sigma_ols": 0.014593258443531768,
-  "sigma_ewma": 0.01903565502897398,
-  "sigma_final": 0.015925977419164433,
-  "TE_annual": 0.2528170538204362,
-  "TE_3M": 0.12336209063299845,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.023799093291974435,
-  "E_alpha_3M_simple": 0.024084551765381157,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.41473427546831415,
+  "beta_ewma": 0.5083486584112987,
+  "beta_final": 0.4428185903512095,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.01585264781338232,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

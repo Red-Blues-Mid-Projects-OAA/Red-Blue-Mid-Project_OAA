@@ -1,23 +1,12 @@
 {
   "ticker": "YUM",
-  "benchmark": "SP500",
-  "p_latest": 0.24848644877317483,
-  "signal_raw": -0.5030271024536503,
-  "signal_clipped": -0.5030271024536503,
-  "IC_full": -0.29858851163783906,
-  "sigma_ols": 0.013934068768059167,
-  "sigma_ewma": 0.015027007770776087,
-  "sigma_final": 0.014261950468874242,
-  "TE_annual": 0.22640144490817368,
-  "TE_3M": 0.11047259330077001,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.0165927751442511,
-  "E_alpha_3M_simple": 0.016731199794298046,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.3855116378271072,
+  "beta_ewma": -0.022293315710336735,
+  "beta_final": 0.263170151765874,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.012985693619342495,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

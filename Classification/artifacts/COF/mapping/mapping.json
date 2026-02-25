@@ -1,23 +1,12 @@
 {
   "ticker": "COF",
-  "benchmark": "SP500",
-  "p_latest": 0.3133271056238746,
-  "signal_raw": -0.3733457887522508,
-  "signal_clipped": -0.3733457887522508,
-  "IC_full": -0.013751868460388643,
-  "sigma_ols": 0.016680765774693018,
-  "sigma_ewma": 0.018540740270122938,
-  "sigma_final": 0.017238758123321995,
-  "TE_annual": 0.2736568014354272,
-  "TE_3M": 0.13353084624184783,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.0006855743614930457,
-  "E_alpha_3M_simple": 0.00068580942130958,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 1.3786745284292226,
+  "beta_ewma": 1.7104528358160926,
+  "beta_final": 1.4782080206452837,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.03221780335332056,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

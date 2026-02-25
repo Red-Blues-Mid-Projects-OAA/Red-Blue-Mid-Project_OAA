@@ -1,23 +1,12 @@
 {
   "ticker": "AMGN",
-  "benchmark": "SP500",
-  "p_latest": 0.378076147113971,
-  "signal_raw": -0.24384770577205805,
-  "signal_clipped": -0.24384770577205805,
-  "IC_full": -0.03670617125774076,
-  "sigma_ols": 0.01713261691237413,
-  "sigma_ewma": 0.02125698296207744,
-  "sigma_final": 0.018369926727285123,
-  "TE_annual": 0.29161354633725045,
-  "TE_3M": 0.1422928405716516,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.0012736227548277486,
-  "E_alpha_3M_simple": 0.0012744341567252349,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.5021473793966186,
+  "beta_ewma": 0.6106232536728864,
+  "beta_final": 0.5346901416794989,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.017315627291148283,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

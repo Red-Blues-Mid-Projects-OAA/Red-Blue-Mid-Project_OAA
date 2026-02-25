@@ -1,23 +1,12 @@
 {
   "ticker": "ROL",
-  "benchmark": "SP500",
-  "p_latest": 0.24470668302680973,
-  "signal_raw": -0.5105866339463805,
-  "signal_clipped": -0.5105866339463805,
-  "IC_full": -0.17999039077514417,
-  "sigma_ols": 0.015165197034670827,
-  "sigma_ewma": 0.024946647449591665,
-  "sigma_final": 0.01809963215914708,
-  "TE_annual": 0.28732275308910127,
-  "TE_3M": 0.14019914784971366,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.012884398111956751,
-  "E_alpha_3M_simple": 0.012967759605463591,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.3487666032640009,
+  "beta_ewma": 1.121075922048287,
+  "beta_final": 0.5804593988992868,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.018043667396503486,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

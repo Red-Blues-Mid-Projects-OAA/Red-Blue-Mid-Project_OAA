@@ -1,23 +1,12 @@
 {
   "ticker": "COP",
-  "benchmark": "SP500",
-  "p_latest": 0.5116915977690719,
-  "signal_raw": 0.02338319553814383,
-  "signal_clipped": 0.02338319553814383,
-  "IC_full": -0.1464563314114884,
-  "sigma_ols": 0.017043519604296425,
-  "sigma_ewma": 0.0192403512526101,
-  "sigma_final": 0.017702569098790526,
-  "TE_annual": 0.28101957241401926,
-  "TE_3M": 0.1371235106094035,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.00046959551035857247,
-  "E_alpha_3M_simple": -0.0004694852676441208,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.7537908635184365,
+  "beta_ewma": 0.5924625710029344,
+  "beta_final": 0.7053923757637859,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.020028251129709067,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

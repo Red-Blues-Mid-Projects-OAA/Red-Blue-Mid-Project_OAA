@@ -1,23 +1,12 @@
 {
   "ticker": "KO",
-  "benchmark": "SP500",
-  "p_latest": 0.46626176305916445,
-  "signal_raw": -0.0674764738816711,
-  "signal_clipped": -0.0674764738816711,
-  "IC_full": -0.40671578048259666,
-  "sigma_ols": 0.013689480881676958,
-  "sigma_ewma": 0.01452820462893861,
-  "sigma_final": 0.013941098005855452,
-  "TE_annual": 0.22130806996003208,
-  "TE_3M": 0.1079872808090472,
-  "phi": 1.0,
-  "E_alpha_3M_log": 0.002963575585556487,
-  "E_alpha_3M_simple": 0.0029679713169703525,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.031368318684564606,
+  "beta_ewma": -0.2667645692280713,
+  "beta_final": -0.05807154768922616,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.007838516204172297,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

@@ -1,23 +1,12 @@
 {
   "ticker": "HLT",
-  "benchmark": "SP500",
-  "p_latest": 0.6438081041165944,
-  "signal_raw": 0.2876162082331888,
-  "signal_clipped": 0.2876162082331888,
-  "IC_full": -0.222663890668375,
-  "sigma_ols": 0.011021478050633157,
-  "sigma_ewma": 0.01318374730296026,
-  "sigma_final": 0.011670158826331288,
-  "TE_annual": 0.18525802809058806,
-  "TE_3M": 0.09039666156395315,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.005789159853315166,
-  "E_alpha_3M_simple": -0.005772434957341144,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.9207015963071848,
+  "beta_ewma": 0.5711204073526763,
+  "beta_final": 0.8158272396208323,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.021779256113106528,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

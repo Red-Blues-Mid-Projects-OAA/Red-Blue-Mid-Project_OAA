@@ -1,0 +1,12 @@
+{
+  "ticker": "MET",
+  "beta_ols": 1.004246123945298,
+  "beta_ewma": 0.9796851244929818,
+  "beta_final": 0.996877824109603,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.02464329477483784,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
+}

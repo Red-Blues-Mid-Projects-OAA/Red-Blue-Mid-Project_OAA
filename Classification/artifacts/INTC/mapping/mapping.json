@@ -1,23 +1,12 @@
 {
   "ticker": "INTC",
-  "benchmark": "SP500",
-  "p_latest": 0.5135571594604076,
-  "signal_raw": 0.027114318920815172,
-  "signal_clipped": 0.027114318920815172,
-  "IC_full": -0.37154922058509504,
-  "sigma_ols": 0.03485930255563537,
-  "sigma_ewma": 0.044974266075110285,
-  "sigma_final": 0.037893791611477844,
-  "TE_annual": 0.6015452930236553,
-  "TE_3M": 0.293524047671816,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.002957050505674013,
-  "E_alpha_3M_simple": -0.0029526827381245457,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 1.7437062248437565,
+  "beta_ewma": 1.669784244386348,
+  "beta_final": 1.721529630706534,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.03602513996158562,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }

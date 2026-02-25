@@ -1,23 +1,12 @@
 {
   "ticker": "AFL",
-  "benchmark": "SP500",
-  "p_latest": 0.8255061981827885,
-  "signal_raw": 0.651012396365577,
-  "signal_clipped": 0.651012396365577,
-  "IC_full": -0.1565011744608157,
-  "sigma_ols": 0.013891673848972136,
-  "sigma_ewma": 0.0166757587010379,
-  "sigma_final": 0.014726899304591864,
-  "TE_annual": 0.2337822788582408,
-  "TE_3M": 0.11407407149591577,
-  "phi": 1.0,
-  "E_alpha_3M_log": -0.011622346042099342,
-  "E_alpha_3M_simple": -0.011555067475511938,
-  "warnings": [
-    "예측력 부재/역방향 가능성: IC_full <= 0"
-  ],
-  "lookback_days_requested": 252,
-  "lookback_days_used": 2799,
-  "horizon_days": 60,
-  "latest_trade_date": "2026-02-20"
+  "beta_ols": 0.4007933512095351,
+  "beta_ewma": -0.39335254699061456,
+  "beta_final": 0.16254958174949016,
+  "expected_market_return_3m": 0.024999999999999998,
+  "expected_capm_return_3m_log": 0.011376322497699761,
+  "risk_free_rate_3m": 0.008809523809523809,
+  "market_risk_premium_3m": 0.01619047619047619,
+  "date": "2026-02-20",
+  "Return_Type": "CAPM"
 }
