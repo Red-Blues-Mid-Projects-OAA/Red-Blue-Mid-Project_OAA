@@ -30,14 +30,10 @@ def calculate_risk_profile(answers, loss_limit_value):
             'mbti_nickname': str, (예: '재기발랄한 활동가')
             'persona': str, (예: '공격적 독수리 (독수리)')
             'persona_desc': str, (페르소나 설명)
-            'lambda_mbti': float, (설문 기반 임시 람다 -> lambda_final로 통일)
-            'lambda_slider': float, (슬라이더 기반 임시 람다 -> lambda_final로 통일)
-            'lambda_final': float, (최종 선택된 보수적 람다)
+            'lambda_final': float, (최종 선택된 보수적 람사)
             'loss_ratio_percent': float
         }
     """
-    if len(answers) != 12:
-        raise ValueError("12개의 답변이 필요합니다.")
 
     # 1. MBTI 유형 판별 (B타입 = E/N/F/P)
     mbti = ""
@@ -76,8 +72,6 @@ def calculate_risk_profile(answers, loss_limit_value):
     # 반올림하여 1~4등급 정수로 확정
     final_level = int(score_final + 0.5)
     
-    # 혹시 모를 범위를 벗어나는 값 보정 (방어 로직)
-    final_level = max(1, min(4, final_level))
 
     # 5. STEP 3: 최종 람다 및 페르소나 매핑
     mapping_data = {
@@ -124,49 +118,8 @@ def calculate_risk_profile(answers, loss_limit_value):
         "mbti_nickname": mbti_desc_map.get(mbti, ""),
         "persona": selected_mapping["persona"],
         "persona_desc": selected_mapping["desc"],
-        # 요구사항: 개별 산출 무의미하므로 모두 lambda_final로 통일
-        "lambda_mbti": lambda_final,
-        "lambda_numeric": lambda_final,
         "lambda_final": lambda_final,
         "loss_ratio_percent": round(loss_percent, 2)
     }
 
-if __name__ == "__main__":
-    print("=== 투자 MBTI 위험 회피 계수(Discrete MVO) 테스트 ===")
-    
-    # 1. 완벽한 거북이 (MBTI Level 4 / Slider Level 4)
-    # B답변 0개 -> Level 4
-    # 손실 한도 -5% -> Level 4
-    # score = 0.7*4 + 0.3*4 = 4.0 -> final_level = 4
-    res_turtle = calculate_risk_profile(['A'] * 12, 9500000)
-    assert res_turtle["lambda_final"] == 23.10
-    print(f"[거북이] lambda_final={res_turtle['lambda_final']}, persona={res_turtle['persona']}")
-
-    # 2. 완벽한 독수리 (MBTI Level 1 / Slider Level 1)
-    # B답변 12개 -> Level 1
-    # 손실 한도 -30% -> Level 1
-    # score = 0.7*1 + 0.3*1 = 1.0 -> final_level = 1
-    res_eagle = calculate_risk_profile(['B'] * 12, 7000000)
-    assert res_eagle["lambda_final"] == 3.50
-    print(f"[독수리] lambda_final={res_eagle['lambda_final']}, persona={res_eagle['persona']}")
-
-    # 3. 공격적 MBTI이지만 보수적 슬라이더 (MBTI Level 1 / Slider Level 4)
-    # B답변 12개 -> Level 1
-    # 손실 한도 -5% -> Level 4
-    # score = 0.7*4 + 0.3*1 = 2.8 + 0.3 = 3.1 -> final_level = 3 (반올림)
-    # Level 3 -> lambda_final: 16.57
-    res_mixed1 = calculate_risk_profile(['B'] * 12, 9500000)
-    assert res_mixed1["lambda_final"] == 16.57
-    print(f"[혼합 1] lambda_final={res_mixed1['lambda_final']}, persona={res_mixed1['persona']}")
-
-    # 4. 균형형 MBTI와 신중형 슬라이더 조합 (MBTI Level 2 / Slider Level 3)
-    # B답변 7개 -> Level 2
-    # 손실 한도 -15% -> Level 3
-    # score = 0.7*3 + 0.3*2 = 2.1 + 0.6 = 2.7 -> final_level = 3 (반올림)
-    # Level 3 -> lambda_final: 16.57
-    res_mixed2 = calculate_risk_profile(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], 8500000)
-    assert res_mixed2["lambda_final"] == 16.57
-    print(f"[혼합 2] lambda_final={res_mixed2['lambda_final']}, persona={res_mixed2['persona']}")
-    
-    print("=> 모든 스탠드얼론 테스트 통과!")
 

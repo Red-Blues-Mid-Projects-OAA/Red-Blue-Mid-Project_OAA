@@ -9,8 +9,6 @@ def test_risk_profile_discrete():
     loss1 = 9500000
     res1 = calculate_risk_profile(answers1, loss1)
     print(f"CASE 1 (Turtle/Conservative): {res1}")
-    assert res1['lambda_mbti'] == 23.10
-    assert res1['lambda_numeric'] == 23.10
     assert res1['lambda_final'] == 23.10
     assert res1['persona'] == "안전 지향 (거북이)"
 
@@ -22,8 +20,6 @@ def test_risk_profile_discrete():
     loss2 = 6700000
     res2 = calculate_risk_profile(answers2, loss2)
     print(f"CASE 2 (Eagle/Aggressive): {res2}")
-    assert res2['lambda_mbti'] == 3.50
-    assert res2['lambda_numeric'] == 3.50
     assert res2['lambda_final'] == 3.50
     assert res2['persona'] == "공격적 독수리 (독수리)"
 
@@ -36,8 +32,6 @@ def test_risk_profile_discrete():
     loss3 = 9500000
     res3 = calculate_risk_profile(answers3, loss3)
     print(f"CASE 3 (Aggressive MBTI but Conservative Slider): {res3}")
-    assert res3['lambda_mbti'] == 16.57
-    assert res3['lambda_numeric'] == 16.57
     assert res3['lambda_final'] == 16.57
     assert res3['persona'] == "신중한 탐험가 (강아지)"
 
@@ -50,8 +44,6 @@ def test_risk_profile_discrete():
     loss4 = 8000000
     res4 = calculate_risk_profile(answers4, loss4)
     print(f"CASE 4 (Lion/Balanced): {res4}")
-    assert res4['lambda_mbti'] == 10.04
-    assert res4['lambda_numeric'] == 10.04
     assert res4['lambda_final'] == 10.04
     assert res4['persona'] == "균형 잡힌 사자 (사자)"
 
