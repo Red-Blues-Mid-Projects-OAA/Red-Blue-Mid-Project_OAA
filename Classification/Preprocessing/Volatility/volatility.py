@@ -33,7 +33,7 @@ def _safe_symbol(symbol: str) -> str:
     return str(symbol).upper().replace("-", "_")
 
 
-def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None):
+def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None, lr_all=None, sp500=None):
     ticker = str(ticker).upper()
     benchmark = str(benchmark).upper()
     safe_ticker = _safe_symbol(ticker)
@@ -44,26 +44,29 @@ def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None):
     print("=" * 60)
     print("\n[데이터 로드]")
 
-    should_close = False
-    if db is None:
-        db = StockDBManager()
-        db.connect()
-        should_close = True
+    if lr_all is None or sp500 is None:
+        should_close = False
+        if db is None:
+            db = StockDBManager()
+            db.connect()
+            should_close = True
 
-    try:
-        lr_all = db.fetch_log_returns()
-        sp500 = db.fetch_sp500_data()
-    finally:
-        if should_close:
-            db.close()
+        try:
+            if lr_all is None:
+                lr_all = db.fetch_log_returns()
+            if sp500 is None:
+                sp500 = db.fetch_sp500_data()
+        finally:
+            if should_close:
+                db.close()
 
-    if lr_all.empty or ticker not in lr_all.columns:
+    if lr_all is None or lr_all.empty or ticker not in lr_all.columns:
         print(f"{ticker} 로그수익률 데이터를 가져오지 못했습니다.")
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
     if benchmark != "SP500":
         raise ValueError(f"현재 benchmark는 SP500만 지원합니다: {benchmark}")
-    if sp500.empty:
+    if sp500 is None or sp500.empty:
         print("SP500 로그수익률 데이터를 가져오지 못했습니다.")
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 

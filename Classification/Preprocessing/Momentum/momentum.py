@@ -6,13 +6,14 @@ import numpy as np
 import pandas as pd
 
 
-def calculate_features(ticker, db=None):
+def calculate_features(ticker, db=None, df_data=None):
     """
     주가 데이터를 DB에서 로드하여 기본 모멘텀 피처를 계산합니다.
     
     Args:
         ticker (str): 종목 티커 (예: 'AAPL')
-        db (StockDBManager): DB 연결 객체
+        db (StockDBManager): DB 연결 객체 (선택)
+        df_data (pd.DataFrame): 사전 로드된 주가 데이터 (옵션 - 성능 최적화용)
 
     Returns:
         pd.DataFrame: 기술적 지표가 포함된 DataFrame
@@ -20,11 +21,14 @@ def calculate_features(ticker, db=None):
     print(f"\n  [Feature Engineering] {ticker} 기술적 지표 계산 중...")
 
     # 1. 데이터 로드
-    if db is None:
-        raise ValueError("DB Connection is required")
+    if df_data is not None:
+        df = df_data.copy()
+    else:
+        if db is None:
+            raise ValueError("DB Connection or df_data is required")
+        df = db.fetch_ticker_data(ticker)
         
-    df = db.fetch_ticker_data(ticker)
-    if df.empty:
+    if df is None or df.empty:
         print(f"  ⚠️ {ticker} 데이터가 없습니다.")
         return pd.DataFrame()
 

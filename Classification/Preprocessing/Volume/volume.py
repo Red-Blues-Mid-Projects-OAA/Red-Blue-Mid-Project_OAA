@@ -25,27 +25,29 @@ from common import pd, np
 from DB import StockDBManager
 
 
-def calculate_volume_analysis(ticker="AAPL", db=None):
+def calculate_volume_analysis(ticker="AAPL", db=None, df_data=None):
     """
     티커 거래량 분석 (Volume Ratio + OBV 변화율)
     - Volume_Ratio = 당일 거래량 / 직전 20일 평균 거래량
     - OBV_ROC_20   = OBV의 20일간 변화율 (정상성 확보)
     """
-    print(f"[{ticker}] Oracle DB에서 데이터 로드 중...")
+    if df_data is not None:
+        data = df_data.copy()
+    else:
+        print(f"[{ticker}] Oracle DB에서 데이터 로드 중...")
+        should_close = False
+        if db is None:
+            db = StockDBManager()
+            db.connect()
+            should_close = True
+            
+        try:
+            data = db.fetch_ticker_data(ticker)
+        finally:
+            if should_close:
+                db.close()
 
-    should_close = False
-    if db is None:
-        db = StockDBManager()
-        db.connect()
-        should_close = True
-
-    try:
-        data = db.fetch_ticker_data(ticker)
-    finally:
-        if should_close:
-            db.close()
-
-    if data.empty:
+    if data is None or data.empty:
         print("DB에서 데이터를 가져오지 못했습니다. DB/update_stock_data.py를 먼저 실행하세요.")
         return None
 

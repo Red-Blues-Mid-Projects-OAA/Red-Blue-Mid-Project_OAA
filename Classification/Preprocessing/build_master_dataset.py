@@ -122,8 +122,12 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
             print(f"1. MASTER_FEATURES 증분 적재 (cutoff: {cutoff_date.strftime('%Y-%m-%d')})")
             print("======================================================================")
 
-        # 공통 Market Features 사전 조회
+        # 공통 Market Features 및 로그수익률 사전 조회
         df_dxy, df_vix, df_sp500_mom = get_market_features(db=db)
+        
+        print("\n[DB 최적화] 전체 종목 로그수익률 및 S&P500 데이터를 한 번에 로드합니다 (N+1 문제 방지)...")
+        lr_all = db.fetch_log_returns()
+        sp500_data = db.fetch_sp500_data()
         
         total_tickers = len(TICKERS)
         success_count = 0
@@ -137,12 +141,20 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
             print(f"[{i}/{total_tickers}] '{ticker}' 피처 계산 중...")
             
             try:
-                df_momentum = calculate_features(ticker, db=db)
-                df_vol = calculate_volume_analysis(ticker, db=db)
+                # DB 접근 최적화: 개별 종목 데이터 1번만 로드하여 공유
+                df_ticker_data = db.fetch_ticker_data(ticker)
+                if df_ticker_data.empty:
+                     print(f"  ⚠️ {ticker} 데이터가 없습니다. 건너뜀.")
+                     continue
+                     
+                df_momentum = calculate_features(ticker, db=db, df_data=df_ticker_data)
+                df_vol = calculate_volume_analysis(ticker, db=db, df_data=df_ticker_data)
                 df_ticker_daily_vol, df_ticker_avg_vol, df_ticker_ewma_corr = calculate_risk_features(
                     ticker=ticker,
                     benchmark=benchmark,
                     db=db,
+                    lr_all=lr_all,
+                    sp500=sp500_data
                 )
                 
                 master_index = df_momentum.index
