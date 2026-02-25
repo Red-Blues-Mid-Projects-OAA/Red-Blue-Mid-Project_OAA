@@ -1,90 +1,84 @@
 import React from 'react';
-import { TrendingUp } from 'lucide-react';
+import MbtiBarChart from './MbtiBarChart';
 import './Result.css';
 
-function Result({ personaData, onRestart }) {
+function Result({ personaData, onRestart, onShowRecommendation }) {
     if (!personaData) return null;
 
     const recommendedStocks = personaData.recommendedStocks || [];
+    const mbtiType = personaData.features?.[0]?.split(': ')[1] || 'ENTJ';
+    const rawAnswers = personaData.rawAnswers || [];
 
-    // MVO 최적 비중(weight) 기반으로 가중평균된 정확한 포트폴리오 3개월 기대수익률 산출
-    const mvoExpectedReturn = recommendedStocks.reduce((acc, stock) =>
-        acc + (stock.weight / 100) * stock.expectedReturn3M, 0
-    ).toFixed(2);
+    // Score calculation logic based on 12 questions (3 per dimension)
+    // Left label is 0%, Right label is 100% capacity
+    // Q1~Q3: I(A) vs E(B) -> Left=E, Right=I -> RightScore = A count
+    const scoreI = rawAnswers.length > 0 ? (rawAnswers.slice(0, 3).filter(a => a === 'A').length / 3) * 100 : 50;
+    // Q4~Q6: S(A) vs N(B) -> Left=S, Right=N -> RightScore = B count
+    const scoreN = rawAnswers.length > 0 ? (rawAnswers.slice(3, 6).filter(a => a === 'B').length / 3) * 100 : 50;
+    // Q7~Q9: T(A) vs F(B) -> Left=T, Right=F -> RightScore = B count
+    const scoreF = rawAnswers.length > 0 ? (rawAnswers.slice(6, 9).filter(a => a === 'B').length / 3) * 100 : 50;
+    // Q10~Q12: J(A) vs P(B) -> Left=J, Right=P -> RightScore = B count
+    const scoreP = rawAnswers.length > 0 ? (rawAnswers.slice(9, 12).filter(a => a === 'B').length / 3) * 100 : 50;
 
     return (
-        <div className="result-container animate-fade-in w-full">
+        <div className="result-container animate-fade-in w-full max-w-2xl mx-auto py-12 px-4">
             {/* 상단 헤더 영역 */}
-            <div className="result-header animate-slide-up text-center mb-10" style={{ animationDelay: '0.1s' }}>
-                <div className="result-badge mx-auto">투자 성향 분석 완료</div>
-                <h1 className="persona-title text-4xl mt-4 mb-2 font-bold">{personaData.title}</h1>
-                <p className="persona-subtitle text-lg text-gray-300">{personaData.description}</p>
-            </div>
-
-            {/* 메인 내용 영역 (데스크톱 2단 분리 Grid) */}
-            <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
-
-                {/* 좌측: 페르소나 설명 및 특징 */}
-                <div className="lg:col-span-5 bg-[rgba(30,41,59,0.7)] p-6 rounded-2xl border border-[rgba(255,255,255,0.1)] backdrop-blur-md animate-slide-up mb-8 lg:mb-0 lg:sticky lg:top-8" style={{ animationDelay: '0.3s' }}>
-                    <h3 className="section-title">💡 핵심 특징</h3>
-                    <ul className="feature-list space-y-3">
-                        {personaData.features.map((feat, idx) => (
-                            <li key={idx} className="flex items-start">
-                                <span className="text-blue-400 mr-2 mt-1">•</span>
-                                <span>{feat}</span>
-                            </li>
-                        ))}
-                    </ul>
+            <div className="result-header animate-slide-up text-center mb-8 flex flex-col items-center" style={{ animationDelay: '0.1s' }}>
+                <div className="w-40 h-40 mb-6 rounded-full overflow-hidden shadow-[0_0_40px_rgba(139,92,246,0.3)] bg-gray-800" style={{ animation: 'float 6s ease-in-out infinite' }}>
+                    <img
+                        src={`/images/${personaData.title.includes('거북이') ? 'turtle' : personaData.title.includes('강아지') ? 'dog' : personaData.title.includes('사자') ? 'lion' : 'eagle'}.png`}
+                        alt="Persona Avatar"
+                        className="w-full h-full object-cover"
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                    />
                 </div>
 
-                {/* 우측: 포트폴리오 추천 */}
-                <div className="lg:col-span-7 bg-[rgba(30,41,59,0.7)] p-6 rounded-2xl border border-[rgba(255,255,255,0.1)] backdrop-blur-md animate-slide-up h-full flex flex-col" style={{ animationDelay: '0.4s' }}>
-                    <div className="portfolio-header">
-                        <h3 className="section-title">📈 MVO 맞춤형 핵심 포트폴리오</h3>
-                    </div>
-                    <p className="section-desc mb-6">투자 성향과 손실 한도를 최적화한 인공지능 추천 종목과 비중입니다.</p>
+                <p className="text-[#a39dd1] font-semibold text-sm mb-2">팩트로 보는 나는...</p>
+                <h1 className="text-3xl font-bold text-white mb-4 whitespace-pre-line">{personaData.title}</h1>
 
-                    <div className="return-badge animate-pulse mb-8 w-full justify-center">
-                        <TrendingUp size={20} className="text-blue-400" />
-                        3개월 후 포트폴리오 예상 기대수익률: <span className="text-green-400 font-bold text-xl ml-2">+{mvoExpectedReturn}%</span>
-                    </div>
+                {/* 캐치프레이즈 (예: 무조건 인생은 짧고 굵게 레쭈고) */}
+                <p className="text-xl text-yellow-400 font-extrabold mb-8 decoration-wavy underline-offset-8 underline decoration-yellow-400/50">
+                    {personaData.description}
+                </p>
 
-                    {/* 바둑판(다단) 그리드 뷰 전환 (모바일: 1열, 데스크톱: 2열) */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
-                        {recommendedStocks.map((stock) => (
-                            <div
-                                key={stock.id || stock.ticker}
-                                className="stock-item animate-fade-in hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 h-full flex flex-col justify-between"
-                            >
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className="stock-info text-left">
-                                        <span className="stock-ticker text-lg font-bold block">{stock.ticker}</span>
-                                        <span className="stock-name text-sm text-gray-400">{stock.name}</span>
-                                    </div>
-                                    <div className="stock-weight-badge text-lg ml-2 shrink-0">
-                                        {stock.weight}%
-                                    </div>
-                                </div>
-                                <div className="stock-volatility text-right pt-3 border-t border-gray-700/50 mt-auto">
-                                    기대수익 <span className="text-green-400 font-bold ml-1">+{stock.expectedReturn3M}%</span>
-                                </div>
-                            </div>
-                        ))}
-                        {recommendedStocks.length === 0 && (
-                            <div className="empty-portfolio-state col-span-full py-12 text-center text-gray-400 bg-gray-800/20 rounded-xl border border-dashed border-gray-700">
-                                선택된 종목이 없습니다. 종목을 추가해보세요!
-                            </div>
-                        )}
-                    </div>
+                {/* MBTI 박스 */}
+                <div className="bg-gray-900/40 border border-gray-700/50 backdrop-blur-md rounded-2xl px-8 py-6 shadow-2xl w-full max-w-sm mb-12 transform hover:scale-105 transition-transform flex flex-col items-center justify-center">
+                    <p className="text-gray-300 font-bold mb-2">나의 투자 MBTI는?</p>
+                    <h2 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400 tracking-wider font-mono mb-3 drop-shadow-lg">
+                        {mbtiType.split(' ')[0]}
+                    </h2>
+                    {mbtiType.includes(' ') && (
+                        <p className="text-base font-bold text-gray-400 bg-black/20 px-4 py-1.5 rounded-full border border-gray-700/50">
+                            {mbtiType.substring(mbtiType.indexOf(' ')).trim()}
+                        </p>
+                    )}
                 </div>
             </div>
 
-            {/* 하단 액션 버튼 */}
-            <div className="action-buttons animate-slide-up mt-12 mb-8 flex flex-col sm:flex-row justify-center gap-4" style={{ animationDelay: '0.5s' }}>
-                <button className="btn btn-primary share-btn w-full sm:w-auto hover:-translate-y-1 transition-transform" onClick={() => alert('공유 기능 준비 중입니다!')}>
-                    결과 공유하기 🔗
+            {/* MBTI 바 차트 영역 */}
+            <div className="animate-slide-up bg-gray-900/50 p-6 md:p-8 rounded-3xl border border-gray-700/50 backdrop-blur-sm mb-12 shadow-2xl" style={{ animationDelay: '0.3s' }}>
+                <h3 className="text-center text-xl font-bold text-white mb-8">💡 나의 성향 세부 분포</h3>
+                <div className="flex flex-col w-full max-w-md mx-auto gap-2">
+                    <MbtiBarChart dimension="시장 반응" score={scoreI} leftLabel="외향" rightLabel="내향" colorClass="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500" />
+                    <MbtiBarChart dimension="가치 판단" score={scoreN} leftLabel="감각" rightLabel="직관" colorClass="bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500" />
+                    <MbtiBarChart dimension="의사 결정" score={scoreF} leftLabel="사고" rightLabel="감정" colorClass="bg-gradient-to-r from-amber-400 via-orange-500 to-red-500" />
+                    <MbtiBarChart dimension="대응 방식" score={scoreP} leftLabel="계획형" rightLabel="유연형" colorClass="bg-gradient-to-r from-purple-400 via-fuchsia-500 to-pink-500" />
+                </div>
+            </div>
+
+            {/* 하단 액션 버튼 (포트폴리오 페이지로 이동) */}
+            <div className="action-buttons animate-slide-up flex flex-col items-center gap-4" style={{ animationDelay: '0.5s' }}>
+                <button
+                    className="w-full max-w-sm py-4 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold text-lg shadow-[0_0_20px_rgba(139,92,246,0.5)] hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(139,92,246,0.7)] transition-all"
+                    onClick={onShowRecommendation}
+                >
+                    내 추천 종목 확인하기 👉
                 </button>
-                <button className="btn restart-btn w-full sm:w-auto hover:-translate-y-1 transition-transform" onClick={onRestart}>
+
+                <button
+                    className="w-full max-w-sm py-3 rounded-full bg-gray-800 text-gray-300 font-semibold hover:bg-gray-700 transition-colors"
+                    onClick={onRestart}
+                >
                     테스트 다시하기 🔄
                 </button>
             </div>

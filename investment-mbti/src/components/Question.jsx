@@ -32,19 +32,7 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
                 <div className="progress-fill" style={{ width: `${progress}%` }}></div>
             </div>
 
-            <div className="flex justify-between items-center mb-4">
-                {/* 1단계에서는 뒤로 가기 버튼 숨김 또는 비활성화 처리 */}
-                <button
-                    onClick={onBack}
-                    className={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${step === 1
-                            ? 'opacity-0 cursor-default pointer-events-none'
-                            : 'opacity-100 text-violet-300 border-violet-500/30 bg-violet-500/5 hover:bg-violet-500/20 hover:border-violet-400 hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-500/20'
-                        }`}
-                    disabled={step === 1}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
-                    이전으로
-                </button>
+            <div className="flex justify-end items-center mb-4">
                 <div className="step-indicator m-0">
                     {step} <span className="step-total">/ {totalSteps}</span>
                 </div>
@@ -68,6 +56,19 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
                     onClick={() => handleSelect(data.optionB.value, data.optionB.text, 'B')}
                 >
                     {data.optionB.text}
+                </button>
+            </div>
+
+            {/* 1단계에서는 뒤로 가기 버튼 숨김 또는 비활성화 처리 */}
+            <div className={`mt-8 flex justify-center transition-opacity duration-300 ${step === 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                <button
+                    onClick={onBack}
+                    disabled={step === 1}
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-600 bg-gray-800/50 hover:bg-gray-700 hover:border-gray-400 text-gray-300 hover:text-white transition-all 
+                               shadow-sm hover:shadow-md active:scale-95"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+                    <span className="font-bold tracking-wider">뒤로가기</span>
                 </button>
             </div>
         </div>

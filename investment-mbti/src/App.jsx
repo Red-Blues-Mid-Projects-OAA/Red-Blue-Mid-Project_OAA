@@ -3,12 +3,12 @@ import Intro from './components/Intro';
 import Question from './components/Question';
 import LossSlider from './components/LossSlider';
 import Loading from './components/Loading';
-import Result from './components/Result';
+import DashboardResult from './components/DashboardResult';
 import { QUESTIONS } from './constants/questions';
 import './App.css';
 
 function App() {
-  const [currentView, setCurrentView] = useState('INTRO'); // INTRO, QUESTION, SLIDER, LOADING, RESULT
+  const [currentView, setCurrentView] = useState('INTRO'); // INTRO, QUESTION, SLIDER, LOADING, RESULT, RECOMMENDATION
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [lossLimit, setLossLimit] = useState(null);
@@ -80,7 +80,8 @@ function App() {
         description: responseData.description,
         features: responseData.features,
         recommendedStocks: responseData.recommended_stocks,
-        portfolioAnalysis: responseData.portfolio_analysis
+        portfolioAnalysis: responseData.portfolio_analysis,
+        rawAnswers: responseData.raw_answers
       };
 
       // 시각적 효과를 위한 약간의 지연 후 결과 렌더링
@@ -104,9 +105,13 @@ function App() {
     setCurrentView('INTRO');
   };
 
+  const handleShowRecommendation = () => {
+    setCurrentView('RECOMMENDATION');
+  };
+
   return (
     // 전체 컨테이너 및 뷰포트 확장 반응형 대응
-    <div className="app-container max-w-6xl mx-auto px-4 min-h-screen py-8">
+    <div className="app-container max-w-[1920px] mx-auto px-4 min-h-screen py-8">
       {currentView === 'INTRO' && <Intro onStart={handleStart} />}
 
       {currentView === 'QUESTION' && (
@@ -123,7 +128,7 @@ function App() {
 
       {currentView === 'LOADING' && <Loading />}
 
-      {currentView === 'RESULT' && <Result personaData={resultData} onRestart={handleRestart} />}
+      {currentView === 'RESULT' && <DashboardResult personaData={resultData} onRestart={handleRestart} />}
     </div>
   );
 }

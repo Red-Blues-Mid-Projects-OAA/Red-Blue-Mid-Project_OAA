@@ -77,7 +77,8 @@ def analyze_portfolio(req: AnalyzeRequest):
             "portfolio_analysis": {
                 "expected_portfolio_return": expected_return,
                 "risk_category": risk_category
-            }
+            },
+            "raw_answers": req.answers
         }
     }
 
