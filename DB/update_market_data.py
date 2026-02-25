@@ -11,13 +11,27 @@
 """
 
 if __package__ in (None, ""):
+    import sys
+    from pathlib import Path
+    
+    _PROJECT_ROOT = next(
+        (
+            p
+            for p in Path(__file__).resolve().parents
+            if (p / "Classification").is_dir() and (p / "common").is_dir()
+        ),
+        None,
+    )
+    if _PROJECT_ROOT is not None:
+        sys.path.append(str(_PROJECT_ROOT))
+        
     from datetime import datetime, timedelta
 
     import numpy as np
     import pandas as pd
     import yfinance as yf
 
-    from stock_db_manager import StockDBManager
+    from DB.stock_db_manager import StockDBManager
 else:
     from common import pd, np, yf, datetime, timedelta
     from DB import StockDBManager
