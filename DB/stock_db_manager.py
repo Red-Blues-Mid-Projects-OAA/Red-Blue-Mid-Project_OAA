@@ -564,6 +564,49 @@ class StockDBManager:
             print(f"공분산 행렬 저장 실패: {e}")
             self.connection.rollback()
 
+    def fetch_ewma_covariance(self):
+        """
+        EWMA 공분산 행렬을 DB에서 로드합니다.
+        가장 최근 CALC_DATE의 전체 공분산 데이터를 가져와
+        (정렬된 ticker 리스트, numpy 2D 행렬) 튜플로 반환합니다.
+        """
+        try:
+            # 가장 최근 계산 날짜 조회
+            self.cursor.execute("SELECT MAX(CALC_DATE) FROM EWMA_COVARIANCE")
+            latest_date = self.cursor.fetchone()[0]
+            if latest_date is None:
+                print("EWMA_COVARIANCE 테이블에 데이터가 없습니다.")
+                return [], np.array([])
+
+            # 해당 날짜의 전체 공분산 데이터 조회
+            query = """
+                SELECT TICKER_X, TICKER_Y, COV_VALUE
+                FROM EWMA_COVARIANCE
+                WHERE CALC_DATE = :1
+                ORDER BY TICKER_X, TICKER_Y
+            """
+            self.cursor.execute(query, [latest_date])
+            rows = self.cursor.fetchall()
+
+            if not rows:
+                print("EWMA 공분산 데이터를 가져오지 못했습니다.")
+                return [], np.array([])
+
+            # DataFrame으로 변환 후 pivot하여 정방행렬 생성
+            df = pd.DataFrame(rows, columns=["TICKER_X", "TICKER_Y", "COV_VALUE"])
+            cov_pivot = df.pivot(index="TICKER_X", columns="TICKER_Y", values="COV_VALUE")
+            cov_pivot = cov_pivot.sort_index(axis=0).sort_index(axis=1)
+
+            ticker_list = list(cov_pivot.index)
+            cov_matrix = cov_pivot.values.astype(float)
+
+            print(f"[DB] EWMA 공분산 행렬 로드 완료: {len(ticker_list)}×{len(ticker_list)} (날짜: {latest_date})")
+            return ticker_list, cov_matrix
+
+        except oracledb.Error as e:
+            print(f"EWMA 공분산 조회 실패: {e}")
+            return [], np.array([])
+
     def reorganize_stock_data(self):
         """
         STOCK_DATA 테이블을 TRADE_DATE, TICKER 순으로 정렬된 복사본으로 교체
