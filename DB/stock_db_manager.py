@@ -995,6 +995,19 @@ class StockDBManager:
         self.cursor.execute("TRUNCATE TABLE MASTER_FEATURES")
         self.connection.commit()
 
+    def get_latest_master_features_date(self):
+        """MASTER_FEATURES 테이블의 가장 최신 TRADE_DATE를 반환합니다."""
+        if not self.master_features_exists():
+            return None
+        try:
+            self.cursor.execute("SELECT MAX(TRADE_DATE) FROM MASTER_FEATURES")
+            result = self.cursor.fetchone()
+            if result and result[0]:
+                return result[0]
+            return None
+        except Exception:
+            return None
+
     def get_ticker_coverage_report(self, tickers):
         """
         각 종목별 DB 적재 현황을 요약하여 리포트를 반환합니다.

@@ -54,9 +54,14 @@ COMMON_DYNAMIC_COLS = [
 def _safe_symbol(symbol: str) -> str:
     return str(symbol).upper().replace("-", "_")
 
-def build_all_master_datasets(benchmark="SP500", auto_update=True):
+def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
     """
     모든 Ticker에 대해 피처를 계산하고, MASTER_FEATURES 테이블에 패널 데이터 형태로 병합/저장합니다.
+
+    mode:
+      - auto: MASTER_FEATURES 테이블이 비어있으면 full, 데이터가 있으면 incremental
+      - full: 테이블 초기화 후 전체 기간 재적재
+      - incremental: 기존 데이터의 최신 날짜 이후만 계산하여 추가 적재
     """
     benchmark = str(benchmark).upper()
     
@@ -74,21 +79,57 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True):
                 update_market_data()
             except Exception as e:
                 print(f"기초 데이터 업데이트 중 오류 발생: {e}")
-                
-        print("\n======================================================================")
-        print("1. MASTER_FEATURES 테이블 준비 (TRUNCATE)")
-        print("======================================================================")
-        # We start fresh on each run so we don't hold stale or duplicated logic
-        db.truncate_master_features()
-        
-        # Pre-fetch Market Features since they are common to all
+
+        # 모드 결정: auto일 때 기존 데이터 유무에 따라 full/incremental 자동 선택
+        effective_mode = mode
+        cutoff_date = None  # incremental 모드에서 이 날짜 이후 데이터만 계산
+
+        if effective_mode == "auto":
+            latest_date = db.get_latest_master_features_date()
+            if latest_date is None:
+                effective_mode = "full"
+                print("\n[auto] MASTER_FEATURES 테이블이 비어있어 full 모드로 전체 적재를 수행합니다.")
+            else:
+                # STOCK_DATA의 최신 날짜와 비교
+                db.cursor.execute("SELECT MAX(TRADE_DATE) FROM STOCK_DATA")
+                stock_latest = db.cursor.fetchone()[0]
+                if stock_latest and stock_latest > latest_date:
+                    effective_mode = "incremental"
+                    cutoff_date = latest_date
+                    print(f"\n[auto] MASTER_FEATURES 최신: {latest_date.strftime('%Y-%m-%d')}, "
+                          f"STOCK_DATA 최신: {stock_latest.strftime('%Y-%m-%d')}")
+                    print(f"  -> incremental 모드로 {latest_date.strftime('%Y-%m-%d')} 이후 데이터만 추가합니다.")
+                else:
+                    print(f"\n[auto] MASTER_FEATURES가 이미 최신 상태입니다. (최신: {latest_date.strftime('%Y-%m-%d')})")
+                    return
+
+        elif effective_mode == "incremental":
+            latest_date = db.get_latest_master_features_date()
+            if latest_date is None:
+                print("\n[incremental] 기존 데이터가 없어 full 모드로 전환합니다.")
+                effective_mode = "full"
+            else:
+                cutoff_date = latest_date
+                print(f"\n[incremental] {latest_date.strftime('%Y-%m-%d')} 이후 데이터만 추가합니다.")
+
+        if effective_mode == "full":
+            print("\n======================================================================")
+            print("1. MASTER_FEATURES 테이블 준비 (TRUNCATE → 전체 재적재)")
+            print("======================================================================")
+            db.truncate_master_features()
+        else:
+            print("\n======================================================================")
+            print(f"1. MASTER_FEATURES 증분 적재 (cutoff: {cutoff_date.strftime('%Y-%m-%d')})")
+            print("======================================================================")
+
+        # 공통 Market Features 사전 조회
         df_dxy, df_vix, df_sp500_mom = get_market_features(db=db)
         
         total_tickers = len(TICKERS)
         success_count = 0
         
         print(f"\n======================================================================")
-        print(f"2. 종목별 피처 계산 및 병합 시작 (총 {total_tickers} 종목)")
+        print(f"2. 종목별 피처 계산 및 병합 시작 (총 {total_tickers} 종목, 모드: {effective_mode})")
         print(f"======================================================================")
 
         for i, ticker in enumerate(TICKERS, 1):
@@ -151,15 +192,26 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True):
                 if master_df.empty:
                     print(f"  ⚠️ 데이터가 비어있습니다. 건너뜀.")
                     continue
+
+                # incremental 모드: cutoff_date 이후 데이터만 필터링
+                if cutoff_date is not None:
+                    cutoff_ts = pd.Timestamp(cutoff_date)
+                    master_df = master_df[master_df.index > cutoff_ts]
+                    if master_df.empty:
+                        # 이 종목은 새로 추가할 데이터 없음
+                        continue
                     
                 # Add Ticker column
                 master_df["TICKER"] = ticker
                 master_df.index.name = "TRADE_DATE"
                 master_df.reset_index(inplace=True)
                 
-                # Insert into DB
+                # Insert into DB (Upsert 방식이므로 중복 걱정 없음)
                 db.insert_master_features(master_df)
                 success_count += 1
+                
+                if cutoff_date is not None:
+                    print(f"  ✅ {len(master_df)}건 추가 적재 완료.")
                 
             except Exception as e:
                 print(f"  ❌ '{ticker}' 처리 실패: {e}")
@@ -168,10 +220,20 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True):
         print(f"3. DB 재구조화 (Reorganization)")
         print("======================================================================")
         db.reorganize_master_features()
-        print(f"처리가 완료되었습니다. {total_tickers} 중 {success_count} 종목 저장 완료.")
+        print(f"처리가 완료되었습니다. {total_tickers} 중 {success_count} 종목 저장 완료. (모드: {effective_mode})")
         
     finally:
         db.close()
 
 if __name__ == "__main__":
-    build_all_master_datasets(auto_update=False)
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="MASTER_FEATURES 패널 데이터 빌드/업데이트")
+    parser.add_argument("--mode", default="auto", choices=["auto", "full", "incremental"],
+                        help="auto: 자동 판단, full: 전체 재적재, incremental: 증분 적재")
+    parser.add_argument("--auto-update", action="store_true", default=False,
+                        help="기초 데이터(STOCK, SP500, MARKET) 자동 업데이트 여부")
+    args = parser.parse_args()
+    
+    build_all_master_datasets(auto_update=args.auto_update, mode=args.mode)
+
