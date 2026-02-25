@@ -39,8 +39,6 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
             </div>
 
             <div className="question-header mt-2">
-                <h3 className="part-title">{data.partTitle}</h3>
-                <p className="subtitle">{data.subtitle}</p>
                 <h2 className="question-text">{data.question}</h2>
             </div>
 

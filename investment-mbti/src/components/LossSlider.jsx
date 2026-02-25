@@ -77,10 +77,6 @@ function LossSlider({ onComplete }) {
                     <span>위험 (-33%)</span>
                 </div>
 
-                <div className="feedback-box mt-6" style={{ borderColor: feedback.color }}>
-                    <h3 className="font-bold text-xl mb-2" style={{ color: feedback.color }}>{feedback.label}</h3>
-                    <p className="text-gray-300">{feedback.desc}</p>
-                </div>
             </div>
 
             {showWarning && (
