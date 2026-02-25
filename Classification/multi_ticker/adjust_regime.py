@@ -41,6 +41,8 @@ E_RM_ANNUAL = 0.105
 HORIZON_DAYS = 60
 # 벤치마크 3개월 기대수익률
 E_RM_3M = E_RM_ANNUAL * (HORIZON_DAYS / 252)
+# 완벽한 덧셈 호환을 위한 벤치마크 3개월 로그 기대수익률
+E_RM_3M_LOG = math.log(1 + E_RM_3M)
 # 비례 조정 최대 강도 도달 기준 (괴리가 이 값 이상이면 weight=1.0)
 ADJUSTMENT_THRESHOLD = 0.10
 
@@ -108,12 +110,12 @@ def run_regime_adjustment() -> pd.DataFrame:
         original_e_ret = float(row.get("Expected_Return_3M", 0.0))
         return_type = str(row.get("Return_Type", "Unknown"))
 
-        # ── Step 2: 단위 통일 (모두 절대 수익률로 변환) ────────────────
+        # ── Step 2: 단위 통일 (순수 로그 수익률(단위) 통일) ────────────────
         if return_type == "Grinold-Kahn":
-            # 초과 수익률(Alpha) → 절대 수익률로 변환
-            e_total = original_e_ret + E_RM_3M
+            # 로그 초과 수익률(Log Alpha) + 벤치마크 로그 기대수익률
+            e_total = original_e_ret + E_RM_3M_LOG
         else:
-            # CAPM은 이미 절대 수익률, Error 등도 그대로 사용
+            # CAPM은 이미 capm.py에서 np.log(1 + simple)을 거친 온전한 로그 수익률
             e_total = original_e_ret
 
         # ── Step 3: 실현 수익률 및 변동성 조회 ──────────────────────
