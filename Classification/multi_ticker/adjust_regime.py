@@ -79,17 +79,22 @@ def _load_realized_returns() -> tuple[pd.Series, pd.Series]:
     log_returns.index = pd.to_datetime(log_returns.index)
     sp500_df.index = pd.to_datetime(sp500_df.index)
 
-    # 최근 60 거래일만 사용
+    # 최근 60 거래일의 단순 데이터 (실현 수익률 계산용)
     recent_stock = log_returns.tail(HORIZON_DAYS)
 
-    # 종목별 3개월 누적 로그 수익률 (절대 수익률)
+    # 종목별 최근 3개월 누적 로그 수익률 (절대 수익률)
     realized_3m = recent_stock.sum()
 
-    # 종목별 3개월 변동성 (일별 표준편차 → 3개월 환산)
-    daily_vol = recent_stock.std()
-    vol_3m = daily_vol * math.sqrt(HORIZON_DAYS)
+    # ────────────────────────────────────────────────────────
+    # 사용자 제안 반영: "60일 롤링 누적수익률" 자체의 변동성 산출
+    # 1. 과거 전체 데이터에 대해 매일매일 60일 누적 로그수익률을 계산
+    rolling_60d_returns = log_returns.rolling(window=HORIZON_DAYS).sum()
+    
+    # 2. 최근 1년(252 거래일) 동안, 그 60일 누적수익률이 얼마나 변동했는지 표준편차 직접 산출
+    vol_3m = rolling_60d_returns.tail(252).std()
+    # ────────────────────────────────────────────────────────
 
-    print(f"[LOAD] 최근 {HORIZON_DAYS} 거래일 실현 수익률 로드 완료 ({len(realized_3m)} 종목)")
+    print(f"[LOAD] 최근 {HORIZON_DAYS} 거래일 실현 수익률 및 롤링 변동성 로드 완료 ({len(realized_3m)} 종목)")
     return realized_3m, vol_3m
 
 
