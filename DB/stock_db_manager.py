@@ -345,9 +345,15 @@ class StockDBManager:
                 
                 # Close, High, Volume 컬럼명 확보 (컬럼명으로 직접 검색)
                 col_names = [str(c) for c in df_processed.columns]
-                close_col = next(c for c in df_processed.columns if str(c) == 'Close')
-                high_col = next(c for c in df_processed.columns if str(c) == 'High')
-                vol_col = next(c for c in df_processed.columns if str(c) == 'Volume')
+                
+                # 'Adj Close'가 최우선, 없으면 'Close'
+                if 'Adj Close' in col_names:
+                    close_col = next(c for c in df_processed.columns if str(c) == 'Adj Close')
+                else:
+                    close_col = next((c for c in df_processed.columns if str(c) == 'Close'), None)
+
+                high_col = next((c for c in df_processed.columns if str(c) == 'High'), None)
+                vol_col = next((c for c in df_processed.columns if str(c) == 'Volume'), None)
                 
                 # 벡터화 연산으로 리스트 생성 (Performance Optimization)
                 # 1. Date 변환: to_pydatetime().date()는 벡터화가 어려우므로 리스트 컴프리헨션 사용하되, dt 접근자 활용
@@ -355,14 +361,41 @@ class StockDBManager:
                 tickers = df_processed[ticker_col].astype(str).tolist()                
                 
                 # Oracle DB는 np.nan을 받으면 DPY-4004 에러를 발생하므로 None으로 변환
-                closes = [None if pd.isna(x) else float(x) for x in df_processed[close_col]]
-                highs = [None if pd.isna(x) else float(x) for x in df_processed[high_col]]
-                volumes = [None if pd.isna(x) else float(x) for x in df_processed[vol_col]]
+                if close_col is not None:
+                    closes = [None if pd.isna(x) else float(x) for x in df_processed[close_col]]
+                else:
+                    closes = [None] * len(df_processed)
+                    
+                if high_col is not None:
+                    highs = [None if pd.isna(x) else float(x) for x in df_processed[high_col]]
+                else:
+                    highs = [None] * len(df_processed)
+                    
+                if vol_col is not None:
+                    volumes = [None if pd.isna(x) else float(x) for x in df_processed[vol_col]]
+                else:
+                    volumes = [None] * len(df_processed)
                 
                 data_to_insert = list(zip(tickers, dates, closes, highs, volumes))
             
             else:
-                raise ValueError("데이터프레임의 컬럼이 예상과 다릅니다.")
+                # Flat DataFrame (only Adj Close data)
+                # reset_index to get Date as a column, then melt to get Ticker and Value
+                df_flat = df.reset_index().melt(id_vars=df.index.name or 'Date', var_name='Ticker', value_name='Close')
+                
+                date_col = df_flat.columns[0]
+                ticker_col = 'Ticker'
+                close_col = 'Close'
+
+                dates = df_flat[date_col].dt.date.tolist()
+                tickers = df_flat[ticker_col].astype(str).tolist()
+                closes = [None if pd.isna(x) else float(x) for x in df_flat[close_col]]
+                
+                # Flat DataFrame에는 High, Volume 데이터가 없으므로 None 처리
+                highs = [None] * len(df_flat)
+                volumes = [None] * len(df_flat)
+
+                data_to_insert = list(zip(tickers, dates, closes, highs, volumes))
 
             if data_to_insert:
                 # executemany를 사용하여 대량 삽입 성능 향상

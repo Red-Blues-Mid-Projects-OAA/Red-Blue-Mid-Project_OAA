@@ -41,10 +41,13 @@ def _estimate_insert_rows(data):
     if data.empty:
         return 0
     if isinstance(data.columns, pd.MultiIndex):
-        if "Close" in data.columns.get_level_values(0):
+        if "Adj Close" in data.columns.get_level_values(0):
+            return int(data["Adj Close"].stack().shape[0])
+        elif "Close" in data.columns.get_level_values(0):
             return int(data["Close"].stack().shape[0])
         return int(data.stack(level=1).shape[0])
-    return int(data.shape[0])
+    # flat dataframe (Adj Close only) -> rows x columns
+    return int(data.shape[0] * data.shape[1])
 
 
 def _get_min_latest_date(db_manager, tickers):
@@ -137,7 +140,7 @@ def update_stock_data(
             selected_tickers,
             start=effective_start_date,
             end=end_date,
-            auto_adjust=True,
+            auto_adjust=False, # Changed to False to explicitly fetch Adj Close
             progress=True,
         )
 
@@ -147,7 +150,22 @@ def update_stock_data(
             return result
 
         data = data.sort_index()
-        print("\n다운로드 데이터 샘플 (상위 5행):")
+        
+        # yfinance 0.2.x 이후 여러 종목을 다운받을 때 컬럼이 MultiIndex 이며,
+        # 최상위 레벨에 'Adj Close', 하위 레벨에 종목 코드가 들어갑니다.
+        if isinstance(data.columns, pd.MultiIndex):
+            if "Adj Close" in data.columns.get_level_values(0):
+                # 'Adj Close'만 추출하여 DataFrame 재구성
+                data = data["Adj Close"].copy()
+            else:
+                # 만약 어떤 이유로 'Adj Close'가 없다면 'Close'로 진행
+                data = data["Close"].copy()
+                print("Warning: 'Adj Close' not found. Using 'Close' instead.")
+        else:
+            # 단일 종목일 경우
+            pass # we shouldn't hit this with 300 tickers, but just in case
+            
+        print("\n다운로드 데이터 샘플 (상위 5행) - Adj Close만 추출:")
         print(data.head())
 
         if effective_mode == "full" and recreate_on_full:

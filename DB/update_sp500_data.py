@@ -64,12 +64,12 @@ def update_sp500_data():
 
         print(f"{fetch_start_date} ~ {end_date} S&P 500 데이터 다운로드 중...")
         ticker = "^GSPC"
-        df = yf.download(ticker, start=fetch_start_date, end=end_date, auto_adjust=True, progress=True)
+        df = yf.download(ticker, start=fetch_start_date, end=end_date, auto_adjust=False, progress=True)
 
         if isinstance(df.columns, pd.MultiIndex):
-            data = df["Close"][ticker]
+            data = df["Adj Close"][ticker]
         else:
-            data = df["Close"]
+            data = df["Adj Close"]
 
         if data.empty:
             print("업데이트할 데이터가 없습니다 (휴장일 등)")
@@ -77,7 +77,7 @@ def update_sp500_data():
             return result
 
         data = pd.DataFrame(data)
-        data.columns = ["Close"]
+        data.columns = ["Close"] # DB column name expects 'Close' logic below to remain unchanged
 
         data["Log_Return"] = np.log(data["Close"] / data["Close"].shift(1))
         data.dropna(inplace=True)

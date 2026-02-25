@@ -83,8 +83,16 @@ def fetch_and_store_vix(db_manager):
         fetch_start = START_DATE
         print(f"  기존 데이터 없음 -> {START_DATE}부터 전체 다운로드")
 
-    vix_raw = yf.download("^VIX", start=fetch_start, auto_adjust=True)
-    vix_close = vix_raw["Close"]
+    vix_raw = yf.download("^VIX", start=fetch_start, auto_adjust=False)
+    
+    # yfinance 다중 인덱스 대응
+    if isinstance(vix_raw.columns, pd.MultiIndex):
+        if "Adj Close" in vix_raw.columns.get_level_values(0):
+            vix_close = vix_raw["Adj Close"]
+        else:
+            vix_close = vix_raw["Close"]
+    else:
+        vix_close = vix_raw.get("Adj Close", vix_raw.get("Close"))
 
     if isinstance(vix_close, pd.DataFrame):
         vix_close = vix_close.iloc[:, 0]
@@ -94,7 +102,7 @@ def fetch_and_store_vix(db_manager):
         vix_close.index = vix_close.index.tz_localize(None)
     vix_close = vix_close.dropna()
 
-    df_vix = pd.DataFrame({"Close": vix_close})
+    df_vix = pd.DataFrame({"Close": vix_close}) # DB schema expects 'Close_Value' but internal map is 'Close'
     df_vix["Log_Return"] = np.log(df_vix["Close"] / df_vix["Close"].shift(1))
     df_vix = df_vix.dropna()
 
