@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 import pandas as pd
 
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -9,14 +10,44 @@ sys.path.insert(0, _PROJECT_ROOT)
 from DB import StockDBManager, TICKERS
 from Classification.mapping.mapping import run_mapping
 from Classification.capm.capm import run_capm_single
-from Classification.model_config import MULTI_TICKER_ARTIFACT_DIR
+from Classification.model_config import (
+    MULTI_TICKER_ARTIFACT_DIR,
+    get_ensemble_result_path,
+    get_mapping_result_path,
+    load_json_artifact_only,
+    save_json_artifact_only
+)
+
+def evaluate_hard_gate(ticker: str) -> tuple[bool, str]:
+    """
+    엄격한 3중 OAA Hard Gate 평가:
+    1. Ensemble Test Accuracy >= 52% (0.52)
+    2. Ensemble IC_full >= 0.05
+    3. Ensemble Train-Test Gap Abs <= 25%p (0.25)
+    """
+    ens_path = get_ensemble_result_path(ticker)
+    if not os.path.exists(ens_path):
+        return False, "ensemble.json missing"
+    
+    data, _ = load_json_artifact_only(ens_path)
+    if not data:
+        return False, "Failed to load ensemble.json"
+        
+    acc = data.get("accuracy_ref", 0.0)
+    ic = data.get("ic_full", -1.0)
+    gap = data.get("gap_abs_ref", 1.0)
+    
+    if acc >= 0.52 and ic >= 0.05 and gap <= 0.25:
+        return True, f"Acc={acc:.1%}, IC={ic:.4f}, Gap={gap:.1%}"
+    else:
+        return False, f"Failed: Acc={acc:.1%}, IC={ic:.4f}, Gap={gap:.1%}"
+
 
 def run_all_mapping():
-    leaderboard_path = os.path.join(MULTI_TICKER_ARTIFACT_DIR, "leaderboard.csv")
     final_output_path = os.path.join(MULTI_TICKER_ARTIFACT_DIR, "final_expected_returns.csv")
     
     print("=" * 80)
-    print("🚀 Final Aggregation: Mapping & CAPM Fallback 🚀")
+    print("🚀 Final Aggregation: Strict OAA Mapping & CAPM Fallback 🚀")
     print("=" * 80)
 
     results = []
@@ -39,13 +70,17 @@ def run_all_mapping():
         for i, ticker in enumerate(TICKERS):
             ticker = ticker.upper()
             
+            passed, reason = evaluate_hard_gate(ticker)
+            
             try:
-                # Try Grinold-Kahn mapping first
-                res = run_mapping(ticker)
-                warnings = res.get("warnings", 0)
-                
-                if warnings == 0:
-                    print(f"[{i+1}/{len(TICKERS)}] {ticker}: Gate Passed -> Grinold-Kahn Mapping")
+                if passed:
+                    print(f"[{i+1}/{len(TICKERS)}] {ticker}: Gate Passed ({reason}) -> Grinold-Kahn Mapping")
+                    res = run_mapping(ticker)
+                    
+                    # 명시적으로 Type 기록 후 덮어쓰기
+                    res["Return_Type"] = "Grinold-Kahn"
+                    save_json_artifact_only(res, get_mapping_result_path(ticker))
+                    
                     results.append({
                         "Ticker": ticker,
                         "Gate_Passed": True,
@@ -54,39 +89,32 @@ def run_all_mapping():
                         "Warnings": ""
                     })
                 else:
-                    print(f"[{i+1}/{len(TICKERS)}] {ticker}: Gate Failed (Warnings={warnings}) -> CAPM Fallback")
+                    print(f"[{i+1}/{len(TICKERS)}] {ticker}: Gate Failed ({reason}) -> CAPM Fallback")
                     if sp500_df.empty or stock_returns_df.empty:
                         raise ValueError("CAPM required data is missing from DB")
                         
-                    capm_res = run_capm_single(ticker, db, sp500_df, stock_returns_df)
+                    res = run_capm_single(ticker, db, sp500_df, stock_returns_df)
+                    
+                    # CAPM도 동일하게 mapping.json 생성 및 덮어쓰기
+                    res["Return_Type"] = "CAPM"
+                    save_json_artifact_only(res, get_mapping_result_path(ticker))
+                    
                     results.append({
                         "Ticker": ticker,
                         "Gate_Passed": False,
-                        "Expected_Return_3M": capm_res.get("expected_capm_return_3m_log", 0.0),
+                        "Expected_Return_3M": res.get("expected_capm_return_3m_log", 0.0),
                         "Return_Type": "CAPM",
-                        "Warnings": f"GK Warnings: {warnings}"
+                        "Warnings": reason
                     })
             except Exception as e:
-                # If GK fails (e.g., ensemble.json missing), fallback to CAPM
-                try:
-                    print(f"[{i+1}/{len(TICKERS)}] {ticker}: Error in GK ({e}) -> CAPM Fallback")
-                    capm_res = run_capm_single(ticker, db, sp500_df, stock_returns_df)
-                    results.append({
-                        "Ticker": ticker,
-                        "Gate_Passed": False,
-                        "Expected_Return_3M": capm_res.get("expected_capm_return_3m_log", 0.0),
-                        "Return_Type": "CAPM",
-                        "Warnings": str(e)
-                    })
-                except Exception as capm_e:
-                    print(f"❌ Error processing {ticker} (Both GK & CAPM failed): {capm_e}")
-                    results.append({
-                        "Ticker": ticker,
-                        "Gate_Passed": False,
-                        "Expected_Return_3M": 0.0,
-                        "Return_Type": "Error",
-                        "Warnings": f"GK Error: {e} | CAPM Error: {capm_e}"
-                    })
+                print(f"❌ Error processing {ticker}: {e}")
+                results.append({
+                    "Ticker": ticker,
+                    "Gate_Passed": passed,
+                    "Expected_Return_3M": 0.0,
+                    "Return_Type": "Error",
+                    "Warnings": str(e)
+                })
     finally:
         db.close()
 
