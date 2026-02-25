@@ -38,16 +38,17 @@ def _resolve_end_date(end_date):
 
 
 def _estimate_insert_rows(data):
+    # 전체 MultiIndex DataFrame에서 삽입될 행 수를 추정합니다.
     if data.empty:
         return 0
     if isinstance(data.columns, pd.MultiIndex):
+        # Adj Close 컬럼으로 유효 행 수 추정 (NaN 제외한 실제 데이터 수)
         if "Adj Close" in data.columns.get_level_values(0):
-            return int(data["Adj Close"].stack().shape[0])
+            return int(data["Adj Close"].count().sum())
         elif "Close" in data.columns.get_level_values(0):
-            return int(data["Close"].stack().shape[0])
+            return int(data["Close"].count().sum())
         return int(data.stack(level=1).shape[0])
-    # flat dataframe (Adj Close only) -> rows x columns
-    return int(data.shape[0] * data.shape[1])
+    return int(data.shape[0])
 
 
 def _get_min_latest_date(db_manager, tickers):
@@ -151,22 +152,12 @@ def update_stock_data(
 
         data = data.sort_index()
         
-        # yfinance 0.2.x 이후 여러 종목을 다운받을 때 컬럼이 MultiIndex 이며,
-        # 최상위 레벨에 'Adj Close', 하위 레벨에 종목 코드가 들어갑니다.
-        if isinstance(data.columns, pd.MultiIndex):
-            if "Adj Close" in data.columns.get_level_values(0):
-                # 'Adj Close'만 추출하여 DataFrame 재구성
-                data = data["Adj Close"].copy()
-            else:
-                # 만약 어떤 이유로 'Adj Close'가 없다면 'Close'로 진행
-                data = data["Close"].copy()
-                print("Warning: 'Adj Close' not found. Using 'Close' instead.")
-        else:
-            # 단일 종목일 경우
-            pass # we shouldn't hit this with 300 tickers, but just in case
-            
-        print("\n다운로드 데이터 샘플 (상위 5행) - Adj Close만 추출:")
-        print(data.head())
+        # auto_adjust=False로 다운받으므로 MultiIndex에
+        # 'Adj Close', 'Close', 'High', 'Low', 'Open', 'Volume' 컬럼이 모두 포함됩니다.
+        # 전체 DataFrame을 그대로 insert_data에 전달하며,
+        # insert_data 내부에서 'Adj Close' → CLOSE_PRICE 매핑을 수행합니다.
+        print("\n다운로드 데이터 샘플 (상위 3행):")
+        print(data.head(3))
 
         if effective_mode == "full" and recreate_on_full:
             db_manager.recreate_stock_data_table()
