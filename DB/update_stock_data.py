@@ -131,7 +131,9 @@ def update_stock_data(
         result["mode"] = effective_mode
         result["start_date"] = effective_start_date
 
-        if effective_start_date >= end_date:
+        start_ts = pd.Timestamp(effective_start_date).date()
+        end_ts = pd.Timestamp(end_date).date()
+        if start_ts >= end_ts:
             print("이미 모든 데이터가 최신 상태입니다. (Skip)")
             result["status"] = "skipped"
             return result

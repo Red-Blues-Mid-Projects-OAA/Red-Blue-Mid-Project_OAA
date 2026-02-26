@@ -259,6 +259,36 @@ class StockDBManager:
             print(f"S&P 500 최신 날짜 조회 실패: {e}")
             return None
 
+    def get_latest_log_returns_date(self):
+        """
+        LOG_RETURNS 테이블에서 가장 최신 TRADE_DATE 조회
+        """
+        query = "SELECT MAX(TRADE_DATE) FROM LOG_RETURNS"
+        try:
+            self.cursor.execute(query)
+            result = self.cursor.fetchone()
+            if result and result[0]:
+                return result[0]
+            return None
+        except oracledb.Error as e:
+            print(f"LOG_RETURNS 최신 날짜 조회 실패: {e}")
+            return None
+
+    def get_latest_ewma_cov_date(self):
+        """
+        EWMA_COVARIANCE 테이블에서 가장 최신 CALC_DATE 조회
+        """
+        query = "SELECT MAX(CALC_DATE) FROM EWMA_COVARIANCE"
+        try:
+            self.cursor.execute(query)
+            result = self.cursor.fetchone()
+            if result and result[0]:
+                return result[0]
+            return None
+        except oracledb.Error as e:
+            print(f"EWMA_COVARIANCE 최신 날짜 조회 실패: {e}")
+            return None
+
     def get_ticker_coverage_report(self, tickers):
         """
         다중 티커의 최소 커버리지를 점검해 리스트(dict) 형태로 반환합니다.
@@ -413,15 +443,23 @@ class StockDBManager:
             print(f"데이터 삽입 실패: {e}")
             # 에러 발생 시 롤백하지 않고 오류 출력
 
-    def fetch_prices(self):
+    def fetch_prices(self, start_date=None):
         """
         DB에서 전체 주가 데이터를 가져와 Pivot된 DataFrame으로 반환
         Index: Date, Columns: Ticker
         """
-        query = "SELECT TICKER, TRADE_DATE, CLOSE_PRICE FROM STOCK_DATA ORDER BY TRADE_DATE, TICKER"
+        query = "SELECT TICKER, TRADE_DATE, CLOSE_PRICE FROM STOCK_DATA"
+        params = {}
+        if start_date is not None:
+            query += " WHERE TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE, TICKER"
         try:
             # 데이터 가져오기
-            self.cursor.execute(query)
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
             rows = self.cursor.fetchall()
             
             if not rows:
@@ -440,13 +478,21 @@ class StockDBManager:
             print(f"주가 데이터 조회 실패: {e}")
             return pd.DataFrame()
 
-    def fetch_log_returns(self):
+    def fetch_log_returns(self, start_date=None):
         """
         DB에서 로그 수익률 데이터를 가져와 Pivot된 DataFrame으로 반환
         """
-        query = "SELECT TICKER, TRADE_DATE, LOG_RETURN FROM LOG_RETURNS ORDER BY TRADE_DATE, TICKER"
+        query = "SELECT TICKER, TRADE_DATE, LOG_RETURN FROM LOG_RETURNS"
+        params = {}
+        if start_date is not None:
+            query += " WHERE TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE, TICKER"
         try:
-            self.cursor.execute(query)
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
             rows = self.cursor.fetchall()
             
             if not rows:
@@ -459,18 +505,22 @@ class StockDBManager:
             print(f"로그 수익률 데이터 조회 실패: {e}")
             return pd.DataFrame()
 
-    def fetch_ticker_data(self, ticker):
+    def fetch_ticker_data(self, ticker, start_date=None):
         """
         특정 티커의 주가 및 거래량 데이터를 가져와 반환
         """
         query = """
             SELECT TRADE_DATE, CLOSE_PRICE, HIGH_PRICE, VOLUME 
             FROM STOCK_DATA 
-            WHERE TICKER = :ticker 
-            ORDER BY TRADE_DATE
+            WHERE TICKER = :ticker
         """
+        params = {"ticker": ticker}
+        if start_date is not None:
+            query += " AND TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
         try:
-            self.cursor.execute(query, [ticker])
+            self.cursor.execute(query, params)
             rows = self.cursor.fetchall()
             if not rows:
                 return pd.DataFrame()
@@ -677,13 +727,21 @@ class StockDBManager:
             print(f"S&P 500 데이터 저장 실패: {e}")
             self.connection.rollback()
 
-    def fetch_sp500_data(self):
+    def fetch_sp500_data(self, start_date=None):
         """
         DB에서 S&P 500 데이터(TRADE_DATE, LOG_RETURN)를 가져와 DataFrame으로 반환
         """
-        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA ORDER BY TRADE_DATE"
+        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA"
+        params = {}
+        if start_date is not None:
+            query += " WHERE TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
         try:
-            self.cursor.execute(query)
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
             rows = self.cursor.fetchall()
             if not rows:
                 return pd.DataFrame()
@@ -731,7 +789,7 @@ class StockDBManager:
             print(f"{indicator} 데이터 저장 실패: {e}")
             self.connection.rollback()
 
-    def fetch_market_features(self, indicator):
+    def fetch_market_features(self, indicator, start_date=None):
         """
         DB에서 특정 시장 지표(VIX/DXY) 데이터를 조회하여 DataFrame으로 반환
         """
@@ -739,10 +797,14 @@ class StockDBManager:
             SELECT TRADE_DATE, CLOSE_VALUE, LOG_RETURN
             FROM MARKET_FEATURES
             WHERE INDICATOR = :indicator
-            ORDER BY TRADE_DATE
         """
+        params = {"indicator": indicator}
+        if start_date is not None:
+            query += " AND TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
         try:
-            self.cursor.execute(query, [indicator])
+            self.cursor.execute(query, params)
             rows = self.cursor.fetchall()
             if not rows:
                 return pd.DataFrame()
