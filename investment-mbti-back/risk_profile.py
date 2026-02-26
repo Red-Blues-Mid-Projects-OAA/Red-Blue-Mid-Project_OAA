@@ -76,32 +76,35 @@ def calculate_risk_profile(answers, loss_limit_value):
 
     # 5. STEP 3: 최종 람다 산출 및 페르소나 매핑
     # 공식: lambda = (Sharpe 0.7 * 신뢰도 1.65) / Representative Loss = 1.155 / Loss
-    # 각 정수 레벨에 역산된(대표격인) Loss 값을 매핑하여 람다 산출 (5%, 6.97%, 11.5%, 33%)
-    lambda_map = {
-        4: round(1.155 / 0.05, 2),    # 23.10 (거북이 대표 Loss: 5%)
-        3: round(1.155 / 0.0697, 2),  # 16.57 (강아지 대표 Loss: 약 7%)
-        2: round(1.155 / 0.115, 2),   # 10.04 (사자 대표 Loss: 11.5%)
-        1: round(1.155 / 0.33, 2)     # 3.50  (독수리 대표 Loss: 33%)
-    }
+    # 슬라이더(1%~40%)를 10% 단위의 4개 구간으로 나누었으므로,
+    # 각 정수 레벨(1~4)별로 해당 구간의 중앙값(Midpoint)을 대표 Loss로 수학적으로 산출합니다.
+    # Level 4 (1~10%)  -> 대표 Loss 5% (0.05)
+    # Level 3 (10~20%) -> 대표 Loss 15% (0.15)
+    # Level 2 (20~30%) -> 대표 Loss 25% (0.25)
+    # Level 1 (30~40%) -> 대표 Loss 35% (0.35)
+    
+    def get_lambda_by_level(level):
+        rep_loss = 0.45 - (level * 0.10)
+        return round(1.155 / rep_loss, 2)
     
     mapping_data = {
         4: {
-            "lambda_final": lambda_map[4],
+            "lambda_final": get_lambda_by_level(4),
             "persona": "안전 지향 (거북이)",
             "desc": "특징: 리스크에 매우 민감하며 원금 보존을 최우선으로 합니다."
         },
         3: {
-            "lambda_final": lambda_map[3],
+            "lambda_final": get_lambda_by_level(3),
             "persona": "신중한 탐험가 (강아지)",
             "desc": "특징: 평균적인 투자자보다 다소 보수적이며, 분석적 근거를 중시합니다."
         },
         2: {
-            "lambda_final": lambda_map[2],
+            "lambda_final": get_lambda_by_level(2),
             "persona": "균형 잡힌 사자 (사자)",
             "desc": "특징: 수익을 위해 적정 수준의 리스크를 감내할 수 있습니다."
         },
         1: {
-            "lambda_final": lambda_map[1],
+            "lambda_final": get_lambda_by_level(1),
             "persona": "공격적 독수리 (독수리)",
             "desc": "특징: 리스크보다는 기회와 수익에 집중하며 높은 변동성을 견딥니다."
         }
