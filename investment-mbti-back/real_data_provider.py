@@ -188,22 +188,32 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     top_stocks = pool[:top_n]
 
     # 5. 프론트엔드 호환 형식으로 변환
-    vol_labels = {4: "Very Low", 3: "Low", 2: "Medium", 1: "High"}
-    color_map = {4: "#10b981", 3: "#3b82f6", 2: "#8b5cf6", 1: "#ef4444"}
-    
-    color = color_map.get(risk_level, "#8b5cf6")
-    vol_label = vol_labels.get(risk_level, "Medium")
+    # MinMaxScaler 기반 개별 종목 위험도 점수 (0~100) 산출
+    # 전체 300종목의 sigma_ewma_60d 분포를 기준으로 정규화
+    all_sigmas = [v ** 0.5 for v in variance_map.values()]
+    sigma_min = min(all_sigmas) if all_sigmas else 0
+    sigma_max = max(all_sigmas) if all_sigmas else 1
+    sigma_range = sigma_max - sigma_min if sigma_max > sigma_min else 1
 
+    import math
     result = []
     for rank, s in enumerate(top_stocks, 1):
+        # 위험도 점수: sigma를 0~100으로 정규화 (소수점 절삭)
+        risk_score = int((s["sigma"] - sigma_min) / sigma_range * 100)
+        risk_score = max(0, min(100, risk_score))
+
+        # 로그수익률 → 단순수익률 변환: simple = (e^r - 1) * 100
+        log_ret = s["e_return"]
+        simple_ret = round((math.exp(log_ret) - 1) * 100, 2)
+
         result.append({
             "rank": rank,
             "ticker": s["ticker"],
             "name": TICKER_NAME_MAP.get(s["ticker"], s["ticker"]),
-            "volatility": vol_label,
-            "color": color,
-            "expectedReturn3M": round(s["e_return"] * 100, 2),  # 퍼센트 변환
+            "expectedReturn3M": round(s["e_return"] * 100, 2),        # 로그수익률 (백엔드 참조용)
+            "expectedReturn3M_simple": simple_ret,                     # 단순수익률 (프론트엔드 표시용)
             "sigma_ewma_60d": round(s["sigma"], 4),
+            "risk_score": risk_score,                                  # 0~100 위험도 점수
             "score": round(s["score"], 4),
         })
 
