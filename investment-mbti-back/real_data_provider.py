@@ -17,6 +17,7 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from DB import StockDBManager
+from risk_profile import get_lambda_by_level
 
 # ──────────────────────────────────────────────────────────────────
 # 상수
@@ -27,13 +28,8 @@ _CSV_PATH = _PROJECT_ROOT / "Classification" / "artifacts" / "multi_ticker" / "a
 # 예측 Horizon (거래일 기준, 일별 공분산 → 3개월 스케일링용)
 HORIZON_DAYS = 60
 
-# 리스크 타입별 λ 값 (risk_profile.py 수식형과 동기화)
-LAMBDA_MAP = {
-    4: 23.10,  # 거북이 (안전 지향, 5%)
-    3: 7.70,   # 강아지 (신중한 탐험가, 15%)
-    2: 4.62,   # 사자 (균형 잡힌, 25%)
-    1: 3.30,   # 독수리 (공격적, 35%)
-}
+# 리스크 타입별 λ 값 (risk_profile.py 로직과 동기화된 동적 매핑)
+LAMBDA_MAP = {i: get_lambda_by_level(i) for i in range(1, 5)}
 
 # 종목 한글 이름 매핑 (주요 종목)
 TICKER_NAME_MAP = {
@@ -144,7 +140,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     Returns:
         추천 종목 딕셔너리 리스트 (프론트엔드 호환 형식)
     """
-    lam = LAMBDA_MAP.get(risk_level, 10.04)
+    lam = LAMBDA_MAP.get(risk_level, get_lambda_by_level(2))
     df = _cache["adj_returns_df"]
     variance_map = _cache["variance_map"]
 

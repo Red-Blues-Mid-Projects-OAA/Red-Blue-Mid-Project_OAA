@@ -80,9 +80,8 @@ def analyze_portfolio(req: AnalyzeRequest):
     persona = risk_result["persona"]
     desc = risk_result["persona_desc"]
 
-    # 2. final_level 역산 (λ → 등급)
-    level_map = {23.10: 4, 16.57: 3, 10.04: 2, 3.50: 1}
-    final_level = level_map.get(lambda_final, 2)
+    # 2. final_level 추출 (종목 추천 풀 선택 및 리스크 카테고리 매핑 등에서 사용)
+    final_level = risk_result.get("final_level", 2)
 
     # 3. 리스크 타입별 종목 추천 (유틸리티 스코어 기반)
     recommended_stocks = get_recommended_stocks(final_level, top_n=10)

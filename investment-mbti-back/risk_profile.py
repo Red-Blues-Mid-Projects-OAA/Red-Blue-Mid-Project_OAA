@@ -15,6 +15,21 @@ Q7~Q9: T(A) vs F(B)
 Q10~Q12: J(A) vs P(B)
 """
 
+
+def get_lambda_by_level(level):
+    """
+    슬라이더(1%~40%)를 10% 단위의 4개 구간으로 나누었으므로,
+    각 정수 레벨(1~4)별로 해당 구간의 중앙값(Midpoint)을 대표 Loss로 수리적 산출하여
+    연속적인 1.155/Loss 반비례 곡선에서 4개의 이산적(Discrete) lambda로 매핑합니다.
+    - Level 4 (1~10%)  -> 대표 Loss 5% (0.05)
+    - Level 3 (10~20%) -> 대표 Loss 15% (0.15)
+    - Level 2 (20~30%) -> 대표 Loss 25% (0.25)
+    - Level 1 (30~40%) -> 대표 Loss 35% (0.35)
+    """
+    rep_loss = 0.45 - (level * 0.10)
+    return round(1.155 / rep_loss, 2)
+
+
 def calculate_risk_profile(answers, loss_limit_value):
     """
     사용자의 설문 답변과 손실 한도 설정을 바탕으로 투자 MBTI 페르소나와 
@@ -75,17 +90,6 @@ def calculate_risk_profile(answers, loss_limit_value):
     
 
     # 5. STEP 3: 최종 람다 산출 및 페르소나 매핑
-    # 공식: lambda = (Sharpe 0.7 * 신뢰도 1.65) / Representative Loss = 1.155 / Loss
-    # 슬라이더(1%~40%)를 10% 단위의 4개 구간으로 나누었으므로,
-    # 각 정수 레벨(1~4)별로 해당 구간의 중앙값(Midpoint)을 대표 Loss로 수학적으로 산출합니다.
-    # Level 4 (1~10%)  -> 대표 Loss 5% (0.05)
-    # Level 3 (10~20%) -> 대표 Loss 15% (0.15)
-    # Level 2 (20~30%) -> 대표 Loss 25% (0.25)
-    # Level 1 (30~40%) -> 대표 Loss 35% (0.35)
-    
-    def get_lambda_by_level(level):
-        rep_loss = 0.45 - (level * 0.10)
-        return round(1.155 / rep_loss, 2)
     
     mapping_data = {
         4: {
@@ -132,7 +136,8 @@ def calculate_risk_profile(answers, loss_limit_value):
         "persona": selected_mapping["persona"],
         "persona_desc": selected_mapping["desc"],
         "lambda_final": lambda_final,
-        "loss_ratio_percent": round(loss_percent, 2)
+        "loss_ratio_percent": round(loss_percent, 2),
+        "final_level": final_level
     }
 
 

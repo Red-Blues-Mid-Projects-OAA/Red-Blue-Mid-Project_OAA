@@ -159,7 +159,9 @@ if __name__ == "__main__":
         [0.000, 0.002, 0.010],
     ])
 
-    for name, lam in [("거북이", 23.10), ("사자", 10.04), ("독수리", 3.50)]:
+    from risk_profile import get_lambda_by_level
+    for level, name in [(4, "거북이"), (2, "사자"), (1, "독수리")]:
+        lam = get_lambda_by_level(level)
         w = optimize_portfolio(mu_test, cov_test, lam)
         ret = w @ mu_test
         print(f"  [{name}] λ={lam:.2f} → 비중={w} (합={np.sum(w):.4f}, 기대수익률={ret:.4f})")
