@@ -140,25 +140,10 @@ def optimize_selected(req: OptimizeRequest):
     2단계: 사용자가 체크박스로 종목을 변경한 후 재최적화 요청.
     """
     tickers = [t.strip().upper() for t in req.selected_tickers]
-    
-    # 리스크 타입별 최소 종목 수 검증
-    lam = req.lambda_final
-    if lam >= 20.0:
-        min_required = 10
-    elif lam >= 15.0:
-        min_required = 7
-    elif lam >= 10.0:
-        min_required = 4
-    else:
-        min_required = 1
-
-    if len(tickers) < min_required:
-        raise HTTPException(status_code=400, detail=f"최소 {min_required}개 종목 이상 선택해야 최적화가 가능합니다.")
-
     mu, cov_sub, valid_tickers = get_mvo_inputs(tickers)
 
-    if len(valid_tickers) < min_required:
-        raise HTTPException(status_code=400, detail=f"유효한 종목이 부족합니다. (최소 {min_required}개 필요)")
+    if len(valid_tickers) == 0:
+        raise HTTPException(status_code=400, detail="유효한 종목이 없습니다.")
 
     weights = optimize_portfolio(mu, cov_sub, req.lambda_final)
 
