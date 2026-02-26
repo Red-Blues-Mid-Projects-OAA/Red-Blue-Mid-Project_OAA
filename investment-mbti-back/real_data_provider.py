@@ -123,7 +123,7 @@ def load_cache():
     print("[Cache] 데이터 캐싱 완료!\n")
 
 
-def get_recommended_stocks(risk_level: int, top_n: int = 15) -> list[dict]:
+def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     """
     Vol_3M 기준으로 오름차순 정렬하여 누적 사분위수(Cumulative Quartile) 풀을 형성하고,
     해당 풀 내에서 개별 목적함수(Utility Score)로 순위를 매겨 추천합니다.
@@ -139,7 +139,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 15) -> list[dict]:
 
     Args:
         risk_level: 1(독수리) ~ 4(거북이)
-        top_n: 추천 종목 수 (기본 15, 거북이 최소 10개 선택 제약을 위해 15개 넉넉히 제공)
+        top_n: 추천 종목 수 (기본 10)
 
     Returns:
         추천 종목 딕셔너리 리스트 (프론트엔드 호환 형식)
@@ -156,7 +156,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 15) -> list[dict]:
     for _, row in df.iterrows():
         ticker = str(row["Ticker"]).strip().upper()
         e_ri = float(row["Adjusted_E_Total"])     # E(R_i)
-        vol_3m = float(row.get("Vol_3M", 0.0))    # 풀 생성을 위한 변동성 척도
+        vol_3m = float(row.get("Vol_3M", 0.0))    # (참고용) 과거 3개월 변동성
         sigma_sq = variance_map.get(ticker, 0.01) # 목적함수 계산용 EWMA 분산(60일 스케일링)
         
         # 각 종목의 Utility Score 계산
@@ -171,8 +171,8 @@ def get_recommended_stocks(risk_level: int, top_n: int = 15) -> list[dict]:
             "score": score,
         })
 
-    # 2. Vol_3M 오름차순 정렬 (변동성이 낮은 순)
-    stocks.sort(key=lambda x: x["vol_3m"])
+    # 2. sigma_ewma_60d (sigma) 기준 오름차순 정렬 (최신 변동성 낮은 순으로 컷오프 통일)
+    stocks.sort(key=lambda x: x["sigma"])
 
     # 3. 리스크 등급에 따른 Pool 잘라내기
     total_count = len(stocks)
