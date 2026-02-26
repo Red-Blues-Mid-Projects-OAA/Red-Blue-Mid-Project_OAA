@@ -55,19 +55,17 @@ def calculate_risk_profile(answers, loss_limit_value):
         level_mbti = 4
 
     # 3. STEP 1-2: 슬라이더 등급 (level_slider) 산출
-    # Loss 슬라이더 범위: 5% ~ 33% (기존 0~1000만원 기준에서 5~33% 기준으로 변경)
-    # lambda = 1.155 / loss 공식이 반비례(1/x) 곡선임을 고려하여,
-    # 리스크가 작은 구간에 가중치를 두어 로그/지수 형태의 버킷(Bucket)으로 분할합니다.
+    # Loss 슬라이더 범위: 1% ~ 40% (10% 단위로 등급 부여)
     loss_percent = abs((loss_limit_value - 10000000) / 10000000) * 100
     
-    if loss_percent > 21:
-        level_slider = 1  # 21% ~ 33% (독수리 성향)
-    elif loss_percent > 13:
-        level_slider = 2  # 13% ~ 21% (사자 성향)
-    elif loss_percent > 8:
-        level_slider = 3  # 8% ~ 13% (강아지 성향)
+    if loss_percent > 30:
+        level_slider = 1  # 30% 초과 ~ 40% 이하 (독수리 성향)
+    elif loss_percent > 20:
+        level_slider = 2  # 20% 초과 ~ 30% 이하 (사자 성향)
+    elif loss_percent > 10:
+        level_slider = 3  # 10% 초과 ~ 20% 이하 (강아지 성향)
     else:
-        level_slider = 4  # 5% ~ 8% (거북이 성향)
+        level_slider = 4  # 1% ~ 10% 이하 (거북이 성향)
 
     # 4. STEP 2: 7:3 가중 평균 및 최종 등급 확정
     # 슬라이더 70%, MBTI 30% 비중 합산
@@ -77,13 +75,13 @@ def calculate_risk_profile(answers, loss_limit_value):
     
 
     # 5. STEP 3: 최종 람다 산출 및 페르소나 매핑
-    # 공식: lambda = (Sharpe 0.7 * 신뢰도 1.65) / Loss = 1.155 / Loss
-    # 각 정수 레벨에 역산된 대표 Loss 값을 매핑하여 람다 산출 (5%, 6.97%, 11.5%, 33%)
+    # 공식: lambda = (Sharpe 0.7 * 신뢰도 1.65) / Representative Loss = 1.155 / Loss
+    # 각 정수 레벨에 역산된(대표격인) Loss 값을 매핑하여 람다 산출 (5%, 6.97%, 11.5%, 33%)
     lambda_map = {
-        4: round(1.155 / 0.05, 2),    # 23.10
-        3: round(1.155 / 0.0697, 2),  # 16.57
-        2: round(1.155 / 0.115, 2),   # 10.04
-        1: round(1.155 / 0.33, 2)     # 3.50
+        4: round(1.155 / 0.05, 2),    # 23.10 (거북이 대표 Loss: 5%)
+        3: round(1.155 / 0.0697, 2),  # 16.57 (강아지 대표 Loss: 약 7%)
+        2: round(1.155 / 0.115, 2),   # 10.04 (사자 대표 Loss: 11.5%)
+        1: round(1.155 / 0.33, 2)     # 3.50  (독수리 대표 Loss: 33%)
     }
     
     mapping_data = {
