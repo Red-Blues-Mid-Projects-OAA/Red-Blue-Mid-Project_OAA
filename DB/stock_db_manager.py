@@ -173,6 +173,55 @@ class StockDBManager:
         END;
         """
 
+        create_risk_level_snapshot_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE RISK_LEVEL_PORTFOLIO_SNAPSHOT (
+                RISK_LEVEL NUMBER(1),
+                RANK_NO NUMBER,
+                RISK_LABEL VARCHAR2(40),
+                LAMBDA_VALUE NUMBER,
+                PORTFOLIO_EXPECTED_RETURN_3M NUMBER,
+                PORTFOLIO_STD_60D NUMBER,
+                HOLDINGS_COUNT NUMBER,
+                TICKER VARCHAR2(20),
+                STOCK_NAME VARCHAR2(120),
+                WEIGHT_PCT NUMBER,
+                STOCK_EXPECTED_RETURN_3M NUMBER,
+                STOCK_SIGMA_EWMA_60D NUMBER,
+                UPDATED_AT DATE,
+                CONSTRAINT PK_RISK_LEVEL_PORTFOLIO_SNAPSHOT PRIMARY KEY (RISK_LEVEL, RANK_NO)
+            )';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
+        # Legacy two-table schema cleanup (metrics/holdings -> unified snapshot table)
+        drop_legacy_risk_metrics_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'DROP TABLE RISK_LEVEL_PORTFOLIO_METRICS PURGE';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -942 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
+        drop_legacy_risk_holdings_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'DROP TABLE RISK_LEVEL_PORTFOLIO_HOLDINGS PURGE';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -942 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
         try:
             self.cursor.execute(create_stock_data_query)
             self.cursor.execute(create_log_returns_query)
@@ -180,6 +229,9 @@ class StockDBManager:
             self.cursor.execute(create_sp500_query)
             self.cursor.execute(create_market_features_query)
             self.cursor.execute(create_adjusted_expected_returns_query)
+            self.cursor.execute(create_risk_level_snapshot_query)
+            self.cursor.execute(drop_legacy_risk_metrics_query)
+            self.cursor.execute(drop_legacy_risk_holdings_query)
             
             # 변경 사항 커밋
             self.connection.commit()
@@ -1404,6 +1456,136 @@ class StockDBManager:
         except Exception as e:
             print(f"[SYNC][ERROR] ADJUSTED_EXPECTED_RETURNS 조회 실패: {e}")
             return pd.DataFrame()
+
+    def replace_risk_level_portfolio_snapshot(self, metrics_rows, holdings_rows):
+        """
+        4단계 리스크 포트폴리오 스냅샷을 단일 테이블에 교체 적재합니다.
+        - rank_no=0: 리스크별 요약 행
+        - rank_no>=1: 편입 종목 행
+        """
+        if not metrics_rows:
+            raise ValueError("metrics_rows is empty")
+
+        def _to_number(value):
+            if pd.isna(value):
+                return None
+            try:
+                numeric = float(value)
+            except (TypeError, ValueError):
+                return None
+            return numeric if math.isfinite(numeric) else None
+
+        snapshot_insert_query = """
+        INSERT INTO RISK_LEVEL_PORTFOLIO_SNAPSHOT (
+            RISK_LEVEL,
+            RANK_NO,
+            RISK_LABEL,
+            LAMBDA_VALUE,
+            PORTFOLIO_EXPECTED_RETURN_3M,
+            PORTFOLIO_STD_60D,
+            HOLDINGS_COUNT,
+            TICKER,
+            STOCK_NAME,
+            WEIGHT_PCT,
+            STOCK_EXPECTED_RETURN_3M,
+            STOCK_SIGMA_EWMA_60D,
+            UPDATED_AT
+        ) VALUES (
+            :1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, SYSDATE
+        )
+        """
+
+        metric_map = {}
+        for row in metrics_rows:
+            risk_level = int(row.get("risk_level"))
+            metric_map[risk_level] = {
+                "risk_label": str(row.get("risk_label", "")).strip(),
+                "lambda_value": _to_number(row.get("lambda_value")),
+                "portfolio_return_3m": _to_number(row.get("expected_return_3m")),
+                "portfolio_std_60d": _to_number(row.get("portfolio_std_60d")),
+                "holdings_count": int(row.get("holdings_count", 0)),
+            }
+
+        holding_map = {}
+        for row in holdings_rows:
+            risk_level = int(row.get("risk_level"))
+            rank_no = int(row.get("rank_no"))
+            ticker = str(row.get("ticker", "")).strip().upper()
+            stock_name = str(row.get("stock_name", ticker)).strip()[:120]
+            weight_pct = _to_number(row.get("weight_pct"))
+            stock_expected_return_3m = _to_number(row.get("expected_return_3m"))
+            stock_sigma_ewma_60d = _to_number(row.get("sigma_ewma_60d"))
+            if not ticker:
+                continue
+            holding_map.setdefault(risk_level, []).append(
+                {
+                    "rank_no": rank_no,
+                    "ticker": ticker,
+                    "stock_name": stock_name,
+                    "weight_pct": weight_pct,
+                    "stock_expected_return_3m": stock_expected_return_3m,
+                    "stock_sigma_ewma_60d": stock_sigma_ewma_60d,
+                }
+            )
+
+        snapshot_records = []
+        for risk_level in sorted(metric_map.keys(), reverse=True):
+            metric = metric_map[risk_level]
+
+            # Summary row (rank_no=0)
+            snapshot_records.append(
+                (
+                    risk_level,
+                    0,
+                    metric["risk_label"],
+                    metric["lambda_value"],
+                    metric["portfolio_return_3m"],
+                    metric["portfolio_std_60d"],
+                    metric["holdings_count"],
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                )
+            )
+
+            risk_holdings = sorted(
+                holding_map.get(risk_level, []),
+                key=lambda item: item["rank_no"],
+            )
+            for holding in risk_holdings:
+                snapshot_records.append(
+                    (
+                        risk_level,
+                        holding["rank_no"],
+                        metric["risk_label"],
+                        metric["lambda_value"],
+                        metric["portfolio_return_3m"],
+                        metric["portfolio_std_60d"],
+                        metric["holdings_count"],
+                        holding["ticker"],
+                        holding["stock_name"],
+                        holding["weight_pct"],
+                        holding["stock_expected_return_3m"],
+                        holding["stock_sigma_ewma_60d"],
+                    )
+                )
+
+        try:
+            self.cursor.execute("DELETE FROM RISK_LEVEL_PORTFOLIO_SNAPSHOT")
+            if snapshot_records:
+                self.cursor.executemany(snapshot_insert_query, snapshot_records)
+
+            self.connection.commit()
+            print(
+                f"[SYNC][OK] RISK_LEVEL_PORTFOLIO snapshot synced "
+                f"(rows={len(snapshot_records)})"
+            )
+        except Exception as e:
+            self.connection.rollback()
+            print(f"[SYNC][ERROR] RISK_LEVEL_PORTFOLIO snapshot sync failed: {e}")
+            raise
 
     def close(self):
         """

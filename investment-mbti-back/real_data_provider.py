@@ -55,6 +55,17 @@ _cache = {
     "cov_matrix": None,           # EWMA 공분산 numpy 행렬
     "ticker_to_cov_idx": None,    # ticker → 행렬 인덱스 매핑
     "variance_map": None,         # ticker → σ²_i (대각선 원소)
+    "risk_snapshot_stage": None,
+    "risk_snapshot_error": None,
+    "risk_snapshot_metrics_count": 0,
+    "risk_snapshot_holdings_count": 0,
+}
+
+RISK_LEVEL_LABEL_MAP = {
+    4: "Very Low Risk",
+    3: "Low Risk",
+    2: "Medium Risk",
+    1: "High Risk",
 }
 
 
@@ -149,6 +160,10 @@ def get_cache_sync_status() -> dict:
         "last_error": _cache.get("last_error"),
         "filtered_count": int(len(filtered_df)) if filtered_df is not None else 0,
         "all_returns_count": int(len(all_returns)) if all_returns is not None else 0,
+        "risk_snapshot_stage": _cache.get("risk_snapshot_stage"),
+        "risk_snapshot_error": _cache.get("risk_snapshot_error"),
+        "risk_snapshot_metrics_count": int(_cache.get("risk_snapshot_metrics_count") or 0),
+        "risk_snapshot_holdings_count": int(_cache.get("risk_snapshot_holdings_count") or 0),
     }
 
 
@@ -176,6 +191,10 @@ def load_cache():
     _cache["snapshot_source"] = None
     _cache["last_error"] = None
     _cache["last_stage"] = None
+    _cache["risk_snapshot_stage"] = None
+    _cache["risk_snapshot_error"] = None
+    _cache["risk_snapshot_metrics_count"] = 0
+    _cache["risk_snapshot_holdings_count"] = 0
 
     source_df = pd.DataFrame()
     source_name = "DB"
@@ -247,7 +266,128 @@ def load_cache():
         _cache["variance_map"] = _build_variance_map_from_df(source_df)
         print("  [SYNC][EWMA][FALLBACK] Vol_3M 기반 분산 사용")
 
+    _sync_risk_level_snapshot_to_db(top_n=10)
+
     print("[Cache] 데이터 캐싱 완료!\n")
+
+
+def _build_risk_level_snapshot_rows(top_n: int = 10) -> tuple[list[dict], list[dict]]:
+    """Build per-risk-level portfolio snapshot rows for DB sync."""
+    from portfolio_optimizer import optimize_portfolio
+
+    metrics_rows: list[dict] = []
+    holdings_rows: list[dict] = []
+
+    for risk_level in [4, 3, 2, 1]:
+        lam = LAMBDA_MAP.get(risk_level, get_lambda_by_level(risk_level))
+        recommended = get_recommended_stocks(risk_level, top_n=top_n)
+        tickers = [item["ticker"] for item in recommended]
+
+        if not tickers:
+            metrics_rows.append(
+                {
+                    "risk_level": risk_level,
+                    "risk_label": RISK_LEVEL_LABEL_MAP.get(risk_level, f"Level {risk_level}"),
+                    "lambda_value": float(lam),
+                    "expected_return_3m": 0.0,
+                    "portfolio_std_60d": 0.0,
+                    "holdings_count": 0,
+                }
+            )
+            continue
+
+        mu, cov_sub, valid_tickers = get_mvo_inputs(tickers)
+        if len(valid_tickers) == 0:
+            metrics_rows.append(
+                {
+                    "risk_level": risk_level,
+                    "risk_label": RISK_LEVEL_LABEL_MAP.get(risk_level, f"Level {risk_level}"),
+                    "lambda_value": float(lam),
+                    "expected_return_3m": 0.0,
+                    "portfolio_std_60d": 0.0,
+                    "holdings_count": 0,
+                }
+            )
+            continue
+
+        weights = np.array(optimize_portfolio(mu, cov_sub, float(lam)), dtype=float)
+        if len(weights) != len(valid_tickers):
+            raise RuntimeError(
+                f"weights length mismatch (risk_level={risk_level}, "
+                f"weights={len(weights)}, tickers={len(valid_tickers)})"
+            )
+
+        portfolio_return_3m = float(np.dot(weights, mu)) * 100
+        portfolio_var_60d = float(np.dot(weights, np.dot(cov_sub, weights)))
+        portfolio_sigma_60d = float(np.sqrt(max(portfolio_var_60d, 0.0)))
+
+        weighted_pairs = [
+            (ticker, float(weight))
+            for ticker, weight in zip(valid_tickers, weights)
+            if float(weight) > 1e-8
+        ]
+        weighted_pairs.sort(key=lambda item: item[1], reverse=True)
+
+        metrics_rows.append(
+            {
+                "risk_level": risk_level,
+                "risk_label": RISK_LEVEL_LABEL_MAP.get(risk_level, f"Level {risk_level}"),
+                "lambda_value": float(lam),
+                "expected_return_3m": round(portfolio_return_3m, 2),
+                "portfolio_std_60d": round(portfolio_sigma_60d, 4),
+                "holdings_count": len(weighted_pairs),
+            }
+        )
+
+        recommended_map = {item["ticker"]: item for item in recommended}
+        return_map = {ticker: float(value) for ticker, value in zip(valid_tickers, mu)}
+
+        for rank_no, (ticker, weight) in enumerate(weighted_pairs, 1):
+            stock_name = recommended_map.get(ticker, {}).get("name", TICKER_NAME_MAP.get(ticker, ticker))
+            sigma_ewma_60d = recommended_map.get(ticker, {}).get("sigma_ewma_60d")
+            holdings_rows.append(
+                {
+                    "risk_level": risk_level,
+                    "rank_no": rank_no,
+                    "ticker": ticker,
+                    "stock_name": str(stock_name),
+                    "weight_pct": round(float(weight) * 100, 2),
+                    "expected_return_3m": round(return_map.get(ticker, 0.0) * 100, 2),
+                    "sigma_ewma_60d": float(sigma_ewma_60d) if sigma_ewma_60d is not None else None,
+                }
+            )
+
+    return metrics_rows, holdings_rows
+
+
+def _sync_risk_level_snapshot_to_db(top_n: int = 10):
+    """Persist 4-level risk snapshot rows into DB after cache load."""
+    db = StockDBManager()
+    db_connected = False
+
+    try:
+        metrics_rows, holdings_rows = _build_risk_level_snapshot_rows(top_n=top_n)
+        db.connect()
+        db_connected = True
+        db.replace_risk_level_portfolio_snapshot(metrics_rows, holdings_rows)
+
+        _cache["risk_snapshot_stage"] = "ok"
+        _cache["risk_snapshot_error"] = None
+        _cache["risk_snapshot_metrics_count"] = len(metrics_rows)
+        _cache["risk_snapshot_holdings_count"] = len(holdings_rows)
+        print(
+            "  [SYNC][RISK_SNAPSHOT][OK] "
+            f"metrics={len(metrics_rows)}, holdings={len(holdings_rows)}"
+        )
+    except Exception as e:
+        _cache["risk_snapshot_stage"] = "error"
+        _cache["risk_snapshot_error"] = str(e)
+        _cache["risk_snapshot_metrics_count"] = 0
+        _cache["risk_snapshot_holdings_count"] = 0
+        print(f"  [SYNC][RISK_SNAPSHOT][ERROR] {e}")
+    finally:
+        if db_connected:
+            db.close()
 
 
 def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
