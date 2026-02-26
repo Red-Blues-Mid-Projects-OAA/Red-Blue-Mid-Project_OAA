@@ -123,75 +123,78 @@ def load_cache():
     print("[Cache] 데이터 캐싱 완료!\n")
 
 
-def get_recommended_stocks(risk_level: int, top_n: int = 12) -> list[dict]:
+def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     """
-    σ_ewma(60일) 기준 사분위수로 종목을 분류하여
-    각 리스크 타입에 해당하는 변동성 구간의 종목을 추천합니다.
+    Vol_3M 기준으로 오름차순 정렬하여 누적 사분위수(Cumulative Quartile) 풀을 형성하고,
+    해당 풀 내에서 개별 목적함수(Utility Score)로 순위를 매겨 추천합니다.
 
-    분류 로직:
-      - Level 4 (거북이): Q1 — σ_ewma 하위 25% (최저 변동성)
-      - Level 3 (강아지): Q2 — σ_ewma 25~50%
-      - Level 2 (사자):   Q3 — σ_ewma 50~75%
-      - Level 1 (독수리): Q4 — σ_ewma 상위 25% (최고 변동성)
+    풀 크기 (누적):
+      - Level 4 (거북이, 안전 지향): 상위 25% (Vol_3M 최저)
+      - Level 3 (강아지, 신중함)  : 상위 50%
+      - Level 2 (사자, 균형)     : 상위 75%
+      - Level 1 (독수리, 공격적)  : 전체 100%
 
-    각 구간 내에서 Adjusted_E_Total 내림차순으로 상위 top_n개 추천.
+    목적함수 (스코어):
+      score_i = E(R_i) - (1/2) * λ * σ_ewma(60일)²
 
     Args:
         risk_level: 1(독수리) ~ 4(거북이)
-        top_n: 추천 종목 수 (기본 12)
+        top_n: 추천 종목 수 (기본 10)
 
     Returns:
         추천 종목 딕셔너리 리스트 (프론트엔드 호환 형식)
     """
+    lam = LAMBDA_MAP.get(risk_level, 10.04)
     df = _cache["adj_returns_df"]
     variance_map = _cache["variance_map"]
 
     if df is None or variance_map is None:
         raise RuntimeError("캐시가 초기화되지 않았습니다. load_cache()를 먼저 호출하세요.")
 
-    # 1. 전체 필터링된 종목에 분산 연결
+    # 1. 대상 종목 데이터 구성
     stocks = []
     for _, row in df.iterrows():
         ticker = str(row["Ticker"]).strip().upper()
-        e_ri = float(row["Adjusted_E_Total"])
-        sigma_sq = variance_map.get(ticker, 0.01)  # 60일 스케일링 분산
-        sigma = sigma_sq ** 0.5  # σ_ewma (60일)
+        e_ri = float(row["Adjusted_E_Total"])     # E(R_i)
+        vol_3m = float(row.get("Vol_3M", 0.0))    # 풀 생성을 위한 변동성 척도
+        sigma_sq = variance_map.get(ticker, 0.01) # 목적함수 계산용 EWMA 분산(60일 스케일링)
+        
+        # 각 종목의 Utility Score 계산
+        score = e_ri - 0.5 * lam * sigma_sq
+        
         stocks.append({
             "ticker": ticker,
             "e_return": e_ri,
+            "vol_3m": vol_3m,
             "variance": sigma_sq,
-            "sigma": sigma,
+            "sigma": sigma_sq ** 0.5,
+            "score": score,
         })
 
-    # 2. σ_ewma 오름차순 정렬
-    stocks.sort(key=lambda x: x["sigma"])
+    # 2. Vol_3M 오름차순 정렬 (변동성이 낮은 순)
+    stocks.sort(key=lambda x: x["vol_3m"])
 
-    # 3. 사분위수 경계 계산
-    sigmas = [s["sigma"] for s in stocks]
-    q25 = np.percentile(sigmas, 25)
-    q50 = np.percentile(sigmas, 50)
-    q75 = np.percentile(sigmas, 75)
+    # 3. 리스크 등급에 따른 Pool 잘라내기
+    total_count = len(stocks)
+    if risk_level == 4:
+        pool_size = max(int(total_count * 0.25), top_n)
+    elif risk_level == 3:
+        pool_size = max(int(total_count * 0.50), top_n)
+    elif risk_level == 2:
+        pool_size = max(int(total_count * 0.75), top_n)
+    else: # risk_level == 1
+        pool_size = total_count
 
-    # 4. 리스크 레벨 → 해당 분위 필터링
-    # Level 4 (거북이) = Q1 (최저 변동성), Level 1 (독수리) = Q4 (최고 변동성)
-    quartile_filter = {
-        4: lambda s: s["sigma"] <= q25,                     # Q1: 하위 25%
-        3: lambda s: q25 < s["sigma"] <= q50,               # Q2: 25~50%
-        2: lambda s: q50 < s["sigma"] <= q75,               # Q3: 50~75%
-        1: lambda s: s["sigma"] > q75,                      # Q4: 상위 25%
-    }
+    pool = stocks[:pool_size]
 
+    # 4. Pool 내에서 목적함수(score) 기준으로 내림차순 정렬
+    pool.sort(key=lambda x: x["score"], reverse=True)
+    top_stocks = pool[:top_n]
+
+    # 5. 프론트엔드 호환 형식으로 변환
     vol_labels = {4: "Very Low", 3: "Low", 2: "Medium", 1: "High"}
     color_map = {4: "#10b981", 3: "#3b82f6", 2: "#8b5cf6", 1: "#ef4444"}
-
-    filt = quartile_filter.get(risk_level, quartile_filter[2])
-    quartile_stocks = [s for s in stocks if filt(s)]
-
-    # 5. 구간 내에서 Adjusted_E_Total 내림차순 → 상위 top_n
-    quartile_stocks.sort(key=lambda x: x["e_return"], reverse=True)
-    top_stocks = quartile_stocks[:top_n]
-
-    # 6. 프론트엔드 호환 형식으로 변환
+    
     color = color_map.get(risk_level, "#8b5cf6")
     vol_label = vol_labels.get(risk_level, "Medium")
 
@@ -205,6 +208,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 12) -> list[dict]:
             "color": color,
             "expectedReturn3M": round(s["e_return"] * 100, 2),  # 퍼센트 변환
             "sigma_ewma_60d": round(s["sigma"], 4),
+            "score": round(s["score"], 4),
         })
 
     return result
