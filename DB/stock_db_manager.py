@@ -147,12 +147,39 @@ class StockDBManager:
         END;
         """
 
+        # 한글 주석: adjusted_expected_returns 스냅샷 전용 테이블입니다.
+        create_adjusted_expected_returns_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE ADJUSTED_EXPECTED_RETURNS (
+                TICKER VARCHAR2(20) PRIMARY KEY,
+                GATE_PASSED NUMBER(1),
+                RETURN_TYPE VARCHAR2(30),
+                ORIGINAL_E_RET NUMBER,
+                E_TOTAL_3M NUMBER,
+                REALIZED_3M NUMBER,
+                GAP NUMBER,
+                ADJ_WEIGHT NUMBER,
+                VOL_3M NUMBER,
+                ADJUSTMENT NUMBER,
+                ADJUSTED_E_TOTAL NUMBER,
+                ADJUSTMENT_APPLIED NUMBER(1),
+                UPDATED_AT DATE
+            )';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
         try:
             self.cursor.execute(create_stock_data_query)
             self.cursor.execute(create_log_returns_query)
             self.cursor.execute(create_ewma_cov_query)
             self.cursor.execute(create_sp500_query)
             self.cursor.execute(create_market_features_query)
+            self.cursor.execute(create_adjusted_expected_returns_query)
             
             # 변경 사항 커밋
             self.connection.commit()
@@ -1161,6 +1188,222 @@ class StockDBManager:
             print(f"Coverage report 생성 실패: {e}")
 
         return report
+
+    def upsert_adjusted_expected_returns_snapshot(self, df):
+        """
+        adjusted_expected_returns 스냅샷을 티커 기준으로 업서트하고,
+        입력 데이터에 없는 기존 티커는 삭제해 DB와 완전 동기화합니다.
+        """
+        # 한글 주석: 입력 컬럼 스키마를 명시적으로 검증합니다.
+        required_cols = [
+            "Ticker",
+            "Gate_Passed",
+            "Return_Type",
+            "Original_E_Ret",
+            "E_Total_3M",
+            "Realized_3M",
+            "Gap",
+            "Adj_Weight",
+            "Vol_3M",
+            "Adjustment",
+            "Adjusted_E_Total",
+            "Adjustment_Applied",
+        ]
+
+        normalized_df = df.copy()
+        normalized_df.columns = [str(col).strip() for col in normalized_df.columns]
+        missing_cols = [col for col in required_cols if col not in normalized_df.columns]
+        if missing_cols:
+            raise ValueError(
+                f"[SYNC][VALIDATION] adjusted_expected_returns 필수 컬럼 누락: {missing_cols}"
+            )
+
+        # 한글 주석: bool 컬럼은 Oracle NUMBER(1)로 변환합니다.
+        def _to_bool_flag(value):
+            if pd.isna(value):
+                return 0
+            if isinstance(value, bool):
+                return 1 if value else 0
+            normalized = str(value).strip().lower()
+            return 1 if normalized in {"1", "true", "t", "y", "yes"} else 0
+
+        # 한글 주석: 숫자 컬럼은 NaN/inf를 None으로 변환합니다.
+        def _to_number(value):
+            if pd.isna(value):
+                return None
+            try:
+                number = float(value)
+            except (TypeError, ValueError):
+                return None
+            return number if math.isfinite(number) else None
+
+        merge_query = """
+        MERGE INTO ADJUSTED_EXPECTED_RETURNS d
+        USING (
+            SELECT
+                :1 AS TICKER,
+                :2 AS GATE_PASSED,
+                :3 AS RETURN_TYPE,
+                :4 AS ORIGINAL_E_RET,
+                :5 AS E_TOTAL_3M,
+                :6 AS REALIZED_3M,
+                :7 AS GAP,
+                :8 AS ADJ_WEIGHT,
+                :9 AS VOL_3M,
+                :10 AS ADJUSTMENT,
+                :11 AS ADJUSTED_E_TOTAL,
+                :12 AS ADJUSTMENT_APPLIED
+            FROM dual
+        ) s
+        ON (d.TICKER = s.TICKER)
+        WHEN MATCHED THEN
+            UPDATE SET
+                d.GATE_PASSED = s.GATE_PASSED,
+                d.RETURN_TYPE = s.RETURN_TYPE,
+                d.ORIGINAL_E_RET = s.ORIGINAL_E_RET,
+                d.E_TOTAL_3M = s.E_TOTAL_3M,
+                d.REALIZED_3M = s.REALIZED_3M,
+                d.GAP = s.GAP,
+                d.ADJ_WEIGHT = s.ADJ_WEIGHT,
+                d.VOL_3M = s.VOL_3M,
+                d.ADJUSTMENT = s.ADJUSTMENT,
+                d.ADJUSTED_E_TOTAL = s.ADJUSTED_E_TOTAL,
+                d.ADJUSTMENT_APPLIED = s.ADJUSTMENT_APPLIED,
+                d.UPDATED_AT = SYSDATE
+        WHEN NOT MATCHED THEN
+            INSERT (
+                TICKER,
+                GATE_PASSED,
+                RETURN_TYPE,
+                ORIGINAL_E_RET,
+                E_TOTAL_3M,
+                REALIZED_3M,
+                GAP,
+                ADJ_WEIGHT,
+                VOL_3M,
+                ADJUSTMENT,
+                ADJUSTED_E_TOTAL,
+                ADJUSTMENT_APPLIED,
+                UPDATED_AT
+            )
+            VALUES (
+                s.TICKER,
+                s.GATE_PASSED,
+                s.RETURN_TYPE,
+                s.ORIGINAL_E_RET,
+                s.E_TOTAL_3M,
+                s.REALIZED_3M,
+                s.GAP,
+                s.ADJ_WEIGHT,
+                s.VOL_3M,
+                s.ADJUSTMENT,
+                s.ADJUSTED_E_TOTAL,
+                s.ADJUSTMENT_APPLIED,
+                SYSDATE
+            )
+        """
+
+        records = []
+        ticker_set = set()
+        for _, row in normalized_df.iterrows():
+            ticker = str(row["Ticker"]).strip().upper()
+            if not ticker:
+                continue
+            ticker_set.add(ticker)
+            records.append(
+                (
+                    ticker,
+                    _to_bool_flag(row["Gate_Passed"]),
+                    str(row["Return_Type"]).strip(),
+                    _to_number(row["Original_E_Ret"]),
+                    _to_number(row["E_Total_3M"]),
+                    _to_number(row["Realized_3M"]),
+                    _to_number(row["Gap"]),
+                    _to_number(row["Adj_Weight"]),
+                    _to_number(row["Vol_3M"]),
+                    _to_number(row["Adjustment"]),
+                    _to_number(row["Adjusted_E_Total"]),
+                    _to_bool_flag(row["Adjustment_Applied"]),
+                )
+            )
+
+        try:
+            # 한글 주석: 1) 스냅샷 업서트 단계
+            if records:
+                batch_size = 10000
+                for index in range(0, len(records), batch_size):
+                    batch = records[index:index + batch_size]
+                    self.cursor.executemany(merge_query, batch)
+
+            # 한글 주석: 2) 스냅샷 삭제 동기화 단계
+            if ticker_set:
+                ordered_tickers = sorted(ticker_set)
+                bind_params = {f"t{idx}": ticker for idx, ticker in enumerate(ordered_tickers)}
+                placeholders = ", ".join(f":{key}" for key in bind_params.keys())
+                delete_query = (
+                    f"DELETE FROM ADJUSTED_EXPECTED_RETURNS "
+                    f"WHERE TICKER NOT IN ({placeholders})"
+                )
+                self.cursor.execute(delete_query, bind_params)
+            else:
+                self.cursor.execute("TRUNCATE TABLE ADJUSTED_EXPECTED_RETURNS")
+
+            self.connection.commit()
+            print(
+                f"[SYNC][OK] ADJUSTED_EXPECTED_RETURNS 동기화 완료 "
+                f"(업서트={len(records)}, 유지티커={len(ticker_set)})"
+            )
+        except Exception as e:
+            self.connection.rollback()
+            print(f"[SYNC][ERROR] ADJUSTED_EXPECTED_RETURNS 동기화 실패: {e}")
+            raise
+
+    def fetch_adjusted_expected_returns(self):
+        """
+        ADJUSTED_EXPECTED_RETURNS 스냅샷을 조회하여
+        CSV와 동일한 컬럼 이름으로 반환합니다.
+        """
+        query = """
+        SELECT
+            TICKER AS "Ticker",
+            GATE_PASSED AS "Gate_Passed",
+            RETURN_TYPE AS "Return_Type",
+            ORIGINAL_E_RET AS "Original_E_Ret",
+            E_TOTAL_3M AS "E_Total_3M",
+            REALIZED_3M AS "Realized_3M",
+            GAP AS "Gap",
+            ADJ_WEIGHT AS "Adj_Weight",
+            VOL_3M AS "Vol_3M",
+            ADJUSTMENT AS "Adjustment",
+            ADJUSTED_E_TOTAL AS "Adjusted_E_Total",
+            ADJUSTMENT_APPLIED AS "Adjustment_Applied",
+            UPDATED_AT AS "Updated_At"
+        FROM ADJUSTED_EXPECTED_RETURNS
+        ORDER BY TICKER
+        """
+        try:
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.DataFrame()
+
+            col_names = [desc[0] for desc in self.cursor.description]
+            result_df = pd.DataFrame(rows, columns=col_names)
+
+            # 한글 주석: Oracle NUMBER(1) -> Python bool 복원
+            for col in ["Gate_Passed", "Adjustment_Applied"]:
+                if col in result_df.columns:
+                    result_df[col] = result_df[col].apply(
+                        lambda value: bool(int(value)) if pd.notna(value) else False
+                    )
+
+            if "Updated_At" in result_df.columns:
+                result_df["Updated_At"] = pd.to_datetime(result_df["Updated_At"])
+
+            return result_df
+        except Exception as e:
+            print(f"[SYNC][ERROR] ADJUSTED_EXPECTED_RETURNS 조회 실패: {e}")
+            return pd.DataFrame()
 
     def close(self):
         """

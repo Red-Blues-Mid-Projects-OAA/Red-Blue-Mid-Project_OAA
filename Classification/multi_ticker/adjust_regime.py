@@ -12,23 +12,8 @@ Execution:
 from __future__ import annotations
 
 import math
-import sys
-from pathlib import Path
 
-# 프로젝트 루트 경로 설정
-if __package__ in (None, ""):
-    _PROJECT_ROOT = next(
-        (
-            p
-            for p in Path(__file__).resolve().parents
-            if (p / "Classification").is_dir() and (p / "common").is_dir()
-        ),
-        None,
-    )
-    if _PROJECT_ROOT is not None:
-        sys.path.append(str(_PROJECT_ROOT))
-
-from common import np, pd
+from common import pd
 from DB import StockDBManager
 from Classification.model_config import MULTI_TICKER_ARTIFACT_DIR
 
@@ -102,10 +87,21 @@ def _load_realized_returns() -> tuple[pd.Series, pd.Series]:
     return realized_3m, vol_3m
 
 
+def _sync_adjusted_returns_to_db(result_df: pd.DataFrame) -> None:
+    """조정된 기대수익률 결과를 CSV 없이 DB 스냅샷으로 직접 동기화합니다."""
+    db = StockDBManager()
+    db.connect()
+    try:
+        # 한글 주석: stock_db_manager의 전용 업서트 메서드를 사용해 스냅샷 동기화를 수행합니다.
+        db.upsert_adjusted_expected_returns_snapshot(result_df)
+    finally:
+        db.close()
+
+
 def run_regime_adjustment() -> pd.DataFrame:
     """
     Graduated Momentum Tracking Overlay를 적용하여
-    조정된 예측 수익률 CSV를 생성합니다.
+    조정된 예측 수익률을 DB 스냅샷으로 직접 적재합니다.
     """
     # 1. 입력 데이터 로드
     final_df = _load_final_csv()
@@ -170,10 +166,9 @@ def run_regime_adjustment() -> pd.DataFrame:
             "Adjustment_Applied": adjustment_applied,
         })
 
-    # 5. 결과 DataFrame 생성 및 저장
+    # 한글 주석: 결과 DataFrame을 만든 뒤 DB 스냅샷으로 동기화합니다.
     result_df = pd.DataFrame(results)
-    output_path = MULTI_TICKER_ARTIFACT_DIR / "adjusted_expected_returns.csv"
-    result_df.to_csv(output_path, index=False)
+    _sync_adjusted_returns_to_db(result_df)
 
     # 요약 통계 출력
     adjusted_count = result_df["Adjustment_Applied"].sum()
@@ -187,7 +182,7 @@ def run_regime_adjustment() -> pd.DataFrame:
     print(f"  조정 적용 종목     : {adjusted_count}")
     print(f"  양수(+) 수익률     : {positive_count}")
     print(f"  음수(-) 수익률     : {negative_count}")
-    print(f"  저장 경로          : {output_path}")
+    print("  저장 대상          : ADJUSTED_EXPECTED_RETURNS (DB 스냅샷)")
     print("=" * 70)
 
     # 상위/하위 5개 종목 출력
