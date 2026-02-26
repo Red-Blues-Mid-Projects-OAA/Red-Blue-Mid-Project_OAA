@@ -35,14 +35,14 @@ def optimize_portfolio(mu, cov_matrix, lambda_final):
     if num_assets == 1:
         return np.array([1.0])
 
-    # 리스크 타입별 설정
+    # 리스크 타입별 설정 (새로운 람다 스케일 적용: 거북이~23.1, 강아지~7.7, 사자~4.62, 독수리~3.3)
     if lambda_final >= 20.0:    # 거북이
         max_w = 0.20
         min_count = 10
-    elif lambda_final >= 15.0:  # 강아지
+    elif lambda_final >= 7.0:   # 강아지
         max_w = 0.35
         min_count = 7
-    elif lambda_final >= 10.0:  # 사자
+    elif lambda_final >= 4.0:   # 사자
         max_w = 0.50
         min_count = 4
     else:                       # 독수리
