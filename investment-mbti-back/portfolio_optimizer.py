@@ -36,8 +36,24 @@ def optimize_portfolio(mu, cov_matrix, lambda_final):
     # 제약조건: sum(w) = 1
     constraints = ({"type": "eq", "fun": lambda w: np.sum(w) - 1})
 
-    # 바운드: w_i ≥ 0 (공매도 금지, 최소 비중 제한 없음)
-    bounds = tuple((0.0, 1.0) for _ in range(num_assets))
+    # 리스크 타입별 최대 비중(Upper Bound) 산출
+    if lambda_final >= 20.0:    # 거북이
+        max_w = 0.20
+    elif lambda_final >= 15.0:  # 강아지
+        max_w = 0.35
+    elif lambda_final >= 10.0:  # 사자
+        max_w = 0.50
+    else:                       # 독수리
+        max_w = 1.00
+
+    min_w = 0.05
+
+    # 선택된 종목 수가 너무 많아 최소 비중 5%를 모두에게 줄 수 없는 경우 스케일 다운
+    if min_w * num_assets > 1.0:
+        min_w = 1.0 / num_assets
+
+    # 바운드: 0.05 ≤ w_i ≤ max_w
+    bounds = tuple((min_w, max_w) for _ in range(num_assets))
 
     # 초기 비중: 1/N 동일가중
     initial_weights = np.array([1.0 / num_assets] * num_assets)

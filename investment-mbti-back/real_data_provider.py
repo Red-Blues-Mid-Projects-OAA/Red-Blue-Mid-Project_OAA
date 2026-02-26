@@ -123,7 +123,7 @@ def load_cache():
     print("[Cache] 데이터 캐싱 완료!\n")
 
 
-def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
+def get_recommended_stocks(risk_level: int, top_n: int = 15) -> list[dict]:
     """
     Vol_3M 기준으로 오름차순 정렬하여 누적 사분위수(Cumulative Quartile) 풀을 형성하고,
     해당 풀 내에서 개별 목적함수(Utility Score)로 순위를 매겨 추천합니다.
@@ -139,7 +139,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
 
     Args:
         risk_level: 1(독수리) ~ 4(거북이)
-        top_n: 추천 종목 수 (기본 10)
+        top_n: 추천 종목 수 (기본 15, 거북이 최소 10개 선택 제약을 위해 15개 넉넉히 제공)
 
     Returns:
         추천 종목 딕셔너리 리스트 (프론트엔드 호환 형식)
