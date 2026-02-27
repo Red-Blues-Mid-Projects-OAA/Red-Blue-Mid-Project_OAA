@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 cd "${PROJECT_ROOT}"
 
-# Windows cp949 肄섏넄?먯꽌???대え吏/?좊땲肄붾뱶 異쒕젰?쇰줈 以묐떒?섏? ?딅룄濡?UTF-8 媛뺤젣
+# Windows cp949 콘솔에서 유니코드 출력이 깨지는 문제를 방지하기 위해 UTF-8을 강제합니다.
 export PYTHONUTF8=1
 export PYTHONIOENCODING=UTF-8
 
