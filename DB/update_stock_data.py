@@ -1,7 +1,20 @@
+# 수정 이력 (주석 추가 전 라인 번호 기준)
+# - 57줄: _build_ticker_start_dates 정리
+# - 72줄: _trim_downloaded_data_by_ticker_start 유지/정리
+# - 99줄: update_stock_data 리팩터링
+#   * 최신일 조회 SQL 중복 제거 -> StockDBManager.get_latest_dates_map 사용
+#   * _estimate_insert_rows 제거
+#   * insert_data 반환값 기준으로 실제 반영 row 집계
+# - 59줄: _resolve_download_end_date 추가 (yfinance end 배타 처리 보정)
+# - 87줄: _trim_downloaded_data_by_ticker_start 멀티인덱스 레이아웃 양방향 대응
+# - 128줄: _extract_single_ticker_from_batch 추가 (배치 0건 시 로컬 fallback 분리)
+# - 214줄: active_tickers 조건 < -> <= 변경 (종료일 포함 의미로 정렬)
+# - 56줄: end_date 기본값을 오늘 -> 어제로 변경 (미완성 일봉 요청 방지)
+
 if __package__ in (None, ""):
     import sys
     from pathlib import Path
-    
+
     _PROJECT_ROOT = next(
         (
             p
@@ -12,7 +25,7 @@ if __package__ in (None, ""):
     )
     if _PROJECT_ROOT is not None:
         sys.path.append(str(_PROJECT_ROOT))
-        
+
     from datetime import datetime, timedelta
 
     import pandas as pd
@@ -25,42 +38,121 @@ else:
     from DB import StockDBManager
     from DB import TICKERS
 
+
 def _normalize_tickers(tickers):
     if tickers is None:
-        return list(TICKERS)
-    return [str(t).strip().upper() for t in tickers if str(t).strip()]
+        source = list(TICKERS)
+    else:
+        source = [str(t).strip().upper() for t in tickers if str(t).strip()]
+
+    deduped = []
+    seen = set()
+    for ticker in source:
+        if ticker in seen:
+            continue
+        seen.add(ticker)
+        deduped.append(ticker)
+    return deduped
 
 
 def _resolve_end_date(end_date):
     if end_date is None:
-        return datetime.now().strftime("%Y-%m-%d")
+        # Use previous day by default to avoid querying incomplete "today" daily bars.
+        return (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
     return str(end_date)
 
 
-def _estimate_insert_rows(data):
-    # 전체 MultiIndex DataFrame에서 삽입될 행 수를 추정합니다.
-    if data.empty:
-        return 0
+def _resolve_download_end_date(end_date):
+    """
+    yfinance end is exclusive, so convert inclusive end_date -> exclusive end_date+1.
+    """
+    return (pd.Timestamp(end_date) + timedelta(days=1)).strftime("%Y-%m-%d")
+
+
+def _chunked(values, size):
+    step = max(int(size), 1)
+    for idx in range(0, len(values), step):
+        yield values[idx : idx + step]
+
+
+def _build_ticker_start_dates(effective_mode, selected_tickers, start_date, latest_map):
+    """Build per-ticker start dates (YYYY-MM-DD)."""
+    if effective_mode == "full":
+        return {ticker: start_date for ticker in selected_tickers}
+
+    starts = {}
+    for ticker in selected_tickers:
+        latest_dt = latest_map.get(ticker)
+        if latest_dt is None:
+            starts[ticker] = start_date
+        else:
+            starts[ticker] = (latest_dt.date() + timedelta(days=1)).strftime("%Y-%m-%d")
+    return starts
+
+
+def _trim_downloaded_data_by_ticker_start(data, ticker_start_map):
+    """
+    Trim rows before each ticker start date to reduce unnecessary upserts.
+    """
+    if data is None or data.empty:
+        return data
+
     if isinstance(data.columns, pd.MultiIndex):
-        # Adj Close 컬럼으로 유효 행 수 추정 (NaN 제외한 실제 데이터 수)
-        if "Adj Close" in data.columns.get_level_values(0):
-            return int(data["Adj Close"].count().sum())
-        elif "Close" in data.columns.get_level_values(0):
-            return int(data["Close"].count().sum())
-        return int(data.stack(level=1).shape[0])
-    return int(data.shape[0])
+        trimmed = data.copy()
+        idx = pd.IndexSlice
+
+        requested = set(str(t) for t in ticker_start_map.keys())
+        level0 = set(str(t) for t in trimmed.columns.get_level_values(0))
+        level1 = set(str(t) for t in trimmed.columns.get_level_values(1))
+        if requested & level1:
+            ticker_level = 1
+        elif requested & level0:
+            ticker_level = 0
+        else:
+            return trimmed
+
+        for ticker, start_str in ticker_start_map.items():
+            if ticker_level == 1 and ticker not in level1:
+                continue
+            if ticker_level == 0 and ticker not in level0:
+                continue
+            cutoff = pd.Timestamp(start_str)
+            mask = trimmed.index < cutoff
+            if mask.any():
+                if ticker_level == 1:
+                    trimmed.loc[mask, idx[:, ticker]] = float("nan")
+                else:
+                    trimmed.loc[mask, idx[ticker, :]] = float("nan")
+
+        return trimmed.dropna(how="all")
+
+    first_ticker = next(iter(ticker_start_map.keys()))
+    cutoff = pd.Timestamp(ticker_start_map[first_ticker])
+    return data.loc[data.index >= cutoff]
 
 
-def _get_min_latest_date(db_manager, tickers):
-    min_latest_date = None
-    for ticker in tickers:
-        latest_date = db_manager.get_latest_date(ticker)
-        if latest_date is None:
-            return None
-        latest_date = latest_date.date()
-        if min_latest_date is None or latest_date < min_latest_date:
-            min_latest_date = latest_date
-    return min_latest_date
+def _extract_single_ticker_from_batch(data, ticker):
+    """
+    Split one ticker view from a multi-ticker yfinance batch frame.
+    Returns flat OHLCV columns if possible.
+    """
+    if data is None or data.empty:
+        return data
+
+    if not isinstance(data.columns, pd.MultiIndex):
+        return data.copy()
+
+    try:
+        frame = data.xs(ticker, axis=1, level=1, drop_level=True)
+    except Exception:
+        try:
+            frame = data.xs(ticker, axis=1, level=0, drop_level=True)
+        except Exception:
+            return pd.DataFrame(index=data.index)
+
+    if isinstance(frame, pd.Series):
+        frame = frame.to_frame()
+    return frame
 
 
 def update_stock_data(
@@ -69,29 +161,35 @@ def update_stock_data(
     start_date="2015-01-01",
     end_date=None,
     recreate_on_full=True,
+    download_batch_size=80,
+    show_progress=False,
 ):
     """
-    주가 데이터 적재/업데이트 통합 엔트리.
+    Unified stock update entrypoint.
 
     mode:
-      - auto: 데이터 유무를 보고 full/incremental 자동 선택
-      - full: 지정 기간 전체 재적재
-      - incremental: DB 최신일 이후 구간만 추가 적재
+      - auto: choose full/incremental from DB state
+      - full: load full range
+      - incremental: load per-ticker from latest+1
     """
     selected_tickers = _normalize_tickers(tickers)
     if not selected_tickers:
-        raise ValueError("tickers는 최소 1개 이상이어야 합니다.")
+        raise ValueError("tickers must include at least one symbol")
 
     requested_mode = str(mode).lower().strip()
     if requested_mode not in {"auto", "full", "incremental"}:
-        raise ValueError("mode는 'auto', 'full', 'incremental' 중 하나여야 합니다.")
+        raise ValueError("mode must be one of: auto, full, incremental")
 
+    user_provided_end_date = end_date is not None
     end_date = _resolve_end_date(end_date)
+    download_end_date = _resolve_download_end_date(end_date)
 
     result = {
         "mode": requested_mode,
         "start_date": None,
         "end_date": end_date,
+        "download_end_date": download_end_date,
+        "user_provided_end_date": user_provided_end_date,
         "new_rows": 0,
         "updated_any": False,
         "tickers": selected_tickers,
@@ -102,80 +200,155 @@ def update_stock_data(
     try:
         db_manager.connect()
 
-        effective_mode = requested_mode
-        effective_start_date = start_date
+        # moved from local helper to DB layer to avoid duplicated SQL code
+        latest_map = db_manager.get_latest_dates_map(selected_tickers)
 
         if requested_mode == "auto":
-            min_latest_date = _get_min_latest_date(db_manager, selected_tickers)
-            if min_latest_date is None:
-                effective_mode = "full"
-                effective_start_date = start_date
-                print("일부/전체 종목 데이터가 없어 full 모드로 전체 적재를 수행합니다.")
-            else:
-                effective_mode = "incremental"
-                effective_start_date = (min_latest_date + timedelta(days=1)).strftime("%Y-%m-%d")
-                print(
-                    f"공통 업데이트 시작일: {effective_start_date} "
-                    "(최소 최신 날짜 + 1일)"
-                )
+            effective_mode = (
+                "full"
+                if all(latest_map.get(ticker) is None for ticker in selected_tickers)
+                else "incremental"
+            )
+        else:
+            effective_mode = requested_mode
 
-        elif requested_mode == "incremental":
-            min_latest_date = _get_min_latest_date(db_manager, selected_tickers)
-            if min_latest_date is None:
-                print("일부 종목 데이터가 없어 incremental 요청을 full로 전환합니다.")
-                effective_mode = "full"
-                effective_start_date = start_date
-            else:
-                effective_start_date = (min_latest_date + timedelta(days=1)).strftime("%Y-%m-%d")
-
-        result["mode"] = effective_mode
-        result["start_date"] = effective_start_date
-
-        start_ts = pd.Timestamp(effective_start_date).date()
-        end_ts = pd.Timestamp(end_date).date()
-        if start_ts >= end_ts:
-            print("이미 모든 데이터가 최신 상태입니다. (Skip)")
-            result["status"] = "skipped"
-            return result
-
-        print(f"\n[{effective_mode}] {effective_start_date} ~ {end_date} 데이터 다운로드")
-        data = yf.download(
+        ticker_start_map = _build_ticker_start_dates(
+            effective_mode,
             selected_tickers,
-            start=effective_start_date,
-            end=end_date,
-            auto_adjust=False, # Changed to False to explicitly fetch Adj Close
-            progress=True,
+            start_date,
+            latest_map,
         )
 
-        if data.empty:
-            print("적재할 데이터가 없습니다.")
+        end_ts = pd.Timestamp(end_date).date()
+        active_tickers = [
+            ticker
+            for ticker, ticker_start in ticker_start_map.items()
+            if pd.Timestamp(ticker_start).date() <= end_ts
+        ]
+
+        if not active_tickers:
+            print("No new data range to fetch. Skipping.")
             result["status"] = "skipped"
+            result["mode"] = effective_mode
             return result
 
-        data = data.sort_index()
-        
-        # auto_adjust=False로 다운받으므로 MultiIndex에
-        # 'Adj Close', 'Close', 'High', 'Low', 'Open', 'Volume' 컬럼이 모두 포함됩니다.
-        # 전체 DataFrame을 그대로 insert_data에 전달하며,
-        # insert_data 내부에서 'Adj Close' → CLOSE_PRICE 매핑을 수행합니다.
-        print("\n다운로드 데이터 샘플 (상위 3행):")
-        print(data.head(3))
+        result["mode"] = effective_mode
+        result["start_date"] = min(ticker_start_map[ticker] for ticker in active_tickers)
 
         if effective_mode == "full" and recreate_on_full:
             db_manager.recreate_stock_data_table()
 
-        estimated_rows = _estimate_insert_rows(data)
-        db_manager.insert_data(data)
+        total_rows = 0
+
+        for ticker_batch in _chunked(sorted(active_tickers), download_batch_size):
+            batch_start = min(ticker_start_map[ticker] for ticker in ticker_batch)
+            print(
+                f"\n[{effective_mode}] {batch_start} ~ {end_date} "
+                f"({len(ticker_batch)} tickers)"
+            )
+
+            data = yf.download(
+                ticker_batch,
+                start=batch_start,
+                end=download_end_date,
+                auto_adjust=False,
+                progress=show_progress,
+                threads=True,
+            )
+
+            if data.empty:
+                continue
+
+            data = data.sort_index()
+            batch_starts = {ticker: ticker_start_map[ticker] for ticker in ticker_batch}
+            data = _trim_downloaded_data_by_ticker_start(data, batch_starts)
+            if data is None or data.empty:
+                continue
+
+            ticker_hint = ticker_batch[0] if len(ticker_batch) == 1 else None
+            inserted_rows = db_manager.insert_data(
+                data,
+                commit=False,
+                single_ticker=ticker_hint,
+            )
+            if not inserted_rows:
+                print(f"[WARN] no rows inserted for batch: {ticker_batch}")
+                if len(ticker_batch) > 1:
+                    fallback_rows = 0
+                    for ticker in ticker_batch:
+                        single_start = ticker_start_map[ticker]
+                        single_data = _extract_single_ticker_from_batch(data, ticker)
+                        if single_data is None or single_data.empty:
+                            single_data = yf.download(
+                                ticker,
+                                start=single_start,
+                                end=download_end_date,
+                                auto_adjust=False,
+                                progress=False,
+                                threads=False,
+                            )
+                        if single_data is None or single_data.empty:
+                            continue
+                        single_data = single_data.sort_index()
+                        single_data = _trim_downloaded_data_by_ticker_start(
+                            single_data,
+                            {ticker: single_start},
+                        )
+                        if single_data is None or single_data.empty:
+                            continue
+
+                        try:
+                            fallback_rows += int(
+                                db_manager.insert_data(
+                                    single_data,
+                                    commit=False,
+                                    single_ticker=ticker,
+                                )
+                                or 0
+                            )
+                        except Exception as retry_error:
+                            print(
+                                f"[WARN] fallback insert failed for {ticker}: "
+                                f"{retry_error}"
+                            )
+
+                    if fallback_rows > 0:
+                        print(
+                            f"[INFO] fallback single-ticker insert rows: "
+                            f"{fallback_rows}"
+                        )
+                        inserted_rows = fallback_rows
+            total_rows += int(inserted_rows or 0)
+
+        if total_rows > 0:
+            db_manager.connection.commit()
 
         if effective_mode == "full" and recreate_on_full:
             db_manager.reorganize_stock_data()
 
-        result["new_rows"] = estimated_rows
-        result["updated_any"] = estimated_rows > 0
+        result["new_rows"] = total_rows
+        result["updated_any"] = total_rows > 0
+        if total_rows == 0:
+            result["status"] = "skipped"
+            if pd.Timestamp(end_date).date() >= datetime.now().date():
+                result["reason"] = (
+                    "No completed daily bars for end_date yet. "
+                    "Try previous trading day."
+                )
+                print(
+                    "[INFO] No completed daily bars for end_date yet. "
+                    "Try previous trading day."
+                )
+
         return result
 
     except Exception as e:
-        print(f"주가 데이터 동기화 중 오류 발생: {e}")
+        try:
+            if db_manager.connection:
+                db_manager.connection.rollback()
+        except Exception:
+            pass
+        print(f"update_stock_data failed: {e}")
         result["status"] = "error"
         return result
     finally:
@@ -185,14 +358,19 @@ def update_stock_data(
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="주가 데이터 full/incremental 동기화")
+    parser = argparse.ArgumentParser(description="Sync stock data (full/incremental)")
     parser.add_argument("--mode", default="auto", choices=["auto", "full", "incremental"])
     parser.add_argument("--start-date", default="2015-01-01")
     parser.add_argument("--end-date", default=None)
+    parser.add_argument("--batch-size", type=int, default=80)
+    parser.add_argument("--progress", action="store_true")
     args = parser.parse_args()
 
-    update_stock_data(
+    sync_result = update_stock_data(
         mode=args.mode,
         start_date=args.start_date,
         end_date=args.end_date,
+        download_batch_size=args.batch_size,
+        show_progress=args.progress,
     )
+    print(f"sync_result={sync_result}")
