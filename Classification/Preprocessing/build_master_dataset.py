@@ -1,7 +1,8 @@
-# Master DataFrame 병합 모듈 (Panel Data 버전)
-# 단일 MASTER_FEATURES 데이블에 300개의 종목 데이터를 통합하여(Trade_Date, Ticker) 저장합니다.
+﻿# 마스터 데이터프레임 병합 모듈 (패널 데이터 버전)
+# 단일 MASTER_FEATURES 테이블에 300개 종목 데이터를 통합하여 (TRADE_DATE, TICKER) 기준으로 저장합니다.
 
 import sys
+import time
 from pathlib import Path
 import pandas as pd
 
@@ -51,10 +52,24 @@ COMMON_DYNAMIC_COLS = [
     "SP500_EWMA_Corr",
 ]
 
+INCREMENTAL_LOOKBACK_DAYS_DEFAULT = 756
+MIN_INCREMENTAL_LOOKBACK_DAYS = 252
+
 def _safe_symbol(symbol: str) -> str:
     return str(symbol).upper().replace("-", "_")
 
-def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
+
+def _timer_now() -> float:
+    return time.perf_counter()
+
+def build_all_master_datasets(
+    benchmark="SP500",
+    auto_update=True,
+    mode="auto",
+    incremental_lookback_days=INCREMENTAL_LOOKBACK_DAYS_DEFAULT,
+    legacy_incremental=False,
+    dry_run=False,
+):
     """
     모든 Ticker에 대해 피처를 계산하고, MASTER_FEATURES 테이블에 패널 데이터 형태로 병합/저장합니다.
 
@@ -62,8 +77,19 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
       - auto: MASTER_FEATURES 테이블이 비어있으면 full, 데이터가 있으면 incremental
       - full: 테이블 초기화 후 전체 기간 재적재
       - incremental: 기존 데이터의 최신 날짜 이후만 계산하여 추가 적재
+
+    incremental_lookback_days:
+      - incremental 최적화 모드에서 사용하는 워밍업 조회 기간(일)
+
+    legacy_incremental:
+      - True면 기존 방식처럼 전체 기간을 조회하여 계산
+      - False면 cutoff 기준 룩백 기간만 조회하여 계산
+
+    dry_run:
+      - True면 DB 쓰기(TRUNCATE/UPSERT/REORGANIZE) 없이 계산 시간만 측정
     """
     benchmark = str(benchmark).upper()
+    run_started = _timer_now()
     
     db = StockDBManager()
     db.connect()
@@ -81,7 +107,9 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
                 print(f"기초 데이터 업데이트 중 오류 발생: {e}")
 
         # 모드 결정: auto일 때 기존 데이터 유무에 따라 full/incremental 자동 선택
-        effective_mode = mode
+        effective_mode = str(mode).lower().strip()
+        if effective_mode not in {"auto", "full", "incremental"}:
+            raise ValueError("mode는 auto/full/incremental 중 하나여야 합니다.")
         cutoff_date = None  # incremental 모드에서 이 날짜 이후 데이터만 계산
 
         if effective_mode == "auto":
@@ -101,7 +129,13 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
                     print(f"  -> incremental 모드로 {latest_date.strftime('%Y-%m-%d')} 이후 데이터만 추가합니다.")
                 else:
                     print(f"\n[auto] MASTER_FEATURES가 이미 최신 상태입니다. (최신: {latest_date.strftime('%Y-%m-%d')})")
-                    return
+                    elapsed = _timer_now() - run_started
+                    print(f"[소요시간] 총 소요 시간: {elapsed:.2f}초")
+                    return {
+                        "status": "skipped",
+                        "mode": effective_mode,
+                        "elapsed_seconds": round(elapsed, 3),
+                    }
 
         elif effective_mode == "incremental":
             latest_date = db.get_latest_master_features_date()
@@ -112,37 +146,82 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
                 cutoff_date = latest_date
                 print(f"\n[incremental] {latest_date.strftime('%Y-%m-%d')} 이후 데이터만 추가합니다.")
 
+        # 재실행 시 이미 최신이면 조기 종료 (incremental/auto 공통)
+        if cutoff_date is not None:
+            db.cursor.execute("SELECT MAX(TRADE_DATE) FROM STOCK_DATA")
+            stock_latest = db.cursor.fetchone()[0]
+            if stock_latest is None or stock_latest <= cutoff_date:
+                elapsed = _timer_now() - run_started
+                latest_str = cutoff_date.strftime("%Y-%m-%d")
+                stock_latest_str = (
+                    stock_latest.strftime("%Y-%m-%d") if stock_latest is not None else "None"
+                )
+                print(
+                    f"\n[skip] 추가할 최신 데이터가 없습니다. "
+                    f"(MASTER_FEATURES 최신: {latest_str}, STOCK_DATA 최신: {stock_latest_str})"
+                )
+                print(f"[소요시간] 총 소요 시간: {elapsed:.2f}초")
+                return {
+                    "status": "skipped",
+                    "mode": effective_mode,
+                    "cutoff_date": latest_str,
+                    "stock_latest_date": stock_latest_str,
+                    "elapsed_seconds": round(elapsed, 3),
+                }
+
+        # incremental 최적화: 필요한 워밍업 구간만 조회
+        lookback_days = max(int(incremental_lookback_days), MIN_INCREMENTAL_LOOKBACK_DAYS)
+        data_start_date = None
+        if cutoff_date is not None:
+            if legacy_incremental:
+                print("[incremental] 기존 방식 모드: 전체 기간을 조회하여 기존 방식으로 계산합니다.")
+            else:
+                data_start_date = (pd.Timestamp(cutoff_date) - pd.Timedelta(days=lookback_days)).date()
+                print(
+                    f"[incremental] 최적화 모드: cutoff={cutoff_date.strftime('%Y-%m-%d')}, "
+                    f"lookback={lookback_days}일, start={data_start_date}"
+                )
+
         if effective_mode == "full":
             print("\n======================================================================")
             print("1. MASTER_FEATURES 테이블 준비 (TRUNCATE → 전체 재적재)")
             print("======================================================================")
-            db.truncate_master_features()
+            if dry_run:
+                print("[드라이런] TRUNCATE는 수행하지 않습니다.")
+            else:
+                db.truncate_master_features()
         else:
             print("\n======================================================================")
             print(f"1. MASTER_FEATURES 증분 적재 (cutoff: {cutoff_date.strftime('%Y-%m-%d')})")
             print("======================================================================")
 
         # 공통 Market Features 및 로그수익률 사전 조회
-        df_dxy, df_vix, df_sp500_mom = get_market_features(db=db)
-        
+        shared_stage_started = _timer_now()
+        df_dxy, df_vix, df_sp500_mom = get_market_features(db=db, start_date=data_start_date)
+
         print("\n[DB 최적화] 전체 종목 로그수익률 및 S&P500 데이터를 한 번에 로드합니다 (N+1 문제 방지)...")
-        lr_all = db.fetch_log_returns()
-        sp500_data = db.fetch_sp500_data()
+        lr_all = db.fetch_log_returns(start_date=data_start_date)
+        sp500_data = db.fetch_sp500_data(start_date=data_start_date)
+        shared_stage_elapsed = _timer_now() - shared_stage_started
+        print(f"[소요시간] 공통 데이터 로드: {shared_stage_elapsed:.2f}초")
         
         total_tickers = len(TICKERS)
         success_count = 0
+        processed_tickers = 0
+        prepared_rows = 0
         
         print(f"\n======================================================================")
         print(f"2. 종목별 피처 계산 및 병합 시작 (총 {total_tickers} 종목, 모드: {effective_mode})")
         print(f"======================================================================")
 
+        ticker_stage_started = _timer_now()
         for i, ticker in enumerate(TICKERS, 1):
             target_ticker = _safe_symbol(ticker)
             print(f"[{i}/{total_tickers}] '{ticker}' 피처 계산 중...")
             
             try:
                 # DB 접근 최적화: 개별 종목 데이터 1번만 로드하여 공유
-                df_ticker_data = db.fetch_ticker_data(ticker)
+                df_ticker_data = db.fetch_ticker_data(ticker, start_date=data_start_date)
                 if df_ticker_data.empty:
                      print(f"  ⚠️ {ticker} 데이터가 없습니다. 건너뜀.")
                      continue
@@ -180,7 +259,7 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
                     frame = frame[~frame.index.duplicated(keep="first")]
                     master_df = master_df.join(frame, how="left")
 
-                # Rename columns from TICKER_EWMA_Vol to generic EWMA_Vol
+                # 종목별 변동성 컬럼명을 공통 컬럼명으로 변환
                 rename_map = {
                     f"{target_ticker}_EWMA_Vol": "EWMA_Vol",
                     f"{target_ticker}_Vol_20d_Avg": "Vol_20d_Avg",
@@ -191,13 +270,13 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
 
                 required_cols = BASE_FEATURE_COLUMNS + COMMON_DYNAMIC_COLS
                 
-                # Check for required columns
+                # 필수 컬럼 존재 여부 점검
                 missing = [c for c in required_cols if c not in master_df.columns]
                 if missing:
                     print(f"  ❌ 필수 컬럼 누락: {missing}, 병합 건너뜀.")
                     continue
 
-                # Filter and Fill
+                # 결측값 보간 후 최종 필수 컬럼만 유지
                 master_df = master_df.ffill()
                 master_df = master_df[required_cols].dropna(subset=required_cols)
                 
@@ -205,7 +284,7 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
                     print(f"  ⚠️ 데이터가 비어있습니다. 건너뜀.")
                     continue
 
-                # incremental 모드: cutoff_date 이후 데이터만 필터링
+                # incremental 모드: cutoff_date 이후 데이터만 남김
                 if cutoff_date is not None:
                     cutoff_ts = pd.Timestamp(cutoff_date)
                     master_df = master_df[master_df.index > cutoff_ts]
@@ -213,26 +292,61 @@ def build_all_master_datasets(benchmark="SP500", auto_update=True, mode="auto"):
                         # 이 종목은 새로 추가할 데이터 없음
                         continue
                     
-                # Add Ticker column
+                # TICKER 컬럼 추가 및 인덱스 정리
                 master_df["TICKER"] = ticker
                 master_df.index.name = "TRADE_DATE"
                 master_df.reset_index(inplace=True)
-                
-                # Insert into DB (Upsert 방식이므로 중복 걱정 없음)
-                db.insert_master_features(master_df)
+
+                rows_to_write = len(master_df)
+                processed_tickers += 1
+                prepared_rows += rows_to_write
+
+                # DB 적재 (Upsert 방식이라 중복 키는 갱신 처리)
+                if dry_run:
+                    print(f"  [드라이런] {rows_to_write}건 적재 예정.")
+                else:
+                    db.insert_master_features(master_df)
                 success_count += 1
                 
-                if cutoff_date is not None:
-                    print(f"  ✅ {len(master_df)}건 추가 적재 완료.")
+                if cutoff_date is not None and not dry_run:
+                    print(f"  ✅ {rows_to_write}건 추가 적재 완료.")
                 
             except Exception as e:
                 print(f"  ❌ '{ticker}' 처리 실패: {e}")
 
+        ticker_stage_elapsed = _timer_now() - ticker_stage_started
+        print(f"[소요시간] 종목별 계산 단계: {ticker_stage_elapsed:.2f}초")
+
         print("\n======================================================================")
         print(f"3. DB 재구조화 (Reorganization)")
         print("======================================================================")
-        db.reorganize_master_features()
-        print(f"처리가 완료되었습니다. {total_tickers} 중 {success_count} 종목 저장 완료. (모드: {effective_mode})")
+        if dry_run:
+            print("[드라이런] REORGANIZE는 수행하지 않습니다.")
+        else:
+            db.reorganize_master_features()
+
+        total_elapsed = _timer_now() - run_started
+        print(
+            f"처리가 완료되었습니다. {total_tickers} 중 {success_count} 종목 저장 완료 "
+            f"(모드: {effective_mode}, 총 {total_elapsed:.2f}초)"
+        )
+        return {
+            "status": "success",
+            "mode": effective_mode,
+            "cutoff_date": cutoff_date.strftime("%Y-%m-%d") if cutoff_date is not None else None,
+            "data_start_date": str(data_start_date) if data_start_date is not None else None,
+            "legacy_incremental": bool(legacy_incremental),
+            "dry_run": bool(dry_run),
+            "tickers_total": int(total_tickers),
+            "tickers_processed": int(processed_tickers),
+            "tickers_succeeded": int(success_count),
+            "rows_prepared": int(prepared_rows),
+            "timing_seconds": {
+                "shared_data": round(shared_stage_elapsed, 3),
+                "per_ticker": round(ticker_stage_elapsed, 3),
+                "total": round(total_elapsed, 3),
+            },
+        }
         
     finally:
         db.close()
@@ -245,7 +359,33 @@ if __name__ == "__main__":
                         help="auto: 자동 판단, full: 전체 재적재, incremental: 증분 적재")
     parser.add_argument("--auto-update", action="store_true", default=False,
                         help="기초 데이터(STOCK, SP500, MARKET) 자동 업데이트 여부")
+    parser.add_argument(
+        "--incremental-lookback-days",
+        type=int,
+        default=INCREMENTAL_LOOKBACK_DAYS_DEFAULT,
+        help=f"증분 최적화 워밍업 조회 기간(일, 최소 {MIN_INCREMENTAL_LOOKBACK_DAYS})",
+    )
+    parser.add_argument(
+        "--legacy-incremental",
+        action="store_true",
+        default=False,
+        help="증분 모드에서 기존 방식(전체 기간 조회) 사용",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=False,
+        help="DB 쓰기 없이 계산만 수행(시간 측정용)",
+    )
     args = parser.parse_args()
     
-    build_all_master_datasets(auto_update=args.auto_update, mode=args.mode)
+    build_all_master_datasets(
+        auto_update=args.auto_update,
+        mode=args.mode,
+        incremental_lookback_days=args.incremental_lookback_days,
+        legacy_incremental=args.legacy_incremental,
+        dry_run=args.dry_run,
+    )
+
+
 

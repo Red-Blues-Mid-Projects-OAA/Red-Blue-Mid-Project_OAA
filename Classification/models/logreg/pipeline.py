@@ -242,6 +242,7 @@ def run_pipeline(
     auto_optimize=False,
     optimize_profile="balanced",
     return_metrics=False,
+    return_details=False,
     ticker="AAPL",
     benchmark="SP500",
     drop_features=None,
@@ -549,6 +550,8 @@ def run_pipeline(
     }
 
     if return_metrics:
+        if return_details:
+            return metrics, models, ensemble_proba, ic
         return metrics
     return models, ensemble_proba, ic
 

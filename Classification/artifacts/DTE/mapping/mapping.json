@@ -1,12 +1,12 @@
 {
   "ticker": "DTE",
-  "beta_ols": 0.20143524759564932,
-  "beta_ewma": -0.44246430614605226,
-  "beta_final": 0.00826538147313885,
+  "beta_ols": 0.19892207434722647,
+  "beta_ewma": -0.4049237412641336,
+  "beta_final": 0.017768329663818444,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.00890358941982688,
+  "expected_capm_return_3m_log": 0.009056071248835453,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

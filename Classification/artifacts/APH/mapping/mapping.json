@@ -1,12 +1,12 @@
 {
   "ticker": "APH",
-  "beta_ols": 1.446228845191309,
-  "beta_ewma": 1.824650949454177,
-  "beta_final": 1.5597554764701693,
+  "beta_ols": 1.4511466386179837,
+  "beta_ewma": 1.9540249568932317,
+  "beta_final": 1.6020101341005581,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03349542000584805,
+  "expected_capm_return_3m_log": 0.034156788817738315,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

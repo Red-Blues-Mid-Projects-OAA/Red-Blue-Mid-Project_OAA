@@ -27,7 +27,7 @@ from common import pd, np
 from DB import StockDBManager
 
 
-def fetch_dollar_index_log_returns(db):
+def fetch_dollar_index_log_returns(db, start_date=None):
     """
     DB에서 달러 인덱스(DXY) 로그 수익률을 조회하여 DataFrame으로 반환
     """
@@ -35,7 +35,7 @@ def fetch_dollar_index_log_returns(db):
     print("[1] 달러 인덱스 로그 수익률 (DB: MARKET_FEATURES)")
     print("=" * 60)
 
-    df = db.fetch_market_features("DXY")
+    df = db.fetch_market_features("DXY", start_date=start_date)
 
     if df.empty:
         print("DXY 데이터를 가져오지 못했습니다. DB/update_market_data.py를 먼저 실행하세요.")
@@ -53,7 +53,7 @@ def fetch_dollar_index_log_returns(db):
     return df_dxy
 
 
-def fetch_vix_data(db):
+def fetch_vix_data(db, start_date=None):
     """
     DB에서 VIX 종가 및 로그 수익률을 조회하여 DataFrame으로 반환
     """
@@ -61,7 +61,7 @@ def fetch_vix_data(db):
     print("[2] VIX 지수 (DB: MARKET_FEATURES)")
     print("=" * 60)
 
-    df = db.fetch_market_features("VIX")
+    df = db.fetch_market_features("VIX", start_date=start_date)
 
     if df.empty:
         print("VIX 데이터를 가져오지 못했습니다. DB/update_market_data.py를 먼저 실행하세요.")
@@ -82,7 +82,7 @@ def fetch_vix_data(db):
     return df_vix
 
 
-def calculate_sp500_momentum(db):
+def calculate_sp500_momentum(db, start_date=None):
     """
     DB에서 S&P 500 일별 로그수익률을 조회하여
     1개월(20거래일) / 3개월(60거래일) Rolling 누적 수익률 계산
@@ -91,7 +91,7 @@ def calculate_sp500_momentum(db):
     print("[3] S&P 500 1개월 / 3개월 수익률 (DB: SP500_DATA)")
     print("=" * 60)
 
-    df = db.fetch_sp500_data()
+    df = db.fetch_sp500_data(start_date=start_date)
 
     if df.empty:
         print("S&P 500 데이터를 가져오지 못했습니다. update_sp500_data.py를 먼저 실행하세요.")
@@ -113,13 +113,13 @@ def calculate_sp500_momentum(db):
     return df_sp500
 
 
-def get_market_features(db):
+def get_market_features(db, start_date=None):
     """
     모든 시장 피처를 생성하여 반환하는 통합 진입점
     """
-    df_dxy = fetch_dollar_index_log_returns(db)
-    df_vix = fetch_vix_data(db)
-    df_sp500_mom = calculate_sp500_momentum(db)
+    df_dxy = fetch_dollar_index_log_returns(db, start_date=start_date)
+    df_vix = fetch_vix_data(db, start_date=start_date)
+    df_sp500_mom = calculate_sp500_momentum(db, start_date=start_date)
     
     return df_dxy, df_vix, df_sp500_mom
 

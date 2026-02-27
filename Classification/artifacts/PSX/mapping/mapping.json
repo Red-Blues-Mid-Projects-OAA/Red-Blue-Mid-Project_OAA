@@ -1,12 +1,12 @@
 {
   "ticker": "PSX",
-  "beta_ols": 0.9194772404407014,
-  "beta_ewma": 0.4875694229360625,
-  "beta_final": 0.7899048951893097,
+  "beta_ols": 0.9130097843760807,
+  "beta_ewma": 0.25305810464029044,
+  "beta_final": 0.7150242804553436,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02136851849917853,
+  "expected_capm_return_3m_log": 0.02018109233380881,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

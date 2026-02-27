@@ -17,13 +17,22 @@ import numpy as np
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 
 import math
 from risk_profile import calculate_risk_profile
-from real_data_provider import load_cache, get_recommended_stocks, get_mvo_inputs
+from real_data_provider import (
+    load_cache,
+    get_recommended_stocks,
+    get_risk_level_portfolio_summary,
+    get_mvo_inputs,
+)
 from portfolio_optimizer import optimize_portfolio
-from chart_data_provider import get_historical_returns, get_cumulative_return_chart, get_forecast_placeholder
+from chart_data_provider import (
+    get_historical_returns,
+    get_cumulative_return_chart,
+    get_forecast_placeholder,
+)
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -31,7 +40,7 @@ from chart_data_provider import get_historical_returns, get_cumulative_return_ch
 # ──────────────────────────────────────────────────────────────────
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """서버 시작 시 CSV + EWMA 공분산 캐시 로드."""
+    """서버 시작 시 DB/스냅샷 캐시 로드."""
     print("=" * 60)
     print("Investment MBTI API 서버 시작 — 데이터 캐싱 중...")
     print("=" * 60)
@@ -58,14 +67,16 @@ app.add_middleware(
 # ──────────────────────────────────────────────────────────────────
 class AnalyzeRequest(BaseModel):
     """설문 분석 요청."""
-    answers: List[str]        # ['A', 'B', 'B', ...] 형식 (12개)
-    loss_limit_value: int     # 원 단위 금액 (예: 9500000)
+
+    answers: List[str]  # ['A', 'B', 'B', ...] 형식 (12개)
+    loss_limit_value: int  # 원 단위 금액 (예: 9500000)
 
 
 class OptimizeRequest(BaseModel):
     """포트폴리오 최적화 요청 (사용자 종목 선택 후)."""
+
     selected_tickers: List[str]  # 사용자가 선택한 종목 리스트
-    lambda_final: float          # λ 값
+    lambda_final: float  # λ 값
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -85,33 +96,84 @@ def analyze_portfolio(req: AnalyzeRequest):
     # 2. final_level 추출 (종목 추천 풀 선택 및 리스크 카테고리 매핑 등에서 사용)
     final_level = risk_result.get("final_level", 2)
 
-    # 3. 리스크 타입별 종목 추천 (유틸리티 스코어 기반)
+    # 3. 리스크 타입별 종목 추천/비중은 DB snapshot을 직접 사용
     recommended_stocks = get_recommended_stocks(final_level, top_n=10)
+    portfolio_summary = get_risk_level_portfolio_summary(final_level)
+    if not recommended_stocks or portfolio_summary is None:
+        raise HTTPException(
+            status_code=503,
+            detail="RISK_LEVEL_PORTFOLIO_SNAPSHOT 준비가 완료되지 않았습니다. snapshot 동기화를 먼저 실행하세요.",
+        )
 
-    # 4. 추천 종목으로 초기 MVO 최적화 수행
-    tickers = [s["ticker"] for s in recommended_stocks]
+    # 4. 종목 목록 확보 + MVO 입력(차트/보조 계산용)
+    tickers = [
+        str(stock.get("ticker", "")).strip().upper()
+        for stock in recommended_stocks
+        if str(stock.get("ticker", "")).strip()
+    ]
+    if not tickers:
+        raise HTTPException(status_code=503, detail="추천 종목 데이터가 비어 있습니다.")
+
     mu, cov_sub, valid_tickers = get_mvo_inputs(tickers)
-    weights = optimize_portfolio(mu, cov_sub, lambda_final)
+    if len(valid_tickers) == 0:
+        raise HTTPException(status_code=503, detail="추천 종목의 MVO 입력 데이터를 구성할 수 없습니다.")
 
-    # 5. 비중을 종목 객체에 할당 (퍼센트 단위)
-    ticker_weight_map = {t: round(float(w) * 100, 2) for t, w in zip(valid_tickers, weights)}
+    weights = np.array(optimize_portfolio(mu, cov_sub, lambda_final), dtype=float)
+    ticker_weight_map_mvo = {
+        ticker: round(float(weight) * 100.0, 2) for ticker, weight in zip(valid_tickers, weights)
+    }
+
+    # 5. snapshot 비중을 우선 사용하고, 누락 시 MVO 비중으로 채움
     for stock in recommended_stocks:
-        stock["weight"] = ticker_weight_map.get(stock["ticker"], 0.0)
+        ticker = str(stock.get("ticker", "")).strip().upper()
+        try:
+            existing_weight = float(stock.get("weight", 0.0))
+        except (TypeError, ValueError):
+            existing_weight = 0.0
+        stock["weight"] = existing_weight if existing_weight > 0 else ticker_weight_map_mvo.get(ticker, 0.0)
+        stock["risk_score"] = int(stock.get("risk_score", 0) or 0)
+        if "expectedReturn3M_simple" not in stock:
+            try:
+                expected_log_pct = float(stock.get("expectedReturn3M", 0.0) or 0.0)
+            except (TypeError, ValueError):
+                expected_log_pct = 0.0
+            stock["expectedReturn3M_simple"] = round((math.exp(expected_log_pct / 100.0) - 1.0) * 100.0, 2)
 
-    # 6. 포트폴리오 메트릭 계산
-    portfolio_return_log = float(np.dot(weights, mu))                    # 로그수익률
-    portfolio_return_simple = round((math.exp(portfolio_return_log) - 1) * 100, 2)  # 단순수익률(%)
-    portfolio_var = float(weights.T @ cov_sub @ weights)
-    portfolio_volatility = round(float(np.sqrt(portfolio_var)), 4)       # 60일 기준 표준편차
+    # 6. 포트폴리오 메트릭은 snapshot 값을 우선 사용 (로그수익률 -> 단순수익률 명시 변환)
+    summary_return_log_pct = float(portfolio_summary.get("expected_portfolio_return_3m", 0.0) or 0.0)
+    portfolio_return_log = summary_return_log_pct / 100.0
+    portfolio_return_simple = float(
+        portfolio_summary.get(
+            "expected_portfolio_return_3m_simple",
+            round((math.exp(portfolio_return_log) - 1.0) * 100.0, 2),
+        )
+    )
+
+    summary_sigma = portfolio_summary.get("portfolio_std_60d")
+    if summary_sigma is None:
+        portfolio_var = float(weights.T @ cov_sub @ weights)
+        portfolio_volatility = round(float(np.sqrt(max(portfolio_var, 0.0))), 4)
+    else:
+        portfolio_volatility = round(float(summary_sigma), 4)
 
     # 7. 과거 기간별 수익률 (1M/3M/6M/12M, 단순수익률 %)
-    historical_returns = get_historical_returns(valid_tickers)
+    historical_returns = get_historical_returns(tickers)
     for stock in recommended_stocks:
-        stock["historical_returns"] = historical_returns.get(stock["ticker"], {"1M": 0, "3M": 0, "6M": 0, "12M": 0})
+        ticker = str(stock.get("ticker", "")).strip().upper()
+        stock["historical_returns"] = historical_returns.get(
+            ticker, {"1M": 0, "3M": 0, "6M": 0, "12M": 0}
+        )
 
     # 8. 누적수익률 차트 데이터 (포트폴리오 vs S&P 500)
-    weight_list = [float(weights[valid_tickers.index(t)]) if t in valid_tickers else 0 for t in tickers]
-    chart_data = get_cumulative_return_chart(tickers, weight_list)
+    chart_weight_pct = np.array(
+        [float(stock.get("weight", 0.0) or 0.0) for stock in recommended_stocks], dtype=float
+    )
+    if chart_weight_pct.sum() <= 0:
+        chart_weight_pct = np.array([ticker_weight_map_mvo.get(ticker, 0.0) for ticker in tickers], dtype=float)
+    if chart_weight_pct.sum() <= 0:
+        chart_weight_pct = np.ones(len(tickers), dtype=float)
+    chart_weight_list = (chart_weight_pct / chart_weight_pct.sum()).tolist()
+    chart_data = get_cumulative_return_chart(tickers, chart_weight_list)
 
     # 9. Monte Carlo 예측 placeholder
     forecast_data = get_forecast_placeholder(portfolio_return_log, portfolio_volatility)
@@ -141,11 +203,11 @@ def analyze_portfolio(req: AnalyzeRequest):
             "mbti_nickname": risk_result["mbti_nickname"],
             "recommended_stocks": recommended_stocks,
             "portfolio_analysis": {
-                "expected_return_simple": portfolio_return_simple,       # 단순수익률 (%)
-                "expected_return_log": round(portfolio_return_log * 100, 2),  # 로그수익률 (%, 참조용)
-                "volatility_60d": portfolio_volatility,                 # 60일 표준편차
+                "expected_return_simple": round(portfolio_return_simple, 2),
+                "expected_return_log": round(portfolio_return_log * 100.0, 2),
+                "volatility_60d": portfolio_volatility,
                 "risk_category": risk_categories.get(final_level, "균형 잡힌 성장형"),
-                "var_5": forecast_data["final_distribution"]["percentile_5"],  # VaR 5% (Monte Carlo placeholder)
+                "var_5": forecast_data["final_distribution"]["percentile_5"],
             },
             "chart_data": chart_data,
             "forecast_data": forecast_data,
@@ -171,12 +233,14 @@ def optimize_selected(req: OptimizeRequest):
 
     # 종목별 비중 응답
     result_stocks = []
-    for i, t in enumerate(valid_tickers):
-        result_stocks.append({
-            "ticker": t,
-            "weight": round(float(weights[i]) * 100, 2),
-            "expectedReturn3M": round(float(mu[i]) * 100, 2),
-        })
+    for i, ticker in enumerate(valid_tickers):
+        result_stocks.append(
+            {
+                "ticker": ticker,
+                "weight": round(float(weights[i]) * 100, 2),
+                "expectedReturn3M": round(float(mu[i]) * 100, 2),
+            }
+        )
 
     portfolio_return = float(np.dot(weights, mu)) * 100
 
@@ -192,4 +256,5 @@ def optimize_selected(req: OptimizeRequest):
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

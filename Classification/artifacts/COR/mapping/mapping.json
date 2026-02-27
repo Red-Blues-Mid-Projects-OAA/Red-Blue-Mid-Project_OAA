@@ -1,12 +1,12 @@
 {
   "ticker": "COR",
-  "beta_ols": 0.0282395220822177,
-  "beta_ewma": 0.7598514680850134,
-  "beta_final": 0.2477231058830564,
+  "beta_ols": 0.02300797748079028,
+  "beta_ewma": 0.3499883064762238,
+  "beta_final": 0.12110207617942034,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.012738794775606067,
+  "expected_capm_return_3m_log": 0.010712638332406033,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

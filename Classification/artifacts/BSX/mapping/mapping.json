@@ -1,12 +1,12 @@
 {
   "ticker": "BSX",
-  "beta_ols": 0.6140303781787402,
-  "beta_ewma": -0.4897449106339883,
-  "beta_final": 0.28289779153492167,
+  "beta_ols": 0.6062645032747045,
+  "beta_ewma": -0.6071795478732543,
+  "beta_final": 0.2422312879303168,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013300922996036416,
+  "expected_capm_return_3m_log": 0.012651001261982549,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

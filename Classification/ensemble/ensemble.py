@@ -79,17 +79,28 @@ def _distribution_summary(arr: np.ndarray) -> dict[str, float]:
     }
 
 
-def _get_scaled_future_features(split, ticker: str, benchmark: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+def _get_scaled_future_features(
+    split,
+    ticker: str,
+    benchmark: str,
+    df_all: pd.DataFrame | None = None,
+    ticker_logret_series=None,
+    sp500_logret_series=None,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     Train-fit scaler 기준으로 test/future를 재구성해 미래 확률 입력을 생성합니다.
     """
-    df_all = generate_target(
-        ticker=ticker,
-        benchmark=benchmark,
-        auto_update=False,
-        persist_total_features_on_update=False,
-        feature_source_mode="db_first",
-    )
+    if df_all is None:
+        df_all = generate_target(
+            ticker=ticker,
+            benchmark=benchmark,
+            auto_update=False,
+            persist_total_features_on_update=False,
+            feature_source_mode="db_first",
+            ticker_logret_series=ticker_logret_series,
+            sp500_logret_series=sp500_logret_series,
+        )
+
     feature_cols = split.feature_cols
     df_valid = df_all.dropna(subset=["Target_Class"]).copy()
 
@@ -116,79 +127,37 @@ def _get_scaled_future_features(split, ticker: str, benchmark: str) -> tuple[pd.
     return x_future_scaled, df_future
 
 
-def run_equal_weight_ensemble(
+def build_equal_weight_from_probas(
+    *,
+    split,
+    p_xgb,
+    p_svm,
+    p_rf,
+    p_logreg,
+    xgb_models,
+    svm_models,
+    rf_models,
+    logreg_models,
     ticker: str = "AAPL",
     benchmark: str = "SP500",
-    auto_update: bool = False,
-    persist_total_features_on_update: bool = False,
     optimize_profile: str = "balanced",
     save_json: bool = True,
+    ticker_logret_series=None,
+    sp500_logret_series=None,
 ) -> dict[str, Any]:
     """
-    4모델 동일가중치(0.25) 앙상블을 수행하고 지표를 저장합니다.
+    사전 계산된 모델 확률 벡터/모델 리스트를 사용해 동일가중치 앙상블을 계산합니다.
     """
-    if auto_update or persist_total_features_on_update:
-        print("[INFO] Ensemble 모듈은 no-update 정책을 강제합니다. 전달된 update 플래그는 무시됩니다.")
-
     ticker = str(ticker).upper()
     benchmark = str(benchmark).upper()
 
-    split = split_dataset(
-        ticker=ticker,
-        benchmark=benchmark,
-        auto_update=False,
-        persist_total_features_on_update=False,
-        feature_source_mode="db_first",
-    )
     expected_len = len(split.test)
+    p_xgb_arr = _validate_proba_vector("xgb", p_xgb, expected_len)
+    p_svm_arr = _validate_proba_vector("svm", p_svm, expected_len)
+    p_rf_arr = _validate_proba_vector("rf", p_rf, expected_len)
+    p_logreg_arr = _validate_proba_vector("logreg", p_logreg, expected_len)
 
-    xgb_models, p_xgb_raw, _ = run_xgb_pipeline(
-        auto_optimize=False,
-        optimize_profile=optimize_profile,
-        return_metrics=False,
-        ticker=ticker,
-        benchmark=benchmark,
-        save_plot=False,
-        compute_importance=False,
-        split_override=split,
-    )
-    svm_models, p_svm_raw, _ = run_svm_pipeline(
-        auto_optimize=False,
-        optimize_profile=optimize_profile,
-        return_metrics=False,
-        ticker=ticker,
-        benchmark=benchmark,
-        save_plot=False,
-        compute_importance=False,
-        split_override=split,
-    )
-    rf_models, p_rf_raw, _ = run_rf_pipeline(
-        auto_optimize=False,
-        optimize_profile=optimize_profile,
-        return_metrics=False,
-        ticker=ticker,
-        benchmark=benchmark,
-        save_plot=False,
-        compute_importance=False,
-        split_override=split,
-    )
-    logreg_models, p_logreg_raw, _ = run_logreg_pipeline(
-        auto_optimize=False,
-        optimize_profile=optimize_profile,
-        return_metrics=False,
-        ticker=ticker,
-        benchmark=benchmark,
-        save_plot=False,
-        compute_importance=False,
-        split_override=split,
-    )
-
-    p_xgb = _validate_proba_vector("xgb", p_xgb_raw, expected_len)
-    p_svm = _validate_proba_vector("svm", p_svm_raw, expected_len)
-    p_rf = _validate_proba_vector("rf", p_rf_raw, expected_len)
-    p_logreg = _validate_proba_vector("logreg", p_logreg_raw, expected_len)
-
-    p_ens_test = (p_xgb + p_svm + p_rf + p_logreg) / 4.0
+    p_ens_test = (p_xgb_arr + p_svm_arr + p_rf_arr + p_logreg_arr) / 4.0
     y_test = split.test["Target_Class"].astype(int).to_numpy()
     y_pred_test = (p_ens_test >= 0.5).astype(int)
     alpha_diff_test = (split.test[split.target_col] - split.test[split.benchmark_target_col]).to_numpy()
@@ -217,16 +186,22 @@ def run_equal_weight_ensemble(
 
     df_test_probs = pd.DataFrame(
         {
-            "p_xgb": p_xgb,
-            "p_svm": p_svm,
-            "p_rf": p_rf,
-            "p_logreg": p_logreg,
+            "p_xgb": p_xgb_arr,
+            "p_svm": p_svm_arr,
+            "p_rf": p_rf_arr,
+            "p_logreg": p_logreg_arr,
             "p_ens": p_ens_test,
         },
         index=split.test.index,
     )
 
-    x_future_scaled, df_future_raw = _get_scaled_future_features(split, ticker=ticker, benchmark=benchmark)
+    x_future_scaled, df_future_raw = _get_scaled_future_features(
+        split,
+        ticker=ticker,
+        benchmark=benchmark,
+        ticker_logret_series=ticker_logret_series,
+        sp500_logret_series=sp500_logret_series,
+    )
     if x_future_scaled.empty:
         df_future_probs = pd.DataFrame(columns=["p_xgb", "p_svm", "p_rf", "p_logreg", "p_ens"])
     else:
@@ -250,16 +225,19 @@ def run_equal_weight_ensemble(
         latest_future_trade_date = None
         latest_future_p_ens = None
     else:
-        latest_future_trade_date = df_future_probs.index.max().strftime("%Y-%m-%d")
+        latest_future_trade_date = pd.to_datetime(df_future_probs.index.max()).strftime("%Y-%m-%d")
         latest_future_p_ens = float(df_future_probs.iloc[-1]["p_ens"])
+
+    test_start = pd.to_datetime(split.test.index.min()).strftime("%Y-%m-%d") if len(split.test) > 0 else None
+    test_end = pd.to_datetime(split.test.index.max()).strftime("%Y-%m-%d") if len(split.test) > 0 else None
 
     payload = {
         "ticker": ticker,
         "benchmark": benchmark,
         "weights": {"xgb": 0.25, "svm": 0.25, "rf": 0.25, "logreg": 0.25},
         "n_test_samples": int(len(df_test_probs)),
-        "test_start": split.test.index.min().strftime("%Y-%m-%d"),
-        "test_end": split.test.index.max().strftime("%Y-%m-%d"),
+        "test_start": test_start,
+        "test_end": test_end,
         "ic_full": float(ic_full),
         "ic_pvalue": float(ic_pvalue),
         "ic_first_half": float(ic_first),
@@ -277,8 +255,8 @@ def run_equal_weight_ensemble(
         "p_ens_test_stats": _distribution_summary(df_test_probs["p_ens"].to_numpy()),
         "future_window": {
             "n_samples": int(len(df_future_probs)),
-            "start": df_future_raw.index.min().strftime("%Y-%m-%d") if not df_future_raw.empty else None,
-            "end": df_future_raw.index.max().strftime("%Y-%m-%d") if not df_future_raw.empty else None,
+            "start": pd.to_datetime(df_future_raw.index.min()).strftime("%Y-%m-%d") if not df_future_raw.empty else None,
+            "end": pd.to_datetime(df_future_raw.index.max()).strftime("%Y-%m-%d") if not df_future_raw.empty else None,
         },
         "p_ens_future_stats": (
             _distribution_summary(df_future_probs["p_ens"].to_numpy())
@@ -331,6 +309,89 @@ def run_equal_weight_ensemble(
     print(f"  JSON saved            : {result_path}")
 
     return payload
+
+
+def run_equal_weight_ensemble(
+    ticker: str = "AAPL",
+    benchmark: str = "SP500",
+    auto_update: bool = False,
+    persist_total_features_on_update: bool = False,
+    optimize_profile: str = "balanced",
+    save_json: bool = True,
+) -> dict[str, Any]:
+    """
+    4모델 동일가중치(0.25) 앙상블을 수행하고 지표를 저장합니다.
+    """
+    if auto_update or persist_total_features_on_update:
+        print("[INFO] Ensemble 모듈은 no-update 정책을 강제합니다. 전달된 update 플래그는 무시됩니다.")
+
+    ticker = str(ticker).upper()
+    benchmark = str(benchmark).upper()
+
+    split = split_dataset(
+        ticker=ticker,
+        benchmark=benchmark,
+        auto_update=False,
+        persist_total_features_on_update=False,
+        feature_source_mode="db_first",
+    )
+
+    xgb_models, p_xgb_raw, _ = run_xgb_pipeline(
+        auto_optimize=False,
+        optimize_profile=optimize_profile,
+        return_metrics=False,
+        ticker=ticker,
+        benchmark=benchmark,
+        save_plot=False,
+        compute_importance=False,
+        split_override=split,
+    )
+    svm_models, p_svm_raw, _ = run_svm_pipeline(
+        auto_optimize=False,
+        optimize_profile=optimize_profile,
+        return_metrics=False,
+        ticker=ticker,
+        benchmark=benchmark,
+        save_plot=False,
+        compute_importance=False,
+        split_override=split,
+    )
+    rf_models, p_rf_raw, _ = run_rf_pipeline(
+        auto_optimize=False,
+        optimize_profile=optimize_profile,
+        return_metrics=False,
+        ticker=ticker,
+        benchmark=benchmark,
+        save_plot=False,
+        compute_importance=False,
+        split_override=split,
+    )
+    logreg_models, p_logreg_raw, _ = run_logreg_pipeline(
+        auto_optimize=False,
+        optimize_profile=optimize_profile,
+        return_metrics=False,
+        ticker=ticker,
+        benchmark=benchmark,
+        save_plot=False,
+        compute_importance=False,
+        split_override=split,
+    )
+
+    return build_equal_weight_from_probas(
+        split=split,
+        p_xgb=p_xgb_raw,
+        p_svm=p_svm_raw,
+        p_rf=p_rf_raw,
+        p_logreg=p_logreg_raw,
+        xgb_models=xgb_models,
+        svm_models=svm_models,
+        rf_models=rf_models,
+        logreg_models=logreg_models,
+        ticker=ticker,
+        benchmark=benchmark,
+        optimize_profile=optimize_profile,
+        save_json=save_json,
+    )
 
 
 if __name__ == "__main__":

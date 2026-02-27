@@ -1,5 +1,5 @@
 """
-10티커 배치 오케스트레이터.
+멀티티커 배치 오케스트레이터.
 
 Execution:
   python3 -m Classification.multi_ticker.run_all_tickers
@@ -11,8 +11,10 @@ import argparse
 import json
 import math
 import sys
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import date, datetime
 from pathlib import Path
+from typing import Any
 
 if __package__ in (None, ""):
     _PROJECT_ROOT = next(
@@ -28,10 +30,12 @@ if __package__ in (None, ""):
 
 from common import pd
 from DB import StockDBManager, TICKERS
-from Classification.ensemble.ensemble import run_equal_weight_ensemble
+from Classification.ensemble.ensemble import build_equal_weight_from_probas
 from Classification.mapping.mapping import run_mapping
 from Classification.model_config import (
     MULTI_TICKER_ARTIFACT_DIR,
+    get_ensemble_result_path,
+    get_mapping_result_path,
     get_model_metrics_path,
     get_model_params_path,
     get_model_result_path,
@@ -65,6 +69,12 @@ STALE_KEYWORDS = [
     "파라미터 아티팩트가 현재 정책과 불일치",
 ]
 
+ELIGIBILITY_MIN_TRAIN = 30
+ELIGIBILITY_MIN_VAL = 30
+ELIGIBILITY_MIN_TEST = 200
+
+_WORKER_SP500_LOGRET_CACHE = None
+
 
 def _normalize_for_json(obj):
     """json.dumps 전에 datetime/date 등 비직렬화 타입을 정규화합니다."""
@@ -91,23 +101,44 @@ def _is_stale_error(exc: Exception) -> bool:
     return any(k in msg for k in STALE_KEYWORDS)
 
 
-def _run_model_with_optional_retune(model_name, run_fn, run_kwargs, optimize_fn=None, optimize_kwargs=None):
+def _run_model_with_optional_retune(
+    model_name,
+    run_fn,
+    run_kwargs,
+    optimize_fn=None,
+    optimize_kwargs=None,
+    stale_policy: str = "retune_once",
+):
     """
-    stale 파라미터 에러가 발생하면 1회 재튜닝 후 재시도합니다.
+    stale 파라미터 에러 처리 정책:
+      - retune_once: 1회 재튜닝 후 재시도
+      - skip: stale면 즉시 예외
+      - force: auto_optimize=True로 1회 강제 재실행
     """
     status = "normal"
     try:
-        metrics = run_fn(**run_kwargs)
-        return metrics, status
+        result = run_fn(**run_kwargs)
+        return result, status
     except Exception as e:
         if optimize_fn is None or not _is_stale_error(e):
             raise
+
+        if stale_policy == "skip":
+            raise RuntimeError(f"[{model_name}] stale detected and skipped: {e}") from e
+
+        if stale_policy == "force":
+            print(f"  [{model_name}] stale 감지 → auto_optimize 강제 1회 재실행")
+            forced_kwargs = dict(run_kwargs)
+            forced_kwargs["auto_optimize"] = True
+            result = run_fn(**forced_kwargs)
+            return result, "forced_auto_optimize"
+
         print(f"  [{model_name}] stale 감지 → 1회 재튜닝 실행")
         optimize_fn(**(optimize_kwargs or {}))
         try:
-            metrics = run_fn(**run_kwargs)
+            result = run_fn(**run_kwargs)
             status = "retuned_once_success"
-            return metrics, status
+            return result, status
         except Exception:
             status = "retuned_once_failed"
             raise
@@ -127,10 +158,10 @@ def _get_model_metric_warnings(model: str, metrics: dict) -> list[str]:
 
 def _is_fail_fast(metrics: dict, model_name: str, ticker: str) -> bool:
     """
-    Fail-Fast 조건 판정: 세 가지 조건이 모두 동시에 충족되면 True를 반환합니다.
+    Fail-Fast 조건 판정: 세 가지 조건이 모두 동시에 충족되면 True.
     - Test Accuracy ≤ 25%
-    - Test IC < 0 (음수)
-    - Train-Test Gap ≥ 30%
+    - Test IC < 0
+    - Train-Test Gap(abs) ≥ 30%
     """
     test_acc = float(metrics.get("accuracy", 1.0))
     test_ic = float(metrics.get("ic", 0.0))
@@ -141,7 +172,7 @@ def _is_fail_fast(metrics: dict, model_name: str, ticker: str) -> bool:
     if triggered:
         print(
             f"  ⚡ [FAIL-FAST] {ticker}/{model_name}: "
-            f"Acc={test_acc:.1%}, IC={test_ic:+.4f}, Gap={gap_abs:.1%} → 나머지 모델 스킵"
+            f"Acc={test_acc:.1%}, IC={test_ic:+.4f}, Gap={gap_abs:.1%}"
         )
     return triggered
 
@@ -210,11 +241,11 @@ def _save_model_metrics_json(
     save_json_artifact_only(_normalize_for_json(payload), metrics_path)
 
 
-def _coverage_precheck():
+def _coverage_precheck(tickers=None):
     db = StockDBManager()
     db.connect()
     try:
-        report = db.get_ticker_coverage_report(TICKERS)
+        report = db.get_ticker_coverage_report_bulk(tickers or TICKERS)
     finally:
         db.close()
     return report
@@ -266,94 +297,294 @@ def _force_retune_all_models_for_ticker(
     print(f"  [{ticker}] force 재최적화 완료")
 
 
-def run_all_tickers(
-    force_retune_all: bool = False,
-    optimize_profile: str = "balanced",
-    n_trials_by_model: dict[str, int] | None = None,
+def _get_worker_sp500_logret_series():
+    global _WORKER_SP500_LOGRET_CACHE
+    if _WORKER_SP500_LOGRET_CACHE is not None:
+        return _WORKER_SP500_LOGRET_CACHE
+    db = StockDBManager()
+    db.connect()
+    try:
+        _WORKER_SP500_LOGRET_CACHE = db.fetch_sp500_log_returns()
+    finally:
+        db.close()
+    return _WORKER_SP500_LOGRET_CACHE
+
+
+def _get_ticker_logret_series(ticker: str):
+    db = StockDBManager()
+    db.connect()
+    try:
+        return db.fetch_log_returns_by_ticker(ticker)
+    finally:
+        db.close()
+
+
+def _check_eligibility(split) -> tuple[bool, str]:
+    train_n = int(len(split.train))
+    val_n = int(len(split.val))
+    test_n = int(len(split.test))
+
+    if train_n < ELIGIBILITY_MIN_TRAIN:
+        return False, f"train 샘플 부족({train_n} < {ELIGIBILITY_MIN_TRAIN})"
+    if val_n < ELIGIBILITY_MIN_VAL:
+        return False, f"validation 샘플 부족({val_n} < {ELIGIBILITY_MIN_VAL})"
+    if test_n < ELIGIBILITY_MIN_TEST:
+        return False, f"test 샘플 부족({test_n} < {ELIGIBILITY_MIN_TEST})"
+
+    y_train_unique = split.train["Target_Class"].dropna().astype(int).nunique()
+    y_val_unique = split.val["Target_Class"].dropna().astype(int).nunique()
+    if y_train_unique < 2:
+        return False, f"train 단일 클래스({y_train_unique})"
+    if y_val_unique < 2:
+        return False, f"validation 단일 클래스({y_val_unique})"
+
+    return True, "ok"
+
+
+def _build_success_row(
+    *,
+    ticker,
+    slug,
+    ens,
+    mapping,
+    warnings,
+    model_status,
+    force_retune_all,
+    mode,
+    model_metrics=None,
 ):
-    benchmark = "SP500"
-    MULTI_TICKER_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-    trial_map = {**DEFAULT_N_TRIALS_BY_MODEL, **(n_trials_by_model or {})}
+    n_test_samples = int(ens.get("n_test_samples", 0))
+    ic_full = float(ens.get("ic_full", 0.0))
+    ic_pvalue = float(ens.get("ic_pvalue", 1.0))
+    reliability_tag = "LOW" if (ic_full <= 0.0 or ic_pvalue >= 0.05) else "OK"
 
-    coverage_report = _coverage_precheck()
-    coverage_map = {r["ticker"]: r for r in coverage_report}
+    if n_test_samples < MIN_TEST_SAMPLES:
+        warnings.append(f"n_test_samples<{MIN_TEST_SAMPLES}")
+    if reliability_tag == "LOW":
+        warnings.append("신뢰도 낮음(IC<=0 또는 p>=0.05)")
 
-    summary = []
-    for ticker in TICKERS:
-        ticker = str(ticker).upper()
-        slug = ticker_to_slug(ticker)
-        cov = coverage_map.get(ticker, {})
+    ens_gap_signed = float(ens.get("gap_signed_ref", ens.get("gap_ref", 0.0)))
+    ens_gap_abs = float(ens.get("gap_abs_ref", abs(ens_gap_signed)))
+    ens_ic_degenerate = bool(ens.get("ic_degenerate", False))
+    if ens_gap_abs > 0.25:
+        warnings.append("ensemble train_test_gap_abs > 0.25")
+    if ens_ic_degenerate:
+        warnings.append("ensemble ic_degenerate=true")
 
-        print("\n" + "=" * 80)
-        print(f"[{ticker}] 배치 실행 시작")
-        print("=" * 80)
+    te_3m = None
+    e_alpha_log = None
+    if mapping is not None:
+        signal_raw = float(mapping.get("signal_raw", 0.0))
+        if abs(signal_raw) > 0.95:
+            warnings.append("abs(signal_raw) > 0.95")
+        e_alpha_log = float(mapping.get("E_alpha_3M_log", 0.0))
+        if abs(e_alpha_log) > LOG_E_ALPHA_WARN_THRESHOLD:
+            warnings.append("abs(E_alpha_3M_log) > ln(1.15)")
+        for msg in mapping.get("warnings", []):
+            if "E_alpha_3M_simple" in msg:
+                continue
+            if msg not in warnings:
+                warnings.append(msg)
+        te_3m = mapping.get("TE_3M")
 
-        if int(cov.get("stock_rows", 0)) == 0 or int(cov.get("logret_rows", 0)) == 0 or int(cov.get("sp500_rows", 0)) == 0:
-            reason = f"coverage 부족 (STOCK_DATA={cov.get('stock_rows', 0)}, LOG_RETURNS={cov.get('logret_rows', 0)}, SP500_DATA={cov.get('sp500_rows', 0)})"
-            summary.append(
-                {
+    row = {
+        "ticker": ticker,
+        "ticker_slug": slug,
+        "status": "success",
+        "mode": mode,
+        "reliability_tag": reliability_tag,
+        "p_latest": ens.get("latest_future_prediction", {}).get("p_ens"),
+        "ic_full": ens.get("ic_full"),
+        "ic_pvalue": ens.get("ic_pvalue"),
+        "gap_signed": ens_gap_signed,
+        "gap_abs": ens_gap_abs,
+        "ic_degenerate": ens_ic_degenerate,
+        "te_3m": te_3m,
+        "e_alpha_3m_log": e_alpha_log,
+        "test_acc": ens.get("accuracy_ref"),
+        "test_period_start": ens.get("test_start"),
+        "test_period_end": ens.get("test_end"),
+        "n_test_samples": n_test_samples,
+        "warnings": warnings,
+        "model_status": model_status,
+        "force_retune_all": force_retune_all,
+    }
+    if model_metrics is not None:
+        row["model_metrics"] = model_metrics
+        row["model_diagnostics"] = {
+            name: {
+                "gap_signed": m.get("gap_signed"),
+                "gap_abs": m.get("gap_abs"),
+                "ic_degenerate": m.get("ic_degenerate"),
+            }
+            for name, m in model_metrics.items()
+        }
+    return row
+
+
+def _execute_single_ticker(
+    idx: int,
+    ticker: str,
+    coverage: dict,
+    *,
+    benchmark: str,
+    mode: str,
+    with_mapping: bool,
+    force_retune_all: bool,
+    optimize_profile: str,
+    trial_map: dict[str, int],
+    stale_policy_fast: str,
+) -> dict[str, Any]:
+    ticker = str(ticker).upper()
+    slug = ticker_to_slug(ticker)
+
+    print("\n" + "=" * 80)
+    print(f"[{ticker}] 배치 실행 시작 (mode={mode})")
+    print("=" * 80)
+
+    if int(coverage.get("stock_rows", 0)) == 0 or int(coverage.get("logret_rows", 0)) == 0 or int(coverage.get("sp500_rows", 0)) == 0:
+        reason = (
+            "coverage 부족 "
+            f"(STOCK_DATA={coverage.get('stock_rows', 0)}, "
+            f"LOG_RETURNS={coverage.get('logret_rows', 0)}, SP500_DATA={coverage.get('sp500_rows', 0)})"
+        )
+        return {
+            "idx": idx,
+            "row": {
+                "ticker": ticker,
+                "ticker_slug": slug,
+                "status": "skipped",
+                "reason": reason,
+                "warnings": [reason],
+                "model_status": {},
+            },
+        }
+
+    if mode == "fast" and not force_retune_all:
+        ens_path = get_ensemble_result_path(ticker)
+        if ens_path.exists() and (not with_mapping or get_mapping_result_path(ticker).exists()):
+            return {
+                "idx": idx,
+                "row": {
                     "ticker": ticker,
                     "ticker_slug": slug,
-                    "status": "skipped",
-                    "reason": reason,
-                    "warnings": [reason],
-                }
-            )
-            print(f"  [SKIP] {ticker}: {reason}")
-            continue
+                    "status": "skipped_existing",
+                    "reason": "기존 산출물 존재",
+                    "warnings": ["existing artifact skip"],
+                    "model_status": {},
+                },
+            }
 
-        # ── 빠른 스킵: 이미 앙상블 결과가 존재하는 종목은 재실행하지 않음 ──
-        if not force_retune_all:
-            from Classification.model_config import get_ensemble_result_path
-            _existing_ens = get_ensemble_result_path(ticker)
-            if _existing_ens.exists():
-                print(f"  [SKIP] {ticker}: ensemble.json 이미 존재 → 빠른 스킵")
-                continue
+    warnings = []
+    model_status = {}
 
-        warnings = []
-        model_status = {}
-        try:
-            if force_retune_all:
-                _force_retune_all_models_for_ticker(
-                    ticker=ticker,
-                    benchmark=benchmark,
-                    optimize_profile=optimize_profile,
-                    n_trials_by_model=trial_map,
-                )
-
-            split = split_dataset(
+    try:
+        if force_retune_all:
+            _force_retune_all_models_for_ticker(
                 ticker=ticker,
                 benchmark=benchmark,
-                auto_update=False,
-                persist_total_features_on_update=True,
-                feature_source_mode="db_first",
+                optimize_profile=optimize_profile,
+                n_trials_by_model=trial_map,
             )
 
-            xgb_metrics, xgb_status = _run_model_with_optional_retune(
-                "XGB",
-                run_xgb,
-                {
-                    "auto_optimize": False,
-                    "optimize_profile": "balanced",
-                    "return_metrics": True,
+        sp500_logret = _get_worker_sp500_logret_series()
+        ticker_logret = _get_ticker_logret_series(ticker)
+
+        split = split_dataset(
+            ticker=ticker,
+            benchmark=benchmark,
+            auto_update=False,
+            persist_total_features_on_update=False,
+            feature_source_mode="db_first",
+            cached_ticker_logret=ticker_logret,
+            cached_sp500_logret=sp500_logret,
+        )
+
+        eligible, reason = _check_eligibility(split)
+        if not eligible:
+            return {
+                "idx": idx,
+                "row": {
                     "ticker": ticker,
-                    "benchmark": benchmark,
-                    "save_plot": False,
-                    "compute_importance": False,
-                    "split_override": split,
+                    "ticker_slug": slug,
+                    "status": "not_eligible",
+                    "reason": reason,
+                    "warnings": [reason],
+                    "model_status": model_status,
                 },
-                optimize_fn=optimize_xgb,
-                optimize_kwargs={
-                    "profile": optimize_profile,
-                    "n_trials": int(trial_map["xgb"]),
-                    "ticker": ticker,
-                    "benchmark": benchmark,
-                    "auto_update": False,
-                    "persist_total_features_on_update": False,
-                    "feature_source_mode": "db_first",
-                },
-            )
-            model_status["xgb"] = xgb_status
+            }
+
+        # run kwargs 공통
+        xgb_run_kwargs = {
+            "auto_optimize": False,
+            "optimize_profile": optimize_profile,
+            "ticker": ticker,
+            "benchmark": benchmark,
+            "save_plot": False,
+            "compute_importance": False,
+            "split_override": split,
+        }
+        svm_run_kwargs = {
+            "auto_optimize": False,
+            "optimize_profile": optimize_profile,
+            "ticker": ticker,
+            "benchmark": benchmark,
+            "save_plot": False,
+            "compute_importance": False,
+            "split_override": split,
+        }
+        rf_run_kwargs = {
+            "auto_optimize": False,
+            "optimize_profile": optimize_profile,
+            "ticker": ticker,
+            "benchmark": benchmark,
+            "save_plot": False,
+            "compute_importance": False,
+            "split_override": split,
+        }
+        logreg_run_kwargs = {
+            "auto_optimize": False,
+            "optimize_profile": optimize_profile,
+            "ticker": ticker,
+            "benchmark": benchmark,
+            "save_plot": False,
+            "compute_importance": False,
+            "split_override": split,
+        }
+
+        stale_policy = stale_policy_fast if mode == "fast" else "retune_once"
+
+        if mode == "full":
+            xgb_run_kwargs.update({"return_metrics": True, "return_details": True})
+            svm_run_kwargs.update({"return_metrics": True, "return_details": True})
+            rf_run_kwargs.update({"return_metrics": True, "return_details": True})
+            logreg_run_kwargs.update({"return_metrics": True, "return_details": True})
+        else:
+            xgb_run_kwargs.update({"return_metrics": False})
+            svm_run_kwargs.update({"return_metrics": False})
+            rf_run_kwargs.update({"return_metrics": False})
+            logreg_run_kwargs.update({"return_metrics": False})
+
+        xgb_result, xgb_status = _run_model_with_optional_retune(
+            "XGB",
+            run_xgb,
+            xgb_run_kwargs,
+            optimize_fn=optimize_xgb,
+            optimize_kwargs={
+                "profile": optimize_profile,
+                "n_trials": int(trial_map["xgb"]),
+                "ticker": ticker,
+                "benchmark": benchmark,
+                "auto_update": False,
+                "persist_total_features_on_update": False,
+                "feature_source_mode": "db_first",
+            },
+            stale_policy=stale_policy,
+        )
+        model_status["xgb"] = xgb_status
+
+        if mode == "full":
+            xgb_metrics, xgb_models, p_xgb, _ = xgb_result
             _save_model_metrics_json(
                 ticker=ticker,
                 benchmark=benchmark,
@@ -366,43 +597,43 @@ def run_all_tickers(
                 force_retune_all=force_retune_all,
                 warnings=_get_model_metric_warnings("xgb", xgb_metrics),
             )
-            # Fail-Fast: XGB 결과가 극도로 나쁘면 나머지 3개 모델 스킵
             if _is_fail_fast(xgb_metrics, "XGB", ticker):
-                summary.append({
-                    "ticker": ticker, "ticker_slug": slug,
-                    "status": "fail_fast_skipped",
-                    "skipped_after": "xgb",
-                    "reason": "XGB fail-fast 조건 충족",
-                    "warnings": warnings + ["fail_fast: XGB"],
-                    "model_status": model_status,
-                })
-                continue
+                return {
+                    "idx": idx,
+                    "row": {
+                        "ticker": ticker,
+                        "ticker_slug": slug,
+                        "status": "fail_fast_skipped",
+                        "skipped_after": "xgb",
+                        "reason": "XGB fail-fast 조건 충족",
+                        "warnings": warnings + ["fail_fast: XGB"],
+                        "model_status": model_status,
+                    },
+                }
+        else:
+            xgb_models, p_xgb, _ = xgb_result
+            xgb_metrics = None
 
-            svm_metrics, svm_status = _run_model_with_optional_retune(
-                "SVM",
-                run_svm,
-                {
-                    "auto_optimize": False,
-                    "optimize_profile": optimize_profile,
-                    "return_metrics": True,
-                    "ticker": ticker,
-                    "benchmark": benchmark,
-                    "save_plot": False,
-                    "compute_importance": False,
-                    "split_override": split,
-                },
-                optimize_fn=optimize_svm,
-                optimize_kwargs={
-                    "profile": optimize_profile,
-                    "n_trials": int(trial_map["svm"]),
-                    "ticker": ticker,
-                    "benchmark": benchmark,
-                    "auto_update": False,
-                    "persist_total_features_on_update": False,
-                    "feature_source_mode": "db_first",
-                },
-            )
-            model_status["svm"] = svm_status
+        svm_result, svm_status = _run_model_with_optional_retune(
+            "SVM",
+            run_svm,
+            svm_run_kwargs,
+            optimize_fn=optimize_svm,
+            optimize_kwargs={
+                "profile": optimize_profile,
+                "n_trials": int(trial_map["svm"]),
+                "ticker": ticker,
+                "benchmark": benchmark,
+                "auto_update": False,
+                "persist_total_features_on_update": False,
+                "feature_source_mode": "db_first",
+            },
+            stale_policy=stale_policy,
+        )
+        model_status["svm"] = svm_status
+
+        if mode == "full":
+            svm_metrics, svm_models, p_svm, _ = svm_result
             _save_model_metrics_json(
                 ticker=ticker,
                 benchmark=benchmark,
@@ -415,43 +646,43 @@ def run_all_tickers(
                 force_retune_all=force_retune_all,
                 warnings=_get_model_metric_warnings("svm", svm_metrics),
             )
-            # Fail-Fast: SVM 결과가 극도로 나쁘면 나머지 2개 모델 스킵
             if _is_fail_fast(svm_metrics, "SVM", ticker):
-                summary.append({
-                    "ticker": ticker, "ticker_slug": slug,
-                    "status": "fail_fast_skipped",
-                    "skipped_after": "svm",
-                    "reason": "SVM fail-fast 조건 충족",
-                    "warnings": warnings + ["fail_fast: SVM"],
-                    "model_status": model_status,
-                })
-                continue
+                return {
+                    "idx": idx,
+                    "row": {
+                        "ticker": ticker,
+                        "ticker_slug": slug,
+                        "status": "fail_fast_skipped",
+                        "skipped_after": "svm",
+                        "reason": "SVM fail-fast 조건 충족",
+                        "warnings": warnings + ["fail_fast: SVM"],
+                        "model_status": model_status,
+                    },
+                }
+        else:
+            svm_models, p_svm, _ = svm_result
+            svm_metrics = None
 
-            rf_metrics, rf_status = _run_model_with_optional_retune(
-                "RF",
-                run_rf,
-                {
-                    "auto_optimize": False,
-                    "optimize_profile": "balanced",
-                    "return_metrics": True,
-                    "ticker": ticker,
-                    "benchmark": benchmark,
-                    "save_plot": False,
-                    "compute_importance": False,
-                    "split_override": split,
-                },
-                optimize_fn=optimize_rf,
-                optimize_kwargs={
-                    "profile": optimize_profile,
-                    "n_trials": int(trial_map["rf"]),
-                    "ticker": ticker,
-                    "benchmark": benchmark,
-                    "auto_update": False,
-                    "persist_total_features_on_update": False,
-                    "feature_source_mode": "db_first",
-                },
-            )
-            model_status["rf"] = rf_status
+        rf_result, rf_status = _run_model_with_optional_retune(
+            "RF",
+            run_rf,
+            rf_run_kwargs,
+            optimize_fn=optimize_rf,
+            optimize_kwargs={
+                "profile": optimize_profile,
+                "n_trials": int(trial_map["rf"]),
+                "ticker": ticker,
+                "benchmark": benchmark,
+                "auto_update": False,
+                "persist_total_features_on_update": False,
+                "feature_source_mode": "db_first",
+            },
+            stale_policy=stale_policy,
+        )
+        model_status["rf"] = rf_status
+
+        if mode == "full":
+            rf_metrics, rf_models, p_rf, _ = rf_result
             _save_model_metrics_json(
                 ticker=ticker,
                 benchmark=benchmark,
@@ -464,43 +695,43 @@ def run_all_tickers(
                 force_retune_all=force_retune_all,
                 warnings=_get_model_metric_warnings("rf", rf_metrics),
             )
-            # Fail-Fast: RF 결과가 극도로 나쁘면 남은 1개 모델(LogReg) 스킵
             if _is_fail_fast(rf_metrics, "RF", ticker):
-                summary.append({
-                    "ticker": ticker, "ticker_slug": slug,
-                    "status": "fail_fast_skipped",
-                    "skipped_after": "rf",
-                    "reason": "RF fail-fast 조건 충족",
-                    "warnings": warnings + ["fail_fast: RF"],
-                    "model_status": model_status,
-                })
-                continue
+                return {
+                    "idx": idx,
+                    "row": {
+                        "ticker": ticker,
+                        "ticker_slug": slug,
+                        "status": "fail_fast_skipped",
+                        "skipped_after": "rf",
+                        "reason": "RF fail-fast 조건 충족",
+                        "warnings": warnings + ["fail_fast: RF"],
+                        "model_status": model_status,
+                    },
+                }
+        else:
+            rf_models, p_rf, _ = rf_result
+            rf_metrics = None
 
-            logreg_metrics, logreg_status = _run_model_with_optional_retune(
-                "LOGREG",
-                run_logreg,
-                {
-                    "auto_optimize": False,
-                    "optimize_profile": "balanced",
-                    "return_metrics": True,
-                    "ticker": ticker,
-                    "benchmark": benchmark,
-                    "save_plot": False,
-                    "compute_importance": False,
-                    "split_override": split,
-                },
-                optimize_fn=optimize_logreg,
-                optimize_kwargs={
-                    "profile": optimize_profile,
-                    "n_trials": int(trial_map["logreg"]),
-                    "ticker": ticker,
-                    "benchmark": benchmark,
-                    "auto_update": False,
-                    "persist_total_features_on_update": False,
-                    "feature_source_mode": "db_first",
-                },
-            )
-            model_status["logreg"] = logreg_status
+        logreg_result, logreg_status = _run_model_with_optional_retune(
+            "LOGREG",
+            run_logreg,
+            logreg_run_kwargs,
+            optimize_fn=optimize_logreg,
+            optimize_kwargs={
+                "profile": optimize_profile,
+                "n_trials": int(trial_map["logreg"]),
+                "ticker": ticker,
+                "benchmark": benchmark,
+                "auto_update": False,
+                "persist_total_features_on_update": False,
+                "feature_source_mode": "db_first",
+            },
+            stale_policy=stale_policy,
+        )
+        model_status["logreg"] = logreg_status
+
+        if mode == "full":
+            logreg_metrics, logreg_models, p_logreg, _ = logreg_result
             _save_model_metrics_json(
                 ticker=ticker,
                 benchmark=benchmark,
@@ -513,19 +744,20 @@ def run_all_tickers(
                 force_retune_all=force_retune_all,
                 warnings=_get_model_metric_warnings("logreg", logreg_metrics),
             )
-            # Fail-Fast: LogReg 결과까지 극도로 나쁘면 앙상블/매핑 생략
             if _is_fail_fast(logreg_metrics, "LOGREG", ticker):
-                summary.append({
-                    "ticker": ticker, "ticker_slug": slug,
-                    "status": "fail_fast_skipped",
-                    "skipped_after": "logreg",
-                    "reason": "LOGREG fail-fast 조건 충족",
-                    "warnings": warnings + ["fail_fast: LOGREG"],
-                    "model_status": model_status,
-                })
-                continue
+                return {
+                    "idx": idx,
+                    "row": {
+                        "ticker": ticker,
+                        "ticker_slug": slug,
+                        "status": "fail_fast_skipped",
+                        "skipped_after": "logreg",
+                        "reason": "LOGREG fail-fast 조건 충족",
+                        "warnings": warnings + ["fail_fast: LOGREG"],
+                        "model_status": model_status,
+                    },
+                }
 
-            # 모델별 경고(공통 규칙: abs-gap, ic_degenerate)
             for model_name, metrics in [
                 ("xgb", xgb_metrics),
                 ("svm", svm_metrics),
@@ -533,126 +765,170 @@ def run_all_tickers(
                 ("logreg", logreg_metrics),
             ]:
                 gap_abs = float(
-                    metrics.get(
-                        "gap_abs",
-                        abs(float(metrics.get("gap_signed", metrics.get("gap", 0.0)))),
-                    )
+                    metrics.get("gap_abs", abs(float(metrics.get("gap_signed", metrics.get("gap", 0.0)))))
                 )
                 if gap_abs > 0.25:
                     warnings.append(f"{model_name} train_test_gap > 0.25")
                 if bool(metrics.get("ic_degenerate", False)):
                     warnings.append(f"{model_name} ic_degenerate=true")
+        else:
+            logreg_models, p_logreg, _ = logreg_result
+            logreg_metrics = None
 
-            ens = run_equal_weight_ensemble(
-                ticker=ticker,
-                benchmark=benchmark,
-                auto_update=False,
-                persist_total_features_on_update=False,
-                save_json=True,
-            )
-            mapping = run_mapping(ticker=ticker, benchmark=benchmark)
+        ens = build_equal_weight_from_probas(
+            split=split,
+            p_xgb=p_xgb,
+            p_svm=p_svm,
+            p_rf=p_rf,
+            p_logreg=p_logreg,
+            xgb_models=xgb_models,
+            svm_models=svm_models,
+            rf_models=rf_models,
+            logreg_models=logreg_models,
+            ticker=ticker,
+            benchmark=benchmark,
+            optimize_profile=optimize_profile,
+            save_json=True,
+            ticker_logret_series=ticker_logret,
+            sp500_logret_series=sp500_logret,
+        )
 
-            n_test_samples = int(ens.get("n_test_samples", 0))
-            if n_test_samples < MIN_TEST_SAMPLES:
-                warnings.append(f"n_test_samples<{MIN_TEST_SAMPLES}")
+        mapping_obj = None
+        if with_mapping:
+            mapping_obj = run_mapping(ticker=ticker, benchmark=benchmark)
 
-            ic_full = float(ens.get("ic_full", 0.0))
-            ic_pvalue = float(ens.get("ic_pvalue", 1.0))
-            reliability_tag = "LOW" if (ic_full <= 0.0 or ic_pvalue >= 0.05) else "OK"
-            if reliability_tag == "LOW":
-                warnings.append("신뢰도 낮음(IC<=0 또는 p>=0.05)")
+        model_metrics = None
+        if mode == "full":
+            model_metrics = {
+                "xgb": xgb_metrics,
+                "svm": svm_metrics,
+                "rf": rf_metrics,
+                "logreg": logreg_metrics,
+            }
 
-            signal_raw = float(mapping.get("signal_raw", 0.0))
-            if abs(signal_raw) > 0.95:
-                warnings.append("abs(signal_raw) > 0.95")
+        row = _build_success_row(
+            ticker=ticker,
+            slug=slug,
+            ens=ens,
+            mapping=mapping_obj,
+            warnings=warnings,
+            model_status=model_status,
+            force_retune_all=force_retune_all,
+            mode=mode,
+            model_metrics=model_metrics,
+        )
+        print(f"  [{ticker}] success | p_latest={row['p_latest']}, ic={float(row['ic_full']):+.4f}")
+        return {"idx": idx, "row": row}
 
-            e_alpha_log = float(mapping.get("E_alpha_3M_log", 0.0))
-            if abs(e_alpha_log) > LOG_E_ALPHA_WARN_THRESHOLD:
-                warnings.append("abs(E_alpha_3M_log) > ln(1.15)")
-
-            ens_gap_signed = float(ens.get("gap_signed_ref", ens.get("gap_ref", 0.0)))
-            ens_gap_abs = float(ens.get("gap_abs_ref", abs(ens_gap_signed)))
-            ens_ic_degenerate = bool(ens.get("ic_degenerate", False))
-            if ens_gap_abs > 0.25:
-                warnings.append("ensemble train_test_gap_abs > 0.25")
-            if ens_ic_degenerate:
-                warnings.append("ensemble ic_degenerate=true")
-
-            for msg in mapping.get("warnings", []):
-                # summary/leaderboard는 로그수익률 기준 경고만 유지
-                if "E_alpha_3M_simple" in msg:
-                    continue
-                if msg not in warnings:
-                    warnings.append(msg)
-
-            row = {
+    except Exception as e:
+        print(f"  [{ticker}] error: {e}")
+        return {
+            "idx": idx,
+            "row": {
                 "ticker": ticker,
                 "ticker_slug": slug,
-                "status": "success",
-                "reliability_tag": reliability_tag,
-                "p_latest": ens.get("latest_future_prediction", {}).get("p_ens"),
-                "ic_full": ens.get("ic_full"),
-                "ic_pvalue": ens.get("ic_pvalue"),
-                "gap_signed": ens_gap_signed,
-                "gap_abs": ens_gap_abs,
-                "ic_degenerate": ens_ic_degenerate,
-                "te_3m": mapping.get("TE_3M"),
-                "e_alpha_3m_log": mapping.get("E_alpha_3M_log"),
-                "test_acc": ens.get("accuracy_ref"),
-                "test_period_start": ens.get("test_start"),
-                "test_period_end": ens.get("test_end"),
-                "n_test_samples": n_test_samples,
-                "warnings": warnings,
+                "status": "error",
+                "error": str(e),
+                "warnings": warnings + [str(e)],
                 "model_status": model_status,
-                "force_retune_all": force_retune_all,
-                "model_metrics": {
-                    "xgb": xgb_metrics,
-                    "svm": svm_metrics,
-                    "rf": rf_metrics,
-                    "logreg": logreg_metrics,
-                },
-                "model_diagnostics": {
-                    "xgb": {
-                        "gap_signed": xgb_metrics.get("gap_signed"),
-                        "gap_abs": xgb_metrics.get("gap_abs"),
-                        "ic_degenerate": xgb_metrics.get("ic_degenerate"),
-                    },
-                    "svm": {
-                        "gap_signed": svm_metrics.get("gap_signed"),
-                        "gap_abs": svm_metrics.get("gap_abs"),
-                        "ic_degenerate": svm_metrics.get("ic_degenerate"),
-                    },
-                    "rf": {
-                        "gap_signed": rf_metrics.get("gap_signed"),
-                        "gap_abs": rf_metrics.get("gap_abs"),
-                        "ic_degenerate": rf_metrics.get("ic_degenerate"),
-                    },
-                    "logreg": {
-                        "gap_signed": logreg_metrics.get("gap_signed"),
-                        "gap_abs": logreg_metrics.get("gap_abs"),
-                        "ic_degenerate": logreg_metrics.get("ic_degenerate"),
-                    },
-                },
-            }
-            summary.append(row)
-            print(f"  [{ticker}] success | p_latest={row['p_latest']}, ic={row['ic_full']:+.4f}")
-        except Exception as e:
-            summary.append(
-                {
-                    "ticker": ticker,
-                    "ticker_slug": slug,
-                    "status": "error",
-                    "error": str(e),
-                    "warnings": warnings + [str(e)],
-                    "model_status": model_status,
-                }
+            },
+        }
+
+
+def run_all_tickers(
+    force_retune_all: bool = False,
+    optimize_profile: str = "balanced",
+    n_trials_by_model: dict[str, int] | None = None,
+    mode: str = "fast",
+    workers: int = 8,
+    with_mapping: bool = False,
+    stale_policy_fast: str = "retune_once",
+    tickers: list[str] | None = None,
+):
+    benchmark = "SP500"
+    mode = str(mode).lower().strip()
+    if mode not in {"fast", "full"}:
+        raise ValueError(f"mode must be fast|full: {mode}")
+    if stale_policy_fast not in {"retune_once", "skip", "force"}:
+        raise ValueError(f"stale_policy_fast must be retune_once|skip|force: {stale_policy_fast}")
+
+    if mode == "full":
+        with_mapping = True
+
+    MULTI_TICKER_ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
+    trial_map = {**DEFAULT_N_TRIALS_BY_MODEL, **(n_trials_by_model or {})}
+
+    ticker_list = [str(t).upper() for t in (tickers or TICKERS)]
+    coverage_report = _coverage_precheck(ticker_list)
+    coverage_map = {str(r.get("ticker", "")).upper(): r for r in coverage_report}
+
+    tasks = []
+    for idx, ticker in enumerate(ticker_list):
+        ticker_up = str(ticker).upper()
+        tasks.append((idx, ticker_up, coverage_map.get(ticker_up, {})))
+
+    results_by_idx = {}
+    max_workers = max(1, int(workers or 1))
+
+    if max_workers == 1:
+        for idx, ticker, cov in tasks:
+            out = _execute_single_ticker(
+                idx,
+                ticker,
+                cov,
+                benchmark=benchmark,
+                mode=mode,
+                with_mapping=with_mapping,
+                force_retune_all=force_retune_all,
+                optimize_profile=optimize_profile,
+                trial_map=trial_map,
+                stale_policy_fast=stale_policy_fast,
             )
-            print(f"  [{ticker}] error: {e}")
+            results_by_idx[out["idx"]] = out["row"]
+    else:
+        with ProcessPoolExecutor(max_workers=max_workers) as ex:
+            fut_map = {
+                ex.submit(
+                    _execute_single_ticker,
+                    idx,
+                    ticker,
+                    cov,
+                    benchmark=benchmark,
+                    mode=mode,
+                    with_mapping=with_mapping,
+                    force_retune_all=force_retune_all,
+                    optimize_profile=optimize_profile,
+                    trial_map=trial_map,
+                    stale_policy_fast=stale_policy_fast,
+                ): idx
+                for idx, ticker, cov in tasks
+            }
+            for fut in as_completed(fut_map):
+                idx = fut_map[fut]
+                try:
+                    out = fut.result()
+                    results_by_idx[out["idx"]] = out["row"]
+                except Exception as e:
+                    ticker = tasks[idx][1]
+                    results_by_idx[idx] = {
+                        "ticker": ticker,
+                        "ticker_slug": ticker_to_slug(ticker),
+                        "status": "error",
+                        "error": f"worker exception: {e}",
+                        "warnings": [str(e)],
+                        "model_status": {},
+                    }
+
+    summary = [results_by_idx[i] for i in sorted(results_by_idx.keys())]
 
     generated_at = datetime.now().isoformat(timespec="seconds")
     summary_payload = {
         "generated_at": generated_at,
         "benchmark": benchmark,
+        "mode": mode,
+        "workers": max_workers,
+        "with_mapping": bool(with_mapping),
+        "stale_policy_fast": stale_policy_fast,
         "coverage_report": coverage_report,
         "results": summary,
     }
@@ -696,6 +972,9 @@ def run_all_tickers(
 
     print("\n" + "=" * 80)
     print("멀티티커 배치 완료")
+    print(f"  mode       : {mode}")
+    print(f"  workers    : {max_workers}")
+    print(f"  mapping    : {with_mapping}")
     print(f"  summary    : {summary_path}")
     print(f"  leaderboard: {leaderboard_path}")
     print("=" * 80)
@@ -710,6 +989,16 @@ if __name__ == "__main__":
     parser.add_argument("--svm-trials", type=int, default=100, help="SVM optimize trial count")
     parser.add_argument("--rf-trials", type=int, default=100, help="RF optimize trial count")
     parser.add_argument("--logreg-trials", type=int, default=100, help="LogReg optimize trial count")
+    parser.add_argument("--mode", default="fast", choices=["fast", "full"], help="Execution mode")
+    parser.add_argument("--workers", type=int, default=8, help="Parallel worker count")
+    parser.add_argument("--tickers", default="", help="Comma-separated ticker subset (optional)")
+    parser.add_argument("--with-mapping", action="store_true", help="Run mapping in fast mode")
+    parser.add_argument(
+        "--stale-policy-fast",
+        default="retune_once",
+        choices=["retune_once", "skip", "force"],
+        help="Stale handling policy in fast mode",
+    )
     args = parser.parse_args()
 
     run_all_tickers(
@@ -721,4 +1010,9 @@ if __name__ == "__main__":
             "rf": args.rf_trials,
             "logreg": args.logreg_trials,
         },
+        mode=args.mode,
+        workers=args.workers,
+        with_mapping=bool(args.with_mapping),
+        stale_policy_fast=args.stale_policy_fast,
+        tickers=[t.strip().upper() for t in args.tickers.split(',') if t.strip()] if args.tickers else None,
     )

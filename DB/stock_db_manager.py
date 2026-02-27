@@ -4,11 +4,12 @@ if __package__ in (None, ""):
     from datetime import datetime
     import os
 
+    import numpy as np
     import oracledb
     import pandas as pd
     from dotenv import load_dotenv
 else:
-    from common import datetime, load_dotenv, oracledb, os, pd
+    from common import datetime, load_dotenv, np, oracledb, os, pd
 
 # 환경 변수 로드 (프로젝트 루트 .env 우선)
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -147,12 +148,64 @@ class StockDBManager:
         END;
         """
 
+        # 한글 주석: adjusted_expected_returns 스냅샷 전용 테이블입니다.
+        create_adjusted_expected_returns_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE ADJUSTED_EXPECTED_RETURNS (
+                TICKER VARCHAR2(20) PRIMARY KEY,
+                GATE_PASSED NUMBER(1),
+                RETURN_TYPE VARCHAR2(30),
+                ORIGINAL_E_RET NUMBER,
+                E_TOTAL_3M NUMBER,
+                REALIZED_3M NUMBER,
+                GAP NUMBER,
+                ADJ_WEIGHT NUMBER,
+                VOL_3M NUMBER,
+                ADJUSTMENT NUMBER,
+                ADJUSTED_E_TOTAL NUMBER,
+                ADJUSTMENT_APPLIED NUMBER(1),
+                UPDATED_AT DATE
+            )';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
+        # Legacy two-table schema cleanup (metrics/holdings -> unified snapshot table)
+        drop_legacy_risk_metrics_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'DROP TABLE RISK_LEVEL_PORTFOLIO_METRICS PURGE';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -942 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
+        drop_legacy_risk_holdings_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'DROP TABLE RISK_LEVEL_PORTFOLIO_HOLDINGS PURGE';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -942 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+
         try:
             self.cursor.execute(create_stock_data_query)
             self.cursor.execute(create_log_returns_query)
             self.cursor.execute(create_ewma_cov_query)
             self.cursor.execute(create_sp500_query)
             self.cursor.execute(create_market_features_query)
+            self.cursor.execute(create_adjusted_expected_returns_query)
+            self.cursor.execute(drop_legacy_risk_metrics_query)
+            self.cursor.execute(drop_legacy_risk_holdings_query)
             
             # 변경 사항 커밋
             self.connection.commit()
@@ -244,6 +297,39 @@ class StockDBManager:
             print(f"{ticker} 최신 날짜 조회 실패: {e}")
             return None
 
+    def get_latest_dates_map(self, tickers):
+        """
+        Return latest TRADE_DATE per ticker using grouped queries.
+        Missing tickers are returned with None.
+        """
+        normalized = [str(t).strip().upper() for t in tickers if str(t).strip()]
+        if not normalized:
+            return {}
+
+        latest_map = {ticker: None for ticker in normalized}
+
+        try:
+            step = 900  # Oracle IN list limit guard (1000)
+            for i in range(0, len(normalized), step):
+                subset = normalized[i : i + step]
+                bind_params = {f"t{j}": ticker for j, ticker in enumerate(subset)}
+                placeholders = ", ".join(f":{k}" for k in bind_params.keys())
+                query = f"""
+                SELECT TICKER, MAX(TRADE_DATE) AS LATEST_DATE
+                FROM STOCK_DATA
+                WHERE TICKER IN ({placeholders})
+                GROUP BY TICKER
+                """
+                self.cursor.execute(query, bind_params)
+                for ticker, latest_date in self.cursor.fetchall():
+                    latest_map[str(ticker).strip().upper()] = latest_date
+        except Exception:
+            # Fallback to per-ticker lookup for safety
+            for ticker in normalized:
+                latest_map[ticker] = self.get_latest_date(ticker)
+
+        return latest_map
+
     def get_latest_sp500_date(self):
         """
         SP500_DATA 테이블에서 가장 최신 날짜 조회
@@ -257,6 +343,36 @@ class StockDBManager:
             return None
         except oracledb.Error as e:
             print(f"S&P 500 최신 날짜 조회 실패: {e}")
+            return None
+
+    def get_latest_log_returns_date(self):
+        """
+        LOG_RETURNS 테이블에서 가장 최신 TRADE_DATE 조회
+        """
+        query = "SELECT MAX(TRADE_DATE) FROM LOG_RETURNS"
+        try:
+            self.cursor.execute(query)
+            result = self.cursor.fetchone()
+            if result and result[0]:
+                return result[0]
+            return None
+        except oracledb.Error as e:
+            print(f"LOG_RETURNS 최신 날짜 조회 실패: {e}")
+            return None
+
+    def get_latest_ewma_cov_date(self):
+        """
+        EWMA_COVARIANCE 테이블에서 가장 최신 CALC_DATE 조회
+        """
+        query = "SELECT MAX(CALC_DATE) FROM EWMA_COVARIANCE"
+        try:
+            self.cursor.execute(query)
+            result = self.cursor.fetchone()
+            if result and result[0]:
+                return result[0]
+            return None
+        except oracledb.Error as e:
+            print(f"EWMA_COVARIANCE 최신 날짜 조회 실패: {e}")
             return None
 
     def get_ticker_coverage_report(self, tickers):
@@ -308,12 +424,17 @@ class StockDBManager:
 
         return report
 
-    def insert_data(self, df):
+    def insert_data(self, df, commit=True, single_ticker=None):
         """
-        DataFrame 데이터를 DB에 삽입 (Upsert 방식: )
-        이미 데이터가 있는 경우 업데이트하고, 없으면 새로 삽입합니다.
+        Upsert market rows into STOCK_DATA.
+
+        Args:
+            df: yfinance DataFrame (MultiIndex or flat)
+            commit: if True, commit inside this method
+
+        Returns:
+            Number of rows sent to executemany.
         """
-        # MERGE 문을 사용하여 중복 데이터 발생 시 업데이트 처리 
         insert_query = """
         MERGE INTO STOCK_DATA d
         USING (SELECT :1 as TICKER, :2 as TRADE_DATE, :3 as CLOSE_PRICE, :4 as HIGH_PRICE, :5 as VOLUME FROM dual) s
@@ -324,104 +445,172 @@ class StockDBManager:
             INSERT (TICKER, TRADE_DATE, CLOSE_PRICE, HIGH_PRICE, VOLUME)
             VALUES (s.TICKER, s.TRADE_DATE, s.CLOSE_PRICE, s.HIGH_PRICE, s.VOLUME)
         """
-        
-        data_to_insert = []
-        
-        try:
-            # yfinance MultiIndex 데이터 처리 (level 1이 Ticker라고 가정)
-            if isinstance(df.columns, pd.MultiIndex):
-                # yfinance 멀티 인덱스 컬럼((가격종류, 티커))을
-                # 행 인덱스(날짜, 티커) 형태로 재배치해 종목별 업서트 입력을
-                # 벡터화로 처리하기 쉽게 만듭니다.
-                try:
-                    df_processed = df.stack(level=1, future_stack=True).reset_index()
-                except TypeError:
-                    df_processed = df.stack(level=1).reset_index()
-                
-                # Date 컬럼 찾기
-                date_col = df_processed.columns[0]
-                # Ticker 컬럼 찾기 (보통 'Ticker' 혹은 'level_1')
-                ticker_col = df_processed.columns[1]
-                
-                # Close, High, Volume 컬럼명 확보 (컬럼명으로 직접 검색)
-                col_names = [str(c) for c in df_processed.columns]
-                
-                # 'Adj Close'가 최우선, 없으면 'Close'
-                if 'Adj Close' in col_names:
-                    close_col = next(c for c in df_processed.columns if str(c) == 'Adj Close')
-                else:
-                    close_col = next((c for c in df_processed.columns if str(c) == 'Close'), None)
 
-                high_col = next((c for c in df_processed.columns if str(c) == 'High'), None)
-                vol_col = next((c for c in df_processed.columns if str(c) == 'Volume'), None)
-                
-                # 벡터화 연산으로 리스트 생성 (Performance Optimization)
-                # 1. Date 변환: to_pydatetime().date()는 벡터화가 어려우므로 리스트 컴프리헨션 사용하되, dt 접근자 활용
-                dates = df_processed[date_col].dt.date.tolist()
-                tickers = df_processed[ticker_col].astype(str).tolist()                
-                
-                # Oracle DB는 np.nan을 받으면 DPY-4004 에러를 발생하므로 None으로 변환
+        rows = []
+
+        try:
+            if isinstance(df.columns, pd.MultiIndex):
+                # Handle both MultiIndex layouts:
+                # 1) (Price, Ticker) and 2) (Ticker, Price)
+                level0 = set(str(x) for x in df.columns.get_level_values(0))
+                level1 = set(str(x) for x in df.columns.get_level_values(1))
+                if ("Adj Close" in level0) or ("Close" in level0):
+                    working_df = df
+                elif ("Adj Close" in level1) or ("Close" in level1):
+                    working_df = df.swaplevel(0, 1, axis=1).sort_index(axis=1)
+                else:
+                    print(
+                        "insert_data: unsupported MultiIndex column layout. "
+                        f"level0_sample={list(level0)[:6]}, level1_sample={list(level1)[:6]}"
+                    )
+                    return 0
+
+                try:
+                    df_processed = working_df.stack(level=1, future_stack=True).reset_index()
+                except TypeError:
+                    df_processed = working_df.stack(level=1).reset_index()
+
+                date_col = df_processed.columns[0]
+                ticker_col = df_processed.columns[1]
+                col_names = [str(c) for c in df_processed.columns]
+
+                if "Adj Close" in col_names:
+                    close_col = next(c for c in df_processed.columns if str(c) == "Adj Close")
+                else:
+                    close_col = next((c for c in df_processed.columns if str(c) == "Close"), None)
+
+                high_col = next((c for c in df_processed.columns if str(c) == "High"), None)
+                vol_col = next((c for c in df_processed.columns if str(c) == "Volume"), None)
+
+                dates = pd.to_datetime(df_processed[date_col], errors="coerce").dt.date.tolist()
+                tickers = df_processed[ticker_col].astype(str).str.strip().str.upper().tolist()
+
                 if close_col is not None:
-                    closes = [None if pd.isna(x) else float(x) for x in df_processed[close_col]]
+                    close_series = pd.to_numeric(df_processed[close_col], errors="coerce")
+                    close_series = close_series.where(np.isfinite(close_series), np.nan)
+                    closes = [None if pd.isna(x) else float(x) for x in close_series]
                 else:
                     closes = [None] * len(df_processed)
-                    
+
                 if high_col is not None:
-                    highs = [None if pd.isna(x) else float(x) for x in df_processed[high_col]]
+                    high_series = pd.to_numeric(df_processed[high_col], errors="coerce")
+                    high_series = high_series.where(np.isfinite(high_series), np.nan)
+                    highs = [None if pd.isna(x) else float(x) for x in high_series]
                 else:
                     highs = [None] * len(df_processed)
-                    
+
                 if vol_col is not None:
-                    volumes = [None if pd.isna(x) else float(x) for x in df_processed[vol_col]]
+                    vol_series = pd.to_numeric(df_processed[vol_col], errors="coerce")
+                    vol_series = vol_series.where(np.isfinite(vol_series), np.nan)
+                    volumes = [None if pd.isna(x) else float(x) for x in vol_series]
                 else:
                     volumes = [None] * len(df_processed)
-                
-                data_to_insert = list(zip(tickers, dates, closes, highs, volumes))
-            
+
+                rows = list(zip(tickers, dates, closes, highs, volumes))
             else:
-                # Flat DataFrame (only Adj Close data)
-                # reset_index to get Date as a column, then melt to get Ticker and Value
-                df_flat = df.reset_index().melt(id_vars=df.index.name or 'Date', var_name='Ticker', value_name='Close')
-                
-                date_col = df_flat.columns[0]
-                ticker_col = 'Ticker'
-                close_col = 'Close'
+                # yfinance single-ticker download can be flat OHLCV columns.
+                # Use caller-provided ticker hint to map this format correctly.
+                if single_ticker and (("Adj Close" in df.columns) or ("Close" in df.columns)):
+                    close_col = "Adj Close" if "Adj Close" in df.columns else "Close"
+                    high_col = "High" if "High" in df.columns else None
+                    vol_col = "Volume" if "Volume" in df.columns else None
 
-                dates = df_flat[date_col].dt.date.tolist()
-                tickers = df_flat[ticker_col].astype(str).tolist()
-                closes = [None if pd.isna(x) else float(x) for x in df_flat[close_col]]
-                
-                # Flat DataFrame에는 High, Volume 데이터가 없으므로 None 처리
-                highs = [None] * len(df_flat)
-                volumes = [None] * len(df_flat)
+                    dates = pd.to_datetime(df.index, errors="coerce").date.tolist()
+                    tickers = [str(single_ticker).strip().upper()] * len(df)
 
-                data_to_insert = list(zip(tickers, dates, closes, highs, volumes))
+                    close_series = pd.to_numeric(df[close_col], errors="coerce")
+                    close_series = close_series.where(np.isfinite(close_series), np.nan)
+                    closes = [None if pd.isna(x) else float(x) for x in close_series]
 
-            if data_to_insert:
-                # executemany를 사용하여 대량 삽입 성능 향상
-                # MERGE 문(Upsert)을 사용하므로 데이터가 중복되어도 안전하게 날짜순으로 들어갑니다.
-                batch_size = 10000
-                for i in range(0, len(data_to_insert), batch_size):
-                    batch = data_to_insert[i:i + batch_size]
-                    self.cursor.executemany(insert_query, batch)
+                    if high_col is not None:
+                        high_series = pd.to_numeric(df[high_col], errors="coerce")
+                        high_series = high_series.where(np.isfinite(high_series), np.nan)
+                        highs = [None if pd.isna(x) else float(x) for x in high_series]
+                    else:
+                        highs = [None] * len(df)
+
+                    if vol_col is not None:
+                        vol_series = pd.to_numeric(df[vol_col], errors="coerce")
+                        vol_series = vol_series.where(np.isfinite(vol_series), np.nan)
+                        volumes = [None if pd.isna(x) else float(x) for x in vol_series]
+                    else:
+                        volumes = [None] * len(df)
+
+                    rows = list(zip(tickers, dates, closes, highs, volumes))
+                else:
+                    df_flat = df.reset_index().melt(
+                        id_vars=df.index.name or "Date",
+                        var_name="Ticker",
+                        value_name="Close",
+                    )
+
+                    date_col = df_flat.columns[0]
+                    dates = pd.to_datetime(df_flat[date_col], errors="coerce").dt.date.tolist()
+                    tickers = df_flat["Ticker"].astype(str).str.strip().str.upper().tolist()
+
+                    close_series = pd.to_numeric(df_flat["Close"], errors="coerce")
+                    close_series = close_series.where(np.isfinite(close_series), np.nan)
+                    closes = [None if pd.isna(x) else float(x) for x in close_series]
+
+                    highs = [None] * len(df_flat)
+                    volumes = [None] * len(df_flat)
+                    rows = list(zip(tickers, dates, closes, highs, volumes))
+
+            raw_row_count = len(rows)
+            rows = [
+                row
+                for row in rows
+                if row[0]
+                and (row[1] is not None)
+                and (not pd.isna(row[1]))
+                and not (row[2] is None and row[3] is None and row[4] is None)
+            ]
+
+            if not rows:
+                print(
+                    "No rows to insert. "
+                    f"(raw={raw_row_count}, filtered=0, single_ticker={single_ticker})"
+                )
+                return 0
+
+            batch_size = 10000
+            for i in range(0, len(rows), batch_size):
+                self.cursor.executemany(insert_query, rows[i : i + batch_size])
+
+            if commit:
                 self.connection.commit()
-                print(f"{len(data_to_insert)}개의 데이터가 날짜 오름차순으로 DB에 성공적으로 저장되었습니다.")
-            else:
-                print("저장할 데이터가 없습니다.")
-                
-        except Exception as e:
-            print(f"데이터 삽입 실패: {e}")
-            # 에러 발생 시 롤백하지 않고 오류 출력
 
-    def fetch_prices(self):
+            print(f"Inserted/updated {len(rows)} rows into STOCK_DATA.")
+            return len(rows)
+
+        except Exception as e:
+            if commit:
+                try:
+                    self.connection.rollback()
+                except Exception:
+                    pass
+            print(f"insert_data failed: {e}")
+            if not commit:
+                raise
+            return 0
+
+    def fetch_prices(self, start_date=None):
         """
         DB에서 전체 주가 데이터를 가져와 Pivot된 DataFrame으로 반환
         Index: Date, Columns: Ticker
         """
-        query = "SELECT TICKER, TRADE_DATE, CLOSE_PRICE FROM STOCK_DATA ORDER BY TRADE_DATE, TICKER"
+        query = "SELECT TICKER, TRADE_DATE, CLOSE_PRICE FROM STOCK_DATA"
+        params = {}
+        if start_date is not None:
+            query += " WHERE TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE, TICKER"
         try:
             # 데이터 가져오기
-            self.cursor.execute(query)
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
             rows = self.cursor.fetchall()
             
             if not rows:
@@ -440,13 +629,21 @@ class StockDBManager:
             print(f"주가 데이터 조회 실패: {e}")
             return pd.DataFrame()
 
-    def fetch_log_returns(self):
+    def fetch_log_returns(self, start_date=None):
         """
         DB에서 로그 수익률 데이터를 가져와 Pivot된 DataFrame으로 반환
         """
-        query = "SELECT TICKER, TRADE_DATE, LOG_RETURN FROM LOG_RETURNS ORDER BY TRADE_DATE, TICKER"
+        query = "SELECT TICKER, TRADE_DATE, LOG_RETURN FROM LOG_RETURNS"
+        params = {}
+        if start_date is not None:
+            query += " WHERE TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE, TICKER"
         try:
-            self.cursor.execute(query)
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
             rows = self.cursor.fetchall()
             
             if not rows:
@@ -459,18 +656,48 @@ class StockDBManager:
             print(f"로그 수익률 데이터 조회 실패: {e}")
             return pd.DataFrame()
 
-    def fetch_ticker_data(self, ticker):
+    def fetch_log_returns_by_ticker(self, ticker, start_date=None):
+        """
+        단일 티커의 로그수익률 시계열을 조회해 Series(index=TRADE_DATE)로 반환.
+        """
+        query = """
+            SELECT TRADE_DATE, LOG_RETURN
+            FROM LOG_RETURNS
+            WHERE TICKER = :ticker
+        """
+        params = {"ticker": str(ticker).upper()}
+        if start_date is not None:
+            query += " AND TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
+        try:
+            self.cursor.execute(query, params)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.Series(dtype=float, name="LOG_RETURN")
+            df = pd.DataFrame(rows, columns=["TRADE_DATE", "LOG_RETURN"])
+            df["TRADE_DATE"] = pd.to_datetime(df["TRADE_DATE"])
+            return pd.to_numeric(df.set_index("TRADE_DATE")["LOG_RETURN"], errors="coerce")
+        except oracledb.Error as e:
+            print(f"{ticker} 로그수익률 조회 실패: {e}")
+            return pd.Series(dtype=float, name="LOG_RETURN")
+
+    def fetch_ticker_data(self, ticker, start_date=None):
         """
         특정 티커의 주가 및 거래량 데이터를 가져와 반환
         """
         query = """
             SELECT TRADE_DATE, CLOSE_PRICE, HIGH_PRICE, VOLUME 
             FROM STOCK_DATA 
-            WHERE TICKER = :ticker 
-            ORDER BY TRADE_DATE
+            WHERE TICKER = :ticker
         """
+        params = {"ticker": ticker}
+        if start_date is not None:
+            query += " AND TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
         try:
-            self.cursor.execute(query, [ticker])
+            self.cursor.execute(query, params)
             rows = self.cursor.fetchall()
             if not rows:
                 return pd.DataFrame()
@@ -677,13 +904,21 @@ class StockDBManager:
             print(f"S&P 500 데이터 저장 실패: {e}")
             self.connection.rollback()
 
-    def fetch_sp500_data(self):
+    def fetch_sp500_data(self, start_date=None):
         """
         DB에서 S&P 500 데이터(TRADE_DATE, LOG_RETURN)를 가져와 DataFrame으로 반환
         """
-        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA ORDER BY TRADE_DATE"
+        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA"
+        params = {}
+        if start_date is not None:
+            query += " WHERE TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
         try:
-            self.cursor.execute(query)
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
             rows = self.cursor.fetchall()
             if not rows:
                 return pd.DataFrame()
@@ -694,6 +929,31 @@ class StockDBManager:
         except oracledb.Error as e:
             print(f"S&P 500 데이터 조회 실패: {e}")
             return pd.DataFrame()
+
+    def fetch_sp500_log_returns(self, start_date=None):
+        """
+        SP500 로그수익률 시계열만 조회해 Series(index=TRADE_DATE)로 반환.
+        """
+        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA"
+        params = {}
+        if start_date is not None:
+            query += " WHERE TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
+        try:
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.Series(dtype=float, name="LOG_RETURN")
+            df = pd.DataFrame(rows, columns=["TRADE_DATE", "LOG_RETURN"])
+            df["TRADE_DATE"] = pd.to_datetime(df["TRADE_DATE"])
+            return pd.to_numeric(df.set_index("TRADE_DATE")["LOG_RETURN"], errors="coerce")
+        except oracledb.Error as e:
+            print(f"SP500 로그수익률 조회 실패: {e}")
+            return pd.Series(dtype=float, name="LOG_RETURN")
 
     def insert_market_features(self, indicator, df):
         """
@@ -731,7 +991,7 @@ class StockDBManager:
             print(f"{indicator} 데이터 저장 실패: {e}")
             self.connection.rollback()
 
-    def fetch_market_features(self, indicator):
+    def fetch_market_features(self, indicator, start_date=None):
         """
         DB에서 특정 시장 지표(VIX/DXY) 데이터를 조회하여 DataFrame으로 반환
         """
@@ -739,10 +999,14 @@ class StockDBManager:
             SELECT TRADE_DATE, CLOSE_VALUE, LOG_RETURN
             FROM MARKET_FEATURES
             WHERE INDICATOR = :indicator
-            ORDER BY TRADE_DATE
         """
+        params = {"indicator": indicator}
+        if start_date is not None:
+            query += " AND TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
         try:
-            self.cursor.execute(query, [indicator])
+            self.cursor.execute(query, params)
             rows = self.cursor.fetchall()
             if not rows:
                 return pd.DataFrame()
@@ -1051,54 +1315,486 @@ class StockDBManager:
         except Exception:
             return None
 
-    def get_ticker_coverage_report(self, tickers):
+    def get_ticker_coverage_report_bulk(self, tickers):
         """
-        각 종목별 DB 적재 현황을 요약하여 리포트를 반환합니다.
-        MASTER_FEATURES 통합 테이블 기준으로 조회합니다.
+        다중 티커 coverage를 집계 쿼리로 조회합니다 (N+1 제거).
         """
-        report = []
-        try:
-            # SP500_DATA 총 행수 (공통)
-            self.cursor.execute("SELECT COUNT(*) FROM SP500_DATA")
-            sp500_total = self.cursor.fetchone()[0]
+        normalized = [str(t).strip().upper() for t in tickers if str(t).strip()]
+        if not normalized:
+            return []
 
-            # MASTER_FEATURES 종목별 행수 일괄 조회
-            mf_counts = {}
+        placeholder = ",".join(f":{i+1}" for i in range(len(normalized)))
+        report_map = {
+            t: {
+                "ticker": t,
+                "stock_rows": 0,
+                "logret_rows": 0,
+                "sp500_rows": 0,
+                "feature_rows": 0,
+            }
+            for t in normalized
+        }
+        try:
+            self.cursor.execute("SELECT COUNT(*) FROM SP500_DATA")
+            sp500_total = int(self.cursor.fetchone()[0] or 0)
+            for t in normalized:
+                report_map[t]["sp500_rows"] = sp500_total
+
+            self.cursor.execute(
+                f"SELECT TICKER, COUNT(*) FROM STOCK_DATA WHERE TICKER IN ({placeholder}) GROUP BY TICKER",
+                normalized,
+            )
+            for ticker, cnt in self.cursor.fetchall():
+                key = str(ticker).upper()
+                if key in report_map:
+                    report_map[key]["stock_rows"] = int(cnt or 0)
+
+            self.cursor.execute(
+                f"SELECT TICKER, COUNT(*) FROM LOG_RETURNS WHERE TICKER IN ({placeholder}) GROUP BY TICKER",
+                normalized,
+            )
+            for ticker, cnt in self.cursor.fetchall():
+                key = str(ticker).upper()
+                if key in report_map:
+                    report_map[key]["logret_rows"] = int(cnt or 0)
+
             if self.master_features_exists():
                 self.cursor.execute(
-                    "SELECT TICKER, COUNT(*) FROM MASTER_FEATURES GROUP BY TICKER"
+                    f"SELECT TICKER, COUNT(*) FROM MASTER_FEATURES WHERE TICKER IN ({placeholder}) GROUP BY TICKER",
+                    normalized,
                 )
-                for row in self.cursor.fetchall():
-                    mf_counts[row[0]] = row[1]
-
-            for ticker in tickers:
-                ticker = str(ticker).upper()
-
-                # STOCK_DATA 행수
-                self.cursor.execute(
-                    "SELECT COUNT(*) FROM STOCK_DATA WHERE TICKER = :1",
-                    [ticker],
-                )
-                stock_rows = self.cursor.fetchone()[0]
-
-                # LOG_RETURNS 행수
-                self.cursor.execute(
-                    "SELECT COUNT(*) FROM LOG_RETURNS WHERE TICKER = :1",
-                    [ticker],
-                )
-                logret_rows = self.cursor.fetchone()[0]
-
-                report.append({
-                    "ticker": ticker,
-                    "stock_rows": stock_rows,
-                    "logret_rows": logret_rows,
-                    "sp500_rows": sp500_total,
-                    "feature_rows": mf_counts.get(ticker, 0),
-                })
+                for ticker, cnt in self.cursor.fetchall():
+                    key = str(ticker).upper()
+                    if key in report_map:
+                        report_map[key]["feature_rows"] = int(cnt or 0)
         except Exception as e:
-            print(f"Coverage report 생성 실패: {e}")
+            print(f"Coverage report bulk 생성 실패: {e}")
 
-        return report
+        return [report_map[t] for t in normalized]
+
+    def get_ticker_coverage_report(self, tickers):
+        """
+        하위호환 API: bulk coverage 조회 결과를 반환합니다.
+        """
+        return self.get_ticker_coverage_report_bulk(tickers)
+
+    def upsert_adjusted_expected_returns_snapshot(self, df):
+        """
+        adjusted_expected_returns 스냅샷을 티커 기준으로 업서트하고,
+        입력 데이터에 없는 기존 티커는 삭제해 DB와 완전 동기화합니다.
+        """
+        # 한글 주석: 입력 컬럼 스키마를 명시적으로 검증합니다.
+        required_cols = [
+            "Ticker",
+            "Gate_Passed",
+            "Return_Type",
+            "Original_E_Ret",
+            "E_Total_3M",
+            "Realized_3M",
+            "Gap",
+            "Adj_Weight",
+            "Vol_3M",
+            "Adjustment",
+            "Adjusted_E_Total",
+            "Adjustment_Applied",
+        ]
+
+        normalized_df = df.copy()
+        normalized_df.columns = [str(col).strip() for col in normalized_df.columns]
+        missing_cols = [col for col in required_cols if col not in normalized_df.columns]
+        if missing_cols:
+            raise ValueError(
+                f"[SYNC][VALIDATION] adjusted_expected_returns 필수 컬럼 누락: {missing_cols}"
+            )
+
+        # 한글 주석: bool 컬럼은 Oracle NUMBER(1)로 변환합니다.
+        def _to_bool_flag(value):
+            if pd.isna(value):
+                return 0
+            if isinstance(value, bool):
+                return 1 if value else 0
+            normalized = str(value).strip().lower()
+            return 1 if normalized in {"1", "true", "t", "y", "yes"} else 0
+
+        # 한글 주석: 숫자 컬럼은 NaN/inf를 None으로 변환합니다.
+        def _to_number(value):
+            if pd.isna(value):
+                return None
+            try:
+                number = float(value)
+            except (TypeError, ValueError):
+                return None
+            return number if math.isfinite(number) else None
+
+        merge_query = """
+        MERGE INTO ADJUSTED_EXPECTED_RETURNS d
+        USING (
+            SELECT
+                :1 AS TICKER,
+                :2 AS GATE_PASSED,
+                :3 AS RETURN_TYPE,
+                :4 AS ORIGINAL_E_RET,
+                :5 AS E_TOTAL_3M,
+                :6 AS REALIZED_3M,
+                :7 AS GAP,
+                :8 AS ADJ_WEIGHT,
+                :9 AS VOL_3M,
+                :10 AS ADJUSTMENT,
+                :11 AS ADJUSTED_E_TOTAL,
+                :12 AS ADJUSTMENT_APPLIED
+            FROM dual
+        ) s
+        ON (d.TICKER = s.TICKER)
+        WHEN MATCHED THEN
+            UPDATE SET
+                d.GATE_PASSED = s.GATE_PASSED,
+                d.RETURN_TYPE = s.RETURN_TYPE,
+                d.ORIGINAL_E_RET = s.ORIGINAL_E_RET,
+                d.E_TOTAL_3M = s.E_TOTAL_3M,
+                d.REALIZED_3M = s.REALIZED_3M,
+                d.GAP = s.GAP,
+                d.ADJ_WEIGHT = s.ADJ_WEIGHT,
+                d.VOL_3M = s.VOL_3M,
+                d.ADJUSTMENT = s.ADJUSTMENT,
+                d.ADJUSTED_E_TOTAL = s.ADJUSTED_E_TOTAL,
+                d.ADJUSTMENT_APPLIED = s.ADJUSTMENT_APPLIED,
+                d.UPDATED_AT = SYSDATE
+        WHEN NOT MATCHED THEN
+            INSERT (
+                TICKER,
+                GATE_PASSED,
+                RETURN_TYPE,
+                ORIGINAL_E_RET,
+                E_TOTAL_3M,
+                REALIZED_3M,
+                GAP,
+                ADJ_WEIGHT,
+                VOL_3M,
+                ADJUSTMENT,
+                ADJUSTED_E_TOTAL,
+                ADJUSTMENT_APPLIED,
+                UPDATED_AT
+            )
+            VALUES (
+                s.TICKER,
+                s.GATE_PASSED,
+                s.RETURN_TYPE,
+                s.ORIGINAL_E_RET,
+                s.E_TOTAL_3M,
+                s.REALIZED_3M,
+                s.GAP,
+                s.ADJ_WEIGHT,
+                s.VOL_3M,
+                s.ADJUSTMENT,
+                s.ADJUSTED_E_TOTAL,
+                s.ADJUSTMENT_APPLIED,
+                SYSDATE
+            )
+        """
+
+        records = []
+        ticker_set = set()
+        for _, row in normalized_df.iterrows():
+            ticker = str(row["Ticker"]).strip().upper()
+            if not ticker:
+                continue
+            ticker_set.add(ticker)
+            records.append(
+                (
+                    ticker,
+                    _to_bool_flag(row["Gate_Passed"]),
+                    str(row["Return_Type"]).strip(),
+                    _to_number(row["Original_E_Ret"]),
+                    _to_number(row["E_Total_3M"]),
+                    _to_number(row["Realized_3M"]),
+                    _to_number(row["Gap"]),
+                    _to_number(row["Adj_Weight"]),
+                    _to_number(row["Vol_3M"]),
+                    _to_number(row["Adjustment"]),
+                    _to_number(row["Adjusted_E_Total"]),
+                    _to_bool_flag(row["Adjustment_Applied"]),
+                )
+            )
+
+        try:
+            # 한글 주석: 1) 스냅샷 업서트 단계
+            if records:
+                batch_size = 10000
+                for index in range(0, len(records), batch_size):
+                    batch = records[index:index + batch_size]
+                    self.cursor.executemany(merge_query, batch)
+
+            # 한글 주석: 2) 스냅샷 삭제 동기화 단계
+            if ticker_set:
+                ordered_tickers = sorted(ticker_set)
+                bind_params = {f"t{idx}": ticker for idx, ticker in enumerate(ordered_tickers)}
+                placeholders = ", ".join(f":{key}" for key in bind_params.keys())
+                delete_query = (
+                    f"DELETE FROM ADJUSTED_EXPECTED_RETURNS "
+                    f"WHERE TICKER NOT IN ({placeholders})"
+                )
+                self.cursor.execute(delete_query, bind_params)
+            else:
+                self.cursor.execute("TRUNCATE TABLE ADJUSTED_EXPECTED_RETURNS")
+
+            self.connection.commit()
+            print(
+                f"[SYNC][OK] ADJUSTED_EXPECTED_RETURNS 동기화 완료 "
+                f"(업서트={len(records)}, 유지티커={len(ticker_set)})"
+            )
+        except Exception as e:
+            self.connection.rollback()
+            print(f"[SYNC][ERROR] ADJUSTED_EXPECTED_RETURNS 동기화 실패: {e}")
+            raise
+
+    def fetch_adjusted_expected_returns(self):
+        """
+        ADJUSTED_EXPECTED_RETURNS 스냅샷을 조회하여
+        CSV와 동일한 컬럼 이름으로 반환합니다.
+        """
+        query = """
+        SELECT
+            TICKER AS "Ticker",
+            GATE_PASSED AS "Gate_Passed",
+            RETURN_TYPE AS "Return_Type",
+            ORIGINAL_E_RET AS "Original_E_Ret",
+            E_TOTAL_3M AS "E_Total_3M",
+            REALIZED_3M AS "Realized_3M",
+            GAP AS "Gap",
+            ADJ_WEIGHT AS "Adj_Weight",
+            VOL_3M AS "Vol_3M",
+            ADJUSTMENT AS "Adjustment",
+            ADJUSTED_E_TOTAL AS "Adjusted_E_Total",
+            ADJUSTMENT_APPLIED AS "Adjustment_Applied",
+            UPDATED_AT AS "Updated_At"
+        FROM ADJUSTED_EXPECTED_RETURNS
+        ORDER BY TICKER
+        """
+        try:
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.DataFrame()
+
+            col_names = [desc[0] for desc in self.cursor.description]
+            result_df = pd.DataFrame(rows, columns=col_names)
+
+            # 한글 주석: Oracle NUMBER(1) -> Python bool 복원
+            for col in ["Gate_Passed", "Adjustment_Applied"]:
+                if col in result_df.columns:
+                    result_df[col] = result_df[col].apply(
+                        lambda value: bool(int(value)) if pd.notna(value) else False
+                    )
+
+            if "Updated_At" in result_df.columns:
+                result_df["Updated_At"] = pd.to_datetime(result_df["Updated_At"])
+
+            return result_df
+        except Exception as e:
+            print(f"[SYNC][ERROR] ADJUSTED_EXPECTED_RETURNS 조회 실패: {e}")
+            return pd.DataFrame()
+
+
+    def fetch_risk_level_portfolio_snapshot(self):
+        """
+        RISK_LEVEL_PORTFOLIO_SNAPSHOT 스냅샷을 조회합니다.
+        - rank_no=0: 리스크 레벨 요약
+        - rank_no>=1: 편입 종목
+        """
+        query = """
+        SELECT
+            RISK_LEVEL AS "Risk_Level",
+            RANK_NO AS "Rank_No",
+            RISK_LABEL AS "Risk_Label",
+            LAMBDA_VALUE AS "Lambda_Value",
+            PORTFOLIO_EXPECTED_RETURN_3M AS "Portfolio_Expected_Return_3M",
+            PORTFOLIO_STD_60D AS "Portfolio_Std_60D",
+            HOLDINGS_COUNT AS "Holdings_Count",
+            TICKER AS "Ticker",
+            STOCK_NAME AS "Stock_Name",
+            WEIGHT_PCT AS "Weight_Pct",
+            STOCK_EXPECTED_RETURN_3M AS "Stock_Expected_Return_3M",
+            STOCK_SIGMA_EWMA_60D AS "Stock_Sigma_EWMA_60D",
+            UPDATED_AT AS "Updated_At"
+        FROM RISK_LEVEL_PORTFOLIO_SNAPSHOT
+        ORDER BY RISK_LEVEL DESC, RANK_NO ASC
+        """
+        try:
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.DataFrame()
+
+            col_names = [desc[0] for desc in self.cursor.description]
+            result_df = pd.DataFrame(rows, columns=col_names)
+            if "Updated_At" in result_df.columns:
+                result_df["Updated_At"] = pd.to_datetime(result_df["Updated_At"])
+            return result_df
+        except Exception as e:
+            # ORA-00942(테이블 미존재) 포함, 조회 실패 시 빈 프레임 반환
+            print(f"[SYNC][ERROR] RISK_LEVEL_PORTFOLIO_SNAPSHOT 조회 실패: {e}")
+            return pd.DataFrame()
+
+
+    def _ensure_risk_level_portfolio_snapshot_table(self):
+        """Create snapshot table only when snapshot sync is actually requested."""
+        create_risk_level_snapshot_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE RISK_LEVEL_PORTFOLIO_SNAPSHOT (
+                RISK_LEVEL NUMBER(1),
+                RANK_NO NUMBER,
+                RISK_LABEL VARCHAR2(40),
+                LAMBDA_VALUE NUMBER,
+                PORTFOLIO_EXPECTED_RETURN_3M NUMBER,
+                PORTFOLIO_STD_60D NUMBER,
+                HOLDINGS_COUNT NUMBER,
+                TICKER VARCHAR2(20),
+                STOCK_NAME VARCHAR2(120),
+                WEIGHT_PCT NUMBER,
+                STOCK_EXPECTED_RETURN_3M NUMBER,
+                STOCK_SIGMA_EWMA_60D NUMBER,
+                UPDATED_AT DATE,
+                CONSTRAINT PK_RISK_LEVEL_PORTFOLIO_SNAPSHOT PRIMARY KEY (RISK_LEVEL, RANK_NO)
+            )';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+        self.cursor.execute(create_risk_level_snapshot_query)
+
+    def replace_risk_level_portfolio_snapshot(self, metrics_rows, holdings_rows):
+        """
+        4단계 리스크 포트폴리오 스냅샷을 단일 테이블에 교체 적재합니다.
+        - rank_no=0: 리스크별 요약 행
+        - rank_no>=1: 편입 종목 행
+        """
+        if not metrics_rows:
+            raise ValueError("metrics_rows is empty")
+
+        def _to_number(value):
+            if pd.isna(value):
+                return None
+            try:
+                numeric = float(value)
+            except (TypeError, ValueError):
+                return None
+            return numeric if math.isfinite(numeric) else None
+
+        snapshot_insert_query = """
+        INSERT INTO RISK_LEVEL_PORTFOLIO_SNAPSHOT (
+            RISK_LEVEL,
+            RANK_NO,
+            RISK_LABEL,
+            LAMBDA_VALUE,
+            PORTFOLIO_EXPECTED_RETURN_3M,
+            PORTFOLIO_STD_60D,
+            HOLDINGS_COUNT,
+            TICKER,
+            STOCK_NAME,
+            WEIGHT_PCT,
+            STOCK_EXPECTED_RETURN_3M,
+            STOCK_SIGMA_EWMA_60D,
+            UPDATED_AT
+        ) VALUES (
+            :1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, SYSDATE
+        )
+        """
+
+        metric_map = {}
+        for row in metrics_rows:
+            risk_level = int(row.get("risk_level"))
+            metric_map[risk_level] = {
+                "risk_label": str(row.get("risk_label", "")).strip(),
+                "lambda_value": _to_number(row.get("lambda_value")),
+                "portfolio_return_3m": _to_number(row.get("expected_return_3m")),
+                "portfolio_std_60d": _to_number(row.get("portfolio_std_60d")),
+                "holdings_count": int(row.get("holdings_count", 0)),
+            }
+
+        holding_map = {}
+        for row in holdings_rows:
+            risk_level = int(row.get("risk_level"))
+            rank_no = int(row.get("rank_no"))
+            ticker = str(row.get("ticker", "")).strip().upper()
+            stock_name = str(row.get("stock_name", ticker)).strip()[:120]
+            weight_pct = _to_number(row.get("weight_pct"))
+            stock_expected_return_3m = _to_number(row.get("expected_return_3m"))
+            stock_sigma_ewma_60d = _to_number(row.get("sigma_ewma_60d"))
+            if not ticker:
+                continue
+            holding_map.setdefault(risk_level, []).append(
+                {
+                    "rank_no": rank_no,
+                    "ticker": ticker,
+                    "stock_name": stock_name,
+                    "weight_pct": weight_pct,
+                    "stock_expected_return_3m": stock_expected_return_3m,
+                    "stock_sigma_ewma_60d": stock_sigma_ewma_60d,
+                }
+            )
+
+        snapshot_records = []
+        for risk_level in sorted(metric_map.keys(), reverse=True):
+            metric = metric_map[risk_level]
+
+            # Summary row (rank_no=0)
+            snapshot_records.append(
+                (
+                    risk_level,
+                    0,
+                    metric["risk_label"],
+                    metric["lambda_value"],
+                    metric["portfolio_return_3m"],
+                    metric["portfolio_std_60d"],
+                    metric["holdings_count"],
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                )
+            )
+
+            risk_holdings = sorted(
+                holding_map.get(risk_level, []),
+                key=lambda item: item["rank_no"],
+            )
+            for holding in risk_holdings:
+                snapshot_records.append(
+                    (
+                        risk_level,
+                        holding["rank_no"],
+                        metric["risk_label"],
+                        metric["lambda_value"],
+                        metric["portfolio_return_3m"],
+                        metric["portfolio_std_60d"],
+                        metric["holdings_count"],
+                        holding["ticker"],
+                        holding["stock_name"],
+                        holding["weight_pct"],
+                        holding["stock_expected_return_3m"],
+                        holding["stock_sigma_ewma_60d"],
+                    )
+                )
+
+        try:
+            self._ensure_risk_level_portfolio_snapshot_table()
+            self.cursor.execute("DELETE FROM RISK_LEVEL_PORTFOLIO_SNAPSHOT")
+            if snapshot_records:
+                self.cursor.executemany(snapshot_insert_query, snapshot_records)
+
+            self.connection.commit()
+            print(
+                f"[SYNC][OK] RISK_LEVEL_PORTFOLIO snapshot synced "
+                f"(rows={len(snapshot_records)})"
+            )
+        except Exception as e:
+            self.connection.rollback()
+            print(f"[SYNC][ERROR] RISK_LEVEL_PORTFOLIO snapshot sync failed: {e}")
+            raise
 
     def close(self):
         """

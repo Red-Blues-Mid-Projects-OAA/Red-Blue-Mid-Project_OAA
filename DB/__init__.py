@@ -53,6 +53,14 @@ def calculate_and_save_log_returns(*args, **kwargs):
     return _calculate_and_save_log_returns(*args, **kwargs)
 
 
+def sync_risk_level_portfolio_snapshot(*args, **kwargs):
+    from DB.update_risk_level_portfolio_snapshot import (
+        sync_risk_level_portfolio_snapshot as _sync_risk_level_portfolio_snapshot,
+    )
+
+    return _sync_risk_level_portfolio_snapshot(*args, **kwargs)
+
+
 def calculate_ewma_covariance(*args, **kwargs):
     from DB.calculate_ewma import calculate_ewma_covariance as _calculate_ewma_covariance
 
@@ -66,4 +74,5 @@ __all__ = [
     "update_market_data",
     "calculate_and_save_log_returns",
     "calculate_ewma_covariance",
+    "sync_risk_level_portfolio_snapshot",
 ]
