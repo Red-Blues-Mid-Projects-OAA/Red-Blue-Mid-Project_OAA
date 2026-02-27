@@ -650,6 +650,8 @@ class StockDBManager:
                 return pd.DataFrame()
 
             df = pd.DataFrame(rows, columns=['TICKER', 'TRADE_DATE', 'LOG_RETURN'])
+            # 중복 (TRADE_DATE, TICKER) 제거 - pivot 오류 방지
+            df = df.drop_duplicates(subset=['TRADE_DATE', 'TICKER'], keep='last')
             pivot_df = df.pivot(index='TRADE_DATE', columns='TICKER', values='LOG_RETURN')
             return pivot_df
         except oracledb.Error as e:

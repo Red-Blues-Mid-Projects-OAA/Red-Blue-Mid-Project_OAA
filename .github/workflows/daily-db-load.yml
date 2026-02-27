@@ -2,8 +2,8 @@ name: Daily Pipeline 300
 
 on:
   schedule:
-    # 09:30 KST (UTC+9) = 00:30 UTC
-    - cron: "30 0 * * *"
+    # 10:00 KST (UTC+9) = 01:00 UTC
+    - cron: "0 1 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   run-pipeline-300:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 360
     permissions:
       contents: read
@@ -28,46 +28,27 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
 
       - name: Install dependencies
+        shell: powershell
         run: |
           python -m pip install --upgrade pip
-          pip install \
-            numpy \
-            pandas \
-            scipy \
-            scikit-learn \
-            xgboost \
-            optuna \
-            matplotlib \
-            yfinance \
-            oracledb \
-            python-dotenv \
-            cvxpy
+          pip install --force-reinstall numpy pandas scipy scikit-learn xgboost optuna matplotlib yfinance oracledb python-dotenv cvxpy peewee
 
       - name: Validate required secrets
-        shell: bash
+        shell: powershell
         run: |
-          missing=0
-          for var in ORACLE_USER ORACLE_PASSWORD ORACLE_DSN; do
-            if [ -z "${!var}" ]; then
-              echo "Missing required secret: ${var}"
-              missing=1
-            fi
-          done
-
-          if [ "${missing}" -ne 0 ]; then
-            exit 1
-          fi
-
-      - name: Prepare shell script
-        shell: bash
-        run: |
-          sed -i 's/\r$//' scripts/run_pipeline_300.sh
-          chmod +x scripts/run_pipeline_300.sh
+          $missing = 0
+          foreach ($var in @("ORACLE_USER", "ORACLE_PASSWORD", "ORACLE_DSN")) {
+            if (-not [System.Environment]::GetEnvironmentVariable($var)) {
+              Write-Host "Missing required secret: $var"
+              $missing = 1
+            }
+          }
+          if ($missing -ne 0) { exit 1 }
 
       - name: Run pipeline
-        shell: bash
+        shell: powershell
         run: |
-          ./scripts/run_pipeline_300.sh
+          $bash = "C:\Program Files\Git\bin\bash.exe"
+          & $bash -c "sed -i 's/\r$//' scripts/run_pipeline_300.sh && chmod +x scripts/run_pipeline_300.sh && ./scripts/run_pipeline_300.sh"

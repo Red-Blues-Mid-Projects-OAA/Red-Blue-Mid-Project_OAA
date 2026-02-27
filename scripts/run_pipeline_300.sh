@@ -52,9 +52,9 @@ echo "[6/9] Running Unified MASTER_FEATURES Generation (Panel Data)..."
 "${PYTHON_BIN}" -u -m DB.build_master_dataset
 
 echo ""
-echo "[7/9] Running ML Pipeline with 100 Trials per Model (Phase 3)..."
-echo "      (This step will take a long time!)"
-"${PYTHON_BIN}" -u -m DB.run_all_tickers --force-retune-all --xgb-trials 100 --svm-trials 100 --rf-trials 100 --logreg-trials 100
+echo "[7/9] Running ML Pipeline with existing ensemble.json (Phase 3)..."
+echo "      (Using pre-trained ensemble artifacts, skipping retune)"
+"${PYTHON_BIN}" -u -m DB.run_all_tickers --mode fast
 
 echo ""
 echo "[8/9] Running Mapping & Final Aggregation (Phase 4 & 5)..."
