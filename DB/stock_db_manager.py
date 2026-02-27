@@ -4,11 +4,12 @@ if __package__ in (None, ""):
     from datetime import datetime
     import os
 
+    import numpy as np
     import oracledb
     import pandas as pd
     from dotenv import load_dotenv
 else:
-    from common import datetime, load_dotenv, oracledb, os, pd
+    from common import datetime, load_dotenv, np, oracledb, os, pd
 
 # 환경 변수 로드 (프로젝트 루트 .env 우선)
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -296,6 +297,39 @@ class StockDBManager:
             print(f"{ticker} 최신 날짜 조회 실패: {e}")
             return None
 
+    def get_latest_dates_map(self, tickers):
+        """
+        Return latest TRADE_DATE per ticker using grouped queries.
+        Missing tickers are returned with None.
+        """
+        normalized = [str(t).strip().upper() for t in tickers if str(t).strip()]
+        if not normalized:
+            return {}
+
+        latest_map = {ticker: None for ticker in normalized}
+
+        try:
+            step = 900  # Oracle IN list limit guard (1000)
+            for i in range(0, len(normalized), step):
+                subset = normalized[i : i + step]
+                bind_params = {f"t{j}": ticker for j, ticker in enumerate(subset)}
+                placeholders = ", ".join(f":{k}" for k in bind_params.keys())
+                query = f"""
+                SELECT TICKER, MAX(TRADE_DATE) AS LATEST_DATE
+                FROM STOCK_DATA
+                WHERE TICKER IN ({placeholders})
+                GROUP BY TICKER
+                """
+                self.cursor.execute(query, bind_params)
+                for ticker, latest_date in self.cursor.fetchall():
+                    latest_map[str(ticker).strip().upper()] = latest_date
+        except Exception:
+            # Fallback to per-ticker lookup for safety
+            for ticker in normalized:
+                latest_map[ticker] = self.get_latest_date(ticker)
+
+        return latest_map
+
     def get_latest_sp500_date(self):
         """
         SP500_DATA 테이블에서 가장 최신 날짜 조회
@@ -390,12 +424,17 @@ class StockDBManager:
 
         return report
 
-    def insert_data(self, df):
+    def insert_data(self, df, commit=True, single_ticker=None):
         """
-        DataFrame 데이터를 DB에 삽입 (Upsert 방식: )
-        이미 데이터가 있는 경우 업데이트하고, 없으면 새로 삽입합니다.
+        Upsert market rows into STOCK_DATA.
+
+        Args:
+            df: yfinance DataFrame (MultiIndex or flat)
+            commit: if True, commit inside this method
+
+        Returns:
+            Number of rows sent to executemany.
         """
-        # MERGE 문을 사용하여 중복 데이터 발생 시 업데이트 처리 
         insert_query = """
         MERGE INTO STOCK_DATA d
         USING (SELECT :1 as TICKER, :2 as TRADE_DATE, :3 as CLOSE_PRICE, :4 as HIGH_PRICE, :5 as VOLUME FROM dual) s
@@ -406,94 +445,154 @@ class StockDBManager:
             INSERT (TICKER, TRADE_DATE, CLOSE_PRICE, HIGH_PRICE, VOLUME)
             VALUES (s.TICKER, s.TRADE_DATE, s.CLOSE_PRICE, s.HIGH_PRICE, s.VOLUME)
         """
-        
-        data_to_insert = []
-        
-        try:
-            # yfinance MultiIndex 데이터 처리 (level 1이 Ticker라고 가정)
-            if isinstance(df.columns, pd.MultiIndex):
-                # yfinance 멀티 인덱스 컬럼((가격종류, 티커))을
-                # 행 인덱스(날짜, 티커) 형태로 재배치해 종목별 업서트 입력을
-                # 벡터화로 처리하기 쉽게 만듭니다.
-                try:
-                    df_processed = df.stack(level=1, future_stack=True).reset_index()
-                except TypeError:
-                    df_processed = df.stack(level=1).reset_index()
-                
-                # Date 컬럼 찾기
-                date_col = df_processed.columns[0]
-                # Ticker 컬럼 찾기 (보통 'Ticker' 혹은 'level_1')
-                ticker_col = df_processed.columns[1]
-                
-                # Close, High, Volume 컬럼명 확보 (컬럼명으로 직접 검색)
-                col_names = [str(c) for c in df_processed.columns]
-                
-                # 'Adj Close'가 최우선, 없으면 'Close'
-                if 'Adj Close' in col_names:
-                    close_col = next(c for c in df_processed.columns if str(c) == 'Adj Close')
-                else:
-                    close_col = next((c for c in df_processed.columns if str(c) == 'Close'), None)
 
-                high_col = next((c for c in df_processed.columns if str(c) == 'High'), None)
-                vol_col = next((c for c in df_processed.columns if str(c) == 'Volume'), None)
-                
-                # 벡터화 연산으로 리스트 생성 (Performance Optimization)
-                # 1. Date 변환: to_pydatetime().date()는 벡터화가 어려우므로 리스트 컴프리헨션 사용하되, dt 접근자 활용
-                dates = df_processed[date_col].dt.date.tolist()
-                tickers = df_processed[ticker_col].astype(str).tolist()                
-                
-                # Oracle DB는 np.nan을 받으면 DPY-4004 에러를 발생하므로 None으로 변환
+        rows = []
+
+        try:
+            if isinstance(df.columns, pd.MultiIndex):
+                # Handle both MultiIndex layouts:
+                # 1) (Price, Ticker) and 2) (Ticker, Price)
+                level0 = set(str(x) for x in df.columns.get_level_values(0))
+                level1 = set(str(x) for x in df.columns.get_level_values(1))
+                if ("Adj Close" in level0) or ("Close" in level0):
+                    working_df = df
+                elif ("Adj Close" in level1) or ("Close" in level1):
+                    working_df = df.swaplevel(0, 1, axis=1).sort_index(axis=1)
+                else:
+                    print(
+                        "insert_data: unsupported MultiIndex column layout. "
+                        f"level0_sample={list(level0)[:6]}, level1_sample={list(level1)[:6]}"
+                    )
+                    return 0
+
+                try:
+                    df_processed = working_df.stack(level=1, future_stack=True).reset_index()
+                except TypeError:
+                    df_processed = working_df.stack(level=1).reset_index()
+
+                date_col = df_processed.columns[0]
+                ticker_col = df_processed.columns[1]
+                col_names = [str(c) for c in df_processed.columns]
+
+                if "Adj Close" in col_names:
+                    close_col = next(c for c in df_processed.columns if str(c) == "Adj Close")
+                else:
+                    close_col = next((c for c in df_processed.columns if str(c) == "Close"), None)
+
+                high_col = next((c for c in df_processed.columns if str(c) == "High"), None)
+                vol_col = next((c for c in df_processed.columns if str(c) == "Volume"), None)
+
+                dates = pd.to_datetime(df_processed[date_col], errors="coerce").dt.date.tolist()
+                tickers = df_processed[ticker_col].astype(str).str.strip().str.upper().tolist()
+
                 if close_col is not None:
-                    closes = [None if pd.isna(x) else float(x) for x in df_processed[close_col]]
+                    close_series = pd.to_numeric(df_processed[close_col], errors="coerce")
+                    close_series = close_series.where(np.isfinite(close_series), np.nan)
+                    closes = [None if pd.isna(x) else float(x) for x in close_series]
                 else:
                     closes = [None] * len(df_processed)
-                    
+
                 if high_col is not None:
-                    highs = [None if pd.isna(x) else float(x) for x in df_processed[high_col]]
+                    high_series = pd.to_numeric(df_processed[high_col], errors="coerce")
+                    high_series = high_series.where(np.isfinite(high_series), np.nan)
+                    highs = [None if pd.isna(x) else float(x) for x in high_series]
                 else:
                     highs = [None] * len(df_processed)
-                    
+
                 if vol_col is not None:
-                    volumes = [None if pd.isna(x) else float(x) for x in df_processed[vol_col]]
+                    vol_series = pd.to_numeric(df_processed[vol_col], errors="coerce")
+                    vol_series = vol_series.where(np.isfinite(vol_series), np.nan)
+                    volumes = [None if pd.isna(x) else float(x) for x in vol_series]
                 else:
                     volumes = [None] * len(df_processed)
-                
-                data_to_insert = list(zip(tickers, dates, closes, highs, volumes))
-            
+
+                rows = list(zip(tickers, dates, closes, highs, volumes))
             else:
-                # Flat DataFrame (only Adj Close data)
-                # reset_index to get Date as a column, then melt to get Ticker and Value
-                df_flat = df.reset_index().melt(id_vars=df.index.name or 'Date', var_name='Ticker', value_name='Close')
-                
-                date_col = df_flat.columns[0]
-                ticker_col = 'Ticker'
-                close_col = 'Close'
+                # yfinance single-ticker download can be flat OHLCV columns.
+                # Use caller-provided ticker hint to map this format correctly.
+                if single_ticker and (("Adj Close" in df.columns) or ("Close" in df.columns)):
+                    close_col = "Adj Close" if "Adj Close" in df.columns else "Close"
+                    high_col = "High" if "High" in df.columns else None
+                    vol_col = "Volume" if "Volume" in df.columns else None
 
-                dates = df_flat[date_col].dt.date.tolist()
-                tickers = df_flat[ticker_col].astype(str).tolist()
-                closes = [None if pd.isna(x) else float(x) for x in df_flat[close_col]]
-                
-                # Flat DataFrame에는 High, Volume 데이터가 없으므로 None 처리
-                highs = [None] * len(df_flat)
-                volumes = [None] * len(df_flat)
+                    dates = pd.to_datetime(df.index, errors="coerce").date.tolist()
+                    tickers = [str(single_ticker).strip().upper()] * len(df)
 
-                data_to_insert = list(zip(tickers, dates, closes, highs, volumes))
+                    close_series = pd.to_numeric(df[close_col], errors="coerce")
+                    close_series = close_series.where(np.isfinite(close_series), np.nan)
+                    closes = [None if pd.isna(x) else float(x) for x in close_series]
 
-            if data_to_insert:
-                # executemany를 사용하여 대량 삽입 성능 향상
-                # MERGE 문(Upsert)을 사용하므로 데이터가 중복되어도 안전하게 날짜순으로 들어갑니다.
-                batch_size = 10000
-                for i in range(0, len(data_to_insert), batch_size):
-                    batch = data_to_insert[i:i + batch_size]
-                    self.cursor.executemany(insert_query, batch)
+                    if high_col is not None:
+                        high_series = pd.to_numeric(df[high_col], errors="coerce")
+                        high_series = high_series.where(np.isfinite(high_series), np.nan)
+                        highs = [None if pd.isna(x) else float(x) for x in high_series]
+                    else:
+                        highs = [None] * len(df)
+
+                    if vol_col is not None:
+                        vol_series = pd.to_numeric(df[vol_col], errors="coerce")
+                        vol_series = vol_series.where(np.isfinite(vol_series), np.nan)
+                        volumes = [None if pd.isna(x) else float(x) for x in vol_series]
+                    else:
+                        volumes = [None] * len(df)
+
+                    rows = list(zip(tickers, dates, closes, highs, volumes))
+                else:
+                    df_flat = df.reset_index().melt(
+                        id_vars=df.index.name or "Date",
+                        var_name="Ticker",
+                        value_name="Close",
+                    )
+
+                    date_col = df_flat.columns[0]
+                    dates = pd.to_datetime(df_flat[date_col], errors="coerce").dt.date.tolist()
+                    tickers = df_flat["Ticker"].astype(str).str.strip().str.upper().tolist()
+
+                    close_series = pd.to_numeric(df_flat["Close"], errors="coerce")
+                    close_series = close_series.where(np.isfinite(close_series), np.nan)
+                    closes = [None if pd.isna(x) else float(x) for x in close_series]
+
+                    highs = [None] * len(df_flat)
+                    volumes = [None] * len(df_flat)
+                    rows = list(zip(tickers, dates, closes, highs, volumes))
+
+            raw_row_count = len(rows)
+            rows = [
+                row
+                for row in rows
+                if row[0]
+                and (row[1] is not None)
+                and (not pd.isna(row[1]))
+                and not (row[2] is None and row[3] is None and row[4] is None)
+            ]
+
+            if not rows:
+                print(
+                    "No rows to insert. "
+                    f"(raw={raw_row_count}, filtered=0, single_ticker={single_ticker})"
+                )
+                return 0
+
+            batch_size = 10000
+            for i in range(0, len(rows), batch_size):
+                self.cursor.executemany(insert_query, rows[i : i + batch_size])
+
+            if commit:
                 self.connection.commit()
-                print(f"{len(data_to_insert)}개의 데이터가 날짜 오름차순으로 DB에 성공적으로 저장되었습니다.")
-            else:
-                print("저장할 데이터가 없습니다.")
-                
+
+            print(f"Inserted/updated {len(rows)} rows into STOCK_DATA.")
+            return len(rows)
+
         except Exception as e:
-            print(f"데이터 삽입 실패: {e}")
-            # 에러 발생 시 롤백하지 않고 오류 출력
+            if commit:
+                try:
+                    self.connection.rollback()
+                except Exception:
+                    pass
+            print(f"insert_data failed: {e}")
+            if not commit:
+                raise
+            return 0
 
     def fetch_prices(self, start_date=None):
         """
