@@ -1,12 +1,12 @@
 {
   "ticker": "AEP",
-  "beta_ols": 0.02614166410948195,
-  "beta_ewma": -0.573910292406152,
-  "beta_final": -0.15387392284520823,
+  "beta_ols": 0.022507189030802573,
+  "beta_ewma": -0.5807585827506898,
+  "beta_final": -0.15847254250364512,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.006298355377609561,
+  "expected_capm_return_3m_log": 0.0062243662614803194,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

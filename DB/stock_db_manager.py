@@ -173,32 +173,6 @@ class StockDBManager:
         END;
         """
 
-        create_risk_level_snapshot_query = """
-        BEGIN
-            EXECUTE IMMEDIATE 'CREATE TABLE RISK_LEVEL_PORTFOLIO_SNAPSHOT (
-                RISK_LEVEL NUMBER(1),
-                RANK_NO NUMBER,
-                RISK_LABEL VARCHAR2(40),
-                LAMBDA_VALUE NUMBER,
-                PORTFOLIO_EXPECTED_RETURN_3M NUMBER,
-                PORTFOLIO_STD_60D NUMBER,
-                HOLDINGS_COUNT NUMBER,
-                TICKER VARCHAR2(20),
-                STOCK_NAME VARCHAR2(120),
-                WEIGHT_PCT NUMBER,
-                STOCK_EXPECTED_RETURN_3M NUMBER,
-                STOCK_SIGMA_EWMA_60D NUMBER,
-                UPDATED_AT DATE,
-                CONSTRAINT PK_RISK_LEVEL_PORTFOLIO_SNAPSHOT PRIMARY KEY (RISK_LEVEL, RANK_NO)
-            )';
-        EXCEPTION
-            WHEN OTHERS THEN
-                IF SQLCODE != -955 THEN
-                    RAISE;
-                END IF;
-        END;
-        """
-
         # Legacy two-table schema cleanup (metrics/holdings -> unified snapshot table)
         drop_legacy_risk_metrics_query = """
         BEGIN
@@ -229,7 +203,6 @@ class StockDBManager:
             self.cursor.execute(create_sp500_query)
             self.cursor.execute(create_market_features_query)
             self.cursor.execute(create_adjusted_expected_returns_query)
-            self.cursor.execute(create_risk_level_snapshot_query)
             self.cursor.execute(drop_legacy_risk_metrics_query)
             self.cursor.execute(drop_legacy_risk_holdings_query)
             
@@ -584,6 +557,32 @@ class StockDBManager:
             print(f"로그 수익률 데이터 조회 실패: {e}")
             return pd.DataFrame()
 
+    def fetch_log_returns_by_ticker(self, ticker, start_date=None):
+        """
+        단일 티커의 로그수익률 시계열을 조회해 Series(index=TRADE_DATE)로 반환.
+        """
+        query = """
+            SELECT TRADE_DATE, LOG_RETURN
+            FROM LOG_RETURNS
+            WHERE TICKER = :ticker
+        """
+        params = {"ticker": str(ticker).upper()}
+        if start_date is not None:
+            query += " AND TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
+        try:
+            self.cursor.execute(query, params)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.Series(dtype=float, name="LOG_RETURN")
+            df = pd.DataFrame(rows, columns=["TRADE_DATE", "LOG_RETURN"])
+            df["TRADE_DATE"] = pd.to_datetime(df["TRADE_DATE"])
+            return pd.to_numeric(df.set_index("TRADE_DATE")["LOG_RETURN"], errors="coerce")
+        except oracledb.Error as e:
+            print(f"{ticker} 로그수익률 조회 실패: {e}")
+            return pd.Series(dtype=float, name="LOG_RETURN")
+
     def fetch_ticker_data(self, ticker, start_date=None):
         """
         특정 티커의 주가 및 거래량 데이터를 가져와 반환
@@ -831,6 +830,31 @@ class StockDBManager:
         except oracledb.Error as e:
             print(f"S&P 500 데이터 조회 실패: {e}")
             return pd.DataFrame()
+
+    def fetch_sp500_log_returns(self, start_date=None):
+        """
+        SP500 로그수익률 시계열만 조회해 Series(index=TRADE_DATE)로 반환.
+        """
+        query = "SELECT TRADE_DATE, LOG_RETURN FROM SP500_DATA"
+        params = {}
+        if start_date is not None:
+            query += " WHERE TRADE_DATE >= :start_date"
+            params["start_date"] = pd.Timestamp(start_date).to_pydatetime().date()
+        query += " ORDER BY TRADE_DATE"
+        try:
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.Series(dtype=float, name="LOG_RETURN")
+            df = pd.DataFrame(rows, columns=["TRADE_DATE", "LOG_RETURN"])
+            df["TRADE_DATE"] = pd.to_datetime(df["TRADE_DATE"])
+            return pd.to_numeric(df.set_index("TRADE_DATE")["LOG_RETURN"], errors="coerce")
+        except oracledb.Error as e:
+            print(f"SP500 로그수익률 조회 실패: {e}")
+            return pd.Series(dtype=float, name="LOG_RETURN")
 
     def insert_market_features(self, indicator, df):
         """
@@ -1192,54 +1216,68 @@ class StockDBManager:
         except Exception:
             return None
 
-    def get_ticker_coverage_report(self, tickers):
+    def get_ticker_coverage_report_bulk(self, tickers):
         """
-        각 종목별 DB 적재 현황을 요약하여 리포트를 반환합니다.
-        MASTER_FEATURES 통합 테이블 기준으로 조회합니다.
+        다중 티커 coverage를 집계 쿼리로 조회합니다 (N+1 제거).
         """
-        report = []
-        try:
-            # SP500_DATA 총 행수 (공통)
-            self.cursor.execute("SELECT COUNT(*) FROM SP500_DATA")
-            sp500_total = self.cursor.fetchone()[0]
+        normalized = [str(t).strip().upper() for t in tickers if str(t).strip()]
+        if not normalized:
+            return []
 
-            # MASTER_FEATURES 종목별 행수 일괄 조회
-            mf_counts = {}
+        placeholder = ",".join(f":{i+1}" for i in range(len(normalized)))
+        report_map = {
+            t: {
+                "ticker": t,
+                "stock_rows": 0,
+                "logret_rows": 0,
+                "sp500_rows": 0,
+                "feature_rows": 0,
+            }
+            for t in normalized
+        }
+        try:
+            self.cursor.execute("SELECT COUNT(*) FROM SP500_DATA")
+            sp500_total = int(self.cursor.fetchone()[0] or 0)
+            for t in normalized:
+                report_map[t]["sp500_rows"] = sp500_total
+
+            self.cursor.execute(
+                f"SELECT TICKER, COUNT(*) FROM STOCK_DATA WHERE TICKER IN ({placeholder}) GROUP BY TICKER",
+                normalized,
+            )
+            for ticker, cnt in self.cursor.fetchall():
+                key = str(ticker).upper()
+                if key in report_map:
+                    report_map[key]["stock_rows"] = int(cnt or 0)
+
+            self.cursor.execute(
+                f"SELECT TICKER, COUNT(*) FROM LOG_RETURNS WHERE TICKER IN ({placeholder}) GROUP BY TICKER",
+                normalized,
+            )
+            for ticker, cnt in self.cursor.fetchall():
+                key = str(ticker).upper()
+                if key in report_map:
+                    report_map[key]["logret_rows"] = int(cnt or 0)
+
             if self.master_features_exists():
                 self.cursor.execute(
-                    "SELECT TICKER, COUNT(*) FROM MASTER_FEATURES GROUP BY TICKER"
+                    f"SELECT TICKER, COUNT(*) FROM MASTER_FEATURES WHERE TICKER IN ({placeholder}) GROUP BY TICKER",
+                    normalized,
                 )
-                for row in self.cursor.fetchall():
-                    mf_counts[row[0]] = row[1]
-
-            for ticker in tickers:
-                ticker = str(ticker).upper()
-
-                # STOCK_DATA 행수
-                self.cursor.execute(
-                    "SELECT COUNT(*) FROM STOCK_DATA WHERE TICKER = :1",
-                    [ticker],
-                )
-                stock_rows = self.cursor.fetchone()[0]
-
-                # LOG_RETURNS 행수
-                self.cursor.execute(
-                    "SELECT COUNT(*) FROM LOG_RETURNS WHERE TICKER = :1",
-                    [ticker],
-                )
-                logret_rows = self.cursor.fetchone()[0]
-
-                report.append({
-                    "ticker": ticker,
-                    "stock_rows": stock_rows,
-                    "logret_rows": logret_rows,
-                    "sp500_rows": sp500_total,
-                    "feature_rows": mf_counts.get(ticker, 0),
-                })
+                for ticker, cnt in self.cursor.fetchall():
+                    key = str(ticker).upper()
+                    if key in report_map:
+                        report_map[key]["feature_rows"] = int(cnt or 0)
         except Exception as e:
-            print(f"Coverage report 생성 실패: {e}")
+            print(f"Coverage report bulk 생성 실패: {e}")
 
-        return report
+        return [report_map[t] for t in normalized]
+
+    def get_ticker_coverage_report(self, tickers):
+        """
+        하위호환 API: bulk coverage 조회 결과를 반환합니다.
+        """
+        return self.get_ticker_coverage_report_bulk(tickers)
 
     def upsert_adjusted_expected_returns_snapshot(self, df):
         """
@@ -1457,6 +1495,77 @@ class StockDBManager:
             print(f"[SYNC][ERROR] ADJUSTED_EXPECTED_RETURNS 조회 실패: {e}")
             return pd.DataFrame()
 
+
+    def fetch_risk_level_portfolio_snapshot(self):
+        """
+        RISK_LEVEL_PORTFOLIO_SNAPSHOT 스냅샷을 조회합니다.
+        - rank_no=0: 리스크 레벨 요약
+        - rank_no>=1: 편입 종목
+        """
+        query = """
+        SELECT
+            RISK_LEVEL AS "Risk_Level",
+            RANK_NO AS "Rank_No",
+            RISK_LABEL AS "Risk_Label",
+            LAMBDA_VALUE AS "Lambda_Value",
+            PORTFOLIO_EXPECTED_RETURN_3M AS "Portfolio_Expected_Return_3M",
+            PORTFOLIO_STD_60D AS "Portfolio_Std_60D",
+            HOLDINGS_COUNT AS "Holdings_Count",
+            TICKER AS "Ticker",
+            STOCK_NAME AS "Stock_Name",
+            WEIGHT_PCT AS "Weight_Pct",
+            STOCK_EXPECTED_RETURN_3M AS "Stock_Expected_Return_3M",
+            STOCK_SIGMA_EWMA_60D AS "Stock_Sigma_EWMA_60D",
+            UPDATED_AT AS "Updated_At"
+        FROM RISK_LEVEL_PORTFOLIO_SNAPSHOT
+        ORDER BY RISK_LEVEL DESC, RANK_NO ASC
+        """
+        try:
+            self.cursor.execute(query)
+            rows = self.cursor.fetchall()
+            if not rows:
+                return pd.DataFrame()
+
+            col_names = [desc[0] for desc in self.cursor.description]
+            result_df = pd.DataFrame(rows, columns=col_names)
+            if "Updated_At" in result_df.columns:
+                result_df["Updated_At"] = pd.to_datetime(result_df["Updated_At"])
+            return result_df
+        except Exception as e:
+            # ORA-00942(테이블 미존재) 포함, 조회 실패 시 빈 프레임 반환
+            print(f"[SYNC][ERROR] RISK_LEVEL_PORTFOLIO_SNAPSHOT 조회 실패: {e}")
+            return pd.DataFrame()
+
+
+    def _ensure_risk_level_portfolio_snapshot_table(self):
+        """Create snapshot table only when snapshot sync is actually requested."""
+        create_risk_level_snapshot_query = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE TABLE RISK_LEVEL_PORTFOLIO_SNAPSHOT (
+                RISK_LEVEL NUMBER(1),
+                RANK_NO NUMBER,
+                RISK_LABEL VARCHAR2(40),
+                LAMBDA_VALUE NUMBER,
+                PORTFOLIO_EXPECTED_RETURN_3M NUMBER,
+                PORTFOLIO_STD_60D NUMBER,
+                HOLDINGS_COUNT NUMBER,
+                TICKER VARCHAR2(20),
+                STOCK_NAME VARCHAR2(120),
+                WEIGHT_PCT NUMBER,
+                STOCK_EXPECTED_RETURN_3M NUMBER,
+                STOCK_SIGMA_EWMA_60D NUMBER,
+                UPDATED_AT DATE,
+                CONSTRAINT PK_RISK_LEVEL_PORTFOLIO_SNAPSHOT PRIMARY KEY (RISK_LEVEL, RANK_NO)
+            )';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE != -955 THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+        self.cursor.execute(create_risk_level_snapshot_query)
+
     def replace_risk_level_portfolio_snapshot(self, metrics_rows, holdings_rows):
         """
         4단계 리스크 포트폴리오 스냅샷을 단일 테이블에 교체 적재합니다.
@@ -1573,6 +1682,7 @@ class StockDBManager:
                 )
 
         try:
+            self._ensure_risk_level_portfolio_snapshot_table()
             self.cursor.execute("DELETE FROM RISK_LEVEL_PORTFOLIO_SNAPSHOT")
             if snapshot_records:
                 self.cursor.executemany(snapshot_insert_query, snapshot_records)

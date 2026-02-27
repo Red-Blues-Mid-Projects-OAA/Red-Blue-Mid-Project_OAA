@@ -1,12 +1,12 @@
 {
   "ticker": "EOG",
-  "beta_ols": 0.6114195120496059,
-  "beta_ewma": 0.06284771588948337,
-  "beta_final": 0.4468479732015691,
+  "beta_ols": 0.6110988591971095,
+  "beta_ewma": 0.15797490730723399,
+  "beta_final": 0.47516167363014683,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.015916857344053487,
+  "expected_capm_return_3m_log": 0.016367929167119526,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

@@ -123,6 +123,8 @@ def split_dataset(
     auto_update=True,
     persist_total_features_on_update=True,
     feature_source_mode="db_first",
+    cached_ticker_logret=None,
+    cached_sp500_logret=None,
 ):
     ticker = str(ticker).upper()
     benchmark = str(benchmark).upper()
@@ -136,6 +138,8 @@ def split_dataset(
         auto_update=auto_update,
         persist_total_features_on_update=persist_total_features_on_update,
         feature_source_mode=feature_source_mode,
+        ticker_logret_series=cached_ticker_logret,
+        sp500_logret_series=cached_sp500_logret,
     )
 
     exclude_cols = [target_col, benchmark_target_col, "Target_Class", "Alpha_Diff", "TICKER"]

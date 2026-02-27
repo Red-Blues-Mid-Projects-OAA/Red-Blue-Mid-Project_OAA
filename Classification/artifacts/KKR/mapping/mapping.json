@@ -1,12 +1,12 @@
 {
   "ticker": "KKR",
-  "beta_ols": 1.8250168651864636,
-  "beta_ewma": 2.3118088668755674,
-  "beta_final": 1.9710544656931945,
+  "beta_ols": 1.845521599557949,
+  "beta_ewma": 3.077487895377384,
+  "beta_final": 2.215111488303779,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03991454374952164,
+  "expected_capm_return_3m_log": 0.04370414141713877,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

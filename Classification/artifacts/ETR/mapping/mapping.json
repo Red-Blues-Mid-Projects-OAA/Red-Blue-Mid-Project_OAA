@@ -1,12 +1,12 @@
 {
   "ticker": "ETR",
-  "beta_ols": 0.34534301966434594,
-  "beta_ewma": 0.02668529352656262,
-  "beta_final": 0.24974570182301092,
+  "beta_ols": 0.34437670802728576,
+  "beta_ewma": 0.07349150229351352,
+  "beta_final": 0.26311114630715404,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0127711265354597,
+  "expected_capm_return_3m_log": 0.012984750617800198,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

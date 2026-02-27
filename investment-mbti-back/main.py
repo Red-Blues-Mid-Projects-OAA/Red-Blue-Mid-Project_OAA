@@ -20,7 +20,12 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 from risk_profile import calculate_risk_profile
-from real_data_provider import load_cache, get_recommended_stocks, get_mvo_inputs
+from real_data_provider import (
+    load_cache,
+    get_recommended_stocks,
+    get_risk_level_portfolio_summary,
+    get_mvo_inputs,
+)
 from portfolio_optimizer import optimize_portfolio
 
 
@@ -83,22 +88,18 @@ def analyze_portfolio(req: AnalyzeRequest):
     # 2. final_level 추출 (종목 추천 풀 선택 및 리스크 카테고리 매핑 등에서 사용)
     final_level = risk_result.get("final_level", 2)
 
-    # 3. 리스크 타입별 종목 추천 (유틸리티 스코어 기반)
+    # 3. 리스크 타입별 종목 추천/비중은 DB snapshot을 직접 사용
     recommended_stocks = get_recommended_stocks(final_level, top_n=10)
+    portfolio_summary = get_risk_level_portfolio_summary(final_level)
 
-    # 4. 추천 종목으로 초기 MVO 최적화 수행
-    tickers = [s["ticker"] for s in recommended_stocks]
-    mu, cov_sub, valid_tickers = get_mvo_inputs(tickers)
+    if not recommended_stocks or portfolio_summary is None:
+        raise HTTPException(
+            status_code=503,
+            detail="RISK_LEVEL_PORTFOLIO_SNAPSHOT 준비가 완료되지 않았습니다. snapshot 동기화를 먼저 실행하세요.",
+        )
 
-    weights = optimize_portfolio(mu, cov_sub, lambda_final)
-
-    # 5. 비중을 종목 객체에 할당 (퍼센트 단위)
-    ticker_weight_map = {t: round(float(w) * 100, 2) for t, w in zip(valid_tickers, weights)}
-    for stock in recommended_stocks:
-        stock["weight"] = ticker_weight_map.get(stock["ticker"], 0.0)
-
-    # 6. 포트폴리오 기대수익률 계산 (가중합)
-    portfolio_return = float(np.dot(weights, mu)) * 100  # 퍼센트 변환
+    # 4. snapshot 요약값의 3개월 기대수익률을 그대로 사용
+    portfolio_return = float(portfolio_summary.get("expected_portfolio_return_3m", 0.0))
     portfolio_return_str = f"+{portfolio_return:.2f}%" if portfolio_return >= 0 else f"{portfolio_return:.2f}%"
 
     # 7. 리스크 카테고리 매핑

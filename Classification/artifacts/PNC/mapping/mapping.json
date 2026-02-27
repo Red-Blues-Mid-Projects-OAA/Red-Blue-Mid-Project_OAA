@@ -1,12 +1,12 @@
 {
   "ticker": "PNC",
-  "beta_ols": 0.905429345176391,
-  "beta_ewma": 0.6347456691636794,
-  "beta_final": 0.8242242423725774,
+  "beta_ols": 0.9127356047958611,
+  "beta_ewma": 0.9795048723677237,
+  "beta_final": 0.9327663850674198,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02191226982809049,
+  "expected_capm_return_3m_log": 0.023630053892558622,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

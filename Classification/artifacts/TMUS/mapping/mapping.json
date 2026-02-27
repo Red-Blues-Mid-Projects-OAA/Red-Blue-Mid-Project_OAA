@@ -1,12 +1,12 @@
 {
   "ticker": "TMUS",
-  "beta_ols": 0.22522684130748682,
-  "beta_ewma": -0.8872590840497769,
-  "beta_final": -0.10851893629969228,
+  "beta_ols": 0.22178895749755292,
+  "beta_ewma": -0.7804291328713965,
+  "beta_final": -0.07887646961313191,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0070277976331613945,
+  "expected_capm_return_3m_log": 0.007504248767086688,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

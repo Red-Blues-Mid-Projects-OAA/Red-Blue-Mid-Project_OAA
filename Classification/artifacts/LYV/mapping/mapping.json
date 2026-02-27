@@ -1,12 +1,12 @@
 {
   "ticker": "LYV",
-  "beta_ols": 0.9632053687495298,
-  "beta_ewma": 0.6853109660994418,
-  "beta_final": 0.8798370479545033,
+  "beta_ols": 0.9594877459951263,
+  "beta_ewma": 0.5120481186674345,
+  "beta_final": 0.8252558577968188,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.022792764715337144,
+  "expected_capm_return_3m_log": 0.02192861003392997,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }
