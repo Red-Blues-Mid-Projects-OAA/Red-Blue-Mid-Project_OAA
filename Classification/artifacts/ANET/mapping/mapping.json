@@ -1,12 +1,12 @@
 {
   "ticker": "ANET",
-  "beta_ols": 1.9248900741066728,
-  "beta_ewma": 1.8298150158036794,
-  "beta_final": 1.8963675566157745,
+  "beta_ols": 1.9321777452356965,
+  "beta_ewma": 2.181630993084806,
+  "beta_final": 2.007013719590429,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03875196636953964,
+  "expected_capm_return_3m_log": 0.0404738042935644,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

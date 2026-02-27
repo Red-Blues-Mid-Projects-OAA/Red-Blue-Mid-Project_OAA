@@ -1,12 +1,12 @@
 {
   "ticker": "MA",
-  "beta_ols": 0.729782491318886,
-  "beta_ewma": 0.4556953194707058,
-  "beta_final": 0.6475563397644319,
+  "beta_ols": 0.7412318318267057,
+  "beta_ewma": 1.0118307366438035,
+  "beta_final": 0.8224115032718351,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.019110004459402117,
+  "expected_capm_return_3m_log": 0.021883556417447395,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

@@ -79,9 +79,16 @@ function App() {
         title: responseData.persona,
         description: responseData.description,
         features: responseData.features,
+        mbti: responseData.mbti,
+        mbtiNickname: responseData.mbti_nickname,
         recommendedStocks: responseData.recommended_stocks,
+        allMatchingStocks: responseData.all_matching_stocks,
         portfolioAnalysis: responseData.portfolio_analysis,
-        rawAnswers: responseData.raw_answers
+        chartData: responseData.chart_data,
+        forecastData: responseData.forecast_data,
+        rawAnswers: responseData.raw_answers,
+        finalLevel: responseData.final_level,
+        lambdaFinal: responseData.lambda_final,
       };
 
       // 시각적 효과를 위한 약간의 지연 후 결과 렌더링
@@ -103,6 +110,10 @@ function App() {
     setLossLimit(null);
     setResultData(null);
     setCurrentView('INTRO');
+  };
+
+  const handlePreviousFromResult = () => {
+    setCurrentView('SLIDER');
   };
 
   const handleShowRecommendation = () => {
@@ -128,7 +139,13 @@ function App() {
 
       {currentView === 'LOADING' && <Loading />}
 
-      {currentView === 'RESULT' && <DashboardResult personaData={resultData} onRestart={handleRestart} />}
+      {currentView === 'RESULT' && (
+        <DashboardResult
+          personaData={resultData}
+          onRestart={handleRestart}
+          onPrevious={handlePreviousFromResult}
+        />
+      )}
     </div>
   );
 }

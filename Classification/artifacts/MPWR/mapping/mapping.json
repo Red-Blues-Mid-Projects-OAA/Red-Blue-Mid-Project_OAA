@@ -1,12 +1,12 @@
 {
   "ticker": "MPWR",
-  "beta_ols": 2.3947697607727902,
-  "beta_ewma": 2.1229861344096586,
-  "beta_final": 2.313234672863851,
+  "beta_ols": 2.394961805202048,
+  "beta_ewma": 2.199700329966716,
+  "beta_final": 2.336383362631448,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.045223711649166436,
+  "expected_capm_return_3m_log": 0.04558186403984555,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

@@ -43,12 +43,8 @@ E_RM_3M = E_RM_ANNUAL * (HORIZON_DAYS / 252)
 # 벤치마크 3개월 로그 기대수익률 (완벽한 덧셈 호환용)
 E_RM_3M_LOG = math.log(1 + E_RM_3M)
 
-# Tanh 비선형 조정을 위한 상수 (가중치 최대 허용치 2.0배, 기준 스케일 20% 괴리율)
-# 하위 구간 가중치 유지보존 계수: 1.5
-MAX_ADJUSTMENT_WEIGHT = 2.0
-GAP_SCALE_FACTOR = 0.20
-MAINTAIN_CURVE_FACTOR = 1.5
-
+# Tanh 비선형 조정을 위한 상수 (금융 공학 Z-Score 기반 기준 최대 허용치 1.0)
+MAX_ADJUSTMENT_WEIGHT = 1.0
 
 def _load_final_csv() -> pd.DataFrame:
     """파이프라인 산출물 CSV 로드."""
@@ -146,24 +142,25 @@ def run_regime_adjustment() -> pd.DataFrame:
             realized = 0.0
             ticker_vol = 0.0
 
-        # ── Step 4: Graduated Momentum Tracking Overlay ─────────
-        gap = abs(e_total - realized)
+        # ── Step 4: Graduated Momentum Tracking Overlay (Z-Score 기반) ─────────
+        # 예측 대비 실제 실현이 상회(+)했는지 하회(-)했는지 방향성을 포함한 괴리 산출
+        gap = realized - e_total
         
-        # Tanh (쌍곡탄젠트) 비선형 가중치 산출
-        # - 작은 Gap (ex: 2~10%): 기존 3.0 함수와 동일한 가중치 궤적 유지 (MAINTAIN_CURVE_FACTOR 보정)
-        # - 중간 Gap (ex: 20%): 자연스럽게 S커브를 그리며 감속
-        # - 극단적 Gap (ex: 30%+): 최대 MAX_ADJUSTMENT_WEIGHT(2.0) 배수로 부드럽게 한도 수렴
-        adj_weight = MAX_ADJUSTMENT_WEIGHT * math.tanh(MAINTAIN_CURVE_FACTOR * (gap / GAP_SCALE_FACTOR) ** 2)
+        # 고유 변동성(위험)을 기준으로 단위 정규화 (ZeroDivision 방어)
+        safe_vol = ticker_vol if ticker_vol > 1e-6 else 1e-6
+        z_surprise = gap / safe_vol
+        
+        # Tanh(쌍곡탄젠트) 비선형 가중치 산출 (최대 1.0 배수 제한)
+        # S커브를 통해 극단적 아웃라이어가 포트폴리오를 망가뜨리는 코너 솔루션 현상 방지
+        # 기대를 상회(+)하면 상향, 하회(-)하면 하향 조정되도록 부호가 자동 반영됨
+        adj_weight = MAX_ADJUSTMENT_WEIGHT * math.tanh(z_surprise)
 
-        # 실현 수익률의 방향(부호)으로 변동성 부호 결정
-        sign = 1.0 if realized >= 0 else -1.0
-
-        # 조정값 계산
-        adjustment = adj_weight * sign * ticker_vol
+        # 최종 조정값 계산 (adj_weight에 이미 상하향 부호가 내포되어 있음)
+        adjustment = adj_weight * ticker_vol
         adjusted_e_total = e_total + adjustment
 
         # 조정 적용 여부 판별
-        adjustment_applied = gap > 0.001  # 사실상 모든 종목에 비례 적용
+        adjustment_applied = abs(gap) > 0.001
 
         results.append({
             "Ticker": ticker,

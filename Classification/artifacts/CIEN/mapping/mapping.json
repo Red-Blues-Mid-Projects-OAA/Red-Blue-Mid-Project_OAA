@@ -1,12 +1,12 @@
 {
   "ticker": "CIEN",
-  "beta_ols": 1.895784473262689,
-  "beta_ewma": 2.4150778523947354,
-  "beta_final": 2.0515724870023027,
+  "beta_ols": 1.8878465621276246,
+  "beta_ewma": 1.963934195132686,
+  "beta_final": 1.910672852029143,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04116637615492801,
+  "expected_capm_return_3m_log": 0.0389747474524394,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

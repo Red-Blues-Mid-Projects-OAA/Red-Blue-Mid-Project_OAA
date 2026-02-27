@@ -1,12 +1,12 @@
 {
   "ticker": "SNDK",
-  "beta_ols": 2.652996009356986,
-  "beta_ewma": 2.0469515274686274,
-  "beta_final": 2.4711826647904784,
+  "beta_ols": 2.609484169986935,
+  "beta_ewma": 0.79839555601676,
+  "beta_final": 2.0661575857958825,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04766491026687849,
+  "expected_capm_return_3m_log": 0.041392966532506556,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }

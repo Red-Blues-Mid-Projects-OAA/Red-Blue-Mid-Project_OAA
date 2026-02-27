@@ -59,6 +59,7 @@ _cache = {
     "risk_snapshot_error": None,
     "risk_snapshot_metrics_count": 0,
     "risk_snapshot_holdings_count": 0,
+    "risk_snapshot_by_level": {},
 }
 
 RISK_LEVEL_LABEL_MAP = {
@@ -136,6 +137,63 @@ def _build_variance_map_from_df(df: pd.DataFrame) -> dict[str, float]:
     return variance_map
 
 
+
+def _build_risk_snapshot_by_level(df: pd.DataFrame) -> dict[int, dict]:
+    """RISK_LEVEL_PORTFOLIO_SNAPSHOT 조회 결과를 레벨별 캐시 구조로 변환합니다."""
+    if df is None or df.empty:
+        return {}
+
+    vol_labels = {4: "Very Low", 3: "Low", 2: "Medium", 1: "High"}
+    color_map = {4: "#10b981", 3: "#3b82f6", 2: "#8b5cf6", 1: "#ef4444"}
+
+    result: dict[int, dict] = {}
+    ordered = df.sort_values(["Risk_Level", "Rank_No"], ascending=[False, True])
+
+    for _, row in ordered.iterrows():
+        try:
+            risk_level = int(row["Risk_Level"])
+            rank_no = int(row["Rank_No"])
+        except Exception:
+            continue
+
+        bucket = result.setdefault(risk_level, {"summary": None, "holdings": []})
+
+        if rank_no == 0:
+            bucket["summary"] = {
+                "risk_level": risk_level,
+                "risk_label": str(row.get("Risk_Label") or RISK_LEVEL_LABEL_MAP.get(risk_level, f"Level {risk_level}")),
+                "lambda_value": float(row.get("Lambda_Value") or 0.0),
+                "expected_portfolio_return_3m": float(row.get("Portfolio_Expected_Return_3M") or 0.0),
+                "portfolio_std_60d": float(row.get("Portfolio_Std_60D") or 0.0),
+                "holdings_count": int(row.get("Holdings_Count") or 0),
+                "updated_at": row.get("Updated_At"),
+            }
+            continue
+
+        ticker = str(row.get("Ticker") or "").strip().upper()
+        if not ticker:
+            continue
+
+        holding = {
+            "rank": rank_no,
+            "ticker": ticker,
+            "name": str(row.get("Stock_Name") or TICKER_NAME_MAP.get(ticker, ticker)),
+            "volatility": vol_labels.get(risk_level, "Medium"),
+            "color": color_map.get(risk_level, "#8b5cf6"),
+            "expectedReturn3M": round(float(row.get("Stock_Expected_Return_3M") or 0.0), 2),
+            "sigma_ewma_60d": round(float(row.get("Stock_Sigma_EWMA_60D") or 0.0), 4),
+            "weight": round(float(row.get("Weight_Pct") or 0.0), 2),
+        }
+        bucket["holdings"].append(holding)
+
+    for risk_level in result:
+        result[risk_level]["holdings"] = sorted(
+            result[risk_level]["holdings"],
+            key=lambda item: int(item.get("rank", 9999)),
+        )
+
+    return result
+
 def _filter_candidates(df: pd.DataFrame) -> pd.DataFrame:
     """추천 후보 필터(Gate 통과 + 양수 수익률)를 적용합니다."""
     # 한글 주석: 기존 서비스 규칙을 그대로 유지합니다.
@@ -164,6 +222,7 @@ def get_cache_sync_status() -> dict:
         "risk_snapshot_error": _cache.get("risk_snapshot_error"),
         "risk_snapshot_metrics_count": int(_cache.get("risk_snapshot_metrics_count") or 0),
         "risk_snapshot_holdings_count": int(_cache.get("risk_snapshot_holdings_count") or 0),
+        "risk_snapshot_levels": sorted(list((_cache.get("risk_snapshot_by_level") or {}).keys()), reverse=True),
     }
 
 
@@ -195,6 +254,7 @@ def load_cache():
     _cache["risk_snapshot_error"] = None
     _cache["risk_snapshot_metrics_count"] = 0
     _cache["risk_snapshot_holdings_count"] = 0
+    _cache["risk_snapshot_by_level"] = {}
 
     source_df = pd.DataFrame()
     source_name = "DB"
@@ -266,128 +326,46 @@ def load_cache():
         _cache["variance_map"] = _build_variance_map_from_df(source_df)
         print("  [SYNC][EWMA][FALLBACK] Vol_3M 기반 분산 사용")
 
-    _sync_risk_level_snapshot_to_db(top_n=10)
-
-    print("[Cache] 데이터 캐싱 완료!\n")
-
-
-def _build_risk_level_snapshot_rows(top_n: int = 10) -> tuple[list[dict], list[dict]]:
-    """Build per-risk-level portfolio snapshot rows for DB sync."""
-    from portfolio_optimizer import optimize_portfolio
-
-    metrics_rows: list[dict] = []
-    holdings_rows: list[dict] = []
-
-    for risk_level in [4, 3, 2, 1]:
-        lam = LAMBDA_MAP.get(risk_level, get_lambda_by_level(risk_level))
-        recommended = get_recommended_stocks(risk_level, top_n=top_n)
-        tickers = [item["ticker"] for item in recommended]
-
-        if not tickers:
-            metrics_rows.append(
-                {
-                    "risk_level": risk_level,
-                    "risk_label": RISK_LEVEL_LABEL_MAP.get(risk_level, f"Level {risk_level}"),
-                    "lambda_value": float(lam),
-                    "expected_return_3m": 0.0,
-                    "portfolio_std_60d": 0.0,
-                    "holdings_count": 0,
-                }
-            )
-            continue
-
-        mu, cov_sub, valid_tickers = get_mvo_inputs(tickers)
-        if len(valid_tickers) == 0:
-            metrics_rows.append(
-                {
-                    "risk_level": risk_level,
-                    "risk_label": RISK_LEVEL_LABEL_MAP.get(risk_level, f"Level {risk_level}"),
-                    "lambda_value": float(lam),
-                    "expected_return_3m": 0.0,
-                    "portfolio_std_60d": 0.0,
-                    "holdings_count": 0,
-                }
-            )
-            continue
-
-        weights = np.array(optimize_portfolio(mu, cov_sub, float(lam)), dtype=float)
-        if len(weights) != len(valid_tickers):
-            raise RuntimeError(
-                f"weights length mismatch (risk_level={risk_level}, "
-                f"weights={len(weights)}, tickers={len(valid_tickers)})"
-            )
-
-        portfolio_return_3m = float(np.dot(weights, mu)) * 100
-        portfolio_var_60d = float(np.dot(weights, np.dot(cov_sub, weights)))
-        portfolio_sigma_60d = float(np.sqrt(max(portfolio_var_60d, 0.0)))
-
-        weighted_pairs = [
-            (ticker, float(weight))
-            for ticker, weight in zip(valid_tickers, weights)
-            if float(weight) > 1e-8
-        ]
-        weighted_pairs.sort(key=lambda item: item[1], reverse=True)
-
-        metrics_rows.append(
-            {
-                "risk_level": risk_level,
-                "risk_label": RISK_LEVEL_LABEL_MAP.get(risk_level, f"Level {risk_level}"),
-                "lambda_value": float(lam),
-                "expected_return_3m": round(portfolio_return_3m, 2),
-                "portfolio_std_60d": round(portfolio_sigma_60d, 4),
-                "holdings_count": len(weighted_pairs),
-            }
-        )
-
-        recommended_map = {item["ticker"]: item for item in recommended}
-        return_map = {ticker: float(value) for ticker, value in zip(valid_tickers, mu)}
-
-        for rank_no, (ticker, weight) in enumerate(weighted_pairs, 1):
-            stock_name = recommended_map.get(ticker, {}).get("name", TICKER_NAME_MAP.get(ticker, ticker))
-            sigma_ewma_60d = recommended_map.get(ticker, {}).get("sigma_ewma_60d")
-            holdings_rows.append(
-                {
-                    "risk_level": risk_level,
-                    "rank_no": rank_no,
-                    "ticker": ticker,
-                    "stock_name": str(stock_name),
-                    "weight_pct": round(float(weight) * 100, 2),
-                    "expected_return_3m": round(return_map.get(ticker, 0.0) * 100, 2),
-                    "sigma_ewma_60d": float(sigma_ewma_60d) if sigma_ewma_60d is not None else None,
-                }
-            )
-
-    return metrics_rows, holdings_rows
-
-
-def _sync_risk_level_snapshot_to_db(top_n: int = 10):
-    """Persist 4-level risk snapshot rows into DB after cache load."""
-    db = StockDBManager()
-    db_connected = False
-
+    # risk snapshot 계산/적재는 DB 전용 모듈로 위임 후, 조회 캐시에 반영
     try:
-        metrics_rows, holdings_rows = _build_risk_level_snapshot_rows(top_n=top_n)
-        db.connect()
-        db_connected = True
-        db.replace_risk_level_portfolio_snapshot(metrics_rows, holdings_rows)
+        from DB import sync_risk_level_portfolio_snapshot
 
-        _cache["risk_snapshot_stage"] = "ok"
-        _cache["risk_snapshot_error"] = None
-        _cache["risk_snapshot_metrics_count"] = len(metrics_rows)
-        _cache["risk_snapshot_holdings_count"] = len(holdings_rows)
-        print(
-            "  [SYNC][RISK_SNAPSHOT][OK] "
-            f"metrics={len(metrics_rows)}, holdings={len(holdings_rows)}"
+        snapshot_status = sync_risk_level_portfolio_snapshot(top_n=10, raise_on_error=False)
+        _cache["risk_snapshot_stage"] = snapshot_status.get("stage")
+        _cache["risk_snapshot_error"] = snapshot_status.get("error")
+
+        snapshot_db = StockDBManager()
+        snapshot_connected = False
+        try:
+            snapshot_db.connect()
+            snapshot_connected = True
+            snapshot_df = snapshot_db.fetch_risk_level_portfolio_snapshot()
+        finally:
+            if snapshot_connected:
+                snapshot_db.close()
+
+        risk_snapshot_by_level = _build_risk_snapshot_by_level(snapshot_df)
+        _cache["risk_snapshot_by_level"] = risk_snapshot_by_level
+
+        _cache["risk_snapshot_metrics_count"] = int(
+            sum(1 for data in risk_snapshot_by_level.values() if data.get("summary") is not None)
         )
+        _cache["risk_snapshot_holdings_count"] = int(
+            sum(len(data.get("holdings", [])) for data in risk_snapshot_by_level.values())
+        )
+
+        if not risk_snapshot_by_level:
+            _cache["risk_snapshot_stage"] = "empty"
+            _cache["risk_snapshot_error"] = "RISK_LEVEL_PORTFOLIO_SNAPSHOT가 비어 있습니다."
     except Exception as e:
         _cache["risk_snapshot_stage"] = "error"
         _cache["risk_snapshot_error"] = str(e)
         _cache["risk_snapshot_metrics_count"] = 0
         _cache["risk_snapshot_holdings_count"] = 0
+        _cache["risk_snapshot_by_level"] = {}
         print(f"  [SYNC][RISK_SNAPSHOT][ERROR] {e}")
-    finally:
-        if db_connected:
-            db.close()
+
+    print("[Cache] 데이터 캐싱 완료!\n")
 
 
 def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
@@ -411,6 +389,38 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     Returns:
         추천 종목 딕셔너리 리스트 (프론트엔드 호환 형식)
     """
+    risk_level = int(risk_level)
+
+    # 0. DB 스냅샷 우선 사용 (웹 응답 DB-only)
+    risk_snapshot_by_level = _cache.get("risk_snapshot_by_level") or {}
+    if risk_level in risk_snapshot_by_level:
+        holdings = list(risk_snapshot_by_level[risk_level].get("holdings", []))
+        if top_n is not None and int(top_n) > 0:
+            holdings = holdings[: int(top_n)]
+
+        for holding in holdings:
+            try:
+                sigma = float(holding.get("sigma_ewma_60d", 0.0) or 0.0)
+            except (TypeError, ValueError):
+                sigma = 0.0
+
+            if holding.get("risk_score") is None:
+                holding["risk_score"] = int(max(0, min(100, round(sigma * 100))))
+            else:
+                holding["risk_score"] = int(holding.get("risk_score") or 0)
+
+            try:
+                expected_log_pct = float(holding.get("expectedReturn3M", 0.0) or 0.0)
+            except (TypeError, ValueError):
+                expected_log_pct = 0.0
+            holding.setdefault(
+                "expectedReturn3M_simple",
+                round(float((np.exp(expected_log_pct / 100.0) - 1.0) * 100.0), 2),
+            )
+            holding.setdefault("historical_returns", {"1M": 0, "3M": 0, "6M": 0, "12M": 0})
+
+        return holdings
+
     lam = LAMBDA_MAP.get(risk_level, get_lambda_by_level(2))
     df = _cache["adj_returns_df"]
     variance_map = _cache["variance_map"]
@@ -459,26 +469,45 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     top_stocks = pool[:top_n]
 
     # 5. 프론트엔드 호환 형식으로 변환
-    vol_labels = {4: "Very Low", 3: "Low", 2: "Medium", 1: "High"}
-    color_map = {4: "#10b981", 3: "#3b82f6", 2: "#8b5cf6", 1: "#ef4444"}
-    
-    color = color_map.get(risk_level, "#8b5cf6")
-    vol_label = vol_labels.get(risk_level, "Medium")
+    # MinMaxScaler 기반 개별 종목 위험도 점수 (0~100) 산출
+    # 전체 300종목의 sigma_ewma_60d 분포를 기준으로 정규화
+    all_sigmas = [v ** 0.5 for v in variance_map.values()]
+    sigma_min = min(all_sigmas) if all_sigmas else 0
+    sigma_max = max(all_sigmas) if all_sigmas else 1
+    sigma_range = sigma_max - sigma_min if sigma_max > sigma_min else 1
 
+    import math
     result = []
     for rank, s in enumerate(top_stocks, 1):
+        # 위험도 점수: sigma를 0~100으로 정규화 (소수점 절삭)
+        risk_score = int((s["sigma"] - sigma_min) / sigma_range * 100)
+        risk_score = max(0, min(100, risk_score))
+
+        # 로그수익률 → 단순수익률 변환: simple = (e^r - 1) * 100
+        log_ret = s["e_return"]
+        simple_ret = round((math.exp(log_ret) - 1) * 100, 2)
+
         result.append({
             "rank": rank,
             "ticker": s["ticker"],
             "name": TICKER_NAME_MAP.get(s["ticker"], s["ticker"]),
-            "volatility": vol_label,
-            "color": color,
-            "expectedReturn3M": round(s["e_return"] * 100, 2),  # 퍼센트 변환
+            "expectedReturn3M": round(s["e_return"] * 100, 2),        # 로그수익률 (백엔드 참조용)
+            "expectedReturn3M_simple": simple_ret,                     # 단순수익률 (프론트엔드 표시용)
             "sigma_ewma_60d": round(s["sigma"], 4),
+            "risk_score": risk_score,                                  # 0~100 위험도 점수
             "score": round(s["score"], 4),
         })
 
     return result
+
+
+def get_risk_level_portfolio_summary(risk_level: int) -> dict | None:
+    """리스크 레벨별 포트폴리오 요약(스냅샷 rank_no=0 행)을 반환합니다."""
+    risk_snapshot_by_level = _cache.get("risk_snapshot_by_level") or {}
+    data = risk_snapshot_by_level.get(int(risk_level))
+    if not data:
+        return None
+    return data.get("summary")
 
 
 def get_mvo_inputs(selected_tickers: list[str]) -> tuple:

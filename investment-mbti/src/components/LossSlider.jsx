@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import './LossSlider.css';
 
+// 손실 한도 슬라이더 컴포넌트 (범위: 1% ~ 40%, step: 1%)
 function LossSlider({ onComplete }) {
-    // Value goes from -5 to -33 (represented as positive numbers for the slider 5 to 33)
-    const [lossValue, setLossValue] = useState(5);
+    const [lossValue, setLossValue] = useState(1);
     // 슬라이더 건드렸는지 여부 추적 (Bonus UX requirement)
     const [isSliderTouched, setIsSliderTouched] = useState(false);
     const [showWarning, setShowWarning] = useState(false);
 
+    // 슬라이더 구간별 피드백 (10% 단위로 4구간)
     const getFeedback = (value) => {
         if (value <= 10) return { label: '초보수적', color: '#10b981', desc: '은행 예적금과 원금 보장을 사랑하는 당신' };
-        if (value <= 15) return { label: '안전제일', color: '#3b82f6', desc: '약간의 수익을 위해 작은 변동성은 참는 타입' };
-        if (value <= 25) return { label: '중도성향', color: '#f59e0b', desc: '시장 수익률만큼은 먹어야 직성이 풀리는 밸런스형' };
-        if (value <= 32) return { label: '공격적', color: '#ef4444', desc: '야수의 심장. 하락장은 바겐세일일 뿐!' };
-        return { label: '상남자/상여자', color: '#b91c1c', desc: '인생은 한 방! 변동성을 즐기는 진정한 야수' };
+        if (value <= 20) return { label: '안전제일', color: '#3b82f6', desc: '약간의 수익을 위해 작은 변동성은 참는 타입' };
+        if (value <= 30) return { label: '중도성향', color: '#f59e0b', desc: '시장 수익률만큼은 먹어야 직성이 풀리는 밸런스형' };
+        return { label: '공격적', color: '#ef4444', desc: '야수의 심장. 하락장은 바겐세일일 뿐!' };
     };
 
+    // 1000만원 기준 손실 후 남은 금액 계산
     const calculateMoney = (value) => {
-        // 1000만원 기준 손실 후 남은 금액 계산
         const currentMoney = 10000000;
         const lossPercentage = value / 100;
         const remainingMoney = currentMoney * (1 - lossPercentage);
@@ -41,6 +41,8 @@ function LossSlider({ onComplete }) {
     };
 
     const feedback = getFeedback(lossValue);
+    // 그래디언트 비율 계산 (1~40 범위: (value - 1) / 39 * 100)
+    const gradientPercent = ((lossValue - 1) / 39) * 100;
 
     return (
         <div className="slider-container animate-fade-in max-w-xl mx-auto">
@@ -62,19 +64,20 @@ function LossSlider({ onComplete }) {
 
                 <input
                     type="range"
-                    min="5"
-                    max="33"
+                    min="1"
+                    max="40"
+                    step="1"
                     value={lossValue}
                     onChange={handleSliderChange}
                     className="range-slider cursor-pointer"
                     style={{
-                        background: `linear-gradient(to right, ${feedback.color} ${((lossValue - 5) / 28) * 100}%, rgba(255,255,255,0.1) ${((lossValue - 5) / 28) * 100}%)`
+                        background: `linear-gradient(to right, ${feedback.color} ${gradientPercent}%, rgba(255,255,255,0.1) ${gradientPercent}%)`
                     }}
                 />
 
                 <div className="slider-labels text-sm mt-2 text-gray-400">
-                    <span>안전 (-5%)</span>
-                    <span>위험 (-33%)</span>
+                    <span>안전 (-1%)</span>
+                    <span>위험 (-40%)</span>
                 </div>
 
             </div>

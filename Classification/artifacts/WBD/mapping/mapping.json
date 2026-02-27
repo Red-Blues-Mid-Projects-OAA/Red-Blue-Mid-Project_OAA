@@ -1,12 +1,12 @@
 {
   "ticker": "WBD",
-  "beta_ols": 1.4441257033602515,
-  "beta_ewma": 0.3907127229095559,
-  "beta_final": 1.1281018092250428,
+  "beta_ols": 1.4359490986040668,
+  "beta_ewma": 0.25184000470505635,
+  "beta_final": 1.0807163704343636,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02671401139843145,
+  "expected_capm_return_3m_log": 0.025966762929328376,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-20",
+  "date": "2026-02-26",
   "Return_Type": "CAPM"
 }
