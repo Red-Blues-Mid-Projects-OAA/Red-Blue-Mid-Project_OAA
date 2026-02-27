@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 # Scale-up pipeline for top-300 S&P tickers (100 trials per model)
 
 set -euo pipefail
@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 cd "${PROJECT_ROOT}"
 
-# Windows cp949 콘솔에서도 이모지/유니코드 출력으로 중단되지 않도록 UTF-8 강제
+# Windows cp949 肄섏넄?먯꽌???대え吏/?좊땲肄붾뱶 異쒕젰?쇰줈 以묐떒?섏? ?딅룄濡?UTF-8 媛뺤젣
 export PYTHONUTF8=1
 export PYTHONIOENCODING=UTF-8
 
@@ -28,48 +28,53 @@ echo "Start Time: $(date)"
 echo "=========================================================="
 
 echo ""
-echo "[0/7] Downloading Raw Stock Data from Yahoo Finance..."
+echo "[1/9] Downloading Raw Stock Data from Yahoo Finance..."
 "${PYTHON_BIN}" -u -m DB.update_stock_data --mode auto
 
 echo ""
-echo "[1/7] Calculating Log Returns for All Tickers..."
+echo "[2/9] Calculating Log Returns for All Tickers..."
 "${PYTHON_BIN}" -u -m DB.calculate_log_returns
 
 echo ""
-echo "[2/7] Updating Market Features (VIX, DXY)..."
+echo "[3/9] Updating Market Features (VIX, DXY)..."
 "${PYTHON_BIN}" -u -m DB.update_market_data
 
 echo ""
-echo "[3/7] Updating S&P 500 Benchmark Data..."
+echo "[4/9] Updating S&P 500 Benchmark Data..."
 "${PYTHON_BIN}" -u -m DB.update_sp500_data
 
 echo ""
-echo "[4/7] Calculating EWMA Covariance Matrix..."
+echo "[5/9] Calculating EWMA Covariance Matrix..."
 "${PYTHON_BIN}" -u -m DB.calculate_ewma
 
 echo ""
-echo "[5/7] Running Unified MASTER_FEATURES Generation (Panel Data)..."
-"${PYTHON_BIN}" -u -m Classification.Preprocessing.build_master_dataset
+echo "[6/9] Running Unified MASTER_FEATURES Generation (Panel Data)..."
+"${PYTHON_BIN}" -u -m DB.build_master_dataset
 
 echo ""
-echo "[6/7] Running ML Pipeline with 100 Trials per Model (Phase 3)..."
+echo "[7/9] Running ML Pipeline with 100 Trials per Model (Phase 3)..."
 echo "      (This step will take a long time!)"
-"${PYTHON_BIN}" -u -m Classification.multi_ticker.run_all_tickers --force-retune-all --xgb-trials 100 --svm-trials 100 --rf-trials 100 --logreg-trials 100
+"${PYTHON_BIN}" -u -m DB.run_all_tickers --force-retune-all --xgb-trials 100 --svm-trials 100 --rf-trials 100 --logreg-trials 100
 
 echo ""
-echo "[7/7] Running Mapping & Final Aggregation (Phase 4 & 5)..."
-"${PYTHON_BIN}" -u -m scripts.run_all_mapping
+echo "[8/9] Running Mapping & Final Aggregation (Phase 4 & 5)..."
+"${PYTHON_BIN}" -u -m DB.run_all_mapping
 
 echo ""
-echo "[8/5] Applying Regime Shift Overlay (Graduated Momentum Tracking)..."
-python3 -u -m Classification.multi_ticker.adjust_regime
+echo "      -> Applying Regime Shift Overlay (Graduated Momentum Tracking)..."
+"${PYTHON_BIN}" -u -m DB.adjust_regime
 if [ $? -ne 0 ]; then
-    echo "❌ Error in Regime Shift Overlay. Exiting."
+    echo "??Error in Regime Shift Overlay. Exiting."
     exit 1
 fi
+
+echo ""
+echo "[9/9] Syncing Risk-Level Portfolio Snapshot..."
+"${PYTHON_BIN}" -u -m DB.update_risk_level_portfolio_snapshot
 
 echo ""
 echo "=========================================================="
 echo "PIPELINE COMPLETE!"
 echo "End Time: $(date)"
 echo "=========================================================="
+
