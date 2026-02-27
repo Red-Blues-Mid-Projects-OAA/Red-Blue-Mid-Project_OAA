@@ -1,218 +1,248 @@
 import React from 'react';
+import { RefreshCw, Sparkles, TrendingUp, ShieldAlert } from 'lucide-react';
 import MbtiBarChart from './MbtiBarChart';
 import PortfolioPieChart from './PortfolioPieChart';
 import CumulativeReturnChart from './CumulativeReturnChart';
 import StockCard from './StockCard';
-import './Result.css';
+import './DashboardResult.css';
 
-/**
- * 통합 대시보드 결과 컴포넌트.
- *
- * 레이아웃: 좌측 사이드바(MBTI 프로필) + 우측 메인 패널(3단 구조)
- * - 우측 상단: 파이차트 + 포트폴리오 메트릭
- * - 우측 중앙: 누적수익률 차트 (과거 1년 + 예측 3개월)
- * - 우측 하단: 추천 종목 그리드 (읽기 전용)
- */
+const PERSONA_IMAGE_BY_LEVEL = {
+    4: 'turtle',
+    3: 'dog',
+    2: 'lion',
+    1: 'eagle',
+};
+
+const BAR_CONFIG = [
+    { key: 'energy', label: '에너지-집중', left: '외향', right: '내향', gradient: 'linear-gradient(90deg, #a7f3d0 0%, #3b82f6 100%)' },
+    { key: 'insight', label: '직관-현실', left: '현실', right: '직관', gradient: 'linear-gradient(90deg, #bfdbfe 0%, #2563eb 100%)' },
+    { key: 'logic', label: '논리-가치', left: '논리', right: '가치', gradient: 'linear-gradient(90deg, #dbeafe 0%, #1d4ed8 100%)' },
+    { key: 'style', label: '계획-탐색', left: '계획', right: '탐색', gradient: 'linear-gradient(90deg, #c7d2fe 0%, #3b82f6 100%)' },
+];
+
+function toFiniteNumber(value, fallback = 0) {
+    const num = Number(value);
+    return Number.isFinite(num) ? num : fallback;
+}
+
+function formatPercent(value, digits = 2, forceSign = true) {
+    if (value == null || Number.isNaN(Number(value))) {
+        return '-';
+    }
+    const n = Number(value);
+    const sign = forceSign ? (n >= 0 ? '+' : '') : '';
+    return `${sign}${n.toFixed(digits)}%`;
+}
+
+function getPersonaImage(title, level) {
+    if (PERSONA_IMAGE_BY_LEVEL[level]) {
+        return PERSONA_IMAGE_BY_LEVEL[level];
+    }
+    const safeTitle = String(title || '');
+    if (safeTitle.includes('거북')) return 'turtle';
+    if (safeTitle.includes('강아지')) return 'dog';
+    if (safeTitle.includes('사자')) return 'lion';
+    return 'eagle';
+}
+
+function getMbtiScores(rawAnswers = []) {
+    if (rawAnswers.length < 12) {
+        return {
+            energy: 50,
+            insight: 50,
+            logic: 50,
+            style: 50,
+        };
+    }
+
+    const answerAt = (idx) => String(rawAnswers[idx] || '').toUpperCase();
+    const countRange = (start, end, expected) => {
+        let count = 0;
+        for (let i = start; i < end; i += 1) {
+            if (answerAt(i) === expected) count += 1;
+        }
+        return count;
+    };
+
+    return {
+        energy: (countRange(0, 3, 'A') / 3) * 100, // I
+        insight: (countRange(3, 6, 'B') / 3) * 100, // N
+        logic: (countRange(6, 9, 'B') / 3) * 100, // F
+        style: (countRange(9, 12, 'B') / 3) * 100, // P
+    };
+}
+
+function getWeightedHistoricalReturn(stocks, key = '3M') {
+    if (!stocks.length) return 0;
+
+    const normalized = stocks.map((stock) => {
+        const histVal = toFiniteNumber(stock?.historical_returns?.[key], 0);
+        const weight = Math.max(toFiniteNumber(stock?.weight, 0), 0);
+        return { histVal, weight };
+    });
+
+    const totalWeight = normalized.reduce((sum, row) => sum + row.weight, 0);
+    if (totalWeight > 0) {
+        const weightedSum = normalized.reduce((sum, row) => sum + (row.histVal * row.weight), 0);
+        return weightedSum / totalWeight;
+    }
+
+    const avg = normalized.reduce((sum, row) => sum + row.histVal, 0) / normalized.length;
+    return avg;
+}
+
 function DashboardResult({ personaData, onRestart }) {
     if (!personaData) return null;
 
-    // ─── 데이터 추출 ───
-    const recommendedStocks = personaData.recommendedStocks || [];
+    const recommendedStocks = [...(personaData.recommendedStocks || [])]
+        .sort((a, b) => toFiniteNumber(b.weight, 0) - toFiniteNumber(a.weight, 0));
+
     const rawAnswers = personaData.rawAnswers || [];
-    const portfolioAnalysis = personaData.portfolioAnalysis || {};
-    const chartData = personaData.chartData || null;
-    const forecastData = personaData.forecastData || null;
     const mbti = personaData.mbti || 'ENTJ';
     const mbtiNickname = personaData.mbtiNickname || '';
+    const mbtiScores = getMbtiScores(rawAnswers);
+    const portfolioAnalysis = personaData.portfolioAnalysis || {};
+    const historical3m = getWeightedHistoricalReturn(recommendedStocks, '3M');
+    const expected3m = toFiniteNumber(portfolioAnalysis.expected_return_simple, 0);
+    const volatility60dPct = toFiniteNumber(portfolioAnalysis.volatility_60d, 0) * 100;
+    const var5 = -Math.abs(toFiniteNumber(portfolioAnalysis.var_5, 0));
+    const personaImage = getPersonaImage(personaData.title, personaData.finalLevel);
 
-    // ─── MBTI 성향 바 점수 계산 ───
-    const scoreI = rawAnswers.length > 0 ? (rawAnswers.slice(0, 3).filter(a => a === 'A').length / 3) * 100 : 50;
-    const scoreN = rawAnswers.length > 0 ? (rawAnswers.slice(3, 6).filter(a => a === 'B').length / 3) * 100 : 50;
-    const scoreF = rawAnswers.length > 0 ? (rawAnswers.slice(6, 9).filter(a => a === 'B').length / 3) * 100 : 50;
-    const scoreP = rawAnswers.length > 0 ? (rawAnswers.slice(9, 12).filter(a => a === 'B').length / 3) * 100 : 50;
-
-    // 페르소나 이미지 매핑
-    const getPersonaImage = (title) => {
-        if (title.includes('거북이')) return 'turtle';
-        if (title.includes('강아지')) return 'dog';
-        if (title.includes('사자')) return 'lion';
-        return 'eagle';
-    };
-
-    // 수익률 포매팅 (양수 녹색/음수 적색 + 부호)
-    const formatReturn = (val) => {
-        if (val == null) return '—';
-        const sign = val >= 0 ? '+' : '';
-        return `${sign}${val.toFixed(2)}%`;
-    };
-
-    const returnColor = (val) => val >= 0 ? 'text-green-400' : 'text-red-400';
+    const metricCards = [
+        {
+            label: '과거 3개월 수익률',
+            value: formatPercent(historical3m),
+            helper: '보유 비중 가중 평균',
+            tone: historical3m >= 0 ? 'up' : 'down',
+            icon: <TrendingUp size={18} />,
+        },
+        {
+            label: '예측 3개월 수익률',
+            value: formatPercent(expected3m),
+            helper: '모델 기반 기대 수익률',
+            tone: expected3m >= 0 ? 'up' : 'down',
+            icon: <Sparkles size={18} />,
+        },
+        {
+            label: '변동성',
+            value: `${volatility60dPct.toFixed(2)}%`,
+            helper: '최근 60일 표준편차',
+            tone: 'neutral',
+            icon: <ShieldAlert size={18} />,
+        },
+        {
+            label: 'VaR 5%',
+            value: formatPercent(var5),
+            helper: '95% 신뢰수준 손실 경계',
+            tone: 'down',
+            icon: <ShieldAlert size={18} />,
+        },
+    ];
 
     return (
-        <div className="w-full min-h-screen bg-gray-950 px-4 py-8 flex flex-col items-center">
-            {/* 상단 타이틀 */}
-            <div className="text-center mb-8 animate-fade-in">
-                <h1 className="text-3xl lg:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-2">
-                    투자 MBTI 통합 분석 리포트
-                </h1>
-            </div>
+        <div className="premium-dashboard">
+            <div className="premium-orb orb-a" />
+            <div className="premium-orb orb-b" />
 
-            {/* ═══════════════════════════════════════════
-                메인 대시보드: 좌측 사이드바 + 우측 3단 패널
-            ═══════════════════════════════════════════ */}
-            <div className="w-full max-w-[1600px] grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <header className="premium-header reveal delay-1">
+                <p className="eyebrow">Investment MBTI Report</p>
+                <h1>추천 포트폴리오 리포트</h1>
+                <p className="subtitle">성향 분석과 시장 데이터를 결합한 시뮬레이션 결과입니다.</p>
+            </header>
 
-                {/* ─── 좌측 사이드바: 페르소나 + MBTI 프로필 ─── */}
-                <div className="lg:col-span-3 bg-gray-900/60 border border-gray-700/50 backdrop-blur-md rounded-3xl p-6 flex flex-col items-center shadow-2xl animate-slide-up">
-                    {/* 페르소나 이미지 */}
-                    <div
-                        className="w-28 h-28 mb-5 rounded-full overflow-hidden shadow-[0_0_30px_rgba(139,92,246,0.15)] bg-gray-800 flex-shrink-0"
-                        style={{ animation: 'float 6s ease-in-out infinite' }}
-                    >
+            <section className="premium-layout">
+                <aside className="glass-panel profile-panel reveal delay-2">
+                    <div className="profile-avatar-wrap">
                         <img
-                            src={`/images/${getPersonaImage(personaData.title)}.png`}
-                            alt="Persona"
-                            className="w-full h-full object-cover"
-                            onError={(e) => { e.target.style.display = 'none'; }}
+                            src={`/images/${personaImage}.png`}
+                            alt="투자 성향 아바타"
+                            className="profile-avatar"
+                            onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                            }}
                         />
                     </div>
 
-                    {/* MBTI 4글자 */}
-                    <div className="bg-gray-800/80 border border-gray-600/50 rounded-2xl p-4 w-full text-center mb-4 shadow-inner">
-                        <h3 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400 tracking-wider font-mono mb-1">
-                            {mbti}
-                        </h3>
-                        {mbtiNickname && (
-                            <span className="text-xs font-bold text-gray-300 bg-black/40 px-3 py-1 rounded-full border border-gray-600/50">
-                                {mbtiNickname}
-                            </span>
-                        )}
+                    <h2 className="mbti-code">{mbti}</h2>
+                    {mbtiNickname && <p className="mbti-nick">{mbtiNickname}</p>}
+                    <h3 className="persona-title">{personaData.title}</h3>
+                    <p className="persona-desc">{personaData.description}</p>
+
+                    <div className="mbti-bars">
+                        {BAR_CONFIG.map((item) => (
+                            <MbtiBarChart
+                                key={item.key}
+                                dimension={item.label}
+                                score={mbtiScores[item.key]}
+                                leftLabel={item.left}
+                                rightLabel={item.right}
+                                gradient={item.gradient}
+                            />
+                        ))}
                     </div>
+                </aside>
 
-                    {/* 페르소나명 + 한줄 설명 */}
-                    <div className="text-center mb-6">
-                        <h2 className="text-xl font-bold text-white mb-1">{personaData.title}</h2>
-                        <p className="text-sm text-yellow-500 font-semibold">{personaData.description}</p>
-                    </div>
+                <div className="main-column">
+                    <article className="glass-panel composition-panel reveal delay-3">
+                        <div className="panel-heading">
+                            <h3>추천 포트폴리오 구성</h3>
+                            <span className="chip">{portfolioAnalysis.risk_category || '균형형'}</span>
+                        </div>
 
-                    {/* MBTI 4차원 바 */}
-                    <div className="w-full flex flex-col gap-2">
-                        <h4 className="text-xs font-bold text-gray-500 mb-1 text-center">성향 세부 분포</h4>
-                        <MbtiBarChart dimension="에너지-집중" score={scoreI} leftLabel="외향" rightLabel="내향" colorClass="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500" />
-                        <MbtiBarChart dimension="직관-현실" score={scoreN} leftLabel="감각" rightLabel="직관" colorClass="bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500" />
-                        <MbtiBarChart dimension="논리-가치" score={scoreF} leftLabel="사고" rightLabel="감정" colorClass="bg-gradient-to-r from-amber-400 via-orange-500 to-red-500" />
-                        <MbtiBarChart dimension="계획-탐색" score={scoreP} leftLabel="계획형" rightLabel="유연형" colorClass="bg-gradient-to-r from-purple-400 via-fuchsia-500 to-pink-500" />
-                    </div>
-                </div>
+                        <div className="composition-content">
+                            <PortfolioPieChart stocks={recommendedStocks} size={240} />
 
-                {/* ─── 우측 메인 패널 (3단 구조) ─── */}
-                <div className="lg:col-span-9 flex flex-col gap-6">
-
-                    {/* ═══ 우측 상단: 포트폴리오 구성 (파이차트 + 메트릭) ═══ */}
-                    <div className="bg-gray-900/60 border border-gray-700/50 backdrop-blur-md rounded-3xl p-6 shadow-2xl animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                        <h3 className="text-lg font-bold text-white mb-5 flex items-center">
-                            <span className="bg-blue-500 w-1.5 h-5 rounded-sm mr-2 block" />
-                            추천 포트폴리오 구성
-                        </h3>
-
-                        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
-                            {/* 파이차트 */}
-                            <div className="shrink-0">
-                                <PortfolioPieChart stocks={recommendedStocks} size={200} />
-                            </div>
-
-                            {/* 포트폴리오 메트릭 4칸 */}
-                            <div className="grid grid-cols-2 gap-4 flex-1">
-                                {/* 과거 3개월 수익률 */}
-                                <div className="bg-gray-800/60 rounded-2xl p-4 border border-gray-700/30">
-                                    <span className="text-xs text-gray-500 block mb-1">과거 3개월 수익률</span>
-                                    <span className={`text-2xl font-black ${returnColor(portfolioAnalysis.expected_return_simple)}`}>
-                                        {formatReturn(portfolioAnalysis.expected_return_simple)}
-                                    </span>
-                                </div>
-
-                                {/* 예측 3개월 수익률 */}
-                                <div className="bg-gray-800/60 rounded-2xl p-4 border border-gray-700/30">
-                                    <span className="text-xs text-gray-500 block mb-1">예측 3개월 수익률</span>
-                                    <span className={`text-2xl font-black ${returnColor(portfolioAnalysis.expected_return_simple)}`}>
-                                        {formatReturn(portfolioAnalysis.expected_return_simple)}
-                                    </span>
-                                </div>
-
-                                {/* 변동성 */}
-                                <div className="bg-gray-800/60 rounded-2xl p-4 border border-gray-700/30">
-                                    <span className="text-xs text-gray-500 block mb-1">변동성 (60일 σ)</span>
-                                    <span className="text-2xl font-black text-blue-400">
-                                        {portfolioAnalysis.volatility_60d != null
-                                            ? `${(portfolioAnalysis.volatility_60d * 100).toFixed(2)}%`
-                                            : '—'}
-                                    </span>
-                                </div>
-
-                                {/* VaR 5% */}
-                                <div className="bg-gray-800/60 rounded-2xl p-4 border border-gray-700/30">
-                                    <span className="text-xs text-gray-500 block mb-1">VaR 5%</span>
-                                    <span className="text-2xl font-black text-red-400">
-                                        {portfolioAnalysis.var_5 != null
-                                            ? `${portfolioAnalysis.var_5.toFixed(2)}%`
-                                            : '준비중'}
-                                    </span>
-                                </div>
+                            <div className="metrics-grid">
+                                {metricCards.map((metric) => (
+                                    <div key={metric.label} className={`metric-card tone-${metric.tone}`}>
+                                        <div className="metric-head">
+                                            <span className="metric-icon">{metric.icon}</span>
+                                            <span className="metric-label">{metric.label}</span>
+                                        </div>
+                                        <p className="metric-value">{metric.value}</p>
+                                        <p className="metric-helper">{metric.helper}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    </div>
+                    </article>
 
-                    {/* ═══ 우측 중앙: 누적수익률 차트 ═══ */}
-                    <div className="bg-gray-900/60 border border-gray-700/50 backdrop-blur-md rounded-3xl p-6 shadow-2xl animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                        <h3 className="text-lg font-bold text-white mb-4 flex items-center">
-                            <span className="bg-violet-500 w-1.5 h-5 rounded-sm mr-2 block" />
-                            포트폴리오 성과 분석
-                            <span className="ml-auto text-xs text-gray-500 font-normal">포트폴리오(파랑) vs S&P 500(회색) | 예측(보라 점선)</span>
-                        </h3>
+                    <article className="glass-panel chart-panel reveal delay-4">
+                        <div className="panel-heading">
+                            <h3>포트폴리오 성과 예측</h3>
+                            <span className="chip">과거 1년 + 향후 3개월</span>
+                        </div>
+
                         <CumulativeReturnChart
-                            chartData={chartData}
-                            forecastData={forecastData}
-                            warnings={chartData?.warnings || []}
+                            chartData={personaData.chartData}
+                            forecastData={personaData.forecastData}
+                            warnings={personaData.chartData?.warnings || []}
                         />
-                    </div>
-
-                    {/* ═══ 우측 하단: 추천 종목 그리드 (읽기 전용) ═══ */}
-                    <div className="bg-gray-900/60 border border-gray-700/50 backdrop-blur-md rounded-3xl p-6 shadow-2xl animate-slide-up" style={{ animationDelay: '0.3s' }}>
-                        <h3 className="text-lg font-bold text-white mb-4 flex items-center">
-                            <span className="bg-emerald-500 w-1.5 h-5 rounded-sm mr-2 block" />
-                            추천 종목
-                            <span className="ml-2 text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-md">
-                                {recommendedStocks.length}개
-                            </span>
-                        </h3>
-
-                        {/* 종목 수에 따라 유동적 그리드 */}
-                        <div className={`grid gap-3 ${recommendedStocks.length <= 2 ? 'grid-cols-1 sm:grid-cols-2' :
-                            recommendedStocks.length <= 4 ? 'grid-cols-2' :
-                                recommendedStocks.length <= 7 ? 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' :
-                                    'grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
-                            }`}>
-                            {recommendedStocks.map((stock) => (
-                                <StockCard key={stock.ticker} stock={stock} />
-                            ))}
-                        </div>
-
-                        {recommendedStocks.length === 0 && (
-                            <div className="py-8 text-center text-gray-500 bg-gray-800/30 rounded-xl border border-dashed border-gray-700">
-                                추천 종목이 없습니다.
-                            </div>
-                        )}
-                    </div>
+                    </article>
                 </div>
-            </div>
+            </section>
 
-            {/* 메인으로 돌아가기 버튼 */}
-            <div className="w-full max-w-[1600px] mt-8 animate-fade-in text-right">
-                <button
-                    onClick={onRestart}
-                    className="px-8 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-full text-white font-bold transition-colors shadow-lg"
-                >
-                    테스트 초기화 및 다시하기 🔄
+            <section className="glass-panel stocks-panel reveal delay-5">
+                <div className="panel-heading">
+                    <h3>추천 종목</h3>
+                    <span className="chip">{recommendedStocks.length}개 종목</span>
+                </div>
+
+                {recommendedStocks.length > 0 ? (
+                    <div className="stock-grid">
+                        {recommendedStocks.map((stock) => (
+                            <StockCard key={stock.ticker} stock={stock} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="empty-state">추천 가능한 종목 데이터가 없습니다.</div>
+                )}
+            </section>
+
+            <div className="result-actions reveal delay-5">
+                <button type="button" className="restart-button" onClick={onRestart}>
+                    <RefreshCw size={16} />
+                    다시 분석하기
                 </button>
             </div>
         </div>
@@ -220,3 +250,4 @@ function DashboardResult({ personaData, onRestart }) {
 }
 
 export default DashboardResult;
+
