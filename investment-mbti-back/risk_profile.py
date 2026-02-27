@@ -95,22 +95,22 @@ def calculate_risk_profile(answers, loss_limit_value):
         4: {
             "lambda_final": get_lambda_by_level(4),
             "persona": "노예 개미",
-            "desc": "특징: 리스크에 매우 민감하며 원금 보존을 최우선으로 합니다."
+            "desc": "리스크에 매우 민감하며 원금 보존을 최우선으로 합니다."
         },
         3: {
             "lambda_final": get_lambda_by_level(3),
             "persona": "월급루팡 개미",
-            "desc": "특징: 평균적인 투자자보다 다소 보수적이며, 분석적 근거를 중시합니다."
+            "desc": "평균적인 투자자보다 다소 보수적이며, 분석적 근거를 중시합니다."
         },
         2: {
             "lambda_final": get_lambda_by_level(2),
             "persona": "파이어족 개미",
-            "desc": "특징: 수익을 위해 적정 수준의 리스크를 감내할 수 있습니다."
+            "desc": "수익을 위해 적정 수준의 리스크를 감내할 수 있습니다."
         },
         1: {
             "lambda_final": get_lambda_by_level(1),
             "persona": "YOLO 개미",
-            "desc": "특징: 리스크보다는 기회와 수익에 집중하며 높은 변동성을 견딥니다."
+            "desc": "리스크보다는 기회와 수익에 집중하며 높은 변동성을 견딥니다."
         }
     }
     

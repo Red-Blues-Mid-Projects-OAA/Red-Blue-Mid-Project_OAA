@@ -28,30 +28,20 @@ HORIZON_DAYS = 60
 # 리스크 타입별 λ 값 (risk_profile.py 로직과 동기화된 동적 매핑)
 LAMBDA_MAP = {i: get_lambda_by_level(i) for i in range(1, 5)}
 
-# 종목 한글 이름 매핑 (주요 종목)
-TICKER_NAME_MAP = {
-    "NVDA": "엔비디아", "AAPL": "애플", "MSFT": "마이크로소프트", "AMZN": "아마존",
-    "GOOGL": "알파벳 A", "GOOG": "알파벳 C", "META": "메타", "AVGO": "브로드컴",
-    "TSLA": "테슬라", "BRK-B": "버크셔 해서웨이", "WMT": "월마트", "LLY": "일라이릴리",
-    "JPM": "JP모건", "V": "비자", "XOM": "엑슨모빌", "JNJ": "존슨앤드존슨",
-    "MA": "마스터카드", "COST": "코스트코", "HD": "홈디포", "PG": "프록터앤갬블",
-    "NFLX": "넷플릭스", "BAC": "뱅크오브아메리카", "AMD": "AMD", "ABBV": "애브비",
-    "KO": "코카콜라", "PEP": "펩시코", "MRK": "머크", "MCD": "맥도날드",
-    "CSCO": "시스코", "INTC": "인텔", "PFE": "화이자", "TMO": "써모피셔",
-    "UNH": "유나이티드헬스", "ORCL": "오라클", "CRM": "세일즈포스", "GS": "골드만삭스",
-    "RTX": "RTX", "GE": "GE에어로스페이스", "CAT": "캐터필러", "BA": "보잉",
-    "DIS": "월트디즈니", "NEE": "넥스트에라에너지", "LMT": "록히드마틴", "QCOM": "퀄컴",
-    "CVX": "쉐브론", "WFC": "웰스파고", "T": "AT&T", "GILD": "길리어드",
-    "MO": "알트리아", "VZ": "버라이즌", "PM": "필립모리스", "IBM": "IBM",
-    "COIN": "코인베이스", "PLTR": "팔란티어", "HOOD": "로빈후드",
-    "ADI": "아나로그디바이스", "BKR": "베이커휴즈", "HWM": "하우멧에어로스페이스",
-    "SNA": "스냅온", "TXT": "텍스트론", "TRGP": "타르가리소스",
-    "EMR": "에머슨일렉트릭", "ETN": "이턴", "ITW": "일리노이툴웍스",
-    "ADP": "ADP", "CME": "CME그룹", "ICE": "인터컨티넨탈익스체인지",
-    "SPGI": "S&P글로벌", "MMC": "마쉬앤맥레넌", "AON": "에이온",
-    "CB": "처브", "PGR": "프로그레시브", "TRV": "트래블러스",
-    "ALL": "올스테이트", "MET": "메트라이프", "AIG": "AIG",
-}
+# 종목 한글 이름 매핑 — sp500_top300_kr.json 에서 동적 로드
+import json as _json
+
+_KR_NAME_JSON = _PROJECT_ROOT / "DB" / "sp500_top300_kr.json"
+
+def _load_ticker_name_map() -> dict:
+    """sp500_top300_kr.json 파일에서 종목 한글명 매핑을 로드합니다."""
+    try:
+        with open(_KR_NAME_JSON, encoding="utf-8") as f:
+            return _json.load(f)
+    except Exception:
+        return {}
+
+TICKER_NAME_MAP = _load_ticker_name_map()
 
 # ──────────────────────────────────────────────────────────────────
 # 글로벌 캐시 (FastAPI startup 시 1회 로드)
@@ -421,6 +411,11 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
         sigma_max = max(all_sigmas) if all_sigmas else 1
 
         for holding in holdings:
+            # 한글 종목명 매핑 (sp500_top300_kr.json 기준)
+            ticker = holding.get("ticker", "")
+            if not holding.get("name") or holding.get("name") == ticker:
+                holding["name"] = TICKER_NAME_MAP.get(ticker, ticker)
+
             try:
                 sigma = float(holding.get("sigma_ewma_60d", 0.0) or 0.0)
             except (TypeError, ValueError):

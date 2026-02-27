@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import './DashboardResult.css';
 
+/* ── 세련된 파스텔 톤 10색 팔레트 ── */
 const COLORS = [
-    '#1d4ed8', // 진한 파랑
-    '#7c3aed', // 보라
-    '#059669', // 에메랄드
-    '#d97706', // 앰버
-    '#dc2626', // 레드
-    '#0891b2', // 시안
-    '#4f46e5', // 인디고
-    '#be185d', // 핑크
-    '#0d9488', // 틸
-    '#ea580c', // 오렌지 레드
+    '#7C9CF5', // 소프트 블루
+    '#A78BFA', // 라벤더
+    '#6EE7B7', // 민트
+    '#FCD34D', // 레몬
+    '#F9A8D4', // 로즈
+    '#67E8F9', // 아쿠아
+    '#FDA4AF', // 코랄
+    '#C4B5FD', // 페리윙클
+    '#86EFAC', // 라이트 그린
+    '#FDBA74', // 피치
 ];
 
 function toFiniteNumber(value, fallback = 0) {
@@ -43,7 +44,33 @@ function arcPath(cx, cy, outerR, innerR, startAngle, endAngle) {
     ].join(' ');
 }
 
+/* ── 커스텀 hover 툴팁 ── */
+function PieTooltip({ slice, x, y, visible }) {
+    if (!visible || !slice) return null;
+    return (
+        <div
+            className="pie-tooltip"
+            style={{
+                left: x,
+                top: y,
+            }}
+        >
+            <div className="pie-tooltip-header">
+                <span className="pie-tooltip-dot" style={{ backgroundColor: slice.color }} />
+                <strong>{slice.ticker}</strong>
+            </div>
+            <div className="pie-tooltip-row">
+                <span>비중</span>
+                <span className="pie-tooltip-value">{slice.weight.toFixed(1)}%</span>
+            </div>
+        </div>
+    );
+}
+
 function PortfolioPieChart({ stocks, size = 240 }) {
+    const [hoverIdx, setHoverIdx] = useState(null);
+    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+
     const validStocks = (stocks || [])
         .map((stock) => ({
             ...stock,
@@ -72,32 +99,55 @@ function PortfolioPieChart({ stocks, size = 240 }) {
 
         return {
             ...stock,
+            idx,
             color: COLORS[idx % COLORS.length],
             path: arcPath(cx, cy, outerR, innerR, start, end),
+            // 호버 시 살짝 커진 path
+            hoverPath: arcPath(cx, cy, outerR + 5, innerR - 2, start, end),
         };
     });
 
     const topLegend = slices.slice(0, 6);
 
+    const handleMouseMove = useCallback((e) => {
+        const rect = e.currentTarget.closest('.premium-pie-wrap')?.getBoundingClientRect();
+        if (!rect) return;
+        setTooltipPos({
+            x: e.clientX - rect.left + 14,
+            y: e.clientY - rect.top - 10,
+        });
+    }, []);
+
     return (
-        <div className="premium-pie-wrap">
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-label="포트폴리오 비중 도넛 차트">
-                <circle cx={cx} cy={cy} r={outerR} fill="#f8fafc" stroke="#dbeafe" strokeWidth="1.4" />
+        <div className="premium-pie-wrap" style={{ position: 'relative' }}>
+            <svg
+                width={size}
+                height={size + 10}
+                viewBox={`-5 -5 ${size + 10} ${size + 10}`}
+                aria-label="포트폴리오 비중 도넛 차트"
+            >
+                <circle cx={cx} cy={cy} r={outerR} fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
 
                 {slices.map((slice) => (
                     <path
                         key={slice.ticker}
-                        d={slice.path}
+                        d={hoverIdx === slice.idx ? slice.hoverPath : slice.path}
                         fill={slice.color}
                         stroke="#ffffff"
-                        strokeWidth="1.2"
-                        opacity="0.96"
-                    >
-                        <title>{slice.ticker}: {slice.weight.toFixed(2)}%</title>
-                    </path>
+                        strokeWidth={hoverIdx === slice.idx ? 2.8 : 2}
+                        opacity={hoverIdx === null || hoverIdx === slice.idx ? 1 : 0.55}
+                        style={{
+                            transition: 'all 0.22s ease',
+                            filter: hoverIdx === slice.idx ? 'drop-shadow(0 3px 8px rgba(0,0,0,0.18))' : 'none',
+                            cursor: 'pointer',
+                        }}
+                        onMouseEnter={() => setHoverIdx(slice.idx)}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={() => setHoverIdx(null)}
+                    />
                 ))}
 
-                <circle cx={cx} cy={cy} r={innerR} fill="#ffffff" stroke="#e2e8f0" strokeWidth="1.2" />
+                <circle cx={cx} cy={cy} r={innerR} fill="#ffffff" stroke="#e2e8f0" strokeWidth="1" />
                 <text x={cx} y={cy - 6} textAnchor="middle" fill="#64748b" fontSize="11" fontWeight="700">
                     추천 포트폴리오
                 </text>
@@ -106,14 +156,26 @@ function PortfolioPieChart({ stocks, size = 240 }) {
                 </text>
             </svg>
 
+            <PieTooltip
+                slice={hoverIdx !== null ? slices[hoverIdx] : null}
+                x={tooltipPos.x}
+                y={tooltipPos.y}
+                visible={hoverIdx !== null}
+            />
+
             <div className="premium-pie-legend">
                 {topLegend.map((slice) => (
-                    <div className="premium-pie-legend-item" key={`${slice.ticker}-legend`}>
+                    <div
+                        className={`premium-pie-legend-item ${hoverIdx === slice.idx ? 'legend-active' : ''}`}
+                        key={`${slice.ticker}-legend`}
+                        onMouseEnter={() => setHoverIdx(slice.idx)}
+                        onMouseLeave={() => setHoverIdx(null)}
+                    >
                         <span className="premium-pie-legend-left">
                             <span className="premium-pie-dot" style={{ backgroundColor: slice.color }} />
                             <span className="premium-pie-ticker">{slice.ticker}</span>
                         </span>
-                        <span className="premium-pie-weight">{slice.weight.toFixed(2)}%</span>
+                        <span className="premium-pie-weight">{slice.weight.toFixed(1)}%</span>
                     </div>
                 ))}
             </div>
@@ -122,4 +184,3 @@ function PortfolioPieChart({ stocks, size = 240 }) {
 }
 
 export default PortfolioPieChart;
-

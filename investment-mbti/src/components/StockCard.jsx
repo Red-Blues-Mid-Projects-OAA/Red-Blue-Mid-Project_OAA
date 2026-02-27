@@ -39,7 +39,7 @@ function StockCard({ stock }) {
                 </div>
 
                 <div className="stock-card-badges">
-                    <span className="stock-badge weight">{weight.toFixed(2)}%</span>
+                    <span className="stock-badge weight">Ratio {weight.toFixed(1)}%</span>
                     <span className="stock-badge risk">Risk {riskScore}</span>
                 </div>
             </div>

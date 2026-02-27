@@ -196,10 +196,10 @@ function CustomTooltip({ active, payload, label }) {
 
 /* ── 커스텀 범례 (색상 원 + 텍스트) ── */
 const LEGEND_ITEMS = [
-    { color: '#2563eb', label: '포트폴리오 (과거)' },
-    { color: '#94a3b8', label: 'S&P 500 벤치마크' },
-    { color: '#1e3a8a', label: '기대 경로 (예측)' },
-    { color: 'rgba(148,163,184,0.35)', label: 'MC 시뮬레이션 경로' },
+    { color: '#3B82F6', label: '포트폴리오 (과거)' },
+    { color: '#F59E0B', label: 'S&P 500 벤치마크' },
+    { color: '#6366F1', label: '기대 경로 (예측)' },
+    { color: '#94a3b8', label: 'MC 시뮬레이션 경로' },
 ];
 
 function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
@@ -286,7 +286,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                             type="monotone"
                             dataKey="sp500"
                             name="S&P 500"
-                            stroke="#94a3b8"
+                            stroke="#F59E0B"
                             strokeWidth={1.6}
                             dot={false}
                             isAnimationActive={false}
@@ -296,7 +296,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                             type="monotone"
                             dataKey="portfolio"
                             name="포트폴리오(과거)"
-                            stroke="#2563eb"
+                            stroke="#3B82F6"
                             strokeWidth={2.35}
                             dot={false}
                             isAnimationActive={false}
@@ -308,7 +308,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                                 type="monotone"
                                 dataKey={pathKey}
                                 stroke="#94a3b8"
-                                strokeOpacity={0.24}
+                                strokeOpacity={0.35}
                                 strokeWidth={1}
                                 dot={false}
                                 connectNulls
@@ -321,7 +321,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                             type="monotone"
                             dataKey="forecast"
                             name="기대 경로"
-                            stroke="#1e3a8a"
+                            stroke="#6366F1"
                             strokeWidth={2.3}
                             dot={false}
                             connectNulls
