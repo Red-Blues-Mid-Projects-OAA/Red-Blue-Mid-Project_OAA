@@ -87,6 +87,9 @@ def analyze_portfolio(req: AnalyzeRequest):
 
     # 3. 리스크 타입별 종목 추천 (유틸리티 스코어 기반)
     recommended_stocks = get_recommended_stocks(final_level, top_n=10)
+    
+    # "전체 종목 보기" 모달을 위해 DB 조건에 맞는 전체 종목 풀도 가져옵니다.
+    all_matching_stocks = get_recommended_stocks(final_level, top_n=500)
 
     # 4. 추천 종목으로 초기 MVO 최적화 수행
     tickers = [s["ticker"] for s in recommended_stocks]
@@ -140,6 +143,7 @@ def analyze_portfolio(req: AnalyzeRequest):
             "mbti": risk_result["mbti"],
             "mbti_nickname": risk_result["mbti_nickname"],
             "recommended_stocks": recommended_stocks,
+            "all_matching_stocks": all_matching_stocks,
             "portfolio_analysis": {
                 "expected_return_simple": portfolio_return_simple,       # 단순수익률 (%)
                 "expected_return_log": round(portfolio_return_log * 100, 2),  # 로그수익률 (%, 참조용)

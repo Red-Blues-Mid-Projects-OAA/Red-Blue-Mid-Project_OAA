@@ -1,8 +1,10 @@
 .slider-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 100%;
-    height: 100%;
+    min-height: calc(100vh - 4rem);
+    margin: 0 auto;
     padding: 1rem;
 }
 
@@ -13,7 +15,7 @@
 
 .slider-header h2 {
     font-size: 1.75rem;
-    color: #a78bfa;
+    color: #191f28;
     margin-bottom: 1rem;
 }
 
@@ -24,23 +26,24 @@
 }
 
 .slider-header strong {
-    color: #fff;
-    background: rgba(139, 92, 246, 0.3);
+    color: #3182f6;
+    background: rgba(49, 130, 246, 0.1);
     padding: 0.1rem 0.5rem;
     border-radius: 4px;
 }
 
 /* Card Wrapper */
 .slider-card {
-    background: rgba(30, 41, 59, 0.6);
+    background: #ffffff;
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
     margin-bottom: 2rem;
+    width: 100%;
 }
 
 /* Big Percent Display */
@@ -51,8 +54,7 @@
 .percent {
     font-size: 4rem;
     font-weight: 800;
-    color: #fff;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    color: #191f28;
 }
 
 /* Sub text */
@@ -60,11 +62,11 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #cbd5e1;
+    color: #4e5968;
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 2.5rem;
-    background: rgba(0, 0, 0, 0.3);
+    background: #f2f4f6;
     padding: 0.75rem 1.5rem;
     border-radius: 30px;
 }
@@ -98,7 +100,7 @@
     border-radius: 50%;
     background: #fff;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     transition: transform 0.1s;
 }
 
@@ -119,7 +121,7 @@
 /* Dynamic Feedback Box */
 .feedback-box {
     width: 100%;
-    background: rgba(15, 23, 42, 0.8);
+    background: #f9fafb;
     border-left: 4px solid;
     padding: 1.25rem;
     border-radius: var(--radius-sm);
@@ -140,10 +142,10 @@
 
 /* Submit Btn */
 .submit-btn {
-    margin-top: auto;
     font-size: 1.25rem;
     padding: 1.2rem;
     border-radius: 30px;
+    width: 100%;
 }
 
 @media (max-width: 480px) {

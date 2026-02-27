@@ -58,6 +58,7 @@ _cache = {
     "cov_matrix": None,           # EWMA 공분산 numpy 행렬
     "ticker_to_cov_idx": None,    # ticker → 행렬 인덱스 매핑
     "variance_map": None,         # ticker → σ²_i (대각선 원소)
+    "precalculated_pools": {},    # 🚀 성능 최적화: risk_level(1~4)별로 사전 계산된 (정렬 완료된) 종목 리스트 캐싱
 }
 
 
@@ -116,7 +117,88 @@ def load_cache():
             variance_map[t] = vol ** 2
         _cache["variance_map"] = variance_map
 
-    print("[Cache] 데이터 캐싱 완료!\n")
+    # 🚀 O(1) 조회를 위한 리스크 레벨(1~4)별 추천 풀(Pool) 사전 계산
+    print("  🚀 [Performance] 리스크 레벨별 추천 풀 사전 계산 중...")
+    _cache["precalculated_pools"] = {}
+    
+    # 1. 대상 종목 기본 정보 구성
+    stocks_base = []
+    for _, row in filtered.iterrows():
+        t = str(row["Ticker"]).strip().upper()
+        e_ri = float(row["Adjusted_E_Total"])
+        vol_3m = float(row.get("Vol_3M", 0.0))
+        sigma_sq = _cache["variance_map"].get(t, 0.01)
+        sigma = sigma_sq ** 0.5
+        stocks_base.append({
+            "ticker": t,
+            "e_return": e_ri,
+            "vol_3m": vol_3m,
+            "variance": sigma_sq,
+            "sigma": sigma,
+        })
+        
+    # sigma_ewma_60d (sigma) 기준 오름차순 정렬
+    stocks_base.sort(key=lambda x: x["sigma"])
+    total_count = len(stocks_base)
+    
+    # 위험도 점수 계산용 정규화 변수
+    all_sigmas = [s["sigma"] for s in stocks_base]
+    sigma_min = min(all_sigmas) if all_sigmas else 0
+    sigma_max = max(all_sigmas) if all_sigmas else 1
+    sigma_range = sigma_max - sigma_min if sigma_max > sigma_min else 1
+    import math
+
+    # 레벨 1~4까지 반복 계산
+    for lvl in range(1, 5):
+        lam = LAMBDA_MAP.get(lvl, get_lambda_by_level(2))
+        
+        # 레벨별로 풀 복사 후 점수 계산
+        level_stocks = []
+        for s in stocks_base:
+            score = s["e_return"] - 0.5 * lam * s["variance"]
+            level_stocks.append({**s, "score": score})
+            
+        # 리스크 등급에 따른 Pool 컷오프
+        if lvl == 4:
+            pool_size = int(total_count * 0.25)
+        elif lvl == 3:
+            pool_size = int(total_count * 0.50)
+        elif lvl == 2:
+            pool_size = int(total_count * 0.75)
+        else:
+            pool_size = total_count
+            
+        # 최소 10개는 보장
+        pool_size = max(pool_size, 10)
+        
+        pool = level_stocks[:pool_size]
+        
+        # Pool 내에서 목적함수(score) 기준으로 내림차순 정렬
+        pool.sort(key=lambda x: x["score"], reverse=True)
+        
+        # 프론트 호환 규격 포맷팅
+        formatted_pool = []
+        for rank, st in enumerate(pool, 1):
+            risk_score = int((st["sigma"] - sigma_min) / sigma_range * 100)
+            risk_score = max(0, min(100, risk_score))
+            
+            log_ret = st["e_return"]
+            simple_ret = round((math.exp(log_ret) - 1) * 100, 2)
+            
+            formatted_pool.append({
+                "rank": rank,
+                "ticker": st["ticker"],
+                "name": TICKER_NAME_MAP.get(st["ticker"], st["ticker"]),
+                "expectedReturn3M": round(st["e_return"] * 100, 2),
+                "expectedReturn3M_simple": simple_ret,
+                "sigma_ewma_60d": round(st["sigma"], 4),
+                "risk_score": risk_score,
+                "score": round(st["score"], 4),
+            })
+            
+        _cache["precalculated_pools"][lvl] = formatted_pool
+
+    print("[Cache] 데이터 캐싱 및 사전 분석 완료!\n")
 
 
 def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
@@ -140,84 +222,13 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     Returns:
         추천 종목 딕셔너리 리스트 (프론트엔드 호환 형식)
     """
-    lam = LAMBDA_MAP.get(risk_level, get_lambda_by_level(2))
-    df = _cache["adj_returns_df"]
-    variance_map = _cache["variance_map"]
-
-    if df is None or variance_map is None:
-        raise RuntimeError("캐시가 초기화되지 않았습니다. load_cache()를 먼저 호출하세요.")
-
-    # 1. 대상 종목 데이터 구성
-    stocks = []
-    for _, row in df.iterrows():
-        ticker = str(row["Ticker"]).strip().upper()
-        e_ri = float(row["Adjusted_E_Total"])     # E(R_i)
-        vol_3m = float(row.get("Vol_3M", 0.0))    # (참고용) 과거 3개월 변동성
-        sigma_sq = variance_map.get(ticker, 0.01) # 목적함수 계산용 EWMA 분산(60일 스케일링)
+    if not _cache.get("precalculated_pools"):
+        raise RuntimeError("캐시가 초기화되지 않았습니다. 백엔드 서버를 재시작해주세요.")
         
-        # 각 종목의 Utility Score 계산
-        score = e_ri - 0.5 * lam * sigma_sq
-        
-        stocks.append({
-            "ticker": ticker,
-            "e_return": e_ri,
-            "vol_3m": vol_3m,
-            "variance": sigma_sq,
-            "sigma": sigma_sq ** 0.5,
-            "score": score,
-        })
-
-    # 2. sigma_ewma_60d (sigma) 기준 오름차순 정렬 (최신 변동성 낮은 순으로 컷오프 통일)
-    stocks.sort(key=lambda x: x["sigma"])
-
-    # 3. 리스크 등급에 따른 Pool 잘라내기
-    total_count = len(stocks)
-    if risk_level == 4:
-        pool_size = max(int(total_count * 0.25), top_n)
-    elif risk_level == 3:
-        pool_size = max(int(total_count * 0.50), top_n)
-    elif risk_level == 2:
-        pool_size = max(int(total_count * 0.75), top_n)
-    else: # risk_level == 1
-        pool_size = total_count
-
-    pool = stocks[:pool_size]
-
-    # 4. Pool 내에서 목적함수(score) 기준으로 내림차순 정렬
-    pool.sort(key=lambda x: x["score"], reverse=True)
-    top_stocks = pool[:top_n]
-
-    # 5. 프론트엔드 호환 형식으로 변환
-    # MinMaxScaler 기반 개별 종목 위험도 점수 (0~100) 산출
-    # 전체 300종목의 sigma_ewma_60d 분포를 기준으로 정규화
-    all_sigmas = [v ** 0.5 for v in variance_map.values()]
-    sigma_min = min(all_sigmas) if all_sigmas else 0
-    sigma_max = max(all_sigmas) if all_sigmas else 1
-    sigma_range = sigma_max - sigma_min if sigma_max > sigma_min else 1
-
-    import math
-    result = []
-    for rank, s in enumerate(top_stocks, 1):
-        # 위험도 점수: sigma를 0~100으로 정규화 (소수점 절삭)
-        risk_score = int((s["sigma"] - sigma_min) / sigma_range * 100)
-        risk_score = max(0, min(100, risk_score))
-
-        # 로그수익률 → 단순수익률 변환: simple = (e^r - 1) * 100
-        log_ret = s["e_return"]
-        simple_ret = round((math.exp(log_ret) - 1) * 100, 2)
-
-        result.append({
-            "rank": rank,
-            "ticker": s["ticker"],
-            "name": TICKER_NAME_MAP.get(s["ticker"], s["ticker"]),
-            "expectedReturn3M": round(s["e_return"] * 100, 2),        # 로그수익률 (백엔드 참조용)
-            "expectedReturn3M_simple": simple_ret,                     # 단순수익률 (프론트엔드 표시용)
-            "sigma_ewma_60d": round(s["sigma"], 4),
-            "risk_score": risk_score,                                  # 0~100 위험도 점수
-            "score": round(s["score"], 4),
-        })
-
-    return result
+    pool = _cache["precalculated_pools"].get(risk_level, [])
+    
+    # 요청한 개수만큼 잘라서 O(1) 반환
+    return pool[:top_n]
 
 
 def get_mvo_inputs(selected_tickers: list[str]) -> tuple:

@@ -3,28 +3,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
 
 :root {
-  /* Color Palette - Vibrant Dark Mode */
-  --bg-color: #0f172a;
-  /* Slate 900 */
-  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-  --card-bg: rgba(30, 41, 59, 0.7);
-  /* Slate 800 with opacity */
-  --card-border: rgba(255, 255, 255, 0.1);
-  --text-primary: #f8fafc;
-  /* Slate 50 */
-  --text-secondary: #94a3b8;
-  /* Slate 400 */
+  /* Color Palette - Toss Light Theme */
+  --bg-color: #f2f4f6;
+  --bg-gradient: #f2f4f6;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.05);
+  --text-primary: #191f28;
+  --text-secondary: #8b95a1;
 
-  --accent-primary: #8b5cf6;
-  /* Violet 500 */
-  --accent-hover: #7c3aed;
-  /* Violet 600 */
-  --accent-glow: rgba(139, 92, 246, 0.5);
+  --accent-primary: #3182f6;
+  --accent-hover: #1b64da;
+  --accent-glow: rgba(49, 130, 246, 0.2);
 
-  --btn-bg: rgba(255, 255, 255, 0.05);
-  --btn-hover: rgba(255, 255, 255, 0.1);
-  --btn-active-bg: rgba(139, 92, 246, 0.2);
-  --btn-active-border: #8b5cf6;
+  --btn-bg: #f2f4f6;
+  --btn-hover: #e5e8eb;
+  --btn-active-bg: rgba(49, 130, 246, 0.05);
+  --btn-active-border: #3182f6;
 
   /* Typography */
   --font-main: 'Pretendard', sans-serif;
@@ -152,14 +146,15 @@ p {
 
 .btn-primary {
   background: var(--accent-primary);
+  color: #ffffff;
   border: none;
   text-align: center;
-  box-shadow: 0 4px 16px var(--accent-glow);
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.2);
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
-  box-shadow: 0 6px 20px var(--accent-glow);
+  box-shadow: 0 6px 16px rgba(49, 130, 246, 0.3);
 }
 
 /* Animations */
