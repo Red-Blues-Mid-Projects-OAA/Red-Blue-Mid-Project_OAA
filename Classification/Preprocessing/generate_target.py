@@ -50,6 +50,8 @@ def generate_target(
     feature_source_mode="db_first",
     ticker_logret_series=None,
     sp500_logret_series=None,
+    master_df_override=None,
+    db=None,
 ):
     """
     종목별 3개월 Forward Target을 생성하여 master_df에 추가합니다.
@@ -65,13 +67,30 @@ def generate_target(
     input_ticker_lr = _coerce_logret_series(ticker_logret_series, "ticker_logret_series")
     input_sp500_lr = _coerce_logret_series(sp500_logret_series, "sp500_logret_series")
 
-    db = StockDBManager()
-    db.connect()
+    owns_db = False
+    db_conn = db
+    if db_conn is None:
+        db_conn = StockDBManager()
+        db_conn.connect()
+        owns_db = True
+    elif db_conn.connection is None or db_conn.cursor is None:
+        db_conn.connect(ensure_tables=False, quiet=True)
+        owns_db = True
+
     try:
-        master_df = db.fetch_master_features(ticker)
-        if master_df.empty:
-            raise ValueError(f"MASTER_FEATURES 테이블에 '{ticker}' 데이터가 없습니다. 파이프라인 Phase 2를 재실행하세요.")
-        master_df = master_df.set_index("TRADE_DATE")
+        if master_df_override is not None:
+            master_df = master_df_override.copy()
+            if "TRADE_DATE" in master_df.columns:
+                master_df = master_df.set_index("TRADE_DATE")
+            master_df.index = pd.to_datetime(master_df.index)
+        else:
+            master_df = db_conn.fetch_master_features(ticker)
+            if master_df.empty:
+                raise ValueError(
+                    f"MASTER_FEATURES 테이블에 '{ticker}' 데이터가 없습니다. 파이프라인 Phase 2를 재실행하세요."
+                )
+            master_df = master_df.set_index("TRADE_DATE")
+
         master_index = pd.to_datetime(master_df.index)
 
         print("\n" + "=" * 70)
@@ -81,13 +100,14 @@ def generate_target(
 
         ticker_lr_raw = input_ticker_lr
         if ticker_lr_raw is None:
-            ticker_lr_raw = db.fetch_log_returns_by_ticker(ticker)
+            ticker_lr_raw = db_conn.fetch_log_returns_by_ticker(ticker)
 
         sp500_lr_raw = input_sp500_lr
         if sp500_lr_raw is None:
-            sp500_lr_raw = db.fetch_sp500_log_returns()
+            sp500_lr_raw = db_conn.fetch_sp500_log_returns()
     finally:
-        db.close()
+        if owns_db:
+            db_conn.close()
 
     if ticker_lr_raw is None or len(ticker_lr_raw) == 0:
         raise RuntimeError(f"LOG_RETURNS에 {ticker} 로그수익률 시계열이 없습니다.")

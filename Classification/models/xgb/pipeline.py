@@ -125,7 +125,6 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     파라미터 파일의 메타데이터를 바탕으로 재튜닝 필요 여부를 판정합니다.
     - 메타데이터 누락
     - feature_hash 불일치
-    - data_end_date가 현재 데이터보다 과거
     """
     required_meta = ["feature_hash", "data_end_date", "profile", "objective_version", "cv_mode"]
     if optimize_profile == TSM_GATE_PROFILE:
@@ -145,10 +144,6 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     current_feature_hash = _get_feature_hash(feature_cols)
     if param_data["feature_hash"] != current_feature_hash:
         return True, "feature_hash 불일치"
-
-    file_data_end = param_data["data_end_date"]
-    if current_data_end_date is not None and file_data_end < current_data_end_date:
-        return True, f"data_end_date 구버전 ({file_data_end} < {current_data_end_date})"
 
     if param_data["profile"] != optimize_profile:
         return True, f"profile 불일치 ({param_data['profile']} != {optimize_profile})"

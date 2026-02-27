@@ -14,8 +14,8 @@
   "stride": 5,
   "n_models": 5,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-24T00:20:52",
-  "data_end_date": "2025-11-21",
+  "created_at": "2026-02-27T22:02:34",
+  "data_end_date": "2025-11-28",
   "feature_count": 16,
   "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
   "split_definition": {

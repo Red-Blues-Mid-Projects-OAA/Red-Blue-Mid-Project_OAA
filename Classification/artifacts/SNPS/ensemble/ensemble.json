@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T23:05:22",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "SNPS",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": 0.41654067905188985,
-  "ic_pvalue": 8.192621354834496e-11,
-  "ic_first_half": -0.1688676666552773,
-  "ic_second_half": 0.6693716472477533,
-  "accuracy_ref": 0.5178571428571429,
-  "precision_ref": 0.5068493150684932,
+  "test_end": "2025-11-28",
+  "ic_full": 0.4105046487870022,
+  "ic_pvalue": 1.111092589367095e-10,
+  "ic_first_half": -0.2063101192766449,
+  "ic_second_half": 0.6999169721147811,
+  "accuracy_ref": 0.5263157894736842,
+  "precision_ref": 0.515695067264574,
   "train_accuracy_ref": 0.7636363636363637,
-  "gap_ref": 0.24577922077922076,
-  "gap_signed_ref": 0.24577922077922076,
-  "gap_abs_ref": 0.24577922077922076,
-  "proba_std_test": 0.09579839105875852,
-  "proba_unique_test": 224,
+  "gap_ref": 0.2373205741626795,
+  "gap_signed_ref": 0.2373205741626795,
+  "gap_abs_ref": 0.2373205741626795,
+  "proba_std_test": 0.09533682143567458,
+  "proba_unique_test": 228,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.4340858058268453,
-    "mean": 0.7620413653282923,
+    "mean": 0.763150389155132,
     "max": 0.889071656168636
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
     "min": 0.7152691620145837,
-    "mean": 0.7885049044435852,
+    "mean": 0.7888279912930148,
     "max": 0.8619598299252023
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.8585224239080229
+    "trade_date": "2026-02-26",
+    "p_ens": 0.8245082883979141
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

@@ -1,301 +1,301 @@
-ticker,ticker_slug,p_latest,ic_full,ic_pvalue,gap_signed,gap_abs,ic_degenerate,te_3m,e_alpha_3m_log,test_acc,test_period_start,test_period_end,n_test_samples,status,reliability_tag,warnings
-NVDA,NVDA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AAPL,AAPL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MSFT,MSFT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AMZN,AMZN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GOOGL,GOOGL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GOOG,GOOG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-META,META,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AVGO,AVGO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TSLA,TSLA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BRK-B,BRK_B,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WMT,WMT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LLY,LLY,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-JPM,JPM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-V,V,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-XOM,XOM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-JNJ,JNJ,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MU,MU,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MA,MA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-COST,COST,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ORCL,ORCL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ABBV,ABBV,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BAC,BAC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HD,HD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PG,PG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CVX,CVX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GE,GE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CAT,CAT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KO,KO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NFLX,NFLX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AMD,AMD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PLTR,PLTR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CSCO,CSCO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LRCX,LRCX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MRK,MRK,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AMAT,AMAT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PM,PM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MS,MS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GS,GS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-RTX,RTX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WFC,WFC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-UNH,UNH,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-IBM,IBM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AXP,AXP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TMUS,TMUS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MCD,MCD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LIN,LIN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GEV,GEV,,,,,,,,,,,,,error,NA,"Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler."
-PEP,PEP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-INTC,INTC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-VZ,VZ,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-C,C,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AMGN,AMGN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TXN,TXN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KLAC,KLAC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-T,T,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ABT,ABT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NEE,NEE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TMO,TMO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GILD,GILD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DIS,DIS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-APH,APH,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ISRG,ISRG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BA,BA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DE,DE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ADI,ADI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TJX,TJX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CRM,CRM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ANET,ANET,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SCHW,SCHW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BLK,BLK,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-UNP,UNP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LOW,LOW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HON,HON,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PFE,PFE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LMT,LMT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DHR,DHR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-UBER,UBER,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-QCOM,QCOM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WELL,WELL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ETN,ETN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-APP,APP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SYK,SYK,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-COP,COP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NEM,NEM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ACN,ACN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PLD,PLD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BKNG,BKNG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-COF,COF,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CB,CB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PH,PH,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MDT,MDT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BMY,BMY,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SPGI,SPGI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-VRTX,VRTX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PANW,PANW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GLW,GLW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PGR,PGR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HCA,HCA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MCK,MCK,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MO,MO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CMCSA,CMCSA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SBUX,SBUX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CME,CME,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BSX,BSX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TT,TT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HWM,HWM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SO,SO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-INTU,INTU,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ADBE,ADBE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CEG,CEG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NOW,NOW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NOC,NOC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-UPS,UPS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DUK,DUK,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CRWD,CRWD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CVS,CVS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WM,WM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EQIX,EQIX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-USB,USB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-FDX,FDX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MAR,MAR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-FCX,FCX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BX,BX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PNC,PNC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GD,GD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SNDK,SNDK,,,,,,,,,,,,,error,NA,"Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler."
-WDC,WDC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NKE,NKE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AMT,AMT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ITW,ITW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-RCL,RCL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ECL,ECL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ADP,ADP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MRSH,MRSH,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ICE,ICE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MMM,MMM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-JCI,JCI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WMB,WMB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SHW,SHW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-STX,STX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KKR,KKR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BK,BK,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ORLY,ORLY,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MCO,MCO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CTAS,CTAS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CDNS,CDNS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DELL,DELL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CSX,CSX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MNST,MNST,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PWR,PWR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-REGN,REGN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CRH,CRH,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EMR,EMR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SNPS,SNPS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CMI,CMI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MDLZ,MDLZ,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HLT,HLT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KMI,KMI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GM,GM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CI,CI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TDG,TDG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ELV,ELV,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DASH,DASH,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SLB,SLB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CL,CL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MSI,MSI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ABNB,ABNB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HOOD,HOOD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TRV,TRV,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TFC,TFC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LHX,LHX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EOG,EOG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PCAR,PCAR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-RSG,RSG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WBD,WBD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TEL,TEL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-APO,APO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AON,AON,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AEP,AEP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-COR,COR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NSC,NSC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BKR,BKR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DLR,DLR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-O,O,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SRE,SRE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-VLO,VLO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ROST,ROST,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AZO,AZO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PSX,PSX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SPG,SPG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-APD,APD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-F,F,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PSA,PSA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GWW,GWW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CARR,CARR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ALL,ALL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ZTS,ZTS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-OKE,OKE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AJG,AJG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AME,AME,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-D,D,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MPC,MPC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-VST,VST,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NXPI,NXPI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MPWR,MPWR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AFL,AFL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-URI,URI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-FTNT,FTNT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ADSK,ADSK,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EXC,EXC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-FITB,FITB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-XEL,XEL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CIEN,CIEN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GRMN,GRMN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CVNA,CVNA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DHI,DHI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ETR,ETR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TRGP,TRGP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CMG,CMG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CTVA,CTVA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-FANG,FANG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MET,MET,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EA,EA,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TGT,TGT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CAH,CAH,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-BDX,BDX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-FAST,FAST,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-FIX,FIX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-OXY,OXY,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TER,TER,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-IDXX,IDXX,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-VTR,VTR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AIG,AIG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EL,EL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MLM,MLM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KEYS,KEYS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KR,KR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MCHP,MCHP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ODFL,ODFL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PEG,PEG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AMP,AMP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NUE,NUE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-SYY,SYY,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-YUM,YUM,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CBRE,CBRE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NDAQ,NDAQ,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DAL,DAL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-COIN,COIN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EW,EW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WAB,WAB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HSY,HSY,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ROK,ROK,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CCL,CCL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ROP,ROP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-UAL,UAL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EME,EME,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WDAY,WDAY,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KMB,KMB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-OTIS,OTIS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PRU,PRU,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KVUE,KVUE,,,,,,,,,,,,,error,NA,"Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler."
-A,A,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MTB,MTB,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-STT,STT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ACGL,ACGL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CPRT,CPRT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WEC,WEC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-AXON,AXON,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TPL,TPL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-TTWO,TTWO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HBAN,HBAN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-IR,IR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HIG,HIG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-RMD,RMD,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-PCG,PCG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-VMC,VMC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KDP,KDP,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-MSCI,MSCI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EBAY,EBAY,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ED,ED,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DDOG,DDOG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LVS,LVS,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-GEHC,GEHC,,,,,,,,,,,,,not_eligible,NA,train 샘플 부족(10 < 30)
-PYPL,PYPL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CCI,CCI,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LYV,LYV,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-EQT,EQT,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-NRG,NRG,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-KHC,KHC,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CBOE,CBOE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-DTE,DTE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ATO,ATO,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-ROL,ROL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HAL,HAL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-CHTR,CHTR,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-FE,FE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-JBL,JBL,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-LEN,LEN,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-WTW,WTW,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
-HPE,HPE,,,,,,,,,,,,,skipped_existing,NA,existing artifact skip
+ticker,ticker_slug,p_latest,ic_full,ic_pvalue,gap_signed,gap_abs,ic_degenerate,te_3m,e_alpha_3m_log,test_acc,test_period_start,test_period_end,n_test_samples,status,refresh_decision,reliability_tag,warnings
+NVDA,NVDA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AAPL,AAPL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MSFT,MSFT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AMZN,AMZN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GOOGL,GOOGL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GOOG,GOOG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+META,META,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AVGO,AVGO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TSLA,TSLA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BRK-B,BRK_B,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WMT,WMT,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+LLY,LLY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+JPM,JPM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+V,V,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+XOM,XOM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+JNJ,JNJ,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MU,MU,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MA,MA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+COST,COST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ORCL,ORCL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ABBV,ABBV,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BAC,BAC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HD,HD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PG,PG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CVX,CVX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GE,GE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CAT,CAT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KO,KO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NFLX,NFLX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AMD,AMD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PLTR,PLTR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CSCO,CSCO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LRCX,LRCX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MRK,MRK,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+AMAT,AMAT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PM,PM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MS,MS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GS,GS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+RTX,RTX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WFC,WFC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+UNH,UNH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+IBM,IBM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AXP,AXP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TMUS,TMUS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MCD,MCD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LIN,LIN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GEV,GEV,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: scaler_zero_sample
+PEP,PEP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+INTC,INTC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+VZ,VZ,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+C,C,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AMGN,AMGN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TXN,TXN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KLAC,KLAC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+T,T,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ABT,ABT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NEE,NEE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TMO,TMO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GILD,GILD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DIS,DIS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+APH,APH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ISRG,ISRG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BA,BA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DE,DE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ADI,ADI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TJX,TJX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CRM,CRM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ANET,ANET,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SCHW,SCHW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BLK,BLK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+UNP,UNP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LOW,LOW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HON,HON,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PFE,PFE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LMT,LMT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DHR,DHR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+UBER,UBER,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+QCOM,QCOM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WELL,WELL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ETN,ETN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+APP,APP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SYK,SYK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+COP,COP,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+NEM,NEM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ACN,ACN,0.2835555272817362,0.31728895175244537,1.0001541083777057e-06,0.1508971291866028,0.1508971291866028,False,,,0.618421052631579,2025-01-02,2025-11-28,228.0,success,missing_artifact,OK,
+PLD,PLD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BKNG,BKNG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+COF,COF,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CB,CB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PH,PH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MDT,MDT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BMY,BMY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SPGI,SPGI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+VRTX,VRTX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PANW,PANW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GLW,GLW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PGR,PGR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HCA,HCA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MCK,MCK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MO,MO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CMCSA,CMCSA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SBUX,SBUX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CME,CME,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BSX,BSX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TT,TT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HWM,HWM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SO,SO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+INTU,INTU,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ADBE,ADBE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CEG,CEG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NOW,NOW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NOC,NOC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+UPS,UPS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DUK,DUK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CRWD,CRWD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CVS,CVS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WM,WM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EQIX,EQIX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+USB,USB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+FDX,FDX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MAR,MAR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+FCX,FCX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BX,BX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PNC,PNC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GD,GD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SNDK,SNDK,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: scaler_zero_sample
+WDC,WDC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NKE,NKE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AMT,AMT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ITW,ITW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+RCL,RCL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ECL,ECL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ADP,ADP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MRSH,MRSH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ICE,ICE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MMM,MMM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+JCI,JCI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WMB,WMB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SHW,SHW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+STX,STX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KKR,KKR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BK,BK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ORLY,ORLY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MCO,MCO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CTAS,CTAS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CDNS,CDNS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DELL,DELL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CSX,CSX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MNST,MNST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PWR,PWR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+REGN,REGN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CRH,CRH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EMR,EMR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SNPS,SNPS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CMI,CMI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MDLZ,MDLZ,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HLT,HLT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KMI,KMI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GM,GM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CI,CI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TDG,TDG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ELV,ELV,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DASH,DASH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SLB,SLB,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+CL,CL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MSI,MSI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ABNB,ABNB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HOOD,HOOD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TRV,TRV,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TFC,TFC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LHX,LHX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EOG,EOG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PCAR,PCAR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+RSG,RSG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WBD,WBD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TEL,TEL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+APO,APO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AON,AON,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AEP,AEP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+COR,COR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NSC,NSC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BKR,BKR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DLR,DLR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+O,O,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SRE,SRE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+VLO,VLO,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+ROST,ROST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AZO,AZO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PSX,PSX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SPG,SPG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+APD,APD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+F,F,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PSA,PSA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GWW,GWW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CARR,CARR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ALL,ALL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ZTS,ZTS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+OKE,OKE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AJG,AJG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AME,AME,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+D,D,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MPC,MPC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+VST,VST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NXPI,NXPI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MPWR,MPWR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AFL,AFL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+URI,URI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+FTNT,FTNT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ADSK,ADSK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EXC,EXC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+FITB,FITB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+XEL,XEL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CIEN,CIEN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GRMN,GRMN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CVNA,CVNA,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+DHI,DHI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ETR,ETR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TRGP,TRGP,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+CMG,CMG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CTVA,CTVA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+FANG,FANG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MET,MET,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EA,EA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TGT,TGT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CAH,CAH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+BDX,BDX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+FAST,FAST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+FIX,FIX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+OXY,OXY,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+TER,TER,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+IDXX,IDXX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+VTR,VTR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AIG,AIG,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+EL,EL,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+MLM,MLM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KEYS,KEYS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KR,KR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MCHP,MCHP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ODFL,ODFL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PEG,PEG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AMP,AMP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NUE,NUE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+SYY,SYY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+YUM,YUM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CBRE,CBRE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NDAQ,NDAQ,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DAL,DAL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+COIN,COIN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EW,EW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WAB,WAB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HSY,HSY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ROK,ROK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CCL,CCL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ROP,ROP,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+UAL,UAL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EME,EME,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WDAY,WDAY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KMB,KMB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+OTIS,OTIS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PRU,PRU,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KVUE,KVUE,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: scaler_zero_sample
+A,A,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MTB,MTB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+STT,STT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ACGL,ACGL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CPRT,CPRT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WEC,WEC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AXON,AXON,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TPL,TPL,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+TTWO,TTWO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HBAN,HBAN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+IR,IR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HIG,HIG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+RMD,RMD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PCG,PCG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+VMC,VMC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KDP,KDP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MSCI,MSCI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EBAY,EBAY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ED,ED,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DDOG,DDOG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LVS,LVS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+GEHC,GEHC,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: train 샘플 부족(10 < 30)
+PYPL,PYPL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CCI,CCI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LYV,LYV,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+EQT,EQT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NRG,NRG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+KHC,KHC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CBOE,CBOE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DTE,DTE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ATO,ATO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ROL,ROL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HAL,HAL,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
+CHTR,CHTR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+FE,FE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+JBL,JBL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LEN,LEN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WTW,WTW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+HPE,HPE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip

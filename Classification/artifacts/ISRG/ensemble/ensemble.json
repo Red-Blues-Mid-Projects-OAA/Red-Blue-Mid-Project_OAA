@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T23:00:30",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "ISRG",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": 0.23892590219944482,
-  "ic_pvalue": 0.0003081992467727217,
-  "ic_first_half": 0.2859705470324939,
-  "ic_second_half": -0.18347456179314586,
-  "accuracy_ref": 0.5848214285714286,
+  "test_end": "2025-11-28",
+  "ic_full": 0.24655833840415442,
+  "ic_pvalue": 0.00016943161900372287,
+  "ic_first_half": 0.24770255766387883,
+  "ic_second_half": -0.1599117069318159,
+  "accuracy_ref": 0.5921052631578947,
   "precision_ref": 0.4105960264900662,
   "train_accuracy_ref": 0.8159090909090909,
-  "gap_ref": 0.23108766233766231,
-  "gap_signed_ref": 0.23108766233766231,
-  "gap_abs_ref": 0.23108766233766231,
-  "proba_std_test": 0.1682368306454191,
-  "proba_unique_test": 224,
+  "gap_ref": 0.22380382775119623,
+  "gap_signed_ref": 0.22380382775119623,
+  "gap_abs_ref": 0.22380382775119623,
+  "proba_std_test": 0.16870506904425608,
+  "proba_unique_test": 228,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.180071974989685,
-    "mean": 0.5622136234078308,
+    "mean": 0.5587980959027613,
     "max": 0.8450381442969019
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
     "min": 0.3368491326708725,
-    "mean": 0.5968147515076564,
-    "max": 0.7537582316527575
+    "mean": 0.627432566825568,
+    "max": 0.8384964392711234
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.7145772070457275
+    "trade_date": "2026-02-26",
+    "p_ens": 0.8152621081494409
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

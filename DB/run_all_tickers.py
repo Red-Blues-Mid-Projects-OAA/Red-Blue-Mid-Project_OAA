@@ -65,7 +65,6 @@ STALE_KEYWORDS = [
     "feature_hash 불일치",
     "objective_version 불일치",
     "cv_mode 불일치",
-    "data_end_date 구버전",
     "파라미터 아티팩트가 현재 정책과 불일치",
 ]
 
@@ -73,6 +72,14 @@ ELIGIBILITY_MIN_TRAIN = 30
 ELIGIBILITY_MIN_VAL = 30
 ELIGIBILITY_MIN_TEST = 200
 
+DEFAULT_INELIGIBLE_CACHE_PATH = MULTI_TICKER_ARTIFACT_DIR / "ineligible_permanent_skip.json"
+SCALER_ZERO_SAMPLE_KEYWORDS = [
+    "Found array with 0 sample(s)",
+    "minimum of 1 is required by StandardScaler",
+    "shape=(0,",
+]
+
+_WORKER_DB = None
 _WORKER_SP500_LOGRET_CACHE = None
 
 
@@ -94,6 +101,107 @@ def _normalize_for_json(obj):
         except Exception:
             return obj
     return obj
+
+def _to_iso_date(value) -> str | None:
+    if value is None:
+        return None
+    try:
+        return pd.to_datetime(value).date().isoformat()
+    except Exception:
+        return None
+
+
+def _parse_date_like(value):
+    if value is None:
+        return None
+    try:
+        ts = pd.to_datetime(value)
+        if pd.isna(ts):
+            return None
+        return ts.date()
+    except Exception:
+        return None
+
+
+def _load_ensemble_snapshot_date(ticker: str) -> tuple[str | None, bool]:
+    ens_path = get_ensemble_result_path(ticker)
+    if not ens_path.exists():
+        return None, False
+    try:
+        payload = json.loads(ens_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None, True
+    return _to_iso_date(payload.get("data_snapshot_end_date")), True
+
+
+def _decide_refresh(
+    *,
+    refresh_policy: str,
+    latest_feature_date: str | None,
+    ensemble_snapshot_date: str | None,
+    artifact_exists: bool,
+) -> str:
+    if refresh_policy == "always":
+        return "refresh_forced"
+    if not artifact_exists:
+        return "missing_artifact"
+    if refresh_policy == "never":
+        return "fresh_skip"
+
+    latest_dt = _parse_date_like(latest_feature_date)
+    snapshot_dt = _parse_date_like(ensemble_snapshot_date)
+    if snapshot_dt is None:
+        return "refresh_required"
+    if latest_dt is None:
+        # 최신일 조회 실패 시 보수적으로 기존 산출물을 사용
+        return "fresh_skip"
+    if latest_dt > snapshot_dt:
+        return "refresh_required"
+    return "fresh_skip"
+
+
+def _load_ineligible_cache(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {"version": 1, "updated_at": None, "tickers": {}}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            return {"version": 1, "updated_at": None, "tickers": {}}
+        payload.setdefault("version", 1)
+        payload.setdefault("updated_at", None)
+        payload.setdefault("tickers", {})
+        if not isinstance(payload["tickers"], dict):
+            payload["tickers"] = {}
+        normalized = {}
+        for key, value in payload["tickers"].items():
+            normalized[str(key).upper()] = value if isinstance(value, dict) else {"reason": str(value)}
+        payload["tickers"] = normalized
+        return payload
+    except Exception:
+        return {"version": 1, "updated_at": None, "tickers": {}}
+
+
+def _save_ineligible_cache(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = dict(payload)
+    payload["updated_at"] = datetime.now().isoformat(timespec="seconds")
+    path.write_text(json.dumps(_normalize_for_json(payload), indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def _should_mark_permanent_ineligible(row: dict[str, Any]) -> tuple[bool, str]:
+    status = str(row.get("status", "")).strip().lower()
+    reason = str(row.get("reason") or row.get("error") or "")
+    warnings_joined = " | ".join(str(w) for w in row.get("warnings", []))
+    merged = f"{reason} | {warnings_joined}"
+
+    if status == "not_eligible":
+        return True, reason or "not_eligible"
+
+    if status == "error" and any(k in merged for k in SCALER_ZERO_SAMPLE_KEYWORDS):
+        return True, "scaler_zero_sample"
+
+    return False, ""
+
 
 
 def _is_stale_error(exc: Exception) -> bool:
@@ -243,12 +351,21 @@ def _save_model_metrics_json(
 
 def _coverage_precheck(tickers=None):
     db = StockDBManager()
-    db.connect()
+    db.connect(ensure_tables=False, quiet=True)
     try:
         report = db.get_ticker_coverage_report_bulk(tickers or TICKERS)
     finally:
         db.close()
     return report
+
+def _master_feature_latest_dates_precheck(tickers=None):
+    db = StockDBManager()
+    db.connect(ensure_tables=False, quiet=True)
+    try:
+        db.ensure_runtime_indexes()
+        return db.get_master_features_latest_dates_bulk(tickers or TICKERS)
+    finally:
+        db.close()
 
 
 def _force_retune_all_models_for_ticker(
@@ -297,26 +414,42 @@ def _force_retune_all_models_for_ticker(
     print(f"  [{ticker}] force 재최적화 완료")
 
 
+def _init_worker_runtime():
+    global _WORKER_DB, _WORKER_SP500_LOGRET_CACHE
+    if _WORKER_DB is None:
+        _WORKER_DB = StockDBManager()
+        _WORKER_DB.connect(ensure_tables=False, quiet=True)
+    if _WORKER_SP500_LOGRET_CACHE is None:
+        _WORKER_SP500_LOGRET_CACHE = _WORKER_DB.fetch_sp500_log_returns()
+
+
+def _close_worker_runtime():
+    global _WORKER_DB, _WORKER_SP500_LOGRET_CACHE
+    if _WORKER_DB is not None:
+        _WORKER_DB.close()
+    _WORKER_DB = None
+    _WORKER_SP500_LOGRET_CACHE = None
+
+
+def _get_worker_db() -> StockDBManager:
+    if _WORKER_DB is None:
+        _init_worker_runtime()
+    return _WORKER_DB
+
+
 def _get_worker_sp500_logret_series():
     global _WORKER_SP500_LOGRET_CACHE
-    if _WORKER_SP500_LOGRET_CACHE is not None:
-        return _WORKER_SP500_LOGRET_CACHE
-    db = StockDBManager()
-    db.connect()
-    try:
-        _WORKER_SP500_LOGRET_CACHE = db.fetch_sp500_log_returns()
-    finally:
-        db.close()
+    if _WORKER_SP500_LOGRET_CACHE is None:
+        _WORKER_SP500_LOGRET_CACHE = _get_worker_db().fetch_sp500_log_returns()
     return _WORKER_SP500_LOGRET_CACHE
 
 
 def _get_ticker_logret_series(ticker: str):
-    db = StockDBManager()
-    db.connect()
-    try:
-        return db.fetch_log_returns_by_ticker(ticker)
-    finally:
-        db.close()
+    return _get_worker_db().fetch_log_returns_by_ticker(ticker)
+
+
+def _get_ticker_master_features(ticker: str):
+    return _get_worker_db().fetch_master_features(ticker)
 
 
 def _check_eligibility(split) -> tuple[bool, str]:
@@ -351,6 +484,10 @@ def _build_success_row(
     model_status,
     force_retune_all,
     mode,
+    refresh_decision,
+    latest_feature_date,
+    ensemble_snapshot_date,
+    ineligible_cached,
     model_metrics=None,
 ):
     n_test_samples = int(ens.get("n_test_samples", 0))
@@ -392,6 +529,10 @@ def _build_success_row(
         "ticker_slug": slug,
         "status": "success",
         "mode": mode,
+        "refresh_decision": refresh_decision,
+        "latest_feature_date": latest_feature_date,
+        "ensemble_snapshot_date": ensemble_snapshot_date,
+        "ineligible_cached": bool(ineligible_cached),
         "reliability_tag": reliability_tag,
         "p_latest": ens.get("latest_future_prediction", {}).get("p_ens"),
         "ic_full": ens.get("ic_full"),
@@ -434,6 +575,10 @@ def _execute_single_ticker(
     optimize_profile: str,
     trial_map: dict[str, int],
     stale_policy_fast: str,
+    refresh_decision: str,
+    latest_feature_date: str | None,
+    ensemble_snapshot_date: str | None,
+    ineligible_cached: bool,
 ) -> dict[str, Any]:
     ticker = str(ticker).upper()
     slug = ticker_to_slug(ticker)
@@ -441,6 +586,13 @@ def _execute_single_ticker(
     print("\n" + "=" * 80)
     print(f"[{ticker}] 배치 실행 시작 (mode={mode})")
     print("=" * 80)
+
+    base_meta = {
+        "refresh_decision": refresh_decision,
+        "latest_feature_date": latest_feature_date,
+        "ensemble_snapshot_date": ensemble_snapshot_date,
+        "ineligible_cached": bool(ineligible_cached),
+    }
 
     if int(coverage.get("stock_rows", 0)) == 0 or int(coverage.get("logret_rows", 0)) == 0 or int(coverage.get("sp500_rows", 0)) == 0:
         reason = (
@@ -457,23 +609,9 @@ def _execute_single_ticker(
                 "reason": reason,
                 "warnings": [reason],
                 "model_status": {},
+                **base_meta,
             },
         }
-
-    if mode == "fast" and not force_retune_all:
-        ens_path = get_ensemble_result_path(ticker)
-        if ens_path.exists() and (not with_mapping or get_mapping_result_path(ticker).exists()):
-            return {
-                "idx": idx,
-                "row": {
-                    "ticker": ticker,
-                    "ticker_slug": slug,
-                    "status": "skipped_existing",
-                    "reason": "기존 산출물 존재",
-                    "warnings": ["existing artifact skip"],
-                    "model_status": {},
-                },
-            }
 
     warnings = []
     model_status = {}
@@ -487,8 +625,10 @@ def _execute_single_ticker(
                 n_trials_by_model=trial_map,
             )
 
+        worker_db = _get_worker_db()
         sp500_logret = _get_worker_sp500_logret_series()
         ticker_logret = _get_ticker_logret_series(ticker)
+        master_df = _get_ticker_master_features(ticker)
 
         split = split_dataset(
             ticker=ticker,
@@ -498,6 +638,8 @@ def _execute_single_ticker(
             feature_source_mode="db_first",
             cached_ticker_logret=ticker_logret,
             cached_sp500_logret=sp500_logret,
+            master_df_override=master_df,
+            db=worker_db,
         )
 
         eligible, reason = _check_eligibility(split)
@@ -511,10 +653,10 @@ def _execute_single_ticker(
                     "reason": reason,
                     "warnings": [reason],
                     "model_status": model_status,
+                    **base_meta,
                 },
             }
 
-        # run kwargs 공통
         xgb_run_kwargs = {
             "auto_optimize": False,
             "optimize_profile": optimize_profile,
@@ -608,6 +750,7 @@ def _execute_single_ticker(
                         "reason": "XGB fail-fast 조건 충족",
                         "warnings": warnings + ["fail_fast: XGB"],
                         "model_status": model_status,
+                        **base_meta,
                     },
                 }
         else:
@@ -657,6 +800,7 @@ def _execute_single_ticker(
                         "reason": "SVM fail-fast 조건 충족",
                         "warnings": warnings + ["fail_fast: SVM"],
                         "model_status": model_status,
+                        **base_meta,
                     },
                 }
         else:
@@ -706,6 +850,7 @@ def _execute_single_ticker(
                         "reason": "RF fail-fast 조건 충족",
                         "warnings": warnings + ["fail_fast: RF"],
                         "model_status": model_status,
+                        **base_meta,
                     },
                 }
         else:
@@ -755,6 +900,7 @@ def _execute_single_ticker(
                         "reason": "LOGREG fail-fast 조건 충족",
                         "warnings": warnings + ["fail_fast: LOGREG"],
                         "model_status": model_status,
+                        **base_meta,
                     },
                 }
 
@@ -791,6 +937,8 @@ def _execute_single_ticker(
             save_json=True,
             ticker_logret_series=ticker_logret,
             sp500_logret_series=sp500_logret,
+            master_df_override=master_df,
+            db=worker_db,
         )
 
         mapping_obj = None
@@ -815,6 +963,10 @@ def _execute_single_ticker(
             model_status=model_status,
             force_retune_all=force_retune_all,
             mode=mode,
+            refresh_decision=refresh_decision,
+            latest_feature_date=latest_feature_date,
+            ensemble_snapshot_date=ensemble_snapshot_date,
+            ineligible_cached=ineligible_cached,
             model_metrics=model_metrics,
         )
         print(f"  [{ticker}] success | p_latest={row['p_latest']}, ic={float(row['ic_full']):+.4f}")
@@ -831,6 +983,7 @@ def _execute_single_ticker(
                 "error": str(e),
                 "warnings": warnings + [str(e)],
                 "model_status": model_status,
+                **base_meta,
             },
         }
 
@@ -843,14 +996,20 @@ def run_all_tickers(
     workers: int = 8,
     with_mapping: bool = False,
     stale_policy_fast: str = "retune_once",
+    refresh_policy: str = "freshness",
+    ineligible_cache_path: str | None = None,
+    respect_ineligible_cache: bool = True,
     tickers: list[str] | None = None,
 ):
     benchmark = "SP500"
     mode = str(mode).lower().strip()
+    refresh_policy = str(refresh_policy).lower().strip()
     if mode not in {"fast", "full"}:
         raise ValueError(f"mode must be fast|full: {mode}")
     if stale_policy_fast not in {"retune_once", "skip", "force"}:
         raise ValueError(f"stale_policy_fast must be retune_once|skip|force: {stale_policy_fast}")
+    if refresh_policy not in {"freshness", "always", "never"}:
+        raise ValueError(f"refresh_policy must be freshness|always|never: {refresh_policy}")
 
     if mode == "full":
         with_mapping = True
@@ -861,32 +1020,105 @@ def run_all_tickers(
     ticker_list = [str(t).upper() for t in (tickers or TICKERS)]
     coverage_report = _coverage_precheck(ticker_list)
     coverage_map = {str(r.get("ticker", "")).upper(): r for r in coverage_report}
+    latest_feature_map = _master_feature_latest_dates_precheck(ticker_list)
+
+    cache_path = Path(ineligible_cache_path) if ineligible_cache_path else DEFAULT_INELIGIBLE_CACHE_PATH
+    cache_payload = _load_ineligible_cache(cache_path)
+    cached_tickers = set(cache_payload.get("tickers", {}).keys()) if respect_ineligible_cache else set()
 
     tasks = []
+    results_by_idx = {}
+
     for idx, ticker in enumerate(ticker_list):
         ticker_up = str(ticker).upper()
-        tasks.append((idx, ticker_up, coverage_map.get(ticker_up, {})))
+        cov = coverage_map.get(ticker_up, {})
+        latest_feature_date = _to_iso_date(latest_feature_map.get(ticker_up))
 
-    results_by_idx = {}
+        if ticker_up in cached_tickers:
+            reason = str(cache_payload.get("tickers", {}).get(ticker_up, {}).get("reason", "permanent ineligible"))
+            results_by_idx[idx] = {
+                "ticker": ticker_up,
+                "ticker_slug": ticker_to_slug(ticker_up),
+                "status": "skipped_permanent_ineligible",
+                "reason": reason,
+                "warnings": [f"permanent ineligible cache: {reason}"],
+                "model_status": {},
+                "refresh_decision": "ineligible_cached",
+                "latest_feature_date": latest_feature_date,
+                "ensemble_snapshot_date": None,
+                "ineligible_cached": True,
+            }
+            continue
+
+        refresh_decision = "refresh_forced" if (force_retune_all or mode == "full") else "refresh_required"
+        ensemble_snapshot_date = None
+
+        if mode == "fast" and not force_retune_all:
+            ensemble_snapshot_date, artifact_exists = _load_ensemble_snapshot_date(ticker_up)
+            mapping_ready = (not with_mapping) or get_mapping_result_path(ticker_up).exists()
+            refresh_decision = _decide_refresh(
+                refresh_policy=refresh_policy,
+                latest_feature_date=latest_feature_date,
+                ensemble_snapshot_date=ensemble_snapshot_date,
+                artifact_exists=artifact_exists,
+            )
+            if refresh_decision == "fresh_skip" and not mapping_ready:
+                refresh_decision = "refresh_required"
+
+            if refresh_decision == "fresh_skip" and artifact_exists and mapping_ready:
+                results_by_idx[idx] = {
+                    "ticker": ticker_up,
+                    "ticker_slug": ticker_to_slug(ticker_up),
+                    "status": "skipped_existing_fresh",
+                    "reason": "기존 산출물이 최신 DB 기준으로 신선함",
+                    "warnings": ["freshness skip"],
+                    "model_status": {},
+                    "refresh_decision": "fresh_skip",
+                    "latest_feature_date": latest_feature_date,
+                    "ensemble_snapshot_date": ensemble_snapshot_date,
+                    "ineligible_cached": False,
+                }
+                continue
+
+        tasks.append(
+            (
+                idx,
+                ticker_up,
+                cov,
+                refresh_decision,
+                latest_feature_date,
+                ensemble_snapshot_date,
+                False,
+            )
+        )
+
     max_workers = max(1, int(workers or 1))
 
     if max_workers == 1:
-        for idx, ticker, cov in tasks:
-            out = _execute_single_ticker(
-                idx,
-                ticker,
-                cov,
-                benchmark=benchmark,
-                mode=mode,
-                with_mapping=with_mapping,
-                force_retune_all=force_retune_all,
-                optimize_profile=optimize_profile,
-                trial_map=trial_map,
-                stale_policy_fast=stale_policy_fast,
-            )
-            results_by_idx[out["idx"]] = out["row"]
+        _init_worker_runtime()
+        try:
+            for idx, ticker, cov, refresh_decision, latest_feature_date, ensemble_snapshot_date, ineligible_cached in tasks:
+                out = _execute_single_ticker(
+                    idx,
+                    ticker,
+                    cov,
+                    benchmark=benchmark,
+                    mode=mode,
+                    with_mapping=with_mapping,
+                    force_retune_all=force_retune_all,
+                    optimize_profile=optimize_profile,
+                    trial_map=trial_map,
+                    stale_policy_fast=stale_policy_fast,
+                    refresh_decision=refresh_decision,
+                    latest_feature_date=latest_feature_date,
+                    ensemble_snapshot_date=ensemble_snapshot_date,
+                    ineligible_cached=ineligible_cached,
+                )
+                results_by_idx[out["idx"]] = out["row"]
+        finally:
+            _close_worker_runtime()
     else:
-        with ProcessPoolExecutor(max_workers=max_workers) as ex:
+        with ProcessPoolExecutor(max_workers=max_workers, initializer=_init_worker_runtime) as ex:
             fut_map = {
                 ex.submit(
                     _execute_single_ticker,
@@ -900,8 +1132,12 @@ def run_all_tickers(
                     optimize_profile=optimize_profile,
                     trial_map=trial_map,
                     stale_policy_fast=stale_policy_fast,
+                    refresh_decision=refresh_decision,
+                    latest_feature_date=latest_feature_date,
+                    ensemble_snapshot_date=ensemble_snapshot_date,
+                    ineligible_cached=ineligible_cached,
                 ): idx
-                for idx, ticker, cov in tasks
+                for idx, ticker, cov, refresh_decision, latest_feature_date, ensemble_snapshot_date, ineligible_cached in tasks
             }
             for fut in as_completed(fut_map):
                 idx = fut_map[fut]
@@ -909,7 +1145,7 @@ def run_all_tickers(
                     out = fut.result()
                     results_by_idx[out["idx"]] = out["row"]
                 except Exception as e:
-                    ticker = tasks[idx][1]
+                    ticker = next((t[1] for t in tasks if t[0] == idx), ticker_list[idx])
                     results_by_idx[idx] = {
                         "ticker": ticker,
                         "ticker_slug": ticker_to_slug(ticker),
@@ -917,9 +1153,34 @@ def run_all_tickers(
                         "error": f"worker exception: {e}",
                         "warnings": [str(e)],
                         "model_status": {},
+                        "refresh_decision": "refresh_required",
+                        "latest_feature_date": _to_iso_date(latest_feature_map.get(ticker)),
+                        "ensemble_snapshot_date": None,
+                        "ineligible_cached": False,
                     }
 
     summary = [results_by_idx[i] for i in sorted(results_by_idx.keys())]
+
+    if respect_ineligible_cache:
+        cache_changed = False
+        ticker_cache = dict(cache_payload.get("tickers", {}))
+        for row in summary:
+            ticker = str(row.get("ticker", "")).upper()
+            if not ticker:
+                continue
+            mark, reason = _should_mark_permanent_ineligible(row)
+            if not mark:
+                continue
+            prev = ticker_cache.get(ticker, {})
+            ticker_cache[ticker] = {
+                "reason": reason or prev.get("reason") or "permanent ineligible",
+                "last_seen": datetime.now().isoformat(timespec="seconds"),
+                "status": row.get("status"),
+            }
+            cache_changed = True
+        if cache_changed:
+            cache_payload["tickers"] = ticker_cache
+            _save_ineligible_cache(cache_path, cache_payload)
 
     generated_at = datetime.now().isoformat(timespec="seconds")
     summary_payload = {
@@ -929,7 +1190,11 @@ def run_all_tickers(
         "workers": max_workers,
         "with_mapping": bool(with_mapping),
         "stale_policy_fast": stale_policy_fast,
+        "refresh_policy": refresh_policy,
+        "ineligible_cache_path": str(cache_path),
+        "respect_ineligible_cache": bool(respect_ineligible_cache),
         "coverage_report": coverage_report,
+        "latest_feature_dates": {k: _to_iso_date(v) for k, v in latest_feature_map.items()},
         "results": summary,
     }
     summary_payload = _normalize_for_json(summary_payload)
@@ -956,6 +1221,7 @@ def run_all_tickers(
                 "test_period_end": r.get("test_period_end"),
                 "n_test_samples": r.get("n_test_samples"),
                 "status": r.get("status"),
+                "refresh_decision": r.get("refresh_decision"),
                 "reliability_tag": r.get("reliability_tag", "NA"),
                 "warnings": " | ".join(r.get("warnings", [])),
             }
@@ -991,6 +1257,9 @@ if __name__ == "__main__":
     parser.add_argument("--logreg-trials", type=int, default=100, help="LogReg optimize trial count")
     parser.add_argument("--mode", default="fast", choices=["fast", "full"], help="Execution mode")
     parser.add_argument("--workers", type=int, default=8, help="Parallel worker count")
+    parser.add_argument("--refresh-policy", default="freshness", choices=["freshness", "always", "never"], help="Refresh policy for existing ensemble artifacts")
+    parser.add_argument("--ineligible-cache-path", default=str(DEFAULT_INELIGIBLE_CACHE_PATH), help="Permanent ineligible cache JSON path")
+    parser.add_argument("--respect-ineligible-cache", action=argparse.BooleanOptionalAction, default=True, help="Respect permanent ineligible cache before running models")
     parser.add_argument("--tickers", default="", help="Comma-separated ticker subset (optional)")
     parser.add_argument("--with-mapping", action="store_true", help="Run mapping in fast mode")
     parser.add_argument(
@@ -1014,5 +1283,8 @@ if __name__ == "__main__":
         workers=args.workers,
         with_mapping=bool(args.with_mapping),
         stale_policy_fast=args.stale_policy_fast,
+        refresh_policy=args.refresh_policy,
+        ineligible_cache_path=args.ineligible_cache_path,
+        respect_ineligible_cache=bool(args.respect_ineligible_cache),
         tickers=[t.strip().upper() for t in args.tickers.split(',') if t.strip()] if args.tickers else None,
     )

@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T21:56:48",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "ABBV",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": 0.46986653854366867,
-  "ic_pvalue": 1.0575761375855536e-13,
-  "ic_first_half": 0.5637321898383846,
-  "ic_second_half": 0.2679041240988144,
-  "accuracy_ref": 0.6428571428571429,
+  "test_end": "2025-11-28",
+  "ic_full": 0.46907541635575195,
+  "ic_pvalue": 7.101422242874882e-14,
+  "ic_first_half": 0.5438569490289789,
+  "ic_second_half": 0.289645815192078,
+  "accuracy_ref": 0.6491228070175439,
   "precision_ref": 0.7333333333333333,
   "train_accuracy_ref": 0.7681818181818182,
-  "gap_ref": 0.12532467532467528,
-  "gap_signed_ref": 0.12532467532467528,
-  "gap_abs_ref": 0.12532467532467528,
-  "proba_std_test": 0.10858640438701064,
-  "proba_unique_test": 224,
+  "gap_ref": 0.11905901116427431,
+  "gap_signed_ref": 0.11905901116427431,
+  "gap_abs_ref": 0.11905901116427431,
+  "proba_std_test": 0.10796177334752077,
+  "proba_unique_test": 228,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.21460787788041544,
-    "mean": 0.4537928033997144,
+    "mean": 0.45269540703669986,
     "max": 0.7350035928432668
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
     "min": 0.2822267165081883,
-    "mean": 0.4004090080485762,
+    "mean": 0.40130500094193017,
     "max": 0.6128354712604618
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.33165567952351316
+    "trade_date": "2026-02-26",
+    "p_ens": 0.38120768235327707
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

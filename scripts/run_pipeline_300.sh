@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 # Scale-up pipeline for top-300 S&P tickers (100 trials per model)
 
 set -euo pipefail
@@ -10,6 +10,10 @@ cd "${PROJECT_ROOT}"
 # Windows cp949 콘솔에서 유니코드 출력이 깨지는 문제를 방지하기 위해 UTF-8을 강제합니다.
 export PYTHONUTF8=1
 export PYTHONIOENCODING=UTF-8
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
 
 if command -v python3 >/dev/null 2>&1; then
     PYTHON_BIN="python3"
@@ -52,9 +56,9 @@ echo "[6/9] Running Unified MASTER_FEATURES Generation (Panel Data)..."
 "${PYTHON_BIN}" -u -m DB.build_master_dataset
 
 echo ""
-echo "[7/9] Running ML Pipeline with existing ensemble.json (Phase 3)..."
-echo "      (Using pre-trained ensemble artifacts, skipping retune)"
-"${PYTHON_BIN}" -u -m DB.run_all_tickers --mode fast
+echo "[7/9] Running ML Pipeline with freshness-based ensemble refresh (Phase 3)..."
+echo "      (Refresh only when DB is newer; retune only once if stale params)"
+"${PYTHON_BIN}" -u -m DB.run_all_tickers --mode fast --refresh-policy freshness --stale-policy-fast retune_once
 
 echo ""
 echo "[8/9] Running Mapping & Final Aggregation (Phase 4 & 5)..."

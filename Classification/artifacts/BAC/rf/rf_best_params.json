@@ -13,12 +13,12 @@
     "n_jobs": -1
   },
   "best_logloss": 0.6900745312551954,
-  "best_objective_score": 0.6423264647034148,
+  "best_objective_score": 0.6423264647034149,
   "best_trial_number": 56,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-23T23:29:39",
-  "data_end_date": "2025-11-21",
+  "created_at": "2026-02-27T21:58:25",
+  "data_end_date": "2025-11-28",
   "feature_count": 16,
   "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
   "split_definition": {
@@ -53,7 +53,7 @@
   "gate_objective_version": "target_aligned_v3_rf_no_class_weight",
   "train_val_gap_signed": 0.04955506059750503,
   "train_val_gap_abs": 0.04955506059750503,
-  "val_proba_std": 0.014910246752005476,
+  "val_proba_std": 0.014910246752005451,
   "val_proba_unique": 127,
   "val_pred_unique": 2,
   "degenerate_rejected_count": 49,
@@ -64,7 +64,7 @@
     "train_val_gap": 0.04955506059750503,
     "train_val_gap_signed": 0.04955506059750503,
     "train_val_gap_abs": 0.04955506059750503,
-    "val_proba_std": 0.014910246752005476,
+    "val_proba_std": 0.014910246752005451,
     "val_proba_unique": 127,
     "val_pred_unique": 2
   }

@@ -12,13 +12,13 @@
     "random_state": 42,
     "n_jobs": -1
   },
-  "best_logloss": 0.8095200602483377,
-  "best_objective_score": 1.3176194202086524,
+  "best_logloss": 0.8095200602483376,
+  "best_objective_score": 1.317619420208652,
   "best_trial_number": 52,
   "n_trials": 100,
   "optimization_method": "Single Holdout (Target-Aligned Objective)",
-  "created_at": "2026-02-24T01:17:21",
-  "data_end_date": "2025-11-21",
+  "created_at": "2026-02-27T22:15:19",
+  "data_end_date": "2025-11-28",
   "feature_count": 16,
   "feature_hash": "2e09cf7b1a8a0655163f02bcd51ac11cb69fa27d1ec13b1393c97012255044de",
   "split_definition": {
@@ -60,7 +60,7 @@
   "selected_metrics": {
     "validation_accuracy": 0.5039370078740157,
     "validation_ic": -0.145804040119985,
-    "validation_logloss": 0.8095200602483377,
+    "validation_logloss": 0.8095200602483376,
     "train_val_gap": 0.29420376237830825,
     "train_val_gap_signed": 0.29420376237830825,
     "train_val_gap_abs": 0.29420376237830825,

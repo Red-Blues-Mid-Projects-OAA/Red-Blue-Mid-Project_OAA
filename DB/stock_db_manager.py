@@ -34,11 +34,13 @@ class StockDBManager:
         self.dsn = os.getenv("ORACLE_DSN")
         self.connection = None
         self.cursor = None
+        self._quiet = False
 
-    def connect(self):
+    def connect(self, ensure_tables: bool = True, quiet: bool = False):
         """
         DB 연결 설정
         """
+        self._quiet = bool(quiet)
         try:
             # Oracle DB 연결 시도
             self.connection = oracledb.connect(
@@ -47,11 +49,13 @@ class StockDBManager:
                 dsn=self.dsn
             )
             self.cursor = self.connection.cursor() # 연결 다리
-            print("Oracle DB에 성공적으로 연결되었습니다.")
-            
-            # 테이블이 없으면 생성
-            self._create_table_if_not_exists()
-            
+            if not self._quiet:
+                print("Oracle DB에 성공적으로 연결되었습니다.")
+
+            # Step7 read 경로에서는 테이블 준비 쿼리를 생략해 연결 오버헤드를 줄입니다.
+            if ensure_tables:
+                self._create_table_if_not_exists()
+
         except oracledb.Error as e:
             print(f"DB 연결 실패: {e}")
             raise
@@ -209,9 +213,35 @@ class StockDBManager:
             
             # 변경 사항 커밋
             self.connection.commit()
-            print("모든 DB 테이블이 준비되었습니다.")
+            if not self._quiet:
+                print("모든 DB 테이블이 준비되었습니다.")
         except oracledb.Error as e:
             print(f"테이블 생성 중 오류 발생: {e}")
+
+    def ensure_runtime_indexes(self):
+        """
+        런타임 조회 성능에 필요한 인덱스를 idempotent 하게 보장합니다.
+        """
+        if self.cursor is None:
+            raise RuntimeError("DB 연결 후 ensure_runtime_indexes()를 호출해야 합니다.")
+
+        create_master_features_ticker_date_idx = """
+        BEGIN
+            EXECUTE IMMEDIATE 'CREATE INDEX IDX_MASTER_FEATURES_TICKER_DATE
+                               ON MASTER_FEATURES (TICKER, TRADE_DATE)';
+        EXCEPTION
+            WHEN OTHERS THEN
+                IF SQLCODE NOT IN (-955, -942) THEN
+                    RAISE;
+                END IF;
+        END;
+        """
+        try:
+            self.cursor.execute(create_master_features_ticker_date_idx)
+            self.connection.commit()
+        except Exception:
+            self.connection.rollback()
+            raise
 
     def recreate_stock_data_table(self):
         """
@@ -1317,6 +1347,39 @@ class StockDBManager:
         except Exception:
             return None
 
+    def get_master_features_latest_dates_bulk(self, tickers):
+        """
+        MASTER_FEATURES에서 티커별 최신 TRADE_DATE를 집계 조회합니다.
+        반환: {TICKER: latest_trade_date_or_None}
+        """
+        normalized = [str(t).strip().upper() for t in tickers if str(t).strip()]
+        if not normalized:
+            return {}
+
+        latest_map = {t: None for t in normalized}
+        if not self.master_features_exists():
+            return latest_map
+
+        try:
+            step = 900  # Oracle IN limit guard
+            for i in range(0, len(normalized), step):
+                subset = normalized[i : i + step]
+                bind_params = {f"t{j}": ticker for j, ticker in enumerate(subset)}
+                placeholders = ", ".join(f":{k}" for k in bind_params.keys())
+                query = f"""
+                SELECT TICKER, MAX(TRADE_DATE) AS LATEST_DATE
+                FROM MASTER_FEATURES
+                WHERE TICKER IN ({placeholders})
+                GROUP BY TICKER
+                """
+                self.cursor.execute(query, bind_params)
+                for ticker, latest_date in self.cursor.fetchall():
+                    latest_map[str(ticker).strip().upper()] = latest_date
+        except Exception as e:
+            print(f"MASTER_FEATURES 최신일 bulk 조회 실패: {e}")
+
+        return latest_map
+
     def get_ticker_coverage_report_bulk(self, tickers):
         """
         다중 티커 coverage를 집계 쿼리로 조회합니다 (N+1 제거).
@@ -1806,4 +1869,5 @@ class StockDBManager:
             self.cursor.close()
         if self.connection:
             self.connection.close()
-            print("DB 연결이 종료되었습니다.")
+            if not self._quiet:
+                print("DB 연결이 종료되었습니다.")

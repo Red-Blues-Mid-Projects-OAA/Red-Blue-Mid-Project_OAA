@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T23:05:01",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "PWR",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": 0.37814969036942137,
-  "ic_pvalue": 5.020015356484826e-09,
-  "ic_first_half": 0.218454231728568,
-  "ic_second_half": 0.115710527214952,
-  "accuracy_ref": 0.7455357142857143,
-  "precision_ref": 0.8125,
+  "test_end": "2025-11-28",
+  "ic_full": 0.36942137966156957,
+  "ic_pvalue": 8.806261038423636e-09,
+  "ic_first_half": 0.21561734270265895,
+  "ic_second_half": 0.174557015856301,
+  "accuracy_ref": 0.75,
+  "precision_ref": 0.8166666666666667,
   "train_accuracy_ref": 0.9261363636363636,
-  "gap_ref": 0.18060064935064934,
-  "gap_signed_ref": 0.18060064935064934,
-  "gap_abs_ref": 0.18060064935064934,
-  "proba_std_test": 0.2527293608854254,
-  "proba_unique_test": 224,
+  "gap_ref": 0.17613636363636365,
+  "gap_signed_ref": 0.17613636363636365,
+  "gap_abs_ref": 0.17613636363636365,
+  "proba_std_test": 0.25092789255758163,
+  "proba_unique_test": 228,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.13505563780006977,
-    "mean": 0.7251447761924142,
+    "min": 0.13505563780006974,
+    "mean": 0.7237397097853641,
     "max": 0.974895873495557
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
     "min": 0.33720695511850196,
-    "mean": 0.6828972355883776,
+    "mean": 0.6695675119944234,
     "max": 0.9300224930002734
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.4693068001975766
+    "trade_date": "2026-02-26",
+    "p_ens": 0.3949285663851344
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

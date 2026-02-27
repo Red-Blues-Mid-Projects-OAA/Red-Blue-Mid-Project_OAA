@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T23:48:59",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "AAPL",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": 0.44753363228699555,
-  "ic_pvalue": 1.975844841082056e-12,
-  "ic_first_half": 0.6165732736529197,
-  "ic_second_half": 0.7736272935387981,
-  "accuracy_ref": 0.6205357142857143,
+  "test_end": "2025-11-28",
+  "ic_full": 0.4413446906225416,
+  "ic_pvalue": 2.754929123861381e-12,
+  "ic_first_half": 0.6349689151698023,
+  "ic_second_half": 0.7887932605658047,
+  "accuracy_ref": 0.6271929824561403,
   "precision_ref": 0.5625,
   "train_accuracy_ref": 0.7522727272727273,
-  "gap_ref": 0.131737012987013,
-  "gap_signed_ref": 0.131737012987013,
-  "gap_abs_ref": 0.131737012987013,
-  "proba_std_test": 0.14948408522035278,
-  "proba_unique_test": 224,
+  "gap_ref": 0.125079744816587,
+  "gap_signed_ref": 0.125079744816587,
+  "gap_abs_ref": 0.125079744816587,
+  "proba_std_test": 0.15238442720625947,
+  "proba_unique_test": 228,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.2425889660159184,
-    "mean": 0.5742373778596981,
+    "mean": 0.5694864047873277,
     "max": 0.7877582625130019
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
     "min": 0.2719428577027795,
-    "mean": 0.46278788963671835,
-    "max": 0.704501517289571
+    "mean": 0.4796270814189946,
+    "max": 0.7045015172895709
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.5765666979936548
+    "trade_date": "2026-02-26",
+    "p_ens": 0.5508722405841197
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

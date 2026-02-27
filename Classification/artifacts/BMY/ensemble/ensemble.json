@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T23:01:54",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "BMY",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": -0.0488735853085629,
-  "ic_pvalue": 0.4667265187440748,
-  "ic_first_half": -0.3192076400041002,
-  "ic_second_half": 0.6739330987118598,
-  "accuracy_ref": 0.5357142857142857,
-  "precision_ref": 0.2808988764044944,
+  "test_end": "2025-11-28",
+  "ic_full": -0.024042272929307863,
+  "ic_pvalue": 0.7180342407772737,
+  "ic_first_half": -0.3117190822381078,
+  "ic_second_half": 0.691905793726332,
+  "accuracy_ref": 0.543859649122807,
+  "precision_ref": 0.3118279569892473,
   "train_accuracy_ref": 0.7534090909090909,
-  "gap_ref": 0.21769480519480522,
-  "gap_signed_ref": 0.21769480519480522,
-  "gap_abs_ref": 0.21769480519480522,
-  "proba_std_test": 0.09736716101415537,
-  "proba_unique_test": 224,
+  "gap_ref": 0.20954944178628387,
+  "gap_signed_ref": 0.20954944178628387,
+  "gap_abs_ref": 0.20954944178628387,
+  "proba_std_test": 0.09741131492095902,
+  "proba_unique_test": 228,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.28851448842512933,
-    "mean": 0.49853057195717776,
+    "mean": 0.5002563232455157,
     "max": 0.6920922973911949
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
     "min": 0.4457899480882125,
-    "mean": 0.5720155736234358,
+    "mean": 0.5715138685617223,
     "max": 0.6494617219332668
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.5886441419275958
+    "trade_date": "2026-02-26",
+    "p_ens": 0.5762962690061386
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

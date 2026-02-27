@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T23:07:17",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "PSX",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": 0.01959854793935512,
-  "ic_pvalue": 0.7705074779533277,
-  "ic_first_half": 0.11793145863942324,
-  "ic_second_half": -0.08572795298459014,
-  "accuracy_ref": 0.40625,
+  "test_end": "2025-11-28",
+  "ic_full": -0.02543341598518544,
+  "ic_pvalue": 0.7024708799913358,
+  "ic_first_half": 0.11368340049816733,
+  "ic_second_half": -0.16341912881472634,
+  "accuracy_ref": 0.3991228070175439,
   "precision_ref": 0.4438202247191011,
   "train_accuracy_ref": 0.7181818181818181,
-  "gap_ref": 0.31193181818181814,
-  "gap_signed_ref": 0.31193181818181814,
-  "gap_abs_ref": 0.31193181818181814,
-  "proba_std_test": 0.09007263426227446,
-  "proba_unique_test": 224,
+  "gap_ref": 0.31905901116427426,
+  "gap_signed_ref": 0.31905901116427426,
+  "gap_abs_ref": 0.31905901116427426,
+  "proba_std_test": 0.0920965622871944,
+  "proba_unique_test": 228,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.31306358869471695,
-    "mean": 0.5613842243174151,
+    "mean": 0.5583690502309907,
     "max": 0.7254587498102327
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
     "min": 0.3669175409901503,
-    "mean": 0.46275139944359334,
+    "mean": 0.47156457094077203,
     "max": 0.6204720821674907
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.4209478028055228
+    "trade_date": "2026-02-26",
+    "p_ens": 0.5422748160696652
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

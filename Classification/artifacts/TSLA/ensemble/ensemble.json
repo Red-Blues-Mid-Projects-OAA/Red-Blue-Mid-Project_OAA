@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T21:49:24",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "TSLA",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": 0.7576425368353621,
-  "ic_pvalue": 5.120763214975944e-43,
-  "ic_first_half": 0.766050500563775,
-  "ic_second_half": 0.8799586565073291,
-  "accuracy_ref": 0.7544642857142857,
+  "test_end": "2025-11-28",
+  "ic_full": 0.7542121564033587,
+  "ic_pvalue": 3.631483374243128e-43,
+  "ic_first_half": 0.7655454527044816,
+  "ic_second_half": 0.8742836313561898,
+  "accuracy_ref": 0.7587719298245614,
   "precision_ref": 0.8585858585858586,
   "train_accuracy_ref": 0.7363636363636363,
-  "gap_ref": 0.018100649350649367,
-  "gap_signed_ref": -0.018100649350649367,
-  "gap_abs_ref": 0.018100649350649367,
-  "proba_std_test": 0.15993732749913053,
-  "proba_unique_test": 223,
+  "gap_ref": 0.0224082934609251,
+  "gap_signed_ref": -0.0224082934609251,
+  "gap_abs_ref": 0.0224082934609251,
+  "proba_std_test": 0.15986731006620092,
+  "proba_unique_test": 227,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.2424334534983455,
-    "mean": 0.4826132525530987,
+    "mean": 0.47985598742564345,
     "max": 0.7712734780375645
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
     "min": 0.27938128100567805,
-    "mean": 0.3717785676525178,
+    "mean": 0.3729861246482959,
     "max": 0.46575794099729256
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.3816841379835807
+    "trade_date": "2026-02-26",
+    "p_ens": 0.3877586703023509
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

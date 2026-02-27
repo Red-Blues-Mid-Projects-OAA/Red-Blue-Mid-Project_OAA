@@ -117,10 +117,6 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
     if param_data["feature_hash"] != current_feature_hash:
         return True, "feature_hash 불일치"
 
-    file_data_end = param_data["data_end_date"]
-    if current_data_end_date is not None and file_data_end < current_data_end_date:
-        return True, f"data_end_date 구버전 ({file_data_end} < {current_data_end_date})"
-
     if param_data["profile"] != optimize_profile:
         return True, f"profile 불일치 ({param_data['profile']} != {optimize_profile})"
 

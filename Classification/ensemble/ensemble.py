@@ -11,6 +11,7 @@ import json
 import sys
 from pathlib import Path
 from typing import Any
+from datetime import datetime
 
 if __package__ in (None, ""):
     _PROJECT_ROOT = next(
@@ -144,6 +145,8 @@ def build_equal_weight_from_probas(
     save_json: bool = True,
     ticker_logret_series=None,
     sp500_logret_series=None,
+    master_df_override=None,
+    db=None,
 ) -> dict[str, Any]:
     """
     사전 계산된 모델 확률 벡터/모델 리스트를 사용해 동일가중치 앙상블을 계산합니다.
@@ -195,10 +198,28 @@ def build_equal_weight_from_probas(
         index=split.test.index,
     )
 
+    df_all = generate_target(
+        ticker=ticker,
+        benchmark=benchmark,
+        auto_update=False,
+        persist_total_features_on_update=False,
+        feature_source_mode="db_first",
+        ticker_logret_series=ticker_logret_series,
+        sp500_logret_series=sp500_logret_series,
+        master_df_override=master_df_override,
+        db=db,
+    )
+    data_snapshot_end_date = (
+        pd.to_datetime(df_all.index.max()).strftime("%Y-%m-%d")
+        if len(df_all) > 0
+        else None
+    )
+
     x_future_scaled, df_future_raw = _get_scaled_future_features(
         split,
         ticker=ticker,
         benchmark=benchmark,
+        df_all=df_all,
         ticker_logret_series=ticker_logret_series,
         sp500_logret_series=sp500_logret_series,
     )
@@ -232,6 +253,9 @@ def build_equal_weight_from_probas(
     test_end = pd.to_datetime(split.test.index.max()).strftime("%Y-%m-%d") if len(split.test) > 0 else None
 
     payload = {
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "data_snapshot_end_date": data_snapshot_end_date,
+        "feature_count": int(len(split.feature_cols)),
         "ticker": ticker,
         "benchmark": benchmark,
         "weights": {"xgb": 0.25, "svm": 0.25, "rf": 0.25, "logreg": 0.25},

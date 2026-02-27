@@ -1,4 +1,7 @@
 {
+  "generated_at": "2026-02-27T23:01:40",
+  "data_snapshot_end_date": "2026-02-26",
+  "feature_count": 16,
   "ticker": "COF",
   "benchmark": "SP500",
   "weights": {
@@ -7,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 224,
+  "n_test_samples": 228,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-21",
-  "ic_full": -0.013751868460388643,
-  "ic_pvalue": 0.8378242602712379,
-  "ic_first_half": -0.48588000136672704,
-  "ic_second_half": 0.6086633409642259,
-  "accuracy_ref": 0.5491071428571429,
+  "test_end": "2025-11-28",
+  "ic_full": -0.015931321677025993,
+  "ic_pvalue": 0.8109112053996195,
+  "ic_first_half": -0.4865636580871186,
+  "ic_second_half": 0.6222757740831494,
+  "accuracy_ref": 0.5570175438596491,
   "precision_ref": 0.9090909090909091,
   "train_accuracy_ref": 0.7375,
-  "gap_ref": 0.18839285714285714,
-  "gap_signed_ref": 0.18839285714285714,
-  "gap_abs_ref": 0.18839285714285714,
-  "proba_std_test": 0.07517808338930385,
-  "proba_unique_test": 224,
+  "gap_ref": 0.18048245614035097,
+  "gap_signed_ref": 0.18048245614035097,
+  "gap_abs_ref": 0.18048245614035097,
+  "proba_std_test": 0.07465006035664896,
+  "proba_unique_test": 228,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.22947088730094958,
-    "mean": 0.35996077335434445,
+    "mean": 0.36006314283232216,
     "max": 0.6266668013245715
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-11-24",
-    "end": "2026-02-20"
+    "start": "2025-12-01",
+    "end": "2026-02-26"
   },
   "p_ens_future_stats": {
-    "min": 0.3133271056238746,
-    "mean": 0.42762213432018586,
+    "min": 0.2837949209405931,
+    "mean": 0.42347368630641063,
     "max": 0.6209751676863335
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-20",
-    "p_ens": 0.3133271056238746
+    "trade_date": "2026-02-26",
+    "p_ens": 0.2837949209405931
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

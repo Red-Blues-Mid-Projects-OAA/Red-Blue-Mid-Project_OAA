@@ -1,10 +1,13 @@
 {
-  "generated_at": "2026-02-27T11:40:54",
+  "generated_at": "2026-02-27T23:57:16",
   "benchmark": "SP500",
   "mode": "fast",
   "workers": 8,
   "with_mapping": false,
   "stale_policy_fast": "retune_once",
+  "refresh_policy": "freshness",
+  "ineligible_cache_path": "/Users/wowjd/Desktop/Private/授業/Project-2_OAA.nosync/Classification/artifacts/multi_ticker/ineligible_permanent_skip.json",
+  "respect_ineligible_cache": true,
   "coverage_report": [
     {
       "ticker": "NVDA",
@@ -2107,3006 +2110,4525 @@
       "feature_rows": 2353
     }
   ],
+  "latest_feature_dates": {
+    "NVDA": "2026-02-26",
+    "AAPL": "2026-02-26",
+    "MSFT": "2026-02-26",
+    "AMZN": "2026-02-26",
+    "GOOGL": "2026-02-26",
+    "GOOG": "2026-02-26",
+    "META": "2026-02-26",
+    "AVGO": "2026-02-26",
+    "TSLA": "2026-02-26",
+    "BRK-B": "2026-02-26",
+    "WMT": "2026-02-26",
+    "LLY": "2026-02-26",
+    "JPM": "2026-02-26",
+    "V": "2026-02-26",
+    "XOM": "2026-02-26",
+    "JNJ": "2026-02-26",
+    "MU": "2026-02-26",
+    "MA": "2026-02-26",
+    "COST": "2026-02-26",
+    "ORCL": "2026-02-26",
+    "ABBV": "2026-02-26",
+    "BAC": "2026-02-26",
+    "HD": "2026-02-26",
+    "PG": "2026-02-26",
+    "CVX": "2026-02-26",
+    "GE": "2026-02-26",
+    "CAT": "2026-02-26",
+    "KO": "2026-02-26",
+    "NFLX": "2026-02-26",
+    "AMD": "2026-02-26",
+    "PLTR": "2026-02-26",
+    "CSCO": "2026-02-26",
+    "LRCX": "2026-02-26",
+    "MRK": "2026-02-26",
+    "AMAT": "2026-02-26",
+    "PM": "2026-02-26",
+    "MS": "2026-02-26",
+    "GS": "2026-02-26",
+    "RTX": "2026-02-26",
+    "WFC": "2026-02-26",
+    "UNH": "2026-02-26",
+    "IBM": "2026-02-26",
+    "AXP": "2026-02-26",
+    "TMUS": "2026-02-26",
+    "MCD": "2026-02-26",
+    "LIN": "2026-02-26",
+    "GEV": "2026-02-26",
+    "PEP": "2026-02-26",
+    "INTC": "2026-02-26",
+    "VZ": "2026-02-26",
+    "C": "2026-02-26",
+    "AMGN": "2026-02-26",
+    "TXN": "2026-02-26",
+    "KLAC": "2026-02-26",
+    "T": "2026-02-26",
+    "ABT": "2026-02-26",
+    "NEE": "2026-02-26",
+    "TMO": "2026-02-26",
+    "GILD": "2026-02-26",
+    "DIS": "2026-02-26",
+    "APH": "2026-02-26",
+    "ISRG": "2026-02-26",
+    "BA": "2026-02-26",
+    "DE": "2026-02-26",
+    "ADI": "2026-02-26",
+    "TJX": "2026-02-26",
+    "CRM": "2026-02-26",
+    "ANET": "2026-02-26",
+    "SCHW": "2026-02-26",
+    "BLK": "2026-02-26",
+    "UNP": "2026-02-26",
+    "LOW": "2026-02-26",
+    "HON": "2026-02-26",
+    "PFE": "2026-02-26",
+    "LMT": "2026-02-26",
+    "DHR": "2026-02-26",
+    "UBER": "2026-02-26",
+    "QCOM": "2026-02-26",
+    "WELL": "2026-02-26",
+    "ETN": "2026-02-26",
+    "APP": "2026-02-26",
+    "SYK": "2026-02-26",
+    "COP": "2026-02-26",
+    "NEM": "2026-02-26",
+    "ACN": "2026-02-26",
+    "PLD": "2026-02-26",
+    "BKNG": "2026-02-26",
+    "COF": "2026-02-26",
+    "CB": "2026-02-26",
+    "PH": "2026-02-26",
+    "MDT": "2026-02-26",
+    "BMY": "2026-02-26",
+    "SPGI": "2026-02-26",
+    "VRTX": "2026-02-26",
+    "PANW": "2026-02-26",
+    "GLW": "2026-02-26",
+    "PGR": "2026-02-26",
+    "HCA": "2026-02-26",
+    "MCK": "2026-02-26",
+    "MO": "2026-02-26",
+    "CMCSA": "2026-02-26",
+    "SBUX": "2026-02-26",
+    "CME": "2026-02-26",
+    "BSX": "2026-02-26",
+    "TT": "2026-02-26",
+    "HWM": "2026-02-26",
+    "SO": "2026-02-26",
+    "INTU": "2026-02-26",
+    "ADBE": "2026-02-26",
+    "CEG": "2026-02-26",
+    "NOW": "2026-02-26",
+    "NOC": "2026-02-26",
+    "UPS": "2026-02-26",
+    "DUK": "2026-02-26",
+    "CRWD": "2026-02-26",
+    "CVS": "2026-02-26",
+    "WM": "2026-02-26",
+    "EQIX": "2026-02-26",
+    "USB": "2026-02-26",
+    "FDX": "2026-02-26",
+    "MAR": "2026-02-26",
+    "FCX": "2026-02-26",
+    "BX": "2026-02-26",
+    "PNC": "2026-02-26",
+    "GD": "2026-02-26",
+    "SNDK": "2026-02-26",
+    "WDC": "2026-02-26",
+    "NKE": "2026-02-26",
+    "AMT": "2026-02-26",
+    "ITW": "2026-02-26",
+    "RCL": "2026-02-26",
+    "ECL": "2026-02-26",
+    "ADP": "2026-02-26",
+    "MRSH": "2026-02-26",
+    "ICE": "2026-02-26",
+    "MMM": "2026-02-26",
+    "JCI": "2026-02-26",
+    "WMB": "2026-02-26",
+    "SHW": "2026-02-26",
+    "STX": "2026-02-26",
+    "KKR": "2026-02-26",
+    "BK": "2026-02-26",
+    "ORLY": "2026-02-26",
+    "MCO": "2026-02-26",
+    "CTAS": "2026-02-26",
+    "CDNS": "2026-02-26",
+    "DELL": "2026-02-26",
+    "CSX": "2026-02-26",
+    "MNST": "2026-02-26",
+    "PWR": "2026-02-26",
+    "REGN": "2026-02-26",
+    "CRH": "2026-02-26",
+    "EMR": "2026-02-26",
+    "SNPS": "2026-02-26",
+    "CMI": "2026-02-26",
+    "MDLZ": "2026-02-26",
+    "HLT": "2026-02-26",
+    "KMI": "2026-02-26",
+    "GM": "2026-02-26",
+    "CI": "2026-02-26",
+    "TDG": "2026-02-26",
+    "ELV": "2026-02-26",
+    "DASH": "2026-02-26",
+    "SLB": "2026-02-26",
+    "CL": "2026-02-26",
+    "MSI": "2026-02-26",
+    "ABNB": "2026-02-26",
+    "HOOD": "2026-02-26",
+    "TRV": "2026-02-26",
+    "TFC": "2026-02-26",
+    "LHX": "2026-02-26",
+    "EOG": "2026-02-26",
+    "PCAR": "2026-02-26",
+    "RSG": "2026-02-26",
+    "WBD": "2026-02-26",
+    "TEL": "2026-02-26",
+    "APO": "2026-02-26",
+    "AON": "2026-02-26",
+    "AEP": "2026-02-26",
+    "COR": "2026-02-26",
+    "NSC": "2026-02-26",
+    "BKR": "2026-02-26",
+    "DLR": "2026-02-26",
+    "O": "2026-02-26",
+    "SRE": "2026-02-26",
+    "VLO": "2026-02-26",
+    "ROST": "2026-02-26",
+    "AZO": "2026-02-26",
+    "PSX": "2026-02-26",
+    "SPG": "2026-02-26",
+    "APD": "2026-02-26",
+    "F": "2026-02-26",
+    "PSA": "2026-02-26",
+    "GWW": "2026-02-26",
+    "CARR": "2026-02-26",
+    "ALL": "2026-02-26",
+    "ZTS": "2026-02-26",
+    "OKE": "2026-02-26",
+    "AJG": "2026-02-26",
+    "AME": "2026-02-26",
+    "D": "2026-02-26",
+    "MPC": "2026-02-26",
+    "VST": "2026-02-26",
+    "NXPI": "2026-02-26",
+    "MPWR": "2026-02-26",
+    "AFL": "2026-02-26",
+    "URI": "2026-02-26",
+    "FTNT": "2026-02-26",
+    "ADSK": "2026-02-26",
+    "EXC": "2026-02-26",
+    "FITB": "2026-02-26",
+    "XEL": "2026-02-26",
+    "CIEN": "2026-02-26",
+    "GRMN": "2026-02-26",
+    "CVNA": "2026-02-26",
+    "DHI": "2026-02-26",
+    "ETR": "2026-02-26",
+    "TRGP": "2026-02-26",
+    "CMG": "2026-02-26",
+    "CTVA": "2026-02-26",
+    "FANG": "2026-02-26",
+    "MET": "2026-02-26",
+    "EA": "2026-02-26",
+    "TGT": "2026-02-26",
+    "CAH": "2026-02-26",
+    "BDX": "2026-02-26",
+    "FAST": "2026-02-26",
+    "FIX": "2026-02-26",
+    "OXY": "2026-02-26",
+    "TER": "2026-02-26",
+    "IDXX": "2026-02-26",
+    "VTR": "2026-02-26",
+    "AIG": "2026-02-26",
+    "EL": "2026-02-26",
+    "MLM": "2026-02-26",
+    "KEYS": "2026-02-26",
+    "KR": "2026-02-26",
+    "MCHP": "2026-02-26",
+    "ODFL": "2026-02-26",
+    "PEG": "2026-02-26",
+    "AMP": "2026-02-26",
+    "NUE": "2026-02-26",
+    "SYY": "2026-02-26",
+    "YUM": "2026-02-26",
+    "CBRE": "2026-02-26",
+    "NDAQ": "2026-02-26",
+    "DAL": "2026-02-26",
+    "COIN": "2026-02-26",
+    "EW": "2026-02-26",
+    "WAB": "2026-02-26",
+    "HSY": "2026-02-26",
+    "ROK": "2026-02-26",
+    "CCL": "2026-02-26",
+    "ROP": "2026-02-26",
+    "UAL": "2026-02-26",
+    "EME": "2026-02-26",
+    "WDAY": "2026-02-26",
+    "KMB": "2026-02-26",
+    "OTIS": "2026-02-26",
+    "PRU": "2026-02-26",
+    "KVUE": "2026-02-26",
+    "A": "2026-02-26",
+    "MTB": "2026-02-26",
+    "STT": "2026-02-26",
+    "ACGL": "2026-02-26",
+    "CPRT": "2026-02-26",
+    "WEC": "2026-02-26",
+    "AXON": "2026-02-26",
+    "TPL": "2026-02-26",
+    "TTWO": "2026-02-26",
+    "HBAN": "2026-02-26",
+    "IR": "2026-02-26",
+    "HIG": "2026-02-26",
+    "RMD": "2026-02-26",
+    "PCG": "2026-02-26",
+    "VMC": "2026-02-26",
+    "KDP": "2026-02-26",
+    "MSCI": "2026-02-26",
+    "EBAY": "2026-02-26",
+    "ED": "2026-02-26",
+    "DDOG": "2026-02-26",
+    "LVS": "2026-02-26",
+    "GEHC": "2026-02-26",
+    "PYPL": "2026-02-26",
+    "CCI": "2026-02-26",
+    "LYV": "2026-02-26",
+    "EQT": "2026-02-26",
+    "NRG": "2026-02-26",
+    "KHC": "2026-02-26",
+    "CBOE": "2026-02-26",
+    "DTE": "2026-02-26",
+    "ATO": "2026-02-26",
+    "ROL": "2026-02-26",
+    "HAL": "2026-02-26",
+    "CHTR": "2026-02-26",
+    "FE": "2026-02-26",
+    "JBL": "2026-02-26",
+    "LEN": "2026-02-26",
+    "WTW": "2026-02-26",
+    "HPE": "2026-02-26"
+  },
   "results": [
     {
       "ticker": "NVDA",
       "ticker_slug": "NVDA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AAPL",
       "ticker_slug": "AAPL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MSFT",
       "ticker_slug": "MSFT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AMZN",
       "ticker_slug": "AMZN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GOOGL",
       "ticker_slug": "GOOGL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GOOG",
       "ticker_slug": "GOOG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "META",
       "ticker_slug": "META",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AVGO",
       "ticker_slug": "AVGO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TSLA",
       "ticker_slug": "TSLA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BRK-B",
       "ticker_slug": "BRK_B",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WMT",
       "ticker_slug": "WMT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "LLY",
       "ticker_slug": "LLY",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "JPM",
       "ticker_slug": "JPM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "V",
       "ticker_slug": "V",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "XOM",
       "ticker_slug": "XOM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "JNJ",
       "ticker_slug": "JNJ",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MU",
       "ticker_slug": "MU",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MA",
       "ticker_slug": "MA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "COST",
       "ticker_slug": "COST",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ORCL",
       "ticker_slug": "ORCL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ABBV",
       "ticker_slug": "ABBV",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BAC",
       "ticker_slug": "BAC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HD",
       "ticker_slug": "HD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PG",
       "ticker_slug": "PG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CVX",
       "ticker_slug": "CVX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GE",
       "ticker_slug": "GE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CAT",
       "ticker_slug": "CAT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KO",
       "ticker_slug": "KO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NFLX",
       "ticker_slug": "NFLX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AMD",
       "ticker_slug": "AMD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PLTR",
       "ticker_slug": "PLTR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CSCO",
       "ticker_slug": "CSCO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "LRCX",
       "ticker_slug": "LRCX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MRK",
       "ticker_slug": "MRK",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "AMAT",
       "ticker_slug": "AMAT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PM",
       "ticker_slug": "PM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MS",
       "ticker_slug": "MS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GS",
       "ticker_slug": "GS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "RTX",
       "ticker_slug": "RTX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WFC",
       "ticker_slug": "WFC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "UNH",
       "ticker_slug": "UNH",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "IBM",
       "ticker_slug": "IBM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AXP",
       "ticker_slug": "AXP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TMUS",
       "ticker_slug": "TMUS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MCD",
       "ticker_slug": "MCD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "LIN",
       "ticker_slug": "LIN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GEV",
       "ticker_slug": "GEV",
-      "status": "error",
-      "error": "Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler.",
+      "status": "skipped_permanent_ineligible",
+      "reason": "scaler_zero_sample",
       "warnings": [
-        "Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler."
+        "permanent ineligible cache: scaler_zero_sample"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "PEP",
       "ticker_slug": "PEP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "INTC",
       "ticker_slug": "INTC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "VZ",
       "ticker_slug": "VZ",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "C",
       "ticker_slug": "C",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AMGN",
       "ticker_slug": "AMGN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TXN",
       "ticker_slug": "TXN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KLAC",
       "ticker_slug": "KLAC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "T",
       "ticker_slug": "T",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ABT",
       "ticker_slug": "ABT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NEE",
       "ticker_slug": "NEE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TMO",
       "ticker_slug": "TMO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GILD",
       "ticker_slug": "GILD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DIS",
       "ticker_slug": "DIS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "APH",
       "ticker_slug": "APH",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ISRG",
       "ticker_slug": "ISRG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BA",
       "ticker_slug": "BA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DE",
       "ticker_slug": "DE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ADI",
       "ticker_slug": "ADI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TJX",
       "ticker_slug": "TJX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CRM",
       "ticker_slug": "CRM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ANET",
       "ticker_slug": "ANET",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SCHW",
       "ticker_slug": "SCHW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BLK",
       "ticker_slug": "BLK",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "UNP",
       "ticker_slug": "UNP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "LOW",
       "ticker_slug": "LOW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HON",
       "ticker_slug": "HON",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PFE",
       "ticker_slug": "PFE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "LMT",
       "ticker_slug": "LMT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DHR",
       "ticker_slug": "DHR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "UBER",
       "ticker_slug": "UBER",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "QCOM",
       "ticker_slug": "QCOM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WELL",
       "ticker_slug": "WELL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ETN",
       "ticker_slug": "ETN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "APP",
       "ticker_slug": "APP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SYK",
       "ticker_slug": "SYK",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "COP",
       "ticker_slug": "COP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "NEM",
       "ticker_slug": "NEM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ACN",
       "ticker_slug": "ACN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
-      "warnings": [
-        "existing artifact skip"
-      ],
-      "model_status": {}
+      "status": "success",
+      "mode": "fast",
+      "refresh_decision": "missing_artifact",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": false,
+      "reliability_tag": "OK",
+      "p_latest": 0.2835555272817362,
+      "ic_full": 0.31728895175244537,
+      "ic_pvalue": 1.0001541083777057e-06,
+      "gap_signed": 0.1508971291866028,
+      "gap_abs": 0.1508971291866028,
+      "ic_degenerate": false,
+      "te_3m": null,
+      "e_alpha_3m_log": null,
+      "test_acc": 0.618421052631579,
+      "test_period_start": "2025-01-02",
+      "test_period_end": "2025-11-28",
+      "n_test_samples": 228,
+      "warnings": [],
+      "model_status": {
+        "xgb": "normal",
+        "svm": "normal",
+        "rf": "normal",
+        "logreg": "normal"
+      },
+      "force_retune_all": false
     },
     {
       "ticker": "PLD",
       "ticker_slug": "PLD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BKNG",
       "ticker_slug": "BKNG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "COF",
       "ticker_slug": "COF",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CB",
       "ticker_slug": "CB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PH",
       "ticker_slug": "PH",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MDT",
       "ticker_slug": "MDT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BMY",
       "ticker_slug": "BMY",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SPGI",
       "ticker_slug": "SPGI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "VRTX",
       "ticker_slug": "VRTX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PANW",
       "ticker_slug": "PANW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GLW",
       "ticker_slug": "GLW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PGR",
       "ticker_slug": "PGR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HCA",
       "ticker_slug": "HCA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MCK",
       "ticker_slug": "MCK",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MO",
       "ticker_slug": "MO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CMCSA",
       "ticker_slug": "CMCSA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SBUX",
       "ticker_slug": "SBUX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CME",
       "ticker_slug": "CME",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BSX",
       "ticker_slug": "BSX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TT",
       "ticker_slug": "TT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HWM",
       "ticker_slug": "HWM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SO",
       "ticker_slug": "SO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "INTU",
       "ticker_slug": "INTU",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ADBE",
       "ticker_slug": "ADBE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CEG",
       "ticker_slug": "CEG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NOW",
       "ticker_slug": "NOW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NOC",
       "ticker_slug": "NOC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "UPS",
       "ticker_slug": "UPS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DUK",
       "ticker_slug": "DUK",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CRWD",
       "ticker_slug": "CRWD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CVS",
       "ticker_slug": "CVS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WM",
       "ticker_slug": "WM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EQIX",
       "ticker_slug": "EQIX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "USB",
       "ticker_slug": "USB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "FDX",
       "ticker_slug": "FDX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MAR",
       "ticker_slug": "MAR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "FCX",
       "ticker_slug": "FCX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BX",
       "ticker_slug": "BX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PNC",
       "ticker_slug": "PNC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GD",
       "ticker_slug": "GD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SNDK",
       "ticker_slug": "SNDK",
-      "status": "error",
-      "error": "Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler.",
+      "status": "skipped_permanent_ineligible",
+      "reason": "scaler_zero_sample",
       "warnings": [
-        "Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler."
+        "permanent ineligible cache: scaler_zero_sample"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "WDC",
       "ticker_slug": "WDC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NKE",
       "ticker_slug": "NKE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AMT",
       "ticker_slug": "AMT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ITW",
       "ticker_slug": "ITW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "RCL",
       "ticker_slug": "RCL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ECL",
       "ticker_slug": "ECL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ADP",
       "ticker_slug": "ADP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MRSH",
       "ticker_slug": "MRSH",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ICE",
       "ticker_slug": "ICE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MMM",
       "ticker_slug": "MMM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "JCI",
       "ticker_slug": "JCI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WMB",
       "ticker_slug": "WMB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SHW",
       "ticker_slug": "SHW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "STX",
       "ticker_slug": "STX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KKR",
       "ticker_slug": "KKR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BK",
       "ticker_slug": "BK",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ORLY",
       "ticker_slug": "ORLY",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MCO",
       "ticker_slug": "MCO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CTAS",
       "ticker_slug": "CTAS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CDNS",
       "ticker_slug": "CDNS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DELL",
       "ticker_slug": "DELL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CSX",
       "ticker_slug": "CSX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MNST",
       "ticker_slug": "MNST",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PWR",
       "ticker_slug": "PWR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "REGN",
       "ticker_slug": "REGN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CRH",
       "ticker_slug": "CRH",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EMR",
       "ticker_slug": "EMR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SNPS",
       "ticker_slug": "SNPS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CMI",
       "ticker_slug": "CMI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MDLZ",
       "ticker_slug": "MDLZ",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HLT",
       "ticker_slug": "HLT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KMI",
       "ticker_slug": "KMI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GM",
       "ticker_slug": "GM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CI",
       "ticker_slug": "CI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TDG",
       "ticker_slug": "TDG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ELV",
       "ticker_slug": "ELV",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DASH",
       "ticker_slug": "DASH",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SLB",
       "ticker_slug": "SLB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "CL",
       "ticker_slug": "CL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MSI",
       "ticker_slug": "MSI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ABNB",
       "ticker_slug": "ABNB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HOOD",
       "ticker_slug": "HOOD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TRV",
       "ticker_slug": "TRV",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TFC",
       "ticker_slug": "TFC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "LHX",
       "ticker_slug": "LHX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EOG",
       "ticker_slug": "EOG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PCAR",
       "ticker_slug": "PCAR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "RSG",
       "ticker_slug": "RSG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WBD",
       "ticker_slug": "WBD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TEL",
       "ticker_slug": "TEL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "APO",
       "ticker_slug": "APO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AON",
       "ticker_slug": "AON",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AEP",
       "ticker_slug": "AEP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "COR",
       "ticker_slug": "COR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NSC",
       "ticker_slug": "NSC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BKR",
       "ticker_slug": "BKR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DLR",
       "ticker_slug": "DLR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "O",
       "ticker_slug": "O",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SRE",
       "ticker_slug": "SRE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "VLO",
       "ticker_slug": "VLO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "ROST",
       "ticker_slug": "ROST",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AZO",
       "ticker_slug": "AZO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PSX",
       "ticker_slug": "PSX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SPG",
       "ticker_slug": "SPG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "APD",
       "ticker_slug": "APD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "F",
       "ticker_slug": "F",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PSA",
       "ticker_slug": "PSA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GWW",
       "ticker_slug": "GWW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CARR",
       "ticker_slug": "CARR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ALL",
       "ticker_slug": "ALL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ZTS",
       "ticker_slug": "ZTS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "OKE",
       "ticker_slug": "OKE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AJG",
       "ticker_slug": "AJG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AME",
       "ticker_slug": "AME",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "D",
       "ticker_slug": "D",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MPC",
       "ticker_slug": "MPC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "VST",
       "ticker_slug": "VST",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NXPI",
       "ticker_slug": "NXPI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MPWR",
       "ticker_slug": "MPWR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AFL",
       "ticker_slug": "AFL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "URI",
       "ticker_slug": "URI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "FTNT",
       "ticker_slug": "FTNT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ADSK",
       "ticker_slug": "ADSK",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EXC",
       "ticker_slug": "EXC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "FITB",
       "ticker_slug": "FITB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "XEL",
       "ticker_slug": "XEL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CIEN",
       "ticker_slug": "CIEN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GRMN",
       "ticker_slug": "GRMN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CVNA",
       "ticker_slug": "CVNA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "DHI",
       "ticker_slug": "DHI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ETR",
       "ticker_slug": "ETR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TRGP",
       "ticker_slug": "TRGP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "CMG",
       "ticker_slug": "CMG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CTVA",
       "ticker_slug": "CTVA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "FANG",
       "ticker_slug": "FANG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MET",
       "ticker_slug": "MET",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EA",
       "ticker_slug": "EA",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TGT",
       "ticker_slug": "TGT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CAH",
       "ticker_slug": "CAH",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "BDX",
       "ticker_slug": "BDX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "FAST",
       "ticker_slug": "FAST",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "FIX",
       "ticker_slug": "FIX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "OXY",
       "ticker_slug": "OXY",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "TER",
       "ticker_slug": "TER",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "IDXX",
       "ticker_slug": "IDXX",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "VTR",
       "ticker_slug": "VTR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AIG",
       "ticker_slug": "AIG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "EL",
       "ticker_slug": "EL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "MLM",
       "ticker_slug": "MLM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KEYS",
       "ticker_slug": "KEYS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KR",
       "ticker_slug": "KR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MCHP",
       "ticker_slug": "MCHP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ODFL",
       "ticker_slug": "ODFL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PEG",
       "ticker_slug": "PEG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AMP",
       "ticker_slug": "AMP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NUE",
       "ticker_slug": "NUE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "SYY",
       "ticker_slug": "SYY",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "YUM",
       "ticker_slug": "YUM",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CBRE",
       "ticker_slug": "CBRE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NDAQ",
       "ticker_slug": "NDAQ",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DAL",
       "ticker_slug": "DAL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "COIN",
       "ticker_slug": "COIN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EW",
       "ticker_slug": "EW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WAB",
       "ticker_slug": "WAB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HSY",
       "ticker_slug": "HSY",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ROK",
       "ticker_slug": "ROK",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CCL",
       "ticker_slug": "CCL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ROP",
       "ticker_slug": "ROP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "UAL",
       "ticker_slug": "UAL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EME",
       "ticker_slug": "EME",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WDAY",
       "ticker_slug": "WDAY",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KMB",
       "ticker_slug": "KMB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "OTIS",
       "ticker_slug": "OTIS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PRU",
       "ticker_slug": "PRU",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KVUE",
       "ticker_slug": "KVUE",
-      "status": "error",
-      "error": "Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler.",
+      "status": "skipped_permanent_ineligible",
+      "reason": "scaler_zero_sample",
       "warnings": [
-        "Found array with 0 sample(s) (shape=(0, 16)) while a minimum of 1 is required by StandardScaler."
+        "permanent ineligible cache: scaler_zero_sample"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "A",
       "ticker_slug": "A",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MTB",
       "ticker_slug": "MTB",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "STT",
       "ticker_slug": "STT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ACGL",
       "ticker_slug": "ACGL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CPRT",
       "ticker_slug": "CPRT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WEC",
       "ticker_slug": "WEC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "AXON",
       "ticker_slug": "AXON",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "TPL",
       "ticker_slug": "TPL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "TTWO",
       "ticker_slug": "TTWO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HBAN",
       "ticker_slug": "HBAN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "IR",
       "ticker_slug": "IR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HIG",
       "ticker_slug": "HIG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "RMD",
       "ticker_slug": "RMD",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "PCG",
       "ticker_slug": "PCG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "VMC",
       "ticker_slug": "VMC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KDP",
       "ticker_slug": "KDP",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "MSCI",
       "ticker_slug": "MSCI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EBAY",
       "ticker_slug": "EBAY",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ED",
       "ticker_slug": "ED",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DDOG",
       "ticker_slug": "DDOG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "LVS",
       "ticker_slug": "LVS",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "GEHC",
       "ticker_slug": "GEHC",
-      "status": "not_eligible",
+      "status": "skipped_permanent_ineligible",
       "reason": "train 샘플 부족(10 < 30)",
       "warnings": [
-        "train 샘플 부족(10 < 30)"
+        "permanent ineligible cache: train 샘플 부족(10 < 30)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "PYPL",
       "ticker_slug": "PYPL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CCI",
       "ticker_slug": "CCI",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "LYV",
       "ticker_slug": "LYV",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "EQT",
       "ticker_slug": "EQT",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "NRG",
       "ticker_slug": "NRG",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "KHC",
       "ticker_slug": "KHC",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "CBOE",
       "ticker_slug": "CBOE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "DTE",
       "ticker_slug": "DTE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ATO",
       "ticker_slug": "ATO",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "ROL",
       "ticker_slug": "ROL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HAL",
       "ticker_slug": "HAL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_permanent_ineligible",
+      "reason": "validation 단일 클래스(1)",
       "warnings": [
-        "existing artifact skip"
+        "permanent ineligible cache: validation 단일 클래스(1)"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "ineligible_cached",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": null,
+      "ineligible_cached": true
     },
     {
       "ticker": "CHTR",
       "ticker_slug": "CHTR",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "FE",
       "ticker_slug": "FE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "JBL",
       "ticker_slug": "JBL",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "LEN",
       "ticker_slug": "LEN",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "WTW",
       "ticker_slug": "WTW",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     },
     {
       "ticker": "HPE",
       "ticker_slug": "HPE",
-      "status": "skipped_existing",
-      "reason": "기존 산출물 존재",
+      "status": "skipped_existing_fresh",
+      "reason": "기존 산출물이 최신 DB 기준으로 신선함",
       "warnings": [
-        "existing artifact skip"
+        "freshness skip"
       ],
-      "model_status": {}
+      "model_status": {},
+      "refresh_decision": "fresh_skip",
+      "latest_feature_date": "2026-02-26",
+      "ensemble_snapshot_date": "2026-02-26",
+      "ineligible_cached": false
     }
   ]
 }

@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "updated_at": "2026-02-27T23:13:00",
+  "tickers": {
+    "WMT": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "MRK": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "GEV": {
+      "reason": "scaler_zero_sample",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "error"
+    },
+    "COP": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "SNDK": {
+      "reason": "scaler_zero_sample",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "error"
+    },
+    "SLB": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "VLO": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "CVNA": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "TRGP": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "OXY": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "AIG": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "EL": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "ROP": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "KVUE": {
+      "reason": "scaler_zero_sample",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "error"
+    },
+    "TPL": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "GEHC": {
+      "reason": "train 샘플 부족(10 < 30)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    },
+    "HAL": {
+      "reason": "validation 단일 클래스(1)",
+      "last_seen": "2026-02-27T23:13:00",
+      "status": "not_eligible"
+    }
+  }
+}
