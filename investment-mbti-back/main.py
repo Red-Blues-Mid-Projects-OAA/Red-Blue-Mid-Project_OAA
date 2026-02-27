@@ -32,6 +32,7 @@ from chart_data_provider import (
     get_historical_returns,
     get_cumulative_return_chart,
     get_forecast_placeholder,
+    load_chart_cache,
 )
 
 
@@ -45,6 +46,7 @@ async def lifespan(app: FastAPI):
     print("Investment MBTI API 서버 시작 — 데이터 캐싱 중...")
     print("=" * 60)
     load_cache()
+    load_chart_cache()
     print("✅ 서버 준비 완료!")
     yield
     print("서버 종료.")
