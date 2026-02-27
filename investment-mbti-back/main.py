@@ -105,6 +105,9 @@ def analyze_portfolio(req: AnalyzeRequest):
             detail="RISK_LEVEL_PORTFOLIO_SNAPSHOT 준비가 완료되지 않았습니다. snapshot 동기화를 먼저 실행하세요.",
         )
 
+    # "전체 종목 보기" 모달을 위해 DB 조건에 맞는 전체 종목 풀도 가져옵니다.
+    all_matching_stocks = get_recommended_stocks(final_level, top_n=500)
+
     # 4. 종목 목록 확보 + MVO 입력(차트/보조 계산용)
     tickers = [
         str(stock.get("ticker", "")).strip().upper()
@@ -202,6 +205,7 @@ def analyze_portfolio(req: AnalyzeRequest):
             "mbti": risk_result["mbti"],
             "mbti_nickname": risk_result["mbti_nickname"],
             "recommended_stocks": recommended_stocks,
+            "all_matching_stocks": all_matching_stocks,
             "portfolio_analysis": {
                 "expected_return_simple": round(portfolio_return_simple, 2),
                 "expected_return_log": round(portfolio_return_log * 100.0, 2),

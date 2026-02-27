@@ -82,6 +82,7 @@ function App() {
         mbti: responseData.mbti,
         mbtiNickname: responseData.mbti_nickname,
         recommendedStocks: responseData.recommended_stocks,
+        allMatchingStocks: responseData.all_matching_stocks,
         portfolioAnalysis: responseData.portfolio_analysis,
         chartData: responseData.chart_data,
         forecastData: responseData.forecast_data,
@@ -111,6 +112,10 @@ function App() {
     setCurrentView('INTRO');
   };
 
+  const handlePreviousFromResult = () => {
+    setCurrentView('SLIDER');
+  };
+
   const handleShowRecommendation = () => {
     setCurrentView('RECOMMENDATION');
   };
@@ -134,7 +139,13 @@ function App() {
 
       {currentView === 'LOADING' && <Loading />}
 
-      {currentView === 'RESULT' && <DashboardResult personaData={resultData} onRestart={handleRestart} />}
+      {currentView === 'RESULT' && (
+        <DashboardResult
+          personaData={resultData}
+          onRestart={handleRestart}
+          onPrevious={handlePreviousFromResult}
+        />
+      )}
     </div>
   );
 }

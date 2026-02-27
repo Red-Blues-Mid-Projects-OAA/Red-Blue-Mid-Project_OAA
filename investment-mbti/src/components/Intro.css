@@ -11,14 +11,14 @@
 }
 
 .badge {
-    background: rgba(139, 92, 246, 0.2);
-    color: #c4b5fd;
+    background: rgba(49, 130, 246, 0.1);
+    color: #3182f6;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(49, 130, 246, 0.2);
 }
 
 .title {
@@ -30,9 +30,6 @@
 
 .highlight {
     color: var(--accent-primary);
-    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     display: inline-block;
 }
 

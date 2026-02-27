@@ -188,9 +188,9 @@ function DashboardResult({ personaData, onRestart }) {
 
                         {/* 종목 수에 따라 유동적 그리드 */}
                         <div className={`grid gap-3 ${recommendedStocks.length <= 2 ? 'grid-cols-1 sm:grid-cols-2' :
-                                recommendedStocks.length <= 4 ? 'grid-cols-2' :
-                                    recommendedStocks.length <= 7 ? 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' :
-                                        'grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
+                            recommendedStocks.length <= 4 ? 'grid-cols-2' :
+                                recommendedStocks.length <= 7 ? 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' :
+                                    'grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
                             }`}>
                             {recommendedStocks.map((stock) => (
                                 <StockCard key={stock.ticker} stock={stock} />
