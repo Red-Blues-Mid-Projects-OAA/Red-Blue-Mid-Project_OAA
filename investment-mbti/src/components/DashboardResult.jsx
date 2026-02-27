@@ -7,17 +7,17 @@ import StockCard from './StockCard';
 import './DashboardResult.css';
 
 const PERSONA_IMAGE_BY_LEVEL = {
-    4: 'turtle',
-    3: 'dog',
-    2: 'lion',
-    1: 'eagle',
+    4: 'slave',
+    3: 'worker',
+    2: 'fire',
+    1: 'yolo',
 };
 
 const BAR_CONFIG = [
-    { key: 'energy', label: '에너지-집중', left: '외향', right: '내향', gradient: 'linear-gradient(90deg, #a7f3d0 0%, #3b82f6 100%)' },
-    { key: 'insight', label: '직관-현실', left: '현실', right: '직관', gradient: 'linear-gradient(90deg, #bfdbfe 0%, #2563eb 100%)' },
-    { key: 'logic', label: '논리-가치', left: '논리', right: '가치', gradient: 'linear-gradient(90deg, #dbeafe 0%, #1d4ed8 100%)' },
-    { key: 'style', label: '계획-탐색', left: '계획', right: '탐색', gradient: 'linear-gradient(90deg, #c7d2fe 0%, #3b82f6 100%)' },
+    { key: 'energy', label: '시장 반응', left: '외향형', right: '내향형', gradient: 'linear-gradient(90deg, #a7f3d0 0%, #3b82f6 100%)' },
+    { key: 'insight', label: '가치 판단', left: '감각형', right: '직관형', gradient: 'linear-gradient(90deg, #bfdbfe 0%, #2563eb 100%)' },
+    { key: 'logic', label: '의사 결정', left: '사고형', right: '감정형', gradient: 'linear-gradient(90deg, #dbeafe 0%, #1d4ed8 100%)' },
+    { key: 'style', label: '대응 방식', left: '계획형', right: '유연형', gradient: 'linear-gradient(90deg, #c7d2fe 0%, #3b82f6 100%)' },
 ];
 
 function toFiniteNumber(value, fallback = 0) {
@@ -39,10 +39,10 @@ function getPersonaImage(title, level) {
         return PERSONA_IMAGE_BY_LEVEL[level];
     }
     const safeTitle = String(title || '');
-    if (safeTitle.includes('거북')) return 'turtle';
-    if (safeTitle.includes('강아지')) return 'dog';
-    if (safeTitle.includes('사자')) return 'lion';
-    return 'eagle';
+    if (safeTitle.includes('노예')) return 'slave';
+    if (safeTitle.includes('월급루팡')) return 'worker';
+    if (safeTitle.includes('파이어')) return 'fire';
+    return 'yolo';
 }
 
 function getMbtiScores(rawAnswers = []) {
@@ -99,7 +99,6 @@ function DashboardResult({ personaData, onRestart }) {
 
     const rawAnswers = personaData.rawAnswers || [];
     const mbti = personaData.mbti || 'ENTJ';
-    const mbtiNickname = personaData.mbtiNickname || '';
     const mbtiScores = getMbtiScores(rawAnswers);
     const portfolioAnalysis = personaData.portfolioAnalysis || {};
     const historical3m = getWeightedHistoricalReturn(recommendedStocks, '3M');
@@ -164,7 +163,6 @@ function DashboardResult({ personaData, onRestart }) {
                     </div>
 
                     <h2 className="mbti-code">{mbti}</h2>
-                    {mbtiNickname && <p className="mbti-nick">{mbtiNickname}</p>}
                     <h3 className="persona-title">{personaData.title}</h3>
                     <p className="persona-desc">{personaData.description}</p>
 
@@ -186,7 +184,12 @@ function DashboardResult({ personaData, onRestart }) {
                     <article className="glass-panel composition-panel reveal delay-3">
                         <div className="panel-heading">
                             <h3>추천 포트폴리오 구성</h3>
-                            <span className="chip">{portfolioAnalysis.risk_category || '균형형'}</span>
+                            <span className="chip" dangerouslySetInnerHTML={{
+                                __html: (portfolioAnalysis.risk_category || '균형형').replace(
+                                    /(간신히|가볍게|거뜬히|무참히)/,
+                                    '<strong>$1</strong>'
+                                )
+                            }} />
                         </div>
 
                         <div className="composition-content">

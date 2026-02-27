@@ -34,8 +34,8 @@ function StockCard({ stock }) {
         <article className="premium-stock-card">
             <div className="stock-card-top">
                 <div>
-                    <h4 className="stock-card-title">{ticker}</h4>
-                    <p className="stock-card-name">{name}</p>
+                    <h4 className="stock-card-title">{name}</h4>
+                    <p className="stock-card-ticker">{ticker}</p>
                 </div>
 
                 <div className="stock-card-badges">
@@ -64,4 +64,3 @@ function StockCard({ stock }) {
 }
 
 export default StockCard;
-

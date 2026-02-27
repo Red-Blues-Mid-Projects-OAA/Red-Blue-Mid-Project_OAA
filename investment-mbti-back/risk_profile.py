@@ -94,45 +94,32 @@ def calculate_risk_profile(answers, loss_limit_value):
     mapping_data = {
         4: {
             "lambda_final": get_lambda_by_level(4),
-            "persona": "안전 지향 (거북이)",
+            "persona": "노예 개미",
             "desc": "특징: 리스크에 매우 민감하며 원금 보존을 최우선으로 합니다."
         },
         3: {
             "lambda_final": get_lambda_by_level(3),
-            "persona": "신중한 탐험가 (강아지)",
+            "persona": "월급루팡 개미",
             "desc": "특징: 평균적인 투자자보다 다소 보수적이며, 분석적 근거를 중시합니다."
         },
         2: {
             "lambda_final": get_lambda_by_level(2),
-            "persona": "균형 잡힌 사자 (사자)",
+            "persona": "파이어족 개미",
             "desc": "특징: 수익을 위해 적정 수준의 리스크를 감내할 수 있습니다."
         },
         1: {
             "lambda_final": get_lambda_by_level(1),
-            "persona": "공격적 독수리 (독수리)",
+            "persona": "YOLO 개미",
             "desc": "특징: 리스크보다는 기회와 수익에 집중하며 높은 변동성을 견딥니다."
         }
     }
     
     selected_mapping = mapping_data[final_level]
 
-    # 6. MBTI 별칭 매핑
-    mbti_desc_map = {
-        "ENTJ": "대담한 통솔자", "ENTP": "뜨거운 논쟁을 즐기는 변론가",
-        "ENFJ": "정의로운 사회운동가", "ENFP": "재기발랄한 활동가",
-        "ESTJ": "엄격한 관리자", "ESTP": "모험을 즐기는 사업가",
-        "ESFJ": "사교적인 외교관", "ESFP": "자유로운 영혼의 연예인",
-        "INTJ": "용의주도한 전략가", "INTP": "논리적인 사색가",
-        "INFJ": "선의의 옹호자", "INFP": "열정적인 중재자",
-        "ISTJ": "청렴결백한 논리주의자", "ISTP": "만능 재주꾼",
-        "ISFJ": "용감한 수호자", "ISFP": "호기심 많은 예술가"
-    }
-    
     lambda_final = selected_mapping["lambda_final"]
 
     return {
         "mbti": mbti,
-        "mbti_nickname": mbti_desc_map.get(mbti, ""),
         "persona": selected_mapping["persona"],
         "persona_desc": selected_mapping["desc"],
         "lambda_final": lambda_final,

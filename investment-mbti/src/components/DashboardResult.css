@@ -385,6 +385,67 @@
     border: 1px solid rgba(148, 163, 184, 0.25);
     background: rgba(255, 255, 255, 0.88);
     padding: 0.58rem 0.62rem 0.48rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: default;
+}
+
+.mbti-row-hovered {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+    border-color: rgba(59, 130, 246, 0.45);
+}
+
+.mbti-row-title {
+    text-align: center;
+    margin-bottom: 0.4rem;
+}
+
+.mbti-row-title h4 {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+.mbti-bar-outer {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.mbti-outer-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #64748b;
+    white-space: nowrap;
+    min-width: 36px;
+}
+
+.mbti-outer-label-left {
+    text-align: right;
+}
+
+.mbti-outer-label-right {
+    text-align: left;
+}
+
+.mbti-track-wrap {
+    position: relative;
+    flex: 1;
+}
+
+.mbti-hover-tooltip {
+    position: absolute;
+    top: -22px;
+    transform: translateX(-50%);
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 6px;
+    pointer-events: none;
+    white-space: nowrap;
 }
 
 .mbti-row-head {
@@ -463,6 +524,13 @@
     color: #64748b;
 }
 
+.stock-card-ticker {
+    margin: 0.1rem 0 0;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    letter-spacing: 0.03em;
+}
+
 .stock-card-badges {
     display: flex;
     gap: 0.38rem;
@@ -483,8 +551,9 @@
 }
 
 .stock-badge.risk {
-    color: #475569;
-    background: rgba(241, 245, 249, 0.95);
+    color: #722f37;
+    background: rgba(114, 47, 55, 0.1);
+    border-color: rgba(114, 47, 55, 0.25);
 }
 
 .stock-card-return {
@@ -493,6 +562,7 @@
     background: #f8fafc;
     border: 1px solid rgba(148, 163, 184, 0.18);
     padding: 0.48rem 0.58rem;
+    text-align: center;
 }
 
 .stock-card-return .label {
@@ -507,11 +577,11 @@
 }
 
 .stock-card-return .value.up {
-    color: #1d4ed8;
+    color: #dc2626;
 }
 
 .stock-card-return .value.down {
-    color: #b91c1c;
+    color: #2563eb;
 }
 
 .stock-card-periods {
@@ -542,11 +612,11 @@
 }
 
 .stock-period .period-value.up {
-    color: #1d4ed8;
+    color: #dc2626;
 }
 
 .stock-period .period-value.down {
-    color: #b91c1c;
+    color: #2563eb;
 }
 
 .premium-pie-wrap {
@@ -597,31 +667,9 @@
     font-weight: 700;
 }
 
-.premium-chart-shell {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 116px;
-    gap: 0.55rem;
-    align-items: stretch;
-}
-
-.premium-chart-main {
+.premium-chart-unified {
     width: 100%;
     min-height: 290px;
-}
-
-.premium-distribution {
-    border-radius: 16px;
-    border: 1px solid rgba(148, 163, 184, 0.22);
-    background: rgba(248, 250, 252, 0.85);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.3rem 0.1rem;
-}
-
-.premium-distribution svg {
-    width: 86px;
-    height: 220px;
 }
 
 .chart-fallback {
@@ -655,21 +703,37 @@
     padding: 0.34rem 0.5rem;
 }
 
+.chart-legend {
+    margin-top: 0.55rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    padding: 0 0.25rem;
+}
+
+.chart-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    color: #64748b;
+}
+
+.chart-legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    flex-shrink: 0;
+}
+
 @media (max-width: 760px) {
-    .premium-chart-shell {
-        grid-template-columns: 1fr;
-    }
-
-    .premium-distribution {
-        height: 150px;
-    }
-
-    .premium-distribution svg {
-        width: 96px;
-        height: 136px;
-    }
-
-    .premium-chart-main {
+    .premium-chart-unified {
         min-height: 250px;
     }
+}
+
+/* Risk category chip bold keyword */
+.chip strong {
+    font-weight: 900;
+    color: #1e3a8a;
 }

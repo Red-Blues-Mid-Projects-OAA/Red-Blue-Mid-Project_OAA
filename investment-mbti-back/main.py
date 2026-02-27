@@ -185,15 +185,15 @@ def analyze_portfolio(req: AnalyzeRequest):
 
     # 10. 리스크 카테고리 매핑
     risk_categories = {
-        4: "극도로 보수적인 안전형",
-        3: "신중한 배당/가치형",
-        2: "균형 잡힌 성장형",
-        1: "공격적 테마/변동성",
+        4: "지수를 간신히 이기는 유형",
+        3: "지수를 가볍게 이기는 유형",
+        2: "지수를 거뜬히 이기는 유형",
+        1: "지수를 무참히 이기는 유형",
     }
 
     # 11. 프론트엔드 호환 응답 구성
     features = [
-        f"투자 MBTI 성향: {risk_result['mbti']} ({risk_result['mbti_nickname']})",
+        f"투자 MBTI 성향: {risk_result['mbti']}",
         f"위험 회피 계수(Lambda): {lambda_final:.2f}",
         f"손실 한도 선택: -{risk_result['loss_ratio_percent']}%",
     ]
@@ -205,7 +205,6 @@ def analyze_portfolio(req: AnalyzeRequest):
             "description": desc,
             "features": features,
             "mbti": risk_result["mbti"],
-            "mbti_nickname": risk_result["mbti_nickname"],
             "recommended_stocks": recommended_stocks,
             "all_matching_stocks": all_matching_stocks,
             "portfolio_analysis": {

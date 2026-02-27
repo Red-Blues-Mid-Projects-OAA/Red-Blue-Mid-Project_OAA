@@ -2,14 +2,16 @@ import React from 'react';
 import './DashboardResult.css';
 
 const COLORS = [
-    '#1d4ed8',
-    '#2563eb',
-    '#3b82f6',
-    '#60a5fa',
-    '#93c5fd',
-    '#bfdbfe',
-    '#dbeafe',
-    '#e2e8f0',
+    '#1d4ed8', // 진한 파랑
+    '#7c3aed', // 보라
+    '#059669', // 에메랄드
+    '#d97706', // 앰버
+    '#dc2626', // 레드
+    '#0891b2', // 시안
+    '#4f46e5', // 인디고
+    '#be185d', // 핑크
+    '#0d9488', // 틸
+    '#ea580c', // 오렌지 레드
 ];
 
 function toFiniteNumber(value, fallback = 0) {

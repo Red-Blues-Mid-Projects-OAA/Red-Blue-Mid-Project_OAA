@@ -43,7 +43,14 @@ TICKER_NAME_MAP = {
     "DIS": "월트디즈니", "NEE": "넥스트에라에너지", "LMT": "록히드마틴", "QCOM": "퀄컴",
     "CVX": "쉐브론", "WFC": "웰스파고", "T": "AT&T", "GILD": "길리어드",
     "MO": "알트리아", "VZ": "버라이즌", "PM": "필립모리스", "IBM": "IBM",
-    "COIN": "코인베이스", "PLTR": "팔란티어", "HOOD": "로빈후드", "TSLA": "테슬라",
+    "COIN": "코인베이스", "PLTR": "팔란티어", "HOOD": "로빈후드",
+    "ADI": "아나로그디바이스", "BKR": "베이커휴즈", "HWM": "하우멧에어로스페이스",
+    "SNA": "스냅온", "TXT": "텍스트론", "TRGP": "타르가리소스",
+    "EMR": "에머슨일렉트릭", "ETN": "이턴", "ITW": "일리노이툴웍스",
+    "ADP": "ADP", "CME": "CME그룹", "ICE": "인터컨티넨탈익스체인지",
+    "SPGI": "S&P글로벌", "MMC": "마쉬앤맥레넌", "AON": "에이온",
+    "CB": "처브", "PGR": "프로그레시브", "TRV": "트래블러스",
+    "ALL": "올스테이트", "MET": "메트라이프", "AIG": "AIG",
 }
 
 # ──────────────────────────────────────────────────────────────────
@@ -68,6 +75,15 @@ RISK_LEVEL_LABEL_MAP = {
     2: "Medium Risk",
     1: "High Risk",
 }
+
+
+def normalize_risk_score(sigma: float, sigma_min: float, sigma_max: float, eps: float = 1e-8) -> int:
+    """
+    개별 종목 sigma를 0~100 Min-Max 정규화 점수로 변환합니다.
+    전체 variance_map의 sigma 분포(전 종목) 기준 min/max를 사용합니다.
+    """
+    score = int((sigma - sigma_min) / max(sigma_max - sigma_min, eps) * 100)
+    return max(0, min(100, score))
 
 
 def _parse_bool(value) -> bool:
@@ -398,16 +414,19 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
         if top_n is not None and int(top_n) > 0:
             holdings = holdings[: int(top_n)]
 
+        # 전체 variance_map 기준 sigma min/max 계산 (비교 가능성 유지)
+        variance_map = _cache.get("variance_map") or {}
+        all_sigmas = [v ** 0.5 for v in variance_map.values()] if variance_map else []
+        sigma_min = min(all_sigmas) if all_sigmas else 0
+        sigma_max = max(all_sigmas) if all_sigmas else 1
+
         for holding in holdings:
             try:
                 sigma = float(holding.get("sigma_ewma_60d", 0.0) or 0.0)
             except (TypeError, ValueError):
                 sigma = 0.0
 
-            if holding.get("risk_score") is None:
-                holding["risk_score"] = int(max(0, min(100, round(sigma * 100))))
-            else:
-                holding["risk_score"] = int(holding.get("risk_score") or 0)
+            holding["risk_score"] = normalize_risk_score(sigma, sigma_min, sigma_max)
 
             try:
                 expected_log_pct = float(holding.get("expectedReturn3M", 0.0) or 0.0)
@@ -470,18 +489,15 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
 
     # 5. 프론트엔드 호환 형식으로 변환
     # MinMaxScaler 기반 개별 종목 위험도 점수 (0~100) 산출
-    # 전체 300종목의 sigma_ewma_60d 분포를 기준으로 정규화
+    # 전체 종목의 sigma_ewma_60d 분포를 기준으로 정규화
     all_sigmas = [v ** 0.5 for v in variance_map.values()]
     sigma_min = min(all_sigmas) if all_sigmas else 0
     sigma_max = max(all_sigmas) if all_sigmas else 1
-    sigma_range = sigma_max - sigma_min if sigma_max > sigma_min else 1
 
     import math
     result = []
     for rank, s in enumerate(top_stocks, 1):
-        # 위험도 점수: sigma를 0~100으로 정규화 (소수점 절삭)
-        risk_score = int((s["sigma"] - sigma_min) / sigma_range * 100)
-        risk_score = max(0, min(100, risk_score))
+        risk_score = normalize_risk_score(s["sigma"], sigma_min, sigma_max)
 
         # 로그수익률 → 단순수익률 변환: simple = (e^r - 1) * 100
         log_ret = s["e_return"]
