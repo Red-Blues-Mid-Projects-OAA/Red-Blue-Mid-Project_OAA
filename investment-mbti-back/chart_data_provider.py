@@ -24,6 +24,42 @@ from DB import StockDBManager
 
 
 # ──────────────────────────────────────────────────────────────────
+# 글로벌 캐시 (FastAPI startup 시 1회 로드)
+# ──────────────────────────────────────────────────────────────────
+_chart_cache = {
+    "log_ret_df": pd.DataFrame(),
+    "sp500_df": pd.DataFrame(),
+}
+
+
+def load_chart_cache():
+    """
+    서버 시작 시 1회 호출되어 차트용 데이터를 메모리에 캐싱합니다.
+    """
+    print("[Cache] 차트/수익률 데이터 캐싱 시작...")
+    db = StockDBManager()
+    try:
+        db.connect()
+        _chart_cache["log_ret_df"] = db.fetch_log_returns()
+        _chart_cache["sp500_df"] = db.fetch_sp500_data()
+
+        # 날짜 인덱스 정규화 (전처리 미리 수행)
+        if not _chart_cache["log_ret_df"].empty:
+            _chart_cache["log_ret_df"].index = pd.to_datetime(_chart_cache["log_ret_df"].index)
+        if not _chart_cache["sp500_df"].empty:
+            _chart_cache["sp500_df"].index = pd.to_datetime(_chart_cache["sp500_df"].index)
+
+        print(f"  [SYNC][CHART] LOG_RETURNS: {len(_chart_cache['log_ret_df'])}일분")
+        print(f"  [SYNC][CHART] SP500_DATA: {len(_chart_cache['sp500_df'])}일분")
+        print("[Cache] 차트용 데이터 캐싱 완료!")
+    except Exception as e:
+        print(f"  [SYNC][CHART][ERROR] {e}")
+    finally:
+        db.close()
+
+
+
+# ──────────────────────────────────────────────────────────────────
 # 유틸리티: 로그수익률 → 단순수익률 변환
 # ──────────────────────────────────────────────────────────────────
 def _log_to_simple(log_return):
@@ -41,27 +77,13 @@ def _log_to_simple_array(log_returns):
 # ──────────────────────────────────────────────────────────────────
 def get_historical_returns(tickers: list[str]) -> dict:
     """
-    DB의 LOG_RETURNS 테이블에서 과거 로그수익률을 로드하여
-    1M / 3M / 6M / 12M 구간별 누적 단순수익률을 계산합니다.
-
-    Args:
-        tickers: 조회할 종목 티커 리스트
-
-    Returns:
-        dict: {ticker: {"1M": float, "3M": float, "6M": float, "12M": float}}
-        각 값은 단순수익률(%) 단위 (예: 5.23 → +5.23%)
+    캐시된 LOG_RETURNS 데이터에서 과거 로그수익률을 로드하여 계산합니다.
+    (DB 접속 없이 메모리 데이터 사용)
     """
-    db = StockDBManager()
-    db.connect()
-    log_ret_df = db.fetch_log_returns()  # Index: TRADE_DATE, Columns: TICKER
-    db.close()
-
-    if log_ret_df.empty:
+    log_ret_df = _chart_cache.get("log_ret_df")
+    
+    if log_ret_df is None or log_ret_df.empty:
         return {t: {"1M": 0, "3M": 0, "6M": 0, "12M": 0} for t in tickers}
-
-    # 날짜 인덱스를 datetime으로 변환
-    log_ret_df.index = pd.to_datetime(log_ret_df.index)
-    latest_date = log_ret_df.index.max()
 
     # 기간별 거래일 수 (근사값)
     periods = {"1M": 21, "3M": 63, "6M": 126, "12M": 252}
@@ -70,7 +92,6 @@ def get_historical_returns(tickers: list[str]) -> dict:
     for t in tickers:
         t_upper = t.strip().upper()
         if t_upper not in log_ret_df.columns:
-            # DB에 해당 종목 데이터가 없는 경우 0으로 채움
             result[t_upper] = {"1M": 0, "3M": 0, "6M": 0, "12M": 0}
             continue
 
@@ -78,11 +99,9 @@ def get_historical_returns(tickers: list[str]) -> dict:
         returns = {}
         for label, days in periods.items():
             if len(col) >= days:
-                # 최근 N거래일의 로그수익률 합산 → 단순수익률 변환
                 cum_log = col.iloc[-days:].sum()
                 returns[label] = round(_log_to_simple(cum_log) * 100, 2)
             else:
-                # 데이터 부족 시 전체 기간 사용
                 cum_log = col.sum()
                 returns[label] = round(_log_to_simple(cum_log) * 100, 2)
 
@@ -96,35 +115,17 @@ def get_historical_returns(tickers: list[str]) -> dict:
 # ──────────────────────────────────────────────────────────────────
 def get_cumulative_return_chart(tickers: list[str], weights: list[float]) -> dict:
     """
-    DB의 LOG_RETURNS + SP500_DATA를 활용하여
-    과거 1년 포트폴리오 가중 누적수익률과 S&P 500 벤치마크 시계열을 반환합니다.
-
-    Args:
-        tickers: 종목 티커 리스트
-        weights: 각 종목의 투자비중 (0~1, 합계 1)
-
-    Returns:
-        dict: {
-            "dates": [날짜 문자열 리스트],
-            "portfolio": [누적 단순수익률 리스트 (%)],
-            "sp500": [누적 단순수익률 리스트 (%)],
-            "warnings": [주의 문구 리스트]
-        }
+    캐시된 데이터를 활용하여 과거 1년 포트폴리오 누적수익률 시계열을 생성합니다.
     """
-    db = StockDBManager()
-    db.connect()
-    log_ret_df = db.fetch_log_returns()
-    sp500_df = db.fetch_sp500_data()
-    db.close()
+    log_ret_df = _chart_cache.get("log_ret_df")
+    sp500_df = _chart_cache.get("sp500_df")
 
     warnings = []
 
-    if log_ret_df.empty or sp500_df.empty:
-        return {"dates": [], "portfolio": [], "sp500": [], "warnings": ["DB 데이터를 로드할 수 없습니다."]}
+    if log_ret_df is None or log_ret_df.empty or sp500_df is None or sp500_df.empty:
+        return {"dates": [], "portfolio": [], "sp500": [], "warnings": ["캐시 데이터를 로드할 수 없습니다."]}
 
-    # 날짜 인덱스 정규화
-    log_ret_df.index = pd.to_datetime(log_ret_df.index)
-    sp500_df.index = pd.to_datetime(sp500_df.index)
+    # 최근 252거래일(약 1년) 범위 설정 (캐시는 이미 datetime index)
 
     # 최근 252거래일(약 1년) 범위 설정
     latest_date = log_ret_df.index.max()
