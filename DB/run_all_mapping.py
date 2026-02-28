@@ -1,3 +1,11 @@
+"""
+멀티티커 최종 기대수익률 집계 모듈.
+
+게이트 통과 티커는 GK 매핑을 적용하고,
+미통과 티커는 CAPM fallback으로 3개월 기대 로그수익률을 산출합니다.
+"""
+
+import argparse
 import os
 import sys
 from pathlib import Path
@@ -103,7 +111,7 @@ def run_all_mapping(tickers: list[str] | None = None):
     sp500_logret_series = pd.Series(dtype=float)
 
     try:
-        # DB 1회 로드 정책
+        # 배치 성능을 위해 DB는 1회 연결 후 공통 시계열을 한 번만 로드합니다.
         sp500_data = db.fetch_sp500_data()
         if not sp500_data.empty:
             sp500_df = sp500_data.loc["2024-01-01":].copy()
@@ -198,5 +206,23 @@ def run_all_mapping(tickers: list[str] | None = None):
     return final_df
 
 
+def _parse_args():
+    """CLI 인자를 파싱합니다. --help 호출 시 DB 접속 없이 종료됩니다."""
+    parser = argparse.ArgumentParser(
+        description="Run final expected return aggregation (GK mapping + CAPM fallback)"
+    )
+    parser.add_argument(
+        "--tickers",
+        type=str,
+        default=None,
+        help="Comma-separated ticker subset (optional)",
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    run_all_mapping()
+    args = _parse_args()
+    ticker_subset = None
+    if args.tickers:
+        ticker_subset = [t.strip().upper() for t in args.tickers.split(",") if t.strip()]
+    run_all_mapping(tickers=ticker_subset)

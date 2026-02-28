@@ -186,15 +186,17 @@ def _get_recommended_stocks(
     for _, row in filtered_df.iterrows():
         ticker = str(row["Ticker"]).strip().upper()
         e_ri = float(row["Adjusted_E_Total"])
-        sigma_sq = float(variance_map.get(ticker, 0.01))
-        sigma = float(np.sqrt(max(sigma_sq, 0.0)))
-        score = e_ri - 0.5 * lam * sigma_sq
+        ewma_variance_60d = float(variance_map.get(ticker, 0.01))
+        ewma_std_60d = float(np.sqrt(max(ewma_variance_60d, 0.0)))
+        # 개별 종목 유틸리티: E(R_i) - 0.5 * λ * Var_i(EWMA 60일 분산)
+        # 표준편차(σ) 대신 분산(Var) 항을 직접 패널티로 사용합니다.
+        score = e_ri - 0.5 * lam * ewma_variance_60d
         stocks.append(
             {
                 "ticker": ticker,
                 "name": TICKER_NAME_MAP.get(ticker, ticker),
                 "score": score,
-                "sigma_ewma_60d": sigma,
+                "sigma_ewma_60d": ewma_std_60d,
             }
         )
 

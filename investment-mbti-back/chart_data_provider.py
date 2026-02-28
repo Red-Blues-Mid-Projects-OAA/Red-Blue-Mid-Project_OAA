@@ -189,13 +189,13 @@ def get_forecast_placeholder(expected_return_log: float, volatility_60d: float, 
 
     Returns:
         dict: {
-            "forecast_days": [0, 1, ..., 63],
+            "forecast_days": [0, 1, ..., 60],
             "expected_line": [단순수익률 누적 리스트],
             "mc_paths": [[path1], [path2], ...],
             "final_distribution": {"mean": float, "std": float, "percentile_5": float, "percentile_95": float}
         }
     """
-    horizon = 63  # 약 3개월 거래일
+    horizon = 60  # 약 3개월 거래일
     dt = 1.0 / 252  # 일별 시간 스텝
 
     # 일별 드리프트 및 변동성 (간단한 GBM 가정)

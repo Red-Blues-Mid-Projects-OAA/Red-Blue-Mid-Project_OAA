@@ -67,12 +67,12 @@ RISK_LEVEL_LABEL_MAP = {
 }
 
 
-def normalize_risk_score(sigma: float, sigma_min: float, sigma_max: float, eps: float = 1e-8) -> int:
+def normalize_risk_score(ewma_std_60d: float, min_ewma_std_60d: float, max_ewma_std_60d: float, eps: float = 1e-8) -> int:
     """
-    개별 종목 sigma를 0~100 Min-Max 정규화 점수로 변환합니다.
-    전체 variance_map의 sigma 분포(전 종목) 기준 min/max를 사용합니다.
+    개별 종목 EWMA 표준편차를 0~100 Min-Max 정규화 점수로 변환합니다.
+    전체 variance_map의 EWMA 표준편차 분포(전 종목) 기준 min/max를 사용합니다.
     """
-    score = int((sigma - sigma_min) / max(sigma_max - sigma_min, eps) * 100)
+    score = int((ewma_std_60d - min_ewma_std_60d) / max(max_ewma_std_60d - min_ewma_std_60d, eps) * 100)
     return max(0, min(100, score))
 
 
@@ -386,7 +386,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
       - Level 1 (독수리, 공격적)  : 전체 100%
 
     목적함수 (스코어):
-      score_i = E(R_i) - (1/2) * λ * σ_ewma(60일)²
+      score_i = E(R_i) - (1/2) * λ * Var_i(EWMA 60일 분산)
 
     Args:
         risk_level: 1(독수리) ~ 4(거북이)
@@ -417,11 +417,11 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
                 holding["name"] = TICKER_NAME_MAP.get(ticker, ticker)
 
             try:
-                sigma = float(holding.get("sigma_ewma_60d", 0.0) or 0.0)
+                ewma_std_60d = float(holding.get("sigma_ewma_60d", 0.0) or 0.0)
             except (TypeError, ValueError):
-                sigma = 0.0
+                ewma_std_60d = 0.0
 
-            holding["risk_score"] = normalize_risk_score(sigma, sigma_min, sigma_max)
+            holding["risk_score"] = normalize_risk_score(ewma_std_60d, sigma_min, sigma_max)
 
             try:
                 expected_log_pct = float(holding.get("expectedReturn3M", 0.0) or 0.0)
@@ -448,17 +448,19 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
         ticker = str(row["Ticker"]).strip().upper()
         e_ri = float(row["Adjusted_E_Total"])     # E(R_i)
         vol_3m = float(row.get("Vol_3M", 0.0))    # (참고용) 과거 3개월 변동성
-        sigma_sq = variance_map.get(ticker, 0.01) # 목적함수 계산용 EWMA 분산(60일 스케일링)
+        ewma_variance_60d = variance_map.get(ticker, 0.01)  # 목적함수 계산용 EWMA 분산(60일 스케일링)
         
         # 각 종목의 Utility Score 계산
-        score = e_ri - 0.5 * lam * sigma_sq
+        # score_i = E(R_i) - 0.5 * λ * Var_i(EWMA 60일 분산)
+        # 여기서 패널티 항은 표준편차가 아닌 분산입니다.
+        score = e_ri - 0.5 * lam * ewma_variance_60d
         
         stocks.append({
             "ticker": ticker,
             "e_return": e_ri,
             "vol_3m": vol_3m,
-            "variance": sigma_sq,
-            "sigma": sigma_sq ** 0.5,
+            "variance": ewma_variance_60d,
+            "sigma": ewma_variance_60d ** 0.5,
             "score": score,
         })
 

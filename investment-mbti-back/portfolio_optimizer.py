@@ -1,8 +1,13 @@
 """
 평균-분산 최적화(MVO) 포트폴리오 최적화 모듈.
 
-목적함수: max E(R_portfolio) - (1/2) * λ * w^T Σ w
-         = min (1/2) * λ * w^T Σ w - w^T μ
+목적함수(표준형):
+  U = E(R_p) - (1/2) * λ * w^TΣw
+최적화 구현형:
+  min (1/2) * λ * w^TΣw - w^Tμ
+
+여기서 리스크 패널티는 표준편차(σ)가 아니라
+분산/공분산(Σ, variance/covariance) 항을 직접 사용합니다.
 
 제약조건: sum(w) = 1, w_i = 0 or (0.05 ≤ w_i ≤ max_w)
 최소 종목 수 제약: sum(y) >= min_count
@@ -29,7 +34,7 @@ def optimize_portfolio(mu, cov_matrix, lambda_final):
     """
     num_assets = len(mu)
     mu_arr = np.array(mu, dtype=float)
-    sigma_arr = np.array(cov_matrix, dtype=float)
+    cov_matrix_arr = np.array(cov_matrix, dtype=float)
 
     # 종목 1개인 경우 예외처리
     if num_assets == 1:
@@ -62,9 +67,9 @@ def optimize_portfolio(mu, cov_matrix, lambda_final):
 
     while len(active_indices) > min_count:
         w = cp.Variable(num_assets)
-        risk = cp.quad_form(w, sigma_arr)
+        portfolio_variance_term = cp.quad_form(w, cov_matrix_arr)
         ret = mu_arr.T @ w
-        objective = cp.Minimize(0.5 * lambda_final * risk - ret)
+        objective = cp.Minimize(0.5 * lambda_final * portfolio_variance_term - ret)
         
         # 중간 탐색 과정에서는 최소 비중(5%) 제약을 걸지 않고, 오직 0초과 제약만 둡니다.
         # 가장 경쟁력이 없는(가중치가 0에 가까운) 종목을 찾기 위함입니다.
@@ -105,9 +110,9 @@ def optimize_portfolio(mu, cov_matrix, lambda_final):
     # [Final Solve] 남은 active_indices 종목들에 대해서 완벽한 제약조건 적용
     # ──────────────────────────────────────────────────────────────────
     w = cp.Variable(num_assets)
-    risk = cp.quad_form(w, sigma_arr)
+    portfolio_variance_term = cp.quad_form(w, cov_matrix_arr)
     ret = mu_arr.T @ w
-    objective = cp.Minimize(0.5 * lambda_final * risk - ret)
+    objective = cp.Minimize(0.5 * lambda_final * portfolio_variance_term - ret)
     
     # 남은 종목에 max_w를 모두 주어도 1.0(100%)을 채울 수 없다면 해가 없으므로 max_w 강제 완화
     current_max_w = max_w if max_w * len(active_indices) >= 1.0 else 1.0
