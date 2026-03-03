@@ -26,6 +26,8 @@ from real_data_provider import (
     get_recommended_stocks,
     get_risk_level_portfolio_summary,
     get_mvo_inputs,
+    get_all_300_stocks,
+    calculate_portfolio_scores,
 )
 from portfolio_optimizer import optimize_portfolio
 from chart_data_provider import (
@@ -79,6 +81,12 @@ class OptimizeRequest(BaseModel):
 
     selected_tickers: List[str]  # 사용자가 선택한 종목 리스트
     lambda_final: float  # λ 값
+
+
+class PortfolioScoresRequest(BaseModel):
+    """포트폴리오 스코어 산출 요청."""
+
+    selected_tickers: List[str]  # 선택된 종목 티커 리스트
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -257,6 +265,26 @@ def optimize_selected(req: OptimizeRequest):
             "weight_sum": round(float(np.sum(weights)) * 100, 2),
         },
     }
+
+
+@app.get("/api/all-stocks")
+def get_all_stocks():
+    """전체 300개 종목의 return_score, risk_score, market_cap_rank를 반환합니다."""
+    try:
+        stocks = get_all_300_stocks()
+        return {"status": "success", "data": stocks}
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=str(e))
+
+
+@app.post("/api/portfolio-scores")
+def get_portfolio_scores(req: PortfolioScoresRequest):
+    """선택 종목의 동일 비중 포트폴리오 Return/Risk Score를 산출합니다."""
+    try:
+        scores = calculate_portfolio_scores(req.selected_tickers)
+        return {"status": "success", "data": scores}
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=str(e))
 
 
 if __name__ == "__main__":

@@ -48,6 +48,7 @@ TICKER_NAME_MAP = _load_ticker_name_map()
 # ──────────────────────────────────────────────────────────────────
 _cache = {
     "adj_returns_df": None,       # 필터링된 adjusted returns DataFrame
+    "full_returns_df": None,      # 전체 (미필터) adjusted returns DataFrame
     "cov_ticker_list": None,      # EWMA 공분산 행렬의 ticker 순서
     "cov_matrix": None,           # EWMA 공분산 numpy 행렬
     "ticker_to_cov_idx": None,    # ticker → 행렬 인덱스 매핑
@@ -248,6 +249,7 @@ def load_cache():
 
     # 한글 주석: 이전 캐시 상태를 먼저 초기화합니다.
     _cache["adj_returns_df"] = None
+    _cache["full_returns_df"] = None
     _cache["cov_ticker_list"] = None
     _cache["cov_matrix"] = None
     _cache["ticker_to_cov_idx"] = None
@@ -311,6 +313,7 @@ def load_cache():
 
     filtered = _filter_candidates(source_df)
     _cache["adj_returns_df"] = filtered
+    _cache["full_returns_df"] = source_df
     _cache["all_returns_map"] = _build_all_returns_map(source_df)
     _cache["snapshot_source"] = source_name
 
@@ -570,3 +573,177 @@ def get_mvo_inputs(selected_tickers: list[str]) -> tuple:
         for i, t in enumerate(valid_tickers):
             cov_sub[i, i] = variance_map.get(t, 0.01)
         return mu, cov_sub, valid_tickers
+
+
+# ──────────────────────────────────────────────────────────────────
+# 전체 300개 종목 데이터 및 포트폴리오 스코어 산출
+# ──────────────────────────────────────────────────────────────────
+
+# sp500_top300.json 에서 시가총액 순위 로드
+_SP500_JSON = _PROJECT_ROOT / "DB" / "sp500_top300.json"
+
+def _load_market_cap_rank() -> dict[str, int]:
+    """sp500_top300.json 순서 기반 시가총액 순위(1-based)를 반환합니다."""
+    try:
+        with open(_SP500_JSON, encoding="utf-8") as f:
+            tickers = _json.load(f)
+        return {str(t).strip().upper(): i + 1 for i, t in enumerate(tickers)}
+    except Exception:
+        return {}
+
+MARKET_CAP_RANK = _load_market_cap_rank()
+
+
+def get_all_300_stocks() -> list[dict]:
+    """
+    전체 300개 종목의 return_rank, risk_rank, market_cap_rank 를 반환합니다.
+    - return_rank: Realized_3M (최근 3개월 실현수익률) 내림차순 순위 (1위 = 수익률 최고)
+    - risk_rank: EWMA std(√60일) 오름차순 순위 (1위 = 위험도 최저, 가장 안전)
+    - market_cap_rank: sp500_top300.json 순서(1~300)
+    """
+    full_df = _cache.get("full_returns_df")
+    variance_map = _cache.get("variance_map") or {}
+
+    if full_df is None:
+        raise RuntimeError("캐시가 초기화되지 않았습니다. load_cache()를 먼저 호출하세요.")
+
+    # 1. Realized_3M 수집 (수익률 순위 계산용)
+    realized_3m_values = {}
+    for _, row in full_df.iterrows():
+        ticker = str(row["Ticker"]).strip().upper()
+        val_3m = pd.to_numeric(row.get("Realized_3M"), errors="coerce")
+        if pd.notna(val_3m):
+            realized_3m_values[ticker] = float(val_3m)
+
+    # 2. EWMA sigma 수집
+    sigma_values = {}
+    for ticker, var_val in variance_map.items():
+        sigma_values[ticker] = var_val ** 0.5
+
+    # 3. sp500_top300 종목 목록
+    target_tickers = list(MARKET_CAP_RANK.keys())
+
+    # 4. 1M/3M/6M/12M 누적 수익률 (DashboardResult와 동일 로직 사용)
+    from chart_data_provider import get_historical_returns
+    historical_returns = get_historical_returns(target_tickers)
+
+    # 5. Return 순위: 수익률 내림차순 (1위 = 최고 수익률)
+    return_sorted = sorted(
+        [(t, realized_3m_values.get(t, float('-inf'))) for t in target_tickers],
+        key=lambda x: x[1], reverse=True
+    )
+    return_rank_map = {t: rank for rank, (t, _) in enumerate(return_sorted, 1)}
+
+    # 6. Risk 순위: 변동성 오름차순 (1위 = 가장 낮은 위험)
+    risk_sorted = sorted(
+        [(t, sigma_values.get(t, float('inf'))) for t in target_tickers],
+        key=lambda x: x[1]
+    )
+    risk_rank_map = {t: rank for rank, (t, _) in enumerate(risk_sorted, 1)}
+
+    # 7. 결과 생성
+    result = []
+    for ticker in sorted(target_tickers, key=lambda t: MARKET_CAP_RANK.get(t, 999)):
+        r_data = historical_returns.get(ticker, {"1M": 0, "3M": 0, "6M": 0, "12M": 0})
+        result.append({
+            "ticker": ticker,
+            "name": TICKER_NAME_MAP.get(ticker, ticker),
+            "return_rank": return_rank_map.get(ticker, 300),
+            "risk_rank": risk_rank_map.get(ticker, 300),
+            "market_cap_rank": MARKET_CAP_RANK.get(ticker, 300),
+            "returns": r_data
+        })
+
+    return result
+
+
+def calculate_portfolio_scores(selected_tickers: list[str]) -> dict:
+    """
+    선택 종목의 다각화 비율(Diversification Ratio)을 반영하여 포트폴리오 스코어를 산출합니다.
+
+    - return_pct: 선택 종목들의 개별 수익률 순위의 평균을 0~100 점수로 환산 (100점이 가장 높음)
+    - risk_pct_naive: 선택 종목들의 개별 리스크 순위의 평균을 0~100 점수로 환산 (100점이 가장 위험함)
+    - risk_pct: risk_pct_naive * (실제 포트폴리오 변동성 / 평균 개별 변동성) [다각화 비율 적용]
+    - diversification_benefit: risk_pct_naive - risk_pct
+
+    Returns:
+        {"return_pct": int, "risk_pct": int, "risk_pct_naive": int, "diversification_benefit": int}
+    """
+    tickers = [t.strip().upper() for t in selected_tickers]
+    n = len(tickers)
+    if n == 0:
+        return {"return_pct": 0, "risk_pct": 0, "risk_pct_naive": 0, "diversification_benefit": 0}
+
+    # 1) 개별 종목들의 rank 정보 획득
+    all_stocks = get_all_300_stocks()
+    stock_map = {s["ticker"]: s for s in all_stocks}
+
+    sum_return_rank = 0
+    sum_risk_rank = 0
+    valid_count = 0
+
+    for t in tickers:
+        if t in stock_map:
+            sum_return_rank += stock_map[t]["return_rank"]
+            sum_risk_rank += stock_map[t]["risk_rank"]
+            valid_count += 1
+
+    if valid_count == 0:
+        return {"return_pct": 50, "risk_pct": 50, "risk_pct_naive": 50, "diversification_benefit": 0}
+
+    avg_return_rank = sum_return_rank / valid_count
+    avg_risk_rank = sum_risk_rank / valid_count
+
+    # 순위 기반 점수 환산 처리
+    # Return: 1위(가장 높음) -> 100점, 300위 -> 20점 (기본 점수 20점 부여)
+    return_pct = max(0, min(100, int(100 - ((avg_return_rank - 1) / 299 * 80))))
+    
+    # Risk Naive: 1위(가장 안전함) -> 20점 (위험이 0인 주식은 없으므로 기본 위험 20점 부여), 300위 -> 100점
+    risk_pct_naive = max(0, min(100, int(20 + ((avg_risk_rank - 1) / 299 * 80))))
+
+    # 2) 실제 변동성 및 개별 변동성 평균 계산 (Diversification Ratio 용도)
+    variance_map = _cache.get("variance_map") or {}
+    cov_matrix = _cache.get("cov_matrix")
+    ticker_to_idx = _cache.get("ticker_to_cov_idx") or {}
+
+    sigmas = []
+    for t in tickers:
+        var_val = variance_map.get(t)
+        if var_val is not None:
+            sigmas.append(var_val ** 0.5)
+
+    avg_sigma = sum(sigmas) / max(len(sigmas), 1) if sigmas else 0
+
+    actual_sigma = 0
+    if cov_matrix is not None and ticker_to_idx:
+        valid_idx = []
+        for t in tickers:
+            if t in ticker_to_idx:
+                valid_idx.append(ticker_to_idx[t])
+        
+        if valid_idx:
+            idx_arr = np.array(valid_idx)
+            cov_sub = cov_matrix[np.ix_(idx_arr, idx_arr)]
+            n_valid = len(valid_idx)
+            w_vec = np.ones(n_valid) / n_valid
+            port_var = float(w_vec @ cov_sub @ w_vec)
+            actual_sigma = max(port_var, 0) ** 0.5
+
+    # 3) 다각화 비율(DR) = 실제 포트폴리오 위험 / 개별 위험의 단순 평균
+    if avg_sigma > 0 and actual_sigma > 0:
+        dr = actual_sigma / avg_sigma
+        # 안전장치: 이론상 동일비중 포트폴리오의 DR은 0~1 사이 (음의 상관관계 포함)
+        dr = max(0.0, min(1.0, dr))
+        risk_pct = int(risk_pct_naive * dr)
+    else:
+        risk_pct = risk_pct_naive
+
+    diversification_benefit = max(0, risk_pct_naive - risk_pct)
+
+    return {
+        "return_pct": return_pct,
+        "risk_pct": risk_pct,
+        "risk_pct_naive": risk_pct_naive,
+        "diversification_benefit": diversification_benefit,
+    }
+

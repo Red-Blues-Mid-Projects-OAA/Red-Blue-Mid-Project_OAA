@@ -91,7 +91,7 @@ function getWeightedHistoricalReturn(stocks, key = '3M') {
     return avg;
 }
 
-function DashboardResult({ personaData, onRestart }) {
+function DashboardResult({ personaData, onRestart, onShowSelection }) {
     if (!personaData) return null;
 
     const recommendedStocks = [...(personaData.recommendedStocks || [])]
@@ -247,6 +247,12 @@ function DashboardResult({ personaData, onRestart }) {
                     <RefreshCw size={16} />
                     다시 분석하기
                 </button>
+                {onShowSelection && (
+                    <button type="button" className="restart-button" style={{ marginLeft: '0.6rem', background: 'linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%)' }} onClick={onShowSelection}>
+                        <Sparkles size={16} />
+                        종목 선택하기
+                    </button>
+                )}
             </div>
         </div>
     );

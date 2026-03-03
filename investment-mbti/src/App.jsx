@@ -4,11 +4,12 @@ import Question from './components/Question';
 import LossSlider from './components/LossSlider';
 import Loading from './components/Loading';
 import DashboardResult from './components/DashboardResult';
+import PortfolioSelection from './components/PortfolioSelection';
 import { QUESTIONS } from './constants/questions';
 import './App.css';
 
 function App() {
-  const [currentView, setCurrentView] = useState('INTRO'); // INTRO, QUESTION, SLIDER, LOADING, RESULT, RECOMMENDATION
+  const [currentView, setCurrentView] = useState('INTRO'); // INTRO, QUESTION, SLIDER, LOADING, RESULT, SELECTION
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [lossLimit, setLossLimit] = useState(null);
@@ -120,6 +121,14 @@ function App() {
     setCurrentView('RECOMMENDATION');
   };
 
+  const handleShowSelection = () => {
+    setCurrentView('SELECTION');
+  };
+
+  const handleBackFromSelection = () => {
+    setCurrentView('RESULT');
+  };
+
   return (
     // 전체 컨테이너 및 뷰포트 확장 반응형 대응
     <div className="app-container max-w-[1920px] mx-auto px-4 min-h-screen py-8">
@@ -144,6 +153,15 @@ function App() {
           personaData={resultData}
           onRestart={handleRestart}
           onPrevious={handlePreviousFromResult}
+          onShowSelection={handleShowSelection}
+        />
+      )}
+
+      {currentView === 'SELECTION' && resultData && (
+        <PortfolioSelection
+          recommendedStocks={resultData.recommendedStocks || []}
+          onBack={handleBackFromSelection}
+          onRestart={handleRestart}
         />
       )}
     </div>
