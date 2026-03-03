@@ -2,8 +2,6 @@ export const QUESTIONS = [
   {
     id: 1,
     type: 'E_I',
-    partTitle: 'Part 1. [E vs I] 투자 에너지는 어디서 폭발하나?',
-    subtitle: '당신은 군중 속에 있을 때 편안한가요, 아니면 고독한 늑대인가요?',
     question: 'Q1. 자고 일어났더니 오픈채팅방이 "A종목 상한가 간다!"로 도배됐다면?',
     optionA: {
       text: '채팅방 알림을 끄고 뒤돌아 내 공부를 시작한다.',
@@ -17,11 +15,9 @@ export const QUESTIONS = [
   {
     id: 2,
     type: 'E_I',
-    partTitle: 'Part 1. [E vs I] 투자 에너지는 어디서 폭발하나?',
-    subtitle: '당신은 군중 속에 있을 때 편안한가요, 아니면 고독한 늑대인가요?',
     question: 'Q2. 내가 산 주식이 연일 뉴스에 나오며 전 국민의 관심을 받는다면?',
     optionA: {
-      text: '가게에 손님이 너무 많아진 맛집을 보는 것처럼 불안해서 팔고 싶다.',
+      text: '과열된 관심은 버블일 것 같아 겁이 나고 불안해서 팔고 싶다.',
       value: 'I',
     },
     optionB: {
@@ -32,38 +28,32 @@ export const QUESTIONS = [
   {
     id: 3,
     type: 'E_I',
-    partTitle: 'Part 1. [E vs I] 투자 에너지는 어디서 폭발하나?',
-    subtitle: '당신은 군중 속에 있을 때 편안한가요, 아니면 고독한 늑대인가요?',
     question: 'Q3. 투자로 크게 한탕 하거나 대차게 말아먹었을 때 당신은?',
     optionA: {
-      text: '침대에 누워 천장을 보며 혼자 고뇌한다.',
+      text: '침대에 누워 천장을 보며 만세를 외치거나 혼자 고뇌한다.',
       value: 'I',
     },
     optionB: {
-      text: '당장 단톡방에 "살려줘" 혹은 "오늘 소고기 쏜다"를 외친다.',
+      text: '당장 단톡방에 "오늘 소고기 쏜다"를 외치거나 "살려줘"를 외친다.',
       value: 'E',
     },
   },
   {
     id: 4,
     type: 'S_N',
-    partTitle: 'Part 2. [S vs N] 당신의 뇌는 무엇에 반응하나?',
-    subtitle: '당신의 시선은 땅(현실)을 보나요, 아니면 별(미래)을 보나요?',
     question: 'Q4. 최신 스마트폰을 살 때 당신이 가장 먼저 하는 행동은?',
     optionA: {
-      text: '스펙과 가격 등 숫자와 팩트가 적힌 표를 뚫어지게 본다.',
+      text: '스펙과 가격 등 숫자와 팩트가 적힌 표를 꼼꼼하게 본다.',
       value: 'S',
     },
     optionB: {
-      text: '브랜드의 감성을 느낀다.',
+      text: '브랜드가 가진 이미지와 감성을 마음으로 느낀다.',
       value: 'N',
     },
   },
   {
     id: 5,
     type: 'S_N',
-    partTitle: 'Part 2. [S vs N] 당신의 뇌는 무엇에 반응하나?',
-    subtitle: '당신의 시선은 땅(현실)을 보나요, 아니면 별(미래)을 보나요?',
     question: 'Q5. 기업 분석을 할 때 당신의 심장을 뛰게 하는 것은?',
     optionA: {
       text: '정확하게 우상향하는 재무제표의 아름다운 숫자들.',
@@ -77,26 +67,22 @@ export const QUESTIONS = [
   {
     id: 6,
     type: 'S_N',
-    partTitle: 'Part 2. [S vs N] 당신의 뇌는 무엇에 반응하나?',
-    subtitle: '당신의 시선은 땅(현실)을 보나요, 아니면 별(미래)을 보나요?',
     question: 'Q6. "인생 한 방"을 노린다면 당신의 선택은?',
     optionA: {
-      text: '연금처럼 꼬박꼬박 배당 주는 건물 같은 주식.',
+      text: '월급처럼 꼬박꼬박 지급되는 배당주.',
       value: 'S',
     },
     optionB: {
-      text: '지금은 적자지만 나중에 100배 갈 것 같은 마법 같은 혁신주.',
+      text: '지금은 적자지만 나중에 100배 갈 수도 있는 유망주.',
       value: 'N',
     },
   },
   {
     id: 7,
     type: 'T_F',
-    partTitle: 'Part 3. [T vs F] 결정적인 순간, 당신의 손가락은?',
-    subtitle: '차갑고 정밀한 AI인가요, 아니면 뜨겁고 다정한 인간인가요?',
-    question: 'Q7. 정들었던 주식이 -10%를 찍으며 지하실로 내려간다면?',
+    question: 'Q7. 오래 보유했던 주식이 어느 날 갑자기 떨어진다면?',
     optionA: {
-      text: '기계처럼 매도 버튼을 누르고 로그아웃한다.',
+      text: '칼같이 매도 버튼을 누르고 로그아웃한다.',
       value: 'T',
     },
     optionB: {
@@ -107,8 +93,6 @@ export const QUESTIONS = [
   {
     id: 8,
     type: 'T_F',
-    partTitle: 'Part 3. [T vs F] 결정적인 순간, 당신의 손가락은?',
-    subtitle: '차갑고 정밀한 AI인가요, 아니면 뜨겁고 다정한 인간인가요?',
     question: 'Q8. 단짝 친구가 "이거 진짜 나만 아는 정보야"라며 종목을 추천한다면?',
     optionA: {
       text: '친구의 말이라도 논리가 없으면 얄짤없이 필터링한다.',
@@ -122,8 +106,6 @@ export const QUESTIONS = [
   {
     id: 9,
     type: 'T_F',
-    partTitle: 'Part 3. [T vs F] 결정적인 순간, 당신의 손가락은?',
-    subtitle: '차갑고 정밀한 AI인가요, 아니면 뜨겁고 다정한 인간인가요?',
     question: 'Q9. 당신이 생각하는 최고의 투자 고수는 누구?',
     optionA: {
       text: '감정에 휘둘리지 않고 통계와 확률로 시장을 이겨버리는 \'인간 엑셀\'.',
@@ -137,8 +119,6 @@ export const QUESTIONS = [
   {
     id: 10,
     type: 'J_P',
-    partTitle: 'Part 4. [J vs P] 투자의 길을 떠나는 당신의 자세',
-    subtitle: '철저한 계획형 빌드업인가요, 아니면 유연한 즉흥 연주인가요?',
     question: 'Q10. 여행 가기 전, 당신의 구글 맵(지도) 상태는?',
     optionA: {
       text: '시간대별 이동 동선과 맛집 리스트 등 시나리오가 완벽하다.',
@@ -152,30 +132,26 @@ export const QUESTIONS = [
   {
     id: 11,
     type: 'J_P',
-    partTitle: 'Part 4. [J vs P] 투자의 길을 떠나는 당신의 자세',
-    subtitle: '철저한 계획형 빌드업인가요, 아니면 유연한 즉흥 연주인가요?',
-    question: 'Q11. 내 계좌를 점검하는 스타일은?',
+    question: 'Q11. 내 주식 계좌를 점검하는 스타일은?',
     optionA: {
-      text: '알람까지 맞춰두고 정해진 규칙대로 칼같이 점검한다.',
+      text: '정해진 날에 주기적으로 정리한다.',
       value: 'J',
     },
     optionB: {
-      text: '잊고 지내다 기회가 왔을 때 유연하게 대응한다.',
+      text: '잊고 지내다 생각날 때 유연하게 대응한다.',
       value: 'P',
     },
   },
   {
     id: 12,
     type: 'J_P',
-    partTitle: 'Part 4. [J vs P] 투자의 길을 떠나는 당신의 자세',
-    subtitle: '철저한 계획형 빌드업인가요, 아니면 유연한 즉흥 연주인가요?',
     question: 'Q12. 약속 장소로 가던 중 갑자기 지하철이 고장 나 멈춰버렸다면?',
     optionA: {
-      text: '머릿속으로 즉시 다른 경로를 검색하고 지인에게 정확히 몇 분 늦을지 통보한다.',
+      text: '즉시 다른 경로를 검색하고 지인에게 정확히 몇 분 늦을지 통보한다.',
       value: 'J',
     },
     optionB: {
-      text: '일단 상황을 지켜보며 느긋하게 스마트폰으로 웹툰을 보거나 딴짓을 한다.',
+      text: '일단 상황을 지켜보며 기다리는 동안 스마트폰으로 내 할 일을 한다.',
       value: 'P',
     },
   }
