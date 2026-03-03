@@ -13,16 +13,12 @@
     margin-bottom: 2rem;
 }
 
-.slider-header h2 {
-    font-size: 1.75rem;
-    color: #191f28;
-    margin-bottom: 1rem;
-}
-
-.slider-header p {
-    font-size: 1.125rem;
-    margin-bottom: 0.5rem;
+.slider-main-question {
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--text-primary);
+    line-height: 1.6;
+    word-break: keep-all;
 }
 
 .slider-header strong {

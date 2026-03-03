@@ -57,16 +57,26 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
                 </button>
             </div>
 
-            {/* 1단계에서는 뒤로 가기 버튼 숨김 또는 비활성화 처리 */}
-            <div className={`mt-8 flex justify-center transition-opacity duration-300 ${step === 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+            {/* 모든 단계에서 뒤로가기 표시 (1단계는 이전 페이지로 이동) */}
+            <div className="mt-8 flex justify-center">
                 <button
                     onClick={onBack}
-                    disabled={step === 1}
-                    className="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-600 bg-gray-800/50 hover:bg-gray-700 hover:border-gray-400 text-gray-300 hover:text-white transition-all 
-                               shadow-sm hover:shadow-md active:scale-95"
+                    className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
-                    <span className="font-bold tracking-wider">뒤로가기</span>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="group-hover:-translate-x-0.5 transition-transform duration-200"
+                    >
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                    <span className="text-sm font-semibold">이전으로</span>
                 </button>
             </div>
         </div>

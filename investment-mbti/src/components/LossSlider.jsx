@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './LossSlider.css';
 
 // 손실 한도 슬라이더 컴포넌트 (범위: 1% ~ 40%, step: 1%)
-function LossSlider({ onComplete }) {
+// investmentAmount: 앞 화면에서 입력한 투자금 (만원 단위)
+function LossSlider({ onComplete, onBack, investmentAmount }) {
     const [lossValue, setLossValue] = useState(1);
-    // 슬라이더 건드렸는지 여부 추적 (Bonus UX requirement)
     const [isSliderTouched, setIsSliderTouched] = useState(false);
     const [showWarning, setShowWarning] = useState(false);
 
@@ -16,12 +16,12 @@ function LossSlider({ onComplete }) {
         return { label: '공격적', color: '#ef4444', desc: '야수의 심장. 하락장은 바겐세일일 뿐!' };
     };
 
-    // 1000만원 기준 손실 후 남은 금액 계산
+    // 투자금 기준 손실 후 남은 금액 계산
     const calculateMoney = (value) => {
-        const currentMoney = 10000000;
-        const lossPercentage = value / 100;
-        const remainingMoney = currentMoney * (1 - lossPercentage);
-        return Math.floor(remainingMoney / 10000).toLocaleString() + '만 원';
+        const baseMoney = (investmentAmount || 1000) * 10000; // 만원 단위 → 원 단위
+        const remainingMoney = baseMoney * (1 - value / 100);
+        const remainingMan = Math.floor(remainingMoney / 10000);
+        return remainingMan.toLocaleString() + '만 원';
     };
 
     const handleSliderChange = (e) => {
@@ -36,20 +36,23 @@ function LossSlider({ onComplete }) {
             setTimeout(() => setShowWarning(false), 3000);
             return;
         }
-        // 백엔드로 전송할 때는 음수 변환
         onComplete(-lossValue);
     };
 
     const feedback = getFeedback(lossValue);
-    // 그래디언트 비율 계산 (1~40 범위: (value - 1) / 39 * 100)
+    // 그래디언트 비율 계산 (1~40 범위)
     const gradientPercent = ((lossValue - 1) / 39) * 100;
 
     return (
         <div className="slider-container animate-fade-in max-w-xl mx-auto">
+
             <div className="slider-header animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                <h2>마지막으로 묻습니다.</h2>
-                <p>당신의 소중한 투자금 <strong>1,000만 원</strong>.</p>
-                <p>어디까지 잃어도 밤에 푹 주무실 수 있나요?</p>
+                <p className="slider-main-question">
+                    당신의 소중한 투자금{' '}
+                    <strong>{(investmentAmount || 1000).toLocaleString()}만 원</strong>.
+                    <br />
+                    얼마까지 잃어도 밤에 푹 주무실 수 있나요?
+                </p>
             </div>
 
             <div className="slider-card animate-slide-up" style={{ animationDelay: '0.2s' }}>
@@ -58,7 +61,9 @@ function LossSlider({ onComplete }) {
                 </div>
 
                 <div className="money-indicator">
-                    <svg className="wallet-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                    <svg className="wallet-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                    </svg>
                     <span className="remains">내 수중에 남은 돈: {calculateMoney(lossValue)}</span>
                 </div>
 
@@ -71,7 +76,7 @@ function LossSlider({ onComplete }) {
                     onChange={handleSliderChange}
                     className="range-slider cursor-pointer"
                     style={{
-                        background: `linear-gradient(to right, ${feedback.color} ${gradientPercent}%, rgba(255,255,255,0.1) ${gradientPercent}%)`
+                        background: `linear-gradient(to right, ${feedback.color} ${gradientPercent}%, #e5e7eb ${gradientPercent}%)`
                     }}
                 />
 
@@ -79,7 +84,6 @@ function LossSlider({ onComplete }) {
                     <span>안전 (-1%)</span>
                     <span>위험 (-40%)</span>
                 </div>
-
             </div>
 
             {showWarning && (
@@ -95,6 +99,29 @@ function LossSlider({ onComplete }) {
             >
                 마지막 답변 제출 🚀
             </button>
+
+            {/* 뒤로가기 버튼 — 제출 버튼 아래 */}
+            <div className="mt-8 flex justify-center">
+                <button
+                    onClick={onBack}
+                    className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="group-hover:-translate-x-0.5 transition-transform duration-200"
+                    >
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                    <span className="text-sm font-semibold">이전으로</span>
+                </button>
+            </div>
         </div>
     );
 }
