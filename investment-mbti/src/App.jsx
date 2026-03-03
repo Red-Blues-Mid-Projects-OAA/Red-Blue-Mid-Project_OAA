@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Intro from './components/Intro';
+import InvestmentAmount from './components/InvestmentAmount';
 import Question from './components/Question';
 import LossSlider from './components/LossSlider';
 import Loading from './components/Loading';
@@ -9,13 +10,20 @@ import { QUESTIONS } from './constants/questions';
 import './App.css';
 
 function App() {
-  const [currentView, setCurrentView] = useState('INTRO'); // INTRO, QUESTION, SLIDER, LOADING, RESULT, SELECTION
+  const [currentView, setCurrentView] = useState('INTRO'); // INTRO, INVESTMENT_AMOUNT, QUESTION, SLIDER, LOADING, RESULT, SELECTION
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [investmentAmount, setInvestmentAmount] = useState(null); // 만원 단위
   const [lossLimit, setLossLimit] = useState(null);
   const [resultData, setResultData] = useState(null);
 
   const handleStart = () => {
+    setCurrentView('INVESTMENT_AMOUNT');
+  };
+
+  // 투자금 입력 완료 → 질문 시작
+  const handleInvestmentComplete = (amount) => {
+    setInvestmentAmount(amount);
     setCurrentView('QUESTION');
   };
 
@@ -30,13 +38,21 @@ function App() {
     }
   };
 
-  // 새로운 UX 요구사항: 뒤로 가기
+  // 질문 화면 뒤로가기 (Q1에서는 투자금 입력 화면으로)
   const handleBack = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prev => prev - 1);
-      // 가장 최근에 고른 답변을 제거
       setAnswers(prev => prev.slice(0, -1));
+    } else {
+      setCurrentView('INVESTMENT_AMOUNT');
     }
+  };
+
+  // 슬라이더 화면 뒤로가기 → 마지막 질문으로 복귀
+  const handleBackFromSlider = () => {
+    setCurrentQuestionIndex(QUESTIONS.length - 1);
+    setAnswers(prev => prev.slice(0, -1));
+    setCurrentView('QUESTION');
   };
 
   const handleSliderComplete = (value) => {
@@ -51,9 +67,10 @@ function App() {
     console.log('손실 한도(%):', sliderValue);
 
     try {
-      // 1. 프론트엔드 포맷팅: answers (객체 -> 문자열 A/B), lossLimit (퍼센트 -> 원화 계산)
+      // 프론트엔드 포맷팅: answers (객체 → 문자열 A/B), lossLimit (퍼센트 → 원화 계산)
       const payloadAnswers = mbtiAnswers.map(a => a.optionKey);
-      const krwLossLimit = 100000 * (100 + Number(sliderValue)); // -5% -> 9500000
+      const baseMoney = (investmentAmount || 1000) * 10000;
+      const krwLossLimit = baseMoney * (1 + Number(sliderValue) / 100); // sliderValue는 음수
 
       const response = await fetch('http://localhost:8000/api/analyze', {
         method: 'POST',
@@ -75,7 +92,6 @@ function App() {
 
       console.log('백엔드 응답:', responseData);
 
-      // 2. 백엔드에서 반환하는 JSON 형태에 맞춰 resultData 구성
       const finalResult = {
         title: responseData.persona,
         description: responseData.description,
@@ -92,7 +108,6 @@ function App() {
         lambdaFinal: responseData.lambda_final,
       };
 
-      // 시각적 효과를 위한 약간의 지연 후 결과 렌더링
       setTimeout(() => {
         setResultData(finalResult);
         setCurrentView('RESULT');
@@ -108,6 +123,7 @@ function App() {
   const handleRestart = () => {
     setAnswers([]);
     setCurrentQuestionIndex(0);
+    setInvestmentAmount(null);
     setLossLimit(null);
     setResultData(null);
     setCurrentView('INTRO');
@@ -130,9 +146,15 @@ function App() {
   };
 
   return (
-    // 전체 컨테이너 및 뷰포트 확장 반응형 대응
     <div className="app-container max-w-[1920px] mx-auto px-4 min-h-screen py-8">
       {currentView === 'INTRO' && <Intro onStart={handleStart} />}
+
+      {currentView === 'INVESTMENT_AMOUNT' && (
+        <InvestmentAmount
+          onComplete={handleInvestmentComplete}
+          onBack={() => setCurrentView('INTRO')}
+        />
+      )}
 
       {currentView === 'QUESTION' && (
         <Question
@@ -144,7 +166,13 @@ function App() {
         />
       )}
 
-      {currentView === 'SLIDER' && <LossSlider onComplete={handleSliderComplete} />}
+      {currentView === 'SLIDER' && (
+        <LossSlider
+          onComplete={handleSliderComplete}
+          onBack={handleBackFromSlider}
+          investmentAmount={investmentAmount}
+        />
+      )}
 
       {currentView === 'LOADING' && <Loading />}
 

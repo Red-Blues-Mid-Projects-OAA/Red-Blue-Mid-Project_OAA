@@ -22,10 +22,15 @@
 }
 
 .title {
-    font-size: 2.5rem;
+    font-size: 2.375rem;
+    font-weight: 700;
     color: var(--text-primary);
     margin: 0;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* "투자 성향 MBTI 테스트:" — 메인 타이틀보다 약간 작게 */
+.title-label {
+    font-size: 1.75rem;
 }
 
 .highlight {
@@ -36,7 +41,8 @@
 .subtitle {
     font-size: 1.125rem;
     color: var(--text-secondary);
-    max-width: 80%;
+    max-width: 620px;
+    white-space: nowrap;
     margin: 0 auto 1.5rem;
 }
 
@@ -52,11 +58,12 @@
 
 @media (max-width: 480px) {
     .title {
-        font-size: 2rem;
+        font-size: 1.875rem;
     }
 
     .subtitle {
         font-size: 1rem;
         max-width: 100%;
+        white-space: normal;
     }
 }

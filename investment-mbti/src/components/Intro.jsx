@@ -9,12 +9,12 @@ function Intro({ onStart }) {
                     금융 초보자를 위한
                 </div>
                 <h1 className="title animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                    투자 MBTI :<br />
-                    당신의 <span className="highlight">'돈 그릇'</span> 유형 테스트
+                    <span className="title-label">투자 성향 MBTI 테스트:</span><br />
+                    나는 어떤 유형의 개미일까? 🐜
                 </h1>
                 <p className="subtitle animate-slide-up" style={{ animationDelay: '0.3s' }}>
-                    위험을 즐기는 사냥꾼인가, 안전을 쫓는 거북이인가?<br />
-                    간단한 12문항으로 당신의 투자 페르소나를 확인하세요.
+                    개미라고 다 같은 개미가 아니다!<br />
+                    작은 흔들림에도 불안한 개미인가, 폭락장에서도 버티는 개미인가?
                 </p>
 
                 <div className="btn-wrapper animate-slide-up" style={{ animationDelay: '0.4s' }}>
