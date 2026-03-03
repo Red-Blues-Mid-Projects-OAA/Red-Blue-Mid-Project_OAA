@@ -51,15 +51,59 @@
     box-shadow: 0 10px 18px rgba(220, 38, 38, 0.15);
 }
 
-.ps-action-btn--back {
-    border: 1px solid rgba(37, 99, 235, 0.25);
-    background: linear-gradient(180deg, #ffffff 0%, #dbeafe 100%);
-    color: #1d4ed8;
+.ps-action-btn--confirm {
+    border: 1px solid rgba(22, 163, 74, 0.3);
+    background: linear-gradient(180deg, #ffffff 0%, #dcfce7 100%);
+    color: #16a34a;
 }
 
-.ps-action-btn--back:hover {
+.ps-action-btn--confirm:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 18px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 10px 18px rgba(22, 163, 74, 0.18);
+}
+
+/* ── Error modal ── */
+.ps-error-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ps-error-modal {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.ps-error-modal p {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.ps-error-modal button {
+    padding: 0.5rem 1.5rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ps-error-modal button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 /* ── Section titles ── */

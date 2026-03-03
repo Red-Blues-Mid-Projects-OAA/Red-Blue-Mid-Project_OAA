@@ -1,5 +1,5 @@
 import React from 'react';
-import { RefreshCw, Sparkles, TrendingUp, ShieldAlert } from 'lucide-react';
+import { RefreshCw, ArrowLeft, TrendingUp, Sparkles, ShieldAlert } from 'lucide-react';
 import MbtiBarChart from './MbtiBarChart';
 import PortfolioPieChart from './PortfolioPieChart';
 import CumulativeReturnChart from './CumulativeReturnChart';
@@ -91,21 +91,47 @@ function getWeightedHistoricalReturn(stocks, key = '3M') {
     return avg;
 }
 
-function DashboardResult({ personaData, onRestart, onShowSelection }) {
+function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
     if (!personaData) return null;
 
-    const recommendedStocks = [...(personaData.recommendedStocks || [])]
-        .sort((a, b) => toFiniteNumber(b.weight, 0) - toFiniteNumber(a.weight, 0));
+    // optimizedData가 있으면 최적화된 종목 사용, 없으면 기존 추천 종목 사용
+    const hasOptimized = optimizedData && optimizedData.optimized_stocks;
+    const displayStocks = hasOptimized
+        ? [...optimizedData.optimized_stocks].sort((a, b) => toFiniteNumber(b.weight, 0) - toFiniteNumber(a.weight, 0))
+        : [...(personaData.recommendedStocks || [])].sort((a, b) => toFiniteNumber(b.weight, 0) - toFiniteNumber(a.weight, 0));
 
     const rawAnswers = personaData.rawAnswers || [];
     const mbti = personaData.mbti || 'ENTJ';
     const mbtiScores = getMbtiScores(rawAnswers);
     const portfolioAnalysis = personaData.portfolioAnalysis || {};
-    const historical3m = getWeightedHistoricalReturn(recommendedStocks, '3M');
-    const expected3m = toFiniteNumber(portfolioAnalysis.expected_return_simple, 0);
-    const volatility60dPct = toFiniteNumber(portfolioAnalysis.volatility_60d, 0) * 100;
-    const var5 = -Math.abs(toFiniteNumber(portfolioAnalysis.var_5, 0));
+
+    // 메트릭: optimizedData 우선 사용
+    const historical3m = hasOptimized
+        ? toFiniteNumber(optimizedData.past_3m_return, 0)
+        : getWeightedHistoricalReturn(displayStocks, '3M');
+    const expected3m = hasOptimized
+        ? toFiniteNumber(optimizedData.portfolio_expected_return_3m_simple, 0)
+        : toFiniteNumber(portfolioAnalysis.expected_return_simple, 0);
+    const volatility60dPct = hasOptimized
+        ? toFiniteNumber(optimizedData.portfolio_volatility, 0) * 100
+        : toFiniteNumber(portfolioAnalysis.volatility_60d, 0) * 100;
+    const var5 = hasOptimized
+        ? toFiniteNumber(optimizedData.var_5, 0)
+        : -Math.abs(toFiniteNumber(portfolioAnalysis.var_5, 0));
     const personaImage = getPersonaImage(personaData.title, personaData.finalLevel);
+
+    // 차트/예측 데이터: optimizedData 우선
+    const chartData = hasOptimized ? optimizedData.chart_data : personaData.chartData;
+    const forecastData = hasOptimized ? optimizedData.forecast_data : personaData.forecastData;
+
+    // 수익률/위험도 Score (0~100)
+    const returnScore = Math.min(100, Math.max(0, Math.round(expected3m * 10)));
+    const riskScore = Math.min(100, Math.max(0, Math.round(volatility60dPct * 5)));
+
+    // 분산효과를 보여주기 위한 단순 가중 위험도
+    const naiveRiskScore = hasOptimized
+        ? Math.min(100, Math.max(0, Math.round(toFiniteNumber(optimizedData?.portfolio_volatility_naive, 0) * 100 * 5)))
+        : riskScore;
 
     const metricCards = [
         {
@@ -193,7 +219,7 @@ function DashboardResult({ personaData, onRestart, onShowSelection }) {
                         </div>
 
                         <div className="composition-content">
-                            <PortfolioPieChart stocks={recommendedStocks} size={240} />
+                            <PortfolioPieChart stocks={displayStocks} size={240} />
 
                             <div className="metrics-grid">
                                 {metricCards.map((metric) => (
@@ -217,23 +243,65 @@ function DashboardResult({ personaData, onRestart, onShowSelection }) {
                         </div>
 
                         <CumulativeReturnChart
-                            chartData={personaData.chartData}
-                            forecastData={personaData.forecastData}
-                            warnings={personaData.chartData?.warnings || []}
+                            chartData={chartData}
+                            forecastData={forecastData}
+                            warnings={chartData?.warnings || []}
                         />
+                    </article>
+
+                    {/* 수익률/위험도 바 */}
+                    <article className="glass-panel score-bars-panel reveal delay-4">
+                        <div className="panel-heading">
+                            <h3>포트폴리오 스코어</h3>
+                        </div>
+                        <div className="dr-bars-wrap">
+                            <div className="dr-bar-row">
+                                <span className="dr-bar-label">(예상) 수익률</span>
+                                <div className="dr-bar-track">
+                                    <div className="dr-bar-fill dr-bar-fill--return" style={{ width: `${returnScore}%` }} />
+                                </div>
+                                <span className="dr-bar-value">{returnScore}</span>
+                            </div>
+                            <div className="dr-bar-row">
+                                <span className="dr-bar-label">(예상) 위험도</span>
+                                <div className="dr-bar-track dr-bar-track--risk">
+                                    <div
+                                        className="dr-bar-fill dr-bar-fill--risk"
+                                        style={{ width: `${riskScore}%`, zIndex: 2, position: 'relative' }}
+                                    />
+                                    {hasOptimized && naiveRiskScore > riskScore && (
+                                        <div
+                                            className="dr-bar-fill dr-bar-fill--risk-striped tooltip-trigger"
+                                            style={{
+                                                width: `${naiveRiskScore}%`,
+                                                position: 'absolute',
+                                                left: 0,
+                                                top: 0,
+                                                bottom: 0,
+                                                zIndex: 1,
+                                                backgroundColor: '#fcd34d',
+                                                backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.5) 10px, rgba(255,255,255,0.5) 20px)'
+                                            }}
+                                            title="분산 투자로 인한 위험 감소 효과"
+                                        />
+                                    )}
+                                </div>
+                                <span className="dr-bar-value">{riskScore}</span>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </section>
 
             <section className="glass-panel stocks-panel reveal delay-5">
                 <div className="panel-heading">
-                    <h3>추천 종목</h3>
-                    <span className="chip">{recommendedStocks.length}개 종목</span>
+                    <h3>포트폴리오 종목</h3>
+                    <span className="chip">{displayStocks.length}개 종목</span>
                 </div>
 
-                {recommendedStocks.length > 0 ? (
+                {displayStocks.length > 0 ? (
                     <div className="stock-grid">
-                        {recommendedStocks.map((stock) => (
+                        {displayStocks.map((stock) => (
                             <StockCard key={stock.ticker} stock={stock} />
                         ))}
                     </div>
@@ -245,12 +313,12 @@ function DashboardResult({ personaData, onRestart, onShowSelection }) {
             <div className="result-actions reveal delay-5">
                 <button type="button" className="restart-button" onClick={onRestart}>
                     <RefreshCw size={16} />
-                    다시 분석하기
+                    처음으로
                 </button>
-                {onShowSelection && (
-                    <button type="button" className="restart-button" style={{ marginLeft: '0.6rem', background: 'linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%)' }} onClick={onShowSelection}>
-                        <Sparkles size={16} />
-                        종목 선택하기
+                {onBack && (
+                    <button type="button" className="restart-button" style={{ marginLeft: '0.6rem', background: 'linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%)' }} onClick={onBack}>
+                        <ArrowLeft size={16} />
+                        이전으로
                     </button>
                 )}
             </div>

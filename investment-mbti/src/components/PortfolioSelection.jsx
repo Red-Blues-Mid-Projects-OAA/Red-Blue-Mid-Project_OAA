@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Search, ArrowUpDown, XCircle, Eye, RefreshCw, ArrowLeft } from 'lucide-react';
+import { Search, ArrowUpDown, XCircle, Eye, RefreshCw, ArrowLeft, CheckCircle } from 'lucide-react';
 import './PortfolioSelection.css';
 
 const API_BASE = 'http://localhost:8000';
 
-function PortfolioSelection({ recommendedStocks = [], onBack, onRestart }) {
+function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFinal = 7.7, onBack, onRestart, onConfirm }) {
     // ── 상태 관리 ──
     const [allStocks, setAllStocks] = useState([]);
     const [selectedTickers, setSelectedTickers] = useState(new Set());
@@ -14,6 +14,13 @@ function PortfolioSelection({ recommendedStocks = [], onBack, onRestart }) {
     const [showSortDropdown, setShowSortDropdown] = useState(false);
     const [showSelectedOnly, setShowSelectedOnly] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [errorMsg, setErrorMsg] = useState(null);
+
+    // 위험 타입별 최소 종목 수
+    const MIN_COUNT_MAP = { 4: 10, 3: 7, 2: 4, 1: 1 };
+    const LEVEL_NAME_MAP = { 4: '노예 개미', 3: '월급루팡 개미', 2: '파이어족 개미', 1: 'YOLO 개미' };
+    const minCount = MIN_COUNT_MAP[finalLevel] || 4;
+    const levelName = LEVEL_NAME_MAP[finalLevel] || '';
 
     // ── 초기화: 추천 종목을 기본 선택 + 전체 종목 로드 ──
     useEffect(() => {
@@ -335,11 +342,31 @@ function PortfolioSelection({ recommendedStocks = [], onBack, onRestart }) {
                     <RefreshCw size={16} />
                     처음으로
                 </button>
-                <button type="button" className="ps-action-btn ps-action-btn--back" onClick={onBack}>
-                    <ArrowLeft size={16} />
-                    이전으로
+                <button
+                    type="button"
+                    className="ps-action-btn ps-action-btn--confirm"
+                    onClick={() => {
+                        if (selectedTickers.size < minCount) {
+                            setErrorMsg(`${levelName} 타입은 최소 ${minCount}개 이상의 종목을 선택해야 합니다. (현재 ${selectedTickers.size}개 선택)`);
+                            return;
+                        }
+                        onConfirm(Array.from(selectedTickers));
+                    }}
+                >
+                    <CheckCircle size={16} />
+                    포트폴리오 구성하기 ({selectedTickers.size}개)
                 </button>
             </div>
+
+            {/* ── 오류 모달 ── */}
+            {errorMsg && (
+                <div className="ps-error-overlay" onClick={() => setErrorMsg(null)}>
+                    <div className="ps-error-modal" onClick={e => e.stopPropagation()}>
+                        <p>{errorMsg}</p>
+                        <button type="button" onClick={() => setErrorMsg(null)}>확인</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

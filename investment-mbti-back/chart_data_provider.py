@@ -230,3 +230,93 @@ def get_forecast_placeholder(expected_return_log: float, volatility_60d: float, 
             "percentile_95": round(float(np.percentile(final_values, 95)), 2),
         },
     }
+
+
+# ──────────────────────────────────────────────────────────────────
+# 실데이터 기반 Monte Carlo 시뮬레이션
+# ──────────────────────────────────────────────────────────────────
+def get_real_forecast(
+    tickers: list[str],
+    weights: list[float],
+    expected_return_3m_log: float,
+    n_paths: int = 300,
+) -> dict:
+    """
+    실제 포트폴리오 과거 데이터 기반 Monte Carlo 시뮬레이션.
+
+    1. 캐시된 일별 로그수익률에서 포트폴리오 가중 일별 수익률을 계산
+    2. 실제 daily drift 와 volatility를 추출
+    3. GBM: dS = μ·dt + σ·dW 으로 60일(3개월) 시뮬레이션
+    4. 기대 경로: adjusted expected return 기반 결정론적 라인
+    5. VaR 5%: 시뮬레이션 최종값의 5th percentile
+
+    Args:
+        tickers: 포트폴리오 티커 리스트
+        weights: 각 종목 비중 (합=1)
+        expected_return_3m_log: 3개월 조정 기대 로그수익률 (소수)
+        n_paths: 시뮬레이션 경로 수
+
+    Returns:
+        dict: forecast_days, expected_line, mc_paths, final_distribution
+    """
+    log_ret_df = _chart_cache.get("log_ret_df")
+    horizon = 60  # 약 3개월 거래일
+
+    # ── 포트폴리오 일별 로그수익률 계산 ──
+    valid_tickers = []
+    valid_weights = []
+    if log_ret_df is not None and not log_ret_df.empty:
+        for t, w in zip(tickers, weights):
+            t_upper = t.strip().upper()
+            if t_upper in log_ret_df.columns:
+                valid_tickers.append(t_upper)
+                valid_weights.append(w)
+
+    if valid_tickers:
+        w_arr = np.array(valid_weights)
+        w_arr = w_arr / w_arr.sum()
+        port_daily_log = log_ret_df[valid_tickers].fillna(0).values @ w_arr
+
+        # 최근 252일 데이터로 drift/vol 추정
+        recent = port_daily_log[-252:] if len(port_daily_log) > 252 else port_daily_log
+        daily_vol = float(np.std(recent))
+    else:
+        daily_vol = 0.01  # fallback
+
+    # ── 기대 경로 (adjusted expected return 기반) ──
+    daily_drift_expected = expected_return_3m_log / horizon
+    expected_cum_log = np.array([daily_drift_expected * i for i in range(horizon + 1)])
+    expected_line = (_log_to_simple_array(expected_cum_log) * 100).tolist()
+
+    # ── Monte Carlo GBM 시뮬레이션 ──
+    rng = np.random.default_rng(seed=42)
+    mc_paths = []
+    final_values = []
+    for _ in range(n_paths):
+        # GBM: log(S_t/S_0) = (μ - σ²/2)·t + σ·W_t
+        shocks = rng.normal(
+            daily_drift_expected - 0.5 * daily_vol ** 2,
+            daily_vol,
+            horizon,
+        )
+        path_log = np.concatenate([[0], np.cumsum(shocks)])
+        path_simple = (_log_to_simple_array(path_log) * 100).tolist()
+        mc_paths.append([round(v, 2) for v in path_simple])
+        final_values.append(path_simple[-1])
+
+    final_values = np.array(final_values)
+
+    var_5 = float(np.percentile(final_values, 5))
+
+    return {
+        "forecast_days": list(range(horizon + 1)),
+        "expected_line": [round(v, 2) for v in expected_line],
+        "mc_paths": mc_paths,
+        "final_distribution": {
+            "mean": round(float(np.mean(final_values)), 2),
+            "std": round(float(np.std(final_values)), 2),
+            "percentile_5": round(var_5, 2),
+            "percentile_95": round(float(np.percentile(final_values, 95)), 2),
+        },
+    }
+

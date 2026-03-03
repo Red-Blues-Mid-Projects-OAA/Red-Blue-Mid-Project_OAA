@@ -264,6 +264,69 @@
     font-size: 0.9rem;
 }
 
+/* ── Score bars ── */
+.score-bars-panel {
+    margin-top: 1rem;
+}
+
+.dr-bars-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.5rem 0;
+}
+
+.dr-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.dr-bar-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #334155;
+    white-space: nowrap;
+    min-width: 75px;
+}
+
+.dr-bar-track {
+    flex: 1;
+    height: 18px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.dr-bar-fill {
+    height: 100%;
+    border-radius: inherit;
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.dr-bar-fill--return {
+    background: linear-gradient(90deg, #f87171, #dc2626);
+}
+
+.dr-bar-fill--risk {
+    background: linear-gradient(90deg, #60a5fa, #2563eb);
+}
+
+.dr-bar-value {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #0f172a;
+    min-width: 28px;
+    text-align: right;
+}
+
 .result-actions {
     position: relative;
     z-index: 1;

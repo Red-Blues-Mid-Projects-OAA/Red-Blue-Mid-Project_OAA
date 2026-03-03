@@ -28,12 +28,16 @@ from real_data_provider import (
     get_mvo_inputs,
     get_all_300_stocks,
     calculate_portfolio_scores,
+    TICKER_NAME_MAP,
+    normalize_risk_score,
+    _cache,
 )
 from portfolio_optimizer import optimize_portfolio
 from chart_data_provider import (
     get_historical_returns,
     get_cumulative_return_chart,
     get_forecast_placeholder,
+    get_real_forecast,
     load_chart_cache,
 )
 
@@ -81,6 +85,14 @@ class OptimizeRequest(BaseModel):
 
     selected_tickers: List[str]  # 사용자가 선택한 종목 리스트
     lambda_final: float  # λ 값
+
+
+class OptimizeFinalRequest(BaseModel):
+    """최종 포트폴리오 최적화 요청 (종목 선택 후)."""
+
+    selected_tickers: List[str]
+    lambda_final: float
+    final_level: int
 
 
 class PortfolioScoresRequest(BaseModel):
@@ -285,6 +297,118 @@ def get_portfolio_scores(req: PortfolioScoresRequest):
         return {"status": "success", "data": scores}
     except Exception as e:
         raise HTTPException(status_code=503, detail=str(e))
+
+
+@app.post("/api/optimize-final")
+def optimize_final(req: OptimizeFinalRequest):
+    """
+    종목 선택 완료 후 최종 포트폴리오 최적화 + 차트 + Monte Carlo.
+    DashboardResult가 필요로 하는 전체 데이터를 반환합니다.
+    """
+    tickers = [t.strip().upper() for t in req.selected_tickers]
+    if not tickers:
+        raise HTTPException(status_code=400, detail="종목이 선택되지 않았습니다.")
+
+    # 1. MVO 입력 데이터
+    mu, cov_sub, valid_tickers = get_mvo_inputs(tickers)
+    if len(valid_tickers) == 0:
+        raise HTTPException(status_code=400, detail="유효한 종목이 없습니다.")
+
+    # 2. 포트폴리오 최적화
+    weights = np.array(optimize_portfolio(mu, cov_sub, req.lambda_final), dtype=float)
+
+    # 3. 최적화 결과 종목별 데이터 구성
+    optimized_stocks = []
+    for i, ticker in enumerate(valid_tickers):
+        w_pct = round(float(weights[i]) * 100, 2)
+        if w_pct < 0.1:  # 비중 0에 가까운 종목은 제외
+            continue
+        expected_log = float(mu[i])
+        expected_simple = round((math.exp(expected_log / 100.0) - 1.0) * 100.0, 2) if abs(expected_log) > 0 else 0.0
+        optimized_stocks.append({
+            "ticker": ticker,
+            "name": TICKER_NAME_MAP.get(ticker, ticker),
+            "weight": w_pct,
+            "expectedReturn3M": round(expected_log * 100, 2),
+            "expectedReturn3M_simple": expected_simple,
+        })
+
+    # 3.5. risk_score 및 risk_rank 추가
+    variance_map = _cache.get("variance_map") or {}
+    all_sigmas = [v ** 0.5 for v in variance_map.values()] if variance_map else []
+    sigma_min = min(all_sigmas) if all_sigmas else 0
+    sigma_max = max(all_sigmas) if all_sigmas else 1
+    
+    all_stocks_data = get_all_300_stocks()
+    rank_map = {s.get("ticker"): s.get("risk_rank", 300) for s in all_stocks_data}
+    db_hist_map = {}
+    for s in all_stocks_data:
+        t = s.get("ticker")
+        db_hist_map[t] = {
+            "1M": s.get("returns_1m", 0) * 100, 
+            "3M": s.get("returns_3m", 0) * 100,
+            "6M": s.get("returns_6m", 0) * 100,
+            "12M": s.get("returns_1y", 0) * 100
+        }
+
+    for stock in optimized_stocks:
+        t = stock["ticker"]
+        ewma_std = variance_map.get(t, 0.0) ** 0.5 if t in variance_map else 0.0
+        stock["risk_score"] = normalize_risk_score(ewma_std, sigma_min, sigma_max)
+        stock["risk_rank"] = rank_map.get(t, 300)
+        stock["historical_returns"] = db_hist_map.get(t, {"1M": 0, "3M": 0, "6M": 0, "12M": 0})
+
+    # 4. 포트폴리오 메트릭
+    portfolio_return_log = float(np.dot(weights, mu))  # 가중 로그수익률
+    portfolio_return_simple = round((math.exp(portfolio_return_log / 100.0) - 1.0) * 100.0, 2)
+    portfolio_var = float(weights.T @ cov_sub @ weights)
+    portfolio_volatility = round(float(np.sqrt(max(portfolio_var, 0.0))), 4)
+    # 단순 가중 변동성 (분산효과 0일 때)
+    naive_var = float(np.dot(weights**2, np.diag(cov_sub)))
+    portfolio_volatility_naive = round(float(np.sqrt(max(naive_var, 0.0))), 4)
+
+    # 5. 누적수익률 차트 (포트폴리오 vs S&P 500)
+    active_tickers = [s["ticker"] for s in optimized_stocks]
+    active_weights_pct = [s["weight"] for s in optimized_stocks]
+    w_sum = sum(active_weights_pct)
+    chart_weights = [w / w_sum for w in active_weights_pct] if w_sum > 0 else []
+    chart_data = get_cumulative_return_chart(active_tickers, chart_weights)
+
+    # 7. 실데이터 Monte Carlo 시뮬레이션
+    forecast_data = get_real_forecast(
+        tickers=active_tickers,
+        weights=chart_weights,
+        expected_return_3m_log=portfolio_return_log / 100.0,
+        n_paths=300,
+    )
+
+    # 8. 과거 3개월 가중 수익률
+    hist_3m_values = []
+    for s in optimized_stocks:
+        h = s.get("historical_returns", {})
+        hist_3m_values.append(float(h.get("3M", 0)))
+    hist_weights_norm = np.array(active_weights_pct)
+    if hist_weights_norm.sum() > 0:
+        hist_weights_norm = hist_weights_norm / hist_weights_norm.sum()
+    past_3m_return = round(float(np.dot(hist_weights_norm, hist_3m_values)), 2)
+
+    # 9. VaR 5%
+    var_5 = forecast_data["final_distribution"]["percentile_5"]
+
+    return {
+        "status": "success",
+        "data": {
+            "optimized_stocks": optimized_stocks,
+            "portfolio_expected_return_3m_simple": portfolio_return_simple,
+            "portfolio_volatility": portfolio_volatility,
+            "portfolio_volatility_naive": portfolio_volatility_naive,
+            "past_3m_return": past_3m_return,
+            "var_5": round(var_5, 2),
+            "chart_data": chart_data,
+            "forecast_data": forecast_data,
+            "weight_sum": round(float(np.sum(weights)) * 100, 2),
+        },
+    }
 
 
 if __name__ == "__main__":

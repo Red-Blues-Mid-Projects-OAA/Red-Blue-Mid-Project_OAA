@@ -24,23 +24,24 @@ function formatSigned(value) {
 }
 
 /* ── 시뮬레이션 끝에 이어 붙이는 정규분포 오버레이 ── */
-function DistributionOverlay({ formattedGraphicalItems, yAxisMap, distribution }) {
-    if (!distribution || !yAxisMap || !formattedGraphicalItems) return null;
+function DistributionOverlay(props) {
+    const { yAxisMap, distribution, offset } = props;
+    if (!distribution || !yAxisMap || !offset) return null;
 
     const yAxis = yAxisMap[Object.keys(yAxisMap)[0]];
-    if (!yAxis) return null;
+    if (!yAxis || !yAxis.scale) return null;
 
     const mean = toFiniteNumber(distribution.mean, 0);
+    const var5 = toFiniteNumber(distribution.percentile_5, null);
     const std = Math.max(0.001, Math.abs(toFiniteNumber(distribution.std, 0.01)));
     const minValue = mean - std * 3;
     const maxValue = mean + std * 3;
 
     // yAxis 범위에서 실제 pixel 좌표 계산
     const yScale = yAxis.scale;
-    if (!yScale) return null;
 
-    // 차트 오른쪽 끝에서 그리기
-    const chartRight = yAxis.x + yAxis.width + (yAxis.mirror ? 0 : 0);
+    // 차트 오른쪽 끝 가장자리로 맞춤 (margin/offset 적용)
+    const chartRight = offset.left + offset.width;
     const curveWidth = 60;
 
     const samples = 50;
@@ -76,6 +77,7 @@ function DistributionOverlay({ formattedGraphicalItems, yAxisMap, distribution }
     ).join(' ');
 
     const meanY = yScale(mean);
+    const var5Y = var5 !== null ? yScale(var5) : null;
 
     return (
         <g>
@@ -87,6 +89,8 @@ function DistributionOverlay({ formattedGraphicalItems, yAxisMap, distribution }
             </defs>
             <path d={areaPath} fill="url(#distOverlayFill)" />
             <path d={linePath} fill="none" stroke="#2563eb" strokeWidth="2" />
+
+            {/* 평균 라인 */}
             {meanY != null && Number.isFinite(meanY) && (
                 <line
                     x1={chartRight}
@@ -97,6 +101,30 @@ function DistributionOverlay({ formattedGraphicalItems, yAxisMap, distribution }
                     strokeDasharray="3 3"
                     strokeWidth="1.2"
                 />
+            )}
+
+            {/* VaR 5% 라인 */}
+            {var5Y != null && Number.isFinite(var5Y) && (
+                <g>
+                    <line
+                        x1={chartRight}
+                        y1={var5Y}
+                        x2={chartRight + curveWidth}
+                        y2={var5Y}
+                        stroke="#ef4444"
+                        strokeDasharray="4 4"
+                        strokeWidth="1.5"
+                    />
+                    <text
+                        x={chartRight + curveWidth + 5}
+                        y={var5Y + 4}
+                        fill="#ef4444"
+                        fontSize="10"
+                        fontWeight="600"
+                    >
+                        VaR 5%
+                    </text>
+                </g>
             )}
         </g>
     );

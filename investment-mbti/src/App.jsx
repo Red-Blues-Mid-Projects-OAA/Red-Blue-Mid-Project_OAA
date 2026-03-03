@@ -10,12 +10,13 @@ import { QUESTIONS } from './constants/questions';
 import './App.css';
 
 function App() {
-  const [currentView, setCurrentView] = useState('INTRO'); // INTRO, INVESTMENT_AMOUNT, QUESTION, SLIDER, LOADING, RESULT, SELECTION
+  const [currentView, setCurrentView] = useState('INTRO'); // INTRO, INVESTMENT_AMOUNT, QUESTION, SLIDER, LOADING, SELECTION, OPTIMIZING, RESULT
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [investmentAmount, setInvestmentAmount] = useState(null); // 만원 단위
   const [lossLimit, setLossLimit] = useState(null);
   const [resultData, setResultData] = useState(null);
+  const [optimizedData, setOptimizedData] = useState(null);
 
   const handleStart = () => {
     setCurrentView('INVESTMENT_AMOUNT');
@@ -110,7 +111,7 @@ function App() {
 
       setTimeout(() => {
         setResultData(finalResult);
-        setCurrentView('RESULT');
+        setCurrentView('SELECTION');
       }, 1500);
 
     } catch (error) {
@@ -126,24 +127,38 @@ function App() {
     setInvestmentAmount(null);
     setLossLimit(null);
     setResultData(null);
+    setOptimizedData(null);
     setCurrentView('INTRO');
   };
 
-  const handlePreviousFromResult = () => {
-    setCurrentView('SLIDER');
-  };
-
-  const handleShowRecommendation = () => {
-    setCurrentView('RECOMMENDATION');
-  };
-
-  const handleShowSelection = () => {
+  const handleBackFromResult = () => {
     setCurrentView('SELECTION');
   };
 
-  const handleBackFromSelection = () => {
-    setCurrentView('RESULT');
+  // 종목 선택 완료 → /api/optimize-final 호출 → RESULT
+  const handleConfirmSelection = async (selectedTickers) => {
+    setCurrentView('OPTIMIZING');
+    try {
+      const response = await fetch('http://localhost:8000/api/optimize-final', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          selected_tickers: selectedTickers,
+          lambda_final: resultData.lambdaFinal,
+          final_level: resultData.finalLevel,
+        }),
+      });
+      if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+      const json = await response.json();
+      setOptimizedData(json.data);
+      setCurrentView('RESULT');
+    } catch (error) {
+      console.error('Optimize-final API Error:', error);
+      alert('포트폴리오 최적화에 실패했습니다.');
+      setCurrentView('SELECTION');
+    }
   };
+
 
   return (
     <div className="app-container max-w-[1920px] mx-auto px-4 min-h-screen py-8">
@@ -175,21 +190,25 @@ function App() {
       )}
 
       {currentView === 'LOADING' && <Loading />}
-
-      {currentView === 'RESULT' && (
-        <DashboardResult
-          personaData={resultData}
-          onRestart={handleRestart}
-          onPrevious={handlePreviousFromResult}
-          onShowSelection={handleShowSelection}
-        />
-      )}
+      {currentView === 'OPTIMIZING' && <Loading />}
 
       {currentView === 'SELECTION' && resultData && (
         <PortfolioSelection
           recommendedStocks={resultData.recommendedStocks || []}
-          onBack={handleBackFromSelection}
+          finalLevel={resultData.finalLevel}
+          lambdaFinal={resultData.lambdaFinal}
+          onBack={handleRestart}
           onRestart={handleRestart}
+          onConfirm={handleConfirmSelection}
+        />
+      )}
+
+      {currentView === 'RESULT' && (
+        <DashboardResult
+          personaData={resultData}
+          optimizedData={optimizedData}
+          onRestart={handleRestart}
+          onBack={handleBackFromResult}
         />
       )}
     </div>

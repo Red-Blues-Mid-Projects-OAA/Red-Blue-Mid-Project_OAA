@@ -19,7 +19,7 @@ function StockCard({ stock }) {
     const ticker = String(stock?.ticker || '').toUpperCase();
     const name = String(stock?.name || ticker || '-');
     const weight = Math.max(toFiniteNumber(stock?.weight, 0), 0);
-    const riskScore = Math.max(0, Math.round(toFiniteNumber(stock?.risk_score, 0)));
+    const riskRank = toFiniteNumber(stock?.risk_rank, 0);
     const expected3m = toFiniteNumber(stock?.expectedReturn3M_simple ?? stock?.expectedReturn3M, 0);
 
     const hist = stock?.historical_returns || {};
@@ -40,7 +40,7 @@ function StockCard({ stock }) {
 
                 <div className="stock-card-badges">
                     <span className="stock-badge weight">Ratio {weight.toFixed(1)}%</span>
-                    <span className="stock-badge risk">Risk {riskScore}</span>
+                    <span className="stock-badge risk">리스크 {riskRank}위</span>
                 </div>
             </div>
 
