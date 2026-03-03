@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Question.css';
 
 function Question({ data, step, totalSteps, onAnswer, onBack }) {
@@ -43,7 +43,7 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
             </div>
 
             {data.image && (
-                <div className="question-image-container my-6 flex justify-center">
+                <div className="question-image-container">
                     <img
                         src={data.image}
                         alt="question illustration"
@@ -52,7 +52,7 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
                 </div>
             )}
 
-            <div className="options-container gap-4 mt-8 flex flex-col">
+            <div className="options-container mt-3 flex flex-col">
                 <button
                     className="btn option-btn hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200"
                     onClick={() => handleSelect(data.optionA.value, data.optionA.text, 'A')}
@@ -68,7 +68,7 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
             </div>
 
             {/* 모든 단계에서 뒤로가기 표시 (1단계는 이전 페이지로 이동) */}
-            <div className="mt-20 flex justify-center">
+            <div className="mt-8 flex justify-center">
                 <button
                     onClick={onBack}
                     className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"

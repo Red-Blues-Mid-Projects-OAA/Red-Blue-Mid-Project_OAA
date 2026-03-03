@@ -38,9 +38,9 @@ function InvestmentAmount({ onComplete, onBack }) {
                     </h2>
                 </div>
 
-                {/* 중단: 입력 카드 */}
-                <div className="bg-white border rounded-2xl py-24 px-10 shadow-sm flex flex-col items-center gap-6"
-                    style={{ borderColor: 'var(--card-border)' }}>
+                {/* 중단: 입력 카드 — min-h 고정으로 입력 시 높이 변동 방지 */}
+                <div className="bg-white border rounded-2xl py-16 px-10 shadow-sm flex flex-col items-center justify-center gap-4"
+                    style={{ borderColor: 'var(--card-border)', minHeight: '220px' }}>
 
                     <div className="flex items-center justify-center gap-3">
                         <input
@@ -51,12 +51,12 @@ function InvestmentAmount({ onComplete, onBack }) {
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
                             placeholder="0"
-                            className="w-48 text-center text-4xl font-bold outline-none border-b-2 pb-2 transition-colors duration-200"
+                            className="text-center text-4xl font-bold outline-none border-b-2 pb-2 transition-colors duration-200"
                             style={{
+                                width: '180px',
                                 borderColor: showAlert ? '#ef4444' : 'var(--accent-primary)',
                                 color: 'var(--text-primary)',
                                 background: 'transparent',
-                                minWidth: '200px'
                             }}
                             autoFocus
                         />
@@ -65,11 +65,15 @@ function InvestmentAmount({ onComplete, onBack }) {
                         </span>
                     </div>
 
-                    {value && parseInt(value, 10) >= 10 && (
-                        <p className="text-2xl font-bold mt-4" style={{ color: 'var(--accent-primary)' }}>
-                            {(parseInt(value, 10) * 10000).toLocaleString()}원
-                        </p>
-                    )}
+                    {/* 변환 금액 — 자리 항상 차지해 카드 높이 고정 */}
+                    <p className="text-xl font-bold" style={{
+                        color: 'var(--accent-primary)',
+                        visibility: (value && parseInt(value, 10) >= 10) ? 'visible' : 'hidden'
+                    }}>
+                        {value && parseInt(value, 10) >= 10
+                            ? (parseInt(value, 10) * 10000).toLocaleString()
+                            : '0'}원
+                    </p>
                 </div>
 
                 {/* 하단: 버튼 영역 */}
@@ -83,13 +87,12 @@ function InvestmentAmount({ onComplete, onBack }) {
 
                     <button
                         onClick={handleNext}
-                        className="btn btn-primary w-full text-lg font-bold py-4 rounded-2xl
-                                   hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
+                        className="btn btn-primary btn-3d w-4/5 mx-auto block text-lg font-bold py-4 rounded-2xl"
                     >
                         다음 →
                     </button>
 
-                    <div className="mt-20 flex justify-center">
+                    <div className="mt-10 flex justify-center">
                         <button
                             onClick={onBack}
                             className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"

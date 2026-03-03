@@ -14,7 +14,7 @@
 }
 
 .slider-main-question {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.6;
@@ -48,7 +48,7 @@
 }
 
 .percent {
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 800;
     color: #191f28;
 }
@@ -59,7 +59,7 @@
     align-items: center;
     gap: 0.5rem;
     color: #4e5968;
-    font-size: 1.25rem;
+    font-size: clamp(0.95rem, 2vw, 1.25rem);
     font-weight: 600;
     margin-bottom: 2.5rem;
     background: #f2f4f6;
@@ -136,12 +136,25 @@
     margin: 0;
 }
 
-/* Submit Btn */
+/* Submit Btn — 입체 효과 */
 .submit-btn {
     font-size: 1.25rem;
     padding: 1.2rem;
     border-radius: 30px;
     width: 100%;
+    box-shadow: 0 6px 0 #1a56c0, 0 10px 24px rgba(49, 130, 246, 0.35);
+    transform: translateY(-2px);
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.submit-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 #1a56c0, 0 14px 30px rgba(49, 130, 246, 0.45);
+}
+
+.submit-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #1a56c0, 0 4px 10px rgba(49, 130, 246, 0.2);
 }
 
 @media (max-width: 480px) {
