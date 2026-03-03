@@ -567,13 +567,13 @@
 }
 
 .stock-card-return .label {
-    font-size: 0.78rem;
+    font-size: 0.84rem;
     color: #64748b;
     margin-right: 0.38rem;
 }
 
 .stock-card-return .value {
-    font-size: 1.05rem;
+    font-size: 1.11rem;
     font-weight: 800;
 }
 
@@ -601,13 +601,13 @@
 
 .stock-period .period-label {
     display: block;
-    font-size: 0.64rem;
+    font-size: 0.70rem;
     color: #64748b;
 }
 
 .stock-period .period-value {
     display: block;
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     margin-top: 0.1rem;
     font-weight: 700;
 }

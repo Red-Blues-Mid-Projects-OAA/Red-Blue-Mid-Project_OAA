@@ -160,6 +160,7 @@ function CustomTooltip({ active, payload, label }) {
 
     const visible = payload.filter((item) => (
         ['portfolio', 'sp500', 'forecast'].includes(item.dataKey) && item.value != null
+        && item.name !== 'portfolio'
     ));
 
     if (!visible.length) return null;
@@ -280,6 +281,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                             fill="url(#portfolioAreaFill)"
                             connectNulls={false}
                             isAnimationActive={false}
+                            tooltipType="none"
                         />
 
                         <Line
@@ -311,6 +313,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                                 strokeOpacity={0.35}
                                 strokeWidth={1}
                                 dot={false}
+                                activeDot={false}
                                 connectNulls
                                 isAnimationActive={false}
                                 legendType="none"
