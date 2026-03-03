@@ -92,7 +92,7 @@ function InvestmentAmount({ onComplete, onBack }) {
                         다음 →
                     </button>
 
-                    <div className="mt-10 flex justify-center">
+                    <div className="flow-back-action flex justify-center">
                         <button
                             onClick={onBack}
                             className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"

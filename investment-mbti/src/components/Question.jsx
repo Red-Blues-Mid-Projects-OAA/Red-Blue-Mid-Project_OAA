@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './Question.css';
 
 function Question({ data, step, totalSteps, onAnswer, onBack }) {
     const [animationClass, setAnimationClass] = useState('animate-fade-in');
 
-    // 문항이 바뀔 때마다 애니메이션 재등록
     useEffect(() => {
         setAnimationClass('');
         const timer = setTimeout(() => {
@@ -17,9 +16,9 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
         onAnswer({
             questionId: data.id,
             type: data.type,
-            value: value,
+            value,
             selectedText: optionText,
-            optionKey: optionKey
+            optionKey,
         });
     };
 
@@ -27,68 +26,73 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
 
     return (
         <div className={`question-container ${animationClass}`}>
-            {/* Progress Bar */}
             <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+                <div className="progress-fill" style={{ width: `${progress}%` }} />
             </div>
 
-            <div className="flex justify-end items-center mb-4">
-                <div className="step-indicator m-0">
+            <div className="question-meta">
+                <div className="step-indicator">
                     {step} <span className="step-total">/ {totalSteps}</span>
                 </div>
             </div>
 
-            <div className="question-header mt-2">
-                <h2 className="question-text">{data.question}</h2>
-            </div>
+            <section className={`question-main-layout ${!data.image ? 'no-image' : ''}`}>
+                {data.image && (
+                    <div className="question-image-panel">
+                        <div className="question-image-container">
+                            <img
+                                src={data.image}
+                                alt="question illustration"
+                                className="question-image"
+                            />
+                        </div>
+                    </div>
+                )}
 
-            {data.image && (
-                <div className="question-image-container">
-                    <img
-                        src={data.image}
-                        alt="question illustration"
-                        className="question-image"
-                    />
+                <div className={`question-content-panel ${!data.image ? 'full-width' : ''}`}>
+                    <header className="question-header">
+                        <h2 className="question-text">{data.question}</h2>
+                    </header>
+
+                    <div className="options-container">
+                        <button
+                            className="btn option-btn hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200"
+                            onClick={() => handleSelect(data.optionA.value, data.optionA.text, 'A')}
+                        >
+                            {data.optionA.text}
+                        </button>
+                        <button
+                            className="btn option-btn hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200"
+                            onClick={() => handleSelect(data.optionB.value, data.optionB.text, 'B')}
+                        >
+                            {data.optionB.text}
+                        </button>
+                    </div>
+
+                    <div className="question-back-action">
+                        <button
+                            onClick={onBack}
+                            className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="group-hover:-translate-x-0.5 transition-transform duration-200"
+                            >
+                                <path d="m15 18-6-6 6-6" />
+                            </svg>
+                            <span className="text-sm font-semibold">이전으로</span>
+                        </button>
+                    </div>
                 </div>
-            )}
-
-            <div className="options-container mt-3 flex flex-col">
-                <button
-                    className="btn option-btn hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200"
-                    onClick={() => handleSelect(data.optionA.value, data.optionA.text, 'A')}
-                >
-                    {data.optionA.text}
-                </button>
-                <button
-                    className="btn option-btn hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200"
-                    onClick={() => handleSelect(data.optionB.value, data.optionB.text, 'B')}
-                >
-                    {data.optionB.text}
-                </button>
-            </div>
-
-            {/* 모든 단계에서 뒤로가기 표시 (1단계는 이전 페이지로 이동) */}
-            <div className="mt-8 flex justify-center">
-                <button
-                    onClick={onBack}
-                    className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16" height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="group-hover:-translate-x-0.5 transition-transform duration-200"
-                    >
-                        <path d="m15 18-6-6 6-6" />
-                    </svg>
-                    <span className="text-sm font-semibold">이전으로</span>
-                </button>
-            </div>
+            </section>
         </div>
     );
 }

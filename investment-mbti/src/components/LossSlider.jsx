@@ -101,7 +101,7 @@ function LossSlider({ onComplete, onBack, investmentAmount }) {
             </button>
 
             {/* 뒤로가기 버튼 — 제출 버튼 아래 */}
-            <div className="mt-14 flex justify-center">
+            <div className="flow-back-action flex justify-center">
                 <button
                     onClick={onBack}
                     className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"

@@ -2,130 +2,212 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: calc(100dvh - 4rem); /* 한 화면 안에 모든 요소 고정 */
-    padding: 1.5rem;
-    background-color: #ffffff;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    min-height: calc(100dvh - 4rem);
+    padding: 1.55rem;
+    border-radius: 32px;
+    border: 1px solid #d3dcea;
+    background: linear-gradient(180deg, #edf2f8 0%, #e8edf5 100%);
+    box-shadow: 0 14px 36px rgba(30, 41, 59, 0.08);
     overflow: hidden;
+    gap: 0.9rem;
 }
 
-/* Progress Bar */
 .progress-bar {
     width: 100%;
-    height: 6px;
-    background: #e5e8eb;
-    border-radius: 10px;
-    margin-bottom: 0.5rem;
+    height: 10px;
+    background: #dbe5f3;
+    border-radius: 999px;
     overflow: hidden;
     flex-shrink: 0;
 }
 
 .progress-fill {
     height: 100%;
-    background: var(--accent-primary);
-    border-radius: 10px;
-    transition: width 0.3s ease-in-out;
+    background: linear-gradient(90deg, #3b82f6 0%, #4f9ef4 100%);
+    border-radius: inherit;
+    transition: width 0.35s ease-in-out;
+}
+
+.question-meta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 0.2rem;
 }
 
 .step-indicator {
-    align-self: flex-end;
-    font-size: 1.125rem;
+    font-size: 2rem;
     font-weight: 800;
-    color: var(--accent-primary);
-    margin-bottom: 1rem;
-    flex-shrink: 0;
+    color: #2563eb;
+    letter-spacing: -0.01em;
 }
 
 .step-total {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    font-weight: 600;
-}
-
-/* Question Header — 높이 고정, 줄어들지 않음 */
-.question-header {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 0.75rem;
-}
-
-.part-title {
-    color: #3182f6;
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 1.35rem;
+    color: #64748b;
     font-weight: 700;
 }
 
-.subtitle {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    color: var(--text-secondary);
-    font-style: italic;
+.question-main-layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) minmax(360px, 1fr);
+    gap: 1rem;
+    flex: 1;
+    min-height: 0;
+}
+
+.question-main-layout.no-image {
+    grid-template-columns: 1fr;
+}
+
+.question-image-panel {
+    border-radius: 0;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    min-height: 0;
+}
+
+.question-image-container {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: transparent;
+}
+
+.question-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 0;
+}
+
+.question-content-panel {
+    border-radius: 0;
+    border: 0;
+    background: transparent;
+    padding: 1.15rem 1rem 0.95rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.question-content-panel.full-width {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.question-header {
+    margin-bottom: 2rem;
 }
 
 .question-text {
-    font-size: clamp(1.15rem, 2.2vw, 1.6rem);
-    color: var(--text-primary);
-    line-height: 1.4;
+    margin: 0;
+    font-size: clamp(1.35rem, 2.25vw, 2rem);
+    line-height: 1.33;
+    color: #1e293b;
+    font-weight: 800;
     word-break: keep-all;
 }
 
-/* 이미지 컨테이너 — 고정 높이로 모든 문항 이미지 크기 통일 */
-.question-image-container {
-    flex: 0 0 auto;
-    height: 32vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    padding: 0.5rem 0;
-}
-
-/* 이미지 — 컨테이너에 꽉 차게, 가로세로비 유지 */
-.question-image {
-    height: 100%;
-    max-width: 100%;
-    width: auto;
-    object-fit: contain;
-    border-radius: 12px;
-}
-
-/* Options */
 .options-container {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    flex-shrink: 0;
+    gap: 0.9rem;
 }
 
 .option-btn {
-    font-size: clamp(1rem, 1.8vw, 1.2rem);
-    padding: 1rem 1.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    background: #ffffff;
-    color: var(--text-primary);
-    border-radius: var(--radius-md);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    text-align: center;
+    width: 100%;
+    text-align: left;
+    font-size: clamp(1rem, 1.45vw, 1.18rem);
+    line-height: 1.45;
+    font-weight: 700;
+    color: #1f2937;
+    border-radius: 20px;
+    border: 1px solid #b9cdf0;
+    background: #f3f6fb;
+    padding: 1.05rem 1.2rem;
+    box-shadow: none;
 }
 
 .option-btn:hover {
-    background: rgba(49, 130, 246, 0.05);
-    border-color: #3182f6;
-    transform: translateY(-2px);
+    border-color: #8fb2ea;
+    background: #ebf2fc;
+    transform: translateY(-1px);
+}
+
+.question-back-action {
+    margin-top: auto;
+    padding-top: 1.35rem;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 1200px) {
+    .question-image-container {
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 960px) {
+    .question-container {
+        min-height: calc(100dvh - 3.4rem);
+    }
+
+    .question-main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .question-image-container {
+        min-height: 300px;
+    }
+
+    .question-content-panel {
+        padding: 1rem 0.9rem 0.85rem;
+    }
 }
 
 @media (max-width: 480px) {
     .question-container {
-        height: calc(100dvh - 3rem);
-        padding: 1rem;
+        min-height: calc(100dvh - 2.9rem);
+        padding: 0.95rem;
+        border-radius: 22px;
+        gap: 0.75rem;
     }
+
+    .progress-bar {
+        height: 8px;
+    }
+
+    .step-indicator {
+        font-size: 1.4rem;
+    }
+
+    .step-total {
+        font-size: 1rem;
+    }
+
+    .question-image-container {
+        min-height: 220px;
+        border-radius: 0;
+    }
+
+    .question-text {
+        font-size: clamp(1.1rem, 4.9vw, 1.35rem);
+    }
+
     .option-btn {
-        padding: 0.875rem 1rem;
+        border-radius: 16px;
+        padding: 0.88rem 0.9rem;
+        font-size: 0.98rem;
+    }
+
+    .question-back-action {
+        padding-top: 1rem;
     }
 }

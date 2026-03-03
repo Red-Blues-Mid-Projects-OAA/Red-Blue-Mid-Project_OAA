@@ -201,3 +201,14 @@ p {
   width: 100%;
   height: 100%;
 }
+
+/* Shared spacing for the bottom back button area */
+.flow-back-action {
+  margin-top: 1.6rem;
+}
+
+@media (max-width: 480px) {
+  .flow-back-action {
+    margin-top: 1.2rem;
+  }
+}
