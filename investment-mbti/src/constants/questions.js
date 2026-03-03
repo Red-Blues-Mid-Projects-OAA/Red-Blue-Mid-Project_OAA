@@ -3,6 +3,7 @@ export const QUESTIONS = [
     id: 1,
     type: 'E_I',
     question: 'Q1. 자고 일어났더니 오픈채팅방이 "A종목 상한가 간다!"로 도배됐다면?',
+    image: '/images/Q1.png',
     optionA: {
       text: '채팅방 알림을 끄고 뒤돌아 내 공부를 시작한다.',
       value: 'I',
@@ -16,6 +17,7 @@ export const QUESTIONS = [
     id: 2,
     type: 'E_I',
     question: 'Q2. 내가 산 주식이 연일 뉴스에 나오며 전 국민의 관심을 받는다면?',
+    image: '/images/Q2.png',
     optionA: {
       text: '과열된 관심은 버블일 것 같아 겁이 나고 불안해서 팔고 싶다.',
       value: 'I',
@@ -29,6 +31,7 @@ export const QUESTIONS = [
     id: 3,
     type: 'E_I',
     question: 'Q3. 투자로 크게 한탕 하거나 대차게 말아먹었을 때 당신은?',
+    image: '/images/Q3.png',
     optionA: {
       text: '침대에 누워 천장을 보며 만세를 외치거나 혼자 고뇌한다.',
       value: 'I',
@@ -42,6 +45,7 @@ export const QUESTIONS = [
     id: 4,
     type: 'S_N',
     question: 'Q4. 최신 스마트폰을 살 때 당신이 가장 먼저 하는 행동은?',
+    image: '/images/Q4.png',
     optionA: {
       text: '스펙과 가격 등 숫자와 팩트가 적힌 표를 꼼꼼하게 본다.',
       value: 'S',
@@ -55,6 +59,7 @@ export const QUESTIONS = [
     id: 5,
     type: 'S_N',
     question: 'Q5. 기업 분석을 할 때 당신의 심장을 뛰게 하는 것은?',
+    image: '/images/Q5.png',
     optionA: {
       text: '정확하게 우상향하는 재무제표의 아름다운 숫자들.',
       value: 'S',
@@ -68,6 +73,7 @@ export const QUESTIONS = [
     id: 6,
     type: 'S_N',
     question: 'Q6. "인생 한 방"을 노린다면 당신의 선택은?',
+    image: '/images/Q6.png',
     optionA: {
       text: '월급처럼 꼬박꼬박 지급되는 배당주.',
       value: 'S',
@@ -81,6 +87,7 @@ export const QUESTIONS = [
     id: 7,
     type: 'T_F',
     question: 'Q7. 오래 보유했던 주식이 어느 날 갑자기 떨어진다면?',
+    image: '/images/Q7.png',
     optionA: {
       text: '칼같이 매도 버튼을 누르고 로그아웃한다.',
       value: 'T',
@@ -94,6 +101,7 @@ export const QUESTIONS = [
     id: 8,
     type: 'T_F',
     question: 'Q8. 단짝 친구가 "이거 진짜 나만 아는 정보야"라며 종목을 추천한다면?',
+    image: '/images/Q8.png',
     optionA: {
       text: '친구의 말이라도 논리가 없으면 얄짤없이 필터링한다.',
       value: 'T',
@@ -107,6 +115,7 @@ export const QUESTIONS = [
     id: 9,
     type: 'T_F',
     question: 'Q9. 당신이 생각하는 최고의 투자 고수는 누구?',
+    image: '/images/Q9.png',
     optionA: {
       text: '감정에 휘둘리지 않고 통계와 확률로 시장을 이겨버리는 \'인간 엑셀\'.',
       value: 'T',
@@ -120,6 +129,7 @@ export const QUESTIONS = [
     id: 10,
     type: 'J_P',
     question: 'Q10. 여행 가기 전, 당신의 구글 맵(지도) 상태는?',
+    image: '/images/Q10.png',
     optionA: {
       text: '시간대별 이동 동선과 맛집 리스트 등 시나리오가 완벽하다.',
       value: 'J',
@@ -133,6 +143,7 @@ export const QUESTIONS = [
     id: 11,
     type: 'J_P',
     question: 'Q11. 내 주식 계좌를 점검하는 스타일은?',
+    image: '/images/Q11.png',
     optionA: {
       text: '정해진 날에 주기적으로 정리한다.',
       value: 'J',
@@ -146,6 +157,7 @@ export const QUESTIONS = [
     id: 12,
     type: 'J_P',
     question: 'Q12. 약속 장소로 가던 중 갑자기 지하철이 고장 나 멈춰버렸다면?',
+    image: '/images/Q12.png',
     optionA: {
       text: '즉시 다른 경로를 검색하고 지인에게 정확히 몇 분 늦을지 통보한다.',
       value: 'J',

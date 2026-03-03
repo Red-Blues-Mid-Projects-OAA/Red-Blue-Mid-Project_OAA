@@ -33,12 +33,9 @@ function InvestmentAmount({ onComplete, onBack }) {
 
                 {/* 상단: 제목 + 설명 */}
                 <div className="text-center">
-                    <h2 className="text-3xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
+                    <h2 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
                         얼마까지 투자할 계획이신가요?
                     </h2>
-                    <p className="text-base" style={{ color: 'var(--text-secondary)' }}>
-                        입력한 금액을 기반으로 투자 성향을 분석합니다.
-                    </p>
                 </div>
 
                 {/* 중단: 입력 카드 */}
@@ -54,11 +51,12 @@ function InvestmentAmount({ onComplete, onBack }) {
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
                             placeholder="0"
-                            className="w-36 text-center text-3xl font-bold outline-none border-b-2 pb-2 transition-colors duration-200"
+                            className="w-48 text-center text-4xl font-bold outline-none border-b-2 pb-2 transition-colors duration-200"
                             style={{
                                 borderColor: showAlert ? '#ef4444' : 'var(--accent-primary)',
                                 color: 'var(--text-primary)',
                                 background: 'transparent',
+                                minWidth: '200px'
                             }}
                             autoFocus
                         />
@@ -68,7 +66,7 @@ function InvestmentAmount({ onComplete, onBack }) {
                     </div>
 
                     {value && parseInt(value, 10) >= 10 && (
-                        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        <p className="text-2xl font-bold mt-4" style={{ color: 'var(--accent-primary)' }}>
                             {(parseInt(value, 10) * 10000).toLocaleString()}원
                         </p>
                     )}
@@ -91,7 +89,7 @@ function InvestmentAmount({ onComplete, onBack }) {
                         다음 →
                     </button>
 
-                    <div className="mt-6 flex justify-center">
+                    <div className="mt-20 flex justify-center">
                         <button
                             onClick={onBack}
                             className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition-colors duration-200 group"
