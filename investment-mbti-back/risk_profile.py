@@ -95,22 +95,22 @@ def calculate_risk_profile(answers, loss_limit_value):
         4: {
             "lambda_final": get_lambda_by_level(4),
             "persona": "노예 개미",
-            "desc": "리스크에 매우 민감하며 원금 보존을 최우선으로 합니다."
+            "desc": "시장을 단 1%라도 확실히 앞서길 원하며, 지수를 하회하는 리스크를 극도로 경계합니다."
         },
         3: {
             "lambda_final": get_lambda_by_level(3),
             "persona": "월급루팡 개미",
-            "desc": "평균적인 투자자보다 다소 보수적이며, 분석적 근거를 중시합니다."
+            "desc": "데이터의 통계적 우위를 신뢰하며, 시장 수익률을 꾸준히 상회하는 안정적인 성장을 추구합니다."
         },
         2: {
             "lambda_final": get_lambda_by_level(2),
             "persona": "파이어족 개미",
-            "desc": "수익을 위해 적정 수준의 리스크를 감내할 수 있습니다."
+            "desc": "시장 평균 이상의 확실한 초과 수익 달성을 지향하며, 높은 수익 기회를 위해 리스크를 적극적으로 수용합니다."
         },
         1: {
             "lambda_final": get_lambda_by_level(1),
             "persona": "YOLO 개미",
-            "desc": "리스크보다는 기회와 수익에 집중하며 높은 변동성을 견딥니다."
+            "desc": "지수 추종보다는 모델이 포착한 강력한 시그널에 집중하여, 압도적인 성과를 위해 방대한 리스크를 감수합니다."
         }
     }
     
