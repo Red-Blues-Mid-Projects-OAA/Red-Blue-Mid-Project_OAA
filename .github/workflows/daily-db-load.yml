@@ -33,20 +33,20 @@ jobs:
         run: |
           powershell -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force; Write-Host ('CurrentUser execution policy: ' + (Get-ExecutionPolicy -Scope CurrentUser))"
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          check-latest: true
-
-      - name: Verify Python version
+      - name: Verify runner Python version
         shell: powershell
         run: |
+          if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
+            Write-Error "Python executable not found on self-hosted runner."
+            exit 1
+          }
           $expected = "${{ env.PYTHON_VERSION }}"
           $actual = python -c "import sys; print('.'.join(map(str, sys.version_info[:3])))"
+          $pythonExe = python -c "import sys; print(sys.executable)"
+          Write-Host "Python executable: $pythonExe"
           Write-Host "Python version on runner: $actual"
           if ($actual -ne $expected) {
-            Write-Error "Python version mismatch. Expected $expected, got $actual."
+            Write-Error "Python version mismatch on self-hosted runner. Expected $expected, got $actual."
             exit 1
           }
 
