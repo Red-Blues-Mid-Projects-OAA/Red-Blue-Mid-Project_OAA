@@ -213,7 +213,7 @@ function CumulativeReturnChart({ chartData, forecastData, var5Display, warnings 
                     <div style={{ fontWeight: 600, color: '#0f172a', marginBottom: '4px' }}>
                         Value at Risk (5%)
                     </div>
-                    <div>손실 수준: <strong style={{ color: var5Color }}>{var5Display != null ? var5Display.toFixed(2) : adjustedVar5?.toFixed(2)}%</strong></div>
+                    <div>손실 수준: <strong style={{ color: '#ef4444' }}>{var5Display != null ? var5Display.toFixed(2) : adjustedVar5?.toFixed(2)}%</strong></div>
                     <div style={{ marginTop: '6px', fontSize: '0.7rem', color: '#64748b', maxWidth: '180px', whiteSpace: 'normal', lineHeight: 1.4 }}>
                         100일 중 가장 운이 나쁜 5일이 찾아왔을 때, <strong>'최소한 이만큼은 잃을 수 있다'</strong>고 각오해야 하는 손실의 마지노선
                     </div>
@@ -236,7 +236,7 @@ function CumulativeReturnChart({ chartData, forecastData, var5Display, warnings 
                 <div style={{ flex: hasDistribution ? '0 0 84%' : '1 1 100%', height: '100%', position: 'relative' }}>
 
                     <ResponsiveContainer width="100%" height="100%">
-                        <ComposedChart data={series.rows} margin={{ top: 8, right: 0, left: -20, bottom: 4 }}>
+                        <ComposedChart data={series.rows} margin={{ top: 8, right: 4, left: -20, bottom: 4 }}>
                             <defs>
                                 <linearGradient id="portfolioAreaFill" x1="0" y1="0" x2="0" y2="1">
                                     <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.25" />
@@ -327,6 +327,7 @@ function CumulativeReturnChart({ chartData, forecastData, var5Display, warnings 
                                 name="기대 경로"
                                 stroke="#CD5C85"
                                 strokeWidth={2.5}
+                                strokeOpacity={0.7}
                                 dot={false}
                                 connectNulls
                                 isAnimationActive={false}
