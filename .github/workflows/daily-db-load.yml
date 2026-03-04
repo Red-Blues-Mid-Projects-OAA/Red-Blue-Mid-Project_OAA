@@ -2,8 +2,8 @@ name: Daily Pipeline 300
 
 on:
   schedule:
-    # 매일 한국시간(KST) 16:40 실행 (UTC 07:40)
-    - cron: "40 7 * * *"
+    # Daily 10:00 KST (UTC+9) = 01:00 UTC
+    - cron: "0 1 * * *"
   
   workflow_dispatch:
 
