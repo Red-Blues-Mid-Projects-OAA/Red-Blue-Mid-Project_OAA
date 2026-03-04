@@ -238,12 +238,16 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
                     <article className="glass-panel chart-panel reveal delay-4">
                         <div className="panel-heading">
                             <h3>포트폴리오 성과 예측</h3>
-                            <span className="chip">과거 1년 + 향후 3개월</span>
+                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                <span className="chip">과거 1년 + 향후 3개월</span>
+                                <span className="chip">3개월 뒤 예상 수익률 확률 분포</span>
+                            </div>
                         </div>
 
                         <CumulativeReturnChart
                             chartData={chartData}
                             forecastData={forecastData}
+                            var5Display={var5}
                             warnings={chartData?.warnings || []}
                         />
                     </article>

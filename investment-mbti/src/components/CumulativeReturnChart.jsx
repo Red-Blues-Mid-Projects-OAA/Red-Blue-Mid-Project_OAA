@@ -57,6 +57,7 @@ function buildSeries(chartData, forecastData) {
                 x: currentIndex + i,
                 fullDate: `+${day}일`,
                 forecast: lastHist + toFiniteNumber(forecastData.expected_line?.[i], 0),
+                _lastHist: lastHist,
                 portfolio: null,
                 sp500: null,
             };
@@ -107,7 +108,11 @@ function CustomTooltip({ active, payload, label }) {
                         color: entry.color,
                     }}
                 >
-                    {entry.name}: {formatSigned(entry.value)}
+                    {entry.name}: {formatSigned(
+                        entry.dataKey === 'forecast' && entry.payload?._lastHist != null
+                            ? entry.value - entry.payload._lastHist
+                            : entry.value
+                    )}
                 </p>
             ))}
         </div>
@@ -118,12 +123,12 @@ function CustomTooltip({ active, payload, label }) {
 const LEGEND_ITEMS = [
     { color: '#3B82F6', label: '포트폴리오 (과거)' },
     { color: '#F59E0B', label: 'S&P 500 벤치마크' },
-    { color: '#8b5cf6', label: '기대 경로 (예측)' },
+    { color: '#CD5C85', label: '기대 경로 (예측)' },
     { color: '#94a3b8', label: 'MC 시뮬레이션 경로' },
 ];
 
 /* ── 메인 차트 컴포넌트 ── */
-function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
+function CumulativeReturnChart({ chartData, forecastData, var5Display, warnings = [] }) {
     const series = useMemo(
         () => buildSeries(chartData, forecastData),
         [chartData, forecastData],
@@ -189,7 +194,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
 
     const hasDistribution = adjustedBins.length > 0;
 
-    const var5Color = '#ef4444'; // 위험도 바와 톤온톤 매칭
+    const var5Color = '#b08968'; // 와인색과 어울리는 로즈골드인색
 
     // 분산 차트 VaR 5% 전용 Tooltip
     const CustomDistTooltip = ({ active, payload }) => {
@@ -208,7 +213,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                     <div style={{ fontWeight: 600, color: '#0f172a', marginBottom: '4px' }}>
                         Value at Risk (5%)
                     </div>
-                    <div>손실 수준: <strong style={{ color: var5Color }}>{adjustedVar5?.toFixed(2)}%</strong></div>
+                    <div>손실 수준: <strong style={{ color: var5Color }}>{var5Display != null ? var5Display.toFixed(2) : adjustedVar5?.toFixed(2)}%</strong></div>
                     <div style={{ marginTop: '6px', fontSize: '0.7rem', color: '#64748b', maxWidth: '180px', whiteSpace: 'normal', lineHeight: 1.4 }}>
                         100일 중 가장 운이 나쁜 5일이 찾아왔을 때, <strong>'최소한 이만큼은 잃을 수 있다'</strong>고 각오해야 하는 손실의 마지노선
                     </div>
@@ -230,21 +235,6 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                 {/* ── 메인 차트 (좌측) ── */}
                 <div style={{ flex: hasDistribution ? '0 0 84%' : '1 1 100%', height: '100%', position: 'relative' }}>
 
-                    {/* 상단 뱃지 (현재(t) 기준 정렬) */}
-                    <div style={{
-                        position: 'absolute',
-                        top: '-32px',
-                        right: '0',
-                        fontSize: '0.7rem',
-                        fontWeight: '600',
-                        color: '#6366f1',
-                        backgroundColor: '#e0e7ff',
-                        padding: '4px 10px',
-                        borderRadius: '99px',
-                        zIndex: 10,
-                    }}>
-                        과거 1년 + 향후 3개월
-                    </div>
                     <ResponsiveContainer width="100%" height="100%">
                         <ComposedChart data={series.rows} margin={{ top: 8, right: 0, left: -20, bottom: 4 }}>
                             <defs>
@@ -335,7 +325,7 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                                 type="monotone"
                                 dataKey="forecast"
                                 name="기대 경로"
-                                stroke="#8b5cf6"
+                                stroke="#CD5C85"
                                 strokeWidth={2.5}
                                 dot={false}
                                 connectNulls
@@ -366,11 +356,11 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                                     reversed
                                 />
 
-                                {/* 부드러운 확률 밀도 곡선 (보라색 계열) */}
+                                {/* 부드러운 확률 밀도 곡선 (인디안핑크 그라데이션) */}
                                 <defs>
                                     <linearGradient id="distFillGrad" x1="0" y1="0" x2="1" y2="0">
-                                        <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.05} />
-                                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.4} />
+                                        <stop offset="0%" stopColor="#CD5C85" stopOpacity={0.15} />
+                                        <stop offset="100%" stopColor="#CD5C85" stopOpacity={0.65} />
                                     </linearGradient>
                                 </defs>
                                 <Area
@@ -393,8 +383,8 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                                     <ReferenceLine
                                         y={adjustedVar5}
                                         stroke={var5Color}
-                                        strokeDasharray="5 3"
-                                        strokeWidth={1.5}
+                                        strokeDasharray="3 2"
+                                        strokeWidth={1.0}
                                         ifOverflow="visible"
                                     />
                                 )}
@@ -403,21 +393,6 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                     </div>
                 )}
 
-                {/* 3개월 뒤 확률 분포 레이블 - 전체 우측 최상단에 고정 */}
-                {hasDistribution && (
-                    <div style={{
-                        position: 'absolute',
-                        top: '-30px', /* padding 조정 */
-                        right: '0',
-                        fontSize: '0.75rem',
-                        fontWeight: '600',
-                        color: '#64748b',
-                        padding: '4px 8px',
-                        zIndex: 10,
-                    }}>
-                        3개월 뒤 예상 수익률 확률 분포
-                    </div>
-                )}
             </div>
 
             {/* 커스텀 범례 */}
