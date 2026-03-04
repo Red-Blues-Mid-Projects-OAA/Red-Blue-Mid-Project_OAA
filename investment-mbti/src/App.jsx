@@ -17,6 +17,7 @@ function App() {
   const [lossLimit, setLossLimit] = useState(null);
   const [resultData, setResultData] = useState(null);
   const [optimizedData, setOptimizedData] = useState(null);
+  const [savedSelectedTickers, setSavedSelectedTickers] = useState(null); // 사용자가 선택한 종목 보존
 
   const handleStart = () => {
     setCurrentView('INVESTMENT_AMOUNT');
@@ -128,6 +129,7 @@ function App() {
     setLossLimit(null);
     setResultData(null);
     setOptimizedData(null);
+    setSavedSelectedTickers(null);
     setCurrentView('INTRO');
   };
 
@@ -197,6 +199,8 @@ function App() {
           recommendedStocks={resultData.recommendedStocks || []}
           finalLevel={resultData.finalLevel}
           lambdaFinal={resultData.lambdaFinal}
+          savedSelectedTickers={savedSelectedTickers}
+          onSelectedTickersChange={setSavedSelectedTickers}
           onBack={handleRestart}
           onRestart={handleRestart}
           onConfirm={handleConfirmSelection}

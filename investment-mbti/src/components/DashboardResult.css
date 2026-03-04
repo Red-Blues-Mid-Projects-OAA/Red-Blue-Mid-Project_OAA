@@ -233,6 +233,23 @@
     padding: 0.82rem 0.86rem;
 }
 
+/* ── 모드 전환 애니메이션 ── */
+@keyframes metricFlipIn {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.97);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.metric-flip {
+    animation: metricFlipIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .metric-head {
     display: flex;
     align-items: center;

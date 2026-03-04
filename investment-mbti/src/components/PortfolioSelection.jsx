@@ -4,7 +4,7 @@ import './PortfolioSelection.css';
 
 const API_BASE = 'http://localhost:8000';
 
-function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFinal = 7.7, onBack, onRestart, onConfirm }) {
+function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFinal = 7.7, savedSelectedTickers, onSelectedTickersChange, onBack, onRestart, onConfirm }) {
     // ── 상태 관리 ──
     const [allStocks, setAllStocks] = useState([]);
     const [selectedTickers, setSelectedTickers] = useState(new Set());
@@ -23,10 +23,15 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
     const minCount = MIN_COUNT_MAP[finalLevel] || 4;
     const levelName = LEVEL_NAME_MAP[finalLevel] || '';
 
-    // ── 초기화: 추천 종목을 기본 선택 + 전체 종목 로드 ──
+    // ── 초기화: 저장된 선택이 있으면 복원, 없으면 추천 종목 기본 선택 + 전체 종목 로드 ──
     useEffect(() => {
-        const initialTickers = new Set(recommendedStocks.map(s => String(s.ticker || '').toUpperCase()));
-        setSelectedTickers(initialTickers);
+        // 저장된 선택이 있으면 (뒤로가기로 돌아온 경우) 복원, 없으면 추천 종목으로 초기화
+        if (savedSelectedTickers) {
+            setSelectedTickers(new Set(savedSelectedTickers));
+        } else {
+            const initialTickers = new Set(recommendedStocks.map(s => String(s.ticker || '').toUpperCase()));
+            setSelectedTickers(initialTickers);
+        }
 
         // 전체 종목 + 최신 날짜 병렬 로드
         Promise.all([
@@ -36,7 +41,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
             if (stocksData.status === 'success') setAllStocks(stocksData.data);
             if (dateData?.status === 'success') setLastUpdated(dateData.date);
         }).catch(err => console.error('fetch error:', err))
-          .finally(() => setLoading(false));
+            .finally(() => setLoading(false));
     }, [recommendedStocks]);
 
     // ── 선택 변경 시 포트폴리오 스코어 재계산 ──
@@ -59,6 +64,13 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
                 }
             })
             .catch(err => console.error('portfolio-scores fetch error:', err));
+    }, [selectedTickers]);
+
+    // ── 선택 변경 시 부모(App)에 동기화 (뒤로가기 시 복원용) ──
+    useEffect(() => {
+        if (onSelectedTickersChange) {
+            onSelectedTickersChange(Array.from(selectedTickers));
+        }
     }, [selectedTickers]);
 
     // ── 토글 로직 ──

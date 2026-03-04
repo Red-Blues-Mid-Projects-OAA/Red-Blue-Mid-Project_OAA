@@ -152,21 +152,21 @@ function DashboardResult({ personaData, optimizedData, investmentAmount, onResta
     // 메트릭 카드: 모드에 따라 값 전환 (포트폴리오 성과 예측 차트는 항상 %)
     const metricCards = [
         {
-            label: '과거 3개월 수익률',
+            label: isKRW ? '과거 3개월 수익' : '과거 3개월 수익률',
             value: isKRW ? formatKRW(historical3m, invAmt) : formatPercent(historical3m),
             helper: '보유 비중 가중 평균',
             tone: historical3m >= 0 ? 'up' : 'down',
             icon: <TrendingUp size={18} />,
         },
         {
-            label: '예측 3개월 수익률',
+            label: isKRW ? '예측 3개월 수익' : '예측 3개월 수익률',
             value: isKRW ? formatKRW(expected3m, invAmt) : formatPercent(expected3m),
-            helper: '모델 기반 기대 수익률',
+            helper: isKRW ? '모델 기반 기대 수익' : '모델 기반 기대 수익률',
             tone: expected3m >= 0 ? 'up' : 'down',
             icon: <Sparkles size={18} />,
         },
         {
-            label: '변동성',
+            label: isKRW ? '변동액' : '변동성',
             value: isKRW ? formatKRW(volatility60dPct, invAmt, false) : `${volatility60dPct.toFixed(2)}%`,
             helper: '최근 60일 표준편차',
             tone: 'neutral',
@@ -257,9 +257,13 @@ function DashboardResult({ personaData, optimizedData, investmentAmount, onResta
                         <div className="composition-content">
                             <PortfolioPieChart stocks={displayStocks} size={240} />
 
-                            <div className="metrics-grid">
-                                {metricCards.map((metric) => (
-                                    <div key={metric.label} className={`metric-card tone-${metric.tone}`}>
+                            <div className="metrics-grid" key={displayMode}>
+                                {metricCards.map((metric, idx) => (
+                                    <div
+                                        key={metric.label}
+                                        className={`metric-card tone-${metric.tone} metric-flip`}
+                                        style={{ animationDelay: `${idx * 60}ms` }}
+                                    >
                                         <div className="metric-head">
                                             <span className="metric-icon">{metric.icon}</span>
                                             <span className="metric-label">{metric.label}</span>
