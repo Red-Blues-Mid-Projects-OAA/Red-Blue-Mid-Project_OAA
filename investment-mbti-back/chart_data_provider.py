@@ -73,6 +73,18 @@ def _log_to_simple_array(log_returns):
 
 
 # ──────────────────────────────────────────────────────────────────
+# DB 데이터 기준 가장 최근 날짜 반환
+# ──────────────────────────────────────────────────────────────────
+def get_last_updated_date() -> str | None:
+    """캐시된 LOG_RETURNS의 가장 최근 날짜를 'YYYY-MM-DD' 형태로 반환합니다."""
+    log_ret_df = _chart_cache.get("log_ret_df")
+    if log_ret_df is None or log_ret_df.empty:
+        return None
+    latest = log_ret_df.index.max()
+    return latest.strftime("%Y-%m-%d")
+
+
+# ──────────────────────────────────────────────────────────────────
 # 과거 기간별 누적수익률 (1M / 3M / 6M / 12M)
 # ──────────────────────────────────────────────────────────────────
 def get_historical_returns(tickers: list[str]) -> dict:

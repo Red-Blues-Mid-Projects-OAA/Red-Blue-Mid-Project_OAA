@@ -15,6 +15,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
     const [showSelectedOnly, setShowSelectedOnly] = useState(false);
     const [loading, setLoading] = useState(true);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [lastUpdated, setLastUpdated] = useState(null);
 
     // 위험 타입별 최소 종목 수
     const MIN_COUNT_MAP = { 4: 10, 3: 7, 2: 4, 1: 1 };
@@ -27,15 +28,15 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
         const initialTickers = new Set(recommendedStocks.map(s => String(s.ticker || '').toUpperCase()));
         setSelectedTickers(initialTickers);
 
-        fetch(`${API_BASE}/api/all-stocks`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    setAllStocks(data.data);
-                }
-            })
-            .catch(err => console.error('all-stocks fetch error:', err))
-            .finally(() => setLoading(false));
+        // 전체 종목 + 최신 날짜 병렬 로드
+        Promise.all([
+            fetch(`${API_BASE}/api/all-stocks`).then(r => r.json()),
+            fetch(`${API_BASE}/api/last-updated`).then(r => r.json()).catch(() => null),
+        ]).then(([stocksData, dateData]) => {
+            if (stocksData.status === 'success') setAllStocks(stocksData.data);
+            if (dateData?.status === 'success') setLastUpdated(dateData.date);
+        }).catch(err => console.error('fetch error:', err))
+          .finally(() => setLoading(false));
     }, [recommendedStocks]);
 
     // ── 선택 변경 시 포트폴리오 스코어 재계산 ──
@@ -358,6 +359,12 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
 
             {/* ── 하단 액션 버튼 ── */}
             <div className="ps-actions reveal delay-5">
+                {/* 최신 데이터 날짜 표시 */}
+                {lastUpdated && (
+                    <span className="ps-last-updated">
+                        Last Updated: {lastUpdated} (US EST Market Close)
+                    </span>
+                )}
                 <button type="button" className="ps-action-btn ps-action-btn--restart" onClick={onRestart}>
                     <RefreshCw size={16} />
                     처음으로

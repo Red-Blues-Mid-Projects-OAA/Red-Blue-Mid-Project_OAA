@@ -39,6 +39,7 @@ from chart_data_provider import (
     get_forecast_placeholder,
     get_real_forecast,
     load_chart_cache,
+    get_last_updated_date,
 )
 
 
@@ -287,6 +288,15 @@ def get_all_stocks():
         return {"status": "success", "data": stocks}
     except Exception as e:
         raise HTTPException(status_code=503, detail=str(e))
+
+
+@app.get("/api/last-updated")
+def last_updated():
+    """DB에 적재된 개별 종목 데이터의 가장 최근 날짜를 반환합니다."""
+    date_str = get_last_updated_date()
+    if not date_str:
+        raise HTTPException(status_code=503, detail="날짜 정보를 가져올 수 없습니다.")
+    return {"status": "success", "date": date_str}
 
 
 @app.post("/api/portfolio-scores")
