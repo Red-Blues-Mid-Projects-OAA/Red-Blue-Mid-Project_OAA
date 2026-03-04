@@ -2,8 +2,10 @@ name: Daily Pipeline 300
 
 on:
   schedule:
-    # 15:30 KST (UTC+9) = 06:30 UTC
-    - cron: "30 6 * * *"
+    # Daily 10:00 KST (UTC+9) = 01:00 UTC
+    - cron: "0 1 * * *"
+    # Temporary extra run: 2026-03-04 16:00 KST (UTC+9) = 07:00 UTC
+    - cron: "0 7 4 3 *"
   workflow_dispatch:
 
 concurrency:
