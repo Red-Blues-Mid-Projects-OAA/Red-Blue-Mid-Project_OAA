@@ -26,7 +26,7 @@ function Result({ personaData, onRestart, onShowRecommendation }) {
             <div className="result-header animate-slide-up text-center mb-8 flex flex-col items-center" style={{ animationDelay: '0.1s' }}>
                 <div className="w-40 h-40 mb-6 rounded-full overflow-hidden shadow-[0_0_40px_rgba(139,92,246,0.3)] bg-gray-800" style={{ animation: 'float 6s ease-in-out infinite' }}>
                     <img
-                        src={`/images/${personaData.title.includes('YOLO') ? 'yolo' : personaData.title.includes('파이어') ? 'fire' : personaData.title.includes('월급루팡') ? 'worker' : 'slave'}.png`}
+                        src={`${import.meta.env.BASE_URL}images/${personaData.title.includes('YOLO') ? 'yolo' : personaData.title.includes('파이어') ? 'fire' : personaData.title.includes('월급루팡') ? 'worker' : 'slave'}.png`}
                         alt="Persona Avatar"
                         className="w-full h-full object-cover"
                         onError={(e) => { e.target.style.display = 'none'; }}

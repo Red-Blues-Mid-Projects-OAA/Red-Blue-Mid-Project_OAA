@@ -53,7 +53,37 @@
     font-weight: 800;
     letter-spacing: 0.05em;
     margin-top: 1rem;
-    animation: pulseGlow 2s infinite;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #4a9bff 0%, #2f7ef4 100%);
+    border: 1px solid #2a6fd6;
+    color: #ffffff;
+    animation: none;
+}
+
+.start-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -40%;
+    width: 38%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+    transform: skewX(-20deg);
+    pointer-events: none;
+    animation: start-btn-shine 2.8s ease-in-out infinite;
+}
+
+@keyframes start-btn-shine {
+    0% {
+        left: -40%;
+    }
+    45% {
+        left: 120%;
+    }
+    100% {
+        left: 120%;
+    }
 }
 
 @media (max-width: 480px) {

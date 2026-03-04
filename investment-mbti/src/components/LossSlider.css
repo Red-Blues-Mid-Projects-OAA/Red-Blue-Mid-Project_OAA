@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
+    --control-width: min(100%, 420px);
     min-height: calc(100vh - 4rem);
     margin: 0 auto;
     padding: 1rem;
@@ -57,11 +58,13 @@
 .money-indicator {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
+    width: var(--control-width);
     color: #4e5968;
     font-size: clamp(0.95rem, 2vw, 1.25rem);
     font-weight: 600;
-    margin-bottom: 2.5rem;
+    margin: 0 auto 2rem;
     background: #f2f4f6;
     padding: 0.75rem 1.5rem;
     border-radius: 30px;
@@ -80,11 +83,12 @@
 /* The Native Range Slider */
 .range-slider {
     -webkit-appearance: none;
-    width: 100%;
+    width: var(--control-width);
+    display: block;
     height: 8px;
     border-radius: 5px;
     outline: none;
-    margin-bottom: 1rem;
+    margin: 0 auto 1rem;
     transition: all 0.3s ease;
 }
 
@@ -107,11 +111,18 @@
 .slider-labels {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: var(--control-width);
     font-size: 0.875rem;
     color: var(--text-secondary);
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin: 0 auto 1.6rem;
+}
+
+.slider-warning {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    margin: 0;
 }
 
 /* Dynamic Feedback Box */
@@ -138,10 +149,11 @@
 
 /* Submit Btn — 입체 효과 */
 .submit-btn {
-    font-size: 1.25rem;
-    padding: 1.2rem;
-    border-radius: 30px;
+    font-size: 1.125rem;
+    padding: 1rem;
+    border-radius: 16px;
     width: 100%;
+    margin: 0 auto;
     box-shadow: 0 6px 0 #1a56c0, 0 10px 24px rgba(49, 130, 246, 0.35);
     transform: translateY(-2px);
     transition: transform 0.15s ease, box-shadow 0.15s ease !important;

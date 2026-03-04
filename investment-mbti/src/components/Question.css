@@ -5,8 +5,8 @@
     min-height: calc(100dvh - 4rem);
     padding: 1.55rem;
     border-radius: 32px;
-    border: 1px solid #d3dcea;
-    background: linear-gradient(180deg, #edf2f8 0%, #e8edf5 100%);
+    border: 1px solid #ffffff;
+    background: #ffffff;
     box-shadow: 0 14px 36px rgba(30, 41, 59, 0.08);
     overflow: hidden;
     gap: 0.9rem;

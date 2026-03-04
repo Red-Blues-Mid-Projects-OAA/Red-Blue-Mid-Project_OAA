@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './LossSlider.css';
 
 // 손실 한도 슬라이더 컴포넌트 (범위: 1% ~ 40%, step: 1%)
@@ -7,6 +7,13 @@ function LossSlider({ onComplete, onBack, investmentAmount }) {
     const [lossValue, setLossValue] = useState(1);
     const [isSliderTouched, setIsSliderTouched] = useState(false);
     const [showWarning, setShowWarning] = useState(false);
+    const [alertNonce, setAlertNonce] = useState(0);
+
+    useEffect(() => {
+        if (!showWarning) return undefined;
+        const timer = setTimeout(() => setShowWarning(false), 3000);
+        return () => clearTimeout(timer);
+    }, [showWarning, alertNonce]);
 
     // 슬라이더 구간별 피드백 (10% 단위로 4구간)
     const getFeedback = (value) => {
@@ -32,8 +39,8 @@ function LossSlider({ onComplete, onBack, investmentAmount }) {
 
     const submitLoss = () => {
         if (!isSliderTouched) {
+            setAlertNonce((n) => n + 1);
             setShowWarning(true);
-            setTimeout(() => setShowWarning(false), 3000);
             return;
         }
         onComplete(-lossValue);
@@ -55,7 +62,7 @@ function LossSlider({ onComplete, onBack, investmentAmount }) {
                 </p>
             </div>
 
-            <div className="slider-card animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <div className="slider-card animate-slide-up" style={{ animationDelay: '0.2s', marginBottom: '0.5cm' }}>
                 <div className="loss-value">
                     <span className="percent">-{lossValue}%</span>
                 </div>
@@ -86,14 +93,20 @@ function LossSlider({ onComplete, onBack, investmentAmount }) {
                 </div>
             </div>
 
-            {showWarning && (
-                <div className="text-red-400 text-sm font-bold mt-4 animate-bounce bg-red-500/10 border border-red-500/20 py-2 px-4 rounded-xl">
+            <div className="h-[34px] relative" style={{ marginBottom: '0.5cm' }}>
+                <div
+                    key={alertNonce}
+                    className={`slider-warning text-red-400 text-sm font-bold text-center leading-tight bg-red-500/10 border border-red-500/20 py-0.5 px-3 rounded-xl flex items-center justify-center transition-all duration-200 ${showWarning
+                        ? 'opacity-100 translate-y-0 animate-[bounce_0.45s_ease-in-out_3]'
+                        : 'opacity-0 -translate-y-1 pointer-events-none'
+                        }`}
+                >
                     ⚠️ 위험한도를 슬라이더로 직접 조절해주세요!
                 </div>
-            )}
+            </div>
 
             <button
-                className="btn btn-primary submit-btn animate-slide-up mt-6 hover:-translate-y-1 hover:shadow-lg transition-all"
+                className="btn btn-primary submit-btn animate-slide-up hover:-translate-y-1 hover:shadow-lg transition-all"
                 style={{ animationDelay: '0.3s' }}
                 onClick={submitLoss}
             >

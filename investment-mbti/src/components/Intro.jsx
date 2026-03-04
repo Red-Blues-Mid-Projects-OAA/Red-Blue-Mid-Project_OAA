@@ -18,7 +18,7 @@ function Intro({ onStart }) {
                 </p>
 
                 <div className="btn-wrapper animate-slide-up" style={{ animationDelay: '0.4s' }}>
-                    <button className="btn btn-primary start-btn" onClick={onStart}>
+                    <button className="btn btn-primary btn-3d start-btn" onClick={onStart}>
                         테스트 시작하기 🚀
                     </button>
                 </div>

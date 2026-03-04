@@ -178,7 +178,7 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
                 <aside className="glass-panel profile-panel reveal delay-2">
                     <div className="profile-avatar-wrap">
                         <img
-                            src={`/images/${personaImage}.png`}
+                            src={`${import.meta.env.BASE_URL}images/${personaImage}.png`}
                             alt="투자 성향 아바타"
                             className="profile-avatar"
                             onError={(e) => {
