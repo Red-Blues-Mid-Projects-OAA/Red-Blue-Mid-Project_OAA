@@ -239,7 +239,7 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
                         <div className="panel-heading" style={{ justifyContent: 'flex-start' }}>
                             <h3>포트폴리오 성과 예측</h3>
                             <span style={{ color: '#64748b', fontWeight: 400, fontSize: '0.85rem' }}>과거 1년 + 향후 3개월</span>
-                            <span className="chip" style={{ marginLeft: 'auto' }}>3개월 뒤 예상 수익률 확률 분포</span>
+                            <span className="chip" style={{ width: '16%', textAlign: 'center', padding: '0.25rem 0', fontSize: '0.65rem', whiteSpace: 'normal', wordBreak: 'keep-all', marginLeft: 'auto', lineHeight: '1.2' }}>3개월 뒤 예상 수익률 확률 분포</span>
                         </div>
 
                         <CumulativeReturnChart

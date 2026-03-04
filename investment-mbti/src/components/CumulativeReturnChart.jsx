@@ -213,7 +213,7 @@ function CumulativeReturnChart({ chartData, forecastData, var5Display, warnings 
                     <div style={{ fontWeight: 600, color: '#0f172a', marginBottom: '4px' }}>
                         Value at Risk (5%)
                     </div>
-                    <div>손실 수준: <strong style={{ color: '#ef4444' }}>{var5Display != null ? var5Display.toFixed(2) : adjustedVar5?.toFixed(2)}%</strong></div>
+                    <div>손실 수준: <strong style={{ color: '#b91c1c' }}>{var5Display != null ? var5Display.toFixed(2) : adjustedVar5?.toFixed(2)}%</strong></div>
                     <div style={{ marginTop: '6px', fontSize: '0.7rem', color: '#64748b', maxWidth: '180px', whiteSpace: 'normal', lineHeight: 1.4 }}>
                         100일 중 가장 운이 나쁜 5일이 찾아왔을 때, <strong>'최소한 이만큼은 잃을 수 있다'</strong>고 각오해야 하는 손실의 마지노선
                     </div>
