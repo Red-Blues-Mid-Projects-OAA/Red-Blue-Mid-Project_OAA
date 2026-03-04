@@ -12,11 +12,15 @@ concurrency:
 
 jobs:
   run-pipeline-300:
-    runs-on: self-hosted
+    runs-on:
+      - self-hosted
+      - windows
+      - x64
     timeout-minutes: 360
     permissions:
       contents: read
     env:
+      PYTHON_VERSION: "3.14.2"
       ORACLE_USER: ${{ secrets.ORACLE_USER }}
       ORACLE_PASSWORD: ${{ secrets.ORACLE_PASSWORD }}
       ORACLE_DSN: ${{ secrets.ORACLE_DSN }}
@@ -24,10 +28,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Allow PowerShell script execution on self-hosted runner
+        shell: cmd
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force; Write-Host ('CurrentUser execution policy: ' + (Get-ExecutionPolicy -Scope CurrentUser))"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ env.PYTHON_VERSION }}
+          check-latest: true
+
+      - name: Verify Python version
+        shell: powershell
+        run: |
+          $expected = "${{ env.PYTHON_VERSION }}"
+          $actual = python -c "import sys; print('.'.join(map(str, sys.version_info[:3])))"
+          Write-Host "Python version on runner: $actual"
+          if ($actual -ne $expected) {
+            Write-Error "Python version mismatch. Expected $expected, got $actual."
+            exit 1
+          }
 
       - name: Install dependencies
         shell: powershell
