@@ -36,7 +36,7 @@ function MbtiBarChart({ dimension, score, leftLabel, rightLabel, gradient, color
                     <div className="mbti-track">
                         <div
                             className={`mbti-fill ${colorClass}`.trim()}
-                            style={{ ...fillStyle, width: `${rightPct}%` }}
+                            style={{ ...fillStyle, width: `${leftPct}%` }}
                         />
                     </div>
                     {/* 호버 시 퍼센트 표시 */}

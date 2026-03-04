@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import {
     Area,
+    AreaChart,
     CartesianGrid,
     ComposedChart,
     Line,
@@ -9,10 +10,10 @@ import {
     Tooltip,
     XAxis,
     YAxis,
-    Customized,
 } from 'recharts';
 import './DashboardResult.css';
 
+/* ── 유틸 ── */
 function toFiniteNumber(value, fallback = 0) {
     const num = Number(value);
     return Number.isFinite(num) ? num : fallback;
@@ -23,113 +24,7 @@ function formatSigned(value) {
     return `${n >= 0 ? '+' : ''}${n.toFixed(2)}%`;
 }
 
-/* ── 시뮬레이션 끝에 이어 붙이는 정규분포 오버레이 ── */
-function DistributionOverlay(props) {
-    const { yAxisMap, distribution, offset } = props;
-    if (!distribution || !yAxisMap || !offset) return null;
-
-    const yAxis = yAxisMap[Object.keys(yAxisMap)[0]];
-    if (!yAxis || !yAxis.scale) return null;
-
-    const mean = toFiniteNumber(distribution.mean, 0);
-    const var5 = toFiniteNumber(distribution.percentile_5, null);
-    const std = Math.max(0.001, Math.abs(toFiniteNumber(distribution.std, 0.01)));
-    const minValue = mean - std * 3;
-    const maxValue = mean + std * 3;
-
-    // yAxis 범위에서 실제 pixel 좌표 계산
-    const yScale = yAxis.scale;
-
-    // 차트 오른쪽 끝 가장자리로 맞춤 (margin/offset 적용)
-    const chartRight = offset.left + offset.width;
-    const curveWidth = 60;
-
-    const samples = 50;
-    const points = [];
-    let peakDensity = Number.NEGATIVE_INFINITY;
-
-    for (let i = 0; i <= samples; i += 1) {
-        const t = i / samples;
-        const value = minValue + (maxValue - minValue) * t;
-        const z = (value - mean) / std;
-        const density = Math.exp(-0.5 * z * z);
-        points.push({ value, density });
-        if (density > peakDensity) peakDensity = density;
-    }
-
-    const curvePoints = points
-        .map(({ value, density }) => {
-            const y = yScale(value);
-            if (y == null || !Number.isFinite(y)) return null;
-            const x = chartRight + (density / peakDensity) * curveWidth;
-            return { x, y };
-        })
-        .filter(Boolean);
-
-    if (curvePoints.length < 2) return null;
-
-    const areaPath = `M ${chartRight},${curvePoints[0].y} ` +
-        curvePoints.map(p => `L ${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ') +
-        ` L ${chartRight},${curvePoints[curvePoints.length - 1].y} Z`;
-
-    const linePath = curvePoints.map((p, i) =>
-        `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)},${p.y.toFixed(1)}`
-    ).join(' ');
-
-    const meanY = yScale(mean);
-    const var5Y = var5 !== null ? yScale(var5) : null;
-
-    return (
-        <g>
-            <defs>
-                <linearGradient id="distOverlayFill" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.4" />
-                    <stop offset="100%" stopColor="#2563eb" stopOpacity="0.08" />
-                </linearGradient>
-            </defs>
-            <path d={areaPath} fill="url(#distOverlayFill)" />
-            <path d={linePath} fill="none" stroke="#2563eb" strokeWidth="2" />
-
-            {/* 평균 라인 */}
-            {meanY != null && Number.isFinite(meanY) && (
-                <line
-                    x1={chartRight}
-                    y1={meanY}
-                    x2={chartRight + curveWidth}
-                    y2={meanY}
-                    stroke="#1e3a8a"
-                    strokeDasharray="3 3"
-                    strokeWidth="1.2"
-                />
-            )}
-
-            {/* VaR 5% 라인 */}
-            {var5Y != null && Number.isFinite(var5Y) && (
-                <g>
-                    <line
-                        x1={chartRight}
-                        y1={var5Y}
-                        x2={chartRight + curveWidth}
-                        y2={var5Y}
-                        stroke="#ef4444"
-                        strokeDasharray="4 4"
-                        strokeWidth="1.5"
-                    />
-                    <text
-                        x={chartRight + curveWidth + 5}
-                        y={var5Y + 4}
-                        fill="#ef4444"
-                        fontSize="10"
-                        fontWeight="600"
-                    >
-                        VaR 5%
-                    </text>
-                </g>
-            )}
-        </g>
-    );
-}
-
+/* ── 시계열 데이터 빌드 ── */
 function buildSeries(chartData, forecastData) {
     const historicalRows = (chartData?.dates || []).map((date, idx) => ({
         x: idx,
@@ -139,13 +34,13 @@ function buildSeries(chartData, forecastData) {
     }));
 
     if (!historicalRows.length) {
-        return { rows: [], pathKeys: [], currentIndex: 0, lastIndex: 0 };
+        return { rows: [], pathKeys: [], currentIndex: 0, lastIndex: 0, lastHist: 0 };
     }
 
     const currentIndex = historicalRows.length - 1;
     const rows = [...historicalRows];
     const hasForecast = Array.isArray(forecastData?.forecast_days) && forecastData.forecast_days.length > 1;
-    const pathCount = Math.min(Array.isArray(forecastData?.mc_paths) ? forecastData.mc_paths.length : 0, 36);
+    const pathCount = Math.min(Array.isArray(forecastData?.mc_paths) ? forecastData.mc_paths.length : 0, 100);
     const pathKeys = Array.from({ length: pathCount }, (_, idx) => `mc_${idx}`);
     const lastHist = historicalRows[currentIndex].portfolio;
 
@@ -175,14 +70,10 @@ function buildSeries(chartData, forecastData) {
         }
     }
 
-    return {
-        rows,
-        pathKeys,
-        currentIndex,
-        lastIndex: rows[rows.length - 1].x,
-    };
+    return { rows, pathKeys, currentIndex, lastIndex: rows[rows.length - 1].x, lastHist };
 }
 
+/* ── 커스텀 Tooltip ── */
 function CustomTooltip({ active, payload, label }) {
     if (!active || !payload || payload.length === 0) return null;
 
@@ -223,21 +114,63 @@ function CustomTooltip({ active, payload, label }) {
     );
 }
 
-/* ── 커스텀 범례 (색상 원 + 텍스트) ── */
+/* ── 커스텀 범례 ── */
 const LEGEND_ITEMS = [
     { color: '#3B82F6', label: '포트폴리오 (과거)' },
     { color: '#F59E0B', label: 'S&P 500 벤치마크' },
-    { color: '#6366F1', label: '기대 경로 (예측)' },
+    { color: '#8b5cf6', label: '기대 경로 (예측)' },
     { color: '#94a3b8', label: 'MC 시뮬레이션 경로' },
 ];
 
+/* ── 메인 차트 컴포넌트 ── */
 function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
     const series = useMemo(
         () => buildSeries(chartData, forecastData),
         [chartData, forecastData],
     );
 
-    const distribution = forecastData?.final_distribution || null;
+    // 분포 데이터 (Flexbox 오른쪽 vertical AreaChart용)
+    const distributionBins = forecastData?.distribution_bins || [];
+    const var5Value = forecastData?.var_5_value ?? forecastData?.final_distribution?.percentile_5 ?? null;
+    const lastHist = series.lastHist || 0;
+
+    // distribution bins에 lastHist baseline 더해서 Y축 동기화
+    const adjustedBins = useMemo(() => {
+        return distributionBins.map(bin => ({
+            returnBin: bin.returnBin + lastHist,
+            frequency: bin.frequency,
+        }));
+    }, [distributionBins, lastHist]);
+    const adjustedVar5 = var5Value != null ? var5Value + lastHist : null;
+
+    // Y축 글로벌 minmax (두 차트 동기화)
+    const { globalMin, globalMax } = useMemo(() => {
+        let min = Infinity;
+        let max = -Infinity;
+        for (const row of series.rows) {
+            const vals = [row.portfolio, row.sp500, row.forecast];
+            // MC paths
+            for (const k of series.pathKeys) {
+                if (row[k] != null) vals.push(row[k]);
+            }
+            for (const v of vals) {
+                if (v != null && Number.isFinite(v)) {
+                    if (v < min) min = v;
+                    if (v > max) max = v;
+                }
+            }
+        }
+        // distribution bins도 포함
+        for (const b of adjustedBins) {
+            if (b.returnBin < min) min = b.returnBin;
+            if (b.returnBin > max) max = b.returnBin;
+        }
+        const pad = Math.max((max - min) * 0.08, 2);
+        return {
+            globalMin: Math.floor(min - pad),
+            globalMax: Math.ceil(max + pad),
+        };
+    }, [series, adjustedBins]);
 
     if (!series.rows.length) {
         return <div className="chart-fallback">차트 데이터를 불러오는 중입니다.</div>;
@@ -254,6 +187,37 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
         return '';
     };
 
+    const hasDistribution = adjustedBins.length > 0;
+
+    const var5Color = '#ef4444'; // 위험도 바와 톤온톤 매칭
+
+    // 분산 차트 VaR 5% 전용 Tooltip
+    const CustomDistTooltip = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            return (
+                <div style={{
+                    background: 'rgba(255,255,255,0.95)',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '6px',
+                    padding: '8px 12px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                    fontSize: '0.75rem',
+                    color: '#334155',
+                    zIndex: 100,
+                }}>
+                    <div style={{ fontWeight: 600, color: '#0f172a', marginBottom: '4px' }}>
+                        Value at Risk (5%)
+                    </div>
+                    <div>손실 수준: <strong style={{ color: var5Color }}>{adjustedVar5?.toFixed(2)}%</strong></div>
+                    <div style={{ marginTop: '6px', fontSize: '0.7rem', color: '#64748b', maxWidth: '180px', whiteSpace: 'normal', lineHeight: 1.4 }}>
+                        100일 중 가장 운이 나쁜 5일이 찾아왔을 때, <strong>'최소한 이만큼은 잃을 수 있다'</strong>고 각오해야 하는 손실의 마지노선
+                    </div>
+                </div>
+            );
+        }
+        return null;
+    };
+
     return (
         <div>
             {warnings.map((warning) => (
@@ -262,116 +226,201 @@ function CumulativeReturnChart({ chartData, forecastData, warnings = [] }) {
                 </div>
             ))}
 
-            <div className="premium-chart-unified">
-                <ResponsiveContainer width="100%" height={300}>
-                    <ComposedChart data={series.rows} margin={{ top: 8, right: 80, left: -20, bottom: 4 }}>
-                        <defs>
-                            <linearGradient id="portfolioAreaFill" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.25" />
-                                <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.02" />
-                            </linearGradient>
-                        </defs>
+            <div style={{ display: 'flex', width: '100%', height: 310, alignItems: 'stretch' }}>
+                {/* ── 메인 차트 (좌측) ── */}
+                <div style={{ flex: hasDistribution ? '0 0 84%' : '1 1 100%', height: '100%', position: 'relative' }}>
 
-                        <CartesianGrid strokeDasharray="4 4" stroke="#cbd5e1" />
+                    {/* 상단 뱃지 (현재(t) 기준 정렬) */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '-32px',
+                        right: '0',
+                        fontSize: '0.7rem',
+                        fontWeight: '600',
+                        color: '#6366f1',
+                        backgroundColor: '#e0e7ff',
+                        padding: '4px 10px',
+                        borderRadius: '99px',
+                        zIndex: 10,
+                    }}>
+                        과거 1년 + 향후 3개월
+                    </div>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <ComposedChart data={series.rows} margin={{ top: 8, right: 0, left: -20, bottom: 4 }}>
+                            <defs>
+                                <linearGradient id="portfolioAreaFill" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.25" />
+                                    <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.02" />
+                                </linearGradient>
+                            </defs>
 
-                        <XAxis
-                            dataKey="x"
-                            type="number"
-                            domain={[0, series.lastIndex]}
-                            ticks={xTicks}
-                            tickFormatter={xTickFormatter}
-                            tick={{ fill: '#64748b', fontSize: 11 }}
-                            axisLine={{ stroke: '#cbd5e1' }}
-                            tickLine={false}
-                        />
+                            <CartesianGrid strokeDasharray="4 4" stroke="#cbd5e1" />
 
-                        <YAxis
-                            tick={{ fill: '#64748b', fontSize: 11 }}
-                            tickFormatter={(value) => `${value > 0 ? '+' : ''}${toFiniteNumber(value, 0).toFixed(0)}%`}
-                            axisLine={{ stroke: '#cbd5e1' }}
-                            tickLine={false}
-                        />
+                            <XAxis
+                                dataKey="x"
+                                type="number"
+                                domain={[0, series.lastIndex]}
+                                ticks={xTicks}
+                                tickFormatter={xTickFormatter}
+                                tick={{ fill: '#64748b', fontSize: 11 }}
+                                axisLine={{ stroke: '#cbd5e1' }}
+                                tickLine={false}
+                            />
 
-                        <Tooltip content={<CustomTooltip />} labelFormatter={(value) => xTickFormatter(value)} />
+                            <YAxis
+                                domain={[globalMin, globalMax]}
+                                tick={{ fill: '#64748b', fontSize: 11 }}
+                                tickFormatter={(value) => `${value > 0 ? '+' : ''}${toFiniteNumber(value, 0).toFixed(0)}%`}
+                                axisLine={{ stroke: '#cbd5e1' }}
+                                tickLine={false}
+                            />
 
-                        <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />
-                        <ReferenceLine
-                            x={series.currentIndex}
-                            stroke="#475569"
-                            strokeDasharray="3 3"
-                            strokeOpacity={0.7}
-                        />
+                            <Tooltip content={<CustomTooltip />} labelFormatter={(value) => xTickFormatter(value)} />
 
-                        <Area
-                            type="monotone"
-                            dataKey="portfolio"
-                            stroke="none"
-                            fill="url(#portfolioAreaFill)"
-                            connectNulls={false}
-                            isAnimationActive={false}
-                            tooltipType="none"
-                        />
+                            <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />
+                            <ReferenceLine
+                                x={series.currentIndex}
+                                stroke="#475569"
+                                strokeDasharray="3 3"
+                                strokeOpacity={0.7}
+                            />
 
-                        <Line
-                            type="monotone"
-                            dataKey="sp500"
-                            name="S&P 500"
-                            stroke="#F59E0B"
-                            strokeWidth={1.6}
-                            dot={false}
-                            isAnimationActive={false}
-                        />
-
-                        <Line
-                            type="monotone"
-                            dataKey="portfolio"
-                            name="포트폴리오(과거)"
-                            stroke="#3B82F6"
-                            strokeWidth={2.35}
-                            dot={false}
-                            isAnimationActive={false}
-                        />
-
-                        {series.pathKeys.map((pathKey) => (
-                            <Line
-                                key={pathKey}
+                            <Area
                                 type="monotone"
-                                dataKey={pathKey}
-                                stroke="#94a3b8"
-                                strokeOpacity={0.35}
-                                strokeWidth={1}
+                                dataKey="portfolio"
+                                stroke="none"
+                                fill="url(#portfolioAreaFill)"
+                                connectNulls={false}
+                                isAnimationActive={false}
+                                tooltipType="none"
+                            />
+
+                            <Line
+                                type="monotone"
+                                dataKey="sp500"
+                                name="S&P 500"
+                                stroke="#F59E0B"
+                                strokeWidth={1.6}
                                 dot={false}
-                                activeDot={false}
+                                isAnimationActive={false}
+                            />
+
+                            <Line
+                                type="monotone"
+                                dataKey="portfolio"
+                                name="포트폴리오(과거)"
+                                stroke="#3B82F6"
+                                strokeWidth={2.35}
+                                dot={false}
+                                isAnimationActive={false}
+                            />
+
+                            {series.pathKeys.map((pathKey) => (
+                                <Line
+                                    key={pathKey}
+                                    type="monotone"
+                                    dataKey={pathKey}
+                                    stroke="#94a3b8"
+                                    strokeOpacity={0.18}
+                                    strokeWidth={0.8}
+                                    dot={false}
+                                    activeDot={false}
+                                    connectNulls
+                                    isAnimationActive={false}
+                                    legendType="none"
+                                />
+                            ))}
+
+                            <Line
+                                type="monotone"
+                                dataKey="forecast"
+                                name="기대 경로"
+                                stroke="#8b5cf6"
+                                strokeWidth={2.5}
+                                dot={false}
                                 connectNulls
                                 isAnimationActive={false}
-                                legendType="none"
                             />
-                        ))}
+                        </ComposedChart>
+                    </ResponsiveContainer>
+                </div>
 
-                        <Line
-                            type="monotone"
-                            dataKey="forecast"
-                            name="기대 경로"
-                            stroke="#6366F1"
-                            strokeWidth={2.3}
-                            dot={false}
-                            connectNulls
-                            isAnimationActive={false}
-                        />
+                {/* ── 확률 분포 차트 (우측, Vertical AreaChart) ── */}
+                {hasDistribution && (
+                    <div style={{ flex: '0 0 16%', height: '100%', marginLeft: -1 }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                            <AreaChart
+                                layout="vertical"
+                                data={adjustedBins}
+                                margin={{ top: 8, right: 12, bottom: 4, left: 0 }}
+                            >
+                                {/* X축 (빈도수) — 숨김 */}
+                                <XAxis type="number" hide />
 
-                        {/* 정규분포를 시뮬레이션 끝에 이어 붙이기 */}
-                        {distribution && (
-                            <Customized
-                                component={(props) => (
-                                    <DistributionOverlay {...props} distribution={distribution} />
+                                {/* Y축 (수익률) — 메인 차트와 동일 domain, 숨김 */}
+                                <YAxis
+                                    type="number"
+                                    dataKey="returnBin"
+                                    domain={[globalMin, globalMax]}
+                                    hide
+                                    reversed
+                                />
+
+                                {/* 부드러운 확률 밀도 곡선 (보라색 계열) */}
+                                <defs>
+                                    <linearGradient id="distFillGrad" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.05} />
+                                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.4} />
+                                    </linearGradient>
+                                </defs>
+                                <Area
+                                    dataKey="frequency"
+                                    type="basis"
+                                    stroke="none"
+                                    fill="url(#distFillGrad)"
+                                    isAnimationActive={false}
+                                    activeDot={false} /* 마우스 오버 시 생기는 점 제거 */
+                                />
+
+                                {/* VaR 5% Hover Tooltip (cursor 숨김) */}
+                                <Tooltip
+                                    content={<CustomDistTooltip />}
+                                    cursor={false}
+                                />
+
+                                {/* VaR 5% 기준선 (빨간색 계열 매칭) */}
+                                {adjustedVar5 != null && (
+                                    <ReferenceLine
+                                        y={adjustedVar5}
+                                        stroke={var5Color}
+                                        strokeDasharray="5 3"
+                                        strokeWidth={1.5}
+                                        ifOverflow="visible"
+                                    />
                                 )}
-                            />
-                        )}
-                    </ComposedChart>
-                </ResponsiveContainer>
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    </div>
+                )}
+
+                {/* 3개월 뒤 확률 분포 레이블 - 전체 우측 최상단에 고정 */}
+                {hasDistribution && (
+                    <div style={{
+                        position: 'absolute',
+                        top: '-30px', /* padding 조정 */
+                        right: '0',
+                        fontSize: '0.75rem',
+                        fontWeight: '600',
+                        color: '#64748b',
+                        padding: '4px 8px',
+                        zIndex: 10,
+                    }}>
+                        3개월 뒤 예상 수익률 확률 분포
+                    </div>
+                )}
             </div>
 
-            {/* 커스텀 범례: 색상 원 + 텍스트 */}
+            {/* 커스텀 범례 */}
             <div className="chart-legend">
                 {LEGEND_ITEMS.map((item) => (
                     <div className="chart-legend-item" key={item.label}>

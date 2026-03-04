@@ -283,16 +283,15 @@ def get_real_forecast(
     else:
         daily_vol = 0.01  # fallback
 
-    # ── 기대 경로 (adjusted expected return 기반) ──
+    # daily drift (기대 경로는 MC 시뮬레이션 후 일별 평균으로 계산)
     daily_drift_expected = expected_return_3m_log / horizon
-    expected_cum_log = np.array([daily_drift_expected * i for i in range(horizon + 1)])
-    expected_line = (_log_to_simple_array(expected_cum_log) * 100).tolist()
 
     # ── Monte Carlo GBM 시뮬레이션 ──
     rng = np.random.default_rng(seed=42)
+    all_paths_matrix = np.zeros((n_paths, horizon + 1))  # (300, 61) matrix
     mc_paths = []
     final_values = []
-    for _ in range(n_paths):
+    for path_idx in range(n_paths):
         # GBM: log(S_t/S_0) = (μ - σ²/2)·t + σ·W_t
         shocks = rng.normal(
             daily_drift_expected - 0.5 * daily_vol ** 2,
@@ -300,23 +299,59 @@ def get_real_forecast(
             horizon,
         )
         path_log = np.concatenate([[0], np.cumsum(shocks)])
-        path_simple = (_log_to_simple_array(path_log) * 100).tolist()
-        mc_paths.append([round(v, 2) for v in path_simple])
-        final_values.append(path_simple[-1])
+        path_simple = _log_to_simple_array(path_log) * 100
+        all_paths_matrix[path_idx] = path_simple
+        mc_paths.append([round(v, 2) for v in path_simple.tolist()])
+        final_values.append(float(path_simple[-1]))
 
     final_values = np.array(final_values)
 
-    var_5 = float(np.percentile(final_values, 5))
+    # ── 기대 경로: Brownian Bridge ──
+    # 시작점(0%)과 끝점(예측 3개월 수익률)을 고정하고
+    # 중간 과정은 자연스럽게 변동하는 조건부 브라운 경로 생성
+    target_simple = float((_log_to_simple_array(np.array([expected_return_3m_log]))[0]) * 100)
+    bridge_rng = np.random.default_rng(seed=123)
+    W = np.concatenate([[0], np.cumsum(bridge_rng.normal(0, daily_vol, horizon))])
+    W_T = W[-1]
+    T = horizon
+    bridge_log = np.array([
+        W[t] - (t / T) * W_T + (t / T) * expected_return_3m_log
+        for t in range(T + 1)
+    ])
+    bridge_simple = _log_to_simple_array(bridge_log) * 100
+    expected_line = [round(float(v), 2) for v in bridge_simple]
+
+    # ── VaR 5% (MC 기반) ──
+    var_5_mc = float(np.percentile(final_values, 5))
+
+    # ── 보수적 VaR 5% (drift=0, 순수 위험 기반) ──
+    # Parametric VaR: VaR_5% = -1.645 × σ_portfolio × √T
+    portfolio_vol_3m = daily_vol * np.sqrt(horizon)
+    var_5_conservative_log = -1.645 * portfolio_vol_3m
+    var_5_conservative = float((_log_to_simple_array(np.array([var_5_conservative_log]))[0]) * 100)
+
+    # ── 히스토그램 빈 데이터 (프론트 vertical AreaChart 용) ──
+    counts, bin_edges = np.histogram(final_values, bins=30)
+    distribution_bins = []
+    for i in range(len(counts)):
+        bin_center = float((bin_edges[i] + bin_edges[i + 1]) / 2)
+        distribution_bins.append({
+            "returnBin": round(bin_center, 2),
+            "frequency": int(counts[i]),
+        })
 
     return {
         "forecast_days": list(range(horizon + 1)),
-        "expected_line": [round(v, 2) for v in expected_line],
+        "expected_line": expected_line,
         "mc_paths": mc_paths,
         "final_distribution": {
             "mean": round(float(np.mean(final_values)), 2),
             "std": round(float(np.std(final_values)), 2),
-            "percentile_5": round(var_5, 2),
+            "percentile_5": round(var_5_mc, 2),
             "percentile_95": round(float(np.percentile(final_values, 95)), 2),
         },
+        "distribution_bins": distribution_bins,
+        "var_5_value": round(var_5_mc, 2),
+        "var_5_conservative": round(var_5_conservative, 2),
     }
 

@@ -197,7 +197,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
                                 style={{ width: `${portfolioScores.return_pct}%` }}
                             />
                         </div>
-                        <span className="ps-bar-value">{portfolioScores.return_pct}</span>
+                        <span className="ps-bar-value">{portfolioScores.return_pct} / 100</span>
                     </div>
                     {/* 위험도 바 */}
                     <div className="ps-bar-row">
@@ -219,8 +219,28 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
                                 />
                             )}
                         </div>
-                        <span className="ps-bar-value">{portfolioScores.risk_pct}</span>
+                        <span className="ps-bar-value">{portfolioScores.risk_pct} / 100</span>
                     </div>
+                    {/* 위험도 산출 설명 (바 영역 우측 여백에 절대 위치) */}
+                    {portfolioScores.risk_pct > 0 && (
+                        <div style={{
+                            position: 'absolute',
+                            right: '-170px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            fontSize: '0.75rem',
+                            color: '#64748b',
+                            lineHeight: 1.45,
+                            whiteSpace: 'nowrap',
+                        }}>
+                            <span style={{ fontWeight: 600, color: '#475569' }}>위험도 산출</span><br />
+                            가중합 {portfolioScores.risk_pct_naive}
+                            {portfolioScores.diversification_benefit > 0 && (
+                                <> − 분산효과 {portfolioScores.diversification_benefit}</>
+                            )}
+                            {' '}= <strong style={{ color: '#0f172a' }}>{portfolioScores.risk_pct}</strong>
+                        </div>
+                    )}
                 </div>
 
                 <div className="ps-controls-right">

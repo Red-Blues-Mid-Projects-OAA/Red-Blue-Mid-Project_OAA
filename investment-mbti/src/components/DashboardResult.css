@@ -57,6 +57,7 @@
     margin-top: 0.55rem;
     color: #64748b;
     font-size: 0.94rem;
+    text-align: left;
 }
 
 .premium-layout {
@@ -267,6 +268,14 @@
 /* ── Score bars ── */
 .score-bars-panel {
     margin-top: 1rem;
+}
+
+.score-bars-panel .panel-heading {
+    padding: 0.8rem 1.2rem 0.3rem;
+}
+
+.score-bars-panel .ps-bars-wrap {
+    padding: 0.4rem 1.2rem 1rem;
 }
 
 .dr-bars-wrap {

@@ -40,7 +40,7 @@ function StockCard({ stock }) {
 
                 <div className="stock-card-badges">
                     <span className="stock-badge weight">Ratio {weight.toFixed(1)}%</span>
-                    <span className="stock-badge risk">리스크 {riskRank}위</span>
+                    <span className="stock-badge risk">Risk {riskRank}위</span>
                 </div>
             </div>
 

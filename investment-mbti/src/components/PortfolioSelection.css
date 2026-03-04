@@ -212,6 +212,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.65rem;
+    position: relative;
 }
 
 .ps-bar-row {
@@ -221,15 +222,15 @@
 }
 
 .ps-bar-label {
-    font-size: 0.82rem;
+    font-size: 0.92rem;
     font-weight: 700;
     color: #334155;
     white-space: nowrap;
-    min-width: 100px;
+    min-width: 110px;
 }
 
 .ps-bar-track {
-    flex: 1;
+    flex: 0 1 71%;
     height: 18px;
     border-radius: 999px;
     background: #e2e8f0;
@@ -274,10 +275,10 @@
 }
 
 .ps-bar-value {
-    font-size: 0.82rem;
+    font-size: 0.92rem;
     font-weight: 800;
     color: #0f172a;
-    min-width: 28px;
+    min-width: 52px;
     text-align: right;
 }
 

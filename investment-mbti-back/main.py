@@ -323,13 +323,13 @@ def optimize_final(req: OptimizeFinalRequest):
         w_pct = round(float(weights[i]) * 100, 2)
         if w_pct < 0.1:  # 비중 0에 가까운 종목은 제외
             continue
-        expected_log = float(mu[i])
-        expected_simple = round((math.exp(expected_log / 100.0) - 1.0) * 100.0, 2) if abs(expected_log) > 0 else 0.0
+        expected_log = float(mu[i])  # 이미 decimal (예: 0.152 = 15.2%)
+        expected_simple = round((math.exp(expected_log) - 1.0) * 100.0, 2)
         optimized_stocks.append({
             "ticker": ticker,
             "name": TICKER_NAME_MAP.get(ticker, ticker),
             "weight": w_pct,
-            "expectedReturn3M": round(expected_log * 100, 2),
+            "expectedReturn3M": expected_simple,
             "expectedReturn3M_simple": expected_simple,
         })
 
@@ -341,26 +341,21 @@ def optimize_final(req: OptimizeFinalRequest):
     
     all_stocks_data = get_all_300_stocks()
     rank_map = {s.get("ticker"): s.get("risk_rank", 300) for s in all_stocks_data}
-    db_hist_map = {}
-    for s in all_stocks_data:
-        t = s.get("ticker")
-        db_hist_map[t] = {
-            "1M": s.get("returns_1m", 0) * 100, 
-            "3M": s.get("returns_3m", 0) * 100,
-            "6M": s.get("returns_6m", 0) * 100,
-            "12M": s.get("returns_1y", 0) * 100
-        }
+
+    # 과거 기간별 수익률 (chart_cache 기반 직접 계산)
+    active_tickers_all = [s["ticker"] for s in optimized_stocks]
+    historical_returns = get_historical_returns(active_tickers_all)
 
     for stock in optimized_stocks:
         t = stock["ticker"]
         ewma_std = variance_map.get(t, 0.0) ** 0.5 if t in variance_map else 0.0
         stock["risk_score"] = normalize_risk_score(ewma_std, sigma_min, sigma_max)
         stock["risk_rank"] = rank_map.get(t, 300)
-        stock["historical_returns"] = db_hist_map.get(t, {"1M": 0, "3M": 0, "6M": 0, "12M": 0})
+        stock["historical_returns"] = historical_returns.get(t, {"1M": 0, "3M": 0, "6M": 0, "12M": 0})
 
     # 4. 포트폴리오 메트릭
-    portfolio_return_log = float(np.dot(weights, mu))  # 가중 로그수익률
-    portfolio_return_simple = round((math.exp(portfolio_return_log / 100.0) - 1.0) * 100.0, 2)
+    portfolio_return_log = float(np.dot(weights, mu))  # 가중 로그수익률 (decimal, 예: 0.14)
+    portfolio_return_simple = round((math.exp(portfolio_return_log) - 1.0) * 100.0, 2)
     portfolio_var = float(weights.T @ cov_sub @ weights)
     portfolio_volatility = round(float(np.sqrt(max(portfolio_var, 0.0))), 4)
     # 단순 가중 변동성 (분산효과 0일 때)
@@ -378,7 +373,7 @@ def optimize_final(req: OptimizeFinalRequest):
     forecast_data = get_real_forecast(
         tickers=active_tickers,
         weights=chart_weights,
-        expected_return_3m_log=portfolio_return_log / 100.0,
+        expected_return_3m_log=portfolio_return_log,  # 이미 decimal
         n_paths=300,
     )
 
@@ -392,8 +387,11 @@ def optimize_final(req: OptimizeFinalRequest):
         hist_weights_norm = hist_weights_norm / hist_weights_norm.sum()
     past_3m_return = round(float(np.dot(hist_weights_norm, hist_3m_values)), 2)
 
-    # 9. VaR 5%
-    var_5 = forecast_data["final_distribution"]["percentile_5"]
+    # 9. VaR 5% (보수적: drift=0, 순수 위험 기반 — 카드 표시용)
+    var_5_conservative = forecast_data.get("var_5_conservative", forecast_data["final_distribution"]["percentile_5"])
+
+    # 10. 포트폴리오 스코어 (PortfolioSelection과 동일 로직)
+    portfolio_scores = calculate_portfolio_scores(active_tickers)
 
     return {
         "status": "success",
@@ -403,10 +401,11 @@ def optimize_final(req: OptimizeFinalRequest):
             "portfolio_volatility": portfolio_volatility,
             "portfolio_volatility_naive": portfolio_volatility_naive,
             "past_3m_return": past_3m_return,
-            "var_5": round(var_5, 2),
+            "var_5": round(var_5_conservative, 2),
             "chart_data": chart_data,
             "forecast_data": forecast_data,
             "weight_sum": round(float(np.sum(weights)) * 100, 2),
+            "portfolio_scores": portfolio_scores,
         },
     }
 

@@ -5,6 +5,7 @@ import PortfolioPieChart from './PortfolioPieChart';
 import CumulativeReturnChart from './CumulativeReturnChart';
 import StockCard from './StockCard';
 import './DashboardResult.css';
+import './PortfolioSelection.css';
 
 const PERSONA_IMAGE_BY_LEVEL = {
     4: 'slave',
@@ -124,14 +125,10 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
     const chartData = hasOptimized ? optimizedData.chart_data : personaData.chartData;
     const forecastData = hasOptimized ? optimizedData.forecast_data : personaData.forecastData;
 
-    // 수익률/위험도 Score (0~100)
-    const returnScore = Math.min(100, Math.max(0, Math.round(expected3m * 10)));
-    const riskScore = Math.min(100, Math.max(0, Math.round(volatility60dPct * 5)));
-
-    // 분산효과를 보여주기 위한 단순 가중 위험도
-    const naiveRiskScore = hasOptimized
-        ? Math.min(100, Math.max(0, Math.round(toFiniteNumber(optimizedData?.portfolio_volatility_naive, 0) * 100 * 5)))
-        : riskScore;
+    // 포트폴리오 스코어 (API에서 받은 calculate_portfolio_scores 결과 사용)
+    const pScores = hasOptimized
+        ? (optimizedData?.portfolio_scores || { return_pct: 0, risk_pct: 0, risk_pct_naive: 0, diversification_benefit: 0 })
+        : { return_pct: 0, risk_pct: 0, risk_pct_naive: 0, diversification_benefit: 0 };
 
     const metricCards = [
         {
@@ -169,10 +166,12 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
             <div className="premium-orb orb-a" />
             <div className="premium-orb orb-b" />
 
-            <header className="premium-header reveal delay-1">
-                <p className="eyebrow">Investment MBTI Report</p>
-                <h1>추천 포트폴리오 리포트</h1>
-                <p className="subtitle">성향 분석과 시장 데이터를 결합한 시뮬레이션 결과입니다.</p>
+            <header className="premium-header reveal delay-1" style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '1rem' }}>
+                <div>
+                    <p className="eyebrow" style={{ marginBottom: 0 }}>Investment MBTI Report</p>
+                    <h1 style={{ display: 'inline-block', marginRight: '0.5rem' }}>추천 포트폴리오 리포트</h1>
+                </div>
+                <p className="subtitle" style={{ margin: 0, paddingBottom: '0.2rem' }}>성향 분석과 시장 데이터를 결합한 시뮬레이션 결과입니다.</p>
             </header>
 
             <section className="premium-layout">
@@ -251,42 +250,54 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
 
                     {/* 수익률/위험도 바 */}
                     <article className="glass-panel score-bars-panel reveal delay-4">
-                        <div className="panel-heading">
+                        <div className="panel-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                             <h3>포트폴리오 스코어</h3>
-                        </div>
-                        <div className="dr-bars-wrap">
-                            <div className="dr-bar-row">
-                                <span className="dr-bar-label">(예상) 수익률</span>
-                                <div className="dr-bar-track">
-                                    <div className="dr-bar-fill dr-bar-fill--return" style={{ width: `${returnScore}%` }} />
-                                </div>
-                                <span className="dr-bar-value">{returnScore}</span>
+                            <div className="risk-note" style={{
+                                fontSize: '0.72rem',
+                                color: '#64748b',
+                                textAlign: 'right',
+                                lineHeight: 1.5,
+                                maxWidth: '220px',
+                            }}>
+                                <span style={{ fontWeight: 600, color: '#475569' }}>위험도 산출</span><br />
+                                단순 가중합 {pScores.risk_pct_naive}
+                                {pScores.diversification_benefit > 0 && (
+                                    <> − 분산효과 {pScores.diversification_benefit}</>
+                                )}
+                                {' '}= <strong style={{ color: '#0f172a' }}>{pScores.risk_pct}</strong>
                             </div>
-                            <div className="dr-bar-row">
-                                <span className="dr-bar-label">(예상) 위험도</span>
-                                <div className="dr-bar-track dr-bar-track--risk">
+                        </div>
+                        <div className="ps-bars-wrap">
+                            {/* 수익률 바 */}
+                            <div className="ps-bar-row">
+                                <span className="ps-bar-label">(예상) 수익률 :</span>
+                                <div className="ps-bar-track">
                                     <div
-                                        className="dr-bar-fill dr-bar-fill--risk"
-                                        style={{ width: `${riskScore}%`, zIndex: 2, position: 'relative' }}
+                                        className="ps-bar-fill ps-bar-fill--return"
+                                        style={{ width: `${pScores.return_pct}%` }}
                                     />
-                                    {hasOptimized && naiveRiskScore > riskScore && (
+                                </div>
+                                <span className="ps-bar-value">{pScores.return_pct} / 100</span>
+                            </div>
+                            {/* 위험도 바 */}
+                            <div className="ps-bar-row">
+                                <span className="ps-bar-label">(예상) 위험도 :</span>
+                                <div className="ps-bar-track">
+                                    <div
+                                        className="ps-bar-fill ps-bar-fill--risk"
+                                        style={{ width: `${pScores.risk_pct_naive}%` }}
+                                    />
+                                    {pScores.diversification_benefit > 0 && (
                                         <div
-                                            className="dr-bar-fill dr-bar-fill--risk-striped tooltip-trigger"
+                                            className="ps-bar-diversification"
                                             style={{
-                                                width: `${naiveRiskScore}%`,
-                                                position: 'absolute',
-                                                left: 0,
-                                                top: 0,
-                                                bottom: 0,
-                                                zIndex: 1,
-                                                backgroundColor: '#fcd34d',
-                                                backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.5) 10px, rgba(255,255,255,0.5) 20px)'
+                                                left: `${pScores.risk_pct}%`,
+                                                width: `${pScores.diversification_benefit}%`,
                                             }}
-                                            title="분산 투자로 인한 위험 감소 효과"
                                         />
                                     )}
                                 </div>
-                                <span className="dr-bar-value">{riskScore}</span>
+                                <span className="ps-bar-value">{pScores.risk_pct} / 100</span>
                             </div>
                         </div>
                     </article>
