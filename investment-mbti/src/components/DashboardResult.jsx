@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RefreshCw, ArrowLeft, TrendingUp, Sparkles, ShieldAlert } from 'lucide-react';
 import MbtiBarChart from './MbtiBarChart';
 import PortfolioPieChart from './PortfolioPieChart';
@@ -16,9 +16,9 @@ const PERSONA_IMAGE_BY_LEVEL = {
 
 const BAR_CONFIG = [
     { key: 'energy', label: '시장 반응', left: '외향형', right: '내향형', gradient: 'linear-gradient(90deg, #a7f3d0 0%, #3b82f6 100%)' },
-    { key: 'insight', label: '가치 판단', left: '감각형', right: '직관형', gradient: 'linear-gradient(90deg, #bfdbfe 0%, #2563eb 100%)' },
-    { key: 'logic', label: '의사 결정', left: '사고형', right: '감정형', gradient: 'linear-gradient(90deg, #dbeafe 0%, #1d4ed8 100%)' },
-    { key: 'style', label: '대응 방식', left: '계획형', right: '유연형', gradient: 'linear-gradient(90deg, #c7d2fe 0%, #3b82f6 100%)' },
+    { key: 'insight', label: '가치 판단', left: '감각형', right: '직관형', gradient: 'linear-gradient(90deg, #a7f3d0 0%, #3b82f6 100%)' },
+    { key: 'logic', label: '의사 결정', left: '사고형', right: '감정형', gradient: 'linear-gradient(90deg, #a7f3d0 0%, #3b82f6 100%)' },
+    { key: 'style', label: '대응 방식', left: '계획형', right: '유연형', gradient: 'linear-gradient(90deg, #a7f3d0 0%, #3b82f6 100%)' },
 ];
 
 function toFiniteNumber(value, fallback = 0) {
@@ -33,6 +33,20 @@ function formatPercent(value, digits = 2, forceSign = true) {
     const n = Number(value);
     const sign = forceSign ? (n >= 0 ? '+' : '') : '';
     return `${sign}${n.toFixed(digits)}%`;
+}
+
+// 퍼센트 수치를 투자금 기준 원화 문자열로 변환
+function formatKRW(pct, manwon, showSign = true) {
+    const won = (pct / 100) * manwon * 10000;
+    const absWon = Math.abs(won);
+    const sign = won >= 0 ? (showSign ? '+' : '') : '-';
+
+    if (absWon >= 100000000) {
+        return `${sign}${(absWon / 100000000).toFixed(2)}억`;
+    } else if (absWon >= 10000) {
+        return `${sign}${Math.round(absWon / 10000).toLocaleString()}만`;
+    }
+    return `${sign}${Math.round(absWon).toLocaleString()}원`;
 }
 
 function getPersonaImage(title, level) {
@@ -66,10 +80,10 @@ function getMbtiScores(rawAnswers = []) {
     };
 
     return {
-        energy: (countRange(0, 3, 'A') / 3) * 100, // I
-        insight: (countRange(3, 6, 'B') / 3) * 100, // N
-        logic: (countRange(6, 9, 'B') / 3) * 100, // F
-        style: (countRange(9, 12, 'B') / 3) * 100, // P
+        energy: (countRange(0, 3, 'A') / 3) * 100,
+        insight: (countRange(3, 6, 'B') / 3) * 100,
+        logic: (countRange(6, 9, 'B') / 3) * 100,
+        style: (countRange(9, 12, 'B') / 3) * 100,
     };
 }
 
@@ -92,8 +106,13 @@ function getWeightedHistoricalReturn(stocks, key = '3M') {
     return avg;
 }
 
-function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
+function DashboardResult({ personaData, optimizedData, investmentAmount, onRestart, onBack }) {
     if (!personaData) return null;
+
+    // % / ₩ 토글 상태
+    const [displayMode, setDisplayMode] = useState('pct');
+    const isKRW = displayMode === 'krw' && investmentAmount;
+    const invAmt = investmentAmount || 0;
 
     // optimizedData가 있으면 최적화된 종목 사용, 없으면 기존 추천 종목 사용
     const hasOptimized = optimizedData && optimizedData.optimized_stocks;
@@ -125,37 +144,38 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
     const chartData = hasOptimized ? optimizedData.chart_data : personaData.chartData;
     const forecastData = hasOptimized ? optimizedData.forecast_data : personaData.forecastData;
 
-    // 포트폴리오 스코어 (API에서 받은 calculate_portfolio_scores 결과 사용)
+    // 포트폴리오 스코어
     const pScores = hasOptimized
         ? (optimizedData?.portfolio_scores || { return_pct: 0, risk_pct: 0, risk_pct_naive: 0, diversification_benefit: 0 })
         : { return_pct: 0, risk_pct: 0, risk_pct_naive: 0, diversification_benefit: 0 };
 
+    // 메트릭 카드: 모드에 따라 값 전환 (포트폴리오 성과 예측 차트는 항상 %)
     const metricCards = [
         {
             label: '과거 3개월 수익률',
-            value: formatPercent(historical3m),
+            value: isKRW ? formatKRW(historical3m, invAmt) : formatPercent(historical3m),
             helper: '보유 비중 가중 평균',
             tone: historical3m >= 0 ? 'up' : 'down',
             icon: <TrendingUp size={18} />,
         },
         {
             label: '예측 3개월 수익률',
-            value: formatPercent(expected3m),
+            value: isKRW ? formatKRW(expected3m, invAmt) : formatPercent(expected3m),
             helper: '모델 기반 기대 수익률',
             tone: expected3m >= 0 ? 'up' : 'down',
             icon: <Sparkles size={18} />,
         },
         {
             label: '변동성',
-            value: `${volatility60dPct.toFixed(2)}%`,
+            value: isKRW ? formatKRW(volatility60dPct, invAmt, false) : `${volatility60dPct.toFixed(2)}%`,
             helper: '최근 60일 표준편차',
             tone: 'neutral',
             icon: <ShieldAlert size={18} />,
         },
         {
             label: 'VaR 5%',
-            value: formatPercent(var5),
-            helper: '95% 신뢰수준 손실 경계',
+            value: isKRW ? formatKRW(var5, invAmt) : formatPercent(var5),
+            helper: '95% 신뢰수준 손실 수준',
             tone: 'down',
             icon: <ShieldAlert size={18} />,
         },
@@ -166,12 +186,12 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
             <div className="premium-orb orb-a" />
             <div className="premium-orb orb-b" />
 
-            <header className="premium-header reveal delay-1" style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '1rem' }}>
-                <div>
-                    <p className="eyebrow" style={{ marginBottom: 0 }}>Investment MBTI Report</p>
-                    <h1 style={{ display: 'inline-block', marginRight: '0.5rem' }}>추천 포트폴리오 리포트</h1>
+            <header className="premium-header reveal delay-1">
+                <p className="eyebrow" style={{ marginBottom: 0 }}>Investment MBTI Report</p>
+                <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.75rem' }}>
+                    <h1 style={{ margin: 0 }}>추천 포트폴리오 리포트</h1>
+                    <p className="subtitle" style={{ margin: 0, paddingBottom: '0.3rem', transform: 'translateY(4px)' }}>성향 분석과 시장 데이터를 결합한 시뮬레이션 결과입니다.</p>
                 </div>
-                <p className="subtitle" style={{ margin: 0, paddingBottom: '0.2rem' }}>성향 분석과 시장 데이터를 결합한 시뮬레이션 결과입니다.</p>
             </header>
 
             <section className="premium-layout">
@@ -209,12 +229,29 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
                     <article className="glass-panel composition-panel reveal delay-3">
                         <div className="panel-heading">
                             <h3>추천 포트폴리오 구성</h3>
-                            <span className="chip" dangerouslySetInnerHTML={{
-                                __html: (portfolioAnalysis.risk_category || '균형형').replace(
-                                    /(간신히|가볍게|거뜬히|무참히)/,
-                                    '<strong>$1</strong>'
-                                )
-                            }} />
+                            <div className="panel-heading-right">
+                                {/* % / ₩ 토글 버튼 */}
+                                <div className="mode-toggle">
+                                    <button
+                                        type="button"
+                                        className={`mode-btn${displayMode === 'pct' ? ' active' : ''}`}
+                                        onClick={() => setDisplayMode('pct')}
+                                    >%</button>
+                                    <button
+                                        type="button"
+                                        className={`mode-btn${displayMode === 'krw' ? ' active' : ''}`}
+                                        onClick={() => setDisplayMode('krw')}
+                                        disabled={!investmentAmount}
+                                        title={!investmentAmount ? '투자 금액 정보가 없습니다' : '원화로 표시'}
+                                    >₩</button>
+                                </div>
+                                <span className="chip" dangerouslySetInnerHTML={{
+                                    __html: (portfolioAnalysis.risk_category || '균형형').replace(
+                                        /(간신히|가볍게|거뜬히|무참히)/,
+                                        '<strong>$1</strong>'
+                                    )
+                                }} />
+                            </div>
                         </div>
 
                         <div className="composition-content">
@@ -313,7 +350,12 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
                 {displayStocks.length > 0 ? (
                     <div className="stock-grid">
                         {displayStocks.map((stock) => (
-                            <StockCard key={stock.ticker} stock={stock} />
+                            <StockCard
+                                key={stock.ticker}
+                                stock={stock}
+                                displayMode={displayMode}
+                                investmentAmount={invAmt}
+                            />
                         ))}
                     </div>
                 ) : (
@@ -338,4 +380,3 @@ function DashboardResult({ personaData, optimizedData, onRestart, onBack }) {
 }
 
 export default DashboardResult;
-

@@ -207,6 +207,7 @@ function App() {
         <DashboardResult
           personaData={resultData}
           optimizedData={optimizedData}
+          investmentAmount={investmentAmount}
           onRestart={handleRestart}
           onBack={handleBackFromResult}
         />

@@ -171,6 +171,44 @@
     white-space: nowrap;
 }
 
+/* % / ₩ 토글 버튼 */
+.panel-heading-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mode-toggle {
+    display: flex;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    overflow: hidden;
+    background: rgba(248, 250, 252, 0.9);
+}
+
+.mode-btn {
+    padding: 0.32rem 0.8rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    line-height: 1;
+}
+
+.mode-btn.active {
+    background: #6366f1;
+    color: #fff;
+    border-radius: 999px;
+}
+
+.mode-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
 .composition-panel {
     padding: 1.1rem 1rem;
 }
@@ -486,59 +524,48 @@
     gap: 0.45rem;
 }
 
-.mbti-outer-label {
+/* 라벨 그룹: 이름 + % 세로 배치 */
+.mbti-label-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 38px;
+}
+
+.mbti-label-left {
+    align-items: center;
+}
+
+.mbti-label-right {
+    align-items: center;
+}
+
+.mbti-label-name {
     font-size: 0.68rem;
     font-weight: 700;
-    color: #64748b;
+    color: #94a3b8;
     white-space: nowrap;
-    min-width: 36px;
 }
 
-.mbti-outer-label-left {
-    text-align: right;
+.mbti-label-pct {
+    font-size: 0.63rem;
+    font-weight: 600;
+    color: #94a3b8;
 }
 
-.mbti-outer-label-right {
-    text-align: left;
+/* 우세한 쪽 강조색 */
+.mbti-dominant .mbti-label-name {
+    color: #4f46e5;
+}
+
+.mbti-dominant .mbti-label-pct {
+    color: #6366f1;
+    font-weight: 700;
 }
 
 .mbti-track-wrap {
     position: relative;
     flex: 1;
-}
-
-.mbti-hover-tooltip {
-    position: absolute;
-    top: -22px;
-    transform: translateX(-50%);
-    background: #1e3a8a;
-    color: #fff;
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 6px;
-    pointer-events: none;
-    white-space: nowrap;
-}
-
-.mbti-row-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.34rem;
-}
-
-.mbti-row-head h4 {
-    margin: 0;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #334155;
-}
-
-.mbti-row-head .mbti-right-score {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #1d4ed8;
 }
 
 .mbti-track {
@@ -555,12 +582,24 @@
     transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.mbti-row-foot {
-    margin-top: 0.34rem;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.69rem;
-    color: #64748b;
+/* RTL 채움: 오른쪽 벽에 붙어서 왼쪽으로 확장 */
+.mbti-fill-rtl {
+    margin-left: auto;
+}
+
+/* 끝 지점 마커 */
+.mbti-tip {
+    position: absolute;
+    top: 50%;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2.5px solid #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18), 0 1px 5px rgba(99, 102, 241, 0.35);
+    transform: translate(-50%, -50%);
+    transition: left 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
 }
 
 .premium-stock-card {
