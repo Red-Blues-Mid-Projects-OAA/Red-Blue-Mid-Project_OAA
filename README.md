@@ -200,45 +200,6 @@ MSA(Microservices Architecture) 형태를 지향하여 각 역할을 완벽히 �
 
 총 5명의 팀원이 데이터 엔지니어링, 머신러닝, 백엔드, 프론트엔드라는 상이한 도메인을 동시에 개발해야 했기 때문에, 철저한 **도메인 분리(Decoupling)** 와 **Feature Branch 기반의 GitHub Flow** 전략을 채택하여 충돌 없는 병렬 개발 환경을 구축했습니다.
 
-gitGraph
-    commit id: "초기 프로젝트 구조 설정"
-    branch develop
-    checkout develop
-    commit id: "FastAPI & React 환경 구축"
-    
-    branch feature/ml-modeling
-    checkout feature/ml-modeling
-    commit id: "앙상블 메타 모델 구현"
-    commit id: "Optuna 하이퍼파라미터 최적화"
-    checkout develop
-    merge feature/ml-modeling tag: "v0.1.0-ML"
-
-    branch feature/frontend-ui
-    checkout feature/frontend-ui
-    commit id: "React Vite 초기 설정"
-    commit id: "투자 MBTI 설문 페이지 UI"
-    commit id: "Recharts 대시보드 구현"
-    checkout develop
-    merge feature/frontend-ui tag: "v0.2.0-UI"
-
-    branch feature/data-pipeline
-    checkout feature/data-pipeline
-    commit id: "PostgreSQL DB 스키마 설계"
-    commit id: "GitHub Actions: Daily DB Load"
-    checkout develop
-    merge feature/data-pipeline tag: "v0.3.0-Data"
-
-    checkout main
-    merge develop tag: "v1.0.0-Release"
-    
-    branch hotfix/api-issue
-    checkout hotfix/api-issue
-    commit id: "Fix: API 엔드포인트 연결 수정"
-    checkout main
-    merge hotfix/api-issue
-    checkout develop
-    merge hotfix/api-issue
-
 <br>
 
 ### 📌 도메인 주도 브랜치 전략 (Domain-Driven Branching)
