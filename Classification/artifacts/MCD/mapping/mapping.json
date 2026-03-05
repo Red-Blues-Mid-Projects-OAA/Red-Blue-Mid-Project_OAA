@@ -1,12 +1,12 @@
 {
   "ticker": "MCD",
-  "beta_ols": 0.22176725660683283,
-  "beta_ewma": -0.22338866014539985,
-  "beta_final": 0.08822048158116302,
+  "beta_ols": 0.22056418834757396,
+  "beta_ewma": -0.21392452491558148,
+  "beta_final": 0.09021757436862733,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.010185803539255411,
+  "expected_capm_return_3m_log": 0.010217809235360283,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

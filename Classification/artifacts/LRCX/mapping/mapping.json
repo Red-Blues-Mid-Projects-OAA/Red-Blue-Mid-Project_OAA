@@ -1,12 +1,12 @@
 {
   "ticker": "LRCX",
-  "beta_ols": 2.093925117903297,
-  "beta_ewma": 2.5771251443234977,
-  "beta_final": 2.2388851258293574,
+  "beta_ols": 2.106400543271292,
+  "beta_ewma": 3.0684806402203737,
+  "beta_final": 2.395024572356016,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04407252035952911,
+  "expected_capm_return_3m_log": 0.04648857671346985,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

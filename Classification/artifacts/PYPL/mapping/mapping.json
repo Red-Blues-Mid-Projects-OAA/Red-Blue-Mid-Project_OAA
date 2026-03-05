@@ -1,12 +1,12 @@
 {
   "ticker": "PYPL",
-  "beta_ols": 1.2657377067277875,
-  "beta_ewma": 1.7993388699155686,
-  "beta_final": 1.4258180556841218,
+  "beta_ols": 1.2612978049767838,
+  "beta_ewma": 1.4315767485328958,
+  "beta_final": 1.3123814880436173,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.031396139605964525,
+  "expected_capm_return_3m_log": 0.029614727905360363,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

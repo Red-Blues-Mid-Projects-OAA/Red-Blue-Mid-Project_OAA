@@ -1,12 +1,12 @@
 {
   "ticker": "CVNA",
-  "beta_ols": 2.3318313586349566,
-  "beta_ewma": 2.291696156345575,
-  "beta_final": 2.319790797948142,
+  "beta_ols": 2.3357817248195323,
+  "beta_ewma": 2.266015164863711,
+  "beta_final": 2.3148517568327858,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04532515986543631,
+  "expected_capm_return_3m_log": 0.045248735051105875,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

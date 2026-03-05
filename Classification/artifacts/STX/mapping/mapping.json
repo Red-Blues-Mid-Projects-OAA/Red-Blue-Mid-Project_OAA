@@ -1,12 +1,12 @@
 {
   "ticker": "STX",
-  "beta_ols": 1.484074065322701,
-  "beta_ewma": 2.0133305697142196,
-  "beta_final": 1.6428510166401566,
+  "beta_ols": 1.4955971412751325,
+  "beta_ewma": 2.5553785921136773,
+  "beta_final": 1.813531576526696,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03479561382595074,
+  "expected_capm_return_3m_log": 0.03746095763365349,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

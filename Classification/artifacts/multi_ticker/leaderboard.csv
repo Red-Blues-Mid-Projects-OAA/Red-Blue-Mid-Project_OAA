@@ -1,301 +1,301 @@
 ticker,ticker_slug,p_latest,ic_full,ic_pvalue,gap_signed,gap_abs,ic_degenerate,te_3m,e_alpha_3m_log,test_acc,test_period_start,test_period_end,n_test_samples,status,refresh_decision,reliability_tag,warnings
-NVDA,NVDA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AAPL,AAPL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MSFT,MSFT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AMZN,AMZN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GOOGL,GOOGL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GOOG,GOOG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-META,META,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AVGO,AVGO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TSLA,TSLA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BRK-B,BRK_B,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NVDA,NVDA,0.8649681034796837,-0.715433153497383,1.1180186800229895e-37,0.455603448275862,0.455603448275862,False,,,0.33189655172413796,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+AAPL,AAPL,0.46856919796341295,0.4439071362262126,1.273349764264025e-12,0.11865203761755494,0.11865203761755494,False,,,0.6336206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+MSFT,MSFT,0.5683900603832053,-0.552434320156682,6.154769109276388e-20,0.5953369905956112,0.5953369905956112,False,,,0.1853448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+AMZN,AMZN,0.4899191927242397,-0.015038757306035678,0.8197712791027646,0.4175940438871474,0.4175940438871474,False,,,0.4267241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+GOOGL,GOOGL,0.41684759713257685,0.6628854348256449,9.781184250721418e-31,0.06614420062695925,0.06614420062695925,False,,,0.7543103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+GOOG,GOOG,0.43626540722729135,0.6407775294115384,3.2267628123206565e-28,-0.0222962382445141,0.0222962382445141,False,,,0.7370689655172413,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+META,META,0.6119239322724196,-0.734356290446271,1.4075562872661728e-40,0.6313871473354231,0.6313871473354231,False,,,0.13793103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+AVGO,AVGO,0.6944556601849847,-0.054516816615381054,0.40851760646363877,0.25434952978056424,0.25434952978056424,False,,,0.5172413793103449,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+TSLA,TSLA,0.30092826908099884,0.7500418036898722,3.543174009224144e-43,-0.03087774294670853,0.03087774294670853,False,,,0.7672413793103449,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+BRK-B,BRK_B,0.480989392258248,0.5145659431585137,4.387631249934026e-17,0.3684952978056426,0.3684952978056426,False,,,0.4224137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
 WMT,WMT,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-LLY,LLY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-JPM,JPM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-V,V,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-XOM,XOM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-JNJ,JNJ,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MU,MU,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MA,MA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-COST,COST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ORCL,ORCL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ABBV,ABBV,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BAC,BAC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HD,HD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PG,PG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CVX,CVX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GE,GE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CAT,CAT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KO,KO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NFLX,NFLX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AMD,AMD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PLTR,PLTR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CSCO,CSCO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-LRCX,LRCX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+LLY,LLY,0.49837435188617474,0.08225524660333006,0.2119491546123273,0.30764106583072104,0.30764106583072104,False,,,0.4525862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+JPM,JPM,0.4836843601573856,0.28119660419497616,1.3739852123272353e-05,0.1663401253918496,0.1663401253918496,False,,,0.6120689655172413,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+V,V,0.8120839680443552,-0.3352309966191866,1.689182583201842e-07,0.39134012539184954,0.39134012539184954,False,,,0.3620689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+XOM,XOM,0.3667217643105429,-0.579246341936885,3.459820152767741e-22,0.5767633228840126,0.5767633228840126,False,,,0.21982758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+JNJ,JNJ,0.29631094668978863,-0.3071571761078938,1.8514637538373324e-06,0.4313871473354232,0.4313871473354232,False,,,0.2629310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MU,MU,0.15484046293391365,-0.3827661165237011,1.6413404770065507e-09,0.6938871473354231,0.6938871473354231,False,,,0.13793103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MA,MA,0.7174182623627295,-0.3177157310648504,7.74027973658522e-07,0.3675548589341693,0.3675548589341693,False,,,0.4051724137931034,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+COST,COST,0.7379297625811633,0.5874312161125834,6.458933282245797e-23,0.3529388714733543,0.3529388714733543,False,,,0.49137931034482757,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ORCL,ORCL,0.42936430021532207,0.6760233254979443,2.4531999551234595e-32,-0.00611285266457684,0.00611285266457684,False,,,0.7629310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+ABBV,ABBV,0.28390674045303604,0.4590958102131699,1.6999231636051257e-13,0.1302507836990595,0.1302507836990595,False,,,0.6379310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+BAC,BAC,0.6061037425771674,-0.20052989780679578,0.00214691867495081,0.3254702194357367,0.3254702194357367,False,,,0.38362068965517243,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+HD,HD,0.7135163060861067,0.537324448527645,9.347832192509427e-19,0.3432210031347962,0.3432210031347962,False,,,0.521551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+PG,PG,0.36212662749173463,-0.010496089673239294,0.8736589986449166,0.08757836990595613,0.08757836990595613,False,,,0.6681034482758621,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+CVX,CVX,0.4071286013766212,0.06905200763421866,0.2949434629015299,0.21923981191222575,0.21923981191222575,False,,,0.5818965517241379,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+GE,GE,0.2886397234544377,-0.6913388520610658,2.605192620884798e-34,0.3502351097178683,0.3502351097178683,False,,,0.5043103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CAT,CAT,0.35786223776871423,-0.4178446978506175,3.2204144857270894e-11,0.26794670846394986,0.26794670846394986,False,,,0.4956896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+KO,KO,0.4927710835676372,-0.36665680035518716,8.597302388293106e-09,0.12601880877742955,0.12601880877742955,False,,,0.5603448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+NFLX,NFLX,0.6178383886725342,0.07183411527055153,0.27587038765791744,0.31438087774294676,0.31438087774294676,False,,,0.5344827586206896,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+AMD,AMD,0.26152469298040426,0.0070278249203807866,0.9152112257019609,0.37523510971786833,0.37523510971786833,False,,,0.3793103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PLTR,PLTR,0.5946670015830396,-0.4245102241254379,1.4469207598306628e-11,0.06395955480473015,0.06395955480473015,False,,,0.6939655172413793,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+CSCO,CSCO,0.3931635514812942,-0.031068310112264526,0.6378006608554234,0.4399294670846395,0.4399294670846395,False,,,0.33620689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+LRCX,LRCX,0.7112036144096797,-0.2991625807964419,3.504841379295619e-06,0.15270376175548594,0.15270376175548594,False,,,0.6120689655172413,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
 MRK,MRK,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-AMAT,AMAT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PM,PM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MS,MS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GS,GS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-RTX,RTX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WFC,WFC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-UNH,UNH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-IBM,IBM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AXP,AXP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TMUS,TMUS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MCD,MCD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-LIN,LIN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+AMAT,AMAT,0.6259720864285985,-0.17975778845987514,0.006040023815219218,0.2609717868338558,0.2609717868338558,False,,,0.5344827586206896,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PM,PM,0.5108662723398761,0.139570507929247,0.03360305430045135,0.22872257053291534,0.22872257053291534,False,,,0.5474137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+MS,MS,0.4902863105203617,0.10576333537706926,0.10810976924854095,0.16438087774294674,0.16438087774294674,False,,,0.6594827586206896,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+GS,GS,0.39966437243420333,0.36677980891389195,8.492172166798113e-09,0.26249999999999996,0.26249999999999996,False,,,0.625,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+RTX,RTX,0.5474080578068137,-0.27462333433918457,2.2134646614108234e-05,0.46873040752351103,0.46873040752351103,False,,,0.4267241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+WFC,WFC,0.5807898215188361,0.06619782467051964,0.31540235255733823,0.16869122257053293,0.16869122257053293,False,,,0.5301724137931034,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+UNH,UNH,0.6579212749254093,-0.046398251740859396,0.4818820367907762,0.5239420062695925,0.5239420062695925,False,,,0.29310344827586204,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+IBM,IBM,0.6343146456663133,0.6161806226923882,1.1990029934948477e-25,0.09149686520376177,0.09149686520376177,False,,,0.6982758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+AXP,AXP,0.629102677533139,0.40805014136374196,1.011170278286807e-10,0.13836206896551728,0.13836206896551728,False,,,0.5991379310344828,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+TMUS,TMUS,0.6469705768351706,0.13011230297008006,0.047756378833687343,0.7005094043887148,0.7005094043887148,False,,,0.15517241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+MCD,MCD,0.3601800578540303,-0.3238546269477155,4.5895166292084547e-07,0.3285266457680251,0.3285266457680251,False,,,0.4396551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+LIN,LIN,0.41693072134293846,0.19379806223079862,0.0030361666978256374,0.3960815047021944,0.3960815047021944,False,,,0.4698275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
 GEV,GEV,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: scaler_zero_sample
-PEP,PEP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-INTC,INTC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-VZ,VZ,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-C,C,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AMGN,AMGN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TXN,TXN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KLAC,KLAC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-T,T,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ABT,ABT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NEE,NEE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TMO,TMO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GILD,GILD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DIS,DIS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-APH,APH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ISRG,ISRG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BA,BA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DE,DE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ADI,ADI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TJX,TJX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CRM,CRM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ANET,ANET,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SCHW,SCHW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BLK,BLK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-UNP,UNP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-LOW,LOW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HON,HON,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PFE,PFE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-LMT,LMT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DHR,DHR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-UBER,UBER,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-QCOM,QCOM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WELL,WELL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ETN,ETN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-APP,APP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SYK,SYK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PEP,PEP,0.48843789280059136,-0.07643444316524085,0.24620207401122313,0.1978448275862068,0.1978448275862068,False,,,0.5646551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+INTC,INTC,0.5030507392847661,-0.36196998206765846,1.3686321465412046e-08,0.35474137931034483,0.35474137931034483,False,,,0.3577586206896552,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+VZ,VZ,0.42638676415695065,0.3096913446180872,1.5063962474762357e-06,0.18393416927899686,0.18393416927899686,False,,,0.6637931034482759,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+C,C,0.37424713030895596,0.3562971733017611,2.378922132692004e-08,0.4049764890282132,0.4049764890282132,False,,,0.23706896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+AMGN,AMGN,0.43739599334874946,-0.047239130560130994,0.4739675953517268,0.3610501567398119,0.3610501567398119,False,,,0.4525862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+TXN,TXN,0.4367213024766559,0.618386127709792,7.204370276221939e-26,0.04996081504702199,0.04996081504702199,False,,,0.728448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+KLAC,KLAC,0.13697540252055615,-0.08319126485472496,0.20677722099084445,0.3860501567398119,0.3860501567398119,False,,,0.4525862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+T,T,0.4964252150880538,0.1319497433157341,0.044671991352226166,-0.03742163009404387,0.03742163009404387,False,,,0.7931034482758621,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+ABT,ABT,0.6920798695661853,0.14469554420716174,0.027549503103826322,0.07343260188087763,0.07343260188087763,False,,,0.7629310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+NEE,NEE,0.406622942242729,-0.07567621072134909,0.2509327124215319,0.4423197492163009,0.4423197492163009,False,,,0.27586206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+TMO,TMO,0.5405951529366038,-0.13635306531562263,0.037953848007671175,0.3251959247648903,0.3251959247648903,False,,,0.4827586206896552,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+GILD,GILD,0.35094751725156204,-0.24497923269567487,0.00016400248801111888,0.30239028213166147,0.30239028213166147,False,,,0.4396551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+DIS,DIS,0.17353689295466126,0.6652869847334845,5.056646535660386e-31,0.17135579937304068,0.17135579937304068,False,,,0.7456896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+APH,APH,0.36247939869170603,0.49719771127200446,6.860169396467221e-16,0.5459247648902821,0.5459247648902821,False,,,0.25862068965517243,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ISRG,ISRG,0.20865234225306298,0.2540472698826997,9.114769094999114e-05,0.21677115987460815,0.21677115987460815,False,,,0.5991379310344828,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+BA,BA,0.3026094170216387,0.4104343931930138,7.679641837768144e-11,0.42578369905956115,0.42578369905956115,False,,,0.43103448275862066,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+DE,DE,0.21164347943791598,0.06454970218474732,0.3276281486950403,0.1834639498432602,0.1834639498432602,False,,,0.6551724137931034,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+ADI,ADI,0.14044758535433816,0.05828203171698804,0.37686790643004,0.2028605015673981,0.2028605015673981,False,,,0.5732758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+TJX,TJX,0.30331680232929226,0.0922775611246826,0.16123530849881718,0.38373824451410665,0.38373824451410665,False,,,0.43103448275862066,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CRM,CRM,0.7230800834928632,0.26926285199187366,3.2364704540055417e-05,0.436833855799373,0.436833855799373,False,,,0.38362068965517243,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ANET,ANET,0.9473919564934596,0.5147129768263405,4.2837914270769907e-17,0.3300548589341693,0.3300548589341693,False,,,0.5301724137931034,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+SCHW,SCHW,0.4373632132293327,-0.3070514656277568,1.8673841877921779e-06,0.34329937304075236,0.34329937304075236,False,,,0.4396551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+BLK,BLK,0.5105512886097734,0.13787145221213593,0.035844648373537395,0.347923197492163,0.347923197492163,False,,,0.4827586206896552,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+UNP,UNP,0.37354993133786474,0.6346597756247007,1.4780527561714788e-27,-0.0047413793103449065,0.0047413793103449065,False,,,0.7672413793103449,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+LOW,LOW,0.8804192922167212,0.5862203506128324,8.304092106329837e-23,0.3998824451410658,0.3998824451410658,False,,,0.4353448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+HON,HON,0.21184204121727518,0.31778780639221654,7.693443054858276e-07,0.14032131661442004,0.14032131661442004,False,,,0.6767241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+PFE,PFE,0.5081383724580268,0.3352108155275241,1.6922413825762598e-07,-0.015948275862068928,0.015948275862068928,False,,,0.728448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+LMT,LMT,0.3590379445521303,0.12262511796328575,0.0622199381488337,0.37460815047021945,0.37460815047021945,False,,,0.5344827586206896,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+DHR,DHR,0.5259938880310808,-0.004147694838829957,0.9498980210399459,0.32018025078369905,0.32018025078369905,False,,,0.47413793103448276,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+UBER,UBER,0.4122823489103756,-0.5020133041444274,3.251049279840242e-16,0.6140673981191223,0.6140673981191223,False,,,0.23706896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+QCOM,QCOM,0.6180545164024513,0.03717260983799388,0.573208248966661,0.22672413793103452,0.22672413793103452,False,,,0.5732758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+WELL,WELL,0.45533023313108134,0.48039647196077545,8.486679914120143e-15,0.09905956112852665,0.09905956112852665,False,,,0.7327586206896551,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+ETN,ETN,0.8613979659495341,0.34578186354122414,6.443865090544688e-08,0.4082680250783699,0.4082680250783699,False,,,0.4224137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+APP,APP,0.5183451037539201,0.04308951371257127,0.5137057833754648,0.3202917771883289,0.3202917771883289,False,,,0.5258620689655172,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+SYK,SYK,0.5050931079420292,-0.18673564115328206,0.004316478125731028,0.3216300940438871,0.3216300940438871,False,,,0.521551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
 COP,COP,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-NEM,NEM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ACN,ACN,0.2835555272817362,0.31728895175244537,1.0001541083777057e-06,0.1508971291866028,0.1508971291866028,False,,,0.618421052631579,2025-01-02,2025-11-28,228.0,success,missing_artifact,OK,
-PLD,PLD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BKNG,BKNG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-COF,COF,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CB,CB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PH,PH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MDT,MDT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BMY,BMY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SPGI,SPGI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-VRTX,VRTX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PANW,PANW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GLW,GLW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PGR,PGR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HCA,HCA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MCK,MCK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MO,MO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CMCSA,CMCSA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SBUX,SBUX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CME,CME,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BSX,BSX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TT,TT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HWM,HWM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SO,SO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-INTU,INTU,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ADBE,ADBE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CEG,CEG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NOW,NOW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NOC,NOC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-UPS,UPS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DUK,DUK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CRWD,CRWD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CVS,CVS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WM,WM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EQIX,EQIX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-USB,USB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-FDX,FDX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MAR,MAR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-FCX,FCX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BX,BX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PNC,PNC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GD,GD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+NEM,NEM,0.28736418128724095,0.25596159057754436,8.029181728609047e-05,0.6982758620689655,0.6982758620689655,False,,,0.05172413793103448,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ACN,ACN,0.2830856271807546,0.33157533601517614,2.339321794242615e-07,0.1443181818181818,0.1443181818181818,False,,,0.625,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+PLD,PLD,0.7165970701740143,0.22997314953804515,0.00041340255213320466,0.34008620689655167,0.34008620689655167,False,,,0.5474137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+BKNG,BKNG,0.6279258561927284,0.18299541216516202,0.005175604558069584,0.19690438871473348,0.19690438871473348,False,,,0.5474137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+COF,COF,0.3163292352286194,-0.033838885696218825,0.6081041768713521,0.1728448275862069,0.1728448275862069,False,,,0.5646551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+CB,CB,0.25009443810786686,0.08875548012739072,0.17790245546872888,0.2650078369905956,0.2650078369905956,False,,,0.5043103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PH,PH,0.17291378380522204,-0.19510695017576765,0.0028407613331234657,0.26445924764890283,0.26445924764890283,False,,,0.5775862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MDT,MDT,0.3171384572331424,0.3372856239513039,1.404070418681744e-07,0.13906739811912228,0.13906739811912228,False,,,0.6120689655172413,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+BMY,BMY,0.5822088507893561,-0.004479241344714186,0.945898990309603,0.20168495297805644,0.20168495297805644,False,,,0.5517241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+SPGI,SPGI,0.5429551317860125,0.1311742127932745,0.04595283573285477,0.20779780564263317,0.20779780564263317,False,,,0.5387931034482759,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+VRTX,VRTX,0.6673743742689071,-0.3010288512730424,3.0248455326353245e-06,0.5090517241379311,0.5090517241379311,False,,,0.35344827586206895,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PANW,PANW,0.5643530242861876,0.43485928013085023,4.033163766339362e-12,0.5115987460815047,0.5115987460815047,False,,,0.3793103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+GLW,GLW,0.5456115216573402,-0.01673877402751163,0.799806088648249,0.18867554858934166,0.18867554858934166,False,,,0.521551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+PGR,PGR,0.7622020983106863,-0.3446084772117034,7.185587511108414e-08,0.7278605015673981,0.7278605015673981,False,,,0.07327586206896551,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+HCA,HCA,0.6295589435989059,0.4542446601792464,3.269393630209972e-13,0.17860501567398124,0.17860501567398124,False,,,0.7327586206896551,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+MCK,MCK,0.4774920062585234,0.050955334439129016,0.4398548446455535,0.3811128526645768,0.3811128526645768,False,,,0.4870689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MO,MO,0.7131356706742062,0.4260766612401952,1.1958482317444468e-11,0.17409874608150477,0.17409874608150477,False,,,0.6293103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+CMCSA,CMCSA,0.3867992703787516,-0.26925900797441416,3.237343076980681e-05,0.28005485893416926,0.28005485893416926,False,,,0.5301724137931034,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+SBUX,SBUX,0.4379542112228802,0.012409449363719008,0.8508755485986095,0.4371473354231975,0.4371473354231975,False,,,0.43103448275862066,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CME,CME,0.2388595602168924,0.4565068644541782,2.413084541768059e-13,0.13303291536050155,0.13303291536050155,False,,,0.6681034482758621,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+BSX,BSX,0.7125021606087611,-0.3425452008403021,8.693450116595175e-08,0.6852272727272727,0.6852272727272727,False,,,0.125,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+TT,TT,0.659779495411918,-0.40832787162519285,9.793879669510333e-11,0.3530172413793103,0.3530172413793103,False,,,0.40948275862068967,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+HWM,HWM,0.7245239936561911,0.4230446924689931,1.7278126256826104e-11,0.017476489028213193,0.017476489028213193,False,,,0.7370689655172413,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+SO,SO,0.4238293969866452,-0.07222043902523403,0.2732895377682793,0.10944357366771162,0.10944357366771162,False,,,0.5689655172413793,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+INTU,INTU,0.329366199959252,-0.3800397471405314,2.1861926893586328e-09,0.40850313479623823,0.40850313479623823,False,,,0.3017241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+ADBE,ADBE,0.46153321482769616,-0.016533119093426918,0.8022147014372027,0.36794670846394983,0.36794670846394983,False,,,0.3706896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CEG,CEG,0.7392968143573662,0.30635858148067696,1.975016252577297e-06,0.31246466930469186,0.31246466930469186,False,,,0.646551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+NOW,NOW,0.7710016691795829,0.017200056122654905,0.7944105001854158,0.564615987460815,0.564615987460815,False,,,0.28879310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+NOC,NOC,0.4953217466821355,0.13685470959409093,0.03724570162895129,0.17887931034482762,0.17887931034482762,False,,,0.6336206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+UPS,UPS,0.38698845558253303,-0.3561030504200549,2.4238925600957606e-08,0.27641065830721,0.27641065830721,False,,,0.5258620689655172,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+DUK,DUK,0.5842276363172241,-0.27442248442692424,2.2455229609966715e-05,0.444474921630094,0.444474921630094,False,,,0.33620689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CRWD,CRWD,0.5012511865571647,0.397722227454357,3.2479504500073005e-10,0.017946708463949856,0.017946708463949856,False,,,0.7456896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+CVS,CVS,0.47289704636616703,-0.4765995437151274,1.4703899751707997e-14,0.40924764890282134,0.40924764890282134,False,,,0.33620689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+WM,WM,0.4884910198773984,0.3716597890787619,5.190567784621776e-09,0.3648119122257053,0.3648119122257053,False,,,0.39655172413793105,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+EQIX,EQIX,0.3796878411897115,-0.11720313133662251,0.07480012318978561,0.45101880877742945,0.45101880877742945,False,,,0.3103448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+USB,USB,0.6340822000932259,0.6164756510324068,1.120284560509281e-25,0.11136363636363633,0.11136363636363633,False,,,0.75,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+FDX,FDX,0.40369822686486956,-0.07661703399456839,0.24507222282075916,0.3380485893416928,0.3380485893416928,False,,,0.4267241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MAR,MAR,0.5859303996007444,0.22384962972501815,0.0005928802076459333,0.2153996865203761,0.2153996865203761,False,,,0.4698275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+FCX,FCX,0.19171888714183247,0.18375556661778353,0.004989490793334073,0.3134796238244514,0.3134796238244514,False,,,0.5387931034482759,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+BX,BX,0.5851960375704481,-0.5475101337910275,1.5164023025117798e-19,0.7146159874608151,0.7146159874608151,False,,,0.16379310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PNC,PNC,0.5988479795358322,-0.09670490823369317,0.1419811784004365,0.43855799373040755,0.43855799373040755,False,,,0.33189655172413796,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+GD,GD,0.37567991091630204,0.1845916404152307,0.004791751060388307,0.23550156739811912,0.23550156739811912,False,,,0.5258620689655172,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
 SNDK,SNDK,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: scaler_zero_sample
-WDC,WDC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NKE,NKE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AMT,AMT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ITW,ITW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-RCL,RCL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ECL,ECL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ADP,ADP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MRSH,MRSH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ICE,ICE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MMM,MMM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-JCI,JCI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WMB,WMB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SHW,SHW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-STX,STX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KKR,KKR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BK,BK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ORLY,ORLY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MCO,MCO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CTAS,CTAS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CDNS,CDNS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DELL,DELL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CSX,CSX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MNST,MNST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PWR,PWR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-REGN,REGN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CRH,CRH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EMR,EMR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SNPS,SNPS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CMI,CMI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MDLZ,MDLZ,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HLT,HLT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KMI,KMI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GM,GM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CI,CI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TDG,TDG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ELV,ELV,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DASH,DASH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+WDC,WDC,0.40191314162536734,0.021758099825289402,0.7416580281558334,0.4669670846394984,0.4669670846394984,False,,,0.33189655172413796,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+NKE,NKE,0.2849875221365804,0.39680350728152997,3.59626979953641e-10,0.044474921630094144,0.044474921630094144,False,,,0.7112068965517241,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+AMT,AMT,0.4671633760774628,0.18061788736644438,0.005798607208675937,0.3122257053291536,0.3122257053291536,False,,,0.5991379310344828,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ITW,ITW,0.09018661781522681,0.11421729077493468,0.08256476862093455,0.3586206896551724,0.3586206896551724,False,,,0.49137931034482757,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+RCL,RCL,0.5768413592521486,0.14714033931142115,0.02500777837983944,0.39447492163009407,0.39447492163009407,False,,,0.46120689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ECL,ECL,0.2142245902704023,0.29036650784467855,6.921488182325748e-06,-0.033816614420062674,0.033816614420062674,False,,,0.7758620689655172,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+ADP,ADP,0.24370447270223838,-0.57778273228917,4.647797549878116e-22,0.6372648902821316,0.6372648902821316,False,,,0.1206896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MRSH,MRSH,0.9127385084732944,0.07969705298401464,0.22655641025238973,0.5125,0.5125,False,,,0.25,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+ICE,ICE,0.34161861212761313,0.16478534045501628,0.01195108079499877,0.09886363636363638,0.09886363636363638,False,,,0.625,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+MMM,MMM,0.49362126686922514,-0.2927920828616403,5.7501521174012915e-06,0.19815830721003136,0.19815830721003136,False,,,0.6120689655172413,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+JCI,JCI,0.5189855455857095,-0.1694221865155711,0.00972829505229775,0.3433385579937304,0.3433385579937304,False,,,0.46120689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+WMB,WMB,0.6326792611219488,0.3729513789451631,4.550190375060552e-09,0.08299373040752345,0.08299373040752345,False,,,0.646551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+SHW,SHW,0.3830925735965461,0.5326520453055897,2.1096275420095445e-18,0.42292319749216295,0.42292319749216295,False,,,0.3577586206896552,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+STX,STX,0.46357123632700253,-0.1534704750628977,0.01934376129713239,0.41622257053291534,0.41622257053291534,False,,,0.4224137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+KKR,KKR,0.5680410580536257,-0.7201449578983987,2.232309615445042e-38,0.5246865203761756,0.5246865203761756,False,,,0.2025862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+BK,BK,0.46264914053649114,0.21436355563926968,0.0010171795258010418,0.0402037617554859,0.0402037617554859,False,,,0.7370689655172413,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+ORLY,ORLY,0.8414016686734926,0.15966991422075036,0.014911437121197779,0.28244514106583074,0.28244514106583074,False,,,0.4698275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+MCO,MCO,0.5031765380566434,0.26113275506497347,5.6721864287738655e-05,0.32562695924764884,0.32562695924764884,False,,,0.4698275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+CTAS,CTAS,0.9097869062157825,0.41004038140341226,8.038063478690333e-11,0.5152037617554859,0.5152037617554859,False,,,0.3620689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+CDNS,CDNS,0.7760005380575719,0.6671638262580988,3.00663068239103e-31,0.25478056426332285,0.25478056426332285,False,,,0.5043103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+DELL,DELL,0.36977894819963136,-0.32998775680439135,2.691119574030683e-07,0.3786833855799373,0.3786833855799373,False,,,0.40086206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CSX,CSX,0.5007071485457923,0.6264143581740147,1.0898039698136699e-26,0.1834639498432602,0.1834639498432602,False,,,0.6551724137931034,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+MNST,MNST,0.4643533934643169,0.023068909778988213,0.726696111522686,0.46297021943573663,0.46297021943573663,False,,,0.38362068965517243,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PWR,PWR,0.4187318028843266,0.3557542058356028,2.5067738195882e-08,0.17613636363636365,0.17613636363636365,False,,,0.75,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+REGN,REGN,0.47489584170847843,0.3611540893618738,1.4828854809110589e-08,0.3342084639498432,0.3342084639498432,False,,,0.4396551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+CRH,CRH,0.7266315622180448,0.14726526987885577,0.024883498525901368,0.2422805642633229,0.2422805642633229,False,,,0.5043103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+EMR,EMR,0.4263526585451147,0.050253801252765275,0.4461852491251883,0.336794670846395,0.336794670846395,False,,,0.4870689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+SNPS,SNPS,0.8405142798162187,0.4111657175146889,7.055085052664783e-11,0.2463949843260188,0.2463949843260188,False,,,0.5172413793103449,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+CMI,CMI,0.7135756099888919,-0.2416330154971563,0.00020258053365735537,0.2858150470219436,0.2858150470219436,False,,,0.4482758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MDLZ,MDLZ,0.5692845950351334,0.47862630192066313,1.0974565751033434e-14,-0.014968652037617547,0.014968652037617547,False,,,0.7672413793103449,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+HLT,HLT,0.6232407539067326,-0.18780523901139554,0.004095627423377995,0.3470611285266458,0.3470611285266458,False,,,0.38362068965517243,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+KMI,KMI,0.7134195567266168,0.6010861271331894,3.5254079968858566e-24,0.30869905956112853,0.30869905956112853,False,,,0.5344827586206896,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+GM,GM,0.38166938425363184,0.0076351796789861,0.9079147758831673,0.4611677115987461,0.4611677115987461,False,,,0.2672413793103448,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CI,CI,0.5586121264459827,0.04464634078367983,0.49859806507136245,0.6275862068965518,0.6275862068965518,False,,,0.2974137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+TDG,TDG,0.7714960048314495,0.26344877558433866,4.8432246159836824e-05,0.25199843260188093,0.25199843260188093,False,,,0.47413793103448276,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ELV,ELV,0.5895544623020811,-0.3080038209533547,1.7285479304160497e-06,0.39815830721003137,0.39815830721003137,False,,,0.3620689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+DASH,DASH,0.5782865770817756,-0.07772795504037179,0.23827586088920077,0.25084870355519906,0.25084870355519906,False,,,0.5646551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
 SLB,SLB,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-CL,CL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MSI,MSI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ABNB,ABNB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HOOD,HOOD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TRV,TRV,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TFC,TFC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-LHX,LHX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EOG,EOG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PCAR,PCAR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-RSG,RSG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WBD,WBD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TEL,TEL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-APO,APO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AON,AON,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AEP,AEP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-COR,COR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NSC,NSC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BKR,BKR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DLR,DLR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-O,O,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SRE,SRE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CL,CL,0.45439383654338716,0.1053491424958052,0.10950548779880813,-0.008346394984325989,0.008346394984325989,False,,,0.6594827586206896,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+MSI,MSI,0.7069849700184188,0.01647449782716913,0.8029016117919084,0.3981191222570533,0.3981191222570533,False,,,0.34051724137931033,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+ABNB,ABNB,0.43789249158244753,-0.2647480534856589,4.4295826251641394e-05,0.3313075605054615,0.3313075605054615,False,,,0.5646551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+HOOD,HOOD,0.49346207498212513,-0.19623613030450382,0.0026814281358185726,0.08838867603235423,0.08838867603235423,False,,,0.5474137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+TRV,TRV,0.3372924833670341,0.2396591125316891,0.0002291499996619915,0.13840125391849523,0.13840125391849523,False,,,0.6206896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+TFC,TFC,0.510962773617057,0.13813668941684332,0.03548658752361211,0.397217868338558,0.397217868338558,False,,,0.4698275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+LHX,LHX,0.5545538398651446,0.3132009325586356,1.128500581195136e-06,0.24384796238244516,0.24384796238244516,False,,,0.49137931034482757,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+EOG,EOG,0.2962618394822564,-0.047193002350616665,0.474399910839646,0.13863636363636367,0.13863636363636367,False,,,0.625,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+PCAR,PCAR,0.48432629950088857,-0.2631873823970908,4.9307232804995036e-05,0.6015282131661441,0.6015282131661441,False,,,0.21551724137931033,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+RSG,RSG,0.6463135775494119,-0.03538898573677321,0.5917612356529465,0.3945532915360501,0.3945532915360501,False,,,0.2543103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+WBD,WBD,0.25913296985927936,0.14054688836396692,0.03236963297889917,0.49956896551724134,0.49956896551724134,False,,,0.2629310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+TEL,TEL,0.375184793888204,0.31967714097357425,6.558109257702504e-07,0.4337382445141066,0.4337382445141066,False,,,0.30603448275862066,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+APO,APO,0.8162955687245681,0.1434866007161404,0.028886131607327288,0.4740987460815047,0.4740987460815047,False,,,0.2543103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+AON,AON,0.9409103199025671,0.2705188846967742,2.96292653152476e-05,0.585462382445141,0.585462382445141,False,,,0.2543103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+AEP,AEP,0.5850907044826636,0.03487484840156144,0.5971596382285737,0.3102272727272727,0.3102272727272727,False,,,0.5,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+COR,COR,0.2492284805719266,0.09257258946470133,0.15989424624299034,0.4275078369905956,0.4275078369905956,False,,,0.3793103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+NSC,NSC,0.40980205116634283,0.2181729769416612,0.0008211775780588407,0.28076018808777425,0.28076018808777425,False,,,0.5431034482758621,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+BKR,BKR,0.31670163773691334,0.3488945566790763,4.8159940368560205e-08,0.0869122257053292,0.0869122257053292,False,,,0.6767241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+DLR,DLR,0.4524466863261305,0.21984608554092047,0.0007466348578241992,0.14086990595611282,0.14086990595611282,False,,,0.603448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+O,O,0.3967985650801237,-0.12967408497969396,0.048517685617598,0.2663009404388715,0.2663009404388715,False,,,0.46551724137931033,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+SRE,SRE,0.6825932843863862,-0.1859303194955111,0.0044897783876699255,0.15646551724137936,0.15646551724137936,False,,,0.5560344827586207,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
 VLO,VLO,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-ROST,ROST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AZO,AZO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PSX,PSX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SPG,SPG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-APD,APD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-F,F,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PSA,PSA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GWW,GWW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CARR,CARR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ALL,ALL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ZTS,ZTS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-OKE,OKE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AJG,AJG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AME,AME,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-D,D,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MPC,MPC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-VST,VST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NXPI,NXPI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MPWR,MPWR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AFL,AFL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-URI,URI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-FTNT,FTNT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ADSK,ADSK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EXC,EXC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-FITB,FITB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-XEL,XEL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CIEN,CIEN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-GRMN,GRMN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+ROST,ROST,0.42628647216081855,-0.3944807597316106,4.64628215614785e-10,0.6405172413793103,0.6405172413793103,False,,,0.28448275862068967,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+AZO,AZO,0.7146231407956452,-0.1290628862036291,0.04959639473753766,0.42789968652037613,0.42789968652037613,False,,,0.3448275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PSX,PSX,0.38466807010094034,-0.061240003152094304,0.35308937292015813,0.32594043887147334,0.32594043887147334,False,,,0.3922413793103448,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+SPG,SPG,0.513404552680192,0.09773606591721137,0.13775954159943857,0.33887147335423196,0.33887147335423196,False,,,0.5043103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+APD,APD,0.4931908196502403,0.6052222899196407,1.4210386851760108e-24,0.22386363636363638,0.22386363636363638,False,,,0.625,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+F,F,0.5348951415056081,-0.02544931759080049,0.6997920515101508,0.47825235109717873,0.47825235109717873,False,,,0.28879310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PSA,PSA,0.5233182377850553,-0.0011637762858718902,0.985933725960951,0.08264106583072106,0.08264106583072106,False,,,0.7025862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+GWW,GWW,0.8117390666653435,-0.23993011576258572,0.00022531902853566876,0.4780564263322884,0.4780564263322884,False,,,0.43103448275862066,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CARR,CARR,0.41021409564506217,-0.6497158310093043,3.2791735762113604e-29,0.5090834407886526,0.5090834407886526,False,,,0.2629310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+ALL,ALL,0.6340963453937107,0.36987520397317636,6.2203523516957395e-09,0.253487460815047,0.253487460815047,False,,,0.5431034482758621,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ZTS,ZTS,0.4547570775705953,-0.110181072442431,0.09407858733508834,0.3082680250783699,0.3082680250783699,False,,,0.4224137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+OKE,OKE,0.6869309932342064,0.10533857144779149,0.10954129370732257,0.5324451410658307,0.5324451410658307,False,,,0.21982758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+AJG,AJG,0.7266109561480025,-0.13148365619876642,0.0454381301195347,0.5961990595611286,0.5961990595611286,False,,,0.15948275862068967,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+AME,AME,0.19344358526055813,-0.5172500283496286,2.82847797736532e-17,0.460384012539185,0.460384012539185,False,,,0.33620689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+D,D,0.655993347773408,-0.0126583494942234,0.8479204069515279,0.2550940438871473,0.2550940438871473,False,,,0.5517241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MPC,MPC,0.402292454377166,0.1872372854317504,0.004211596501806994,0.18060344827586206,0.18060344827586206,False,,,0.5818965517241379,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+VST,VST,0.5237479229632273,-0.02878688575003507,0.6626982439138784,0.4840909090909091,0.4840909090909091,False,,,0.375,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+NXPI,NXPI,0.5646448113139837,0.46725665927974636,5.525337422416174e-14,0.1301724137931034,0.1301724137931034,False,,,0.5948275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+MPWR,MPWR,0.35848140858069066,-0.03106062207734547,0.6378839037960277,0.24659090909090908,0.24659090909090908,False,,,0.625,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+AFL,AFL,0.7278197006099931,-0.19248917428582957,0.0032436737696806225,0.5278213166144201,0.5278213166144201,False,,,0.3017241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+URI,URI,0.7982235790464735,0.6848357355239105,1.8569261079339614e-33,0.018221003134796243,0.018221003134796243,False,,,0.771551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+FTNT,FTNT,0.6077618679780269,-0.17456452087205376,0.0076983855365405605,0.5178683385579937,0.5178683385579937,False,,,0.2025862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+ADSK,ADSK,0.38663351990117506,0.5237320027907566,9.639925297109613e-18,-0.05368338557993735,0.05368338557993735,False,,,0.8491379310344828,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+EXC,EXC,0.4871647169691804,0.021176692184535897,0.7483259378114205,0.22468652037617554,0.22468652037617554,False,,,0.5775862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+FITB,FITB,0.6485455626326603,-0.30169867131536504,2.8683819651784673e-06,0.4921630094043887,0.4921630094043887,False,,,0.3146551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+XEL,XEL,0.639126225815198,-0.558979720885892,1.8137164135410284e-20,0.41888714733542315,0.41888714733542315,False,,,0.3879310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CIEN,CIEN,0.05984391811476311,0.41994064837042483,2.508840731805004e-11,0.6362068965517242,0.6362068965517242,False,,,0.16379310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+GRMN,GRMN,0.4553091291527231,0.055145313470013765,0.40312793277164255,0.32958463949843264,0.32958463949843264,False,,,0.521551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
 CVNA,CVNA,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-DHI,DHI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ETR,ETR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+DHI,DHI,0.5286916885912308,0.21403585315084497,0.0010359070194308987,0.2525470219435737,0.2525470219435737,False,,,0.5258620689655172,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ETR,ETR,0.8426256745203848,0.018512788085083477,0.7791097526830165,0.2731974921630095,0.2731974921630095,False,,,0.5086206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
 TRGP,TRGP,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-CMG,CMG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CTVA,CTVA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-FANG,FANG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MET,MET,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EA,EA,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-TGT,TGT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CAH,CAH,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-BDX,BDX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-FAST,FAST,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-FIX,FIX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CMG,CMG,0.8679345272343327,0.13330956449204187,0.04249837859723751,0.7161833855799373,0.7161833855799373,False,,,0.15086206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+CTVA,CTVA,0.40105067781404147,0.5454045732275714,2.219754100344217e-19,0.10697492163009414,0.10697492163009414,False,,,0.5862068965517241,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+FANG,FANG,0.311549708069432,-0.005224019727497601,0.9369207479980343,0.39588557993730406,0.39588557993730406,False,,,0.3620689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MET,MET,0.6708570422072047,-0.5971565802851875,8.257230746523207e-24,0.2800940438871473,0.2800940438871473,False,,,0.4267241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+EA,EA,0.22176214356833152,0.26172665576247045,5.447732309406804e-05,0.16128526645768027,0.16128526645768027,False,,,0.5818965517241379,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+TGT,TGT,0.3907682366210954,-0.06048753673439183,0.35904702241976655,0.2875,0.2875,False,,,0.5,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CAH,CAH,0.2125764822190615,0.030298545615994182,0.6461577301811953,0.3133620689655172,0.3133620689655172,False,,,0.47413793103448276,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+BDX,BDX,0.29432494268379833,-0.496006065859551,8.237643975357948e-16,0.13601097178683386,0.13601097178683386,False,,,0.5560344827586207,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+FAST,FAST,0.5106305365574652,0.44057917811062686,1.9536116439949704e-12,0.12597962382445138,0.12597962382445138,False,,,0.6637931034482759,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+FIX,FIX,0.7223492305446795,0.473277351625731,2.3652392076670695e-14,0.21618338557993733,0.21618338557993733,False,,,0.6508620689655172,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
 OXY,OXY,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-TER,TER,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-IDXX,IDXX,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-VTR,VTR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TER,TER,0.08146362823840043,-0.5831201505317235,1.5726596759091734e-22,0.7166144200626958,0.7166144200626958,False,,,0.13793103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+IDXX,IDXX,0.4873743176984016,0.5334785090593881,1.8284231089925184e-18,0.6252742946708464,0.6252742946708464,False,,,0.15086206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+VTR,VTR,0.3801142570631355,0.46561045880270374,6.94799441197651e-14,0.17217868338557996,0.17217868338557996,False,,,0.4482758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
 AIG,AIG,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
 EL,EL,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-MLM,MLM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KEYS,KEYS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KR,KR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MCHP,MCHP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ODFL,ODFL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PEG,PEG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AMP,AMP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NUE,NUE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-SYY,SYY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-YUM,YUM,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CBRE,CBRE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NDAQ,NDAQ,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DAL,DAL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-COIN,COIN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EW,EW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WAB,WAB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HSY,HSY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ROK,ROK,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CCL,CCL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+MLM,MLM,0.7096237620445629,0.37961498321125364,2.2854974444353906e-09,0.004898119122257016,0.004898119122257016,False,,,0.6939655172413793,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+KEYS,KEYS,0.3987733037453479,-0.07932418329044048,0.2287436643609078,0.19388714733542312,0.19388714733542312,False,,,0.5129310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+KR,KR,0.4050211394972057,-0.2977345283102275,3.920252236141412e-06,0.4532523510971787,0.4532523510971787,False,,,0.28879310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+MCHP,MCHP,0.4618946754755522,0.5017727016267198,3.3755817555592486e-16,0.28577586206896555,0.28577586206896555,False,,,0.5517241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+ODFL,ODFL,0.5698967594629789,-0.29669568259179024,4.2514660229963205e-06,0.5341692789968653,0.5341692789968653,False,,,0.29310344827586204,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PEG,PEG,0.5650772995219321,0.1938720595668945,0.0030248028071871973,-0.0010971786833855468,0.0010971786833855468,False,,,0.771551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+AMP,AMP,0.6497169963047706,-0.15338206266132856,0.019414469967449614,0.39882445141065836,0.39882445141065836,False,,,0.35344827586206895,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+NUE,NUE,0.588769627612652,-0.11102579527916213,0.0915686666904291,0.30199843260188086,0.30199843260188086,False,,,0.47413793103448276,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+SYY,SYY,0.38981942010085596,0.37447745387659537,3.891687713625725e-09,0.1627351097178683,0.1627351097178683,False,,,0.6293103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+YUM,YUM,0.25167650290028476,-0.2972357670448539,4.076081655806708e-06,0.32676332288401255,0.32676332288401255,False,,,0.4698275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CBRE,CBRE,0.5402339218381917,-0.3519755366728875,3.598787760764155e-08,0.254153605015674,0.254153605015674,False,,,0.40948275862068967,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+NDAQ,NDAQ,0.5236428217717035,-0.7097930188798915,7.371537687536519e-37,0.25626959247648906,0.25626959247648906,False,,,0.4482758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+DAL,DAL,0.36066883043984194,0.41518944279044906,4.407733269408991e-11,0.14592476489028217,0.14592476489028217,False,,,0.6336206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+COIN,COIN,0.6103074590584137,0.02080286148659687,0.7526231726667794,0.2785714285714286,0.2785714285714286,False,,,0.5,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+EW,EW,0.3698718240443251,-0.4475214736425332,7.957155862310947e-13,0.49157523510971785,0.49157523510971785,False,,,0.36637931034482757,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+WAB,WAB,0.23392642522049445,0.49452996315509257,1.0323173708645074e-15,0.1484326018808777,0.1484326018808777,False,,,0.6379310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+HSY,HSY,0.5633151152035123,-0.3851474853398783,1.2750337066123272e-09,0.23001567398119127,0.23001567398119127,False,,,0.5086206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+ROK,ROK,0.5138362420070504,0.23573437070551168,0.00029189475770780975,0.22570532915360497,0.22570532915360497,False,,,0.5129310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+CCL,CCL,0.411255831120822,-0.19624285733505797,0.0026805037304848075,0.24126175548589335,0.24126175548589335,False,,,0.5689655172413793,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
 ROP,ROP,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-UAL,UAL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EME,EME,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WDAY,WDAY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KMB,KMB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-OTIS,OTIS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PRU,PRU,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+UAL,UAL,0.34710837677631223,0.6992027507788939,2.2581742830720298e-35,0.10736677115987459,0.10736677115987459,False,,,0.6767241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+EME,EME,0.850511009838191,0.765119962174868,7.27607510777455e-46,-0.008973354231974984,0.008973354231974984,False,,,0.8146551724137931,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+WDAY,WDAY,0.5438512781444742,0.04504131357764626,0.49480285075384894,0.18942006269592482,0.18942006269592482,False,,,0.5560344827586207,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+KMB,KMB,0.40170851816249015,-0.047277570734726264,0.47360749683867637,0.10286050156739812,0.10286050156739812,False,,,0.6982758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+OTIS,OTIS,0.5856776291638628,-0.02196375475937411,0.7393040381582427,0.592508631088557,0.592508631088557,False,,,0.22413793103448276,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+PRU,PRU,0.5760276160633238,0.15678113509991556,0.016852093572243272,0.3972570532915361,0.3972570532915361,False,,,0.36637931034482757,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
 KVUE,KVUE,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: scaler_zero_sample
-A,A,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MTB,MTB,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-STT,STT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ACGL,ACGL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CPRT,CPRT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WEC,WEC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-AXON,AXON,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+A,A,0.380967098152294,0.5348758094059262,1.4343250130983667e-18,0.2702586206896551,0.2702586206896551,False,,,0.5172413793103449,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+MTB,MTB,0.5567859229711596,0.2643165625258269,4.5631127291744674e-05,0.26978840125391856,0.26978840125391856,False,,,0.5086206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+STT,STT,0.5051365052942655,-0.1825898683231819,0.005277425040254614,0.32570532915360495,0.32570532915360495,False,,,0.5129310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+ACGL,ACGL,0.5328356669306726,-0.30968557859189794,1.5071066521460803e-06,0.33887147335423196,0.33887147335423196,False,,,0.3793103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CPRT,CPRT,0.6324149735544682,0.4960320129774028,8.204950289148596e-16,0.36794670846394983,0.36794670846394983,False,,,0.3706896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+WEC,WEC,0.6615029216030766,-0.05122441566129592,0.43744039817457764,0.3301332288401254,0.3301332288401254,False,,,0.4482758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+AXON,AXON,0.34751827277833064,0.3467409458973762,5.8928827921740173e-08,0.4536442006269593,0.4536442006269593,False,,,0.3793103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
 TPL,TPL,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-TTWO,TTWO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HBAN,HBAN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-IR,IR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HIG,HIG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-RMD,RMD,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-PCG,PCG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-VMC,VMC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KDP,KDP,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-MSCI,MSCI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EBAY,EBAY,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ED,ED,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DDOG,DDOG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-LVS,LVS,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+TTWO,TTWO,0.2745851253162186,0.030084241642625534,0.6484923299466765,0.09874608150470221,0.09874608150470221,False,,,0.6853448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+HBAN,HBAN,0.5879338575399655,0.5697804489427989,2.2747150950803726e-21,0.12676332288401249,0.12676332288401249,False,,,0.7198275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+IR,IR,0.4727880876489608,-0.42954396498868885,7.815303733589942e-12,0.5754310344827587,0.5754310344827587,False,,,0.23706896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+HIG,HIG,0.5100847492269092,0.8010730574738268,3.5625482061261996e-53,-0.015713166144200597,0.015713166144200597,False,,,0.8577586206896551,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+RMD,RMD,0.4004665749367755,0.5581446080928099,2.1228749445442068e-20,0.14749216300940438,0.14749216300940438,False,,,0.6206896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+PCG,PCG,0.30160254893277216,-0.19923061990547555,0.0022974007772208465,0.2520376175548589,0.2520376175548589,False,,,0.4956896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+VMC,VMC,0.7443261982615514,0.2953272123761985,4.728586608296224e-06,0.2142633228840125,0.2142633228840125,False,,,0.5948275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+KDP,KDP,0.4359687054772199,0.4131992027507788,5.5667356568369756e-11,0.4012931034482759,0.4012931034482759,False,,,0.46120689655172414,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+MSCI,MSCI,0.24324430761521024,0.22161529457666793,0.0006746398620445686,0.11387147335423198,0.11387147335423198,False,,,0.6293103448275862,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+EBAY,EBAY,0.42322593530240393,-0.09833861565399228,0.13533754937147058,0.31132445141065834,0.31132445141065834,False,,,0.35344827586206895,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+ED,ED,0.47853792337227813,-0.04087728166461331,0.5355737094316665,0.16289184952978053,0.16289184952978053,False,,,0.5905172413793104,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+DDOG,DDOG,0.5815800989356091,0.21236370555595058,0.0011364980374562702,0.17253134796238245,0.17253134796238245,False,,,0.6422413793103449,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+LVS,LVS,0.3374350536796525,0.4763621756370017,1.521447280072707e-14,0.22433385579937304,0.22433385579937304,False,,,0.6336206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
 GEHC,GEHC,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: train 샘플 부족(10 < 30)
-PYPL,PYPL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CCI,CCI,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-LYV,LYV,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-EQT,EQT,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-NRG,NRG,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-KHC,KHC,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-CBOE,CBOE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-DTE,DTE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ATO,ATO,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-ROL,ROL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+PYPL,PYPL,0.19430822421701902,0.042011266815173864,0.5243063044032499,-0.17088557993730413,0.17088557993730413,False,,,0.8879310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+CCI,CCI,0.268882396357567,0.5689559071977303,2.672565567246441e-21,0.15058777429467085,0.15058777429467085,False,,,0.6982758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+LYV,LYV,0.5399178223406657,-0.11210308117219465,0.08844562519962632,0.2003134796238244,0.2003134796238244,False,,,0.5474137931034483,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+EQT,EQT,0.30499191436906514,-0.18875951634572322,0.0039072438908638535,0.38428683385579937,0.38428683385579937,False,,,0.4827586206896552,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+NRG,NRG,0.5792368947957258,0.44039754828566424,1.999518776328278e-12,0.07727272727272727,0.07727272727272727,False,,,0.625,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+KHC,KHC,0.388388733844368,-0.2613672401300046,5.5825468722233425e-05,0.7935736677115987,0.7935736677115987,False,,,0.09051724137931035,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+CBOE,CBOE,0.2749503453391607,-0.09527397273438414,0.14800215480586004,0.308346394984326,0.308346394984326,False,,,0.46551724137931033,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+DTE,DTE,0.5315215330715175,-0.03196204417160462,0.6281548217180589,0.20513322884012541,0.20513322884012541,False,,,0.5732758620689655,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
+ATO,ATO,0.586537446699829,-0.6099167962420884,4.985477131455221e-25,0.39004702194357366,0.39004702194357366,False,,,0.40086206896551724,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+ROL,ROL,0.33486588874105133,-0.16071356496101202,0.014260049033247155,0.21986677115987463,0.21986677115987463,False,,,0.5517241379310345,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05)
 HAL,HAL,,,,,,,,,,,,,skipped_permanent_ineligible,ineligible_cached,NA,permanent ineligible cache: validation 단일 클래스(1)
-CHTR,CHTR,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-FE,FE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-JBL,JBL,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-LEN,LEN,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-WTW,WTW,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
-HPE,HPE,,,,,,,,,,,,,skipped_existing_fresh,fresh_skip,NA,freshness skip
+CHTR,CHTR,0.3093609930541117,-0.16732911900885852,0.010681802993208365,0.37797805642633225,0.37797805642633225,False,,,0.3879310344827586,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+FE,FE,0.275895413435579,0.22371797212702935,0.0005974315815099034,0.3428683385579937,0.3428683385579937,False,,,0.5775862068965517,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+JBL,JBL,0.5845932131562832,0.5351237485320658,1.3736908807423409e-18,0.048824451410658276,0.048824451410658276,False,,,0.728448275862069,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,
+LEN,LEN,0.7511905516619928,0.2819798227523549,1.297042348625122e-05,0.5924764890282133,0.5924764890282133,False,,,0.23706896551724138,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,ensemble train_test_gap_abs > 0.25
+WTW,WTW,0.5263543188712025,0.010494167664509531,0.873681940768277,0.3381269592476489,0.3381269592476489,False,,,0.4698275862068966,2025-01-02,2025-12-04,232.0,success,refresh_required,LOW,신뢰도 낮음(IC<=0 또는 p>=0.05) | ensemble train_test_gap_abs > 0.25
+HPE,HPE,0.6949974370679618,0.779481211403662,1.2811005718597363e-48,-0.007249216300940442,0.007249216300940442,False,,,0.8879310344827587,2025-01-02,2025-12-04,232.0,success,refresh_required,OK,

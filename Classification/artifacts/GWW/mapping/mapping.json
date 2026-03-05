@@ -1,12 +1,12 @@
 {
   "ticker": "GWW",
-  "beta_ols": 0.7385047319300401,
-  "beta_ewma": 1.0290336574303176,
-  "beta_final": 0.8256634095801233,
+  "beta_ols": 0.7333993693287568,
+  "beta_ewma": 0.733895474209303,
+  "beta_final": 0.7335482007929206,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.021935065350485228,
+  "expected_capm_return_3m_log": 0.02047496837036289,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

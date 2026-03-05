@@ -1,12 +1,12 @@
 {
   "ticker": "CAH",
-  "beta_ols": 0.2592256037344408,
-  "beta_ewma": 0.03686818332516867,
-  "beta_final": 0.19251837761165916,
+  "beta_ols": 0.2620657037614261,
+  "beta_ewma": 0.11852694767026188,
+  "beta_final": 0.21900407693407684,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.011855927928889391,
+  "expected_capm_return_3m_log": 0.012279600257861706,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

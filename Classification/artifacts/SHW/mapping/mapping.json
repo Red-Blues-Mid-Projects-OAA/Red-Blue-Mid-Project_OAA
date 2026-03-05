@@ -1,12 +1,12 @@
 {
   "ticker": "SHW",
-  "beta_ols": 0.7223606119422415,
-  "beta_ewma": -0.03281718449917211,
-  "beta_final": 0.4958072730098174,
+  "beta_ols": 0.7232548429201789,
+  "beta_ewma": 0.10343838836505898,
+  "beta_final": 0.537309906553643,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01669671055228487,
+  "expected_capm_return_3m_log": 0.017357313538740118,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

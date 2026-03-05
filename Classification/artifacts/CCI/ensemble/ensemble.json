@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-27T23:12:21",
-  "data_snapshot_end_date": "2026-02-26",
+  "generated_at": "2026-03-05T10:38:51",
+  "data_snapshot_end_date": "2026-03-04",
   "feature_count": 16,
   "ticker": "CCI",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 228,
+  "n_test_samples": 232,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-28",
-  "ic_full": 0.5705772231205141,
-  "ic_pvalue": 4.314633078724032e-21,
-  "ic_first_half": 0.6981754115955531,
-  "ic_second_half": 0.6049816731131408,
-  "accuracy_ref": 0.6929824561403509,
-  "precision_ref": 0.3805309734513274,
+  "test_end": "2025-12-04",
+  "ic_full": 0.5689559071977303,
+  "ic_pvalue": 2.672565567246441e-21,
+  "ic_first_half": 0.7072079344942914,
+  "ic_second_half": 0.579171952485296,
+  "accuracy_ref": 0.6982758620689655,
+  "precision_ref": 0.4017094017094017,
   "train_accuracy_ref": 0.8488636363636364,
-  "gap_ref": 0.15588118022328545,
-  "gap_signed_ref": 0.15588118022328545,
-  "gap_abs_ref": 0.15588118022328545,
-  "proba_std_test": 0.14112696478592437,
-  "proba_unique_test": 228,
+  "gap_ref": 0.15058777429467085,
+  "gap_signed_ref": 0.15058777429467085,
+  "gap_abs_ref": 0.15058777429467085,
+  "proba_std_test": 0.14029899520314335,
+  "proba_unique_test": 232,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.22175935430084587,
-    "mean": 0.45599935978944023,
-    "max": 0.6642226056858019
+    "min": 0.22175675300423564,
+    "mean": 0.45737731061993164,
+    "max": 0.6642269384033082
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-01",
-    "end": "2026-02-26"
+    "start": "2025-12-05",
+    "end": "2026-03-04"
   },
   "p_ens_future_stats": {
-    "min": 0.2652136177406743,
-    "mean": 0.5405175194527416,
-    "max": 0.6491996415277939
+    "min": 0.2624992649321376,
+    "mean": 0.5224543648161976,
+    "max": 0.6492035656761186
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-26",
-    "p_ens": 0.2652136177406743
+    "trade_date": "2026-03-04",
+    "p_ens": 0.268882396357567
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

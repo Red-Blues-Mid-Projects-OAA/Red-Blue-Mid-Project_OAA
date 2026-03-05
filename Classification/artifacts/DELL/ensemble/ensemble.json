@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-27T23:04:51",
-  "data_snapshot_end_date": "2026-02-26",
+  "generated_at": "2026-03-05T10:37:05",
+  "data_snapshot_end_date": "2026-03-04",
   "feature_count": 16,
   "ticker": "DELL",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 228,
+  "n_test_samples": 232,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-28",
-  "ic_full": -0.34092927141160523,
-  "ic_pvalue": 1.3015987858638355e-07,
-  "ic_first_half": -0.5492841376237826,
-  "ic_second_half": 0.1933091674935704,
-  "accuracy_ref": 0.39035087719298245,
-  "precision_ref": 0.43283582089552236,
+  "test_end": "2025-12-04",
+  "ic_full": -0.32998775680439135,
+  "ic_pvalue": 2.691119574030683e-07,
+  "ic_first_half": -0.5420212970437859,
+  "ic_second_half": 0.2001383923422904,
+  "accuracy_ref": 0.40086206896551724,
+  "precision_ref": 0.4492753623188406,
   "train_accuracy_ref": 0.7795454545454545,
-  "gap_ref": 0.3891945773524721,
-  "gap_signed_ref": 0.3891945773524721,
-  "gap_abs_ref": 0.3891945773524721,
-  "proba_std_test": 0.17354990488331037,
-  "proba_unique_test": 228,
+  "gap_ref": 0.3786833855799373,
+  "gap_signed_ref": 0.3786833855799373,
+  "gap_abs_ref": 0.3786833855799373,
+  "proba_std_test": 0.1739651612505377,
+  "proba_unique_test": 232,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.16407494726016741,
-    "mean": 0.5247930556159721,
-    "max": 0.8248797038555132
+    "min": 0.16269324119923845,
+    "mean": 0.5245986299867554,
+    "max": 0.8237411269015956
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-01",
-    "end": "2026-02-26"
+    "start": "2025-12-05",
+    "end": "2026-03-04"
   },
   "p_ens_future_stats": {
-    "min": 0.36566791240389607,
-    "mean": 0.5832856140248328,
-    "max": 0.7358357747180053
+    "min": 0.35669419721668716,
+    "mean": 0.5584085915848107,
+    "max": 0.7363589583816376
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-26",
-    "p_ens": 0.49051224762458623
+    "trade_date": "2026-03-04",
+    "p_ens": 0.36977894819963136
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

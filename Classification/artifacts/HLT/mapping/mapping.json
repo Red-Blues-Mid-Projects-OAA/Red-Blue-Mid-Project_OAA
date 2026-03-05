@@ -1,12 +1,12 @@
 {
   "ticker": "HLT",
-  "beta_ols": 0.9179758299496126,
-  "beta_ewma": 0.5104322761279231,
-  "beta_final": 0.7957127638031056,
+  "beta_ols": 0.9172543966429082,
+  "beta_ewma": 0.4513731225286156,
+  "beta_final": 0.7774900144086203,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.021460558410045776,
+  "expected_capm_return_3m_log": 0.021171745876574655,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

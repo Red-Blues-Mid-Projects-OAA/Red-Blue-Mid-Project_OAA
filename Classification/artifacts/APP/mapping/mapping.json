@@ -1,12 +1,12 @@
 {
   "ticker": "APP",
-  "beta_ols": 2.48336979735673,
-  "beta_ewma": 5.813990477692647,
-  "beta_final": 3.482556001457505,
+  "beta_ols": 2.4858468518982715,
+  "beta_ewma": 5.574031923541916,
+  "beta_final": 3.4123023733913644,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.06315672048417666,
+  "expected_capm_return_3m_log": 0.062088325740769376,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

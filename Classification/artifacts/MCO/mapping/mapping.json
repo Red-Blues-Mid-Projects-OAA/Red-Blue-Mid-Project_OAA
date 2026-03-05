@@ -1,12 +1,12 @@
 {
   "ticker": "MCO",
-  "beta_ols": 1.0135932856754086,
-  "beta_ewma": 1.3074721296246077,
-  "beta_final": 1.1017569388601682,
+  "beta_ols": 1.013897207287312,
+  "beta_ewma": 1.259573635641105,
+  "beta_final": 1.08760013579345,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02629863278178348,
+  "expected_capm_return_3m_log": 0.026075351690612203,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-02-26",
+  "date": "2026-03-04",
   "Return_Type": "CAPM"
 }

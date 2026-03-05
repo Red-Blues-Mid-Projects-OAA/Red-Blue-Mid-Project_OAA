@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-27T22:19:30",
-  "data_snapshot_end_date": "2026-02-26",
+  "generated_at": "2026-03-05T10:35:49",
+  "data_snapshot_end_date": "2026-03-04",
   "feature_count": 16,
   "ticker": "IBM",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 228,
+  "n_test_samples": 232,
   "test_start": "2025-01-02",
-  "test_end": "2025-11-28",
-  "ic_full": 0.6339380181982571,
-  "ic_pvalue": 4.9757802352962354e-27,
-  "ic_first_half": 0.42248233126101137,
-  "ic_second_half": 0.8441991859217108,
-  "accuracy_ref": 0.6929824561403509,
+  "test_end": "2025-12-04",
+  "ic_full": 0.6161806226923882,
+  "ic_pvalue": 1.1990029934948477e-25,
+  "ic_first_half": 0.44468534963287587,
+  "ic_second_half": 0.8209356860031523,
+  "accuracy_ref": 0.6982758620689655,
   "precision_ref": 0.8409090909090909,
   "train_accuracy_ref": 0.7897727272727273,
-  "gap_ref": 0.09679027113237637,
-  "gap_signed_ref": 0.09679027113237637,
-  "gap_abs_ref": 0.09679027113237637,
-  "proba_std_test": 0.17632831251359152,
-  "proba_unique_test": 228,
+  "gap_ref": 0.09149686520376177,
+  "gap_signed_ref": 0.09149686520376177,
+  "gap_abs_ref": 0.09149686520376177,
+  "proba_std_test": 0.17549046272097524,
+  "proba_unique_test": 232,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.24850303685752795,
-    "mean": 0.4748107385115099,
-    "max": 0.8216218485661384
+    "min": 0.24860941838515016,
+    "mean": 0.47431413047952015,
+    "max": 0.8226475941336653
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-01",
-    "end": "2026-02-26"
+    "start": "2025-12-05",
+    "end": "2026-03-04"
   },
   "p_ens_future_stats": {
-    "min": 0.3014695846296522,
-    "mean": 0.4952038803644727,
-    "max": 0.644704572760527
+    "min": 0.30175373995489396,
+    "mean": 0.5079100201194288,
+    "max": 0.646504664709163
   },
   "latest_future_prediction": {
-    "trade_date": "2026-02-26",
-    "p_ens": 0.6394970457265909
+    "trade_date": "2026-03-04",
+    "p_ens": 0.6343146456663133
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",
