@@ -40,20 +40,20 @@
 ---
 
 ## 3. 🛠 기술 스택
-### Frontend
+### ■ Frontend
 - **Framework:** React.js (Vite)
 - **Styling & UI:** CSS3, Recharts (데이터 시각화)
 - **Asset:** Custom Character Images (Yolo, Slave, Fire 등)
 
-### Backend
+### ■ Backend
 - **Framework:** Python API Framework (FastAPI / Flask)
 - **Algorithm:** CAPM (자본자산가격결정모형), Markowitz Portfolio Optimization
 
-### Machine Learning & Data
+### ■ Machine Learning & Data
 - **Library:** Scikit-learn, XGBoost, Pandas, Numpy
 - **Data Source:** yfinance (주가 및 VIX, 거시경제 지표)
 
-### Infra & DevOps
+### ■ Infra & DevOps
 - **CI/CD:** GitHub Actions (일일 DB 자동 업데이트 배치)
 - **Version Control:** Git, GitHub
 
@@ -66,7 +66,8 @@
 ```mermaid
 flowchart TD
     subgraph Data Pipeline
-        A[yfinance API<br>S&P 500 Data] --> B(Feature Engineering<br>Macro/Momentum/Volatility/Volume)
+        A1[yfinance API<br>S&P 500 Data] --> B(Feature Engineering<br>Macro/Momentum/Volatility/Volume)
+        A2[FRED API<br>Macroeconomic Data] --> B
         B --> C[(Master DB)]
     end
     
@@ -88,23 +89,20 @@ flowchart TD
     subgraph Frontend
         H --> I[MBTI Survey UI]
         I --> G
-        G --> J[Dashboard<br>Visulization]
+        G --> J[Dashboard<br>Visualization]
     end
 ```
-main: 배포 가능한 안정적인 코드가 유지되는 브랜치
-dev: 다음 출시 버전을 위해 개발 중인 코드가 모이는 브랜치
-feat/OOO: 기능 개발 브랜치. 개발 완료 후 PR(Pull Request) 리뷰를 거쳐 dev로 병합
 
 ---
 
 ## 5. 💡 주요 기능
-### 일일 데이터 자동 갱신 (GitHub Actions)
+### ■ 일일 데이터 자동 갱신 (GitHub Actions)
 - 매일 워크플로우(daily-db-load.yml)를 트리거하여 최신 S&P 500 주가 데이터를 스크래핑하고 마스터 데이터셋을 최신화합니다.
 
-### 머신러닝 앙상블 예측 (ML)
+### ■ 머신러닝 앙상블 예측 (ML)
 - 로지스틱 회귀, 랜덤 포레스트, SVM, XGBoost 4개의 모델을 학습 및 결합(ensemble.py)하여 각 종목의 상승/하락 확률을 예측합니다. 수백 개 종목은 쉘 스크립트(run_pipeline_300.sh)를 통해 일괄 처리됩니다.
 
-### 투자 MBTI 분석 (Risk Profiling)
+### ■ 투자 MBTI 분석 (Risk Profiling)
 - 12문항의 설문을 통해 사용자의 투자 성향을 분석하고, 어울리는 캐릭터(Yolo, Worker 등)를 부여합니다.
 
 ### 포트폴리오 최적화 (CAPM)
@@ -177,26 +175,25 @@ gitGraph
     
     checkout main
     merge dev id: "Release v1.0"
-main: 배포 가능한 안정적인 코드가 유지되는 브랜치
 
-dev: 다음 출시 버전을 위해 개발 중인 코드가 모이는 브랜치
-
-feat/OOO: 기능 개발 브랜치. 개발 완료 후 PR(Pull Request) 리뷰를 거쳐 dev로 병합
+- **main**: 배포 가능한 안정적인 코드가 유지되는 브랜치
+- **dev**: 다음 출시 버전을 위해 개발 중인 코드가 모이는 브랜치
+- **feat/OOO**: 기능 개발 브랜치. 개발 완료 후 PR(Pull Request) 리뷰를 거쳐 dev로 병합
 
 ---
 
 ## 9. 🚀 설치 및 실행 방법
-### 클라이언트 (Frontend) 실행
+### ■ 클라이언트 (Frontend) 실행
 cd investment-mbti
 npm install
 npm run dev
 
-### 서버 (Backend) 실행
+### ■ 서버 (Backend) 실행
 cd investment-mbti-back
 pip install -r requirements.txt
 python main.py
 
-### 머신러닝 파이프라인 (재학습 시)
+### ■ 머신러닝 파이프라인 (재학습 시)
 cd scripts
 bash run_pipeline_300.sh
 
