@@ -60,6 +60,22 @@
     text-align: left;
 }
 
+.premium-header-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+}
+
+.premium-header-row h1 {
+    margin: 0;
+}
+
+.premium-header-note {
+    margin: 0;
+    padding-bottom: 0.3rem;
+    transform: translateY(4px);
+}
+
 .premium-layout {
     position: relative;
     z-index: 1;
@@ -158,6 +174,27 @@
     margin: 0;
     font-size: clamp(1.12rem, 2vw, 1.5rem);
     color: #111827;
+}
+
+.chart-heading {
+    justify-content: flex-start;
+}
+
+.chart-heading-sub {
+    color: #64748b;
+    font-weight: 400;
+    font-size: 0.85rem;
+}
+
+.chart-chip {
+    width: 16%;
+    text-align: center;
+    padding: 0.25rem 0;
+    font-size: 0.65rem;
+    white-space: normal;
+    word-break: keep-all;
+    margin-left: auto;
+    line-height: 1.2;
 }
 
 .chip {
@@ -329,6 +366,20 @@
     padding: 0.8rem 1.2rem 0.3rem;
 }
 
+.score-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.risk-note {
+    font-size: 0.72rem;
+    color: #64748b;
+    text-align: right;
+    line-height: 1.5;
+    max-width: 220px;
+}
+
 .score-bars-panel .ps-bars-wrap {
     padding: 0.4rem 1.2rem 1rem;
 }
@@ -410,6 +461,11 @@
     padding: 0.62rem 1rem;
     border-radius: 999px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.restart-button--back {
+    margin-left: 0.6rem;
+    background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
 }
 
 .restart-button:hover {
@@ -504,6 +560,109 @@
 
     .metrics-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .premium-dashboard {
+        padding: 0.8rem 0.1rem 1.5rem;
+    }
+
+    .premium-header {
+        padding: 0.45rem 0.45rem 0.9rem;
+    }
+
+    .premium-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+    }
+
+    .premium-header-note {
+        transform: none;
+        padding-bottom: 0;
+        font-size: 0.8rem;
+        line-height: 1.45;
+    }
+
+    .glass-panel {
+        border-radius: 20px;
+    }
+
+    .profile-panel {
+        padding: 1rem 0.9rem;
+    }
+
+    .composition-panel,
+    .chart-panel,
+    .stocks-panel {
+        padding: 0.85rem 0.75rem;
+    }
+
+    .panel-heading {
+        margin-bottom: 0.7rem;
+    }
+
+    .panel-heading h3 {
+        font-size: 1.02rem;
+    }
+
+    .panel-heading-right {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.4rem;
+    }
+
+    .mode-btn {
+        padding: 0.3rem 0.62rem;
+        font-size: 0.75rem;
+    }
+
+    .chart-heading {
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        align-items: flex-start;
+    }
+
+    .chart-heading-sub {
+        font-size: 0.76rem;
+    }
+
+    .chart-chip {
+        width: auto;
+        min-width: 128px;
+        margin-left: 0;
+        margin-top: 0.2rem;
+        padding: 0.28rem 0.55rem;
+        font-size: 0.63rem;
+        line-height: 1.25;
+    }
+
+    .score-heading {
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    .risk-note {
+        max-width: none;
+        text-align: left;
+        font-size: 0.68rem;
+        line-height: 1.4;
+    }
+
+    .result-actions {
+        justify-content: stretch;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+    }
+
+    .restart-button {
+        justify-content: center;
+        flex: 1 1 140px;
+    }
+
+    .restart-button--back {
+        margin-left: 0;
     }
 }
 
