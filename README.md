@@ -224,20 +224,54 @@ MSA(Microservices Architecture) 구조에 착안하여, 각 팀원이 담당하�
 ---
 
 ## 9. 🚀 설치 및 실행 방법
-### ■ 클라이언트 (Frontend) 실행
-cd investment-mbti
-npm install
-npm run dev
+> 프로젝트는 **Frontend(React)**, **Backend(Python API)**, 그리고 **ML Pipeline** 환경으로 완벽히 분리되어 독립적으로 구동됩니다.
 
-### ■ 서버 (Backend) 실행
-cd investment-mbti-back
-pip install -r requirements.txt
-python main.py
+### ☑️ Prerequisites (사전 요구 사항)
+프로젝트를 로컬 환경에서 실행하기 위해 다음 소프트웨어의 설치가 필요합니다.
+* **Node.js** (v16.x 이상 권장) 및 npm
+* **Python** (v3.9 이상 권장)
 
-### ■ 머신러닝 파이프라인 (재학습 시)
-cd scripts
-bash run_pipeline_300.sh
+### 🎨 Frontend (사용자 웹 UI) 실행
+Vite와 React를 기반으로 구축된 클라이언트 화면을 구동합니다.
 
+```bash
+# 프론트엔드 디렉토리로 이동
+$ cd investment-mbti
+
+# 의존성 패키지 설치
+$ npm install
+
+# 로컬 개발 서버 기동 (일반적으로 http://localhost:5173 에서 접속 가능)
+$ npm run dev
+```
+### ⚙️ Backend (API 서버 및 최적화 로직) 실행
+사용자 성향 분석 및 CAPM 포트폴리오 비중 산출 API를 제공하는 백엔드 서버를 구동합니다.
+```bash
+# 백엔드 디렉토리로 이동
+$ cd investment-mbti-back
+
+# 파이썬 가상환경 생성 및 활성화 (권장)
+$python -m venv venv$ source venv/bin/activate  # Windows의 경우: venv\Scripts\activate
+
+# 의존성 라이브러리 설치
+$ pip install -r requirements.txt
+
+# API 메인 서버 실행
+$ python main.py
+```
+
+### 🧠 ML Pipeline & Data Update (선택 사항)
+GitHub Actions를 통해 매일 자동화되어 있으나, 로컬에서 수동으로 S&P 500 주가를 최신화하고 수백 개의 모델을 재학습시키고 싶을 경우 아래 쉘 스크립트를 사용합니다.
+```bash
+# 스크립트 디렉토리로 이동
+$ cd scripts
+
+# 실행 권한 부여 (macOS/Linux)
+$ chmod +x run_pipeline_300.sh
+
+# 전체 데이터 파이프라인 및 4종 앙상블 훈련 일괄 실행
+$ ./run_pipeline_300.sh
+```
 ---
 
 ### 💡 활용 가이드:
