@@ -160,11 +160,11 @@ flowchart TD
 
 ---
 
-## 6. 🖥 화면 구성 --> 이미지 교체 관련 찾아야 함
+## 6. 🖥 화면 구성
 
 | 메인 및 설문조사 | 투자 성향 결과 대시보드 | 포트폴리오 추천 차트 |
 | :---: | :---: | :---: |
-| <img src="https://via.placeholder.com/250x150.png?text=Intro+UI" width="250"> | <img src="https://via.placeholder.com/250x150.png?text=MBTI+Result" width="250"> | <img src="https://via.placeholder.com/250x150.png?text=Portfolio+Chart" width="250"> |
+| <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/c665dc9b-48a7-448a-b61f-e61ce9b5dbda" />, <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/3f3bd988-06e7-4510-8e7e-95443556d417" />, <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/ba8af395-a75e-47b5-b4ff-1a5add4c5ea3" /> | <img width="250" height="500" alt="Image" src="https://github.com/user-attachments/assets/f77d9b56-254d-4a4b-a518-bb6e1fb3af83" /> | <img width="250" height="500" alt="Image" src="https://github.com/user-attachments/assets/79876472-58b1-4bb3-ad88-1b1774189f00" /> |
 | 12가지 문항을 통한<br>투자 성향 진단 진행 | MBTI에 매칭되는 캐릭터 및<br>위험 감수도(Loss Slider) 조정 | 개인화된 종목 비중<br>파이 차트 시각화 |
 
 ---
