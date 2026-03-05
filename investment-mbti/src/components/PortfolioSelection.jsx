@@ -35,8 +35,8 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
 
         // 전체 종목 + 최신 날짜 병렬 로드
         Promise.all([
-            fetch(`${API_BASE}/api/all-stocks`).then(r => r.json()),
-            fetch(`${API_BASE}/api/last-updated`).then(r => r.json()).catch(() => null),
+            fetch(`${API_BASE}/api/all-stocks`, { headers: { 'Bypass-Tunnel-Reminder': 'true' } }).then(r => r.json()),
+            fetch(`${API_BASE}/api/last-updated`, { headers: { 'Bypass-Tunnel-Reminder': 'true' } }).then(r => r.json()).catch(() => null),
         ]).then(([stocksData, dateData]) => {
             if (stocksData.status === 'success') setAllStocks(stocksData.data);
             if (dateData?.status === 'success') setLastUpdated(dateData.date);
@@ -54,7 +54,10 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
 
         fetch(`${API_BASE}/api/portfolio-scores`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Bypass-Tunnel-Reminder': 'true'
+            },
             body: JSON.stringify({ selected_tickers: tickers }),
         })
             .then(res => res.json())

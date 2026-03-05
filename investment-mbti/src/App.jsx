@@ -10,6 +10,7 @@ import { QUESTIONS } from './constants/questions';
 import './App.css';
 
 function App() {
+  console.log('App Initialized. API URL:', import.meta.env.VITE_API_URL);
   const [currentView, setCurrentView] = useState('INTRO'); // INTRO, INVESTMENT_AMOUNT, QUESTION, SLIDER, LOADING, SELECTION, OPTIMIZING, RESULT
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -78,6 +79,7 @@ function App() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Bypass-Tunnel-Reminder': 'true'
         },
         body: JSON.stringify({
           answers: payloadAnswers,
@@ -143,7 +145,10 @@ function App() {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/optimize-final`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Bypass-Tunnel-Reminder': 'true'
+        },
         body: JSON.stringify({
           selected_tickers: selectedTickers,
           lambda_final: resultData.lambdaFinal,
