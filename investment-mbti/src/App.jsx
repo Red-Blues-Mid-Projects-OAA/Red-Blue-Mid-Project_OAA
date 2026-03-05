@@ -74,7 +74,7 @@ function App() {
       const baseMoney = (investmentAmount || 1000) * 10000;
       const krwLossLimit = baseMoney * (1 + Number(sliderValue) / 100); // sliderValue는 음수
 
-      const response = await fetch('http://localhost:8000/api/analyze', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/analyze`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ function App() {
   const handleConfirmSelection = async (selectedTickers) => {
     setCurrentView('OPTIMIZING');
     try {
-      const response = await fetch('http://localhost:8000/api/optimize-final', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/optimize-final`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

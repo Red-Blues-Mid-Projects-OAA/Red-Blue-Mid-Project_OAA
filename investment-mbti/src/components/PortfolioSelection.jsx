@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Search, ArrowUpDown, XCircle, Eye, RefreshCw, ArrowLeft, CheckCircle } from 'lucide-react';
 import './PortfolioSelection.css';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFinal = 7.7, savedSelectedTickers, onSelectedTickersChange, onBack, onRestart, onConfirm }) {
     // ── 상태 관리 ──
