@@ -31,9 +31,11 @@
 ## 2. 👥 팀원 구성 및 역할
 | 이름 | 역할 | 담당 업무 | Github |
 |:---:|:---|:---|:---|
-| **팀원 1** | Data & ML | S&P 500 데이터 크롤링, 파생 피처 엔지니어링, 4종 ML 개별 모델 및 앙상블 훈련 파이프라인 구축 | [@githubID](https://github.com/) |
-| **팀원 2** | Backend | 사용자 Risk Profiling 로직 작성, CAPM 기반 포트폴리오 최적화 비중 연산, 데이터 서빙 API 구현 | [@githubID](https://github.com/) |
-| **팀원 3** | Frontend | React/Vite 기반 웹 SPA 개발, MBTI 설문 동적 UI 및 Recharts 기반 데이터 시각화(PieChart, Gauge) | [@githubID](https://github.com/) |
+| **윤재정(조장)** | Data & ML(Main) | S&P 500 데이터 크롤링, 파생 피처 엔지니어링, 4종 ML 개별 모델 및 앙상블 훈련 파이프라인 구축 | [@githubID](https://github.com/) |
+| **이대한** | Data & ML(support) | 사용자 Risk Profiling 로직 작성, CAPM 기반 포트폴리오 최적화 비중 연산, 데이터 서빙 API 구현 | [@githubID](https://github.com/) |
+| **이윤원** | Database | React/Vite 기반 웹 SPA 개발, MBTI 설문 동적 UI 및 Recharts 기반 데이터 시각화(PieChart, Gauge) | [@githubID](https://github.com/) |
+| **이우정** | Backend | 사용자 Risk Profiling 로직 작성, CAPM 기반 포트폴리오 최적화 비중 연산, 데이터 서빙 API 구현 | [@githubID](https://github.com/) |
+| **남기혁** | Frontend | React/Vite 기반 웹 SPA 개발, MBTI 설문 동적 UI 및 Recharts 기반 데이터 시각화(PieChart, Gauge) | [@githubID](https://github.com/) |
 
 <br>
 
