@@ -1,10 +1,15 @@
-# 📈 Red & Blue: 최적 자산 배분 알고리즘을 활용한 퀀트 투자 기법
+# 📈 RedBull: 최적 자산 배분 알고리즘을 활용한 퀀트 투자 기법
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.14+-3776AB?style=for-the-badge&logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
-  <img src="https://img.shields.io/badge/Machine%20Learning-FF6F00?style=for-the-badge&logo=scikitlearn&logoColor=white">
   <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white">
+  <br><br>
+  <img src="https://img.shields.io/badge/Logistic%20Regression-FF6F00?style=for-the-badge&logo=scikitlearn&logoColor=white">
+  <img src="https://img.shields.io/badge/Random%20Forest-4CAF50?style=for-the-badge&logo=scikitlearn&logoColor=white">
+  <img src="https://img.shields.io/badge/SVM-008CBA?style=for-the-badge&logo=scikitlearn&logoColor=white">
+  <img src="https://img.shields.io/badge/XGBoost-1798E3?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Ensemble-9C27B0?style=for-the-badge">
 </div>
 
 ---
@@ -23,19 +28,19 @@
 ---
 
 ## 1. 📝 프로젝트 소개
-**Red & Blue**는 개인의 심리적 위험 감수 성향(투자 MBTI)과 머신러닝 예측 모델을 융합하여, 사용자 맞춤형 S&P 500 주식 포트폴리오를 제안하는 풀스택 웹 서비스입니다. 
-단순히 직관에 의존하는 투자가 아닌, 과거 금융 데이터와 거시경제 지표에 기반한 알고리즘(Ensemble ML & CAPM)을 통해 효율적이고 체계적인 투자 전략을 제공하는 것을 목표로 합니다.
+**최적 자산 배분 알고리즘을 활용한 퀀트 투자 기법**은 개인의 심리적 위험 감수 성향(투자 MBTI)과 앙상블 머신러닝(Ensemble ML) 예측 모델을 융합하여, 데이터 기반의 객관적인 투자 전략을 제시하는 풀스택 웹 서비스입니다. S&P 500 상위 종목의 거시경제 지표 및 시장 변동성을 분석하여 종목별 기대 수익률을 산출하며, 이를 최적자산배분(OAA) 알고리즘에 적용함으로써 사용자별 투자 페르소나에 최적화된 퀀트 투자 포트폴리오를 제공하는 것을 목표로 합니다.
 
 ---
 
 ## 2. 👥 팀원 구성 및 역할
-| 이름 | 역할 | 담당 업무 | Github |
-|:---:|:---|:---|:---|
-| **윤재정(조장)** | Data & ML(Main) | S&P 500 데이터 크롤링, 파생 피처 엔지니어링, 4종 ML 개별 모델 및 앙상블 훈련 파이프라인 구축 | [@githubID](https://github.com/) |
-| **이대한** | Data & ML(support) | 사용자 Risk Profiling 로직 작성, CAPM 기반 포트폴리오 최적화 비중 연산, 데이터 서빙 API 구현 | [@githubID](https://github.com/) |
-| **이윤원** | Database | React/Vite 기반 웹 SPA 개발, MBTI 설문 동적 UI 및 Recharts 기반 데이터 시각화(PieChart, Gauge) | [@githubID](https://github.com/) |
-| **이우정** | Backend | 사용자 Risk Profiling 로직 작성, CAPM 기반 포트폴리오 최적화 비중 연산, 데이터 서빙 API 구현 | [@githubID](https://github.com/) |
-| **남기혁** | Frontend | React/Vite 기반 웹 SPA 개발, MBTI 설문 동적 UI 및 Recharts 기반 데이터 시각화(PieChart, Gauge) | [@githubID](https://github.com/) |
+
+| 이름 | 직무 역할 | 상세 업무 및 담당 파트 | Github |
+| :---: | :---: | :--- | :--- |
+| **윤재정**<br>(조장) | **Quant & Ensemble,<br>Data** | - 프로젝트 총괄 및 금융 시계열 데이터 파생 피처 엔지니어링 수행<br>- 4종 분류 모델(Logistic Reg, RF, SVM, XGBoost) 학습 파이프라인 구현<br>- 교차 검증 및 예측 정확도 극대화를 위한 **앙상블(Ensemble) 아키텍처 설계** 및 최적화 | [@YounJJ](https://github.com/YounJJ) |
+| **이대한** | **Data Engineer<br>& MLOps** | - S&P 500 주가 및 거시경제 지표 크롤링 파이프라인 구축<br>- **GitHub Actions** 기반 일일 데이터 수집 및 DB 갱신 자동화 파이프라인 구축<br>- **CAPM(자본자산가격결정모형)** 기반 개별 종목 기대 수익률 산출 및 포트폴리오 비중 연산 구현 | [@eogks1235-byte](https://github.com/eogks1235-byte) |
+| **이윤원** | **Database,<br>ML Modeling** | - 주식 데이터와 거시경제 지표를 결합한 통합 **마스터 데이터베이스(DB) 구축**<br>- ML 모델 하이퍼파라미터 튜닝(Optimization) 및 학습 평가지표(Metrics) 추출 로직 구현<br>- 모델의 예측 결과와 백엔드를 연결하는 결과물(Artifacts) 매핑(Mapping) 아키텍처 관리 | [@YWL-0225](https://github.com/YWL-0225) |
+| **이우정** | **Backend Developer** | - 사용자 설문 응답 데이터를 바탕으로 **투자 위험 감수 성향(Risk Profiling)** 을 수치화하는 알고리즘 개발<br>- 사용자의 투자 성향과 머신러닝 앙상블 예측값을 융합하여 프론트엔드로 전달하는 데이터 서빙 연동 | [@wjlee111](https://github.com/wjlee111) |
+| **남기혁** | **Frontend Developer** | - 투자 MBTI 웹 애플리케이션 동적 화면 구축<br>- 12문항 설문조사 상태 관리 및 결과 맞춤형 캐릭터 렌더링 UI 구현<br>- 추천 포트폴리오 **파이 차트, 게이지 차트, 누적 수익률 그래프 등 데이터 시각화** 대시보드 구현 | [@kiekuu](https://github.com/kiekuu) |
 
 ---
 
@@ -127,18 +132,31 @@ flowchart TD
 
 ---
 
-## 5. 💡 주요 기능
-### ■ 일일 데이터 자동 갱신 (GitHub Actions)
-- 매일 워크플로우(daily-db-load.yml)를 트리거하여 최신 S&P 500 주가 데이터를 스크래핑하고 마스터 데이터셋을 최신화합니다.
+## 5. 💡 주요 기능 및 핵심 기술 (Key Features)
 
-### ■ 머신러닝 앙상블 예측 (ML)
-- 로지스틱 회귀, 랜덤 포레스트, SVM, XGBoost 4개의 모델을 학습 및 결합(ensemble.py)하여 각 종목의 상승/하락 확률을 예측합니다. 수백 개 종목은 쉘 스크립트(run_pipeline_300.sh)를 통해 일괄 처리됩니다.
+단순한 주식 추천을 넘어, 데이터 수집부터 사용자 맞춤형 시각화까지 완벽한 풀스택 데이터 파이프라인을 제공합니다.
 
-### ■ 투자 MBTI 분석 (Risk Profiling)
-- 12문항의 설문을 통해 사용자의 투자 성향을 분석하고, 어울리는 캐릭터(Yolo, Worker 등)를 부여합니다.
+### 🎯 다면적 투자 MBTI 진단 및 개인화 (Risk Profiling)
+* **동적 설문 알고리즘:** 사용자의 투자 경험, 목표 수익, 손실 감내 수준 등을 묻는 12가지 심층 문항(`Question.jsx`)을 통해 개인의 정확한 위험 회피도(Risk Aversion)를 수치화합니다.
+* **맞춤형 페르소나 부여:** 진단 결과에 따라 직관적이고 재미있는 투자 캐릭터(Yolo, Worker, Fire 등)를 매칭하여 사용자 경험(UX)을 극대화합니다.
+* **인터랙티브 손실 슬라이더:** 사용자가 대시보드에서 직접 '최대 허용 손실률'을 조절하면(`LossSlider.jsx`), 즉각적으로 백엔드와 통신하여 포트폴리오 비중이 실시간으로 재조정됩니다.
 
-### 포트폴리오 최적화 (CAPM)
-- 사용자의 위험 성향과 모델이 예측한 종목의 기대 수익률을 융합하여, 가장 안정적이고 효율적인 투자 비중(Weight)을 계산하여 추천합니다.
+### 🧠 앙상블(Ensemble) 기반 S&P 500 수익률 예측 모델
+* **다차원 피처 엔지니어링:** 거시경제(Macro), 모멘텀(Momentum), 변동성(Volatility), 거래량(Volume) 등 4가지 도메인에서 시장의 흐름을 다각도로 분석하여 파생 변수를 생성합니다.
+* **4중 교차 앙상블 학습:** 단일 모델의 한계를 극복하기 위해 로지스틱 회귀, 랜덤 포레스트, SVM, XGBoost 4개의 강력한 분류 알고리즘을 개별 학습시킵니다. 이후 **앙상블 기법(`ensemble.py`)**을 통해 예측 결과를 결합하여 정확도와 안정성을 극대화했습니다.
+* **시장 국면 판별 (Market Regime):** 현재 시장이 상승장인지 하락장인지 수학적으로 계산(`adjust_regime.py`)하여 모델의 예측 값에 가중치를 동적으로 부여합니다.
+
+### 📈 CAPM 기반 스마트 포트폴리오 최적화 (Financial Engineering)
+* **기대 수익률 산출:** 머신러닝 예측 확률과 **CAPM(자본자산가격결정모형)**을 결합하여 각 종목의 합리적인 기대 수익률을 산출합니다.
+* **평균-분산 최적화 (Mean-Variance Optimization):** 단순히 '오를 주식'을 추천하는 것이 아니라, 사용자의 투자 MBTI(위험 감수도)를 제약 조건으로 삼아 **수익은 극대화하고 리스크는 최소화하는 최적의 종목 편입 비중(Weight)**을 수학적으로 연산합니다. (`portfolio_optimizer.py`)
+
+### 🔄 Zero-Touch 완전 자동화 데이터 파이프라인 (MLOps & CI/CD)
+* **매일 스스로 진화하는 시스템:** 매일 장 마감 후 **GitHub Actions**의 크론(Cron) 스케줄러가 작동하여 `yfinance`와 `FRED API`로부터 최신 주가 및 거시경제 지표를 자동으로 스크래핑합니다. (`daily-db-load.yml`)
+* **일괄 배치(Batch) 처리:** 수집된 데이터는 즉시 전처리 과정을 거쳐 마스터 데이터베이스(DB)를 최신화하며, 쉘 스크립트(`run_pipeline_300.sh`)를 통해 300여 개의 S&P 500 종목 모델이 사람의 개입 없이 자동으로 재학습 및 평가됩니다.
+
+### 📊 직관적이고 동적인 데이터 시각화 대시보드 (Data Visualization)
+* **인터랙티브 차트 구현:** Recharts 라이브러리를 활용하여 추천된 포트폴리오의 종목 비중을 아름다운 **파이 차트(Pie Chart)**로 제공합니다.
+* **위험도 및 수익률 모니터링:** 추천된 포트폴리오의 과거 백테스팅 누적 수익률 추이를 라인 차트로 보여주며, 현재 포트폴리오의 위험 수준을 게이지 차트(Gauge Chart)로 직관적으로 표시하여 투자자의 올바른 의사결정을 돕습니다.
 
 ---
 
@@ -180,37 +198,28 @@ MSA(Microservices Architecture) 형태를 지향하여 각 역할을 완벽히 �
 
 ## 8. 🔀 브랜치 전략 및 협업 방식
 
-모놀리식 환경에서의 충돌을 막기 위해 GitHub Flow 기반의 Feature 브랜치 전략을 사용했습니다.
-gitGraph
-    commit id: "Init"
-    branch dev
-    checkout dev
-    commit id: "Set skeleton"
-    
-    branch feat/ml-pipeline
-    checkout feat/ml-pipeline
-    commit id: "Add RF, XGB models"
-    checkout dev
-    merge feat/ml-pipeline
-    
-    branch feat/backend
-    checkout feat/backend
-    commit id: "Build CAPM optimizer"
-    checkout dev
-    merge feat/backend
-    
-    branch feat/frontend
-    checkout feat/frontend
-    commit id: "Create PieChart & Dashboard"
-    checkout dev
-    merge feat/frontend
-    
-    checkout main
-    merge dev id: "Release v1.0"
+총 5명의 팀원이 데이터 엔지니어링, 머신러닝, 백엔드, 프론트엔드라는 상이한 도메인을 동시에 개발해야 했기 때문에, 철저한 **도메인 분리(Decoupling)** 와 **Feature Branch 기반의 GitHub Flow** 전략을 채택하여 충돌 없는 병렬 개발 환경을 구축했습니다.
 
-- **main**: 배포 가능한 안정적인 코드가 유지되는 브랜치
-- **dev**: 다음 출시 버전을 위해 개발 중인 코드가 모이는 브랜치
-- **feat/OOO**: 기능 개발 브랜치. 개발 완료 후 PR(Pull Request) 리뷰를 거쳐 dev로 병합
+<br>
+
+### 📌 도메인 주도 브랜치 전략 (Domain-Driven Branching)
+MSA(Microservices Architecture) 구조에 착안하여, 각 팀원이 담당하는 핵심 디렉토리를 기준으로 기능 브랜치(Feature Branch)를 엄격히 분리하여 작업했습니다.
+
+* **`main` 브랜치:** 실제 서비스 배포 및 릴리스를 위한 안정적인(Stable) 통합 코드 베이스.
+* **`dev` 브랜치:** 각 파트의 기능 개발이 완료된 후, 프론트엔드와 백엔드의 API 연동 및 파이프라인 통합 테스트를 진행하는 중앙 브랜치.
+* **`feat/...` (기능 브랜치):** * `feat/db-pipeline`: yfinance 및 FRED API 연동, 마스터 DB 구축 작업
+  * `feat/ml-modeling`: 4종 ML 모델링, 앙상블 파이프라인 구축 및 아티팩트 산출
+  * `feat/backend`: FastAPI 기반 데이터 서빙 및 CAPM 포트폴리오 최적화 로직 개발
+  * `feat/frontend`: React 기반 투자 성향 진단 UI 및 시각화 대시보드 구축
+
+### 🤝 산출물(Artifacts) 기반의 병렬 협업 최적화
+방대한 머신러닝 모델 학습 시간으로 인해 백엔드 개발이 지연되는 병목 현상을 막기 위해, 훌륭한 인터페이스 협약(Interface Agreement)을 맺었습니다.
+* **Artifacts 중앙 저장소 활용:** 머신러닝 팀은 각 종목별 예측 확률과 평가지표를 `Classification/artifacts/` 디렉토리에 `.json` 형태로 덤프(Dump)하도록 설계했습니다.
+* **완벽한 병렬 작업 달성:** 이를 통해 백엔드 팀은 머신러닝 파이프라인이 돌아가는 동안에도, 이미 생성된 Mock-up 아티팩트 데이터를 활용해 포트폴리오 산출 알고리즘(`portfolio_optimizer.py`)을 지연 없이 독립적으로 개발할 수 있었습니다.
+
+### 🤖 GitHub Actions를 통한 CI/CD 및 운영 자동화 (MLOps)
+코드를 통합하는 것을 넘어, 데이터의 신선도를 유지하기 위한 운영 자동화에 GitHub를 적극 활용했습니다.
+* `.github/workflows/daily-db-load.yml`에 **Cron 스케줄러**를 등록하여, 매일 지정된 시간에 스크래핑 봇이 동작하고 최신 시장 지표로 마스터 데이터를 갱신하도록 CI/CD 파이프라인을 구축했습니다. 이는 수동 개입 없는 **Zero-Touch 파이프라인**을 완성한 핵심 협업 사례입니다.
 
 ---
 
