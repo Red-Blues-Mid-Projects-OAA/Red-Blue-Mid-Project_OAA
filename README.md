@@ -1,7 +1,7 @@
-# 📈 Red & Blue: 투자 MBTI 기반 S&P 500 AI 포트폴리오 추천 서비스
+# 📈 Red & Blue: 최적 자산 배분 알고리즘을 활용한 퀀트 투자 기법
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/Python-3.14+-3776AB?style=for-the-badge&logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   <img src="https://img.shields.io/badge/Machine%20Learning-FF6F00?style=for-the-badge&logo=scikitlearn&logoColor=white">
   <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white">
@@ -39,23 +39,55 @@
 
 ---
 
-## 3. 🛠 기술 스택
-### ■ Frontend
-- **Framework:** React.js (Vite)
-- **Styling & UI:** CSS3, Recharts (데이터 시각화)
-- **Asset:** Custom Character Images (Yolo, Slave, Fire 등)
+## 3. 🛠 상세 기술 스택 및 알고리즘 (Tech Stack & Algorithms)
+### 🧠 Machine Learning & Data Science (머신러닝 및 데이터 사이언스)
+가장 핵심이 되는 예측 파이프라인으로, 단일 모델이 아닌 교차 검증 및 앙상블 기법을 활용했습니다.
 
-### ■ Backend
-- **Framework:** Python API Framework (FastAPI / Flask)
-- **Algorithm:** CAPM (자본자산가격결정모형), Markowitz Portfolio Optimization
+■ **분류 알고리즘 (Classification Models):**
 
-### ■ Machine Learning & Data
-- **Library:** Scikit-learn, XGBoost, Pandas, Numpy
-- **Data Source:** yfinance (주가 및 VIX, 거시경제 지표)
+- **Logistic Regression (로지스틱 회귀)**: 선형 기반의 베이스라인 이진 분류 모델
+- **Random Forest (랜덤 포레스트)**: 의사결정나무(Decision Tree) 기반의 배깅(Bagging) 앙상블 모델
+- **SVM (Support Vector Machine):** 비선형 데이터 경계면(Hyperplane)을 찾는 강력한 분류 모델
+- **XGBoost (eXtreme Gradient Boosting)**: 트리 기반의 그래디언트 부스팅(Boosting) 최신 알고리즘
 
-### ■ Infra & DevOps
-- **CI/CD:** GitHub Actions (일일 DB 자동 업데이트 배치)
-- **Version Control:** Git, GitHub
+■ **고급 ML 기법 (Advanced ML Techniques):**
+
+- **Ensemble Learning (앙상블 학습)**: 4가지 개별 모델의 예측 결과를 결합(Voting 또는 Stacking)하여 최종 예측의 안정성(Robustness)과 정확도를 극대화 (ensemble.py)
+- **Hyperparameter Optimization (하이퍼파라미터 최적화)**: 각 종목별로 모델이 최상의 성능을 내도록 파라미터를 자동 탐색 및 튜닝 (결과물 _best_params.json 활용)
+- **Feature Importance (피처 중요도 분석)**: 모델의 예측에 가장 큰 영향을 미친 변수(Macro, Momentum 등)를 추출하여 블랙박스 모델의 설명력(XAI) 부여 (importance.py)
+
+### 📈 Financial Engineering & Optimization (금융 공학 및 포트폴리오 알고리즘)
+단순한 예측을 넘어, 실제 투자 가능한 비율로 변환하기 위한 수학적/금융 알고리즘입니다.
+
+- **CAPM (Capital Asset Pricing Model, 자본자산가격결정모형)**: 무위험 수익률과 시장 수익률을 바탕으로 개별 자산의 기대 수익률을 산출하는 핵심 금융 알고리즘 (capm.py)
+- **Mean-Variance Portfolio Optimization (마코위츠의 평균-분산 최적화)**: 사용자의 위험 감수 성향에 맞춰, 기대 수익률은 극대화하고 리스크(변동성)는 최소화하는 최적의 종목 비중(Weight)을 산출하는 알고리즘 (portfolio_optimizer.py)
+- **Risk Profiling Scoring Algorithm**: 12가지 다면적 질문을 통해 사용자의 위험 회피도(Risk Aversion)를 수치화하고 엠블럼을 부여하는 자체 평가 알고리즘 (risk_profile.py)
+
+### 📊 Data Engineering & Preprocessing (데이터 엔지니어링 알고리즘)
+원시 데이터를 모델이 학습할 수 있는 파생 변수로 변환하는 고도화된 전처리 기술입니다.
+
+- **Market Regime Detection (시장 국면 판별)**: 상승장, 하락장, 횡보장 등 현재 시장의 상태(Regime)를 수학적으로 감지하여 모델에 반영 (adjust_regime.py)
+- **EWMA (Exponentially Weighted Moving Average, 지수이동평균)**: 최근 데이터에 더 큰 가중치를 두어 주가의 추세를 부드럽게 추적하는 알고리즘 (calculate_ewma.py)
+- **Logarithmic Returns (로그 수익률 계산)**: 금융 시계열 데이터의 정규성을 확보하기 위한 연속 복리 수익률 변환 (calculate_log_returns.py)
+- **Feature Engineering Domain**: 거시경제(Macro), 모멘텀(Momentum), 변동성(Volatility), 거래량(Volume) 기반의 파생 지표 생성 기술
+
+### ⚙️ Backend & API (백엔드)
+Framework: Python 기반의 빠르고 비동기 처리가 가능한 웹 프레임워크 (FastAPI 또는 Flask)
+
+- **Data Serving**: 계산된 최적 포트폴리오 배열과 수익률 차트 데이터를 프론트엔드 형식에 맞춰 가공하는 로직 (chart_data_provider.py, real_data_provider.py)
+
+### 🎨 Frontend & UI/UX (프론트엔드)
+- **Core**: React.js (v18+), JSX, JavaScript (ES6+)
+- **Build Tool**: Vite (빠른 HMR 및 빌드 제공)
+- **Data Visualization**: Recharts 또는 Chart.js 기반의 동적 데이터 시각화 (도넛 차트, 누적 수익률 라인 차트, 게이지 차트 구현)
+- **Styling**: CSS3 (반응형 웹 디자인 및 컴포넌트별 모듈화)
+- **Linting**: ESLint (코드 컨벤션 유지)
+
+### 🛠 Infra & DevOps (인프라 및 자동화)
+- **CI/CD Automation**: GitHub Actions 기반의 Crontab 스케줄링. 매일 장 마감 후 자동으로 파이프라인(daily-db-load.yml)을 돌려 주가를 스크래핑하고 DB를 최신화
+- **Data Source APIs**: yfinance API (S&P 500 개별 종목 주가 및 거래량), FRED API (거시경제 지표)
+- **Batch Processing**: Shell Scripting (run_pipeline_300.sh)을 통한 대용량 데이터 일괄 자동 학습 시스템
+- **Version Control**: Git & GitHub (Feature Branch 병렬 협업)
 
 ---
 
