@@ -32,15 +32,15 @@
 
 ---
 
-## 2. 👥 팀원 구성 및 역할
+## 2. 👥 팀 구성 및 역할
 
-| 이름 | 직무 역할 | 상세 업무 및 담당 파트 | Github |
+| 이름 | 역할 | 상세 업무 및 담당 파트 | Github |
 | :---: | :---: | :--- | :--- |
-| **윤재정**<br>(조장) | **Quant & Ensemble,<br>Data** | - 프로젝트 총괄 및 금융 시계열 데이터 파생 피처 엔지니어링 수행<br>- 4종 분류 모델(Logistic Reg, RF, SVM, XGBoost) 학습 파이프라인 구현<br>- 교차 검증 및 예측 정확도 극대화를 위한 **앙상블(Ensemble) 아키텍처 설계** 및 최적화 | [@YounJJ](https://github.com/YounJJ) |
-| **이대한** | **Data Engineer<br>& MLOps** | - S&P 500 주가 및 거시경제 지표 크롤링 파이프라인 구축<br>- **GitHub Actions** 기반 일일 데이터 수집 및 DB 갱신 자동화 파이프라인 구축<br>- **CAPM(자본자산가격결정모형)** 기반 개별 종목 기대 수익률 산출 및 포트폴리오 비중 연산 구현 | [@eogks1235-byte](https://github.com/eogks1235-byte) |
-| **이윤원** | **Database,<br>ML Modeling** | - 주식 데이터와 거시경제 지표를 결합한 통합 **마스터 데이터베이스(DB) 구축**<br>- ML 모델 하이퍼파라미터 튜닝(Optimization) 및 학습 평가지표(Metrics) 추출 로직 구현<br>- 모델의 예측 결과와 백엔드를 연결하는 결과물(Artifacts) 매핑(Mapping) 아키텍처 관리 | [@YWL-0225](https://github.com/YWL-0225) |
-| **이우정** | **Backend Developer** | - 사용자 설문 응답 데이터를 바탕으로 **투자 위험 감수 성향(Risk Profiling)** 을 수치화하는 알고리즘 개발<br>- 사용자의 투자 성향과 머신러닝 앙상블 예측값을 융합하여 프론트엔드로 전달하는 데이터 서빙 연동 | [@wjlee111](https://github.com/wjlee111) |
-| **남기혁** | **Frontend Developer** | - 투자 MBTI 웹 애플리케이션 동적 화면 구축<br>- 12문항 설문조사 상태 관리 및 결과 맞춤형 캐릭터 렌더링 UI 구현<br>- 추천 포트폴리오 **파이 차트, 게이지 차트, 누적 수익률 그래프 등 데이터 시각화** 대시보드 구현 | [@kiekuu](https://github.com/kiekuu) |
+| **윤재정** | **총괄 & 금융공학** | - 프로젝트 총괄 및 금융 공학 모델 매핑<br>- 포트폴리오 최적화 엔진(MVO) 구현 | [@YounJJ](https://github.com/YounJJ) |
+| **이대한** | **ML & 데이터 시각화** | - Ensemble ML 기반 종목 분석<br>- 메모리 캐싱 및 성능 최적화 수행<br>- 분석 데이터 시각화 구현 | [@eogks1235-byte](https://github.com/eogks1235-byte) |
+| **이윤원** | **DB & 아키텍처** | - 데이터베이스(Oracle) 아키텍처 설계<br>- CI/CD 자동화 구축 및 모바일 환경 구현 | [@YWL-0225](https://github.com/YWL-0225) |
+| **이우정** | **Frontend** | - Frontend 담당 및 동적 UI/UX 구현<br>- 설문 분석 및 투자 성향 진단 알고리즘 개발 | [@wjlee111](https://github.com/wjlee111) |
+| **남기혁** | **Backend** | - Backend 담당 및 API 서버 아키텍처 설계<br>- 시장 데이터 수집 및 가공 | [@kiekuu](https://github.com/kiekuu) |
 
 ---
 
