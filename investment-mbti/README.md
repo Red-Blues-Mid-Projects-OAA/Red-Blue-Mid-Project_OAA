@@ -1,16 +1,32 @@
-# React + Vite
+# investment-mbti (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Vite + React 기반 프론트엔드입니다.
 
-Currently, two official plugins are available:
+## API URL 설정
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+프론트는 `VITE_API_URL` 환경 변수를 사용해 백엔드 주소를 결정합니다.
 
-## React Compiler
+1. 로컬 개발 (`localhost`):
+`VITE_API_URL`이 없으면 자동으로 `http://localhost:8000`을 사용합니다.
+2. 배포 환경 (예: Vercel):
+`VITE_API_URL`을 반드시 설정해야 합니다.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+예시:
 
-## Expanding the ESLint configuration
+```env
+VITE_API_URL=https://your-backend.example.com
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Vercel 설정
+
+1. Vercel 프로젝트 `Settings > Environment Variables`로 이동
+2. `VITE_API_URL` 추가
+3. 값에 백엔드 공개 URL 입력
+4. Redeploy 실행
+
+## 실행
+
+```bash
+npm install
+npm run dev
+```
