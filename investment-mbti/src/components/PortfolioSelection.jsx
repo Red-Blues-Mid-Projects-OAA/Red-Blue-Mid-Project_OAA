@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Search, ArrowUpDown, XCircle, Eye, RefreshCw, ArrowLeft, CheckCircle } from 'lucide-react';
-import { buildApiUrl, hasApiBase, API_BASE } from '../config/api';
+import { buildApiUrl, hasApiBase, API_BASE, getApiConfigErrorMessage } from '../config/api';
 import './PortfolioSelection.css';
 
 function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFinal = 7.7, savedSelectedTickers, onSelectedTickersChange, onBack, onRestart, onConfirm }) {
@@ -34,7 +34,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
 
         // 전체 종목 + 최신 날짜 병렬 로드
         if (!hasApiBase) {
-            setErrorMsg('서버 주소가 설정되지 않았습니다. Vercel 환경 변수 VITE_API_URL을 설정해주세요.');
+            setErrorMsg(getApiConfigErrorMessage());
             setLoading(false);
             return;
         }

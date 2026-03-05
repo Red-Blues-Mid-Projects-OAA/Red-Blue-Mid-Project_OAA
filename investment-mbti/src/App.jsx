@@ -7,7 +7,7 @@ import Loading from './components/Loading';
 import DashboardResult from './components/DashboardResult';
 import PortfolioSelection from './components/PortfolioSelection';
 import { QUESTIONS } from './constants/questions';
-import { buildApiUrl, hasApiBase, API_BASE } from './config/api';
+import { buildApiUrl, hasApiBase, API_BASE, getApiConfigErrorMessage } from './config/api';
 import './App.css';
 
 function App() {
@@ -66,7 +66,7 @@ function App() {
 
   const handleSubmit = async (mbtiAnswers, sliderValue) => {
     if (!hasApiBase) {
-      alert('서버 주소가 설정되지 않았습니다. Vercel 환경 변수 VITE_API_URL을 설정해주세요.');
+      alert(getApiConfigErrorMessage());
       setCurrentView('INTRO');
       return;
     }
@@ -148,7 +148,7 @@ function App() {
   const handleConfirmSelection = async (selectedTickers) => {
     setCurrentView('OPTIMIZING');
     if (!hasApiBase) {
-      alert('서버 주소가 설정되지 않았습니다. Vercel 환경 변수 VITE_API_URL을 설정해주세요.');
+      alert(getApiConfigErrorMessage());
       setCurrentView('SELECTION');
       return;
     }
