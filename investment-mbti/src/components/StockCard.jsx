@@ -55,7 +55,7 @@ function StockCard({ stock, displayMode, investmentAmount }) {
     return (
         <article className="premium-stock-card">
             <div className="stock-card-top">
-                <div>
+                <div className="stock-card-head">
                     <h4 className="stock-card-title">{name}</h4>
                     <p className="stock-card-ticker">{ticker}</p>
                 </div>

@@ -231,169 +231,175 @@ function CumulativeReturnChart({ chartData, forecastData, var5Display, warnings 
                 </div>
             ))}
 
-            <div style={{ display: 'flex', width: '100%', height: 310, alignItems: 'stretch' }}>
-                {/* ── 메인 차트 (좌측) ── */}
-                <div style={{ flex: hasDistribution ? '0 0 84%' : '1 1 100%', height: '100%', position: 'relative' }}>
-
-                    <ResponsiveContainer width="100%" height="100%">
-                        <ComposedChart data={series.rows} margin={{ top: 8, right: 4, left: -20, bottom: 4 }}>
-                            <defs>
-                                <linearGradient id="portfolioAreaFill" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.25" />
-                                    <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.02" />
-                                </linearGradient>
-                            </defs>
-
-                            <CartesianGrid strokeDasharray="4 4" stroke="#cbd5e1" />
-
-                            <XAxis
-                                dataKey="x"
-                                type="number"
-                                domain={[0, series.lastIndex]}
-                                ticks={xTicks}
-                                tickFormatter={xTickFormatter}
-                                tick={{ fill: '#64748b', fontSize: 11 }}
-                                axisLine={{ stroke: '#cbd5e1' }}
-                                tickLine={false}
-                            />
-
-                            <YAxis
-                                domain={[globalMin, globalMax]}
-                                tick={{ fill: '#64748b', fontSize: 11 }}
-                                tickFormatter={(value) => `${value > 0 ? '+' : ''}${toFiniteNumber(value, 0).toFixed(0)}%`}
-                                axisLine={{ stroke: '#cbd5e1' }}
-                                tickLine={false}
-                            />
-
-                            <Tooltip content={<CustomTooltip />} labelFormatter={(value) => xTickFormatter(value)} />
-
-                            <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />
-                            <ReferenceLine
-                                x={series.currentIndex}
-                                stroke="#475569"
-                                strokeDasharray="3 3"
-                                strokeOpacity={0.7}
-                            />
-
-                            <Area
-                                type="monotone"
-                                dataKey="portfolio"
-                                stroke="none"
-                                fill="url(#portfolioAreaFill)"
-                                connectNulls={false}
-                                isAnimationActive={false}
-                                tooltipType="none"
-                            />
-
-                            <Line
-                                type="monotone"
-                                dataKey="sp500"
-                                name="S&P 500"
-                                stroke="#F59E0B"
-                                strokeWidth={1.6}
-                                dot={false}
-                                isAnimationActive={false}
-                            />
-
-                            <Line
-                                type="monotone"
-                                dataKey="portfolio"
-                                name="포트폴리오(과거)"
-                                stroke="#3B82F6"
-                                strokeWidth={2.35}
-                                dot={false}
-                                isAnimationActive={false}
-                            />
-
-                            {series.pathKeys.map((pathKey) => (
-                                <Line
-                                    key={pathKey}
-                                    type="monotone"
-                                    dataKey={pathKey}
-                                    stroke="#94a3b8"
-                                    strokeOpacity={0.18}
-                                    strokeWidth={0.8}
-                                    dot={false}
-                                    activeDot={false}
-                                    connectNulls
-                                    isAnimationActive={false}
-                                    legendType="none"
-                                />
-                            ))}
-
-                            <Line
-                                type="monotone"
-                                dataKey="forecast"
-                                name="기대 경로"
-                                stroke="#CD5C85"
-                                strokeWidth={2.5}
-                                strokeOpacity={0.7}
-                                dot={false}
-                                connectNulls
-                                isAnimationActive={false}
-                            />
-                        </ComposedChart>
-                    </ResponsiveContainer>
-                </div>
-
-                {/* ── 확률 분포 차트 (우측, Vertical AreaChart) ── */}
-                {hasDistribution && (
-                    <div style={{ flex: '0 0 16%', height: '100%', marginLeft: -1 }}>
-                        <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart
-                                layout="vertical"
-                                data={adjustedBins}
-                                margin={{ top: 8, right: 12, bottom: 4, left: 0 }}
-                            >
-                                {/* X축 (빈도수) — 숨김 */}
-                                <XAxis type="number" hide />
-
-                                {/* Y축 (수익률) — 메인 차트와 동일 domain, 숨김 */}
-                                <YAxis
-                                    type="number"
-                                    dataKey="returnBin"
-                                    domain={[globalMin, globalMax]}
-                                    hide
-                                    reversed
-                                />
-
-                                {/* 부드러운 확률 밀도 곡선 (인디안핑크 그라데이션) */}
-                                <defs>
-                                    <linearGradient id="distFillGrad" x1="0" y1="0" x2="1" y2="0">
-                                        <stop offset="0%" stopColor="#CD5C85" stopOpacity={0.15} />
-                                        <stop offset="100%" stopColor="#CD5C85" stopOpacity={0.65} />
-                                    </linearGradient>
-                                </defs>
-                                <Area
-                                    dataKey="frequency"
-                                    type="basis"
-                                    stroke="none"
-                                    fill="url(#distFillGrad)"
-                                    isAnimationActive={false}
-                                    activeDot={false} /* 마우스 오버 시 생기는 점 제거 */
-                                />
-
-                                {/* VaR 5% Hover Tooltip (cursor 숨김) */}
-                                <Tooltip
-                                    content={<CustomDistTooltip />}
-                                    cursor={false}
-                                />
-
-                                {/* VaR 5% 기준선 (빨간색 계열 매칭) */}
-                                {adjustedVar5 != null && (
-                                    <ReferenceLine
-                                        y={adjustedVar5}
-                                        stroke={var5Color}
-                                        strokeDasharray="3 2"
-                                        strokeWidth={1.0}
-                                        ifOverflow="visible"
-                                    />
-                                )}
-                            </AreaChart>
-                        </ResponsiveContainer>
+            <div className="cr-main-scroll">
+                <div className="cr-main-scroll-inner">
+                    <div className="cr-scroll-chip-wrap">
+                        <span className="chip cr-scroll-chip">3개월 뒤 예상 수익률 확률 분포</span>
                     </div>
-                )}
+                    <div style={{ display: 'flex', width: '100%', height: 310, alignItems: 'stretch' }}>
+                        {/* ── 메인 차트 (좌측) ── */}
+                        <div style={{ flex: hasDistribution ? '0 0 84%' : '1 1 100%', height: '100%', position: 'relative' }}>
 
+                            <ResponsiveContainer width="100%" height="100%">
+                                <ComposedChart data={series.rows} margin={{ top: 8, right: 4, left: -20, bottom: 4 }}>
+                                    <defs>
+                                        <linearGradient id="portfolioAreaFill" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.25" />
+                                            <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.02" />
+                                        </linearGradient>
+                                    </defs>
+
+                                    <CartesianGrid strokeDasharray="4 4" stroke="#cbd5e1" />
+
+                                    <XAxis
+                                        dataKey="x"
+                                        type="number"
+                                        domain={[0, series.lastIndex]}
+                                        ticks={xTicks}
+                                        tickFormatter={xTickFormatter}
+                                        tick={{ fill: '#64748b', fontSize: 11 }}
+                                        axisLine={{ stroke: '#cbd5e1' }}
+                                        tickLine={false}
+                                    />
+
+                                    <YAxis
+                                        domain={[globalMin, globalMax]}
+                                        tick={{ fill: '#64748b', fontSize: 11 }}
+                                        tickFormatter={(value) => `${value > 0 ? '+' : ''}${toFiniteNumber(value, 0).toFixed(0)}%`}
+                                        axisLine={{ stroke: '#cbd5e1' }}
+                                        tickLine={false}
+                                    />
+
+                                    <Tooltip content={<CustomTooltip />} labelFormatter={(value) => xTickFormatter(value)} />
+
+                                    <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />
+                                    <ReferenceLine
+                                        x={series.currentIndex}
+                                        stroke="#475569"
+                                        strokeDasharray="3 3"
+                                        strokeOpacity={0.7}
+                                    />
+
+                                    <Area
+                                        type="monotone"
+                                        dataKey="portfolio"
+                                        stroke="none"
+                                        fill="url(#portfolioAreaFill)"
+                                        connectNulls={false}
+                                        isAnimationActive={false}
+                                        tooltipType="none"
+                                    />
+
+                                    <Line
+                                        type="monotone"
+                                        dataKey="sp500"
+                                        name="S&P 500"
+                                        stroke="#F59E0B"
+                                        strokeWidth={1.6}
+                                        dot={false}
+                                        isAnimationActive={false}
+                                    />
+
+                                    <Line
+                                        type="monotone"
+                                        dataKey="portfolio"
+                                        name="포트폴리오(과거)"
+                                        stroke="#3B82F6"
+                                        strokeWidth={2.35}
+                                        dot={false}
+                                        isAnimationActive={false}
+                                    />
+
+                                    {series.pathKeys.map((pathKey) => (
+                                        <Line
+                                            key={pathKey}
+                                            type="monotone"
+                                            dataKey={pathKey}
+                                            stroke="#94a3b8"
+                                            strokeOpacity={0.18}
+                                            strokeWidth={0.8}
+                                            dot={false}
+                                            activeDot={false}
+                                            connectNulls
+                                            isAnimationActive={false}
+                                            legendType="none"
+                                        />
+                                    ))}
+
+                                    <Line
+                                        type="monotone"
+                                        dataKey="forecast"
+                                        name="기대 경로"
+                                        stroke="#CD5C85"
+                                        strokeWidth={2.5}
+                                        strokeOpacity={0.7}
+                                        dot={false}
+                                        connectNulls
+                                        isAnimationActive={false}
+                                    />
+                                </ComposedChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        {/* ── 확률 분포 차트 (우측, Vertical AreaChart) ── */}
+                        {hasDistribution && (
+                            <div style={{ flex: '0 0 16%', height: '100%', marginLeft: -1 }}>
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <AreaChart
+                                        layout="vertical"
+                                        data={adjustedBins}
+                                        margin={{ top: 8, right: 12, bottom: 4, left: 0 }}
+                                    >
+                                        {/* X축 (빈도수) — 숨김 */}
+                                        <XAxis type="number" hide />
+
+                                        {/* Y축 (수익률) — 메인 차트와 동일 domain, 숨김 */}
+                                        <YAxis
+                                            type="number"
+                                            dataKey="returnBin"
+                                            domain={[globalMin, globalMax]}
+                                            hide
+                                            reversed
+                                        />
+
+                                        {/* 부드러운 확률 밀도 곡선 (인디안핑크 그라데이션) */}
+                                        <defs>
+                                            <linearGradient id="distFillGrad" x1="0" y1="0" x2="1" y2="0">
+                                                <stop offset="0%" stopColor="#CD5C85" stopOpacity={0.15} />
+                                                <stop offset="100%" stopColor="#CD5C85" stopOpacity={0.65} />
+                                            </linearGradient>
+                                        </defs>
+                                        <Area
+                                            dataKey="frequency"
+                                            type="basis"
+                                            stroke="none"
+                                            fill="url(#distFillGrad)"
+                                            isAnimationActive={false}
+                                            activeDot={false} /* 마우스 오버 시 생기는 점 제거 */
+                                        />
+
+                                        {/* VaR 5% Hover Tooltip (cursor 숨김) */}
+                                        <Tooltip
+                                            content={<CustomDistTooltip />}
+                                            cursor={false}
+                                        />
+
+                                        {/* VaR 5% 기준선 (빨간색 계열 매칭) */}
+                                        {adjustedVar5 != null && (
+                                            <ReferenceLine
+                                                y={adjustedVar5}
+                                                stroke={var5Color}
+                                                strokeDasharray="3 2"
+                                                strokeWidth={1.0}
+                                                ifOverflow="visible"
+                                            />
+                                        )}
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
 
             {/* 커스텀 범례 */}

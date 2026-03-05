@@ -19,3 +19,20 @@
     transform: translateY(3px);
     box-shadow: 0 2px 0 #1a56c0, 0 4px 10px rgba(49, 130, 246, 0.2);
 }
+
+@media (max-width: 760px) {
+    .btn-3d {
+        box-shadow: 0 4px 0 #1a56c0, 0 8px 18px rgba(49, 130, 246, 0.3);
+        transform: translateY(-1px);
+    }
+
+    .btn-3d:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 0 #1a56c0, 0 10px 20px rgba(49, 130, 246, 0.34);
+    }
+
+    .btn-3d:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #1a56c0, 0 5px 10px rgba(49, 130, 246, 0.24);
+    }
+}

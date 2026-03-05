@@ -69,8 +69,9 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 2rem 1rem;
+  padding: 1.5rem 0.9rem 2rem;
   margin: 0 auto;
+  max-width: 1440px;
 }
 
 @media (min-width: 481px) {
@@ -210,5 +211,26 @@ p {
 @media (max-width: 480px) {
   .flow-back-action {
     margin-top: 1.2rem;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .app-container {
+    padding: 0.95rem 0.65rem calc(0.95rem + env(safe-area-inset-bottom));
+  }
+
+  .btn {
+    border-radius: 14px;
+    padding: 0.88rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .btn-primary {
+    box-shadow: 0 4px 10px rgba(49, 130, 246, 0.2);
   }
 }

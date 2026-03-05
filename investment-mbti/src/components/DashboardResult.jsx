@@ -188,9 +188,9 @@ function DashboardResult({ personaData, optimizedData, investmentAmount, onResta
 
             <header className="premium-header reveal delay-1">
                 <p className="eyebrow" style={{ marginBottom: 0 }}>Investment MBTI Report</p>
-                <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.75rem' }}>
-                    <h1 style={{ margin: 0 }}>추천 포트폴리오 리포트</h1>
-                    <p className="subtitle" style={{ margin: 0, paddingBottom: '0.3rem', transform: 'translateY(4px)' }}>성향 분석과 시장 데이터를 결합한 시뮬레이션 결과입니다.</p>
+                <div className="premium-header-row">
+                    <h1>추천 포트폴리오 리포트</h1>
+                    <p className="subtitle premium-header-note">성향 분석과 시장 데이터를 결합한 시뮬레이션 결과입니다.</p>
                 </div>
             </header>
 
@@ -277,10 +277,10 @@ function DashboardResult({ personaData, optimizedData, investmentAmount, onResta
                     </article>
 
                     <article className="glass-panel chart-panel reveal delay-4">
-                        <div className="panel-heading" style={{ justifyContent: 'flex-start' }}>
+                        <div className="panel-heading chart-heading">
                             <h3>포트폴리오 성과 예측</h3>
-                            <span style={{ color: '#64748b', fontWeight: 400, fontSize: '0.85rem' }}>과거 1년 + 향후 3개월</span>
-                            <span className="chip" style={{ width: '16%', textAlign: 'center', padding: '0.25rem 0', fontSize: '0.65rem', whiteSpace: 'normal', wordBreak: 'keep-all', marginLeft: 'auto', lineHeight: '1.2' }}>3개월 뒤 예상 수익률 확률 분포</span>
+                            <span className="chart-heading-sub">과거 1년 + 향후 3개월</span>
+                            <span className="chip chart-chip">3개월 뒤 예상 수익률 확률 분포</span>
                         </div>
 
                         <CumulativeReturnChart
@@ -293,15 +293,9 @@ function DashboardResult({ personaData, optimizedData, investmentAmount, onResta
 
                     {/* 수익률/위험도 바 */}
                     <article className="glass-panel score-bars-panel reveal delay-4">
-                        <div className="panel-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <div className="panel-heading score-heading">
                             <h3>포트폴리오 스코어</h3>
-                            <div className="risk-note" style={{
-                                fontSize: '0.72rem',
-                                color: '#64748b',
-                                textAlign: 'right',
-                                lineHeight: 1.5,
-                                maxWidth: '220px',
-                            }}>
+                            <div className="risk-note">
                                 <span style={{ fontWeight: 600, color: '#475569' }}>위험도 산출</span><br />
                                 단순 가중합 {pScores.risk_pct_naive}
                                 {pScores.diversification_benefit > 0 && (
@@ -348,7 +342,7 @@ function DashboardResult({ personaData, optimizedData, investmentAmount, onResta
             </section>
 
             <section className="glass-panel stocks-panel reveal delay-5">
-                <div className="panel-heading">
+                <div className="panel-heading stocks-heading">
                     <h3>포트폴리오 종목</h3>
                     <span className="chip">{displayStocks.length}개 종목</span>
                 </div>
@@ -375,7 +369,7 @@ function DashboardResult({ personaData, optimizedData, investmentAmount, onResta
                     처음으로
                 </button>
                 {onBack && (
-                    <button type="button" className="restart-button" style={{ marginLeft: '0.6rem', background: 'linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%)' }} onClick={onBack}>
+                    <button type="button" className="restart-button restart-button--back" onClick={onBack}>
                         <ArrowLeft size={16} />
                         이전으로
                     </button>

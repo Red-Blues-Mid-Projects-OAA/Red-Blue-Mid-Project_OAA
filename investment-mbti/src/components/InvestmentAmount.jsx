@@ -36,19 +36,19 @@ function InvestmentAmount({ onComplete, onBack }) {
     };
 
     return (
-        <div className="animate-fade-in flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-6 py-10">
-            <div className="w-full max-w-xl flex flex-col gap-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+        <div className="animate-fade-in flex flex-col items-center justify-start sm:justify-center min-h-[calc(100dvh-3rem)] px-4 sm:px-6 pt-8 sm:pt-0 pb-8">
+            <div className="w-full max-w-xl flex flex-col gap-7 sm:gap-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
 
                 {/* 상단: 제목 */}
                 <div className="text-center">
-                    <h2 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                    <h2 className="text-2xl sm:text-3xl font-bold leading-snug" style={{ color: 'var(--text-primary)' }}>
                         얼마까지 투자할 계획이신가요?
                     </h2>
                 </div>
 
                 {/* 중단: 입력 카드 */}
                 <div
-                    className="bg-white border rounded-2xl py-16 px-10 shadow-sm flex flex-col items-center justify-center gap-4"
+                    className="bg-white/95 border rounded-3xl py-10 sm:py-16 px-6 sm:px-10 shadow-sm flex flex-col items-center justify-center gap-4"
                     style={{ borderColor: 'var(--card-border)', minHeight: '220px' }}
                 >
                     <div className="flex items-center justify-center gap-3">
@@ -60,22 +60,22 @@ function InvestmentAmount({ onComplete, onBack }) {
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
                             placeholder=""
-                            className="text-center text-4xl font-bold outline-none border-b-2 pb-2 transition-colors duration-200"
+                            className="text-center text-3xl sm:text-4xl font-bold outline-none border-b-2 pb-2 transition-colors duration-200"
                             style={{
-                                width: '180px',
+                                width: 'clamp(132px, 42vw, 180px)',
                                 borderColor: showAlert ? '#ef4444' : 'var(--accent-primary)',
                                 color: 'var(--text-primary)',
                                 background: 'transparent',
                             }}
                             autoFocus
                         />
-                        <span className="text-xl font-semibold whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>
+                        <span className="text-lg sm:text-xl font-semibold whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>
                             만 원
                         </span>
                     </div>
 
                     <p
-                        className="text-xl font-bold"
+                        className="text-lg sm:text-xl font-bold"
                         style={{
                             color: 'var(--accent-primary)',
                             visibility: value && parseInt(value, 10) >= 10 ? 'visible' : 'hidden',
@@ -88,7 +88,7 @@ function InvestmentAmount({ onComplete, onBack }) {
                 {/* 하단: 버튼 영역 */}
                 <div>
                     {/* 경고 슬롯 고정: 표시/숨김 시 다른 요소가 움직이지 않음 */}
-                    <div className="-mt-1 h-[40px] mb-10 relative">
+                    <div className="h-[40px] mb-6 sm:mb-10 relative">
                         <div
                             key={alertNonce}
                             className={`absolute inset-x-0 top-0 w-full mx-auto text-red-500 text-sm font-bold text-center
@@ -105,7 +105,7 @@ function InvestmentAmount({ onComplete, onBack }) {
 
                     <button
                         onClick={handleNext}
-                        className="btn btn-primary btn-3d w-4/5 mx-auto block text-lg font-bold py-4 rounded-2xl"
+                        className="btn btn-primary btn-3d w-full sm:w-4/5 mx-auto block text-lg font-bold py-4 rounded-2xl"
                     >
                         다음 →
                     </button>

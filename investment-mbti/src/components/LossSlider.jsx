@@ -62,7 +62,7 @@ function LossSlider({ onComplete, onBack, investmentAmount }) {
                 </p>
             </div>
 
-            <div className="slider-card animate-slide-up" style={{ animationDelay: '0.2s', marginBottom: '0.5cm' }}>
+            <div className="slider-card animate-slide-up" style={{ animationDelay: '0.2s' }}>
                 <div className="loss-value">
                     <span className="percent">-{lossValue}%</span>
                 </div>
@@ -93,7 +93,7 @@ function LossSlider({ onComplete, onBack, investmentAmount }) {
                 </div>
             </div>
 
-            <div className="h-[34px] relative" style={{ marginBottom: '0.5cm' }}>
+            <div className="slider-warning-slot">
                 <div
                     key={alertNonce}
                     className={`slider-warning text-red-400 text-sm font-bold text-center leading-tight bg-red-500/10 border border-red-500/20 py-0.5 px-3 rounded-xl flex items-center justify-center transition-all duration-200 ${showWarning

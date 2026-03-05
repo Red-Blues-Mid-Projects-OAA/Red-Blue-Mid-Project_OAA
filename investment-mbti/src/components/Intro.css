@@ -1,13 +1,16 @@
 .intro-container {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 1.4rem 0.65rem;
+    min-height: calc(100dvh - 2rem);
 }
 
 .intro-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.35rem;
+    width: 100%;
+    max-width: 680px;
 }
 
 .badge {
@@ -33,6 +36,24 @@
     font-size: 1.75rem;
 }
 
+.title-main {
+    display: inline-block;
+    letter-spacing: -0.01em;
+}
+
+.title-main--mobile,
+.subtitle-line--mobile {
+    display: none;
+}
+
+.subtitle-line {
+    display: inline;
+}
+
+.subtitle-line.subtitle-line--mobile {
+    display: none;
+}
+
 .highlight {
     color: var(--accent-primary);
     display: inline-block;
@@ -42,7 +63,8 @@
     font-size: 1.125rem;
     color: var(--text-secondary);
     max-width: 620px;
-    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.55;
     margin: 0 auto 1.5rem;
 }
 
@@ -59,6 +81,7 @@
     border: 1px solid #2a6fd6;
     color: #ffffff;
     animation: none;
+    min-width: 260px;
 }
 
 .start-btn::before {
@@ -87,13 +110,63 @@
 }
 
 @media (max-width: 480px) {
+    .intro-container {
+        padding: 1rem 0.35rem 1.2rem;
+        min-height: calc(100dvh - 1rem);
+    }
+
+    .intro-content {
+        gap: 1rem;
+        padding: 1.05rem 0.9rem 1.2rem;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(248, 250, 255, 0.72) 100%);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
     .title {
-        font-size: 1.875rem;
+        font-size: 1.7rem;
+        line-height: 1.18;
+    }
+
+    .title-label {
+        font-size: 1.14rem;
+    }
+
+    .title-main {
+        font-size: 1.44rem;
+        white-space: nowrap;
+        letter-spacing: -0.04em;
+    }
+
+    .title-main--mobile {
+        font-size: clamp(1.34rem, 6vw, 1.44rem);
+    }
+
+    .title-main--desktop,
+    .subtitle-line--desktop {
+        display: none;
+    }
+
+    .title-main--mobile,
+    .subtitle-line--mobile,
+    .subtitle-line.subtitle-line--mobile {
+        display: inline;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.98rem;
         max-width: 100%;
-        white-space: normal;
+        margin-bottom: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .start-btn {
+        min-width: 0;
+        width: min(100%, 320px);
+        font-size: 1.16rem;
+        padding: 1rem 1.1rem;
+        border-radius: 22px;
+        margin-top: 0.35rem;
     }
 }

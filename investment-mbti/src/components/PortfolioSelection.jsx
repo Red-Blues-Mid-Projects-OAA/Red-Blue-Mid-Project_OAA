@@ -225,7 +225,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
                                 style={{ width: `${portfolioScores.return_pct}%` }}
                             />
                         </div>
-                        <span className="ps-bar-value">{portfolioScores.return_pct} / 100</span>
+                        <span className="ps-bar-value">{portfolioScores.return_pct}/100</span>
                     </div>
                     {/* 위험도 바 */}
                     <div className="ps-bar-row">
@@ -247,26 +247,17 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
                                 />
                             )}
                         </div>
-                        <span className="ps-bar-value">{portfolioScores.risk_pct} / 100</span>
+                        <span className="ps-bar-value">{portfolioScores.risk_pct}/100</span>
                     </div>
                     {/* 위험도 산출 설명 (바 영역 우측 여백에 절대 위치) */}
                     {portfolioScores.risk_pct > 0 && (
-                        <div style={{
-                            position: 'absolute',
-                            right: '-170px',
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            fontSize: '0.75rem',
-                            color: '#64748b',
-                            lineHeight: 1.45,
-                            whiteSpace: 'nowrap',
-                        }}>
-                            <span style={{ fontWeight: 600, color: '#475569' }}>위험도 산출</span><br />
+                        <div className="ps-risk-note">
+                            <span className="ps-risk-note-title">위험도 산출</span><br />
                             가중합 {portfolioScores.risk_pct_naive}
                             {portfolioScores.diversification_benefit > 0 && (
-                                <> − 분산효과 {portfolioScores.diversification_benefit}</>
+                                <> - 분산효과 {portfolioScores.diversification_benefit}</>
                             )}
-                            {' '}= <strong style={{ color: '#0f172a' }}>{portfolioScores.risk_pct}</strong>
+                            {' '}= <strong className="ps-risk-note-value">{portfolioScores.risk_pct}</strong>
                         </div>
                     )}
                 </div>
@@ -329,72 +320,80 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
             {/* ── 하단: 전체 300개 종목 ── */}
             <section className="ps-list-section reveal delay-4">
                 <h2 className="ps-section-title">전체 종목 ({allStocks.length}개)</h2>
+                <p className="ps-list-swipe-hint">모바일에서는 좌우로 밀어 전체 지표를 확인할 수 있어요.</p>
 
-                {/* 테이블 헤더 */}
-                <div className="ps-list-header">
-                    <span className="ps-col-name">한글 종목 / 티커명</span>
-                    <span className="ps-col-ret">1M</span>
-                    <span className="ps-col-ret">3M</span>
-                    <span className="ps-col-ret">6M</span>
-                    <span className="ps-col-ret">12M</span>
-                    <span className="ps-col-score">수익률 순위</span>
-                    <span className="ps-col-score">리스크 순위</span>
-                    <span className="ps-col-cap">시가총액</span>
-                </div>
+                <div className="ps-list-scroll">
+                    {/* 테이블 헤더 */}
+                    <div className="ps-list-header">
+                        <span className="ps-col-name">한글 종목 / 티커명</span>
+                        <span className="ps-col-ret">1M</span>
+                        <span className="ps-col-ret">3M</span>
+                        <span className="ps-col-ret">6M</span>
+                        <span className="ps-col-ret">12M</span>
+                        <span className="ps-col-score">수익률 순위</span>
+                        <span className="ps-col-score">리스크 순위</span>
+                        <span className="ps-col-cap">시가총액</span>
+                    </div>
 
-                {/* 종목 리스트 */}
-                <div className="ps-list-body">
-                    {filteredStocks.map((stock, idx) => {
-                        const isSelected = selectedTickers.has(stock.ticker);
-                        const r = stock.returns || {};
-                        const safeReturn = (v) => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
-                        return (
-                            <button
-                                key={stock.ticker}
-                                type="button"
-                                className={`ps-list-row ${isSelected ? 'ps-list-row--selected' : ''}`}
-                                onClick={() => toggleTicker(stock.ticker)}
-                            >
-                                <span className="ps-col-rank">{stock.market_cap_rank}.</span>
-                                <span className="ps-col-name">
-                                    <strong>{stock.name}</strong>
-                                    <span className="ps-ticker-label"> / {stock.ticker}</span>
-                                </span>
-                                <span className={`ps-col-ret ps-return-badge ${safeReturn(r['1M']) >= 0 ? 'pos' : 'neg'}`}>
-                                    {safeReturn(r['1M']) >= 0 ? '+' : ''}{safeReturn(r['1M']).toFixed(1)}%
-                                </span>
-                                <span className={`ps-col-ret ps-return-badge ${safeReturn(r['3M']) >= 0 ? 'pos' : 'neg'}`}>
-                                    {safeReturn(r['3M']) >= 0 ? '+' : ''}{safeReturn(r['3M']).toFixed(1)}%
-                                </span>
-                                <span className={`ps-col-ret ps-return-badge ${safeReturn(r['6M']) >= 0 ? 'pos' : 'neg'}`}>
-                                    {safeReturn(r['6M']) >= 0 ? '+' : ''}{safeReturn(r['6M']).toFixed(1)}%
-                                </span>
-                                <span className={`ps-col-ret ps-return-badge ${safeReturn(r['12M']) >= 0 ? 'pos' : 'neg'}`}>
-                                    {safeReturn(r['12M']) >= 0 ? '+' : ''}{safeReturn(r['12M']).toFixed(1)}%
-                                </span>
-                                <span className="ps-col-score">{stock.return_rank}위</span>
-                                <span className="ps-col-score">{stock.risk_rank}위</span>
-                                <span className="ps-col-cap">{stock.market_cap_rank}위</span>
-                            </button>
-                        );
-                    })}
-                    {filteredStocks.length === 0 && (
-                        <div className="ps-empty">검색 결과가 없습니다.</div>
-                    )}
+                    {/* 종목 리스트 */}
+                    <div className="ps-list-body">
+                        {filteredStocks.map((stock, idx) => {
+                            const isSelected = selectedTickers.has(stock.ticker);
+                            const r = stock.returns || {};
+                            const safeReturn = (v) => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
+                            return (
+                                <button
+                                    key={stock.ticker}
+                                    type="button"
+                                    className={`ps-list-row ${isSelected ? 'ps-list-row--selected' : ''}`}
+                                    onClick={() => toggleTicker(stock.ticker)}
+                                >
+                                    <span className="ps-col-rank">{stock.market_cap_rank}.</span>
+                                    <span className="ps-col-name">
+                                        <strong>{stock.name}</strong>
+                                        <span className="ps-ticker-label"> / {stock.ticker}</span>
+                                    </span>
+                                    <span className={`ps-col-ret ps-return-badge ${safeReturn(r['1M']) >= 0 ? 'pos' : 'neg'}`}>
+                                        {safeReturn(r['1M']) >= 0 ? '+' : ''}{safeReturn(r['1M']).toFixed(1)}%
+                                    </span>
+                                    <span className={`ps-col-ret ps-return-badge ${safeReturn(r['3M']) >= 0 ? 'pos' : 'neg'}`}>
+                                        {safeReturn(r['3M']) >= 0 ? '+' : ''}{safeReturn(r['3M']).toFixed(1)}%
+                                    </span>
+                                    <span className={`ps-col-ret ps-return-badge ${safeReturn(r['6M']) >= 0 ? 'pos' : 'neg'}`}>
+                                        {safeReturn(r['6M']) >= 0 ? '+' : ''}{safeReturn(r['6M']).toFixed(1)}%
+                                    </span>
+                                    <span className={`ps-col-ret ps-return-badge ${safeReturn(r['12M']) >= 0 ? 'pos' : 'neg'}`}>
+                                        {safeReturn(r['12M']) >= 0 ? '+' : ''}{safeReturn(r['12M']).toFixed(1)}%
+                                    </span>
+                                    <span className="ps-col-score">{stock.return_rank}위</span>
+                                    <span className="ps-col-score">{stock.risk_rank}위</span>
+                                    <span className="ps-col-cap">{stock.market_cap_rank}위</span>
+                                </button>
+                            );
+                        })}
+                        {filteredStocks.length === 0 && (
+                            <div className="ps-empty">검색 결과가 없습니다.</div>
+                        )}
+                    </div>
                 </div>
+                {lastUpdated && (
+                    <span className="ps-last-updated-inline">
+                        Last Updated: {lastUpdated} (US EST Market Close)
+                    </span>
+                )}
             </section>
 
             {/* ── 하단 액션 버튼 ── */}
             <div className="ps-actions reveal delay-5">
                 {/* 최신 데이터 날짜 표시 */}
                 {lastUpdated && (
-                    <span className="ps-last-updated">
+                    <span className="ps-last-updated ps-last-updated--footer">
                         Last Updated: {lastUpdated} (US EST Market Close)
                     </span>
                 )}
                 <button type="button" className="ps-action-btn ps-action-btn--restart" onClick={onRestart}>
                     <RefreshCw size={16} />
-                    처음으로
+                    <span className="ps-action-btn-label">처음으로</span>
                 </button>
                 <button
                     type="button"
@@ -408,7 +407,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
                     }}
                 >
                     <CheckCircle size={16} />
-                    포트폴리오 구성하기 ({selectedTickers.size}개)
+                    <span className="ps-action-btn-label">포트폴리오 구성하기 ({selectedTickers.size}개)</span>
                 </button>
             </div>
 
