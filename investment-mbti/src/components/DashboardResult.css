@@ -558,6 +558,20 @@
         align-items: flex-start;
     }
 
+    .stocks-heading {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        width: 100%;
+        gap: 0.45rem;
+    }
+
+    .stocks-heading h3 {
+        margin: 0;
+        white-space: nowrap;
+    }
+
     .metrics-grid {
         grid-template-columns: 1fr;
     }
@@ -566,15 +580,29 @@
 @media (max-width: 760px) {
     .premium-dashboard {
         padding: 0.8rem 0.1rem 1.5rem;
+        max-width: 100vw;
+        overflow-x: clip;
+    }
+
+    .premium-layout,
+    .main-column,
+    .glass-panel {
+        min-width: 0;
+        max-width: 100%;
     }
 
     .premium-header {
         padding: 0.45rem 0.45rem 0.9rem;
+        text-align: center;
+    }
+
+    .premium-header .subtitle {
+        text-align: center;
     }
 
     .premium-header-row {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: 0.35rem;
     }
 
@@ -664,6 +692,7 @@
     .restart-button--back {
         margin-left: 0;
     }
+
 }
 
 /* Shared sub-components */
@@ -798,6 +827,11 @@
     gap: 0.65rem;
 }
 
+.stock-card-head {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
 .stock-card-title {
     margin: 0;
     font-size: 1.2rem;
@@ -823,6 +857,7 @@
     display: flex;
     gap: 0.38rem;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .stock-badge {
@@ -831,6 +866,8 @@
     font-weight: 700;
     padding: 0.26rem 0.56rem;
     border: 1px solid rgba(148, 163, 184, 0.22);
+    white-space: nowrap;
+    line-height: 1;
 }
 
 .stock-badge.weight {
@@ -1001,6 +1038,19 @@
     padding: 0.34rem 0.5rem;
 }
 
+.cr-main-scroll {
+    width: 100%;
+}
+
+.cr-main-scroll-inner {
+    width: 100%;
+    min-width: 0;
+}
+
+.cr-scroll-chip-wrap {
+    display: none;
+}
+
 .chart-legend {
     margin-top: 0.55rem;
     display: flex;
@@ -1027,6 +1077,132 @@
 @media (max-width: 760px) {
     .premium-chart-unified {
         min-height: 250px;
+    }
+
+    .chart-heading .chart-chip {
+        display: none;
+    }
+
+    .cr-main-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 transparent;
+        padding-bottom: 0.18rem;
+    }
+
+    .cr-main-scroll::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .cr-main-scroll::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background: rgba(148, 163, 184, 0.58);
+    }
+
+    .cr-main-scroll-inner {
+        min-width: 620px;
+    }
+
+    .cr-scroll-chip-wrap {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        margin-bottom: 0.28rem;
+    }
+
+    .cr-scroll-chip {
+        font-size: 0.63rem;
+        padding: 0.28rem 0.55rem;
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+
+    .stocks-panel {
+        padding: 0.78rem 0.62rem 0.72rem;
+    }
+
+    .stock-grid {
+        gap: 0.56rem;
+    }
+
+    .premium-stock-card {
+        border-radius: 16px;
+        padding: 0.68rem;
+    }
+
+    .stock-card-top {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: flex-start;
+        gap: 0.38rem;
+    }
+
+    .stock-card-title {
+        font-size: 0.96rem;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .stock-card-ticker {
+        margin-top: 0.14rem;
+        font-size: 0.68rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .stock-card-badges {
+        gap: 0.2rem;
+        justify-content: flex-end;
+    }
+
+    .stock-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.62rem;
+        padding: 0.22rem 0.45rem;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .stock-card-return {
+        margin: 0.56rem 0 0.46rem;
+        border-radius: 11px;
+        padding: 0.42rem 0.5rem;
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 0.32rem;
+    }
+
+    .stock-card-return .label {
+        margin-right: 0;
+        font-size: 0.79rem;
+    }
+
+    .stock-card-return .value {
+        font-size: 1.02rem;
+    }
+
+    .stock-card-periods {
+        gap: 0.32rem;
+    }
+
+    .stock-period {
+        border-radius: 9px;
+        padding: 0.3rem 0.1rem;
+    }
+
+    .stock-period .period-label {
+        font-size: 0.67rem;
+    }
+
+    .stock-period .period-value {
+        font-size: 0.83rem;
     }
 }
 

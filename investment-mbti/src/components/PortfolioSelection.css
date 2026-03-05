@@ -39,6 +39,14 @@
     margin-right: auto;
 }
 
+.ps-last-updated-inline {
+    display: none;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #94a3b8;
+    letter-spacing: 0.01em;
+}
+
 .ps-action-btn {
     display: inline-flex;
     align-items: center;
@@ -49,6 +57,12 @@
     border-radius: 999px;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ps-action-btn-label {
+    min-width: 0;
+    white-space: nowrap;
+    word-break: keep-all;
 }
 
 .ps-action-btn--restart {
@@ -291,6 +305,9 @@
     color: #0f172a;
     min-width: 52px;
     text-align: right;
+    white-space: nowrap;
+    line-height: 1;
+    flex-shrink: 0;
 }
 
 .ps-risk-note {
@@ -440,6 +457,14 @@
 /* ── Stock list section ── */
 .ps-list-section {
     margin-top: 1.2rem;
+}
+
+.ps-list-swipe-hint {
+    display: none;
+}
+
+.ps-list-scroll {
+    width: 100%;
 }
 
 .ps-list-header {
@@ -611,7 +636,7 @@
     }
 
     .ps-bar-value {
-        min-width: 46px;
+        min-width: 56px;
         font-size: 0.82rem;
     }
 
@@ -627,27 +652,73 @@
     }
 
     .ps-actions {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        display: grid;
+        grid-template-columns: 0.92fr 1.08fr;
+        grid-template-areas: "restart confirm";
         gap: 0.45rem;
-        position: sticky;
+        position: fixed;
+        left: 0.45rem;
+        right: 0.45rem;
+        width: auto;
+        max-width: 430px;
+        margin-left: auto;
+        margin-right: auto;
         bottom: calc(env(safe-area-inset-bottom) + 6px);
-        z-index: 15;
-        margin-top: 0.9rem;
-        padding: 0.48rem 0.46rem;
+        z-index: 35;
+        margin-top: 0;
+        padding: 0.48rem 0.5rem;
         border-radius: 14px;
         border: 1px solid rgba(148, 163, 184, 0.2);
         background: rgba(255, 255, 255, 0.86);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
     }
 
     .ps-last-updated {
-        flex: 1 1 100%;
-        margin-right: 0;
-        white-space: normal;
-        line-height: 1.35;
+        display: none;
+    }
+
+    .ps-last-updated-inline {
+        display: block;
+        margin-top: 0.5rem;
+        line-height: 1.25;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 0.66rem;
+    }
+
+    .ps-action-btn {
+        width: 100%;
+        justify-content: center;
+        min-width: 0;
+        gap: 0.3rem;
+        white-space: nowrap;
+        line-height: 1;
+        letter-spacing: -0.01em;
+        padding: 0.46rem 0.52rem;
+        font-size: 0.76rem;
+    }
+
+    .ps-action-btn svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+    }
+
+    .ps-action-btn-label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ps-action-btn--restart {
+        grid-area: restart;
+    }
+
+    .ps-action-btn--confirm {
+        grid-area: confirm;
     }
 
     .ps-risk-note {
@@ -677,21 +748,64 @@
         border-radius: 9px;
     }
 
+    .ps-sort-dropdown {
+        left: 0;
+        right: auto;
+        min-width: 165px;
+        max-width: min(220px, calc(100vw - 1.2rem));
+        transform-origin: top left;
+    }
+
     .ps-list-section {
         margin-top: 1rem;
-        padding-bottom: 4rem;
+        padding-bottom: 7rem;
+    }
+
+    .ps-list-swipe-hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin: -0.08rem 0 0.45rem;
+        color: #64748b;
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 0.18rem 0.48rem;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.26);
+        background: rgba(248, 250, 252, 0.85);
+    }
+
+    .ps-list-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 transparent;
+        padding-bottom: 0.15rem;
+    }
+
+    .ps-list-scroll::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .ps-list-scroll::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background: rgba(148, 163, 184, 0.55);
     }
 
     .ps-list-body {
         border-radius: 12px;
         border: 1px solid rgba(226, 232, 240, 0.9);
         background: rgba(255, 255, 255, 0.55);
+        min-width: 760px;
+        max-height: 460px;
     }
 
     .ps-list-header {
-        grid-template-columns: minmax(0, 1.9fr) 60px 60px 70px;
+        grid-template-columns: minmax(0, 2fr) 62px 62px 62px 62px 76px 76px 70px;
         padding: 0.42rem 0.5rem;
         gap: 0.35rem;
+        min-width: 760px;
     }
 
     .ps-list-header span {
@@ -699,42 +813,18 @@
     }
 
     .ps-list-row {
-        grid-template-columns: 28px minmax(0, 1.9fr) 60px 60px 70px;
+        grid-template-columns: 30px minmax(0, 2fr) 62px 62px 62px 62px 76px 76px 70px;
         padding: 0.46rem 0.45rem;
         gap: 0.35rem;
+        min-width: 760px;
     }
 
     .ps-col-name strong {
-        font-size: 0.81rem;
+        font-size: 0.8rem;
     }
 
     .ps-ticker-label {
-        font-size: 0.67rem;
-    }
-
-    .ps-list-header>span:nth-child(4),
-    .ps-list-header>span:nth-child(5),
-    .ps-list-header>span:nth-child(7),
-    .ps-list-header>span:nth-child(8) {
-        display: none;
-    }
-
-    .ps-list-row>span:nth-child(5),
-    .ps-list-row>span:nth-child(6),
-    .ps-list-row>span:nth-child(8),
-    .ps-list-row>span:nth-child(9) {
-        display: none;
-    }
-
-    .ps-col-name strong {
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .ps-ticker-label {
-        display: inline;
+        font-size: 0.66rem;
         white-space: nowrap;
     }
 
@@ -760,7 +850,16 @@
     }
 
     .ps-action-btn {
-        font-size: 0.74rem;
-        padding: 0.45rem 0.7rem;
+        font-size: 0.7rem;
+        padding: 0.42rem 0.4rem;
+        gap: 0.22rem;
+    }
+
+    .ps-actions {
+        left: 0.35rem;
+        right: 0.35rem;
+        padding: 0.42rem 0.44rem;
+        gap: 0.35rem;
+        grid-template-columns: 0.88fr 1.12fr;
     }
 }

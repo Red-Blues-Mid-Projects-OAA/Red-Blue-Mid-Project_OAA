@@ -342,7 +342,7 @@ function DashboardResult({ personaData, optimizedData, investmentAmount, onResta
             </section>
 
             <section className="glass-panel stocks-panel reveal delay-5">
-                <div className="panel-heading">
+                <div className="panel-heading stocks-heading">
                     <h3>포트폴리오 종목</h3>
                     <span className="chip">{displayStocks.length}개 종목</span>
                 </div>

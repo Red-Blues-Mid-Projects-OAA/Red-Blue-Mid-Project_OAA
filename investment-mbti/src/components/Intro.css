@@ -36,6 +36,24 @@
     font-size: 1.75rem;
 }
 
+.title-main {
+    display: inline-block;
+    letter-spacing: -0.01em;
+}
+
+.title-main--mobile,
+.subtitle-line--mobile {
+    display: none;
+}
+
+.subtitle-line {
+    display: inline;
+}
+
+.subtitle-line.subtitle-line--mobile {
+    display: none;
+}
+
 .highlight {
     color: var(--accent-primary);
     display: inline-block;
@@ -107,12 +125,33 @@
     }
 
     .title {
-        font-size: 1.86rem;
+        font-size: 1.7rem;
         line-height: 1.18;
     }
 
     .title-label {
-        font-size: 1.3rem;
+        font-size: 1.14rem;
+    }
+
+    .title-main {
+        font-size: 1.44rem;
+        white-space: nowrap;
+        letter-spacing: -0.04em;
+    }
+
+    .title-main--mobile {
+        font-size: clamp(1.34rem, 6vw, 1.44rem);
+    }
+
+    .title-main--desktop,
+    .subtitle-line--desktop {
+        display: none;
+    }
+
+    .title-main--mobile,
+    .subtitle-line--mobile,
+    .subtitle-line.subtitle-line--mobile {
+        display: inline;
     }
 
     .subtitle {
