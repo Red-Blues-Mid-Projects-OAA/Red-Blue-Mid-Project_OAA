@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Search, ArrowUpDown, XCircle, Eye, RefreshCw, ArrowLeft, CheckCircle } from 'lucide-react';
+import { buildApiUrl, hasApiBase, API_BASE } from '../config/api';
 import './PortfolioSelection.css';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFinal = 7.7, savedSelectedTickers, onSelectedTickersChange, onBack, onRestart, onConfirm }) {
     // ── 상태 관리 ──
@@ -34,13 +33,22 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
         }
 
         // 전체 종목 + 최신 날짜 병렬 로드
+        if (!hasApiBase) {
+            setErrorMsg('서버 주소가 설정되지 않았습니다. Vercel 환경 변수 VITE_API_URL을 설정해주세요.');
+            setLoading(false);
+            return;
+        }
+
         Promise.all([
-            fetch(`${API_BASE}/api/all-stocks`).then(r => r.json()),
-            fetch(`${API_BASE}/api/last-updated`).then(r => r.json()).catch(() => null),
+            fetch(buildApiUrl('/api/all-stocks')).then(r => r.json()),
+            fetch(buildApiUrl('/api/last-updated')).then(r => r.json()).catch(() => null),
         ]).then(([stocksData, dateData]) => {
             if (stocksData.status === 'success') setAllStocks(stocksData.data);
             if (dateData?.status === 'success') setLastUpdated(dateData.date);
-        }).catch(err => console.error('fetch error:', err))
+        }).catch(err => {
+            console.error('fetch error:', err, 'API_BASE:', API_BASE);
+            setErrorMsg('종목 데이터를 불러오지 못했습니다. 백엔드 서버 연결을 확인해주세요.');
+        })
             .finally(() => setLoading(false));
     }, [recommendedStocks]);
 
@@ -52,7 +60,11 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
             return;
         }
 
-        fetch(`${API_BASE}/api/portfolio-scores`, {
+        if (!hasApiBase) {
+            return;
+        }
+
+        fetch(buildApiUrl('/api/portfolio-scores'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ selected_tickers: tickers }),
@@ -63,7 +75,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
                     setPortfolioScores(data.data);
                 }
             })
-            .catch(err => console.error('portfolio-scores fetch error:', err));
+            .catch(err => console.error('portfolio-scores fetch error:', err, 'API_BASE:', API_BASE));
     }, [selectedTickers]);
 
     // ── 선택 변경 시 부모(App)에 동기화 (뒤로가기 시 복원용) ──

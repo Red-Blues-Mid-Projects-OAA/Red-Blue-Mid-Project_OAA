@@ -7,6 +7,7 @@ import Loading from './components/Loading';
 import DashboardResult from './components/DashboardResult';
 import PortfolioSelection from './components/PortfolioSelection';
 import { QUESTIONS } from './constants/questions';
+import { buildApiUrl, hasApiBase, API_BASE } from './config/api';
 import './App.css';
 
 function App() {
@@ -64,6 +65,12 @@ function App() {
   };
 
   const handleSubmit = async (mbtiAnswers, sliderValue) => {
+    if (!hasApiBase) {
+      alert('서버 주소가 설정되지 않았습니다. Vercel 환경 변수 VITE_API_URL을 설정해주세요.');
+      setCurrentView('INTRO');
+      return;
+    }
+
     console.log('--- 백엔드로 전송할 데이터 ---');
     console.log('MBTI Answers:', mbtiAnswers);
     console.log('손실 한도(%):', sliderValue);
@@ -74,7 +81,7 @@ function App() {
       const baseMoney = (investmentAmount || 1000) * 10000;
       const krwLossLimit = baseMoney * (1 + Number(sliderValue) / 100); // sliderValue는 음수
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/analyze`, {
+      const response = await fetch(buildApiUrl('/api/analyze'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +123,7 @@ function App() {
       }, 1500);
 
     } catch (error) {
-      console.error('API Error:', error);
+      console.error('API Error:', error, 'API_BASE:', API_BASE);
       alert('데이터 전송에 실패했습니다. 백엔드 서버가 켜져 있는지 확인해주세요.');
       setCurrentView('INTRO');
     }
@@ -140,8 +147,13 @@ function App() {
   // 종목 선택 완료 → /api/optimize-final 호출 → RESULT
   const handleConfirmSelection = async (selectedTickers) => {
     setCurrentView('OPTIMIZING');
+    if (!hasApiBase) {
+      alert('서버 주소가 설정되지 않았습니다. Vercel 환경 변수 VITE_API_URL을 설정해주세요.');
+      setCurrentView('SELECTION');
+      return;
+    }
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/optimize-final`, {
+      const response = await fetch(buildApiUrl('/api/optimize-final'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -155,7 +167,7 @@ function App() {
       setOptimizedData(json.data);
       setCurrentView('RESULT');
     } catch (error) {
-      console.error('Optimize-final API Error:', error);
+      console.error('Optimize-final API Error:', error, 'API_BASE:', API_BASE);
       alert('포트폴리오 최적화에 실패했습니다.');
       setCurrentView('SELECTION');
     }
