@@ -13,6 +13,34 @@
     max-width: 680px;
 }
 
+.intro-logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    margin-inline: auto;
+    margin-bottom: -0.1rem;
+}
+
+.intro-logo-shell {
+    position: relative;
+    width: min(100%, 228px);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+}
+
+.intro-logo {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    margin-inline: auto;
+    filter: drop-shadow(0 12px 18px rgba(20, 35, 70, 0.12));
+}
+
 .badge {
     background: rgba(49, 130, 246, 0.1);
     color: #3182f6;
@@ -122,6 +150,10 @@
         border: 1px solid rgba(255, 255, 255, 0.7);
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(248, 250, 255, 0.72) 100%);
         box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .intro-logo-shell {
+        width: min(62vw, 186px);
     }
 
     .title {

@@ -5,6 +5,15 @@ function Intro({ onStart }) {
     return (
         <div className="intro-container animate-fade-in flex-column flex-center">
             <div className="intro-content">
+                <div className="intro-logo-wrap animate-slide-up" style={{ animationDelay: '0.05s' }}>
+                    <div className="intro-logo-shell">
+                        <img
+                            className="intro-logo"
+                            src="/images/rb-logo-transparent.png"
+                            alt="R&B logo"
+                        />
+                    </div>
+                </div>
                 <div className="badge animate-slide-up" style={{ animationDelay: '0.1s' }}>
                     금융 초보자를 위한
                 </div>
