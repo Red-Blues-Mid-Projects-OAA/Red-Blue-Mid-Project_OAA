@@ -19,7 +19,7 @@ jobs:
       - x64
     timeout-minutes: 360
     permissions:
-      contents: read
+      contents: write
     env:
       PYTHON_VERSION: "3.14.2"
       ORACLE_USER: ${{ secrets.ORACLE_USER }}
@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Allow PowerShell script execution on self-hosted runner
         shell: cmd
@@ -74,3 +76,22 @@ jobs:
         run: |
           $bash = "C:\Program Files\Git\bin\bash.exe"
           & $bash -c "sed -i 's/\r$//' scripts/run_pipeline_300.sh && chmod +x scripts/run_pipeline_300.sh && ./scripts/run_pipeline_300.sh"
+
+      - name: Export backend demo snapshot
+        shell: powershell
+        run: |
+          python -u -m DB.export_demo_snapshot --lookback-days 450
+
+      - name: Commit generated JSON artifacts
+        shell: powershell
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Classification/artifacts investment-mbti-back/data/demo_snapshot.json
+          $hasChanges = git diff --cached --name-only
+          if (-not $hasChanges) {
+            Write-Host "No generated JSON changes to commit."
+            exit 0
+          }
+          git commit -m "chore: refresh generated demo snapshot and artifacts"
+          git push origin "HEAD:${{ github.ref_name }}"

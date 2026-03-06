@@ -21,6 +21,7 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from DB import StockDBManager
+from demo_snapshot import load_demo_snapshot
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -32,6 +33,57 @@ _chart_cache = {
 }
 
 
+def _load_chart_cache_from_snapshot() -> bool:
+    try:
+        snapshot = load_demo_snapshot()
+    except FileNotFoundError as e:
+        print(f"  [SYNC][CHART][SNAPSHOT][MISS] {e}")
+        return False
+    except Exception as e:
+        print(f"  [SYNC][CHART][SNAPSHOT][ERROR] {e}")
+        return False
+
+    log_records = snapshot.get("log_returns") or []
+    sp500_records = snapshot.get("sp500_data") or []
+
+    log_ret_df = pd.DataFrame()
+    if log_records:
+        log_df = pd.DataFrame(log_records)
+        if {"TRADE_DATE", "TICKER", "LOG_RETURN"}.issubset(log_df.columns):
+            log_df["TRADE_DATE"] = pd.to_datetime(log_df["TRADE_DATE"], errors="coerce")
+            log_df["LOG_RETURN"] = pd.to_numeric(log_df["LOG_RETURN"], errors="coerce")
+            log_df["TICKER"] = log_df["TICKER"].astype(str).str.strip().str.upper()
+            log_df = log_df.dropna(subset=["TRADE_DATE", "TICKER", "LOG_RETURN"])
+            if not log_df.empty:
+                log_ret_df = (
+                    log_df.sort_values(["TRADE_DATE", "TICKER"])
+                    .pivot(index="TRADE_DATE", columns="TICKER", values="LOG_RETURN")
+                    .sort_index()
+                )
+
+    sp500_df = pd.DataFrame()
+    if sp500_records:
+        sp_df = pd.DataFrame(sp500_records)
+        if {"TRADE_DATE", "LOG_RETURN"}.issubset(sp_df.columns):
+            sp_df["TRADE_DATE"] = pd.to_datetime(sp_df["TRADE_DATE"], errors="coerce")
+            sp_df["LOG_RETURN"] = pd.to_numeric(sp_df["LOG_RETURN"], errors="coerce")
+            sp_df = sp_df.dropna(subset=["TRADE_DATE", "LOG_RETURN"])
+            if not sp_df.empty:
+                sp500_df = sp_df.sort_values("TRADE_DATE").set_index("TRADE_DATE")[["LOG_RETURN"]]
+
+    if log_ret_df.empty and sp500_df.empty:
+        print("  [SYNC][CHART][SNAPSHOT][ERROR] snapshot chart payload is empty")
+        return False
+
+    _chart_cache["log_ret_df"] = log_ret_df
+    _chart_cache["sp500_df"] = sp500_df
+    print(
+        "  [SYNC][CHART][SNAPSHOT][OK] "
+        f"LOG_RETURNS: {len(log_ret_df)}일분, SP500_DATA: {len(sp500_df)}일분"
+    )
+    return True
+
+
 def load_chart_cache():
     """
     서버 시작 시 1회 호출되어 차트용 데이터를 메모리에 캐싱합니다.
@@ -39,7 +91,7 @@ def load_chart_cache():
     print("[Cache] 차트/수익률 데이터 캐싱 시작...")
     db = StockDBManager()
     try:
-        db.connect()
+        db.connect(ensure_tables=False)
         _chart_cache["log_ret_df"] = db.fetch_log_returns()
         _chart_cache["sp500_df"] = db.fetch_sp500_data()
 
@@ -52,10 +104,18 @@ def load_chart_cache():
         print(f"  [SYNC][CHART] LOG_RETURNS: {len(_chart_cache['log_ret_df'])}일분")
         print(f"  [SYNC][CHART] SP500_DATA: {len(_chart_cache['sp500_df'])}일분")
         print("[Cache] 차트용 데이터 캐싱 완료!")
+        if not _chart_cache["log_ret_df"].empty or not _chart_cache["sp500_df"].empty:
+            return
     except Exception as e:
         print(f"  [SYNC][CHART][ERROR] {e}")
     finally:
         db.close()
+
+    if _load_chart_cache_from_snapshot():
+        print("[Cache] 차트용 snapshot fallback loaded!")
+        return
+
+    print("[Cache] 차트 데이터를 사용할 수 없습니다.")
 
 
 

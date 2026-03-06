@@ -17,6 +17,7 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from DB import StockDBManager
+from demo_snapshot import load_demo_snapshot
 from risk_profile import get_lambda_by_level
 
 # ──────────────────────────────────────────────────────────────────
@@ -201,6 +202,76 @@ def _build_risk_snapshot_by_level(df: pd.DataFrame) -> dict[int, dict]:
 
     return result
 
+
+def _snapshot_records_to_dataframe(records, datetime_columns: list[str] | None = None) -> pd.DataFrame:
+    df = pd.DataFrame(records or [])
+    for column in datetime_columns or []:
+        if column in df.columns:
+            df[column] = pd.to_datetime(df[column], errors="coerce")
+    return df
+
+
+def _load_cache_from_demo_snapshot() -> bool:
+    try:
+        snapshot = load_demo_snapshot()
+    except FileNotFoundError as e:
+        _cache["last_stage"] = "snapshot_missing"
+        _cache["last_error"] = str(e)
+        print(f"  [SYNC][SNAPSHOT][MISS] {e}")
+        return False
+    except Exception as e:
+        _cache["last_stage"] = "snapshot_load"
+        _cache["last_error"] = str(e)
+        print(f"  [SYNC][SNAPSHOT][ERROR] {e}")
+        return False
+
+    source_df = _snapshot_records_to_dataframe(
+        snapshot.get("adjusted_expected_returns"),
+        datetime_columns=["Updated_At"],
+    )
+    if source_df.empty:
+        _cache["last_stage"] = "snapshot_empty"
+        _cache["last_error"] = "adjusted_expected_returns is empty in demo snapshot"
+        print("  [SYNC][SNAPSHOT][ERROR] adjusted_expected_returns is empty")
+        return False
+
+    source_df = _normalize_adjusted_returns_df(source_df)
+    filtered = _filter_candidates(source_df)
+
+    risk_snapshot_df = _snapshot_records_to_dataframe(
+        snapshot.get("risk_level_portfolio_snapshot"),
+        datetime_columns=["Updated_At"],
+    )
+    risk_snapshot_by_level = _build_risk_snapshot_by_level(risk_snapshot_df)
+
+    _cache["adj_returns_df"] = filtered
+    _cache["full_returns_df"] = source_df
+    _cache["cov_ticker_list"] = None
+    _cache["cov_matrix"] = None
+    _cache["ticker_to_cov_idx"] = None
+    _cache["variance_map"] = _build_variance_map_from_df(source_df)
+    _cache["all_returns_map"] = _build_all_returns_map(source_df)
+    _cache["snapshot_source"] = "demo_snapshot_json"
+    _cache["last_stage"] = "snapshot"
+    _cache["last_error"] = None
+    _cache["risk_snapshot_by_level"] = risk_snapshot_by_level
+    _cache["risk_snapshot_metrics_count"] = int(
+        sum(1 for data in risk_snapshot_by_level.values() if data.get("summary") is not None)
+    )
+    _cache["risk_snapshot_holdings_count"] = int(
+        sum(len(data.get("holdings", [])) for data in risk_snapshot_by_level.values())
+    )
+    _cache["risk_snapshot_stage"] = "ok" if risk_snapshot_by_level else "empty"
+    _cache["risk_snapshot_error"] = None if risk_snapshot_by_level else "snapshot risk data is empty"
+
+    print(
+        "  [SYNC][SNAPSHOT][OK] "
+        f"source={len(source_df)}, filtered={len(filtered)}, "
+        f"risk_levels={sorted(risk_snapshot_by_level.keys(), reverse=True)}"
+    )
+    return True
+
+
 def _filter_candidates(df: pd.DataFrame) -> pd.DataFrame:
     """추천 후보 필터(Gate 통과 + 양수 수익률)를 적용합니다."""
     # 한글 주석: 기존 서비스 규칙을 그대로 유지합니다.
@@ -273,7 +344,7 @@ def load_cache():
     db = StockDBManager()
     db_connected = False
     try:
-        db.connect()
+        db.connect(ensure_tables=False)
         db_connected = True
 
         try:
@@ -307,8 +378,11 @@ def load_cache():
     if source_df.empty:
         stage = _cache.get("last_stage")
         error = _cache.get("last_error")
+        if _load_cache_from_demo_snapshot():
+            print("[Cache] demo snapshot fallback loaded.\n")
+            return
         raise RuntimeError(
-            f"adjusted expected returns DB 조회 실패 (stage={stage}, error={error})"
+            f"adjusted expected returns DB load failed (stage={stage}, error={error})"
         )
 
     filtered = _filter_candidates(source_df)
@@ -346,7 +420,7 @@ def load_cache():
         snapshot_db = StockDBManager()
         snapshot_connected = False
         try:
-            snapshot_db.connect()
+            snapshot_db.connect(ensure_tables=False)
             snapshot_connected = True
             snapshot_df = snapshot_db.fetch_risk_level_portfolio_snapshot()
         finally:
