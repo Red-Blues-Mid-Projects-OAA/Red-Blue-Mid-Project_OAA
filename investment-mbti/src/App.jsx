@@ -179,9 +179,11 @@ function App() {
     }
   };
 
+  const isViewportLockedView =
+    currentView === 'INTRO' || currentView === 'INVESTMENT_AMOUNT';
 
   return (
-    <div className="app-container max-w-[1920px] mx-auto px-4 min-h-screen py-8">
+    <div className={`app-container max-w-[1920px] mx-auto ${isViewportLockedView ? 'app-container--fit-screen' : ''}`}>
       {currentView === 'INTRO' && <Intro onStart={handleStart} />}
 
       {currentView === 'INVESTMENT_AMOUNT' && (

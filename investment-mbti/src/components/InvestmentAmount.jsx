@@ -36,8 +36,8 @@ function InvestmentAmount({ onComplete, onBack }) {
     };
 
     return (
-        <div className="animate-fade-in flex flex-col items-center justify-start sm:justify-center min-h-[calc(100dvh-3rem)] px-4 sm:px-6 pt-8 sm:pt-0 pb-8">
-            <div className="w-full max-w-xl flex flex-col gap-7 sm:gap-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+        <div className="investment-amount-page animate-fade-in flex flex-col items-center justify-center">
+            <div className="w-full max-w-xl flex flex-col gap-6 sm:gap-9 animate-slide-up" style={{ animationDelay: '0.1s' }}>
 
                 {/* 상단: 제목 */}
                 <div className="text-center">
@@ -48,8 +48,8 @@ function InvestmentAmount({ onComplete, onBack }) {
 
                 {/* 중단: 입력 카드 */}
                 <div
-                    className="bg-white/95 border rounded-3xl py-10 sm:py-16 px-6 sm:px-10 shadow-sm flex flex-col items-center justify-center gap-4"
-                    style={{ borderColor: 'var(--card-border)', minHeight: '220px' }}
+                    className="bg-white/95 border rounded-3xl py-8 sm:py-16 px-6 sm:px-10 shadow-sm flex flex-col items-center justify-center gap-4"
+                    style={{ borderColor: 'var(--card-border)', minHeight: '200px' }}
                 >
                     <div className="flex items-center justify-center gap-3">
                         <input
@@ -88,7 +88,7 @@ function InvestmentAmount({ onComplete, onBack }) {
                 {/* 하단: 버튼 영역 */}
                 <div>
                     {/* 경고 슬롯 고정: 표시/숨김 시 다른 요소가 움직이지 않음 */}
-                    <div className="h-[40px] mb-6 sm:mb-10 relative">
+                    <div className="h-[40px] mb-5 sm:mb-9 relative">
                         <div
                             key={alertNonce}
                             className={`absolute inset-x-0 top-0 w-full mx-auto text-red-500 text-sm font-bold text-center
