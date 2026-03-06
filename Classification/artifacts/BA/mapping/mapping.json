@@ -1,12 +1,12 @@
 {
   "ticker": "BA",
-  "beta_ols": 1.0346996549150884,
-  "beta_ewma": 0.5437711732057392,
-  "beta_final": 0.8874211104022837,
+  "beta_ols": 1.0366866417420066,
+  "beta_ewma": 0.6534403015974718,
+  "beta_final": 0.9217127396986461,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.022912780035898507,
+  "expected_capm_return_3m_log": 0.023455254184030286,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

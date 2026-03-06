@@ -1,12 +1,12 @@
 {
   "ticker": "CRH",
-  "beta_ols": 1.263588397977151,
-  "beta_ewma": 1.3832188891089803,
-  "beta_final": 1.2994775453166998,
+  "beta_ols": 1.265052414279199,
+  "beta_ewma": 1.4235953582199947,
+  "beta_final": 1.3126152974614376,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.029411882776624102,
+  "expected_capm_return_3m_log": 0.029618402922017655,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

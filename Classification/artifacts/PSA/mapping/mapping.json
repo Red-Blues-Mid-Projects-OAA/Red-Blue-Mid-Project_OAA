@@ -1,12 +1,12 @@
 {
   "ticker": "PSA",
-  "beta_ols": 0.44031566987127724,
-  "beta_ewma": 0.36446000124962946,
-  "beta_final": 0.41755896928478287,
+  "beta_ols": 0.44148683018077467,
+  "beta_ewma": 0.4455325863563996,
+  "beta_final": 0.4427005570334621,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.015450033547108251,
+  "expected_capm_return_3m_log": 0.01585076685178887,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

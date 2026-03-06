@@ -1,12 +1,12 @@
 {
   "ticker": "UNH",
-  "beta_ols": 0.26250842478043146,
-  "beta_ewma": 0.5047329632964835,
-  "beta_final": 0.3351757863352471,
+  "beta_ols": 0.2635057620462879,
+  "beta_ewma": 0.5476156701117596,
+  "beta_final": 0.3487387344659294,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0141357965859529,
+  "expected_capm_return_3m_log": 0.014352281488657574,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

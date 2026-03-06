@@ -1,12 +1,12 @@
 {
   "ticker": "INTC",
-  "beta_ols": 1.762038381234841,
-  "beta_ewma": 2.668228057343378,
-  "beta_final": 2.033895284067402,
+  "beta_ols": 1.7597110805145904,
+  "beta_ewma": 2.5378382161220183,
+  "beta_final": 1.9931492211968185,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.040891678793183145,
+  "expected_capm_return_3m_log": 0.040258212091405815,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

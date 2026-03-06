@@ -1,12 +1,12 @@
 {
   "ticker": "MAR",
-  "beta_ols": 1.0454054422903476,
-  "beta_ewma": 0.38491745544507516,
-  "beta_final": 0.8472590462367658,
+  "beta_ols": 1.0457434995725345,
+  "beta_ewma": 0.4241399401220609,
+  "beta_final": 0.8592624317373925,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02227706455042747,
+  "expected_capm_return_3m_log": 0.022467105548532318,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

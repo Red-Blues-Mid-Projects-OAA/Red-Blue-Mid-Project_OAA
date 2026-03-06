@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-06T01:48:36.457262+00:00",
+  "generated_at": "2026-03-06T05:53:23.115275+00:00",
   "lookback_days": 450,
   "source": "oracle_db",
   "adjusted_expected_returns": [
@@ -16,37 +16,37 @@
       "Adjustment": -0.146804,
       "Adjusted_E_Total": -0.123134,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AAPL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.007164,
-      "E_Total_3M": 0.017528,
+      "Original_E_Ret": -0.006979,
+      "E_Total_3M": 0.017714,
       "Realized_3M": -0.067691,
-      "Gap": -0.085219,
-      "Adj_Weight": -0.5622,
+      "Gap": -0.085405,
+      "Adj_Weight": -0.5631,
       "Vol_3M": 0.133995,
-      "Adjustment": -0.075327,
-      "Adjusted_E_Total": -0.057799,
+      "Adjustment": -0.075454,
+      "Adjusted_E_Total": -0.05774,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ABBV",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.016168,
-      "E_Total_3M": 0.008524,
+      "Original_E_Ret": -0.016498,
+      "E_Total_3M": 0.008195,
       "Realized_3M": 0.03537,
-      "Gap": 0.026845,
-      "Adj_Weight": 0.2718,
+      "Gap": 0.027175,
+      "Adj_Weight": 0.2749,
       "Vol_3M": 0.096293,
-      "Adjustment": 0.026171,
-      "Adjusted_E_Total": 0.034695,
+      "Adjustment": 0.026476,
+      "Adjusted_E_Total": 0.03467,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ABNB",
@@ -61,22 +61,22 @@
       "Adjustment": 0.052159,
       "Adjusted_E_Total": 0.08307,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ABT",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.006956,
-      "E_Total_3M": 0.031649,
+      "Original_E_Ret": 0.006846,
+      "E_Total_3M": 0.031539,
       "Realized_3M": -0.11401,
-      "Gap": -0.145659,
-      "Adj_Weight": -0.9639,
+      "Gap": -0.145549,
+      "Adj_Weight": -0.9638,
       "Vol_3M": 0.072897,
-      "Adjustment": -0.070266,
-      "Adjusted_E_Total": -0.038617,
+      "Adjustment": -0.070258,
+      "Adjusted_E_Total": -0.038719,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ACGL",
@@ -91,22 +91,22 @@
       "Adjustment": 0.035339,
       "Adjusted_E_Total": 0.045877,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ACN",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.024094,
-      "E_Total_3M": 0.000598,
+      "Original_E_Ret": -0.024102,
+      "E_Total_3M": 0.00059,
       "Realized_3M": -0.219736,
-      "Gap": -0.220334,
+      "Gap": -0.220326,
       "Adj_Weight": -0.9443,
       "Vol_3M": 0.124008,
-      "Adjustment": -0.117107,
-      "Adjusted_E_Total": -0.116508,
+      "Adjustment": -0.117106,
+      "Adjusted_E_Total": -0.116515,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ADBE",
@@ -121,22 +121,22 @@
       "Adjustment": -0.0828,
       "Adjusted_E_Total": -0.061472,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ADI",
-      "Gate_Passed": true,
-      "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.004072,
-      "E_Total_3M": 0.020621,
+      "Gate_Passed": false,
+      "Return_Type": "CAPM",
+      "Original_E_Ret": 0.033178,
+      "E_Total_3M": 0.033178,
       "Realized_3M": 0.162383,
-      "Gap": 0.141763,
-      "Adj_Weight": 0.7527,
+      "Gap": 0.129205,
+      "Adj_Weight": 0.7126,
       "Vol_3M": 0.144775,
-      "Adjustment": 0.108975,
-      "Adjusted_E_Total": 0.129595,
+      "Adjustment": 0.103167,
+      "Adjusted_E_Total": 0.136345,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ADP",
@@ -151,22 +151,22 @@
       "Adjustment": -0.07252,
       "Adjusted_E_Total": -0.053974,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ADSK",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.034887,
-      "E_Total_3M": -0.010194,
+      "Original_E_Ret": -0.034093,
+      "E_Total_3M": -0.009401,
       "Realized_3M": -0.149597,
-      "Gap": -0.139403,
-      "Adj_Weight": -0.8278,
+      "Gap": -0.140196,
+      "Adj_Weight": -0.8299,
       "Vol_3M": 0.118019,
-      "Adjustment": -0.097699,
-      "Adjusted_E_Total": -0.107893,
+      "Adjustment": -0.097948,
+      "Adjusted_E_Total": -0.107348,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AEP",
@@ -181,7 +181,7 @@
       "Adjustment": 0.0514,
       "Adjusted_E_Total": 0.059424,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AFL",
@@ -196,7 +196,7 @@
       "Adjustment": 0.007865,
       "Adjusted_E_Total": 0.021189,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AIG",
@@ -211,7 +211,7 @@
       "Adjustment": 0.012488,
       "Adjusted_E_Total": 0.043803,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AJG",
@@ -226,22 +226,22 @@
       "Adjustment": -0.05019,
       "Adjusted_E_Total": -0.038539,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ALL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.011569,
-      "E_Total_3M": 0.036262,
+      "Original_E_Ret": 0.011949,
+      "E_Total_3M": 0.036642,
       "Realized_3M": 0.045189,
-      "Gap": 0.008927,
-      "Adj_Weight": 0.212,
+      "Gap": 0.008547,
+      "Adj_Weight": 0.2032,
       "Vol_3M": 0.041474,
-      "Adjustment": 0.008791,
-      "Adjusted_E_Total": 0.045053,
+      "Adjustment": 0.008428,
+      "Adjusted_E_Total": 0.04507,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AMAT",
@@ -256,7 +256,7 @@
       "Adjustment": 0.159878,
       "Adjusted_E_Total": 0.204066,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AMD",
@@ -271,7 +271,7 @@
       "Adjustment": -0.125119,
       "Adjusted_E_Total": -0.07705,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AME",
@@ -286,7 +286,7 @@
       "Adjustment": 0.071614,
       "Adjusted_E_Total": 0.093898,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AMGN",
@@ -301,7 +301,7 @@
       "Adjustment": 0.071882,
       "Adjusted_E_Total": 0.090357,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AMP",
@@ -316,7 +316,7 @@
       "Adjustment": -0.033301,
       "Adjusted_E_Total": -0.004295,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AMT",
@@ -331,7 +331,7 @@
       "Adjustment": 0.047762,
       "Adjusted_E_Total": 0.053641,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AMZN",
@@ -346,7 +346,7 @@
       "Adjustment": -0.06893,
       "Adjusted_E_Total": -0.039073,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ANET",
@@ -361,7 +361,7 @@
       "Adjustment": 0.038282,
       "Adjusted_E_Total": 0.08047,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AON",
@@ -376,22 +376,22 @@
       "Adjustment": -0.028514,
       "Adjusted_E_Total": -0.016228,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "APD",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.005795,
-      "E_Total_3M": 0.018897,
+      "Original_E_Ret": -0.006249,
+      "E_Total_3M": 0.018443,
       "Realized_3M": 0.065609,
-      "Gap": 0.046712,
-      "Adj_Weight": 0.4353,
+      "Gap": 0.047166,
+      "Adj_Weight": 0.4389,
       "Vol_3M": 0.100157,
-      "Adjustment": 0.043596,
-      "Adjusted_E_Total": 0.062493,
+      "Adjustment": 0.043963,
+      "Adjusted_E_Total": 0.062406,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "APH",
@@ -406,7 +406,7 @@
       "Adjustment": -0.053289,
       "Adjusted_E_Total": -0.018445,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "APO",
@@ -421,7 +421,7 @@
       "Adjustment": -0.131198,
       "Adjusted_E_Total": -0.093918,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "APP",
@@ -436,7 +436,7 @@
       "Adjustment": -0.2541,
       "Adjusted_E_Total": -0.194206,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ATO",
@@ -451,7 +451,7 @@
       "Adjustment": 0.0441,
       "Adjusted_E_Total": 0.054624,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AVGO",
@@ -466,7 +466,7 @@
       "Adjustment": -0.157993,
       "Adjusted_E_Total": -0.118508,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AXON",
@@ -481,22 +481,22 @@
       "Adjustment": 0.004072,
       "Adjusted_E_Total": 0.034851,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AXP",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.017317,
-      "E_Total_3M": 0.04201,
+      "Original_E_Ret": 0.016475,
+      "E_Total_3M": 0.041168,
       "Realized_3M": -0.184698,
-      "Gap": -0.226708,
-      "Adj_Weight": -0.9497,
+      "Gap": -0.225866,
+      "Adj_Weight": -0.949,
       "Vol_3M": 0.123985,
-      "Adjustment": -0.117746,
-      "Adjusted_E_Total": -0.075736,
+      "Adjustment": -0.117663,
+      "Adjusted_E_Total": -0.076495,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "AZO",
@@ -511,7 +511,7 @@
       "Adjustment": -0.033879,
       "Adjusted_E_Total": -0.019988,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BA",
@@ -526,7 +526,7 @@
       "Adjustment": 0.066755,
       "Adjusted_E_Total": 0.090211,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BAC",
@@ -541,7 +541,7 @@
       "Adjustment": -0.08262,
       "Adjusted_E_Total": -0.057293,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BDX",
@@ -556,52 +556,52 @@
       "Adjustment": 0.0854,
       "Adjusted_E_Total": 0.101755,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BK",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.000798,
-      "E_Total_3M": 0.023894,
+      "Original_E_Ret": -0.000787,
+      "E_Total_3M": 0.023905,
       "Realized_3M": 0.027738,
-      "Gap": 0.003844,
-      "Adj_Weight": 0.0514,
+      "Gap": 0.003833,
+      "Adj_Weight": 0.0513,
       "Vol_3M": 0.074642,
-      "Adjustment": 0.00384,
+      "Adjustment": 0.00383,
       "Adjusted_E_Total": 0.027735,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BKNG",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.002234,
-      "E_Total_3M": 0.026926,
+      "Original_E_Ret": 0.002206,
+      "E_Total_3M": 0.026898,
       "Realized_3M": -0.11915,
-      "Gap": -0.146077,
-      "Adj_Weight": -0.8566,
+      "Gap": -0.146049,
+      "Adj_Weight": -0.8565,
       "Vol_3M": 0.1141,
-      "Adjustment": -0.097732,
-      "Adjusted_E_Total": -0.070806,
+      "Adjustment": -0.097725,
+      "Adjusted_E_Total": -0.070826,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BKR",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.016908,
-      "E_Total_3M": 0.007784,
+      "Original_E_Ret": -0.017101,
+      "E_Total_3M": 0.007591,
       "Realized_3M": 0.205378,
-      "Gap": 0.197594,
-      "Adj_Weight": 0.8678,
+      "Gap": 0.197787,
+      "Adj_Weight": 0.8682,
       "Vol_3M": 0.149214,
-      "Adjustment": 0.129493,
-      "Adjusted_E_Total": 0.137277,
+      "Adjustment": 0.12954,
+      "Adjusted_E_Total": 0.137131,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BLK",
@@ -616,7 +616,7 @@
       "Adjustment": -0.056276,
       "Adjusted_E_Total": -0.028841,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BMY",
@@ -631,7 +631,7 @@
       "Adjustment": 0.11307,
       "Adjusted_E_Total": 0.1273,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BRK-B",
@@ -646,7 +646,7 @@
       "Adjustment": -0.020611,
       "Adjusted_E_Total": -0.007156,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BSX",
@@ -661,7 +661,7 @@
       "Adjustment": -0.098717,
       "Adjusted_E_Total": -0.085386,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "BX",
@@ -676,7 +676,7 @@
       "Adjustment": -0.167154,
       "Adjusted_E_Total": -0.130151,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "C",
@@ -691,7 +691,7 @@
       "Adjustment": -0.027443,
       "Adjusted_E_Total": 0.006184,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CAH",
@@ -706,7 +706,7 @@
       "Adjustment": 0.064833,
       "Adjusted_E_Total": 0.078073,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CARR",
@@ -721,7 +721,7 @@
       "Adjustment": 0.077781,
       "Adjusted_E_Total": 0.102707,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CAT",
@@ -736,7 +736,7 @@
       "Adjustment": 0.108479,
       "Adjusted_E_Total": 0.140656,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CB",
@@ -751,7 +751,7 @@
       "Adjustment": 0.057312,
       "Adjusted_E_Total": 0.067216,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CBOE",
@@ -766,7 +766,7 @@
       "Adjustment": 0.044789,
       "Adjusted_E_Total": 0.048822,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CBRE",
@@ -781,22 +781,22 @@
       "Adjustment": -0.103394,
       "Adjusted_E_Total": -0.075359,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CCI",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.040676,
-      "E_Total_3M": -0.015983,
+      "Original_E_Ret": -0.041055,
+      "E_Total_3M": -0.016362,
       "Realized_3M": 0.021009,
-      "Gap": 0.036992,
-      "Adj_Weight": 0.391,
+      "Gap": 0.037371,
+      "Adj_Weight": 0.3946,
       "Vol_3M": 0.089577,
-      "Adjustment": 0.035024,
-      "Adjusted_E_Total": 0.01904,
+      "Adjustment": 0.035344,
+      "Adjusted_E_Total": 0.018982,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CCL",
@@ -811,7 +811,7 @@
       "Adjustment": 0.016131,
       "Adjusted_E_Total": 0.05325,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CDNS",
@@ -826,7 +826,7 @@
       "Adjustment": -0.114577,
       "Adjusted_E_Total": -0.0762,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CEG",
@@ -841,7 +841,7 @@
       "Adjustment": -0.106635,
       "Adjusted_E_Total": -0.071565,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CHTR",
@@ -856,7 +856,7 @@
       "Adjustment": 0.088636,
       "Adjusted_E_Total": 0.108624,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CI",
@@ -871,7 +871,7 @@
       "Adjustment": 0.042204,
       "Adjusted_E_Total": 0.0547,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CIEN",
@@ -886,22 +886,22 @@
       "Adjustment": 0.260764,
       "Adjusted_E_Total": 0.30576,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.001808,
-      "E_Total_3M": 0.022885,
+      "Original_E_Ret": -0.001601,
+      "E_Total_3M": 0.023092,
       "Realized_3M": 0.177544,
-      "Gap": 0.154659,
-      "Adj_Weight": 0.9416,
+      "Gap": 0.154452,
+      "Adj_Weight": 0.9413,
       "Vol_3M": 0.088279,
-      "Adjustment": 0.083123,
-      "Adjusted_E_Total": 0.106008,
+      "Adjustment": 0.083099,
+      "Adjusted_E_Total": 0.106191,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CMCSA",
@@ -916,22 +916,22 @@
       "Adjustment": 0.104125,
       "Adjusted_E_Total": 0.12001,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CME",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.029386,
-      "E_Total_3M": -0.004693,
+      "Original_E_Ret": -0.028823,
+      "E_Total_3M": -0.00413,
       "Realized_3M": 0.161262,
-      "Gap": 0.165956,
-      "Adj_Weight": 0.9892,
+      "Gap": 0.165393,
+      "Adj_Weight": 0.989,
       "Vol_3M": 0.063631,
-      "Adjustment": 0.062944,
-      "Adjusted_E_Total": 0.058251,
+      "Adjustment": 0.062932,
+      "Adjusted_E_Total": 0.058802,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CMG",
@@ -946,7 +946,7 @@
       "Adjustment": 0.060792,
       "Adjusted_E_Total": 0.084628,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CMI",
@@ -961,7 +961,7 @@
       "Adjustment": 0.053727,
       "Adjusted_E_Total": 0.08659,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "COF",
@@ -976,7 +976,7 @@
       "Adjustment": -0.107346,
       "Adjusted_E_Total": -0.071089,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "COIN",
@@ -991,7 +991,7 @@
       "Adjustment": -0.270665,
       "Adjusted_E_Total": -0.206254,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "COP",
@@ -1006,7 +1006,7 @@
       "Adjustment": 0.103507,
       "Adjusted_E_Total": 0.120407,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "COR",
@@ -1021,7 +1021,7 @@
       "Adjustment": 0.041432,
       "Adjusted_E_Total": 0.05214,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "COST",
@@ -1036,7 +1036,7 @@
       "Adjustment": 0.050996,
       "Adjusted_E_Total": 0.066313,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CPRT",
@@ -1051,7 +1051,7 @@
       "Adjustment": -0.035247,
       "Adjusted_E_Total": -0.0165,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CRH",
@@ -1066,7 +1066,7 @@
       "Adjustment": -0.078937,
       "Adjusted_E_Total": -0.049319,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CRM",
@@ -1081,22 +1081,22 @@
       "Adjustment": -0.109176,
       "Adjusted_E_Total": -0.083606,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CRWD",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.040028,
-      "E_Total_3M": -0.015336,
+      "Original_E_Ret": -0.039321,
+      "E_Total_3M": -0.014629,
       "Realized_3M": -0.183568,
-      "Gap": -0.168233,
-      "Adj_Weight": -0.7576,
+      "Gap": -0.16894,
+      "Adj_Weight": -0.7594,
       "Vol_3M": 0.169836,
-      "Adjustment": -0.128668,
-      "Adjusted_E_Total": -0.144004,
+      "Adjustment": -0.128968,
+      "Adjusted_E_Total": -0.143597,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CSCO",
@@ -1111,22 +1111,22 @@
       "Adjustment": 0.002979,
       "Adjusted_E_Total": 0.031163,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CSX",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.001407,
-      "E_Total_3M": 0.0261,
+      "Original_E_Ret": 0.000554,
+      "E_Total_3M": 0.025247,
       "Realized_3M": 0.125406,
-      "Gap": 0.099307,
-      "Adj_Weight": 0.7176,
+      "Gap": 0.100159,
+      "Adj_Weight": 0.7214,
       "Vol_3M": 0.110008,
-      "Adjustment": 0.078944,
-      "Adjusted_E_Total": 0.105044,
+      "Adjustment": 0.079355,
+      "Adjusted_E_Total": 0.104602,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CTAS",
@@ -1141,22 +1141,22 @@
       "Adjustment": 0.062967,
       "Adjusted_E_Total": 0.07901,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CTVA",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.011834,
-      "E_Total_3M": 0.012858,
+      "Original_E_Ret": -0.010803,
+      "E_Total_3M": 0.013889,
       "Realized_3M": 0.148812,
-      "Gap": 0.135953,
-      "Adj_Weight": 0.8172,
+      "Gap": 0.134923,
+      "Adj_Weight": 0.8143,
       "Vol_3M": 0.118397,
-      "Adjustment": 0.096752,
-      "Adjusted_E_Total": 0.109611,
+      "Adjustment": 0.096407,
+      "Adjusted_E_Total": 0.110297,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CVNA",
@@ -1171,7 +1171,7 @@
       "Adjustment": -0.176419,
       "Adjusted_E_Total": -0.133077,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CVS",
@@ -1186,22 +1186,22 @@
       "Adjustment": 0.035174,
       "Adjusted_E_Total": 0.046997,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "CVX",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.000255,
-      "E_Total_3M": 0.024437,
+      "Original_E_Ret": -0.000201,
+      "E_Total_3M": 0.024492,
       "Realized_3M": 0.245597,
-      "Gap": 0.22116,
+      "Gap": 0.221105,
       "Adj_Weight": 0.9724,
       "Vol_3M": 0.103565,
-      "Adjustment": 0.100711,
-      "Adjusted_E_Total": 0.125149,
+      "Adjustment": 0.100709,
+      "Adjusted_E_Total": 0.1252,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "D",
@@ -1216,22 +1216,22 @@
       "Adjustment": 0.040451,
       "Adjusted_E_Total": 0.05088,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DAL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.005415,
-      "E_Total_3M": 0.019278,
+      "Original_E_Ret": -0.00548,
+      "E_Total_3M": 0.019213,
       "Realized_3M": -0.090241,
-      "Gap": -0.109519,
-      "Adj_Weight": -0.4432,
+      "Gap": -0.109454,
+      "Adj_Weight": -0.443,
       "Vol_3M": 0.229985,
-      "Adjustment": -0.101928,
-      "Adjusted_E_Total": -0.08265,
+      "Adjustment": -0.101876,
+      "Adjusted_E_Total": -0.082663,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DASH",
@@ -1246,37 +1246,37 @@
       "Adjustment": -0.150549,
       "Adjusted_E_Total": -0.117515,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DDOG",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.002661,
-      "E_Total_3M": 0.027354,
+      "Original_E_Ret": 0.002385,
+      "E_Total_3M": 0.027078,
       "Realized_3M": -0.213024,
-      "Gap": -0.240378,
-      "Adj_Weight": -0.7103,
+      "Gap": -0.240102,
+      "Adj_Weight": -0.7098,
       "Vol_3M": 0.270782,
-      "Adjustment": -0.192327,
-      "Adjusted_E_Total": -0.164973,
+      "Adjustment": -0.19219,
+      "Adjusted_E_Total": -0.165112,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DE",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.004618,
-      "E_Total_3M": 0.020074,
+      "Original_E_Ret": -0.004736,
+      "E_Total_3M": 0.019957,
       "Realized_3M": 0.221198,
-      "Gap": 0.201124,
-      "Adj_Weight": 0.9656,
+      "Gap": 0.201241,
+      "Adj_Weight": 0.9657,
       "Vol_3M": 0.099424,
-      "Adjustment": 0.096004,
-      "Adjusted_E_Total": 0.116079,
+      "Adjustment": 0.096012,
+      "Adjusted_E_Total": 0.115969,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DELL",
@@ -1291,7 +1291,7 @@
       "Adjustment": 0.015719,
       "Adjusted_E_Total": 0.057673,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DHI",
@@ -1306,7 +1306,7 @@
       "Adjustment": -0.064733,
       "Adjusted_E_Total": -0.049986,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DHR",
@@ -1321,37 +1321,37 @@
       "Adjustment": -0.090009,
       "Adjusted_E_Total": -0.069168,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DIS",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.02844,
-      "E_Total_3M": -0.003747,
+      "Original_E_Ret": -0.028304,
+      "E_Total_3M": -0.003611,
       "Realized_3M": -0.021086,
-      "Gap": -0.017339,
-      "Adj_Weight": -0.1192,
+      "Gap": -0.017475,
+      "Adj_Weight": -0.1201,
       "Vol_3M": 0.144799,
-      "Adjustment": -0.017257,
-      "Adjusted_E_Total": -0.021004,
+      "Adjustment": -0.017391,
+      "Adjusted_E_Total": -0.021002,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DLR",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.002157,
-      "E_Total_3M": 0.022535,
+      "Original_E_Ret": -0.002032,
+      "E_Total_3M": 0.02266,
       "Realized_3M": 0.095232,
-      "Gap": 0.072697,
-      "Adj_Weight": 0.5581,
+      "Gap": 0.072572,
+      "Adj_Weight": 0.5574,
       "Vol_3M": 0.115377,
-      "Adjustment": 0.064393,
-      "Adjusted_E_Total": 0.086928,
+      "Adjustment": 0.064307,
+      "Adjusted_E_Total": 0.086967,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DTE",
@@ -1366,7 +1366,7 @@
       "Adjustment": 0.055915,
       "Adjusted_E_Total": 0.065955,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "DUK",
@@ -1381,22 +1381,22 @@
       "Adjustment": 0.05228,
       "Adjusted_E_Total": 0.058966,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EA",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.016635,
-      "E_Total_3M": 0.008058,
+      "Original_E_Ret": -0.016854,
+      "E_Total_3M": 0.007839,
       "Realized_3M": -0.015618,
-      "Gap": -0.023676,
-      "Adj_Weight": -0.227,
+      "Gap": -0.023457,
+      "Adj_Weight": -0.225,
       "Vol_3M": 0.102472,
-      "Adjustment": -0.023263,
-      "Adjusted_E_Total": -0.015205,
+      "Adjustment": -0.023055,
+      "Adjusted_E_Total": -0.015216,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EBAY",
@@ -1411,22 +1411,22 @@
       "Adjustment": 0.082638,
       "Adjusted_E_Total": 0.103213,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ECL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.016089,
-      "E_Total_3M": 0.008604,
+      "Original_E_Ret": -0.015989,
+      "E_Total_3M": 0.008704,
       "Realized_3M": 0.102549,
-      "Gap": 0.093946,
-      "Adj_Weight": 0.9139,
+      "Gap": 0.093845,
+      "Adj_Weight": 0.9136,
       "Vol_3M": 0.060587,
-      "Adjustment": 0.055369,
-      "Adjusted_E_Total": 0.063973,
+      "Adjustment": 0.055353,
+      "Adjusted_E_Total": 0.064057,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ED",
@@ -1441,7 +1441,7 @@
       "Adjustment": 0.081086,
       "Adjusted_E_Total": 0.08431,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EL",
@@ -1456,7 +1456,7 @@
       "Adjustment": -0.111589,
       "Adjusted_E_Total": -0.079521,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ELV",
@@ -1471,22 +1471,22 @@
       "Adjustment": -0.12034,
       "Adjusted_E_Total": -0.104967,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EME",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.091536,
-      "E_Total_3M": 0.116228,
+      "Original_E_Ret": 0.092018,
+      "E_Total_3M": 0.11671,
       "Realized_3M": 0.142931,
-      "Gap": 0.026702,
-      "Adj_Weight": 0.1359,
+      "Gap": 0.02622,
+      "Adj_Weight": 0.1335,
       "Vol_3M": 0.195213,
-      "Adjustment": 0.026537,
-      "Adjusted_E_Total": 0.142765,
+      "Adjustment": 0.026064,
+      "Adjusted_E_Total": 0.142774,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EMR",
@@ -1501,7 +1501,7 @@
       "Adjustment": 0.007175,
       "Adjusted_E_Total": 0.038381,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EOG",
@@ -1516,7 +1516,7 @@
       "Adjustment": 0.087559,
       "Adjusted_E_Total": 0.102914,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EQIX",
@@ -1531,7 +1531,7 @@
       "Adjustment": 0.094912,
       "Adjusted_E_Total": 0.110699,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EQT",
@@ -1546,7 +1546,7 @@
       "Adjustment": 0.000372,
       "Adjusted_E_Total": 0.018998,
       "Adjustment_Applied": false,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ETN",
@@ -1561,7 +1561,7 @@
       "Adjustment": 0.01631,
       "Adjusted_E_Total": 0.049424,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ETR",
@@ -1576,7 +1576,7 @@
       "Adjustment": 0.051588,
       "Adjusted_E_Total": 0.065207,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EW",
@@ -1591,7 +1591,7 @@
       "Adjustment": -0.03888,
       "Adjusted_E_Total": -0.019814,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "EXC",
@@ -1606,7 +1606,7 @@
       "Adjustment": 0.066455,
       "Adjusted_E_Total": 0.072877,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "F",
@@ -1621,7 +1621,7 @@
       "Adjustment": -0.052979,
       "Adjusted_E_Total": -0.026039,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "FANG",
@@ -1636,22 +1636,22 @@
       "Adjustment": 0.081829,
       "Adjusted_E_Total": 0.101031,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "FAST",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.008321,
-      "E_Total_3M": 0.016371,
+      "Original_E_Ret": -0.009038,
+      "E_Total_3M": 0.015654,
       "Realized_3M": 0.136334,
-      "Gap": 0.119963,
-      "Adj_Weight": 0.7675,
+      "Gap": 0.12068,
+      "Adj_Weight": 0.77,
       "Vol_3M": 0.118286,
-      "Adjustment": 0.090782,
-      "Adjusted_E_Total": 0.107154,
+      "Adjustment": 0.091076,
+      "Adjusted_E_Total": 0.10673,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "FCX",
@@ -1666,7 +1666,7 @@
       "Adjustment": 0.172849,
       "Adjusted_E_Total": 0.208548,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "FDX",
@@ -1681,7 +1681,7 @@
       "Adjustment": 0.16181,
       "Adjusted_E_Total": 0.183522,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "FE",
@@ -1696,7 +1696,7 @@
       "Adjustment": 0.047964,
       "Adjusted_E_Total": 0.05771,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "FITB",
@@ -1711,22 +1711,22 @@
       "Adjustment": 0.049781,
       "Adjusted_E_Total": 0.075604,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "FIX",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.052185,
-      "E_Total_3M": 0.076878,
+      "Original_E_Ret": 0.05458,
+      "E_Total_3M": 0.079273,
       "Realized_3M": 0.297306,
-      "Gap": 0.220428,
-      "Adj_Weight": 0.6968,
+      "Gap": 0.218034,
+      "Adj_Weight": 0.6919,
       "Vol_3M": 0.256009,
-      "Adjustment": 0.178382,
-      "Adjusted_E_Total": 0.25526,
+      "Adjustment": 0.177142,
+      "Adjusted_E_Total": 0.256415,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "FTNT",
@@ -1741,22 +1741,22 @@
       "Adjustment": -0.051905,
       "Adjusted_E_Total": -0.025317,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GD",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.003439,
-      "E_Total_3M": 0.021253,
+      "Original_E_Ret": -0.00354,
+      "E_Total_3M": 0.021152,
       "Realized_3M": 0.071121,
-      "Gap": 0.049868,
-      "Adj_Weight": 0.752,
+      "Gap": 0.049969,
+      "Adj_Weight": 0.7528,
       "Vol_3M": 0.051016,
-      "Adjustment": 0.038363,
-      "Adjusted_E_Total": 0.059616,
+      "Adjustment": 0.038407,
+      "Adjusted_E_Total": 0.059559,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GE",
@@ -1771,7 +1771,7 @@
       "Adjustment": 0.080382,
       "Adjusted_E_Total": 0.109717,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GEHC",
@@ -1786,7 +1786,7 @@
       "Adjustment": -0.100139,
       "Adjusted_E_Total": -0.074396,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GEV",
@@ -1801,7 +1801,7 @@
       "Adjustment": 0.169983,
       "Adjusted_E_Total": 0.207449,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GILD",
@@ -1816,7 +1816,7 @@
       "Adjustment": 0.073183,
       "Adjusted_E_Total": 0.088262,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GLW",
@@ -1831,7 +1831,7 @@
       "Adjustment": 0.198845,
       "Adjusted_E_Total": 0.236203,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GM",
@@ -1846,37 +1846,37 @@
       "Adjustment": -0.023957,
       "Adjusted_E_Total": 0.002218,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GOOG",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.010154,
-      "E_Total_3M": 0.014538,
+      "Original_E_Ret": -0.009916,
+      "E_Total_3M": 0.014777,
       "Realized_3M": -0.067367,
-      "Gap": -0.081906,
-      "Adj_Weight": -0.4083,
+      "Gap": -0.082144,
+      "Adj_Weight": -0.4094,
       "Vol_3M": 0.188895,
-      "Adjustment": -0.077131,
-      "Adjusted_E_Total": -0.062593,
+      "Adjustment": -0.07733,
+      "Adjusted_E_Total": -0.062553,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GOOGL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.017489,
-      "E_Total_3M": 0.007204,
+      "Original_E_Ret": -0.016962,
+      "E_Total_3M": 0.007731,
       "Realized_3M": -0.064916,
-      "Gap": -0.07212,
-      "Adj_Weight": -0.3604,
+      "Gap": -0.072647,
+      "Adj_Weight": -0.3628,
       "Vol_3M": 0.191131,
-      "Adjustment": -0.068882,
-      "Adjusted_E_Total": -0.061678,
+      "Adjustment": -0.06934,
+      "Adjusted_E_Total": -0.061609,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GRMN",
@@ -1891,7 +1891,7 @@
       "Adjustment": 0.10699,
       "Adjusted_E_Total": 0.136995,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GS",
@@ -1906,7 +1906,7 @@
       "Adjustment": -0.053502,
       "Adjusted_E_Total": -0.019589,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "GWW",
@@ -1921,7 +1921,7 @@
       "Adjustment": 0.088418,
       "Adjusted_E_Total": 0.1089,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HAL",
@@ -1936,37 +1936,37 @@
       "Adjustment": 0.130534,
       "Adjusted_E_Total": 0.153713,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HBAN",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.013853,
-      "E_Total_3M": 0.038546,
+      "Original_E_Ret": 0.014846,
+      "E_Total_3M": 0.039538,
       "Realized_3M": -0.004332,
-      "Gap": -0.042879,
-      "Adj_Weight": -0.3399,
+      "Gap": -0.043871,
+      "Adj_Weight": -0.3472,
       "Vol_3M": 0.121113,
-      "Adjustment": -0.041173,
-      "Adjusted_E_Total": -0.002626,
+      "Adjustment": -0.042048,
+      "Adjusted_E_Total": -0.002509,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HCA",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.022323,
-      "E_Total_3M": 0.047015,
+      "Original_E_Ret": 0.022788,
+      "E_Total_3M": 0.047481,
       "Realized_3M": 0.095114,
-      "Gap": 0.048099,
-      "Adj_Weight": 0.6461,
+      "Gap": 0.047633,
+      "Adj_Weight": 0.6417,
       "Vol_3M": 0.062586,
-      "Adjustment": 0.040435,
-      "Adjusted_E_Total": 0.08745,
+      "Adjustment": 0.040162,
+      "Adjusted_E_Total": 0.087643,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HD",
@@ -1981,22 +1981,22 @@
       "Adjustment": 0.001283,
       "Adjusted_E_Total": 0.019741,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HIG",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.00763,
-      "E_Total_3M": 0.032322,
+      "Original_E_Ret": 0.007244,
+      "E_Total_3M": 0.031936,
       "Realized_3M": 0.076214,
-      "Gap": 0.043892,
-      "Adj_Weight": 0.79,
+      "Gap": 0.044277,
+      "Adj_Weight": 0.7936,
       "Vol_3M": 0.040961,
-      "Adjustment": 0.032361,
-      "Adjusted_E_Total": 0.064683,
+      "Adjustment": 0.032505,
+      "Adjusted_E_Total": 0.064441,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HLT",
@@ -2011,22 +2011,22 @@
       "Adjustment": 0.078646,
       "Adjusted_E_Total": 0.099499,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HON",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.012517,
-      "E_Total_3M": 0.012175,
+      "Original_E_Ret": -0.012364,
+      "E_Total_3M": 0.012328,
       "Realized_3M": 0.219866,
-      "Gap": 0.207691,
-      "Adj_Weight": 0.9591,
+      "Gap": 0.207538,
+      "Adj_Weight": 0.959,
       "Vol_3M": 0.107367,
-      "Adjustment": 0.102974,
-      "Adjusted_E_Total": 0.11515,
+      "Adjustment": 0.102962,
+      "Adjusted_E_Total": 0.11529,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HOOD",
@@ -2041,22 +2041,22 @@
       "Adjustment": -0.339379,
       "Adjusted_E_Total": -0.279168,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HPE",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.053332,
-      "E_Total_3M": 0.078024,
+      "Original_E_Ret": 0.053904,
+      "E_Total_3M": 0.078596,
       "Realized_3M": -0.077087,
-      "Gap": -0.155112,
-      "Adj_Weight": -0.5941,
+      "Gap": -0.155684,
+      "Adj_Weight": -0.5957,
       "Vol_3M": 0.226782,
-      "Adjustment": -0.13473,
-      "Adjusted_E_Total": -0.056705,
+      "Adjustment": -0.135099,
+      "Adjusted_E_Total": -0.056503,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HSY",
@@ -2071,52 +2071,52 @@
       "Adjustment": 0.090708,
       "Adjusted_E_Total": 0.099773,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "HWM",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.023603,
-      "E_Total_3M": 0.048295,
+      "Original_E_Ret": 0.024273,
+      "E_Total_3M": 0.048965,
       "Realized_3M": 0.279379,
-      "Gap": 0.231084,
-      "Adj_Weight": 0.9688,
+      "Gap": 0.230414,
+      "Adj_Weight": 0.9684,
       "Vol_3M": 0.11154,
-      "Adjustment": 0.108056,
-      "Adjusted_E_Total": 0.156351,
+      "Adjustment": 0.108014,
+      "Adjusted_E_Total": 0.15698,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "IBM",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.03002,
-      "E_Total_3M": 0.054713,
+      "Original_E_Ret": 0.030319,
+      "E_Total_3M": 0.055012,
       "Realized_3M": -0.176896,
-      "Gap": -0.231609,
-      "Adj_Weight": -0.9607,
+      "Gap": -0.231908,
+      "Adj_Weight": -0.9609,
       "Vol_3M": 0.118483,
-      "Adjustment": -0.113825,
-      "Adjusted_E_Total": -0.059113,
+      "Adjustment": -0.113848,
+      "Adjusted_E_Total": -0.058837,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ICE",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.004989,
-      "E_Total_3M": 0.019703,
+      "Original_E_Ret": -0.004757,
+      "E_Total_3M": 0.019936,
       "Realized_3M": 0.04139,
-      "Gap": 0.021686,
-      "Adj_Weight": 0.215,
+      "Gap": 0.021454,
+      "Adj_Weight": 0.2128,
       "Vol_3M": 0.099289,
-      "Adjustment": 0.021348,
-      "Adjusted_E_Total": 0.041051,
+      "Adjustment": 0.021126,
+      "Adjusted_E_Total": 0.041062,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "IDXX",
@@ -2131,7 +2131,7 @@
       "Adjustment": -0.106741,
       "Adjusted_E_Total": -0.079512,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "INTC",
@@ -2146,7 +2146,7 @@
       "Adjustment": 0.061962,
       "Adjusted_E_Total": 0.102221,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "INTU",
@@ -2161,7 +2161,7 @@
       "Adjustment": -0.19011,
       "Adjusted_E_Total": -0.166075,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "IR",
@@ -2176,22 +2176,22 @@
       "Adjustment": 0.08231,
       "Adjusted_E_Total": 0.109381,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ISRG",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.017093,
-      "E_Total_3M": 0.007599,
+      "Original_E_Ret": -0.01676,
+      "E_Total_3M": 0.007933,
       "Realized_3M": -0.146975,
-      "Gap": -0.154574,
-      "Adj_Weight": -0.7835,
+      "Gap": -0.154908,
+      "Adj_Weight": -0.7844,
       "Vol_3M": 0.146606,
-      "Adjustment": -0.114865,
-      "Adjusted_E_Total": -0.107266,
+      "Adjustment": -0.114993,
+      "Adjusted_E_Total": -0.10706,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ITW",
@@ -2206,22 +2206,22 @@
       "Adjustment": 0.070785,
       "Adjusted_E_Total": 0.089208,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "JBL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.017156,
-      "E_Total_3M": 0.041849,
+      "Original_E_Ret": 0.017953,
+      "E_Total_3M": 0.042645,
       "Realized_3M": 0.136676,
-      "Gap": 0.094827,
-      "Adj_Weight": 0.4598,
+      "Gap": 0.094031,
+      "Adj_Weight": 0.4565,
       "Vol_3M": 0.190791,
-      "Adjustment": 0.08772,
-      "Adjusted_E_Total": 0.129569,
+      "Adjustment": 0.087091,
+      "Adjusted_E_Total": 0.129736,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "JCI",
@@ -2236,7 +2236,7 @@
       "Adjustment": 0.095248,
       "Adjusted_E_Total": 0.12137,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "JNJ",
@@ -2251,22 +2251,22 @@
       "Adjustment": 0.076868,
       "Adjusted_E_Total": 0.084788,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "JPM",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.001121,
-      "E_Total_3M": 0.023571,
+      "Original_E_Ret": -0.001015,
+      "E_Total_3M": 0.023678,
       "Realized_3M": -0.066151,
-      "Gap": -0.089723,
-      "Adj_Weight": -0.7813,
+      "Gap": -0.089829,
+      "Adj_Weight": -0.7818,
       "Vol_3M": 0.085559,
-      "Adjustment": -0.066846,
-      "Adjusted_E_Total": -0.043275,
+      "Adjustment": -0.066887,
+      "Adjusted_E_Total": -0.04321,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KDP",
@@ -2281,7 +2281,7 @@
       "Adjustment": -0.024923,
       "Adjusted_E_Total": -0.013925,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KEYS",
@@ -2296,7 +2296,7 @@
       "Adjustment": 0.138948,
       "Adjusted_E_Total": 0.177256,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KHC",
@@ -2311,7 +2311,7 @@
       "Adjustment": -0.01488,
       "Adjusted_E_Total": -0.004151,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KKR",
@@ -2326,7 +2326,7 @@
       "Adjustment": -0.186515,
       "Adjusted_E_Total": -0.143279,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KLAC",
@@ -2341,7 +2341,7 @@
       "Adjustment": 0.09336,
       "Adjusted_E_Total": 0.137928,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KMB",
@@ -2356,7 +2356,7 @@
       "Adjustment": 0.009561,
       "Adjusted_E_Total": 0.018732,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KMI",
@@ -2371,7 +2371,7 @@
       "Adjustment": 0.070726,
       "Adjusted_E_Total": 0.085737,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KO",
@@ -2386,7 +2386,7 @@
       "Adjustment": 0.056006,
       "Adjusted_E_Total": 0.064131,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KR",
@@ -2401,7 +2401,7 @@
       "Adjustment": 0.071023,
       "Adjusted_E_Total": 0.074508,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "KVUE",
@@ -2416,7 +2416,7 @@
       "Adjustment": 0.069267,
       "Adjusted_E_Total": 0.080869,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LEN",
@@ -2431,7 +2431,7 @@
       "Adjustment": -0.118506,
       "Adjusted_E_Total": -0.102939,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LHX",
@@ -2446,7 +2446,7 @@
       "Adjustment": 0.087602,
       "Adjusted_E_Total": 0.102199,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LIN",
@@ -2461,7 +2461,7 @@
       "Adjustment": 0.082432,
       "Adjusted_E_Total": 0.099051,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LLY",
@@ -2476,7 +2476,7 @@
       "Adjustment": -0.040598,
       "Adjusted_E_Total": -0.024597,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LMT",
@@ -2491,7 +2491,7 @@
       "Adjustment": 0.121353,
       "Adjusted_E_Total": 0.132867,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LOW",
@@ -2506,7 +2506,7 @@
       "Adjustment": 0.011791,
       "Adjusted_E_Total": 0.029241,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LRCX",
@@ -2521,22 +2521,22 @@
       "Adjustment": 0.167282,
       "Adjusted_E_Total": 0.214358,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LVS",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.023779,
-      "E_Total_3M": 0.000913,
+      "Original_E_Ret": -0.023054,
+      "E_Total_3M": 0.001638,
       "Realized_3M": -0.178356,
-      "Gap": -0.17927,
-      "Adj_Weight": -0.6947,
+      "Gap": -0.179995,
+      "Adj_Weight": -0.6965,
       "Vol_3M": 0.209196,
-      "Adjustment": -0.145324,
-      "Adjusted_E_Total": -0.144411,
+      "Adjustment": -0.145699,
+      "Adjusted_E_Total": -0.14406,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "LYV",
@@ -2551,7 +2551,7 @@
       "Adjustment": 0.092085,
       "Adjusted_E_Total": 0.111913,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MA",
@@ -2566,7 +2566,7 @@
       "Adjustment": -0.041002,
       "Adjusted_E_Total": -0.020536,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MAR",
@@ -2581,7 +2581,7 @@
       "Adjustment": 0.088354,
       "Adjusted_E_Total": 0.110821,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MCD",
@@ -2596,7 +2596,7 @@
       "Adjustment": 0.031835,
       "Adjusted_E_Total": 0.042502,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MCHP",
@@ -2611,7 +2611,7 @@
       "Adjustment": -0.005574,
       "Adjusted_E_Total": 0.029939,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MCK",
@@ -2626,7 +2626,7 @@
       "Adjustment": 0.072601,
       "Adjusted_E_Total": 0.082508,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MCO",
@@ -2641,37 +2641,37 @@
       "Adjustment": -0.062272,
       "Adjusted_E_Total": -0.03633,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MDLZ",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.010573,
-      "E_Total_3M": 0.035265,
+      "Original_E_Ret": 0.010162,
+      "E_Total_3M": 0.034855,
       "Realized_3M": 0.06701,
-      "Gap": 0.031745,
-      "Adj_Weight": 0.3355,
+      "Gap": 0.032155,
+      "Adj_Weight": 0.3395,
       "Vol_3M": 0.09095,
-      "Adjustment": 0.030516,
-      "Adjusted_E_Total": 0.065781,
+      "Adjustment": 0.030879,
+      "Adjusted_E_Total": 0.065734,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MDT",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.012127,
-      "E_Total_3M": 0.012566,
+      "Original_E_Ret": -0.012067,
+      "E_Total_3M": 0.012626,
       "Realized_3M": -0.085972,
-      "Gap": -0.098538,
-      "Adj_Weight": -0.8897,
+      "Gap": -0.098598,
+      "Adj_Weight": -0.8899,
       "Vol_3M": 0.069366,
-      "Adjustment": -0.061716,
-      "Adjusted_E_Total": -0.04915,
+      "Adjustment": -0.061729,
+      "Adjusted_E_Total": -0.049103,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MET",
@@ -2686,7 +2686,7 @@
       "Adjustment": -0.054664,
       "Adjusted_E_Total": -0.028123,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "META",
@@ -2701,22 +2701,22 @@
       "Adjustment": -0.047721,
       "Adjusted_E_Total": -0.016856,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MLM",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.020051,
-      "E_Total_3M": 0.044743,
+      "Original_E_Ret": 0.020058,
+      "E_Total_3M": 0.04475,
       "Realized_3M": 0.013617,
-      "Gap": -0.031127,
-      "Adj_Weight": -0.3415,
+      "Gap": -0.031134,
+      "Adj_Weight": -0.3416,
       "Vol_3M": 0.087481,
-      "Adjustment": -0.029876,
-      "Adjusted_E_Total": 0.014867,
+      "Adjustment": -0.029883,
+      "Adjusted_E_Total": 0.014868,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MMM",
@@ -2731,7 +2731,7 @@
       "Adjustment": -0.060825,
       "Adjusted_E_Total": -0.037599,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MNST",
@@ -2746,37 +2746,37 @@
       "Adjustment": 0.025045,
       "Adjusted_E_Total": 0.038103,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MO",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.025692,
-      "E_Total_3M": 0.050384,
+      "Original_E_Ret": 0.025787,
+      "E_Total_3M": 0.05048,
       "Realized_3M": 0.162259,
-      "Gap": 0.111875,
-      "Adj_Weight": 0.825,
+      "Gap": 0.111779,
+      "Adj_Weight": 0.8247,
       "Vol_3M": 0.095431,
-      "Adjustment": 0.078732,
-      "Adjusted_E_Total": 0.129116,
+      "Adjustment": 0.078701,
+      "Adjusted_E_Total": 0.129181,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MPC",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.001067,
-      "E_Total_3M": 0.023626,
+      "Original_E_Ret": -0.000735,
+      "E_Total_3M": 0.023958,
       "Realized_3M": 0.136744,
-      "Gap": 0.113119,
-      "Adj_Weight": 0.7181,
+      "Gap": 0.112786,
+      "Adj_Weight": 0.7168,
       "Vol_3M": 0.125185,
-      "Adjustment": 0.089889,
-      "Adjusted_E_Total": 0.113515,
+      "Adjustment": 0.089728,
+      "Adjusted_E_Total": 0.113686,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MPWR",
@@ -2791,7 +2791,7 @@
       "Adjustment": 0.062074,
       "Adjusted_E_Total": 0.110508,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MRK",
@@ -2806,7 +2806,7 @@
       "Adjustment": 0.112331,
       "Adjusted_E_Total": 0.125466,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MRSH",
@@ -2821,37 +2821,37 @@
       "Adjustment": 0.009881,
       "Adjusted_E_Total": 0.022336,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MS",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.000157,
-      "E_Total_3M": 0.024536,
+      "Original_E_Ret": -0.000118,
+      "E_Total_3M": 0.024574,
       "Realized_3M": -0.076894,
-      "Gap": -0.10143,
-      "Adj_Weight": -0.679,
+      "Gap": -0.101469,
+      "Adj_Weight": -0.6792,
       "Vol_3M": 0.122598,
-      "Adjustment": -0.08325,
-      "Adjusted_E_Total": -0.058714,
+      "Adjustment": -0.08327,
+      "Adjusted_E_Total": -0.058696,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MSCI",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.014666,
-      "E_Total_3M": 0.010027,
+      "Original_E_Ret": -0.014553,
+      "E_Total_3M": 0.01014,
       "Realized_3M": 0.054557,
-      "Gap": 0.04453,
-      "Adj_Weight": 0.6413,
+      "Gap": 0.044417,
+      "Adj_Weight": 0.6401,
       "Vol_3M": 0.058566,
-      "Adjustment": 0.037557,
-      "Adjusted_E_Total": 0.047584,
+      "Adjustment": 0.03749,
+      "Adjusted_E_Total": 0.04763,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MSFT",
@@ -2866,7 +2866,7 @@
       "Adjustment": -0.124446,
       "Adjusted_E_Total": -0.099754,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MSI",
@@ -2881,7 +2881,7 @@
       "Adjustment": 0.120214,
       "Adjusted_E_Total": 0.134367,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MTB",
@@ -2896,7 +2896,7 @@
       "Adjustment": 0.068521,
       "Adjusted_E_Total": 0.092299,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "MU",
@@ -2911,7 +2911,7 @@
       "Adjustment": 0.272863,
       "Adjusted_E_Total": 0.321037,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NDAQ",
@@ -2926,7 +2926,7 @@
       "Adjustment": -0.044351,
       "Adjusted_E_Total": -0.018939,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NEE",
@@ -2941,7 +2941,7 @@
       "Adjustment": 0.057465,
       "Adjusted_E_Total": 0.070073,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NEM",
@@ -2956,7 +2956,7 @@
       "Adjustment": 0.095061,
       "Adjusted_E_Total": 0.120399,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NFLX",
@@ -2971,37 +2971,37 @@
       "Adjustment": -0.033497,
       "Adjusted_E_Total": -0.010364,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NKE",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.021331,
-      "E_Total_3M": 0.003362,
+      "Original_E_Ret": -0.020951,
+      "E_Total_3M": 0.003742,
       "Realized_3M": -0.126743,
-      "Gap": -0.130106,
-      "Adj_Weight": -0.6346,
+      "Gap": -0.130485,
+      "Adj_Weight": -0.6359,
       "Vol_3M": 0.173682,
-      "Adjustment": -0.110221,
-      "Adjusted_E_Total": -0.106859,
+      "Adjustment": -0.110447,
+      "Adjusted_E_Total": -0.106706,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NOC",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.001498,
-      "E_Total_3M": 0.026191,
+      "Original_E_Ret": 0.001379,
+      "E_Total_3M": 0.026072,
       "Realized_3M": 0.29862,
-      "Gap": 0.272429,
-      "Adj_Weight": 0.9917,
+      "Gap": 0.272548,
+      "Adj_Weight": 0.9918,
       "Vol_3M": 0.099341,
-      "Adjustment": 0.09852,
-      "Adjusted_E_Total": 0.12471,
+      "Adjustment": 0.098521,
+      "Adjusted_E_Total": 0.124593,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NOW",
@@ -3016,22 +3016,22 @@
       "Adjustment": -0.188128,
       "Adjusted_E_Total": -0.164869,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NRG",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.014332,
-      "E_Total_3M": 0.039025,
+      "Original_E_Ret": 0.014329,
+      "E_Total_3M": 0.039022,
       "Realized_3M": -0.012589,
-      "Gap": -0.051613,
-      "Adj_Weight": -0.2511,
+      "Gap": -0.051611,
+      "Adj_Weight": -0.251,
       "Vol_3M": 0.201187,
-      "Adjustment": -0.05051,
+      "Adjustment": -0.050508,
       "Adjusted_E_Total": -0.011485,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NSC",
@@ -3046,7 +3046,7 @@
       "Adjustment": 0.038539,
       "Adjusted_E_Total": 0.057346,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NUE",
@@ -3061,7 +3061,7 @@
       "Adjustment": 0.052328,
       "Adjusted_E_Total": 0.077027,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NVDA",
@@ -3076,22 +3076,22 @@
       "Adjustment": -0.036887,
       "Adjusted_E_Total": 0.005512,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "NXPI",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.007127,
-      "E_Total_3M": 0.03182,
+      "Original_E_Ret": 0.006774,
+      "E_Total_3M": 0.031466,
       "Realized_3M": -0.074804,
-      "Gap": -0.106624,
-      "Adj_Weight": -0.6647,
+      "Gap": -0.106271,
+      "Adj_Weight": -0.6632,
       "Vol_3M": 0.133073,
-      "Adjustment": -0.088458,
-      "Adjusted_E_Total": -0.056638,
+      "Adjustment": -0.08826,
+      "Adjusted_E_Total": -0.056794,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "O",
@@ -3106,7 +3106,7 @@
       "Adjustment": 0.047178,
       "Adjusted_E_Total": 0.056532,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ODFL",
@@ -3121,7 +3121,7 @@
       "Adjustment": 0.160227,
       "Adjusted_E_Total": 0.187897,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "OKE",
@@ -3136,22 +3136,22 @@
       "Adjustment": 0.086509,
       "Adjusted_E_Total": 0.10335,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ORCL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.018791,
-      "E_Total_3M": 0.043483,
+      "Original_E_Ret": 0.018402,
+      "E_Total_3M": 0.043095,
       "Realized_3M": -0.337857,
-      "Gap": -0.381341,
-      "Adj_Weight": -0.8162,
+      "Gap": -0.380952,
+      "Adj_Weight": -0.8158,
       "Vol_3M": 0.332939,
-      "Adjustment": -0.27175,
-      "Adjusted_E_Total": -0.228267,
+      "Adjustment": -0.271621,
+      "Adjusted_E_Total": -0.228526,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ORLY",
@@ -3166,7 +3166,7 @@
       "Adjustment": -0.050687,
       "Adjusted_E_Total": -0.039879,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "OTIS",
@@ -3181,7 +3181,7 @@
       "Adjustment": 0.03431,
       "Adjusted_E_Total": 0.047079,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "OXY",
@@ -3196,7 +3196,7 @@
       "Adjustment": 0.118623,
       "Adjusted_E_Total": 0.117,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PANW",
@@ -3211,7 +3211,7 @@
       "Adjustment": -0.118321,
       "Adjusted_E_Total": -0.094028,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PCAR",
@@ -3226,7 +3226,7 @@
       "Adjustment": 0.085333,
       "Adjusted_E_Total": 0.109452,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PCG",
@@ -3241,22 +3241,22 @@
       "Adjustment": 0.11149,
       "Adjusted_E_Total": 0.125504,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PEG",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.003302,
-      "E_Total_3M": 0.027995,
+      "Original_E_Ret": 0.003183,
+      "E_Total_3M": 0.027876,
       "Realized_3M": 0.0612,
-      "Gap": 0.033205,
-      "Adj_Weight": 0.577,
+      "Gap": 0.033324,
+      "Adj_Weight": 0.5786,
       "Vol_3M": 0.050465,
-      "Adjustment": 0.029119,
-      "Adjusted_E_Total": 0.057114,
+      "Adjustment": 0.029198,
+      "Adjusted_E_Total": 0.057075,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PEP",
@@ -3271,22 +3271,22 @@
       "Adjustment": 0.069153,
       "Adjusted_E_Total": 0.078872,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PFE",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.003396,
-      "E_Total_3M": 0.028089,
+      "Original_E_Ret": 0.002646,
+      "E_Total_3M": 0.027339,
       "Realized_3M": 0.03865,
-      "Gap": 0.010561,
-      "Adj_Weight": 0.1275,
+      "Gap": 0.011311,
+      "Adj_Weight": 0.1364,
       "Vol_3M": 0.082378,
-      "Adjustment": 0.010504,
-      "Adjusted_E_Total": 0.038592,
+      "Adjustment": 0.01124,
+      "Adjusted_E_Total": 0.038579,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PG",
@@ -3301,7 +3301,7 @@
       "Adjustment": 0.042349,
       "Adjusted_E_Total": 0.050375,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PGR",
@@ -3316,7 +3316,7 @@
       "Adjustment": -0.005235,
       "Adjusted_E_Total": 0.004773,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PH",
@@ -3331,7 +3331,7 @@
       "Adjustment": 0.060433,
       "Adjusted_E_Total": 0.087525,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PLD",
@@ -3346,7 +3346,7 @@
       "Adjustment": 0.054671,
       "Adjusted_E_Total": 0.073524,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PLTR",
@@ -3361,22 +3361,22 @@
       "Adjustment": -0.160781,
       "Adjusted_E_Total": -0.117941,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PM",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.000939,
-      "E_Total_3M": 0.025631,
+      "Original_E_Ret": 0.000902,
+      "E_Total_3M": 0.025594,
       "Realized_3M": 0.147184,
-      "Gap": 0.121553,
-      "Adj_Weight": 0.7213,
+      "Gap": 0.12159,
+      "Adj_Weight": 0.7214,
       "Vol_3M": 0.13352,
-      "Adjustment": 0.096309,
-      "Adjusted_E_Total": 0.121941,
+      "Adjustment": 0.096327,
+      "Adjusted_E_Total": 0.121922,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PNC",
@@ -3391,7 +3391,7 @@
       "Adjustment": 0.05161,
       "Adjusted_E_Total": 0.075963,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PRU",
@@ -3406,7 +3406,7 @@
       "Adjustment": -0.073137,
       "Adjusted_E_Total": -0.047711,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PSA",
@@ -3421,7 +3421,7 @@
       "Adjustment": 0.052436,
       "Adjusted_E_Total": 0.068287,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PSX",
@@ -3436,37 +3436,37 @@
       "Adjustment": 0.098474,
       "Adjusted_E_Total": 0.119349,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PWR",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.000143,
-      "E_Total_3M": 0.024835,
+      "Original_E_Ret": 0.000669,
+      "E_Total_3M": 0.025362,
       "Realized_3M": 0.176143,
-      "Gap": 0.151307,
-      "Adj_Weight": 0.6921,
+      "Gap": 0.150781,
+      "Adj_Weight": 0.6906,
       "Vol_3M": 0.177592,
-      "Adjustment": 0.122913,
-      "Adjusted_E_Total": 0.147748,
+      "Adjustment": 0.122638,
+      "Adjusted_E_Total": 0.148,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "PYPL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.008586,
-      "E_Total_3M": 0.016107,
+      "Original_E_Ret": -0.00814,
+      "E_Total_3M": 0.016552,
       "Realized_3M": -0.267968,
-      "Gap": -0.284075,
-      "Adj_Weight": -0.9403,
+      "Gap": -0.28452,
+      "Adj_Weight": -0.9406,
       "Vol_3M": 0.163198,
-      "Adjustment": -0.153456,
-      "Adjusted_E_Total": -0.137349,
+      "Adjustment": -0.153507,
+      "Adjusted_E_Total": -0.136955,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "QCOM",
@@ -3481,7 +3481,7 @@
       "Adjustment": -0.111301,
       "Adjusted_E_Total": -0.075521,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "RCL",
@@ -3496,7 +3496,7 @@
       "Adjustment": 0.064656,
       "Adjusted_E_Total": 0.095767,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "REGN",
@@ -3511,22 +3511,22 @@
       "Adjustment": 0.042885,
       "Adjusted_E_Total": 0.063119,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "RMD",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.014668,
-      "E_Total_3M": 0.010025,
+      "Original_E_Ret": -0.015359,
+      "E_Total_3M": 0.009334,
       "Realized_3M": -0.002492,
-      "Gap": -0.012517,
-      "Adj_Weight": -0.1207,
+      "Gap": -0.011826,
+      "Adj_Weight": -0.1141,
       "Vol_3M": 0.103199,
-      "Adjustment": -0.012456,
-      "Adjusted_E_Total": -0.002431,
+      "Adjustment": -0.011774,
+      "Adjusted_E_Total": -0.002441,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ROK",
@@ -3541,7 +3541,7 @@
       "Adjustment": -0.084465,
       "Adjusted_E_Total": -0.053414,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ROL",
@@ -3556,7 +3556,7 @@
       "Adjustment": -0.04574,
       "Adjusted_E_Total": -0.03096,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ROP",
@@ -3571,7 +3571,7 @@
       "Adjustment": -0.097047,
       "Adjusted_E_Total": -0.075786,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ROST",
@@ -3586,7 +3586,7 @@
       "Adjustment": 0.104112,
       "Adjusted_E_Total": 0.125146,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "RSG",
@@ -3601,7 +3601,7 @@
       "Adjustment": 0.051304,
       "Adjusted_E_Total": 0.062728,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "RTX",
@@ -3616,7 +3616,7 @@
       "Adjustment": 0.05732,
       "Adjusted_E_Total": 0.073856,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SBUX",
@@ -3631,7 +3631,7 @@
       "Adjustment": 0.099093,
       "Adjusted_E_Total": 0.122879,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SCHW",
@@ -3646,7 +3646,7 @@
       "Adjustment": -0.003695,
       "Adjusted_E_Total": 0.020179,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SHW",
@@ -3661,7 +3661,7 @@
       "Adjustment": -0.011148,
       "Adjusted_E_Total": 0.007184,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SLB",
@@ -3676,7 +3676,7 @@
       "Adjustment": 0.135325,
       "Adjusted_E_Total": 0.160377,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SNDK",
@@ -3691,7 +3691,7 @@
       "Adjustment": 0.511416,
       "Adjusted_E_Total": 0.559659,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SNPS",
@@ -3706,7 +3706,7 @@
       "Adjustment": -0.086211,
       "Adjusted_E_Total": -0.048343,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SO",
@@ -3721,7 +3721,7 @@
       "Adjustment": 0.055714,
       "Adjusted_E_Total": 0.062214,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SPG",
@@ -3736,22 +3736,22 @@
       "Adjustment": 0.066404,
       "Adjusted_E_Total": 0.086272,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SPGI",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -5e-06,
-      "E_Total_3M": 0.024688,
+      "Original_E_Ret": -0.000107,
+      "E_Total_3M": 0.024586,
       "Realized_3M": -0.099933,
-      "Gap": -0.12462,
-      "Adj_Weight": -0.881,
+      "Gap": -0.124518,
+      "Adj_Weight": -0.8807,
       "Vol_3M": 0.090303,
-      "Adjustment": -0.079553,
-      "Adjusted_E_Total": -0.054865,
+      "Adjustment": -0.07953,
+      "Adjusted_E_Total": -0.054945,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SRE",
@@ -3766,7 +3766,7 @@
       "Adjustment": 0.026849,
       "Adjusted_E_Total": 0.042324,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "STT",
@@ -3781,7 +3781,7 @@
       "Adjustment": -0.010561,
       "Adjusted_E_Total": 0.018862,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "STX",
@@ -3796,7 +3796,7 @@
       "Adjustment": 0.187663,
       "Adjusted_E_Total": 0.225288,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SYK",
@@ -3811,37 +3811,37 @@
       "Adjustment": 0.003447,
       "Adjusted_E_Total": 0.020128,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "SYY",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.003752,
-      "E_Total_3M": 0.020941,
+      "Original_E_Ret": -0.00403,
+      "E_Total_3M": 0.020662,
       "Realized_3M": 0.167312,
-      "Gap": 0.146372,
-      "Adj_Weight": 0.9409,
+      "Gap": 0.14665,
+      "Adj_Weight": 0.9413,
       "Vol_3M": 0.083832,
-      "Adjustment": 0.078879,
-      "Adjusted_E_Total": 0.09982,
+      "Adjustment": 0.078911,
+      "Adjusted_E_Total": 0.099574,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "T",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.00071,
-      "E_Total_3M": 0.023982,
+      "Original_E_Ret": -0.000678,
+      "E_Total_3M": 0.024015,
       "Realized_3M": 0.147903,
-      "Gap": 0.123921,
+      "Gap": 0.123888,
       "Adj_Weight": 0.8356,
       "Vol_3M": 0.102705,
-      "Adjustment": 0.085825,
-      "Adjusted_E_Total": 0.109808,
+      "Adjustment": 0.085815,
+      "Adjusted_E_Total": 0.10983,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TDG",
@@ -3856,7 +3856,7 @@
       "Adjustment": -0.050517,
       "Adjusted_E_Total": -0.028778,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TEL",
@@ -3871,7 +3871,7 @@
       "Adjustment": -0.101827,
       "Adjusted_E_Total": -0.070025,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TER",
@@ -3886,7 +3886,7 @@
       "Adjustment": 0.28206,
       "Adjusted_E_Total": 0.328082,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TFC",
@@ -3901,7 +3901,7 @@
       "Adjustment": 0.003834,
       "Adjusted_E_Total": 0.029826,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TGT",
@@ -3916,7 +3916,7 @@
       "Adjustment": 0.162015,
       "Adjusted_E_Total": 0.181799,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TJX",
@@ -3931,7 +3931,7 @@
       "Adjustment": 0.033278,
       "Adjusted_E_Total": 0.046184,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TMO",
@@ -3946,7 +3946,7 @@
       "Adjustment": -0.104006,
       "Adjusted_E_Total": -0.083751,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TMUS",
@@ -3961,7 +3961,7 @@
       "Adjustment": 0.041165,
       "Adjusted_E_Total": 0.048753,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TPL",
@@ -3976,7 +3976,7 @@
       "Adjustment": 0.198075,
       "Adjusted_E_Total": 0.226394,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TRGP",
@@ -3991,37 +3991,37 @@
       "Adjustment": 0.136276,
       "Adjusted_E_Total": 0.15708,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TRV",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.005192,
-      "E_Total_3M": 0.019501,
+      "Original_E_Ret": -0.005228,
+      "E_Total_3M": 0.019465,
       "Realized_3M": 0.091659,
-      "Gap": 0.072158,
+      "Gap": 0.072194,
       "Adj_Weight": 0.9677,
       "Vol_3M": 0.035127,
-      "Adjustment": 0.033991,
-      "Adjusted_E_Total": 0.053492,
+      "Adjustment": 0.033994,
+      "Adjusted_E_Total": 0.053458,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TSLA",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.051602,
-      "E_Total_3M": -0.026909,
+      "Original_E_Ret": -0.052102,
+      "E_Total_3M": -0.02741,
       "Realized_3M": -0.115053,
-      "Gap": -0.088144,
-      "Adj_Weight": -0.3172,
+      "Gap": -0.087644,
+      "Adj_Weight": -0.3155,
       "Vol_3M": 0.268301,
-      "Adjustment": -0.085104,
-      "Adjusted_E_Total": -0.112013,
+      "Adjustment": -0.084654,
+      "Adjusted_E_Total": -0.112063,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TT",
@@ -4036,7 +4036,7 @@
       "Adjustment": 0.054298,
       "Adjusted_E_Total": 0.079804,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TTWO",
@@ -4051,37 +4051,37 @@
       "Adjustment": -0.090247,
       "Adjusted_E_Total": -0.066545,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "TXN",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.005222,
-      "E_Total_3M": 0.029915,
+      "Original_E_Ret": 0.004978,
+      "E_Total_3M": 0.029671,
       "Realized_3M": 0.087703,
-      "Gap": 0.057788,
-      "Adj_Weight": 0.3215,
+      "Gap": 0.058032,
+      "Adj_Weight": 0.3227,
       "Vol_3M": 0.173387,
-      "Adjustment": 0.055739,
-      "Adjusted_E_Total": 0.085654,
+      "Adjustment": 0.055958,
+      "Adjusted_E_Total": 0.085629,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "UAL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.00236,
-      "E_Total_3M": 0.027053,
+      "Original_E_Ret": 0.003438,
+      "E_Total_3M": 0.02813,
       "Realized_3M": -0.095091,
-      "Gap": -0.122144,
-      "Adj_Weight": -0.4797,
+      "Gap": -0.123221,
+      "Adj_Weight": -0.4832,
       "Vol_3M": 0.233746,
-      "Adjustment": -0.11212,
-      "Adjusted_E_Total": -0.085067,
+      "Adjustment": -0.112948,
+      "Adjusted_E_Total": -0.084817,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "UBER",
@@ -4096,7 +4096,7 @@
       "Adjustment": -0.128077,
       "Adjusted_E_Total": -0.102894,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "UNH",
@@ -4111,22 +4111,22 @@
       "Adjustment": -0.130006,
       "Adjusted_E_Total": -0.115654,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "UNP",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.022875,
-      "E_Total_3M": 0.001818,
+      "Original_E_Ret": -0.023227,
+      "E_Total_3M": 0.001465,
       "Realized_3M": 0.100547,
-      "Gap": 0.098729,
-      "Adj_Weight": 0.8849,
+      "Gap": 0.099082,
+      "Adj_Weight": 0.8859,
       "Vol_3M": 0.070634,
-      "Adjustment": 0.062501,
-      "Adjusted_E_Total": 0.064319,
+      "Adjustment": 0.062577,
+      "Adjusted_E_Total": 0.064043,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "UPS",
@@ -4141,37 +4141,37 @@
       "Adjustment": 0.079608,
       "Adjusted_E_Total": 0.098604,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "URI",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.076719,
-      "E_Total_3M": 0.101412,
+      "Original_E_Ret": 0.076927,
+      "E_Total_3M": 0.101619,
       "Realized_3M": 0.058392,
-      "Gap": -0.04302,
-      "Adj_Weight": -0.2248,
+      "Gap": -0.043227,
+      "Adj_Weight": -0.2259,
       "Vol_3M": 0.188076,
-      "Adjustment": -0.042285,
-      "Adjusted_E_Total": 0.059127,
+      "Adjustment": -0.042482,
+      "Adjusted_E_Total": 0.059138,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "USB",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.023085,
-      "E_Total_3M": 0.047778,
+      "Original_E_Ret": 0.02343,
+      "E_Total_3M": 0.048123,
       "Realized_3M": 0.060026,
-      "Gap": 0.012248,
-      "Adj_Weight": 0.0958,
+      "Gap": 0.011903,
+      "Adj_Weight": 0.0931,
       "Vol_3M": 0.127497,
-      "Adjustment": 0.012211,
-      "Adjusted_E_Total": 0.059989,
+      "Adjustment": 0.011869,
+      "Adjusted_E_Total": 0.059992,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "V",
@@ -4186,7 +4186,7 @@
       "Adjustment": -0.039349,
       "Adjusted_E_Total": -0.019013,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "VLO",
@@ -4201,14 +4201,14 @@
       "Adjustment": 0.123426,
       "Adjusted_E_Total": 0.145257,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "VMC",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
       "Original_E_Ret": 0.020019,
-      "E_Total_3M": 0.044712,
+      "E_Total_3M": 0.044711,
       "Realized_3M": -0.026251,
       "Gap": -0.070963,
       "Adj_Weight": -0.6659,
@@ -4216,7 +4216,7 @@
       "Adjustment": -0.05882,
       "Adjusted_E_Total": -0.014109,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "VRTX",
@@ -4231,7 +4231,7 @@
       "Adjustment": -0.00721,
       "Adjusted_E_Total": 0.011665,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "VST",
@@ -4246,7 +4246,7 @@
       "Adjustment": -0.03489,
       "Adjusted_E_Total": 0.00298,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "VTR",
@@ -4261,37 +4261,37 @@
       "Adjustment": 0.040436,
       "Adjusted_E_Total": 0.053295,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "VZ",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.009334,
-      "E_Total_3M": 0.015358,
+      "Original_E_Ret": -0.009403,
+      "E_Total_3M": 0.01529,
       "Realized_3M": 0.222289,
-      "Gap": 0.20693,
-      "Adj_Weight": 0.9895,
+      "Gap": 0.206999,
+      "Adj_Weight": 0.9896,
       "Vol_3M": 0.078855,
-      "Adjustment": 0.078031,
-      "Adjusted_E_Total": 0.093389,
+      "Adjustment": 0.078032,
+      "Adjusted_E_Total": 0.093322,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WAB",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.009306,
-      "E_Total_3M": 0.015386,
+      "Original_E_Ret": -0.009268,
+      "E_Total_3M": 0.015424,
       "Realized_3M": 0.158567,
-      "Gap": 0.143181,
-      "Adj_Weight": 0.8396,
+      "Gap": 0.143143,
+      "Adj_Weight": 0.8395,
       "Vol_3M": 0.117368,
-      "Adjustment": 0.098546,
-      "Adjusted_E_Total": 0.113932,
+      "Adjustment": 0.098535,
+      "Adjusted_E_Total": 0.113959,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WBD",
@@ -4306,7 +4306,7 @@
       "Adjustment": 0.043967,
       "Adjusted_E_Total": 0.070647,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WDAY",
@@ -4321,7 +4321,7 @@
       "Adjustment": -0.134224,
       "Adjusted_E_Total": -0.112977,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WDC",
@@ -4336,7 +4336,7 @@
       "Adjustment": 0.266216,
       "Adjusted_E_Total": 0.310951,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WEC",
@@ -4351,22 +4351,22 @@
       "Adjustment": 0.053089,
       "Adjusted_E_Total": 0.061918,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WELL",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": -0.003862,
-      "E_Total_3M": 0.02083,
+      "Original_E_Ret": -0.004084,
+      "E_Total_3M": 0.020609,
       "Realized_3M": 0.003615,
-      "Gap": -0.017215,
-      "Adj_Weight": -0.2935,
+      "Gap": -0.016994,
+      "Adj_Weight": -0.29,
       "Vol_3M": 0.056924,
-      "Adjustment": -0.016708,
-      "Adjusted_E_Total": 0.004122,
+      "Adjustment": -0.016506,
+      "Adjusted_E_Total": 0.004103,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WFC",
@@ -4381,7 +4381,7 @@
       "Adjustment": -0.077523,
       "Adjusted_E_Total": -0.048967,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WM",
@@ -4396,22 +4396,22 @@
       "Adjustment": 0.065525,
       "Adjusted_E_Total": 0.076045,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WMB",
       "Gate_Passed": true,
       "Return_Type": "Grinold-Kahn",
-      "Original_E_Ret": 0.013799,
-      "E_Total_3M": 0.038492,
+      "Original_E_Ret": 0.013599,
+      "E_Total_3M": 0.038292,
       "Realized_3M": 0.182544,
-      "Gap": 0.144052,
-      "Adj_Weight": 0.9695,
+      "Gap": 0.144252,
+      "Adj_Weight": 0.9696,
       "Vol_3M": 0.069153,
-      "Adjustment": 0.067041,
-      "Adjusted_E_Total": 0.105532,
+      "Adjustment": 0.067053,
+      "Adjusted_E_Total": 0.105344,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WMT",
@@ -4426,7 +4426,7 @@
       "Adjustment": 0.007517,
       "Adjusted_E_Total": 0.070826,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "WTW",
@@ -4441,7 +4441,7 @@
       "Adjustment": -0.054157,
       "Adjusted_E_Total": -0.040455,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "XEL",
@@ -4456,7 +4456,7 @@
       "Adjustment": 0.048645,
       "Adjusted_E_Total": 0.057661,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "XOM",
@@ -4471,7 +4471,7 @@
       "Adjustment": 0.085601,
       "Adjusted_E_Total": 0.098684,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "YUM",
@@ -4486,7 +4486,7 @@
       "Adjustment": 0.05796,
       "Adjusted_E_Total": 0.070017,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     },
     {
       "Ticker": "ZTS",
@@ -4501,7 +4501,7 @@
       "Adjustment": 0.012816,
       "Adjusted_E_Total": 0.033885,
       "Adjustment_Applied": true,
-      "Updated_At": "2026-03-06T10:39:09"
+      "Updated_At": "2026-03-06T14:53:16"
     }
   ],
   "risk_level_portfolio_snapshot": [
@@ -4511,14 +4511,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": null,
       "Stock_Name": null,
       "Weight_Pct": null,
       "Stock_Expected_Return_3M": null,
       "Stock_Sigma_EWMA_60D": null,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4526,14 +4526,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": "CVX",
       "Stock_Name": "CVX",
       "Weight_Pct": 20.0,
-      "Stock_Expected_Return_3M": 12.51,
+      "Stock_Expected_Return_3M": 12.52,
       "Stock_Sigma_EWMA_60D": 0.10024563527170675,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4541,14 +4541,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": "MO",
       "Stock_Name": "MO",
       "Weight_Pct": 20.0,
-      "Stock_Expected_Return_3M": 12.91,
+      "Stock_Expected_Return_3M": 12.92,
       "Stock_Sigma_EWMA_60D": 0.11155457707630533,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4556,14 +4556,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": "WMB",
       "Stock_Name": "WMB",
-      "Weight_Pct": 19.21,
-      "Stock_Expected_Return_3M": 10.55,
+      "Weight_Pct": 19.19,
+      "Stock_Expected_Return_3M": 10.53,
       "Stock_Sigma_EWMA_60D": 0.0992597756558992,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4571,14 +4571,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": "WAB",
       "Stock_Name": "WAB",
-      "Weight_Pct": 10.52,
-      "Stock_Expected_Return_3M": 11.39,
+      "Weight_Pct": 10.65,
+      "Stock_Expected_Return_3M": 11.4,
       "Stock_Sigma_EWMA_60D": 0.10942563607597276,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4586,14 +4586,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": "HIG",
       "Stock_Name": "HIG",
-      "Weight_Pct": 5.27,
-      "Stock_Expected_Return_3M": 6.47,
+      "Weight_Pct": 5.16,
+      "Stock_Expected_Return_3M": 6.44,
       "Stock_Sigma_EWMA_60D": 0.08597292162129504,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4601,14 +4601,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
-      "Ticker": "TRV",
-      "Stock_Name": "TRV",
+      "Ticker": "CTVA",
+      "Stock_Name": "CTVA",
       "Weight_Pct": 5.0,
-      "Stock_Expected_Return_3M": 5.35,
-      "Stock_Sigma_EWMA_60D": 0.0837873042275203,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Stock_Expected_Return_3M": 11.03,
+      "Stock_Sigma_EWMA_60D": 0.10916379105783193,
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4616,14 +4616,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
-      "Ticker": "CTVA",
-      "Stock_Name": "CTVA",
+      "Ticker": "TRV",
+      "Stock_Name": "TRV",
       "Weight_Pct": 5.0,
-      "Stock_Expected_Return_3M": 10.96,
-      "Stock_Sigma_EWMA_60D": 0.10916379105783193,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Stock_Expected_Return_3M": 5.35,
+      "Stock_Sigma_EWMA_60D": 0.0837873042275203,
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4631,14 +4631,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": "PEG",
       "Stock_Name": "PEG",
       "Weight_Pct": 5.0,
       "Stock_Expected_Return_3M": 5.71,
       "Stock_Sigma_EWMA_60D": 0.09074024524323833,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4646,14 +4646,14 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": "UNP",
       "Stock_Name": "UNP",
       "Weight_Pct": 5.0,
-      "Stock_Expected_Return_3M": 6.43,
+      "Stock_Expected_Return_3M": 6.4,
       "Stock_Sigma_EWMA_60D": 0.10314104236549311,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 4,
@@ -4661,269 +4661,269 @@
       "Risk_Label": "Very Low Risk",
       "Lambda_Value": 23.1,
       "Portfolio_Expected_Return_3M": 10.27,
-      "Portfolio_Std_60D": 0.0535,
+      "Portfolio_Std_60D": 0.0536,
       "Holdings_Count": 10,
       "Ticker": "PFE",
       "Stock_Name": "PFE",
       "Weight_Pct": 5.0,
       "Stock_Expected_Return_3M": 3.86,
       "Stock_Sigma_EWMA_60D": 0.11226176651021642,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 3,
       "Rank_No": 0,
       "Risk_Label": "Low Risk",
       "Lambda_Value": 7.7,
-      "Portfolio_Expected_Return_3M": 12.14,
-      "Portfolio_Std_60D": 0.062,
+      "Portfolio_Expected_Return_3M": 12.06,
+      "Portfolio_Std_60D": 0.0608,
       "Holdings_Count": 7,
       "Ticker": null,
       "Stock_Name": null,
       "Weight_Pct": null,
       "Stock_Expected_Return_3M": null,
       "Stock_Sigma_EWMA_60D": null,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 3,
       "Rank_No": 1,
       "Risk_Label": "Low Risk",
       "Lambda_Value": 7.7,
-      "Portfolio_Expected_Return_3M": 12.14,
-      "Portfolio_Std_60D": 0.062,
+      "Portfolio_Expected_Return_3M": 12.06,
+      "Portfolio_Std_60D": 0.0608,
       "Holdings_Count": 7,
       "Ticker": "CVX",
       "Stock_Name": "CVX",
-      "Weight_Pct": 34.14,
-      "Stock_Expected_Return_3M": 12.51,
+      "Weight_Pct": 35.0,
+      "Stock_Expected_Return_3M": 12.52,
       "Stock_Sigma_EWMA_60D": 0.10024563527170675,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 3,
       "Rank_No": 2,
       "Risk_Label": "Low Risk",
       "Lambda_Value": 7.7,
-      "Portfolio_Expected_Return_3M": 12.14,
-      "Portfolio_Std_60D": 0.062,
+      "Portfolio_Expected_Return_3M": 12.06,
+      "Portfolio_Std_60D": 0.0608,
       "Holdings_Count": 7,
       "Ticker": "MO",
       "Stock_Name": "MO",
-      "Weight_Pct": 29.53,
-      "Stock_Expected_Return_3M": 12.91,
+      "Weight_Pct": 30.56,
+      "Stock_Expected_Return_3M": 12.92,
       "Stock_Sigma_EWMA_60D": 0.11155457707630533,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 3,
       "Rank_No": 3,
       "Risk_Label": "Low Risk",
       "Lambda_Value": 7.7,
-      "Portfolio_Expected_Return_3M": 12.14,
-      "Portfolio_Std_60D": 0.062,
+      "Portfolio_Expected_Return_3M": 12.06,
+      "Portfolio_Std_60D": 0.0608,
       "Holdings_Count": 7,
       "Ticker": "HON",
       "Stock_Name": "HON",
-      "Weight_Pct": 16.04,
-      "Stock_Expected_Return_3M": 11.52,
+      "Weight_Pct": 13.17,
+      "Stock_Expected_Return_3M": 11.53,
       "Stock_Sigma_EWMA_60D": 0.11433126763167466,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 3,
       "Rank_No": 4,
       "Risk_Label": "Low Risk",
       "Lambda_Value": 7.7,
-      "Portfolio_Expected_Return_3M": 12.14,
-      "Portfolio_Std_60D": 0.062,
+      "Portfolio_Expected_Return_3M": 12.06,
+      "Portfolio_Std_60D": 0.0608,
       "Holdings_Count": 7,
       "Ticker": "T",
       "Stock_Name": "T",
-      "Weight_Pct": 5.28,
+      "Weight_Pct": 6.27,
       "Stock_Expected_Return_3M": 10.98,
       "Stock_Sigma_EWMA_60D": 0.12324158344524742,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 3,
       "Rank_No": 5,
       "Risk_Label": "Low Risk",
       "Lambda_Value": 7.7,
-      "Portfolio_Expected_Return_3M": 12.14,
-      "Portfolio_Std_60D": 0.062,
+      "Portfolio_Expected_Return_3M": 12.06,
+      "Portfolio_Std_60D": 0.0608,
       "Holdings_Count": 7,
       "Ticker": "WAB",
       "Stock_Name": "WAB",
       "Weight_Pct": 5.0,
-      "Stock_Expected_Return_3M": 11.39,
+      "Stock_Expected_Return_3M": 11.4,
       "Stock_Sigma_EWMA_60D": 0.10942563607597276,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 3,
       "Rank_No": 6,
       "Risk_Label": "Low Risk",
       "Lambda_Value": 7.7,
-      "Portfolio_Expected_Return_3M": 12.14,
-      "Portfolio_Std_60D": 0.062,
+      "Portfolio_Expected_Return_3M": 12.06,
+      "Portfolio_Std_60D": 0.0608,
       "Holdings_Count": 7,
-      "Ticker": "WMB",
-      "Stock_Name": "WMB",
+      "Ticker": "CSX",
+      "Stock_Name": "CSX",
       "Weight_Pct": 5.0,
-      "Stock_Expected_Return_3M": 10.55,
-      "Stock_Sigma_EWMA_60D": 0.0992597756558992,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Stock_Expected_Return_3M": 10.46,
+      "Stock_Sigma_EWMA_60D": 0.11297135338472776,
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 3,
       "Rank_No": 7,
       "Risk_Label": "Low Risk",
       "Lambda_Value": 7.7,
-      "Portfolio_Expected_Return_3M": 12.14,
-      "Portfolio_Std_60D": 0.062,
+      "Portfolio_Expected_Return_3M": 12.06,
+      "Portfolio_Std_60D": 0.0608,
       "Holdings_Count": 7,
-      "Ticker": "CL",
-      "Stock_Name": "CL",
+      "Ticker": "DLR",
+      "Stock_Name": "DLR",
       "Weight_Pct": 5.0,
-      "Stock_Expected_Return_3M": 10.6,
-      "Stock_Sigma_EWMA_60D": 0.12413815812797943,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Stock_Expected_Return_3M": 8.7,
+      "Stock_Sigma_EWMA_60D": 0.11360687187440907,
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 2,
       "Rank_No": 0,
       "Risk_Label": "Medium Risk",
       "Lambda_Value": 4.62,
-      "Portfolio_Expected_Return_3M": 12.69,
-      "Portfolio_Std_60D": 0.0681,
+      "Portfolio_Expected_Return_3M": 12.58,
+      "Portfolio_Std_60D": 0.0699,
       "Holdings_Count": 4,
       "Ticker": null,
       "Stock_Name": null,
       "Weight_Pct": null,
       "Stock_Expected_Return_3M": null,
       "Stock_Sigma_EWMA_60D": null,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 2,
       "Rank_No": 1,
       "Risk_Label": "Medium Risk",
       "Lambda_Value": 4.62,
-      "Portfolio_Expected_Return_3M": 12.69,
-      "Portfolio_Std_60D": 0.0681,
+      "Portfolio_Expected_Return_3M": 12.58,
+      "Portfolio_Std_60D": 0.0699,
       "Holdings_Count": 4,
-      "Ticker": "CVX",
-      "Stock_Name": "CVX",
-      "Weight_Pct": 39.54,
-      "Stock_Expected_Return_3M": 12.51,
-      "Stock_Sigma_EWMA_60D": 0.10024563527170675,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Ticker": "MO",
+      "Stock_Name": "MO",
+      "Weight_Pct": 38.23,
+      "Stock_Expected_Return_3M": 12.92,
+      "Stock_Sigma_EWMA_60D": 0.11155457707630533,
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 2,
       "Rank_No": 2,
       "Risk_Label": "Medium Risk",
       "Lambda_Value": 4.62,
-      "Portfolio_Expected_Return_3M": 12.69,
-      "Portfolio_Std_60D": 0.0681,
+      "Portfolio_Expected_Return_3M": 12.58,
+      "Portfolio_Std_60D": 0.0699,
       "Holdings_Count": 4,
-      "Ticker": "MO",
-      "Stock_Name": "MO",
-      "Weight_Pct": 34.55,
-      "Stock_Expected_Return_3M": 12.91,
-      "Stock_Sigma_EWMA_60D": 0.11155457707630533,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Ticker": "CVX",
+      "Stock_Name": "CVX",
+      "Weight_Pct": 34.9,
+      "Stock_Expected_Return_3M": 12.52,
+      "Stock_Sigma_EWMA_60D": 0.10024563527170675,
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 2,
       "Rank_No": 3,
       "Risk_Label": "Medium Risk",
       "Lambda_Value": 4.62,
-      "Portfolio_Expected_Return_3M": 12.69,
-      "Portfolio_Std_60D": 0.0681,
+      "Portfolio_Expected_Return_3M": 12.58,
+      "Portfolio_Std_60D": 0.0699,
       "Holdings_Count": 4,
-      "Ticker": "ADI",
-      "Stock_Name": "ADI",
-      "Weight_Pct": 20.9,
-      "Stock_Expected_Return_3M": 12.96,
-      "Stock_Sigma_EWMA_60D": 0.15640225104059066,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Ticker": "HON",
+      "Stock_Name": "HON",
+      "Weight_Pct": 18.99,
+      "Stock_Expected_Return_3M": 11.53,
+      "Stock_Sigma_EWMA_60D": 0.11433126763167466,
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 2,
       "Rank_No": 4,
       "Risk_Label": "Medium Risk",
       "Lambda_Value": 4.62,
-      "Portfolio_Expected_Return_3M": 12.69,
-      "Portfolio_Std_60D": 0.0681,
+      "Portfolio_Expected_Return_3M": 12.58,
+      "Portfolio_Std_60D": 0.0699,
       "Holdings_Count": 4,
-      "Ticker": "HON",
-      "Stock_Name": "HON",
-      "Weight_Pct": 5.0,
-      "Stock_Expected_Return_3M": 11.52,
-      "Stock_Sigma_EWMA_60D": 0.11433126763167466,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Ticker": "BKR",
+      "Stock_Name": "BKR",
+      "Weight_Pct": 7.88,
+      "Stock_Expected_Return_3M": 13.71,
+      "Stock_Sigma_EWMA_60D": 0.15508979399430786,
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 1,
       "Rank_No": 0,
       "Risk_Label": "High Risk",
       "Lambda_Value": 3.3,
-      "Portfolio_Expected_Return_3M": 20.02,
-      "Portfolio_Std_60D": 0.1535,
+      "Portfolio_Expected_Return_3M": 20.14,
+      "Portfolio_Std_60D": 0.1545,
       "Holdings_Count": 3,
       "Ticker": null,
       "Stock_Name": null,
       "Weight_Pct": null,
       "Stock_Expected_Return_3M": null,
       "Stock_Sigma_EWMA_60D": null,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 1,
       "Rank_No": 1,
       "Risk_Label": "High Risk",
       "Lambda_Value": 3.3,
-      "Portfolio_Expected_Return_3M": 20.02,
-      "Portfolio_Std_60D": 0.1535,
+      "Portfolio_Expected_Return_3M": 20.14,
+      "Portfolio_Std_60D": 0.1545,
       "Holdings_Count": 3,
       "Ticker": "FIX",
       "Stock_Name": "FIX",
-      "Weight_Pct": 57.41,
-      "Stock_Expected_Return_3M": 25.53,
+      "Weight_Pct": 57.81,
+      "Stock_Expected_Return_3M": 25.64,
       "Stock_Sigma_EWMA_60D": 0.2698924043745917,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 1,
       "Rank_No": 2,
       "Risk_Label": "High Risk",
       "Lambda_Value": 3.3,
-      "Portfolio_Expected_Return_3M": 20.02,
-      "Portfolio_Std_60D": 0.1535,
+      "Portfolio_Expected_Return_3M": 20.14,
+      "Portfolio_Std_60D": 0.1545,
       "Holdings_Count": 3,
       "Ticker": "CVX",
       "Stock_Name": "CVX",
-      "Weight_Pct": 34.04,
-      "Stock_Expected_Return_3M": 12.51,
+      "Weight_Pct": 33.91,
+      "Stock_Expected_Return_3M": 12.52,
       "Stock_Sigma_EWMA_60D": 0.10024563527170675,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     },
     {
       "Risk_Level": 1,
       "Rank_No": 3,
       "Risk_Label": "High Risk",
       "Lambda_Value": 3.3,
-      "Portfolio_Expected_Return_3M": 20.02,
-      "Portfolio_Std_60D": 0.1535,
+      "Portfolio_Expected_Return_3M": 20.14,
+      "Portfolio_Std_60D": 0.1545,
       "Holdings_Count": 3,
       "Ticker": "MO",
       "Stock_Name": "MO",
-      "Weight_Pct": 8.55,
-      "Stock_Expected_Return_3M": 12.91,
+      "Weight_Pct": 8.28,
+      "Stock_Expected_Return_3M": 12.92,
       "Stock_Sigma_EWMA_60D": 0.11155457707630533,
-      "Updated_At": "2026-03-06T10:41:59"
+      "Updated_At": "2026-03-06T14:53:20"
     }
   ],
   "log_returns": [

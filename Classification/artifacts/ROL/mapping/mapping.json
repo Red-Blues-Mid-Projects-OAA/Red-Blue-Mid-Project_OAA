@@ -1,12 +1,12 @@
 {
   "ticker": "ROL",
-  "beta_ols": 0.34511113720256875,
-  "beta_ewma": 0.49982820990815024,
-  "beta_final": 0.3915262590142432,
+  "beta_ols": 0.34456597823389346,
+  "beta_ewma": 0.44791095168744005,
+  "beta_final": 0.3755694702699574,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.015034927290735937,
+  "expected_capm_return_3m_log": 0.014780402083352573,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

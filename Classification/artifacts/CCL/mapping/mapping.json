@@ -1,12 +1,12 @@
 {
   "ticker": "CCL",
-  "beta_ols": 1.7104606403390814,
-  "beta_ewma": 1.890637062600527,
-  "beta_final": 1.7645135670175152,
+  "beta_ols": 1.7129500679351564,
+  "beta_ewma": 1.9750816454198619,
+  "beta_final": 1.791589541180568,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.036696220362752,
+  "expected_capm_return_3m_log": 0.03711870896951453,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

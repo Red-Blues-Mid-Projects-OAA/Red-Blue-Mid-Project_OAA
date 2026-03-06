@@ -1,12 +1,12 @@
 {
   "ticker": "TRGP",
-  "beta_ols": 0.9296810230458932,
-  "beta_ewma": 0.20696209205786195,
-  "beta_final": 0.7128653437494837,
+  "beta_ols": 0.9312233151858975,
+  "beta_ewma": 0.34142742831917533,
+  "beta_final": 0.7542845491258808,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.020146835877564828,
+  "expected_capm_return_3m_log": 0.020803841446319808,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

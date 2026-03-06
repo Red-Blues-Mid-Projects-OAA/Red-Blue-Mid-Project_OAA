@@ -1,12 +1,12 @@
 {
   "ticker": "NDAQ",
-  "beta_ols": 0.8592052708348317,
-  "beta_ewma": 1.4630705829892914,
-  "beta_final": 1.0403648644811696,
+  "beta_ols": 0.8598156512496486,
+  "beta_ewma": 1.4787589545530218,
+  "beta_final": 1.0454986422406605,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.025329996127895407,
+  "expected_capm_return_3m_log": 0.02541103220557618,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

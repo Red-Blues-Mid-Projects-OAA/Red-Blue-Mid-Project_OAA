@@ -1,12 +1,12 @@
 {
   "ticker": "ITW",
-  "beta_ols": 0.6939414042431896,
-  "beta_ewma": 0.29919874584046346,
-  "beta_final": 0.5755186067223718,
+  "beta_ols": 0.695407678580416,
+  "beta_ewma": 0.39185271343524997,
+  "beta_final": 0.6043411890368662,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.017965100969290725,
+  "expected_capm_return_3m_log": 0.018423338712462687,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

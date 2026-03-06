@@ -1,12 +1,12 @@
 {
   "ticker": "BRK-B",
-  "beta_ols": 0.48176407732659393,
-  "beta_ewma": 0.016313968544615948,
-  "beta_final": 0.34212904469200056,
+  "beta_ols": 0.47832872204529203,
+  "beta_ewma": -0.14086863533782923,
+  "beta_final": 0.2925695148303556,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.014246786825527779,
+  "expected_capm_return_3m_log": 0.013455431866012517,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

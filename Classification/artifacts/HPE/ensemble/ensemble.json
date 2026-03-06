@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-05T10:39:02",
-  "data_snapshot_end_date": "2026-03-04",
+  "generated_at": "2026-03-06T14:53:01",
+  "data_snapshot_end_date": "2026-03-05",
   "feature_count": 16,
   "ticker": "HPE",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 232,
+  "n_test_samples": 233,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-04",
-  "ic_full": 0.779481211403662,
-  "ic_pvalue": 1.2811005718597363e-48,
-  "ic_first_half": 0.7856533271825625,
-  "ic_second_half": 0.8146618998193211,
-  "accuracy_ref": 0.8879310344827587,
+  "test_end": "2025-12-05",
+  "ic_full": 0.7760461136219609,
+  "ic_pvalue": 3.835634064206337e-48,
+  "ic_first_half": 0.7949717448967825,
+  "ic_second_half": 0.813941464730477,
+  "accuracy_ref": 0.8884120171673819,
   "precision_ref": 0.8368794326241135,
-  "train_accuracy_ref": 0.8806818181818182,
-  "gap_ref": 0.007249216300940442,
-  "gap_signed_ref": -0.007249216300940442,
-  "gap_abs_ref": 0.007249216300940442,
-  "proba_std_test": 0.23258068081223426,
-  "proba_unique_test": 232,
+  "train_accuracy_ref": 0.8772727272727273,
+  "gap_ref": 0.011139289894654625,
+  "gap_signed_ref": -0.011139289894654625,
+  "gap_abs_ref": 0.011139289894654625,
+  "proba_std_test": 0.22967629612259122,
+  "proba_unique_test": 233,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.10492489573667384,
-    "mean": 0.5618704237710802,
-    "max": 0.8569682177345821
+    "min": 0.10527840715954506,
+    "mean": 0.5636003020130839,
+    "max": 0.8510636675406508
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-05",
-    "end": "2026-03-04"
+    "start": "2025-12-08",
+    "end": "2026-03-05"
   },
   "p_ens_future_stats": {
-    "min": 0.2600821138098064,
-    "mean": 0.5473901909517245,
-    "max": 0.7773979708933467
+    "min": 0.2674649581982911,
+    "mean": 0.5560704304339191,
+    "max": 0.7745549396061562
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-04",
-    "p_ens": 0.6949974370679618
+    "trade_date": "2026-03-05",
+    "p_ens": 0.6981766491470903
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

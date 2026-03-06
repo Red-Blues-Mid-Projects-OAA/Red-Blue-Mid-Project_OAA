@@ -1,12 +1,12 @@
 {
   "ticker": "HAL",
-  "beta_ols": 1.0681987803821353,
-  "beta_ewma": 0.486135255873281,
-  "beta_final": 0.893579723029479,
+  "beta_ols": 1.0683320042050326,
+  "beta_ewma": 0.5213743323915913,
+  "beta_final": 0.9042447026610002,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.023010227480705296,
+  "expected_capm_return_3m_log": 0.02317895650622075,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "TMO",
-  "beta_ols": 0.7998264086912481,
-  "beta_ewma": 0.6466321840386678,
-  "beta_final": 0.753868141295474,
+  "beta_ols": 0.7977818847890981,
+  "beta_ewma": 0.5374397970502567,
+  "beta_final": 0.7196792584674456,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.020797238390779318,
+  "expected_capm_return_3m_log": 0.02025495018718703,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }

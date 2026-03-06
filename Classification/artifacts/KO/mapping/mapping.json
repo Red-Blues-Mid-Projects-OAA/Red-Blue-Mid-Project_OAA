@@ -1,12 +1,12 @@
 {
   "ticker": "KO",
-  "beta_ols": 0.029277463117026385,
-  "beta_ewma": -0.3002858261712073,
-  "beta_final": -0.06959152366944371,
+  "beta_ols": 0.030985367023050787,
+  "beta_ewma": -0.20633455111285676,
+  "beta_final": -0.04021060841772148,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0076534414592955916,
+  "expected_capm_return_3m_log": 0.008125394303943403,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-04",
+  "date": "2026-03-05",
   "Return_Type": "CAPM"
 }
