@@ -238,6 +238,15 @@ def _load_cache_from_demo_snapshot() -> bool:
     source_df = _normalize_adjusted_returns_df(source_df)
     filtered = _filter_candidates(source_df)
 
+    covariance_payload = snapshot.get("ewma_covariance") or {}
+    covariance_tickers = [
+        str(ticker).strip().upper()
+        for ticker in covariance_payload.get("ticker_list", [])
+        if str(ticker).strip()
+    ]
+    covariance_matrix_raw = covariance_payload.get("matrix") or []
+    covariance_matrix = np.array(covariance_matrix_raw, dtype=float) if covariance_matrix_raw else np.array([])
+
     risk_snapshot_df = _snapshot_records_to_dataframe(
         snapshot.get("risk_level_portfolio_snapshot"),
         datetime_columns=["Updated_At"],
@@ -246,10 +255,20 @@ def _load_cache_from_demo_snapshot() -> bool:
 
     _cache["adj_returns_df"] = filtered
     _cache["full_returns_df"] = source_df
-    _cache["cov_ticker_list"] = None
-    _cache["cov_matrix"] = None
-    _cache["ticker_to_cov_idx"] = None
-    _cache["variance_map"] = _build_variance_map_from_df(source_df)
+    if covariance_tickers and covariance_matrix.size > 0 and covariance_matrix.shape[0] == covariance_matrix.shape[1]:
+        covariance_matrix_scaled = covariance_matrix * HORIZON_DAYS
+        _cache["cov_ticker_list"] = covariance_tickers
+        _cache["cov_matrix"] = covariance_matrix_scaled
+        _cache["ticker_to_cov_idx"] = {ticker: idx for idx, ticker in enumerate(covariance_tickers)}
+        _cache["variance_map"] = {
+            ticker: float(covariance_matrix_scaled[idx, idx])
+            for idx, ticker in enumerate(covariance_tickers)
+        }
+    else:
+        _cache["cov_ticker_list"] = None
+        _cache["cov_matrix"] = None
+        _cache["ticker_to_cov_idx"] = None
+        _cache["variance_map"] = _build_variance_map_from_df(source_df)
     _cache["all_returns_map"] = _build_all_returns_map(source_df)
     _cache["snapshot_source"] = "demo_snapshot_json"
     _cache["last_stage"] = "snapshot"

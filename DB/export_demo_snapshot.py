@@ -66,6 +66,16 @@ def _sp500_to_records(df: pd.DataFrame) -> list[dict]:
     return dataframe_to_records(normalized)
 
 
+def _covariance_payload(ticker_list, cov_matrix) -> dict:
+    if not ticker_list or cov_matrix is None:
+        return {"ticker_list": [], "matrix": []}
+
+    return {
+        "ticker_list": [str(t).strip().upper() for t in ticker_list],
+        "matrix": cov_matrix.tolist(),
+    }
+
+
 def export_demo_snapshot(lookback_days: int = 450, output_path: Path | None = None) -> Path:
     db = StockDBManager()
     connected = False
@@ -80,6 +90,7 @@ def export_demo_snapshot(lookback_days: int = 450, output_path: Path | None = No
         risk_snapshot_df = db.fetch_risk_level_portfolio_snapshot()
         log_returns_df = db.fetch_log_returns(start_date=start_date)
         sp500_df = db.fetch_sp500_data(start_date=start_date)
+        ewma_ticker_list, ewma_cov_matrix = db.fetch_ewma_covariance()
 
         payload = {
             "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -89,6 +100,7 @@ def export_demo_snapshot(lookback_days: int = 450, output_path: Path | None = No
             "risk_level_portfolio_snapshot": dataframe_to_records(risk_snapshot_df),
             "log_returns": _pivot_log_returns_to_records(log_returns_df),
             "sp500_data": _sp500_to_records(sp500_df),
+            "ewma_covariance": _covariance_payload(ewma_ticker_list, ewma_cov_matrix),
             "meta": {
                 "adjusted_expected_returns_count": int(len(adjusted_df)),
                 "risk_level_portfolio_snapshot_count": int(len(risk_snapshot_df)),
@@ -98,6 +110,7 @@ def export_demo_snapshot(lookback_days: int = 450, output_path: Path | None = No
                     else int(log_returns_df.count().sum())
                 ),
                 "sp500_data_count": int(0 if sp500_df is None else len(sp500_df)),
+                "ewma_covariance_ticker_count": int(len(ewma_ticker_list)),
             },
         }
 
@@ -107,7 +120,8 @@ def export_demo_snapshot(lookback_days: int = 450, output_path: Path | None = No
             f"path={target}, adjusted={payload['meta']['adjusted_expected_returns_count']}, "
             f"risk_rows={payload['meta']['risk_level_portfolio_snapshot_count']}, "
             f"log_returns={payload['meta']['log_returns_count']}, "
-            f"sp500={payload['meta']['sp500_data_count']}"
+            f"sp500={payload['meta']['sp500_data_count']}, "
+            f"ewma={payload['meta']['ewma_covariance_ticker_count']}"
         )
         return target
     finally:
