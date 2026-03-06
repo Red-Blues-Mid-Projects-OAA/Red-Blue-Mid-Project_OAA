@@ -164,7 +164,7 @@ flowchart TD
 
 | 메인 및 설문조사 | 투자 성향 결과 대시보드 | 포트폴리오 추천 차트 |
 | :---: | :---: | :---: |
-| <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/c665dc9b-48a7-448a-b61f-e61ce9b5dbda" />, <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/3f3bd988-06e7-4510-8e7e-95443556d417" />, <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/ba8af395-a75e-47b5-b4ff-1a5add4c5ea3" /> | <img width="250" height="500" alt="Image" src="https://github.com/user-attachments/assets/f77d9b56-254d-4a4b-a518-bb6e1fb3af83" /> | <img width="250" height="500" alt="Image" src="https://github.com/user-attachments/assets/79876472-58b1-4bb3-ad88-1b1774189f00" /> |
+| <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/c665dc9b-48a7-448a-b61f-e61ce9b5dbda" />, <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/3f3bd988-06e7-4510-8e7e-95443556d417" />, <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/ba8af395-a75e-47b5-b4ff-1a5add4c5ea3" /> | <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/e847c378-5b2e-4a36-b1da-9f117bc2593b" />, <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/f77d9b56-254d-4a4b-a518-bb6e1fb3af83" /> | <img width="250" height="250" alt="Image" src="https://github.com/user-attachments/assets/79876472-58b1-4bb3-ad88-1b1774189f00" /> |
 | 12가지 문항을 통한<br>투자 성향 진단 진행 | MBTI에 매칭되는 캐릭터 및<br>위험 감수도(Loss Slider) 조정 | 개인화된 종목 비중<br>파이 차트 시각화 |
 
 ---
@@ -229,7 +229,7 @@ MSA(Microservices Architecture) 구조에 착안하여, 각 팀원이 담당하�
 ### ☑️ Prerequisites (사전 요구 사항)
 프로젝트를 로컬 환경에서 실행하기 위해 다음 소프트웨어의 설치가 필요합니다.
 * **Node.js** (v16.x 이상 권장) 및 npm
-* **Python** (v3.9 이상 권장)
+* **Python** (v3.14 이상 권장)
 
 ### 🎨 Frontend (사용자 웹 UI) 실행
 Vite와 React를 기반으로 구축된 클라이언트 화면을 구동합니다.
