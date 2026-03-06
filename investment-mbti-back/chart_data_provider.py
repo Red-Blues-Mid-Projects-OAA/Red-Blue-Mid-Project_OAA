@@ -21,7 +21,7 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from DB import StockDBManager
-from demo_snapshot import load_demo_snapshot
+from demo_snapshot import load_demo_snapshot, should_force_demo_snapshot
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -89,6 +89,13 @@ def load_chart_cache():
     서버 시작 시 1회 호출되어 차트용 데이터를 메모리에 캐싱합니다.
     """
     print("[Cache] 차트/수익률 데이터 캐싱 시작...")
+    if should_force_demo_snapshot():
+        if _load_chart_cache_from_snapshot():
+            print("[Cache] forced chart snapshot mode enabled!")
+            return
+        print("[Cache] forced chart snapshot mode failed.")
+        return
+
     db = StockDBManager()
     try:
         db.connect(ensure_tables=False)

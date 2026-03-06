@@ -7,6 +7,7 @@ from __future__ import annotations
 from datetime import date, datetime
 import json
 import math
+import os
 from pathlib import Path
 
 import numpy as np
@@ -84,3 +85,8 @@ def load_demo_snapshot(path: Path | None = None) -> dict:
     if not target.exists():
         raise FileNotFoundError(f"Demo snapshot not found: {target}")
     return json.loads(target.read_text(encoding="utf-8"))
+
+
+def should_force_demo_snapshot() -> bool:
+    source = str(os.getenv("BACKEND_DATA_SOURCE", "")).strip().lower()
+    return source in {"snapshot", "demo", "demo_snapshot", "json"}

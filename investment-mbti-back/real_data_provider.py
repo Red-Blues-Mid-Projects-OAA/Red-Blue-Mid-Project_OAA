@@ -17,7 +17,7 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from DB import StockDBManager
-from demo_snapshot import load_demo_snapshot
+from demo_snapshot import load_demo_snapshot, should_force_demo_snapshot
 from risk_profile import get_lambda_by_level
 
 # ──────────────────────────────────────────────────────────────────
@@ -334,6 +334,12 @@ def load_cache():
     _cache["risk_snapshot_metrics_count"] = 0
     _cache["risk_snapshot_holdings_count"] = 0
     _cache["risk_snapshot_by_level"] = {}
+
+    if should_force_demo_snapshot():
+        if _load_cache_from_demo_snapshot():
+            print("[Cache] forced demo snapshot mode enabled.\n")
+            return
+        raise RuntimeError("forced demo snapshot mode is enabled, but demo snapshot could not be loaded")
 
     source_df = pd.DataFrame()
     source_name = "DB"
