@@ -30,14 +30,15 @@ def get_lambda_by_level(level):
     return round(1.155 / rep_loss, 2)
 
 
-def calculate_risk_profile(answers, loss_limit_value):
+def calculate_risk_profile(answers, loss_limit_value, initial_investment):
     """
     사용자의 설문 답변과 손실 한도 설정을 바탕으로 투자 MBTI 페르소나와 
     최종 위험 회피 계수(lambda_final)를 산출합니다.
 
     Args:
         answers (list of str): 12개 문항에 대한 답변 리스트 (['A', 'B', ...])
-        loss_limit_value (int): 슬라이더에서 선택된 금액 (원 단위, 예: 8000000)
+        loss_limit_value (int): 슬라이더에서 선택된 금액 (원 단위, 예: 9500000)
+        initial_investment (int): 사용자의 초기 투자 원금 (원 단위, 예: 10000000)
 
     Returns:
         dict: {
@@ -71,7 +72,7 @@ def calculate_risk_profile(answers, loss_limit_value):
 
     # 3. STEP 1-2: 슬라이더 등급 (level_slider) 산출
     # Loss 슬라이더 범위: 1% ~ 40% (10% 단위로 등급 부여)
-    loss_percent = abs((loss_limit_value - 10000000) / 10000000) * 100
+    loss_percent = abs((loss_limit_value - initial_investment) / initial_investment) * 100
     
     if loss_percent > 30:
         level_slider = 1  # 30% 초과 ~ 40% 이하 (독수리 성향)

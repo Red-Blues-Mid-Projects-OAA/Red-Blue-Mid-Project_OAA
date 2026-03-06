@@ -90,7 +90,8 @@ function App() {
         },
         body: JSON.stringify({
           answers: payloadAnswers,
-          loss_limit_value: krwLossLimit
+          loss_limit_value: krwLossLimit,
+          initial_investment: baseMoney
         })
       });
 

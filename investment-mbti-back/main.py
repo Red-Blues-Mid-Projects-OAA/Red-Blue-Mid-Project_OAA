@@ -79,6 +79,7 @@ class AnalyzeRequest(BaseModel):
 
     answers: List[str]  # ['A', 'B', 'B', ...] 형식 (12개)
     loss_limit_value: int  # 원 단위 금액 (예: 9500000)
+    initial_investment: int  # 원 단위 금액 (예: 10000000)
 
 
 class OptimizeRequest(BaseModel):
@@ -111,7 +112,7 @@ def analyze_portfolio(req: AnalyzeRequest):
     1단계: 설문 분석 → λ 산출 → 종목 추천 → MVO 최적화 → 차트 데이터 생성.
     """
     # 1. MBTI 기반 리스크 프로필 산출
-    risk_result = calculate_risk_profile(req.answers, req.loss_limit_value)
+    risk_result = calculate_risk_profile(req.answers, req.loss_limit_value, req.initial_investment)
     lambda_final = risk_result["lambda_final"]
     persona = risk_result["persona"]
     desc = risk_result["persona_desc"]
