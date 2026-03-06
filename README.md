@@ -200,6 +200,95 @@ MSA(Microservices Architecture) 형태를 지향하여 각 역할을 완벽히 �
 
 총 5명의 팀원이 데이터 엔지니어링, 머신러닝, 백엔드, 프론트엔드라는 상이한 도메인을 동시에 개발해야 했기 때문에, 철저한 **도메인 분리(Decoupling)** 와 **Feature Branch 기반의 GitHub Flow** 전략을 채택하여 충돌 없는 병렬 개발 환경을 구축했습니다.
 
+```mermaid
+
+gitGraph
+   %% ─────────────────────────────────────
+   %% main — 프로젝트 초기화
+   %% ─────────────────────────────────────
+   commit id: "🚀 Initial commit"
+
+   %% ─────────────────────────────────────
+   %% dev — 중심 통합 브랜치
+   %% ─────────────────────────────────────
+   branch dev
+   commit id: "dev 시작"
+
+   %% ─────────────────────────────────────
+   %% feature/DB → feature/ML 분기
+   %% ─────────────────────────────────────
+   branch feature/DB
+   commit id: "yfinance, FRED"
+   commit id: "Oracle DB"
+
+   branch feature/ML
+
+   %% ─────────────────────────────────────
+   %% feature/DB 마무리 → dev 통합
+   %% ─────────────────────────────────────
+
+   checkout feature/DB
+   checkout dev
+   merge feature/DB id: "DB → dev"
+
+   checkout feature/ML
+   commit id: "Logistic Regression"
+   commit id: "XGBoost"
+   commit id: "Random Forest"
+   commit id: "SVM"
+   commit id: "Ensemble"
+
+
+   %% ─────────────────────────────────────
+   %% feature/opt — Ensemble 시점에서 시작
+   %% ─────────────────────────────────────
+   branch feature/opt
+
+   %% feature/ML → dev 통합
+   checkout dev
+   merge feature/ML id: "ML → dev"
+
+   checkout feature/opt
+   commit id: "Grinold-Kahn Mapping, CAPM"
+
+   %% ─────────────────────────────────────
+   %% feature/survey — ML merge 이후 dev에서 분기
+   %% ─────────────────────────────────────
+
+   checkout dev
+   branch feature/survey
+   commit id: "MBTI, Risk Profile"
+
+   checkout feature/opt
+   commit id: "MVO, OAAW"
+
+   checkout feature/survey
+   commit id: "Lambda"
+
+   checkout feature/opt
+   merge feature/survey id: "survey → opt"
+
+   %% opt → dev 수렴 후 feature/web 시작
+   checkout dev
+   merge feature/opt id: "opt → dev"
+   
+
+   %% ─────────────────────────────────────
+   %% feature/web — survey→dev 이후 dev에서 분기
+   %% ─────────────────────────────────────
+   branch feature/web
+   commit id: "Visualization, Dashboard"
+   commit id: "Mobile UI·UX"
+   commit id: "Web Server, QR"
+   checkout dev
+   merge feature/web id: "web → dev"
+
+   %% dev → main 최종 연결
+   checkout main
+   merge dev id: "dev → main"
+```
+
+
 <br>
 
 ### 📌 도메인 주도 브랜치 전략 (Domain-Driven Branching)
