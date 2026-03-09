@@ -1,4 +1,4 @@
-# 📈 RedBull: 최적 자산 배분 알고리즘을 활용한 퀀트 투자 기법
+# 📈 Red & Blue: 투자 MBTI 진단 및 최적 자산 배분 알고리즘을 통한 포트폴리오 추천 서비스
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.14+-3776AB?style=for-the-badge&logo=python&logoColor=white">
