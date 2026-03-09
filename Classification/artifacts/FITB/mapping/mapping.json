@@ -1,12 +1,12 @@
 {
   "ticker": "FITB",
-  "beta_ols": 0.9831954891614364,
-  "beta_ewma": 1.2780350985000248,
-  "beta_final": 1.0716473719630129,
+  "beta_ols": 0.9874146455316475,
+  "beta_ewma": 1.397148070879893,
+  "beta_final": 1.110334673136121,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.025823684950088695,
+  "expected_capm_return_3m_log": 0.026433896551604746,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

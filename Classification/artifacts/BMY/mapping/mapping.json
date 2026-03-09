@@ -1,12 +1,12 @@
 {
   "ticker": "BMY",
-  "beta_ols": 0.2586226780601092,
-  "beta_ewma": 0.5334826413446927,
-  "beta_final": 0.34108066704548423,
+  "beta_ols": 0.25976603838861956,
+  "beta_ewma": 0.5625376924474194,
+  "beta_final": 0.3505975346062595,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.014230053058919091,
+  "expected_capm_return_3m_log": 0.014381947062965169,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

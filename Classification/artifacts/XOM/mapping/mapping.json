@@ -1,12 +1,12 @@
 {
   "ticker": "XOM",
-  "beta_ols": 0.40114543320918106,
-  "beta_ewma": -0.03848629041012509,
-  "beta_final": 0.2692559161233892,
+  "beta_ols": 0.3991039643250014,
+  "beta_ewma": -0.032104243028444855,
+  "beta_final": 0.2697415021189675,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013082949085684048,
+  "expected_capm_return_3m_log": 0.01309070873756061,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

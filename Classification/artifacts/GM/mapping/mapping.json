@@ -1,12 +1,12 @@
 {
   "ticker": "GM",
-  "beta_ols": 0.9035027071022733,
-  "beta_ewma": 1.5382310173424478,
-  "beta_final": 1.0939212001743255,
+  "beta_ols": 0.9039854141867528,
+  "beta_ewma": 1.4143710449478057,
+  "beta_final": 1.0571011034150688,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02617505367550903,
+  "expected_capm_return_3m_log": 0.02559415150181193,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

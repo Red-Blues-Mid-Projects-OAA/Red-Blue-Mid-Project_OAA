@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-06T14:48:12",
-  "data_snapshot_end_date": "2026-03-05",
+  "generated_at": "2026-03-09T13:55:58",
+  "data_snapshot_end_date": "2026-03-06",
   "feature_count": 16,
   "ticker": "GE",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 233,
+  "n_test_samples": 234,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-05",
-  "ic_full": -0.6846527627569511,
-  "ic_pvalue": 1.4262318708160778e-33,
-  "ic_first_half": -0.3201399300349825,
-  "ic_second_half": -0.6060108798273615,
-  "accuracy_ref": 0.4978540772532189,
-  "precision_ref": 0.7876712328767124,
+  "test_end": "2025-12-08",
+  "ic_full": -0.6803073832386225,
+  "ic_pvalue": 3.7841665407134506e-33,
+  "ic_first_half": -0.3302761917607037,
+  "ic_second_half": -0.6038678835289004,
+  "accuracy_ref": 0.5,
+  "precision_ref": 0.7891156462585034,
   "train_accuracy_ref": 0.8522727272727273,
-  "gap_ref": 0.3544186500195084,
-  "gap_signed_ref": 0.3544186500195084,
-  "gap_abs_ref": 0.3544186500195084,
-  "proba_std_test": 0.20039586322719713,
-  "proba_unique_test": 233,
+  "gap_ref": 0.3522727272727273,
+  "gap_signed_ref": 0.3522727272727273,
+  "gap_abs_ref": 0.3522727272727273,
+  "proba_std_test": 0.2002424819762891,
+  "proba_unique_test": 234,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.157795563051532,
-    "mean": 0.6016516370535685,
-    "max": 0.8717551200705775
+    "mean": 0.6023392563194135,
+    "max": 0.8717551200705773
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-08",
-    "end": "2026-03-05"
+    "start": "2025-12-09",
+    "end": "2026-03-06"
   },
   "p_ens_future_stats": {
     "min": 0.18536028063599014,
-    "mean": 0.49578983299851237,
-    "max": 0.7828663577610665
+    "mean": 0.4881161685891788,
+    "max": 0.7828663577610666
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-05",
-    "p_ens": 0.2706642465995483
+    "trade_date": "2026-03-06",
+    "p_ens": 0.30213467772108094
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

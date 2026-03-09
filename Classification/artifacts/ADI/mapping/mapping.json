@@ -1,12 +1,12 @@
 {
   "ticker": "ADI",
-  "beta_ols": 1.596042182990093,
-  "beta_ewma": 1.407482865352226,
-  "beta_final": 1.539474387698733,
+  "beta_ols": 1.601788543774178,
+  "beta_ewma": 1.714367971601063,
+  "beta_final": 1.6355623721222434,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03317782550415752,
+  "expected_capm_return_3m_log": 0.0346816362022415,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

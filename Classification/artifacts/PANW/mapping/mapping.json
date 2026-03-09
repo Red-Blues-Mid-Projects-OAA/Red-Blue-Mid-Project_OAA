@@ -1,12 +1,12 @@
 {
   "ticker": "PANW",
-  "beta_ols": 1.2152233740428302,
-  "beta_ewma": 0.4134477597572238,
-  "beta_final": 0.9746906897571482,
+  "beta_ols": 1.2077132385988143,
+  "beta_ewma": 0.21234687363768653,
+  "beta_final": 0.909103329110476,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.024292757258995445,
+  "expected_capm_return_3m_log": 0.023255814660321183,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

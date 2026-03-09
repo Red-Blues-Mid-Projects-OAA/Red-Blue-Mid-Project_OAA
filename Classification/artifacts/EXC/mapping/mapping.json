@@ -1,12 +1,12 @@
 {
   "ticker": "EXC",
-  "beta_ols": -0.009427814013162793,
-  "beta_ewma": -0.4653112789117969,
-  "beta_final": -0.14619285348275302,
+  "beta_ols": -0.012389636166025281,
+  "beta_ewma": -0.5064189503003436,
+  "beta_final": -0.16059843040632077,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.006421927109858126,
+  "expected_capm_return_3m_log": 0.006190160110938382,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

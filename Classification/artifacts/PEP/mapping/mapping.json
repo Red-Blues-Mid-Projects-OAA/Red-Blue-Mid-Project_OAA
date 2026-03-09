@@ -1,12 +1,12 @@
 {
   "ticker": "PEP",
-  "beta_ols": 0.08290445417759529,
-  "beta_ewma": 0.0036406214210928513,
-  "beta_final": 0.05912530435064455,
+  "beta_ols": 0.0847042483065554,
+  "beta_ewma": 0.09915410337110345,
+  "beta_final": 0.08903920482591982,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.009719403836990355,
+  "expected_capm_return_3m_log": 0.010198924639564962,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

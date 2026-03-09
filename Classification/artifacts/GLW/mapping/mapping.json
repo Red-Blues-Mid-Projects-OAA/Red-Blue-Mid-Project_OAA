@@ -1,12 +1,12 @@
 {
   "ticker": "GLW",
-  "beta_ols": 1.2343500582135662,
-  "beta_ewma": 3.142946311484569,
-  "beta_final": 1.8069289341948669,
+  "beta_ols": 1.2540192622956474,
+  "beta_ewma": 3.785000972541185,
+  "beta_final": 2.0133137753693084,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03735798290230725,
+  "expected_capm_return_3m_log": 0.040571754464278215,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "DHR",
-  "beta_ols": 0.8535283253624324,
-  "beta_ewma": 0.5303454603163541,
-  "beta_final": 0.7565734658486089,
+  "beta_ols": 0.8589562415898973,
+  "beta_ewma": 0.7978925122350137,
+  "beta_final": 0.8406371227834322,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.020840136441200276,
+  "expected_capm_return_3m_log": 0.022172208923506007,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

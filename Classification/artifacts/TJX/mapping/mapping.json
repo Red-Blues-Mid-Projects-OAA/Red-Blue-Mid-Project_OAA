@@ -1,12 +1,12 @@
 {
   "ticker": "TJX",
-  "beta_ols": 0.4604452550772496,
-  "beta_ewma": -0.21382317473603862,
-  "beta_final": 0.25816472613326313,
+  "beta_ols": 0.4616568558460161,
+  "beta_ewma": -0.035467388271719184,
+  "beta_final": 0.3125195826106955,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.012905695755242757,
+  "expected_capm_return_3m_log": 0.013774065183914734,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

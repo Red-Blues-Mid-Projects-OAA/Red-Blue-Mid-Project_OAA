@@ -1,12 +1,12 @@
 {
   "ticker": "AVGO",
-  "beta_ols": 2.0927650699211324,
-  "beta_ewma": 1.594995205758844,
-  "beta_final": 1.9434341106724458,
+  "beta_ols": 2.0873656751181784,
+  "beta_ewma": 1.4354398917667455,
+  "beta_final": 1.8917879401127484,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.039484762429707665,
+  "expected_capm_return_3m_log": 0.03868063600262747,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "PRU",
-  "beta_ols": 1.008347558150654,
-  "beta_ewma": 1.1354885461946753,
-  "beta_final": 1.0464898545638603,
+  "beta_ols": 1.0100838598203943,
+  "beta_ewma": 1.1763690468617722,
+  "beta_final": 1.0599694159328077,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.025426677619105605,
+  "expected_capm_return_3m_log": 0.025639416328578263,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

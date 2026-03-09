@@ -1,12 +1,12 @@
 {
   "ticker": "KHC",
-  "beta_ols": 0.18299376327613115,
-  "beta_ewma": -0.020006526728640863,
-  "beta_final": 0.12209367627469954,
+  "beta_ols": 0.17879532728974676,
+  "beta_ewma": -0.1716313384468865,
+  "beta_final": 0.07366732756875677,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.010728521616115838,
+  "expected_capm_return_3m_log": 0.009952541665122024,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "SCHW",
-  "beta_ols": 0.8364302685464633,
-  "beta_ewma": 1.2089922836618439,
-  "beta_final": 0.9481988730810774,
+  "beta_ols": 0.833998700391298,
+  "beta_ewma": 1.0269302776791416,
+  "beta_final": 0.891878173577651,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.023874048475701494,
+  "expected_capm_return_3m_log": 0.022983304891224333,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }

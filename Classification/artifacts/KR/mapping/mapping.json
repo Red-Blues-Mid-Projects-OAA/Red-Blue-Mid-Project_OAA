@@ -1,12 +1,12 @@
 {
   "ticker": "KR",
-  "beta_ols": -0.10286859063197368,
-  "beta_ewma": -0.8549712831728903,
-  "beta_final": -0.32849939839424863,
+  "beta_ols": -0.11147614157130145,
+  "beta_ewma": -1.0930896515809405,
+  "beta_final": -0.4059601945741932,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0034848828571821216,
+  "expected_capm_return_3m_log": 0.0022343369540724265,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-05",
+  "date": "2026-03-06",
   "Return_Type": "CAPM"
 }
