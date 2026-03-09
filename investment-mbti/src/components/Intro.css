@@ -3,31 +3,48 @@
     padding: clamp(0.7rem, 1.8vh, 1.4rem) 0.65rem;
     min-height: 100%;
     height: 100%;
+    width: 100%;
     overflow: hidden;
 }
 
 .intro-content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 1.35rem;
+    gap: clamp(1rem, 2vh, 1.6rem);
     width: 100%;
-    max-width: 680px;
+    max-width: 760px;
+    min-height: 0;
+    height: 100%;
+}
+
+.intro-main {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: clamp(1rem, 2.5vh, 1.85rem);
 }
 
 .intro-logo-wrap {
+    flex: 0 0 33%;
+    min-height: clamp(180px, 31vh, 320px);
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     text-align: center;
     margin-inline: auto;
-    margin-bottom: -0.1rem;
 }
 
 .intro-logo-shell {
     position: relative;
-    width: min(100%, 228px);
+    width: min(100%, 720px);
+    height: 100%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -36,11 +53,27 @@
 
 .intro-logo {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     object-fit: contain;
     margin-inline: auto;
     filter: drop-shadow(0 12px 18px rgba(20, 35, 70, 0.12));
+}
+
+.intro-copy {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.9rem, 1.8vh, 1.3rem);
+}
+
+.intro-text-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
 }
 
 .badge {
@@ -48,22 +81,22 @@
     color: #3182f6;
     padding: 0.5rem 1rem;
     border-radius: 20px;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     border: 1px solid rgba(49, 130, 246, 0.2);
 }
 
 .title {
-    font-size: 2.375rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--text-primary);
+    line-height: 1.16;
     margin: 0;
 }
 
-/* "투자 성향 MBTI 테스트:" — 메인 타이틀보다 약간 작게 */
 .title-label {
-    font-size: 1.75rem;
+    font-size: 1.45rem;
 }
 
 .title-main {
@@ -90,28 +123,36 @@
 }
 
 .subtitle {
-    font-size: 1.125rem;
+    font-size: 0.98rem;
     color: var(--text-secondary);
     max-width: 620px;
     white-space: normal;
     line-height: 1.55;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto;
+}
+
+.btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
 }
 
 .start-btn {
-    font-size: 1.25rem;
+    width: auto;
+    font-size: 1.08rem;
     padding: 1.2rem 2.5rem;
     border-radius: 30px;
     font-weight: 800;
     letter-spacing: 0.05em;
-    margin-top: 1rem;
+    margin-top: 0;
     position: relative;
     overflow: hidden;
     background: linear-gradient(180deg, #4a9bff 0%, #2f7ef4 100%);
     border: 1px solid #2a6fd6;
     color: #ffffff;
     animation: none;
-    min-width: 260px;
+    min-width: fit-content;
 }
 
 .start-btn::before {
@@ -131,9 +172,11 @@
     0% {
         left: -40%;
     }
+
     45% {
         left: 120%;
     }
+
     100% {
         left: 120%;
     }
@@ -154,27 +197,45 @@
         box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
     }
 
+    .intro-main {
+        justify-content: flex-start;
+        gap: 0.95rem;
+    }
+
+    .intro-logo-wrap {
+        flex: 0 0 auto;
+        min-height: clamp(132px, 24vh, 190px);
+    }
+
     .intro-logo-shell {
-        width: min(62vw, 186px);
+        width: min(94vw, 420px);
+    }
+
+    .intro-copy {
+        gap: 0.75rem;
+    }
+
+    .intro-text-group {
+        gap: 0.7rem;
     }
 
     .title {
-        font-size: 1.7rem;
+        font-size: 1.45rem;
         line-height: 1.18;
     }
 
     .title-label {
-        font-size: 1.14rem;
+        font-size: 0.98rem;
     }
 
     .title-main {
-        font-size: 1.44rem;
+        font-size: 1.22rem;
         white-space: nowrap;
         letter-spacing: -0.04em;
     }
 
     .title-main--mobile {
-        font-size: clamp(1.34rem, 6vw, 1.44rem);
+        font-size: clamp(1.16rem, 5.5vw, 1.22rem);
     }
 
     .title-main--desktop,
@@ -189,18 +250,16 @@
     }
 
     .subtitle {
-        font-size: 0.98rem;
+        font-size: 0.88rem;
         max-width: 100%;
-        margin-bottom: 0.55rem;
         line-height: 1.45;
     }
 
     .start-btn {
-        min-width: 0;
-        width: min(100%, 320px);
-        font-size: 1.16rem;
+        width: auto;
+        min-width: fit-content;
+        font-size: 0.98rem;
         padding: 0.95rem 1.05rem;
         border-radius: 22px;
-        margin-top: 0.15rem;
     }
 }
