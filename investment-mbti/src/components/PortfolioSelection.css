@@ -148,6 +148,23 @@
     padding: 0.5rem 0.25rem 0.75rem;
     margin: -0.5rem -0.25rem 0;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    user-select: none;
+}
+
+.ps-rec-cards::-webkit-scrollbar {
+    display: none;
+}
+
+.ps-rec-cards--dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+}
+
+.ps-rec-cards--dragging .ps-rec-card {
+    cursor: grabbing;
 }
 
 .ps-rec-card {
@@ -158,10 +175,11 @@
     border: 1.5px solid rgba(148, 163, 184, 0.25);
     background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
     padding: 0.75rem 0.9rem;
-    cursor: pointer;
+    cursor: grab;
     transition: all 0.2s ease;
     text-align: left;
     position: relative;
+    user-select: none;
 }
 
 .ps-rec-card:hover {
@@ -829,6 +847,7 @@
     }
 
     .ps-rec-card {
+        flex: 0 0 auto;
         min-width: 155px;
         border-radius: 14px;
     }

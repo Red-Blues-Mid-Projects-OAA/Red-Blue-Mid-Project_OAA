@@ -180,7 +180,10 @@ function App() {
   };
 
   const isViewportLockedView =
-    currentView === 'INTRO' || currentView === 'INVESTMENT_AMOUNT';
+    currentView === 'INTRO' ||
+    currentView === 'INVESTMENT_AMOUNT' ||
+    currentView === 'QUESTION' ||
+    currentView === 'SLIDER';
 
   return (
     <div className={`app-container max-w-[1920px] mx-auto ${isViewportLockedView ? 'app-container--fit-screen' : ''}`}>

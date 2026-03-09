@@ -1,13 +1,20 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { Search, ArrowUpDown, XCircle, Eye, RefreshCw, ArrowLeft, CheckCircle } from 'lucide-react';
 import { buildApiUrl, hasApiBase, API_BASE, getApiConfigErrorMessage } from '../config/api';
 import './PortfolioSelection.css';
+
+const ZERO_PORTFOLIO_SCORES = {
+    return_pct: 0,
+    risk_pct: 0,
+    risk_pct_naive: 0,
+    diversification_benefit: 0,
+};
 
 function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFinal = 7.7, savedSelectedTickers, onSelectedTickersChange, onBack, onRestart, onConfirm }) {
     // ── 상태 관리 ──
     const [allStocks, setAllStocks] = useState([]);
     const [selectedTickers, setSelectedTickers] = useState(new Set());
-    const [portfolioScores, setPortfolioScores] = useState({ return_pct: 0, risk_pct: 0, risk_pct_naive: 0, diversification_benefit: 0 });
+    const [portfolioScores, setPortfolioScores] = useState(ZERO_PORTFOLIO_SCORES);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortKey, setSortKey] = useState('market_cap_asc');
     const [showSortDropdown, setShowSortDropdown] = useState(false);
@@ -15,6 +22,11 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
     const [loading, setLoading] = useState(true);
     const [errorMsg, setErrorMsg] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(null);
+    const [isRecCardsDragging, setIsRecCardsDragging] = useState(false);
+    const scoreRequestRef = useRef({ controller: null, timeoutId: null, requestId: 0 });
+    const recCardsRef = useRef(null);
+    const recCardsDragRef = useRef({ active: false, startX: 0, scrollLeft: 0, didDrag: false });
+    const suppressRecCardsClickRef = useRef(false);
 
     // 위험 타입별 최소 종목 수
     const MIN_COUNT_MAP = { 4: 10, 3: 7, 2: 4, 1: 1 };
@@ -55,8 +67,19 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
     // ── 선택 변경 시 포트폴리오 스코어 재계산 ──
     useEffect(() => {
         const tickers = Array.from(selectedTickers);
+        const pendingRequest = scoreRequestRef.current;
+
+        if (pendingRequest.timeoutId) {
+            clearTimeout(pendingRequest.timeoutId);
+            pendingRequest.timeoutId = null;
+        }
+        if (pendingRequest.controller) {
+            pendingRequest.controller.abort();
+            pendingRequest.controller = null;
+        }
+
         if (tickers.length === 0) {
-            setPortfolioScores({ return_pct: 0, risk_pct: 0, risk_pct_naive: 0, diversification_benefit: 0 });
+            setPortfolioScores(ZERO_PORTFOLIO_SCORES);
             return;
         }
 
@@ -64,21 +87,43 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
             return;
         }
 
-        fetch(buildApiUrl('/api/portfolio-scores'), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Bypass-Tunnel-Reminder': 'true'
-            },
-            body: JSON.stringify({ selected_tickers: tickers }),
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    setPortfolioScores(data.data);
-                }
+        const requestId = pendingRequest.requestId + 1;
+        const controller = new AbortController();
+        pendingRequest.requestId = requestId;
+        pendingRequest.controller = controller;
+        pendingRequest.timeoutId = setTimeout(() => {
+            fetch(buildApiUrl('/api/portfolio-scores'), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Bypass-Tunnel-Reminder': 'true'
+                },
+                body: JSON.stringify({ selected_tickers: tickers }),
+                signal: controller.signal,
             })
-            .catch(err => console.error('portfolio-scores fetch error:', err, 'API_BASE:', API_BASE));
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success' && scoreRequestRef.current.requestId === requestId) {
+                        setPortfolioScores(data.data);
+                    }
+                })
+                .catch(err => {
+                    if (err?.name !== 'AbortError') {
+                        console.error('portfolio-scores fetch error:', err, 'API_BASE:', API_BASE);
+                    }
+                });
+        }, 120);
+
+        return () => {
+            if (pendingRequest.timeoutId) {
+                clearTimeout(pendingRequest.timeoutId);
+                pendingRequest.timeoutId = null;
+            }
+            if (pendingRequest.controller) {
+                pendingRequest.controller.abort();
+                pendingRequest.controller = null;
+            }
+        };
     }, [selectedTickers]);
 
     // ── 선택 변경 시 부모(App)에 동기화 (뒤로가기 시 복원용) ──
@@ -104,6 +149,79 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
     const clearAll = useCallback(() => {
         setSelectedTickers(new Set());
     }, []);
+
+    const handleRecCardsMouseDown = useCallback((event) => {
+        if (event.button !== 0) {
+            return;
+        }
+
+        const container = recCardsRef.current;
+        if (!container) {
+            return;
+        }
+
+        recCardsDragRef.current = {
+            active: true,
+            startX: event.clientX,
+            scrollLeft: container.scrollLeft,
+            didDrag: false,
+        };
+        suppressRecCardsClickRef.current = false;
+    }, []);
+
+    const handleRecCardsMouseMove = useCallback((event) => {
+        const container = recCardsRef.current;
+        const dragState = recCardsDragRef.current;
+
+        if (!container || !dragState.active) {
+            return;
+        }
+
+        const deltaX = event.clientX - dragState.startX;
+        if (!dragState.didDrag && Math.abs(deltaX) > 6) {
+            dragState.didDrag = true;
+            suppressRecCardsClickRef.current = true;
+            setIsRecCardsDragging(true);
+        }
+
+        if (!dragState.didDrag) {
+            return;
+        }
+
+        event.preventDefault();
+        container.scrollLeft = dragState.scrollLeft - deltaX;
+    }, []);
+
+    const finishRecCardsDrag = useCallback(() => {
+        const dragState = recCardsDragRef.current;
+
+        if (!dragState.active) {
+            return;
+        }
+
+        const shouldSuppressClick = dragState.didDrag;
+        recCardsDragRef.current = { active: false, startX: 0, scrollLeft: 0, didDrag: false };
+        setIsRecCardsDragging(false);
+
+        if (!shouldSuppressClick) {
+            suppressRecCardsClickRef.current = false;
+            return;
+        }
+
+        window.setTimeout(() => {
+            suppressRecCardsClickRef.current = false;
+        }, 0);
+    }, []);
+
+    const handleRecCardClick = useCallback((event, ticker) => {
+        if (!suppressRecCardsClickRef.current) {
+            toggleTicker(ticker);
+            return;
+        }
+
+        event.preventDefault();
+        suppressRecCardsClickRef.current = false;
+    }, [toggleTicker]);
 
     // ── 추천 종목에 대한 스코어 매핑 ──
     const recStocksWithScores = useMemo(() => {
@@ -188,7 +306,14 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
             {/* ── 상단: 선호 추천 종목 ── */}
             <section className="ps-section reveal delay-2">
                 <h2 className="ps-section-title">선호 추천 종목</h2>
-                <div className="ps-rec-cards">
+                <div
+                    ref={recCardsRef}
+                    className={`ps-rec-cards ${isRecCardsDragging ? 'ps-rec-cards--dragging' : ''}`}
+                    onMouseDown={handleRecCardsMouseDown}
+                    onMouseMove={handleRecCardsMouseMove}
+                    onMouseUp={finishRecCardsDrag}
+                    onMouseLeave={finishRecCardsDrag}
+                >
                     {recStocksWithScores.map((stock) => {
                         const isSelected = selectedTickers.has(stock.ticker);
                         return (
@@ -196,7 +321,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
                                 key={stock.ticker}
                                 type="button"
                                 className={`ps-rec-card ${isSelected ? 'ps-rec-card--selected' : ''}`}
-                                onClick={() => toggleTicker(stock.ticker)}
+                                onClick={(event) => handleRecCardClick(event, stock.ticker)}
                             >
                                 <div className="ps-rec-rank">{stock.rank}.</div>
                                 <div className="ps-rec-info">

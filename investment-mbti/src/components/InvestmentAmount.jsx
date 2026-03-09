@@ -37,10 +37,10 @@ function InvestmentAmount({ onComplete, onBack }) {
 
     return (
         <div className="investment-amount-page animate-fade-in flex flex-col items-center justify-center">
-            <div className="w-full max-w-xl flex flex-col gap-6 sm:gap-9 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <div className="investment-amount-stack w-full max-w-xl flex flex-col gap-6 sm:gap-9 animate-slide-up" style={{ animationDelay: '0.1s' }}>
 
                 {/* 상단: 제목 */}
-                <div className="text-center">
+                <div className="investment-amount-title text-center">
                     <h2 className="text-2xl sm:text-3xl font-bold leading-snug" style={{ color: 'var(--text-primary)' }}>
                         얼마까지 투자할 계획이신가요?
                     </h2>
@@ -48,7 +48,7 @@ function InvestmentAmount({ onComplete, onBack }) {
 
                 {/* 중단: 입력 카드 */}
                 <div
-                    className="bg-white/95 border rounded-3xl py-8 sm:py-16 px-6 sm:px-10 shadow-sm flex flex-col items-center justify-center gap-4"
+                    className="investment-amount-card bg-white/95 border rounded-3xl py-8 sm:py-16 px-6 sm:px-10 shadow-sm flex flex-col items-center justify-center gap-4"
                     style={{ borderColor: 'var(--card-border)', minHeight: '200px' }}
                 >
                     <div className="flex items-center justify-center gap-3">
@@ -86,9 +86,9 @@ function InvestmentAmount({ onComplete, onBack }) {
                 </div>
 
                 {/* 하단: 버튼 영역 */}
-                <div>
+                <div className="investment-amount-actions">
                     {/* 경고 슬롯 고정: 표시/숨김 시 다른 요소가 움직이지 않음 */}
-                    <div className="h-[40px] mb-5 sm:mb-9 relative">
+                    <div className="investment-amount-alert-slot h-[40px] mb-5 sm:mb-9 relative">
                         <div
                             key={alertNonce}
                             className={`absolute inset-x-0 top-0 w-full mx-auto text-red-500 text-sm font-bold text-center
@@ -105,7 +105,7 @@ function InvestmentAmount({ onComplete, onBack }) {
 
                     <button
                         onClick={handleNext}
-                        className="btn btn-primary btn-3d w-full sm:w-4/5 mx-auto block text-lg font-bold py-4 rounded-2xl"
+                        className="investment-amount-next-btn btn btn-primary btn-3d w-full sm:w-4/5 mx-auto block text-lg font-bold py-4 rounded-2xl"
                     >
                         다음 →
                     </button>

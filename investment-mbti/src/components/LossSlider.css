@@ -1,17 +1,19 @@
 .slider-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     --control-width: min(100%, 420px);
-    min-height: calc(100dvh - 4rem);
+    min-height: 100%;
+    height: 100%;
     margin: 0 auto;
-    padding: 1rem;
+    padding: clamp(0.6rem, 1.6vh, 1rem) 1rem;
+    overflow: hidden;
 }
 
 .slider-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: clamp(0.75rem, 1.8vh, 1.4rem);
 }
 
 .slider-main-question {
@@ -34,18 +36,18 @@
     background: #ffffff;
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
-    padding: 2rem;
+    padding: clamp(1.15rem, 2.4vh, 1.8rem);
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-    margin-bottom: 1rem;
+    margin-bottom: clamp(0.5rem, 1.2vh, 0.8rem);
     width: 100%;
 }
 
 /* Big Percent Display */
 .loss-value {
-    margin-bottom: 1rem;
+    margin-bottom: 0.7rem;
 }
 
 .percent {
@@ -64,7 +66,7 @@
     color: #4e5968;
     font-size: clamp(0.95rem, 2vw, 1.25rem);
     font-weight: 600;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1.2rem;
     background: #f2f4f6;
     padding: 0.75rem 1.5rem;
     border-radius: 30px;
@@ -88,7 +90,7 @@
     height: 8px;
     border-radius: 5px;
     outline: none;
-    margin: 0 auto 1rem;
+    margin: 0 auto 0.8rem;
     transition: all 0.3s ease;
 }
 
@@ -115,7 +117,7 @@
     font-size: 0.875rem;
     color: var(--text-secondary);
     font-weight: 600;
-    margin: 0 auto 1.6rem;
+    margin: 0 auto 0.9rem;
 }
 
 .slider-warning {
@@ -128,7 +130,7 @@
 .slider-warning-slot {
     height: 34px;
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 0.7rem;
 }
 
 /* Dynamic Feedback Box */
@@ -177,31 +179,32 @@
 
 @media (max-width: 760px) {
     .slider-container {
-        justify-content: flex-start;
-        min-height: calc(100dvh - 1.5rem);
-        padding: 0.5rem 0.35rem 1.4rem;
+        justify-content: space-between;
+        min-height: 100%;
+        height: 100%;
+        padding: 0.35rem 0.35rem calc(0.8rem + env(safe-area-inset-bottom));
     }
 
     .slider-header {
-        margin-bottom: 1.2rem;
+        margin-bottom: 0.8rem;
     }
 
     .slider-main-question {
-        font-size: 1.13rem;
-        line-height: 1.52;
+        font-size: 1.06rem;
+        line-height: 1.42;
     }
 
     .slider-card {
         border-radius: 22px;
-        padding: 1.25rem 1rem;
-        margin-bottom: 0.75rem;
+        padding: 1rem 0.9rem;
+        margin-bottom: 0.45rem;
     }
 
     .money-indicator {
         width: 100%;
         font-size: 0.98rem;
         padding: 0.62rem 0.9rem;
-        margin-bottom: 1.35rem;
+        margin-bottom: 0.95rem;
     }
 
     .range-slider,
@@ -210,13 +213,18 @@
     }
 
     .slider-labels {
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
         font-size: 0.82rem;
+    }
+
+    .slider-warning-slot {
+        height: 30px;
+        margin-bottom: 0.45rem;
     }
 
     .submit-btn {
         border-radius: 14px;
-        margin-top: 0.2rem;
+        margin-top: 0;
         padding: 0.92rem;
         font-size: 1rem;
     }
@@ -224,14 +232,15 @@
 
 @media (max-width: 480px) {
     .percent {
-        font-size: 3rem;
+        font-size: 2.7rem;
     }
 
     .slider-card {
-        padding: 1.1rem 0.9rem;
+        padding: 0.95rem 0.8rem;
     }
 
     .money-indicator {
-        font-size: 0.95rem;
+        font-size: 0.88rem;
+        padding: 0.58rem 0.8rem;
     }
 }

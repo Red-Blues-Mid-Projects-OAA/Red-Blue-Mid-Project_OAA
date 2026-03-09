@@ -63,3 +63,12 @@
         box-shadow: 0 2px 0 #1a56c0, 0 5px 10px rgba(49, 130, 246, 0.24);
     }
 }
+
+@media (max-width: 480px) {
+    .investment-amount-title h2 {
+        font-size: 1.32rem;
+        line-height: 1.22;
+        letter-spacing: -0.04em;
+        white-space: nowrap;
+    }
+}
