@@ -1,12 +1,12 @@
 {
   "ticker": "RTX",
-  "beta_ols": 0.4751203206193339,
-  "beta_ewma": 0.08351588156788417,
-  "beta_final": 0.35763898890389895,
+  "beta_ols": 0.4732913176505308,
+  "beta_ewma": -0.015489081594801639,
+  "beta_final": 0.32665719787693104,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.014494317374728193,
+  "expected_capm_return_3m_log": 0.01399980322984186,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

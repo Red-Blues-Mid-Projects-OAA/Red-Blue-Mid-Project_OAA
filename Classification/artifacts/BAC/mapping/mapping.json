@@ -1,12 +1,12 @@
 {
   "ticker": "BAC",
-  "beta_ols": 0.9706128379979189,
-  "beta_ewma": 1.2710432924397237,
-  "beta_final": 1.0607419743304602,
+  "beta_ols": 0.9672290184019966,
+  "beta_ewma": 1.0679122803174883,
+  "beta_final": 0.997433996976644,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02565160771888993,
+  "expected_capm_return_3m_log": 0.024652080246162496,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

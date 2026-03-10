@@ -1,12 +1,12 @@
 {
   "ticker": "NEM",
-  "beta_ols": 0.6151854638288052,
-  "beta_ewma": 1.6690526271722619,
-  "beta_final": 0.9313456128318421,
+  "beta_ols": 0.6150528767233204,
+  "beta_ewma": 1.5926329559531305,
+  "beta_final": 0.9083269004922634,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.023607587850874287,
+  "expected_capm_return_3m_log": 0.02324353280571444,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

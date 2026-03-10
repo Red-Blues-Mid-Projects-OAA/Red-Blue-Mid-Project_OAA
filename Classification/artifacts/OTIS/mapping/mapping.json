@@ -1,12 +1,12 @@
 {
   "ticker": "OTIS",
-  "beta_ols": 0.4823552887561419,
-  "beta_ewma": -0.04814983138874682,
-  "beta_final": 0.32320375271267526,
+  "beta_ols": 0.47912829720926914,
+  "beta_ewma": -0.20153686687347797,
+  "beta_final": 0.274928747984445,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013944666104181793,
+  "expected_capm_return_3m_log": 0.013173597037808899,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

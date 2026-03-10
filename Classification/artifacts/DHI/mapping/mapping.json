@@ -1,12 +1,12 @@
 {
   "ticker": "DHI",
-  "beta_ols": 0.6237214870796299,
-  "beta_ewma": 0.006826323492852012,
-  "beta_final": 0.43865293800359656,
+  "beta_ols": 0.6234578241644843,
+  "beta_ewma": 0.06511194148802217,
+  "beta_final": 0.4559540593615456,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01578626244914972,
+  "expected_capm_return_3m_log": 0.01606195061358623,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

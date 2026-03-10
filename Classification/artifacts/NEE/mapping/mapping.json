@@ -1,12 +1,12 @@
 {
   "ticker": "NEE",
-  "beta_ols": 0.3255484104683337,
-  "beta_ewma": 0.05627528503393195,
-  "beta_final": 0.24476647283801317,
+  "beta_ols": 0.32662560198294327,
+  "beta_ewma": 0.1406690797043247,
+  "beta_final": 0.2708386452993577,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.012691530291287431,
+  "expected_capm_return_3m_log": 0.013108240836007591,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

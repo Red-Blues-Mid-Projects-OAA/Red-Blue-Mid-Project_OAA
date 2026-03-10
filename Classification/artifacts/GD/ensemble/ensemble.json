@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-09T13:57:37",
-  "data_snapshot_end_date": "2026-03-06",
+  "generated_at": "2026-03-10T13:16:37",
+  "data_snapshot_end_date": "2026-03-09",
   "feature_count": 16,
   "ticker": "GD",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 234,
+  "n_test_samples": 235,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-08",
-  "ic_full": 0.18905333548745112,
-  "ic_pvalue": 0.0036996695885405913,
+  "test_end": "2025-12-09",
+  "ic_full": 0.18910002126734904,
+  "ic_pvalue": 0.003617886640603535,
   "ic_first_half": -0.36155944192180306,
-  "ic_second_half": 0.377017488648114,
-  "accuracy_ref": 0.5213675213675214,
+  "ic_second_half": 0.3905682220737056,
+  "accuracy_ref": 0.5191489361702127,
   "precision_ref": 0.7235772357723578,
   "train_accuracy_ref": 0.7602272727272728,
-  "gap_ref": 0.23885975135975135,
-  "gap_signed_ref": 0.23885975135975135,
-  "gap_abs_ref": 0.23885975135975135,
-  "proba_std_test": 0.09143409558632501,
-  "proba_unique_test": 234,
+  "gap_ref": 0.24107833655706,
+  "gap_signed_ref": 0.24107833655706,
+  "gap_abs_ref": 0.24107833655706,
+  "proba_std_test": 0.09123936742076456,
+  "proba_unique_test": 235,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.3050499647792509,
-    "mean": 0.47136149731312,
+    "mean": 0.4713575616283156,
     "max": 0.6745863541224264
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-09",
-    "end": "2026-03-06"
+    "start": "2025-12-10",
+    "end": "2026-03-09"
   },
   "p_ens_future_stats": {
     "min": 0.36541176031216366,
-    "mean": 0.4397291732154088,
+    "mean": 0.4384397175069749,
     "max": 0.4995692749578222
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-06",
-    "p_ens": 0.40500940763728577
+    "trade_date": "2026-03-09",
+    "p_ens": 0.39306926887806026
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

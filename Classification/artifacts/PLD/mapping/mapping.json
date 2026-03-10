@@ -1,12 +1,12 @@
 {
   "ticker": "PLD",
-  "beta_ols": 0.8199660559294668,
-  "beta_ewma": 0.4700987436434527,
-  "beta_final": 0.7150058622436625,
+  "beta_ols": 0.8196957187561082,
+  "beta_ewma": 0.4793146337757175,
+  "beta_final": 0.717581393261991,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.020180800091824058,
+  "expected_capm_return_3m_log": 0.0202216652442404,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "CRM",
-  "beta_ols": 1.1546165779861792,
-  "beta_ewma": 0.6381421652120673,
-  "beta_final": 0.9996742541539456,
+  "beta_ols": 1.1510290769097644,
+  "beta_ewma": 0.43882460106455917,
+  "beta_final": 0.9373677341562028,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02468746723043685,
+  "expected_capm_return_3m_log": 0.023702809522358675,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

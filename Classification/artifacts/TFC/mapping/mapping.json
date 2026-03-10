@@ -1,12 +1,12 @@
 {
   "ticker": "TFC",
-  "beta_ols": 1.0925742081810508,
-  "beta_ewma": 1.3836736271035923,
-  "beta_final": 1.1799040338578133,
+  "beta_ols": 1.09208617704685,
+  "beta_ewma": 1.3616166854058958,
+  "beta_final": 1.1729453295545635,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.027530272356317602,
+  "expected_capm_return_3m_log": 0.027420660997674495,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "VST",
-  "beta_ols": 2.0548212699691217,
-  "beta_ewma": 1.8055765948507492,
-  "beta_final": 1.98004786743361,
+  "beta_ols": 2.056625624019081,
+  "beta_ewma": 1.9479934489485469,
+  "beta_final": 2.024035971497921,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04005444402540703,
+  "expected_capm_return_3m_log": 0.0407384358434652,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

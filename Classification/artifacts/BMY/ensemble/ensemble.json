@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-09T13:56:58",
-  "data_snapshot_end_date": "2026-03-06",
+  "generated_at": "2026-03-10T13:15:59",
+  "data_snapshot_end_date": "2026-03-09",
   "feature_count": 16,
   "ticker": "BMY",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 234,
+  "n_test_samples": 235,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-08",
-  "ic_full": -0.00036292201391279106,
-  "ic_pvalue": 0.995594175586752,
+  "test_end": "2025-12-09",
+  "ic_full": 0.00432836786965889,
+  "ic_pvalue": 0.9473785218082494,
   "ic_first_half": -0.3081418873353415,
-  "ic_second_half": 0.6815777248272864,
-  "accuracy_ref": 0.5512820512820513,
-  "precision_ref": 0.35,
+  "ic_second_half": 0.6827028073289291,
+  "accuracy_ref": 0.5531914893617021,
+  "precision_ref": 0.3564356435643564,
   "train_accuracy_ref": 0.7534090909090909,
-  "gap_ref": 0.2021270396270396,
-  "gap_signed_ref": 0.2021270396270396,
-  "gap_abs_ref": 0.2021270396270396,
-  "proba_std_test": 0.0981246425907646,
-  "proba_unique_test": 234,
+  "gap_ref": 0.20021760154738877,
+  "gap_signed_ref": 0.20021760154738877,
+  "gap_abs_ref": 0.20021760154738877,
+  "proba_std_test": 0.09813203662380661,
+  "proba_unique_test": 235,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.28637465297064846,
-    "mean": 0.5031768035740445,
+    "mean": 0.5036025921175846,
     "max": 0.6950142345902142
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-09",
-    "end": "2026-03-06"
+    "start": "2025-12-10",
+    "end": "2026-03-09"
   },
   "p_ens_future_stats": {
     "min": 0.4397102671071407,
-    "mean": 0.5667088197648164,
+    "mean": 0.564727408234786,
     "max": 0.6502377444975092
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-06",
-    "p_ens": 0.47336925870875846
+    "trade_date": "2026-03-09",
+    "p_ens": 0.4843524195041399
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

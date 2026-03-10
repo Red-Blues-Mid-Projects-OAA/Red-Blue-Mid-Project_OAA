@@ -1,12 +1,12 @@
 {
   "ticker": "SLB",
-  "beta_ols": 1.0127737567137065,
-  "beta_ewma": 0.989294317829124,
-  "beta_final": 1.0057299250483318,
+  "beta_ols": 1.0125588381510797,
+  "beta_ewma": 0.9796317081761359,
+  "beta_final": 1.0026806991585966,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.024783116021708292,
+  "expected_capm_return_3m_log": 0.02473495490943617,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

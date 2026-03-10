@@ -1,12 +1,12 @@
 {
   "ticker": "SYK",
-  "beta_ols": 0.6407743125755624,
-  "beta_ewma": 0.3284569057357482,
-  "beta_final": 0.547079090523618,
+  "beta_ols": 0.640549198288793,
+  "beta_ewma": 0.34389941834739723,
+  "beta_final": 0.5515542643063742,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.017512747520498383,
+  "expected_capm_return_3m_log": 0.01758394233742928,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

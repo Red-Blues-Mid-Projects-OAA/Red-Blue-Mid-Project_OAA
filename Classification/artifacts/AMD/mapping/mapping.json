@@ -1,12 +1,12 @@
 {
   "ticker": "AMD",
-  "beta_ols": 2.1505493548886836,
-  "beta_ewma": 3.306468186629697,
-  "beta_final": 2.4973250044109876,
+  "beta_ols": 2.155586051253575,
+  "beta_ewma": 3.54472331020177,
+  "beta_final": 2.5723272289380334,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04806838454281513,
+  "expected_capm_return_3m_log": 0.04922504727383555,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

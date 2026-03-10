@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-09T13:55:34",
-  "data_snapshot_end_date": "2026-03-06",
+  "generated_at": "2026-03-10T13:14:40",
+  "data_snapshot_end_date": "2026-03-09",
   "feature_count": 16,
   "ticker": "MSFT",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 234,
+  "n_test_samples": 235,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-08",
-  "ic_full": -0.521109651618281,
-  "ic_pvalue": 1.0838287315404572e-17,
+  "test_end": "2025-12-09",
+  "ic_full": -0.5132726751551129,
+  "ic_pvalue": 3.4006752720966086e-17,
   "ic_first_half": -0.47390190172188995,
-  "ic_second_half": 0.5694900268249187,
-  "accuracy_ref": 0.20085470085470086,
+  "ic_second_half": 0.5736161478933165,
+  "accuracy_ref": 0.20425531914893616,
   "precision_ref": 0.13768115942028986,
   "train_accuracy_ref": 0.7852272727272728,
-  "gap_ref": 0.5843725718725719,
-  "gap_signed_ref": 0.5843725718725719,
-  "gap_abs_ref": 0.5843725718725719,
-  "proba_std_test": 0.07866037951433727,
-  "proba_unique_test": 234,
+  "gap_ref": 0.5809719535783366,
+  "gap_signed_ref": 0.5809719535783366,
+  "gap_abs_ref": 0.5809719535783366,
+  "proba_std_test": 0.07855405250816724,
+  "proba_unique_test": 235,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.3349515582667685,
-    "mean": 0.511089917517088,
+    "mean": 0.5108872277288455,
     "max": 0.6658789807940271
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-09",
-    "end": "2026-03-06"
+    "start": "2025-12-10",
+    "end": "2026-03-09"
   },
   "p_ens_future_stats": {
     "min": 0.38366515004731244,
-    "mean": 0.4920236573696563,
+    "mean": 0.4920098114210965,
     "max": 0.6507365716172597
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-06",
-    "p_ens": 0.39872899675916307
+    "trade_date": "2026-03-09",
+    "p_ens": 0.4626270566412208
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

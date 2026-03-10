@@ -1,12 +1,12 @@
 {
   "ticker": "COF",
-  "beta_ols": 1.4091265456361117,
-  "beta_ewma": 2.4745405001325538,
-  "beta_final": 1.7287507319850444,
+  "beta_ols": 1.4059474466490165,
+  "beta_ewma": 2.23214329649637,
+  "beta_final": 1.6538062016032224,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03613790982413514,
+  "expected_capm_return_3m_log": 0.03496690326932873,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "COIN",
-  "beta_ols": 2.63828236692587,
-  "beta_ewma": 5.417548815465775,
-  "beta_final": 3.472062301487841,
+  "beta_ols": 2.6372125785087484,
+  "beta_ewma": 5.050200403514976,
+  "beta_final": 3.3611089260106164,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0629972081437444,
+  "expected_capm_return_3m_log": 0.061309072561581086,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-09T13:57:46",
-  "data_snapshot_end_date": "2026-03-06",
+  "generated_at": "2026-03-10T13:16:45",
+  "data_snapshot_end_date": "2026-03-09",
   "feature_count": 16,
   "ticker": "ICE",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 234,
+  "n_test_samples": 235,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-08",
-  "ic_full": 0.1525532149036852,
-  "ic_pvalue": 0.01955380613636013,
+  "test_end": "2025-12-09",
+  "ic_full": 0.1526403876205535,
+  "ic_pvalue": 0.01922230666690977,
   "ic_first_half": 0.5827676122825157,
-  "ic_second_half": 0.5405071258373421,
-  "accuracy_ref": 0.6111111111111112,
+  "ic_second_half": 0.5275273081853341,
+  "accuracy_ref": 0.6085106382978723,
   "precision_ref": 0.3709677419354839,
   "train_accuracy_ref": 0.7238636363636364,
-  "gap_ref": 0.11275252525252522,
-  "gap_signed_ref": 0.11275252525252522,
-  "gap_abs_ref": 0.11275252525252522,
-  "proba_std_test": 0.09107776496075212,
-  "proba_unique_test": 234,
+  "gap_ref": 0.11535299806576405,
+  "gap_signed_ref": 0.11535299806576405,
+  "gap_abs_ref": 0.11535299806576405,
+  "proba_std_test": 0.0909075977228499,
+  "proba_unique_test": 235,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.28984905832457997,
-    "mean": 0.42337353040425024,
+    "mean": 0.42323749050971743,
     "max": 0.5876270358392403
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-09",
-    "end": "2026-03-06"
+    "start": "2025-12-10",
+    "end": "2026-03-09"
   },
   "p_ens_future_stats": {
     "min": 0.3359231167456618,
-    "mean": 0.40901451111199094,
+    "mean": 0.40872968292673745,
     "max": 0.4540995941028062
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-06",
-    "p_ens": 0.366420886294925
+    "trade_date": "2026-03-09",
+    "p_ens": 0.3743144633287766
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

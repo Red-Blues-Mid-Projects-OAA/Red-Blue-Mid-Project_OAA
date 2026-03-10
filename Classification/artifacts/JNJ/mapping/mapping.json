@@ -1,12 +1,12 @@
 {
   "ticker": "JNJ",
-  "beta_ols": 0.004266299846755297,
-  "beta_ewma": -0.1857748962419544,
-  "beta_final": -0.05274605897985761,
+  "beta_ols": 0.00543821837726998,
+  "beta_ewma": -0.10015446615914889,
+  "beta_final": -0.02623958698365568,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.007924061531059975,
+  "expected_capm_return_3m_log": 0.008349736130348916,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-06",
+  "date": "2026-03-09",
   "Return_Type": "CAPM"
 }

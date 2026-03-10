@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-09T13:56:21",
-  "data_snapshot_end_date": "2026-03-06",
+  "generated_at": "2026-03-10T13:15:25",
+  "data_snapshot_end_date": "2026-03-09",
   "feature_count": 16,
   "ticker": "VZ",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 234,
+  "n_test_samples": 235,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-08",
-  "ic_full": 0.3092193898695588,
-  "ic_pvalue": 1.4102269810358788e-06,
+  "test_end": "2025-12-09",
+  "ic_full": 0.30773206838839723,
+  "ic_pvalue": 1.5130087312256125e-06,
   "ic_first_half": 0.33433739453610867,
-  "ic_second_half": 0.2307392587930285,
-  "accuracy_ref": 0.6623931623931624,
+  "ic_second_half": 0.229169633955277,
+  "accuracy_ref": 0.6595744680851063,
   "precision_ref": 0.3684210526315789,
   "train_accuracy_ref": 0.8488636363636364,
-  "gap_ref": 0.186470473970474,
-  "gap_signed_ref": 0.186470473970474,
-  "gap_abs_ref": 0.186470473970474,
-  "proba_std_test": 0.1497232193335529,
-  "proba_unique_test": 234,
+  "gap_ref": 0.18928916827853004,
+  "gap_signed_ref": 0.18928916827853004,
+  "gap_abs_ref": 0.18928916827853004,
+  "proba_std_test": 0.14940435927451462,
+  "proba_unique_test": 235,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.09816174459841082,
-    "mean": 0.32760732229961326,
+    "mean": 0.32760021132199024,
     "max": 0.6556335463346117
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-09",
-    "end": "2026-03-06"
+    "start": "2025-12-10",
+    "end": "2026-03-09"
   },
   "p_ens_future_stats": {
     "min": 0.2951628387299574,
-    "mean": 0.518884896856395,
+    "mean": 0.519365195069612,
     "max": 0.6806261511189073
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-06",
-    "p_ens": 0.2951628387299574
+    "trade_date": "2026-03-09",
+    "p_ens": 0.35475413497869623
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",
