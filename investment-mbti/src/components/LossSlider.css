@@ -1,3 +1,7 @@
+/*
+ * 이 파일은 손실 슬라이더 관련 화면 스타일을 정의합니다. 배치, 색상, 간격 같은 모양 정보가 여기 모여 있습니다.
+ */
+
 .slider-container {
     display: flex;
     flex-direction: column;
