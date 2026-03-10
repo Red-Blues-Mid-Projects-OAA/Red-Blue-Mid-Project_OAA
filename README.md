@@ -80,19 +80,19 @@
 - **Feature Engineering Domain**: 거시경제(Macro), 모멘텀(Momentum), 변동성(Volatility), 거래량(Volume) 기반의 파생 지표 생성 기술
 
 ### ⚙️ Backend & API (백엔드)
-Framework: Python 기반의 빠르고 비동기 처리가 가능한 웹 프레임워크 (FastAPI 또는 Flask)
+Framework: Python 기반의 빠르고 비동기 처리가 가능한 웹 프레임워크 (FastAPI)
 
 - **Data Serving**: 계산된 최적 포트폴리오 배열과 수익률 차트 데이터를 프론트엔드 형식에 맞춰 가공하는 로직 (chart_data_provider.py, real_data_provider.py)
 
 ### 🎨 Frontend & UI/UX (프론트엔드)
 - **Core**: React.js (v18+), JSX, JavaScript (ES6+)
 - **Build Tool**: Vite (빠른 HMR 및 빌드 제공)
-- **Data Visualization**: Recharts 또는 Chart.js 기반의 동적 데이터 시각화 (도넛 차트, 누적 수익률 라인 차트, 게이지 차트 구현)
+- **Data Visualization**: Recharts 기반의 동적 데이터 시각화 (도넛 차트, 누적 수익률 라인 차트, 게이지 차트 구현)
 - **Styling**: CSS3 (반응형 웹 디자인 및 컴포넌트별 모듈화)
 - **Linting**: ESLint (코드 컨벤션 유지)
 
 ### 🛠 Infra & DevOps (인프라 및 자동화)
-- **CI/CD Automation**: GitHub Actions 기반의 Crontab 스케줄링. 매일 장 마감 후 자동으로 파이프라인(daily-db-load.yml)을 돌려 주가를 스크래핑하고 DB를 최신화
+- **CI/CD Automation**: GitHub Actions 기반의 Crontab 스케줄링. 매일 장 마감 후 자동으로 파이프라인(daily-db-load.yml)을 돌려 주가 데이터를 스크래핑하고 DB를 최신화
 - **Data Source APIs**: yfinance API (S&P 500 개별 종목 주가 및 거래량), FRED API (거시경제 지표)
 - **Batch Processing**: Shell Scripting (run_pipeline_300.sh)을 통한 대용량 데이터 일괄 자동 학습 시스템
 - **Version Control**: Git & GitHub (Feature Branch 병렬 협업)
@@ -140,8 +140,8 @@ flowchart TD
 단순한 주식 추천을 넘어, 데이터 수집부터 사용자 맞춤형 시각화까지 완벽한 풀스택 데이터 파이프라인을 제공합니다.
 
 ### 🎯 다면적 투자 MBTI 진단 및 개인화 (Risk Profiling)
-* **동적 설문 알고리즘:** 사용자의 투자 경험, 목표 수익, 손실 감내 수준 등을 묻는 12가지 심층 문항(`Question.jsx`)을 통해 개인의 정확한 위험 회피도(Risk Aversion)를 수치화합니다.
-* **맞춤형 페르소나 부여:** 진단 결과에 따라 직관적이고 재미있는 투자 캐릭터(Yolo, Worker, Fire 등)를 매칭하여 사용자 경험(UX)을 극대화합니다.
+* **동적 설문 알고리즘:** 사용자의 투자 경험, 목표 수익, 손실 감내 수준 등을 묻는 12가지 심층 문항(`Question.jsx`)을 통해 개인의 정확한 위험 회피도(Lambda)를 수치화합니다.
+* **맞춤형 페르소나 부여:** 진단 결과에 따라 직관적이고 재미있는 투자 캐릭터(Yolo, Worker, Fire, Slave)를 매칭하여 사용자 경험(UX)을 극대화합니다.
 * **인터랙티브 손실 슬라이더:** 사용자가 대시보드에서 직접 '최대 허용 손실률'을 조절하면(`LossSlider.jsx`), 즉각적으로 백엔드와 통신하여 포트폴리오 비중이 실시간으로 재조정됩니다.
 
 ### 🧠 앙상블(Ensemble) 기반 S&P 500 수익률 예측 모델
@@ -299,13 +299,13 @@ MSA(Microservices Architecture) 구조에 착안하여, 각 팀원이 담당하�
 
 * **`main` 브랜치:** 실제 서비스 배포 및 릴리스를 위한 안정적인(Stable) 통합 코드 베이스.
 * **`dev` 브랜치:** 각 파트의 기능 개발이 완료된 후, 프론트엔드와 백엔드의 API 연동 및 파이프라인 통합 테스트를 진행하는 중앙 브랜치.
-* **`feat/...` (기능 브랜치):** * `feat/db-pipeline`: yfinance 및 FRED API 연동, 마스터 DB 구축 작업
-  * `feat/ml-modeling`: 4종 ML 모델링, 앙상블 파이프라인 구축 및 아티팩트 산출
-  * `feat/backend`: FastAPI 기반 데이터 서빙 및 CAPM 포트폴리오 최적화 로직 개발
-  * `feat/frontend`: React 기반 투자 성향 진단 UI 및 시각화 대시보드 구축
+* **`feat/...` (기능 브랜치):** * `feat/DB`: yfinance 및 FRED API 연동, 마스터 DB 구축 작업
+  * `feat/ML`: 4종 ML 모델링, 앙상블 파이프라인 구축 및 아티팩트 산출
+  * `feat/opt`: FastAPI 기반 데이터 서빙 및 CAPM 포트폴리오 최적화 로직 개발
+  * `feat/web`: React 기반 투자 성향 진단 UI 및 시각화 대시보드 구축
 
 ### 🤝 산출물(Artifacts) 기반의 병렬 협업 최적화
-방대한 머신러닝 모델 학습 시간으로 인해 백엔드 개발이 지연되는 병목 현상을 막기 위해, 훌륭한 인터페이스 협약(Interface Agreement)을 맺었습니다.
+방대한 머신러닝 모델 학습 시간으로 인해 백엔드 개발이 지연되는 병목 현상을 막기 위해, 인터페이스 협약(Interface Agreement)을 만들었습니다.
 * **Artifacts 중앙 저장소 활용:** 머신러닝 팀은 각 종목별 예측 확률과 평가지표를 `Classification/artifacts/` 디렉토리에 `.json` 형태로 덤프(Dump)하도록 설계했습니다.
 * **완벽한 병렬 작업 달성:** 이를 통해 백엔드 팀은 머신러닝 파이프라인이 돌아가는 동안에도, 이미 생성된 Mock-up 아티팩트 데이터를 활용해 포트폴리오 산출 알고리즘(`portfolio_optimizer.py`)을 지연 없이 독립적으로 개발할 수 있었습니다.
 
@@ -349,7 +349,7 @@ $python -m venv venv$ source venv/bin/activate  # Windows의 경우: venv\Script
 $ pip install -r requirements.txt
 
 # API 메인 서버 실행
-$ python main.py
+$ python3 main.py
 ```
 
 ### 🧠 ML Pipeline & Data Update (선택 사항)
@@ -365,8 +365,3 @@ $ chmod +x run_pipeline_300.sh
 $ ./run_pipeline_300.sh
 ```
 ---
-
-### 💡 활용 가이드:
-1. **GitHub 복사/붙여넣기:** 위 코드를 처음부터 끝까지 그대로 긁어서 `README.md`에 붙여넣으세요.
-2. **내용 수정:** * **[팀원 구성]** 섹션의 이름과 깃허브 링크를 본인과 팀원에 맞게 수정하세요.
-   * **[화면 구성]** 섹션에서 `https://via.placeholder.com/...` 이라고 되어 있는 부분의 주소를 **실제 프로젝트 캡쳐본 이미지 링크**(깃허브 이슈나 리드미 에디터에 이미지를 드래그 앤 드롭하면 나오는 URL)로 교체하시면 완벽해집니다.
