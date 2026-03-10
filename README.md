@@ -57,16 +57,19 @@
 
 ■ **고급 ML 기법 (Advanced ML Techniques):**
 
-- **Ensemble Learning (앙상블 학습)**: 4가지 개별 모델의 예측 결과를 결합(Voting 또는 Stacking)하여 최종 예측의 안정성(Robustness)과 정확도를 극대화 (ensemble.py)
+- **Ensemble Learning (앙상블 학습)**: 4가지 개별 모델의 예측 결과를 선형결합 하여 최종 예측의 안정성(Robustness)과 정확도를 극대화 (ensemble.py)
 - **Hyperparameter Optimization (하이퍼파라미터 최적화)**: 각 종목별로 모델이 최상의 성능을 내도록 파라미터를 자동 탐색 및 튜닝 (결과물 _best_params.json 활용)
-- **Feature Importance (피처 중요도 분석)**: 모델의 예측에 가장 큰 영향을 미친 변수(Macro, Momentum 등)를 추출하여 블랙박스 모델의 설명력(XAI) 부여 (importance.py)
+- **Feature Importance (피처 중요도 분석)**: 모델의 예측(IC)에 가장 큰 영향을 미친 변수(Macro, Momentum 등)를 추출하여 블랙박스 모델의 설명력(XAI) 부여 (importance.py)
 
 ### 📈 Financial Engineering & Optimization (금융 공학 및 포트폴리오 알고리즘)
 단순한 예측을 넘어, 실제 투자 가능한 비율로 변환하기 위한 수학적/금융 알고리즘입니다.
 
-- **CAPM (Capital Asset Pricing Model, 자본자산가격결정모형)**: 무위험 수익률과 시장 수익률을 바탕으로 개별 자산의 기대 수익률을 산출하는 핵심 금융 알고리즘 (capm.py)
-- **Mean-Variance Portfolio Optimization (마코위츠의 평균-분산 최적화)**: 사용자의 위험 감수 성향에 맞춰, 기대 수익률은 극대화하고 리스크(변동성)는 최소화하는 최적의 종목 비중(Weight)을 산출하는 알고리즘 (portfolio_optimizer.py)
-- **Risk Profiling Scoring Algorithm**: 12가지 다면적 질문을 통해 사용자의 위험 회피도(Risk Aversion)를 수치화하고 엠블럼을 부여하는 자체 평가 알고리즘 (risk_profile.py)
+- **Grinold-Kahn Modified Equation (알파 예측 매핑 알고리즘)**: 머신러닝의 단순 비선형 분류 결과(확률, Probability)를 Z-Score 형태의 시그널 강도로 치환하고, 종목 고유의 변동성(TE) 및 모델의 과거 타율(IC)을 곱하는 베이지안 페널티 방식을 적용하여 MVO 엔진이 소화 가능한 엄밀한 기대 초과수익률(Expected Alpha)로 매핑합니다. (mapping.py)
+- **Regime Shift Overlay (비선형 수렴형 모멘텀 조정)**: 모델의 예측 수익률과 최근 3개월 실제 수익률 간의 Z-Score 괴리를 측정하고, 쌍곡탄젠트(Tanh) 비선형 함수를 통해 이상치 충격을 제어하면서 동적 국면 전환(Regime Shift)을 반영하는 자체 통계 자정(Self-Correction) 로직입니다. (adjust_regime.py)
+- **CAPM (Capital Asset Pricing Model)**: Hard Gate를 통과하지 못한 방어형 종목들에 대해 무위험 수익률과 장기/단기 수축 추정(Shrinkage Estimation) 변동성 베타($\beta$)를 결합하여, 동적 시장 민감도를 사후적으로 보정하는 하이브리드 안전망 알고리즘입니다. (capm.py)
+- **Mean-Variance Portfolio Optimization (마코위츠 평균-분산 최적화)**: 사용자의 위험 감수 성향 계수($\lambda$)에 맞춰 기댓값 극대화 및 공분산 리스크 최소화를 동시에 달성합니다. 최소 비중(5%) 및 종목 수 강제 조건을 풀기 위해 **혼합 정수 이차 계획법(MIQP)**을 Greedy Iterative Drop 휴리스틱으로 구현한 고도화 엔진입니다. (portfolio_optimizer.py)
+- **Risk Profiling & Lambda($\lambda$) Inverse Mapping**: 12가지 다면적 질문과 최대 손실 %슬라이더를 사용, 95% 단측 신뢰구간(1.65) 모수적 VaR와 시장 장기 샤프 지수(0.7)를 역산하여 각 페르소나별 최적의 위험 회피 계수 $\lambda = 1.155/Loss_{Rep}$ 를 수학적으로 매핑하는 심리-수리 연동 알고리즘입니다. (risk_profile.py)
+- **Monte Carlo Simulation (GBM & Brownian Bridge)**: 이토 보조정리(Ito's Lemma) 기반의 기하 브라운 운동(Geometric Brownian Motion) 모델을 통해 300개의 미래 주가 궤적을 렌더링하고, Drift 항을 소거한 극한의 보수적 모수적 VaR 5%를 산출합니다. 예측 메인 라인 통계를 위해서는 시작점과 타겟점을 강제 결박하는 브라운 브릿지(Brownian Bridge) 스토캐스틱 조건부 확률을 활용하여 시각적 직관성을 극대화합니다. (chart_data_provider.py)
 
 ### 📊 Data Engineering & Preprocessing (데이터 엔지니어링 알고리즘)
 원시 데이터를 모델이 학습할 수 있는 파생 변수로 변환하는 고도화된 전처리 기술입니다.
