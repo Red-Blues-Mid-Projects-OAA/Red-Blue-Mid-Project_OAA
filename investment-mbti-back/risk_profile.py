@@ -1,7 +1,20 @@
 """
-이 파일은 설문 답변과 손실 허용 범위를 바탕으로 투자 성향 점수와 위험 단계를 계산합니다.
-주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
+[Risk Profile Module]
+투자자 유형(MBTI) 기반 위험 회피 계수(lambda) 산출 백엔드 모듈
+
+[프론트엔드 연동 가이드]
+1. 프론트엔드에서는 아래 12개 설문 문항에 대한 답변을 'A' 또는 'B'의 리스트(length=12)로 수집합니다.
+2. 각 문항의 첫 번째 옵션은 'A', 두 번째 옵션은 'B'로 매핑합니다. (B형 = E, N, F, P 성향)
+3. 손실 한도 슬라이더 값(원 단위, 예: 8000000)을 수집합니다.
+4. `calculate_risk_profile(answers, loss_limit_value)` 함수를 호출하여 결과를 받습니다.
+
+[설문 문항 매핑]
+Q1~Q3: I(A) vs E(B)
+Q4~Q6: S(A) vs N(B)
+Q7~Q9: T(A) vs F(B)
+Q10~Q12: J(A) vs P(B)
 """
+
 
 def get_lambda_by_level(level):
     """
@@ -14,7 +27,13 @@ def get_lambda_by_level(level):
     - Level 1 (30~40%) -> 대표 Loss 35% (0.35)
     """
     rep_loss = 0.45 - (level * 0.10)
+    # Sharpe Ratio(S&P500 0.7가정) * 95% 단측 신뢰계수(1.65) = 1.155
+    # 1.155 / 0.05 = 23.1
+    # 1.155 / 0.15 = 7.7
+    # 1.155 / 0.25 = 4.62
+    # 1.155 / 0.35 = 3.3
     return round(1.155 / rep_loss, 2)
+
 
 def calculate_risk_profile(answers, loss_limit_value, initial_investment):
     """
@@ -113,4 +132,5 @@ def calculate_risk_profile(answers, loss_limit_value, initial_investment):
         "loss_ratio_percent": round(loss_percent, 2),
         "final_level": final_level
     }
+
 
