@@ -1,3 +1,8 @@
+"""
+이 파일은 개별 종목 시세 데이터를 새로 받아 데이터베이스에 반영합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
+"""
+
 # 수정 이력 (주석 추가 전 라인 번호 기준)
 # - 57줄: _build_ticker_start_dates 정리
 # - 72줄: _trim_downloaded_data_by_ticker_start 유지/정리
@@ -38,8 +43,8 @@ else:
     from DB import StockDBManager
     from DB import TICKERS
 
-
 def _normalize_tickers(tickers):
+    """티커 목록 값을 서로 비교하기 쉽게 정규화합니다."""
     if tickers is None:
         source = list(TICKERS)
     else:
@@ -54,13 +59,12 @@ def _normalize_tickers(tickers):
         deduped.append(ticker)
     return deduped
 
-
 def _resolve_end_date(end_date):
+    """resolve end date 관련 처리를 담당하는 함수입니다."""
     if end_date is None:
         # Use previous day by default to avoid querying incomplete "today" daily bars.
         return (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
     return str(end_date)
-
 
 def _resolve_download_end_date(end_date):
     """
@@ -68,12 +72,11 @@ def _resolve_download_end_date(end_date):
     """
     return (pd.Timestamp(end_date) + timedelta(days=1)).strftime("%Y-%m-%d")
 
-
 def _chunked(values, size):
+    """chunked 관련 처리를 담당하는 함수입니다."""
     step = max(int(size), 1)
     for idx in range(0, len(values), step):
         yield values[idx : idx + step]
-
 
 def _build_ticker_start_dates(effective_mode, selected_tickers, start_date, latest_map):
     """Build per-ticker start dates (YYYY-MM-DD)."""
@@ -88,7 +91,6 @@ def _build_ticker_start_dates(effective_mode, selected_tickers, start_date, late
         else:
             starts[ticker] = (latest_dt.date() + timedelta(days=1)).strftime("%Y-%m-%d")
     return starts
-
 
 def _trim_downloaded_data_by_ticker_start(data, ticker_start_map):
     """
@@ -130,7 +132,6 @@ def _trim_downloaded_data_by_ticker_start(data, ticker_start_map):
     cutoff = pd.Timestamp(ticker_start_map[first_ticker])
     return data.loc[data.index >= cutoff]
 
-
 def _extract_single_ticker_from_batch(data, ticker):
     """
     Split one ticker view from a multi-ticker yfinance batch frame.
@@ -153,7 +154,6 @@ def _extract_single_ticker_from_batch(data, ticker):
     if isinstance(frame, pd.Series):
         frame = frame.to_frame()
     return frame
-
 
 def update_stock_data(
     mode="auto",
@@ -353,7 +353,6 @@ def update_stock_data(
         return result
     finally:
         db_manager.close()
-
 
 if __name__ == "__main__":
     import argparse

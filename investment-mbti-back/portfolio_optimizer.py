@@ -1,22 +1,11 @@
 """
-평균-분산 최적화(MVO) 포트폴리오 최적화 모듈.
-
-목적함수(표준형):
-  U = E(R_p) - (1/2) * λ * w^TΣw
-최적화 구현형:
-  min (1/2) * λ * w^TΣw - w^Tμ
-
-여기서 리스크 패널티는 표준편차(σ)가 아니라
-분산/공분산(Σ, variance/covariance) 항을 직접 사용합니다.
-
-제약조건: sum(w) = 1, w_i = 0 or (0.05 ≤ w_i ≤ max_w)
-최소 종목 수 제약: sum(y) >= min_count
+이 파일은 기대수익과 위험을 함께 고려해 포트폴리오 비중을 계산하는 최적화 로직을 담고 있습니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 import numpy as np
 import cvxpy as cp
 import warnings
-
 
 def optimize_portfolio(mu, cov_matrix, lambda_final):
     """

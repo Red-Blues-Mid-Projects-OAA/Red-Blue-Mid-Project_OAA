@@ -1,15 +1,29 @@
+/*
+ * 이 파일은 종목 카드 관련 프론트엔드 로직을 담고 있습니다.
+ * 상단 상수와 보조 함수가 표시용 값을 만들고, 상태와 props에서 파생한 값이 마지막 JSX에 연결되므로 데이터가 화면 요소로 바뀌는 흐름을 위에서 아래로 따라가면 됩니다.
+ */
+
 import React from 'react';
 import './DashboardResult.css';
 
+/**
+ * 입력값을 안전한 숫자로 바꿔 계산에 사용할 수 있게 합니다.
+ */
 function toFiniteNumber(value, fallback = 0) {
     const num = Number(value);
     return Number.isFinite(num) ? num : fallback;
 }
 
+/**
+ * 수익률의 부호에 따라 화면에 쓸 스타일 클래스를 고릅니다.
+ */
 function signClass(value) {
     return value >= 0 ? 'up' : 'down';
 }
 
+/**
+ * 숫자 앞에 부호를 붙여 퍼센트 문자열로 보여 줍니다.
+ */
 function formatSigned(value, digits = 2) {
     const n = toFiniteNumber(value, 0);
     return `${n >= 0 ? '+' : ''}${n.toFixed(digits)}%`;
@@ -29,6 +43,10 @@ function formatStockKRW(pct, weight, manwon) {
     }
     return `${sign}${Math.round(absWon).toLocaleString()}원`;
 }
+
+/**
+ * 종목 카드 컴포넌트가 화면 상태와 렌더링을 담당합니다.
+ */
 
 function StockCard({ stock, displayMode, investmentAmount }) {
     const ticker = String(stock?.ticker || '').toUpperCase();
@@ -52,6 +70,7 @@ function StockCard({ stock, displayMode, investmentAmount }) {
             ? formatStockKRW(pct, weight, investmentAmount)
             : formatSigned(pct, digits);
 
+    // 마지막에 현재 상태를 반영한 화면 구조를 JSX로 반환합니다.
     return (
         <article className="premium-stock-card">
             <div className="stock-card-top">

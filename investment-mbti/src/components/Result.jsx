@@ -1,6 +1,15 @@
+/*
+ * 이 파일은 결과 관련 프론트엔드 로직을 담고 있습니다.
+ * 상단 상수와 보조 함수가 표시용 값을 만들고, 상태와 props에서 파생한 값이 마지막 JSX에 연결되므로 데이터가 화면 요소로 바뀌는 흐름을 위에서 아래로 따라가면 됩니다.
+ */
+
 import React from 'react';
 import MbtiBarChart from './MbtiBarChart';
 import './Result.css';
+
+/**
+ * 결과 컴포넌트가 화면 상태와 렌더링을 담당합니다.
+ */
 
 function Result({ personaData, onRestart, onShowRecommendation }) {
     if (!personaData) return null;
@@ -20,6 +29,7 @@ function Result({ personaData, onRestart, onShowRecommendation }) {
     // Q10~Q12: J(A) vs P(B) -> Left=J, Right=P -> RightScore = B count
     const scoreP = rawAnswers.length > 0 ? (rawAnswers.slice(9, 12).filter(a => a === 'B').length / 3) * 100 : 50;
 
+    // 마지막에 현재 상태를 반영한 화면 구조를 JSX로 반환합니다.
     return (
         <div className="result-container animate-fade-in w-full max-w-2xl mx-auto py-12 px-4">
             {/* 상단 헤더 영역 */}

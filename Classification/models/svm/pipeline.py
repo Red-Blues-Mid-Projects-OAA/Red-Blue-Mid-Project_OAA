@@ -1,11 +1,6 @@
 """
-SVM 분류 파이프라인 (Stride 앙상블).
-
-차트 형식은 xgboost_classifier_result.png와 동일하게 2x2 구성으로 맞춥니다.
-1) Feature Importance (Permutation)
-2) Ensemble Probability Distribution
-3) Ensemble Train-Test Gap
-4) IC Stability
+이 파일은 파이프라인 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 import sys
@@ -43,29 +38,33 @@ from Classification.model_config import (
 from Classification.model_gate import evaluate_gate, print_gate_result
 from Classification.models.common.importance import compute_permutation_importance_ic
 
+# 현재 파이프라인이 허용하는 최적화 아티팩트 버전입니다.
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v3_svm_no_class_weight"
+# 현재 파이프라인이 기대하는 데이터 분할 정책 이름입니다.
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
+# 단계형 게이트 전략에서 별도 분기를 타기 위한 프로필 이름입니다.
 TSM_GATE_PROFILE = "tsm_gatehard_v1"
+# 단계형 게이트 전략에서 허용하는 목적 함수 버전 집합입니다.
 TSM_EXPECTED_OBJECTIVE_VERSIONS = {
     "tsm_gatehard_v1_stage1",
     "tsm_gatehard_v1_stage2",
 }
 
-
 def _get_feature_hash(feature_cols):
+    """피처 hash 정보를 조회해 반환합니다."""
     raw = "|".join(feature_cols)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
-
 def _apply_direction(proba, direction_mode):
+    """지표 방향성을 반영해 점수가 클수록 좋도록 맞춥니다."""
     if direction_mode == "normal":
         return proba
     if direction_mode == "inverted":
         return 1.0 - proba
     raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
 
-
 def _compute_recency_weights(index, recency_weight_lambda):
+    """최근 데이터에 더 큰 비중을 주는 학습 가중치를 계산합니다."""
     if recency_weight_lambda <= 0.0:
         return None
     rank = np.arange(len(index), dtype=float)
@@ -73,8 +72,8 @@ def _compute_recency_weights(index, recency_weight_lambda):
     weights = np.clip(weights, 1e-8, None)
     return weights / np.mean(weights)
 
-
 def _normalize_class_weight_dict(class_weight):
+    """class 비중 dict 값을 서로 비교하기 쉽게 정규화합니다."""
     if not isinstance(class_weight, dict):
         return class_weight
     out = {}
@@ -86,8 +85,8 @@ def _normalize_class_weight_dict(class_weight):
         out[key] = float(v)
     return out
 
-
 def _get_current_data_end_date(split):
+    """current 데이터 end date 정보를 조회해 반환합니다."""
     candidates = []
     for df in [split.train, split.val, split.test, split.final_train]:
         if len(df) > 0:
@@ -96,8 +95,8 @@ def _get_current_data_end_date(split):
         return None
     return max(candidates).strftime("%Y-%m-%d")
 
-
 def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimize_profile):
+    """param file stale 여부를 판단해 반환합니다."""
     required_meta = ["feature_hash", "data_end_date", "profile", "objective_version", "cv_mode"]
     if optimize_profile == TSM_GATE_PROFILE:
         required_meta.extend(
@@ -136,8 +135,8 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
 
     return False, "최신 파라미터 사용 가능"
 
-
 def _ensure_best_params(split, params_path, auto_optimize=False, optimize_profile="balanced"):
+    """best params 상태가 준비되어 있는지 확인하고 부족하면 채웁니다."""
     param_data, _ = load_json_artifact_only(params_path)
     current_data_end_date = _get_current_data_end_date(split)
     feature_cols = split.feature_cols
@@ -178,7 +177,6 @@ def _ensure_best_params(split, params_path, auto_optimize=False, optimize_profil
                 "SVM 파라미터 아티팩트가 현재 정책과 불일치합니다. "
                 f"auto_optimize=False 상태에서는 실행할 수 없습니다. 사유: {reason}"
             )
-
 
 def load_svm_params(params_path):
     """best_svm_params.json을 로드하고, 없으면 기본값을 반환합니다."""
@@ -227,7 +225,6 @@ def load_svm_params(params_path):
         print(f"[WARN] 파라미터 로드 실패: {exc}")
         return default_params, default_meta, default_controls
 
-
 def safe_spearmanr(x, y):
     """상수열/짧은 시계열에서 NaN 안전 처리를 포함한 Spearman 계산."""
     x = np.asarray(x)
@@ -243,7 +240,6 @@ def safe_spearmanr(x, y):
         return float(ic), 1.0, True
     return float(ic), float(p_value), False
 
-
 def ensemble_predict_proba(models, x_df):
     """(model, scaler, offset) 리스트에 대해 앙상블 평균 확률을 반환합니다."""
     probas = []
@@ -254,7 +250,6 @@ def ensemble_predict_proba(models, x_df):
             x_scaled = scaler.transform(x_df)
             probas.append(model.predict_proba(x_scaled)[:, 1])
     return np.mean(probas, axis=0)
-
 
 def run_pipeline(
     auto_optimize=False,
@@ -626,7 +621,6 @@ def run_pipeline(
             return metrics, models, ensemble_proba, ic
         return metrics
     return models, ensemble_proba, ic
-
 
 if __name__ == "__main__":
     run_pipeline(auto_optimize=False, optimize_profile="balanced")

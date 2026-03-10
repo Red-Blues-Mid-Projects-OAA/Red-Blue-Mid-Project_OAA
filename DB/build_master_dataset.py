@@ -1,4 +1,9 @@
-﻿# 마스터 데이터프레임 병합 모듈 (패널 데이터 버전)
+"""
+이 파일은 여러 원천 데이터를 모아 학습과 분석에 쓰는 통합 데이터셋을 만듭니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
+"""
+
+# 마스터 데이터프레임 병합 모듈 (패널 데이터 버전)
 # 단일 MASTER_FEATURES 테이블에 300개 종목 데이터를 통합하여 (TRADE_DATE, TICKER) 기준으로 저장합니다.
 
 import sys
@@ -56,10 +61,11 @@ INCREMENTAL_LOOKBACK_DAYS_DEFAULT = 756
 MIN_INCREMENTAL_LOOKBACK_DAYS = 252
 
 def _safe_symbol(symbol: str) -> str:
+    """문자열을 파일명이나 컬럼명으로 쓰기 안전한 형태로 바꿉니다."""
     return str(symbol).upper().replace("-", "_")
 
-
 def _timer_now() -> float:
+    """현재 시각을 로그 출력용 문자열로 만듭니다."""
     return time.perf_counter()
 
 def build_all_master_datasets(
@@ -386,6 +392,4 @@ if __name__ == "__main__":
         legacy_incremental=args.legacy_incremental,
         dry_run=args.dry_run,
     )
-
-
 

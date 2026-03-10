@@ -1,11 +1,8 @@
 """
-EWMA 기반 리스크 피처 생성 모듈.
-
-생성되는 DataFrame:
-  1. df_ticker_daily_vol : {ticker}_EWMA_Vol
-  2. df_ticker_avg_vol   : {ticker}_Vol_20d_Avg, {ticker}_Vol_60d_Avg
-  3. df_ticker_ewma_corr : {ticker}_{benchmark}_EWMA_Corr
+이 파일은 변동성 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
+
 import sys
 from pathlib import Path
 
@@ -27,13 +24,12 @@ from DB import StockDBManager
 LAMBDA = 0.94
 ALPHA = 1 - LAMBDA
 
-
 def _safe_symbol(symbol: str) -> str:
     """DB/컬럼명 안전 심볼로 정규화합니다. 예: BRK-A -> BRK_A"""
     return str(symbol).upper().replace("-", "_")
 
-
 def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None, lr_all=None, sp500=None):
+    """위험 피처 값을 계산합니다."""
     ticker = str(ticker).upper()
     benchmark = str(benchmark).upper()
     safe_ticker = _safe_symbol(ticker)
@@ -114,7 +110,6 @@ def calculate_risk_features(ticker="AAPL", benchmark="SP500", db=None, lr_all=No
     print(f"  3. df_ticker_ewma_corr : {corr_col:24s} ({len(df_ticker_ewma_corr)}건)")
 
     return df_ticker_daily_vol, df_ticker_avg_vol, df_ticker_ewma_corr
-
 
 if __name__ == "__main__":
     calculate_risk_features()

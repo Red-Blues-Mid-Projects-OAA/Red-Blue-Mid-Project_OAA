@@ -1,3 +1,8 @@
+"""
+이 파일은 Oracle 데이터베이스 연결, 테이블 준비, 주요 조회와 저장 작업을 담당하는 관리자 클래스 모음입니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
+"""
+
 import math
 
 if __package__ in (None, ""):
@@ -29,6 +34,7 @@ class StockDBManager:
     """
     def __init__(self):
         # .env 파일에서 DB 연결 정보 가져오기
+        """객체가 처음 만들어질 때 필요한 기본 값과 연결 상태를 준비합니다."""
         self.user = os.getenv("ORACLE_USER")
         self.password = os.getenv("ORACLE_PASSWORD")
         self.dsn = os.getenv("ORACLE_DSN")
@@ -152,7 +158,8 @@ class StockDBManager:
         END;
         """
 
-        # 한글 주석: adjusted_expected_returns 스냅샷 전용 테이블입니다.
+        # 모델 기대수익률 보정 결과를 단일 스냅샷으로 저장하는 테이블입니다.
+        # API와 후속 배치는 이 테이블만 읽어 최신 추천 풀을 구성합니다.
         create_adjusted_expected_returns_query = """
         BEGIN
             EXECUTE IMMEDIATE 'CREATE TABLE ADJUSTED_EXPECTED_RETURNS (
@@ -789,7 +796,6 @@ class StockDBManager:
             print(f"로그 수익률 저장 실패: {e}")
             self.connection.rollback()
 
-
     def insert_ewma_covariance(self, calc_date, cov_df):
         """
         EWMA 공분산 행렬 저장 (기존 해당 날짜 데이터 삭제 후 재적재)
@@ -1142,7 +1148,6 @@ class StockDBManager:
             print(f"MARKET_FEATURES 테이블 재정렬 실패: {e}")
             self.connection.rollback()
 
-
     def master_features_exists(self):
         """MASTER_FEATURES 테이블 존재 여부를 확인합니다."""
         self.cursor.execute(
@@ -1448,7 +1453,7 @@ class StockDBManager:
         adjusted_expected_returns 스냅샷을 티커 기준으로 업서트하고,
         입력 데이터에 없는 기존 티커는 삭제해 DB와 완전 동기화합니다.
         """
-        # 한글 주석: 입력 컬럼 스키마를 명시적으로 검증합니다.
+        # 입력 컬럼 스키마를 명시적으로 검증합니다.
         required_cols = [
             "Ticker",
             "Gate_Passed",
@@ -1464,16 +1469,19 @@ class StockDBManager:
             "Adjustment_Applied",
         ]
 
+        # 원본 DataFrame은 보존하고, DB 적재 전용 복사본에서만 컬럼명과 값을 정리합니다.
         normalized_df = df.copy()
         normalized_df.columns = [str(col).strip() for col in normalized_df.columns]
+        # MERGE 문이 기대하는 모든 컬럼이 존재하는지 선검증해 부분 적재를 막습니다.
         missing_cols = [col for col in required_cols if col not in normalized_df.columns]
         if missing_cols:
             raise ValueError(
                 f"[SYNC][VALIDATION] adjusted_expected_returns 필수 컬럼 누락: {missing_cols}"
             )
 
-        # 한글 주석: bool 컬럼은 Oracle NUMBER(1)로 변환합니다.
+        # bool 컬럼은 Oracle NUMBER(1)로 변환합니다.
         def _to_bool_flag(value):
+            """Python bool/문자/숫자 표현을 Oracle NUMBER(1) 플래그로 정규화합니다."""
             if pd.isna(value):
                 return 0
             if isinstance(value, bool):
@@ -1481,8 +1489,9 @@ class StockDBManager:
             normalized = str(value).strip().lower()
             return 1 if normalized in {"1", "true", "t", "y", "yes"} else 0
 
-        # 한글 주석: 숫자 컬럼은 NaN/inf를 None으로 변환합니다.
+        # 숫자 컬럼은 NaN/inf를 None으로 변환합니다.
         def _to_number(value):
+            """숫자형 입력을 Oracle에 적재 가능한 float 또는 None으로 정규화합니다."""
             if pd.isna(value):
                 return None
             try:
@@ -1557,6 +1566,7 @@ class StockDBManager:
             )
         """
 
+        # records는 executemany MERGE에 바로 넣을 튜플 목록, ticker_set은 삭제 동기화 기준 집합입니다.
         records = []
         ticker_set = set()
         for _, row in normalized_df.iterrows():
@@ -1564,6 +1574,7 @@ class StockDBManager:
             if not ticker:
                 continue
             ticker_set.add(ticker)
+            # SQL 바인드 순서와 정확히 같은 튜플 순서로 적재 데이터를 만듭니다.
             records.append(
                 (
                     ticker,
@@ -1582,15 +1593,17 @@ class StockDBManager:
             )
 
         try:
-            # 한글 주석: 1) 스냅샷 업서트 단계
+            # 1) 스냅샷 업서트 단계
             if records:
+                # Oracle 바인드 개수와 트랜잭션 부담을 고려해 대량 데이터는 배치 단위로 나눕니다.
                 batch_size = 10000
                 for index in range(0, len(records), batch_size):
                     batch = records[index:index + batch_size]
                     self.cursor.executemany(merge_query, batch)
 
-            # 한글 주석: 2) 스냅샷 삭제 동기화 단계
+            # 2) 스냅샷 삭제 동기화 단계
             if ticker_set:
+                # 이번 입력에 없는 티커는 스냅샷에서 제거해 CSV/DB 간 완전 동기화를 유지합니다.
                 ordered_tickers = sorted(ticker_set)
                 bind_params = {f"t{idx}": ticker for idx, ticker in enumerate(ordered_tickers)}
                 placeholders = ", ".join(f":{key}" for key in bind_params.keys())
@@ -1644,9 +1657,10 @@ class StockDBManager:
             col_names = [desc[0] for desc in self.cursor.description]
             result_df = pd.DataFrame(rows, columns=col_names)
 
-            # 한글 주석: Oracle NUMBER(1) -> Python bool 복원
+            # Oracle NUMBER(1) -> Python bool 복원
             for col in ["Gate_Passed", "Adjustment_Applied"]:
                 if col in result_df.columns:
+                    # 숫자 플래그를 Python bool로 돌려놓아 API/캐시 코드가 추가 변환 없이 바로 쓰도록 합니다.
                     result_df[col] = result_df[col].apply(
                         lambda value: bool(int(value)) if pd.notna(value) else False
                     )
@@ -1658,7 +1672,6 @@ class StockDBManager:
         except Exception as e:
             print(f"[SYNC][ERROR] ADJUSTED_EXPECTED_RETURNS 조회 실패: {e}")
             return pd.DataFrame()
-
 
     def fetch_risk_level_portfolio_snapshot(self):
         """
@@ -1700,7 +1713,6 @@ class StockDBManager:
             print(f"[SYNC][ERROR] RISK_LEVEL_PORTFOLIO_SNAPSHOT 조회 실패: {e}")
             return pd.DataFrame()
 
-
     def _ensure_risk_level_portfolio_snapshot_table(self):
         """Create snapshot table only when snapshot sync is actually requested."""
         create_risk_level_snapshot_query = """
@@ -1740,6 +1752,7 @@ class StockDBManager:
             raise ValueError("metrics_rows is empty")
 
         def _to_number(value):
+            """number 관련 처리를 담당하는 함수입니다."""
             if pd.isna(value):
                 return None
             try:

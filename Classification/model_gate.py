@@ -1,5 +1,6 @@
 """
-모델 성능 게이트 판정 모듈.
+이 파일은 모델 결과를 바로 사용할지 추가 검증할지 판단하는 게이트 규칙을 정의합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -16,16 +17,15 @@ from Classification.model_config import (
     TARGET_IC_MIN,
 )
 
-
 @dataclass(frozen=True)
 class GateThresholds:
+    """게이트 Thresholds 관련 상태와 동작을 한곳에 묶어 관리하는 클래스입니다."""
     accuracy_min: float = TARGET_ACC_MIN
     ic_min: float = TARGET_IC_MIN
     ic_half_min: float = TARGET_IC_HALF_MIN
     gap_max: float = TARGET_GAP_MAX
     require_accuracy: bool = REQUIRE_ACCURACY_GATE
     require_ic_stability: bool = REQUIRE_IC_STABILITY_GATE
-
 
 def evaluate_gate(metrics: dict, thresholds: GateThresholds | None = None) -> dict:
     """단일 모델 지표에 대해 PASS/FAIL을 계산합니다."""
@@ -76,7 +76,6 @@ def evaluate_gate(metrics: dict, thresholds: GateThresholds | None = None) -> di
             "require_ic_stability": t.require_ic_stability,
         },
     }
-
 
 def print_gate_result(model_name: str, gate: dict) -> None:
     """모델별 게이트 판정 결과를 출력합니다."""

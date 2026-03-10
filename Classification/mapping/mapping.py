@@ -1,8 +1,6 @@
 """
-3개월 기대 초과수익률(alpha) 매핑 모듈 (티커 파라미터화).
-
-Execution:
-  python3 -m Classification.mapping.mapping
+이 파일은 모델 출력과 종목/등급 정보를 연결해 후속 단계에서 쓰기 쉽게 바꿉니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -39,8 +37,8 @@ LOOKBACK_DAYS = 252
 HORIZON_DAYS = 60
 PHI = 1.0
 
-
 def _as_float(payload: dict[str, Any], key: str) -> float:
+    """값을 가능한 범위에서 실수형으로 변환합니다."""
     value = payload.get(key)
     if value is None:
         raise ValueError(f"필수 키 누락 또는 None: {key}")
@@ -49,8 +47,8 @@ def _as_float(payload: dict[str, Any], key: str) -> float:
         raise ValueError(f"유효하지 않은 수치값: {key}={value}")
     return out
 
-
 def _coerce_series(series_like, name: str) -> pd.Series:
+    """입력값을 판다스 Series 형태로 맞춰 후속 계산에 넘깁니다."""
     if series_like is None:
         raise ValueError(f"{name} is None")
     if isinstance(series_like, pd.DataFrame):
@@ -68,13 +66,13 @@ def _coerce_series(series_like, name: str) -> pd.Series:
     s.index = pd.to_datetime(s.index)
     return pd.to_numeric(s, errors="coerce").sort_index()
 
-
 def _build_active_returns(
     ticker: str,
     benchmark: str,
     ticker_logret_series: pd.Series,
     sp500_logret_series: pd.Series,
 ) -> pd.Series:
+    """active 수익률 결과를 여러 데이터를 바탕으로 조합해 만듭니다."""
     ticker_lr = _coerce_series(ticker_logret_series, "ticker_logret_series").rename(ticker)
     benchmark_lr = _coerce_series(sp500_logret_series, "sp500_logret_series").rename(benchmark)
 
@@ -87,7 +85,6 @@ def _build_active_returns(
         raise RuntimeError("active return 시계열이 비어 있습니다.")
     return active
 
-
 def _compute_mapping_result(
     *,
     ticker: str,
@@ -97,6 +94,7 @@ def _compute_mapping_result(
     latest_trade_date: str | None,
     active_ret: pd.Series,
 ) -> dict[str, Any]:
+    """compute 매핑 결과 관련 처리를 담당하는 함수입니다."""
     warnings: list[str] = []
 
     # Step 4: Shrinkage Volatility (Tracking Error)
@@ -162,8 +160,8 @@ def _compute_mapping_result(
         "latest_trade_date": latest_trade_date,
     }
 
-
 def _print_mapping_result(result: dict[str, Any], result_path: Path) -> None:
+    """print 매핑 결과 관련 처리를 담당하는 함수입니다."""
     warnings = result.get("warnings", [])
     print("\n[Mapping Result]")
     print(f"  ticker             : {result['ticker']}")
@@ -187,7 +185,6 @@ def _print_mapping_result(result: dict[str, Any], result_path: Path) -> None:
         "포트폴리오 최적화 입력(기대효용, VaR 시뮬레이션)으로 사용한다."
     )
 
-
 def run_mapping_from_inputs(
     ticker: str,
     benchmark: str,
@@ -199,6 +196,7 @@ def run_mapping_from_inputs(
     save_json: bool = True,
     verbose: bool = False,
 ) -> dict[str, Any]:
+    """매핑 from inputs 작업 전체를 순서대로 실행합니다."""
     ticker = str(ticker).upper()
     benchmark = str(benchmark).upper()
     if benchmark != "SP500":
@@ -236,8 +234,8 @@ def run_mapping_from_inputs(
 
     return result
 
-
 def _load_inputs_from_ensemble(ticker: str) -> tuple[float, float, str | None]:
+    """inputs from ensemble 데이터를 메모리로 불러옵니다."""
     ensemble_path = get_ensemble_result_path(ticker)
     data, used_path = load_json_artifact_only(ensemble_path)
     if data is None:
@@ -252,8 +250,8 @@ def _load_inputs_from_ensemble(ticker: str) -> tuple[float, float, str | None]:
     print(f"[INPUT] p_latest={p_latest:.6f}, IC_full={ic_full:.6f}, date={latest_trade_date}")
     return p_latest, ic_full, latest_trade_date
 
-
 def _load_logret_series_from_db(ticker: str, benchmark: str) -> tuple[pd.Series, pd.Series]:
+    """logret series from 데이터베이스 데이터를 메모리로 불러옵니다."""
     if benchmark != "SP500":
         raise ValueError(f"현재 benchmark는 SP500만 지원합니다: {benchmark}")
 
@@ -271,7 +269,6 @@ def _load_logret_series_from_db(ticker: str, benchmark: str) -> tuple[pd.Series,
         raise RuntimeError("SP500_DATA(LOG_RETURN) 데이터가 비어 있습니다.")
 
     return ticker_lr, benchmark_lr
-
 
 def run_mapping(ticker: str = "AAPL", benchmark: str = "SP500") -> dict[str, Any]:
     """
@@ -295,7 +292,6 @@ def run_mapping(ticker: str = "AAPL", benchmark: str = "SP500") -> dict[str, Any
         save_json=True,
         verbose=True,
     )
-
 
 if __name__ == "__main__":
     for ticker in ["AAPL", "TSLA"]:

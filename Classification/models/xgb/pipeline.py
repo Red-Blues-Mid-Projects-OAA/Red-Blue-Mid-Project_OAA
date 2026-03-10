@@ -1,19 +1,6 @@
 """
-XGBoost 실전 파이프라인 (실전 엔진)
-
-스트라이드 앙상블: 5개 모델(offset 0~4)을 각각 학습시켜 예측치를 평균냅니다.
-  - 각 모델은 STRIDE=5 간격의 독립적인 시퀀스로 학습 → 과적합 해소
-  - 5개 모델의 예측 평균 → 견고한 확률값 (데이터 100% 활용)
-
-파이프라인:
-  1. split_dataset() → get_stride_splits()
-  2. xgb_best_params.json 로드
-  3. 5개 모델 Final Refit (각 StrideSplit.final_train)
-  4. Test 세트 앙상블 예측 (5개 모델 평균)
-  5. 과적합 진단 3종 세트
-  6. 시각화 및 결과 저장
-
-★ 자주 실행하는 모듈
+이 파일은 파이프라인 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 import hashlib
@@ -51,14 +38,17 @@ from Classification.model_config import (
 from Classification.model_gate import evaluate_gate, print_gate_result
 from Classification.models.common.importance import compute_permutation_importance_ic
 
+# 현재 파이프라인이 허용하는 최적화 아티팩트 버전입니다.
 EXPECTED_OBJECTIVE_VERSION = "target_aligned_v5_no_class_weight"
+# 현재 파이프라인이 기대하는 데이터 분할 정책 이름입니다.
 EXPECTED_CV_MODE = "single_holdout_2024Q2Q3"
+# 단계형 게이트 전략에서 별도 분기를 타기 위한 프로필 이름입니다.
 TSM_GATE_PROFILE = "tsm_gatehard_v1"
+# 단계형 게이트 전략에서 허용하는 목적 함수 버전 집합입니다.
 TSM_EXPECTED_OBJECTIVE_VERSIONS = {
     "tsm_gatehard_v1_stage1",
     "tsm_gatehard_v1_stage2",
 }
-
 
 def load_best_params(params_path):
     """xgb_best_params.json을 로드합니다."""
@@ -72,12 +62,10 @@ def load_best_params(params_path):
           f"LogLoss={data['best_logloss']:.6f}, path={used_path})")
     return data
 
-
 def _get_feature_hash(feature_cols):
     """피처 목록 기반 해시를 생성합니다(순서 민감)."""
     raw = "|".join(feature_cols)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
-
 
 def _safe_spearman(x, y):
     """
@@ -91,23 +79,22 @@ def _safe_spearman(x, y):
         return float(ic), 1.0, True
     return float(ic), float(p_value), False
 
-
 def _apply_direction(proba, direction_mode):
+    """지표 방향성을 반영해 점수가 클수록 좋도록 맞춥니다."""
     if direction_mode == "normal":
         return proba
     if direction_mode == "inverted":
         return 1.0 - proba
     raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
 
-
 def _compute_recency_weights(index, recency_weight_lambda):
+    """최근 데이터에 더 큰 비중을 주는 학습 가중치를 계산합니다."""
     if recency_weight_lambda <= 0.0:
         return None
     rank = np.arange(len(index), dtype=float)
     weights = 1.0 + recency_weight_lambda * rank
     weights = np.clip(weights, 1e-8, None)
     return weights / np.mean(weights)
-
 
 def _get_current_data_end_date(split):
     """현재 분할 데이터 기준 마지막 날짜를 계산합니다."""
@@ -118,7 +105,6 @@ def _get_current_data_end_date(split):
     if not candidates:
         return None
     return max(candidates).strftime("%Y-%m-%d")
-
 
 def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimize_profile):
     """
@@ -164,7 +150,6 @@ def _is_param_file_stale(param_data, feature_cols, current_data_end_date, optimi
 
     return False, "최신 파라미터 사용 가능"
 
-
 def _ensure_best_params(split, params_path, auto_optimize=True, optimize_profile="balanced"):
     """파라미터 파일 존재/최신성 확인 후 필요 시 자동 튜닝을 수행합니다."""
     param_data = load_best_params(params_path)
@@ -209,7 +194,6 @@ def _ensure_best_params(split, params_path, auto_optimize=True, optimize_profile
             )
 
     return param_data
-
 
 def run_pipeline(
     auto_optimize=True,
@@ -391,6 +375,7 @@ def run_pipeline(
 
     if compute_importance:
         def _ensemble_predict_proba(x_df):
+            """ensemble predict proba 관련 처리를 담당하는 함수입니다."""
             probas = [m.predict_proba(x_df)[:, 1] for m in models]
             return _apply_direction(np.mean(probas, axis=0), direction_mode)
 
@@ -681,7 +666,6 @@ def run_pipeline(
             return metrics, models, ensemble_proba, ic
         return metrics
     return models, ensemble_proba, ic
-
 
 if __name__ == "__main__":
     run_pipeline(auto_optimize=True, optimize_profile="balanced")

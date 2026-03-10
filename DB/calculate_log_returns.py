@@ -1,4 +1,9 @@
-﻿if __package__ in (None, ""):
+"""
+이 파일은 가격 데이터에서 로그수익률을 계산해 다음 분석 단계에서 재사용할 수 있게 정리합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
+"""
+
+if __package__ in (None, ""):
     import sys
     from pathlib import Path
 
@@ -20,7 +25,6 @@
 else:
     from common import np, pd
     from DB import StockDBManager
-
 
 def calculate_and_save_log_returns(mode="auto", lookback_days=10, reorganize_on_full=True):
     """
@@ -153,7 +157,6 @@ def calculate_and_save_log_returns(mode="auto", lookback_days=10, reorganize_on_
         return {"status": "error", "error": str(e)}
     finally:
         db_manager.close()
-
 
 if __name__ == "__main__":
     import argparse

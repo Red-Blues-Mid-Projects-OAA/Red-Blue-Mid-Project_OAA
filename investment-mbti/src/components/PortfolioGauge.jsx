@@ -1,4 +1,13 @@
+/*
+ * 이 파일은 포트폴리오 게이지 관련 프론트엔드 로직을 담고 있습니다.
+ * 상단 상수와 보조 함수가 표시용 값을 만들고, 상태와 props에서 파생한 값이 마지막 JSX에 연결되므로 데이터가 화면 요소로 바뀌는 흐름을 위에서 아래로 따라가면 됩니다.
+ */
+
 import React from 'react';
+
+/**
+ * 포트폴리오 게이지 컴포넌트가 화면 상태와 렌더링을 담당합니다.
+ */
 
 function PortfolioGauge({ value, label, minText, maxText, colorClass }) {
     // value represents the percentage width (0-100)

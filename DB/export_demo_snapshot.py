@@ -1,8 +1,6 @@
 """
-Export a backend demo snapshot JSON from Oracle-backed runtime tables.
-
-This snapshot lets the FastAPI backend start without direct DB access
-by loading the latest derived data from a checked-in JSON file.
+이 파일은 데모용 스냅샷을 외부 파일이나 다른 저장소 형식으로 내보냅니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -38,8 +36,8 @@ if str(_BACKEND_DIR) not in sys.path:
 
 from demo_snapshot import SNAPSHOT_PATH, dataframe_to_records, save_demo_snapshot
 
-
 def _pivot_log_returns_to_records(df: pd.DataFrame) -> list[dict]:
+    """로그 수익률 피벗 테이블을 직렬화 가능한 레코드 목록으로 바꿉니다."""
     if df is None or df.empty:
         return []
 
@@ -54,8 +52,8 @@ def _pivot_log_returns_to_records(df: pd.DataFrame) -> list[dict]:
     )
     return dataframe_to_records(melted)
 
-
 def _sp500_to_records(df: pd.DataFrame) -> list[dict]:
+    """S&P 500 데이터를 직렬화 가능한 레코드 목록으로 바꿉니다."""
     if df is None or df.empty:
         return []
 
@@ -65,8 +63,8 @@ def _sp500_to_records(df: pd.DataFrame) -> list[dict]:
     normalized = working.reset_index().sort_values("TRADE_DATE")
     return dataframe_to_records(normalized)
 
-
 def _covariance_payload(ticker_list, cov_matrix) -> dict:
+    """공분산 행렬을 JSON으로 내보낼 수 있는 형태로 정리합니다."""
     if not ticker_list or cov_matrix is None:
         return {"ticker_list": [], "matrix": []}
 
@@ -75,8 +73,8 @@ def _covariance_payload(ticker_list, cov_matrix) -> dict:
         "matrix": cov_matrix.tolist(),
     }
 
-
 def export_demo_snapshot(lookback_days: int = 450, output_path: Path | None = None) -> Path:
+    """데모 스냅샷를 외부 형식으로 내보냅니다."""
     db = StockDBManager()
     connected = False
 
@@ -128,15 +126,14 @@ def export_demo_snapshot(lookback_days: int = 450, output_path: Path | None = No
         if connected:
             db.close()
 
-
 def main():
+    """메인 관련 처리를 담당하는 함수입니다."""
     parser = argparse.ArgumentParser(description="Export backend demo snapshot JSON")
     parser.add_argument("--lookback-days", type=int, default=450)
     parser.add_argument("--output", type=Path, default=SNAPSHOT_PATH)
     args = parser.parse_args()
 
     export_demo_snapshot(lookback_days=args.lookback_days, output_path=args.output)
-
 
 if __name__ == "__main__":
     main()

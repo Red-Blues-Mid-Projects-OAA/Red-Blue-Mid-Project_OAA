@@ -1,3 +1,8 @@
+/*
+ * 이 파일은 설문 화면에서 보여 줄 질문과 선택지를 한곳에 모아 둔 상수 파일입니다.
+ * 설정값과 고정 데이터가 한곳에 모여 있어 개발 서버, API 주소, 린트 규칙, 화면 공통 상수를 바꾸더라도 호출부 수정 범위를 최소화할 수 있습니다.
+ */
+
 const imagePath = (fileName) => `${import.meta.env.BASE_URL}images/${fileName}`;
 
 export const QUESTIONS = [

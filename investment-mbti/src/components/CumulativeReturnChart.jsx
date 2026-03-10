@@ -1,3 +1,8 @@
+/*
+ * 이 파일은 누적 수익률 차트 관련 프론트엔드 로직을 담고 있습니다.
+ * 상단 상수와 보조 함수가 표시용 값을 만들고, 상태와 props에서 파생한 값이 마지막 JSX에 연결되므로 데이터가 화면 요소로 바뀌는 흐름을 위에서 아래로 따라가면 됩니다.
+ */
+
 import React, { useMemo } from 'react';
 import {
     Area,
@@ -19,6 +24,9 @@ function toFiniteNumber(value, fallback = 0) {
     return Number.isFinite(num) ? num : fallback;
 }
 
+/**
+ * 숫자 앞에 부호를 붙여 퍼센트 문자열로 보여 줍니다.
+ */
 function formatSigned(value) {
     const n = toFiniteNumber(value, 0);
     return `${n >= 0 ? '+' : ''}${n.toFixed(2)}%`;
@@ -87,6 +95,7 @@ function CustomTooltip({ active, payload, label }) {
 
     const fullDate = payload?.[0]?.payload?.fullDate || label;
 
+    // 마지막에 현재 상태를 반영한 화면 구조를 JSX로 반환합니다.
     return (
         <div
             style={{
@@ -129,6 +138,7 @@ const LEGEND_ITEMS = [
 
 /* ── 메인 차트 컴포넌트 ── */
 function CumulativeReturnChart({ chartData, forecastData, var5Display, warnings = [] }) {
+    // 렌더링에 바로 사용할 파생 데이터를 미리 계산합니다.
     const series = useMemo(
         () => buildSeries(chartData, forecastData),
         [chartData, forecastData],

@@ -1,8 +1,6 @@
 """
-4모델 Equal-weight 앙상블 모듈 (티커 파라미터화).
-
-Execution:
-  python3 -m Classification.ensemble.ensemble
+이 파일은 여러 분류 모델의 결과를 합쳐 더 안정적인 최종 예측을 만드는 앙상블 로직입니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -39,8 +37,8 @@ from Classification.models.xgb.pipeline import run_pipeline as run_xgb_pipeline
 from Classification.Preprocessing.generate_target import generate_target
 from Classification.Preprocessing.split_dataset import SPLIT_CONFIG, split_dataset
 
-
 def _safe_spearman(x: np.ndarray, y: np.ndarray) -> tuple[float, float, bool]:
+    """예외 상황을 감안해 스피어만 상관계수를 안전하게 계산합니다."""
     ic, p_value = spearmanr(x, y)
     if np.isnan(ic):
         return 0.0, 1.0, True
@@ -48,8 +46,8 @@ def _safe_spearman(x: np.ndarray, y: np.ndarray) -> tuple[float, float, bool]:
         return float(ic), 1.0, True
     return float(ic), float(p_value), False
 
-
 def _validate_proba_vector(name: str, proba: Any, expected_len: int) -> np.ndarray:
+    """proba vector 값이 올바른지 확인합니다."""
     arr = np.asarray(proba, dtype=float)
     if arr.ndim != 1:
         raise ValueError(f"{name} proba must be 1D. got shape={arr.shape}")
@@ -57,8 +55,8 @@ def _validate_proba_vector(name: str, proba: Any, expected_len: int) -> np.ndarr
         raise ValueError(f"{name} proba length mismatch. expected={expected_len}, got={len(arr)}")
     return arr
 
-
 def _predict_mean_proba(models: list[Any], x_df: pd.DataFrame) -> np.ndarray:
+    """mean proba 값을 예측합니다."""
     probas = []
     for item in models:
         if isinstance(item, tuple):
@@ -71,14 +69,13 @@ def _predict_mean_proba(models: list[Any], x_df: pd.DataFrame) -> np.ndarray:
         probas.append(np.asarray(proba, dtype=float))
     return np.mean(np.vstack(probas), axis=0)
 
-
 def _distribution_summary(arr: np.ndarray) -> dict[str, float]:
+    """distribution 요약 관련 처리를 담당하는 함수입니다."""
     return {
         "min": float(np.min(arr)),
         "mean": float(np.mean(arr)),
         "max": float(np.max(arr)),
     }
-
 
 def _get_scaled_future_features(
     split,
@@ -126,7 +123,6 @@ def _get_scaled_future_features(
         columns=feature_cols,
     )
     return x_future_scaled, df_future
-
 
 def build_equal_weight_from_probas(
     *,
@@ -334,7 +330,6 @@ def build_equal_weight_from_probas(
 
     return payload
 
-
 def run_equal_weight_ensemble(
     ticker: str = "AAPL",
     benchmark: str = "SP500",
@@ -416,7 +411,6 @@ def run_equal_weight_ensemble(
         optimize_profile=optimize_profile,
         save_json=save_json,
     )
-
 
 if __name__ == "__main__":
     run_equal_weight_ensemble()

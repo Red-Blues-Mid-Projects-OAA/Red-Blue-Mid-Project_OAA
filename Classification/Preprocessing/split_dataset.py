@@ -1,6 +1,8 @@
 """
-데이터셋 분할 모듈 (데이터 허브, 티커 파라미터화).
+이 파일은 분할 데이터셋 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
+
 from collections import namedtuple
 import sys
 from pathlib import Path
@@ -69,8 +71,8 @@ StrideSplit = namedtuple(
     ],
 )
 
-
 def _assert_no_leakage(train_df, val_df, test_df, final_train_df):
+    """데이터 분할에 미래 정보 누수가 없는지 검증합니다."""
     if len(train_df) > 0 and len(val_df) > 0:
         assert train_df.index.max() < val_df.index.min(), "Leakage detected: Train/Validation 경계 위반"
     if len(val_df) > 0 and len(test_df) > 0:
@@ -97,14 +99,14 @@ def _assert_no_leakage(train_df, val_df, test_df, final_train_df):
     assert len(test_df.loc[gap_start:gap_end]) == 0, "Leakage detected: Test에 golden gap 포함"
     assert len(final_train_df.loc[gap_start:gap_end]) == 0, "Leakage detected: Final Train에 golden gap 포함"
 
-
 def _assert_split_policy_locked():
+    """현재 데이터 분할 정책이 의도한 설정과 일치하는지 검증합니다."""
     for key, expected in EXPECTED_SPLIT_POLICY.items():
         actual = SPLIT_CONFIG.get(key)
         assert actual == expected, f"Split policy mismatch: {key}={actual}, expected={expected}"
 
-
 def _print_split_policy():
+    """현재 데이터 분할 정책을 로그로 출력합니다."""
     print("\n" + "=" * 70)
     print("4-0. 고정 분할 정책 확인")
     print("=" * 70)
@@ -114,7 +116,6 @@ def _print_split_policy():
     print(f"  Golden Gap : {SPLIT_CONFIG['golden_gap'][0]} ~ {SPLIT_CONFIG['golden_gap'][1]}")
     print(f"  Test       : {SPLIT_CONFIG['test'][0]} ~ 현재")
     print("=" * 70)
-
 
 def split_dataset(
     ticker="AAPL",
@@ -128,6 +129,7 @@ def split_dataset(
     master_df_override=None,
     db=None,
 ):
+    """데이터셋를 기준에 따라 나눕니다."""
     ticker = str(ticker).upper()
     benchmark = str(benchmark).upper()
     target_col = f"Target_{ticker}_3M"
@@ -204,8 +206,8 @@ def split_dataset(
     print_split_summary(split)
     return split
 
-
 def get_stride_splits(split):
+    """stride splits 정보를 조회해 반환합니다."""
     stride_splits = []
     for offset in range(N_MODELS):
         train_sampled = split.train.iloc[offset::STRIDE]
@@ -223,8 +225,8 @@ def get_stride_splits(split):
     print_stride_summary(stride_splits, split.feature_cols, split.target_col)
     return stride_splits
 
-
 def print_split_summary(split):
+    """데이터 분할 결과 요약을 로그로 출력합니다."""
     print("\n" + "=" * 70)
     print("4. 데이터셋 분할 (5단계)")
     print("=" * 70)
@@ -249,8 +251,8 @@ def print_split_summary(split):
     print(f"  Feature Table              : {split.feature_table_name}")
     print("=" * 70)
 
-
 def print_stride_summary(stride_splits, feature_cols, target_col):
+    """스트라이드 설정 요약을 로그로 출력합니다."""
     print("\n" + "=" * 70)
     print(f"  스트라이드 앙상블 ({N_MODELS}개 모델, STRIDE={STRIDE})")
     print("=" * 70)
@@ -264,7 +266,6 @@ def print_stride_summary(stride_splits, feature_cols, target_col):
             f"Refit {n_ref:>4d}건 | Win {tr_ratio:.1f}%"
         )
     print("=" * 70)
-
 
 if __name__ == "__main__":
     split = split_dataset()

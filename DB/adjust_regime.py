@@ -1,12 +1,7 @@
 """
-Regime Shift Overlay — 시장 국면 변동에 따른 예측 수익률 조정 모듈.
-
-파이프라인 산출물(final_expected_returns.csv)의 예측 수익률을
-최근 3개월 실현 수익률과 비교하여, 괴리 크기에 비례하는
-Graduated Momentum Tracking Overlay를 적용합니다.
-
-Execution:
-    python3 -m Classification.multi_ticker.adjust_regime
+이 파일은 시장 국면에 따라 수익률이나 위험 값을 보정하는 계산을 수행합니다.
+이 모듈은 `final_expected_returns.csv`에서 읽은 모델 기대수익률을 최근 실현 수익률과 비교해, 괴리의 방향과 크기를 비선형 가중치로 환산한 뒤 DB 스냅샷으로 저장합니다.
+상단 상수는 벤치마크와 조정 강도를 정의하고, 중간 헬퍼 함수는 입력 데이터와 실현값을 읽어 오며, 마지막 `run_regime_adjustment`가 종목별 보정 계산과 저장을 순서대로 수행합니다.
 """
 
 from __future__ import annotations
@@ -47,18 +42,18 @@ E_RM_3M_LOG = math.log(1 + E_RM_3M)
 MAX_ADJUSTMENT_WEIGHT = 1.0
 
 def _load_final_csv() -> pd.DataFrame:
-    """파이프라인 산출물 CSV 로드."""
+    """파이프라인 산출물 CSV를 읽어 컬럼 공백을 정리한 DataFrame으로 반환합니다."""
     csv_path = MULTI_TICKER_ARTIFACT_DIR / "final_expected_returns.csv"
     if not csv_path.exists():
         raise FileNotFoundError(
             f"파이프라인 산출물 CSV를 찾을 수 없습니다: {csv_path}\n"
             "run_all_mapping.py가 먼저 완료되어야 합니다."
         )
+    # CSV 컬럼명에 섞인 공백을 제거해 후속 키 접근을 안정화합니다.
     df = pd.read_csv(csv_path)
     df.columns = df.columns.str.strip()
     print(f"[LOAD] final_expected_returns.csv: {len(df)}행 로드 완료")
     return df
-
 
 def _load_realized_returns() -> tuple[pd.Series, pd.Series]:
     """
@@ -75,6 +70,7 @@ def _load_realized_returns() -> tuple[pd.Series, pd.Series]:
     finally:
         db.close()
 
+    # 날짜 인덱스를 datetime으로 맞춰 rolling/tail 계산이 항상 동일하게 동작하도록 합니다.
     log_returns.index = pd.to_datetime(log_returns.index)
     sp500_df.index = pd.to_datetime(sp500_df.index)
 
@@ -96,17 +92,15 @@ def _load_realized_returns() -> tuple[pd.Series, pd.Series]:
     print(f"[LOAD] 최근 {HORIZON_DAYS} 거래일 실현 수익률 및 롤링 변동성 로드 완료 ({len(realized_3m)} 종목)")
     return realized_3m, vol_3m
 
-
 def _sync_adjusted_returns_to_db(result_df: pd.DataFrame) -> None:
     """조정된 기대수익률 결과를 CSV 없이 DB 스냅샷으로 직접 동기화합니다."""
     db = StockDBManager()
     db.connect()
     try:
-        # 한글 주석: stock_db_manager의 전용 업서트 메서드를 사용해 스냅샷 동기화를 수행합니다.
+        # stock_db_manager의 전용 업서트 메서드를 사용해 스냅샷 동기화를 수행합니다.
         db.upsert_adjusted_expected_returns_snapshot(result_df)
     finally:
         db.close()
-
 
 def run_regime_adjustment() -> pd.DataFrame:
     """
@@ -114,15 +108,21 @@ def run_regime_adjustment() -> pd.DataFrame:
     조정된 예측 수익률을 DB 스냅샷으로 직접 적재합니다.
     """
     # 1. 입력 데이터 로드
+    # final_df는 모델 산출물 원본, realized_3m/vol_3m는 최근 실현 국면을 요약한 비교 기준입니다.
     final_df = _load_final_csv()
     realized_3m, vol_3m = _load_realized_returns()
 
+    # results는 최종적으로 DB 업서트에 넘길 스냅샷 행 목록입니다.
     results = []
 
     for _, row in final_df.iterrows():
+        # ticker는 모든 스냅샷/실현 수익률 조회의 기준 키라서 첫 단계에서 정규화합니다.
         ticker = str(row["Ticker"]).strip().upper()
+        # gate_passed는 기존 모델 게이트 통과 여부를 그대로 보존해 UI와 후속 배치에 전달합니다.
         gate_passed = bool(row.get("Gate_Passed", False))
+        # original_e_ret는 모델이 원래 출력한 3개월 기대 로그수익률 또는 알파 값입니다.
         original_e_ret = float(row.get("Expected_Return_3M", 0.0))
+        # return_type에 따라 CAPM 절대수익률인지, 벤치마크 초과수익률인지 해석이 달라집니다.
         return_type = str(row.get("Return_Type", "Unknown"))
 
         # ── Step 2: 단위 통일 (순수 로그 수익률(단위) 통일) ────────────────
@@ -135,6 +135,7 @@ def run_regime_adjustment() -> pd.DataFrame:
 
         # ── Step 3: 실현 수익률 및 변동성 조회 ──────────────────────
         if ticker in realized_3m.index:
+            # realized는 최근 60거래일 누적 로그수익률, ticker_vol은 같은 기간 롤링 누적수익률의 변동성입니다.
             realized = float(realized_3m[ticker])
             ticker_vol = float(vol_3m[ticker])
         else:
@@ -144,10 +145,13 @@ def run_regime_adjustment() -> pd.DataFrame:
 
         # ── Step 4: Graduated Momentum Tracking Overlay (Z-Score 기반) ─────────
         # 예측 대비 실제 실현이 상회(+)했는지 하회(-)했는지 방향성을 포함한 괴리 산출
+        # gap은 "실현 - 예측" 부호를 유지한 surprise 값으로, 양수면 기대를 상회했다는 뜻입니다.
         gap = realized - e_total
         
         # 고유 변동성(위험)을 기준으로 단위 정규화 (ZeroDivision 방어)
+        # safe_vol은 0 나눗셈을 피하기 위한 최소 변동성 바닥값입니다.
         safe_vol = ticker_vol if ticker_vol > 1e-6 else 1e-6
+        # z_surprise는 종목별 위험 대비 surprise 크기를 비교하기 위한 정규화 괴리입니다.
         z_surprise = gap / safe_vol
         
         # Tanh(쌍곡탄젠트) 비선형 가중치 산출 (최대 1.0 배수 제한)
@@ -156,12 +160,14 @@ def run_regime_adjustment() -> pd.DataFrame:
         adj_weight = MAX_ADJUSTMENT_WEIGHT * math.tanh(z_surprise)
 
         # 최종 조정값 계산 (adj_weight에 이미 상하향 부호가 내포되어 있음)
+        # adjustment는 실제 수익률 단위의 보정폭, adjusted_e_total은 최종 저장 대상 기대수익률입니다.
         adjustment = adj_weight * ticker_vol
         adjusted_e_total = e_total + adjustment
 
         # 조정 적용 여부 판별
         adjustment_applied = abs(gap) > 0.001
 
+        # CSV와 DB 스냅샷 컬럼명이 일치하도록 행 구조를 명시적으로 맞춰 넣습니다.
         results.append({
             "Ticker": ticker,
             "Gate_Passed": gate_passed,
@@ -177,7 +183,7 @@ def run_regime_adjustment() -> pd.DataFrame:
             "Adjustment_Applied": adjustment_applied,
         })
 
-    # 한글 주석: 결과 DataFrame을 만든 뒤 DB 스냅샷으로 동기화합니다.
+    # 결과 DataFrame을 만든 뒤 DB 스냅샷으로 동기화합니다.
     result_df = pd.DataFrame(results)
     _sync_adjusted_returns_to_db(result_df)
 
@@ -211,7 +217,6 @@ def run_regime_adjustment() -> pd.DataFrame:
               f"| 조정후: {r['Adjusted_E_Total']*100:+6.2f}%")
 
     return result_df
-
 
 if __name__ == "__main__":
     run_regime_adjustment()

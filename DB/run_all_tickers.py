@@ -1,8 +1,6 @@
 """
-멀티티커 배치 오케스트레이터.
-
-Execution:
-  python3 -m Classification.multi_ticker.run_all_tickers
+이 파일은 여러 티커를 대상으로 필요한 배치 작업을 한 번에 순서대로 실행합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -82,7 +80,6 @@ SCALER_ZERO_SAMPLE_KEYWORDS = [
 _WORKER_DB = None
 _WORKER_SP500_LOGRET_CACHE = None
 
-
 def _normalize_for_json(obj):
     """json.dumps 전에 datetime/date 등 비직렬화 타입을 정규화합니다."""
     if isinstance(obj, dict):
@@ -103,6 +100,7 @@ def _normalize_for_json(obj):
     return obj
 
 def _to_iso_date(value) -> str | None:
+    """날짜 값을 ISO 형식 문자열로 안전하게 변환합니다."""
     if value is None:
         return None
     try:
@@ -110,8 +108,8 @@ def _to_iso_date(value) -> str | None:
     except Exception:
         return None
 
-
 def _parse_date_like(value):
+    """date like를 읽기 쉬운 형태로 해석합니다."""
     if value is None:
         return None
     try:
@@ -122,8 +120,8 @@ def _parse_date_like(value):
     except Exception:
         return None
 
-
 def _load_ensemble_snapshot_date(ticker: str) -> tuple[str | None, bool]:
+    """ensemble 스냅샷 date 데이터를 메모리로 불러옵니다."""
     ens_path = get_ensemble_result_path(ticker)
     if not ens_path.exists():
         return None, False
@@ -133,7 +131,6 @@ def _load_ensemble_snapshot_date(ticker: str) -> tuple[str | None, bool]:
         return None, True
     return _to_iso_date(payload.get("data_snapshot_end_date")), True
 
-
 def _decide_refresh(
     *,
     refresh_policy: str,
@@ -141,6 +138,7 @@ def _decide_refresh(
     ensemble_snapshot_date: str | None,
     artifact_exists: bool,
 ) -> str:
+    """기존 산출물을 재생성할지 그대로 사용할지 판단합니다."""
     if refresh_policy == "always":
         return "refresh_forced"
     if not artifact_exists:
@@ -159,8 +157,8 @@ def _decide_refresh(
         return "refresh_required"
     return "fresh_skip"
 
-
 def _load_ineligible_cache(path: Path) -> dict[str, Any]:
+    """ineligible 캐시 데이터를 메모리로 불러옵니다."""
     if not path.exists():
         return {"version": 1, "updated_at": None, "tickers": {}}
     try:
@@ -180,15 +178,15 @@ def _load_ineligible_cache(path: Path) -> dict[str, Any]:
     except Exception:
         return {"version": 1, "updated_at": None, "tickers": {}}
 
-
 def _save_ineligible_cache(path: Path, payload: dict[str, Any]) -> None:
+    """ineligible 캐시를 저장합니다."""
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = dict(payload)
     payload["updated_at"] = datetime.now().isoformat(timespec="seconds")
     path.write_text(json.dumps(_normalize_for_json(payload), indent=2, ensure_ascii=False), encoding="utf-8")
 
-
 def _should_mark_permanent_ineligible(row: dict[str, Any]) -> tuple[bool, str]:
+    """mark permanent ineligible 여부를 판단해 반환합니다."""
     status = str(row.get("status", "")).strip().lower()
     reason = str(row.get("reason") or row.get("error") or "")
     warnings_joined = " | ".join(str(w) for w in row.get("warnings", []))
@@ -202,12 +200,10 @@ def _should_mark_permanent_ineligible(row: dict[str, Any]) -> tuple[bool, str]:
 
     return False, ""
 
-
-
 def _is_stale_error(exc: Exception) -> bool:
+    """stale error 여부를 판단해 반환합니다."""
     msg = str(exc)
     return any(k in msg for k in STALE_KEYWORDS)
-
 
 def _run_model_with_optional_retune(
     model_name,
@@ -251,8 +247,8 @@ def _run_model_with_optional_retune(
             status = "retuned_once_failed"
             raise
 
-
 def _get_model_metric_warnings(model: str, metrics: dict) -> list[str]:
+    """모델 metric warnings 정보를 조회해 반환합니다."""
     warnings = []
     gap_abs = float(
         metrics.get("gap_abs", abs(float(metrics.get("gap_signed", metrics.get("gap", 0.0)))))
@@ -262,7 +258,6 @@ def _get_model_metric_warnings(model: str, metrics: dict) -> list[str]:
     if bool(metrics.get("ic_degenerate", False)):
         warnings.append(f"{model} ic_degenerate=true")
     return warnings
-
 
 def _is_fail_fast(metrics: dict, model_name: str, ticker: str) -> bool:
     """
@@ -284,7 +279,6 @@ def _is_fail_fast(metrics: dict, model_name: str, ticker: str) -> bool:
         )
     return triggered
 
-
 def _save_model_metrics_json(
     *,
     ticker: str,
@@ -298,6 +292,7 @@ def _save_model_metrics_json(
     force_retune_all: bool,
     warnings: list[str],
 ) -> None:
+    """모델 metrics json를 저장합니다."""
     metrics_path = get_model_metrics_path(model, ticker)
     params_path = get_model_params_path(model, ticker)
     result_plot_path = get_model_result_path(model, ticker)
@@ -348,8 +343,8 @@ def _save_model_metrics_json(
     }
     save_json_artifact_only(_normalize_for_json(payload), metrics_path)
 
-
 def _coverage_precheck(tickers=None):
+    """티커별 데이터 적재 범위를 배치 실행 전에 미리 점검합니다."""
     db = StockDBManager()
     db.connect(ensure_tables=False, quiet=True)
     try:
@@ -359,6 +354,7 @@ def _coverage_precheck(tickers=None):
     return report
 
 def _master_feature_latest_dates_precheck(tickers=None):
+    """티커별 통합 피처의 최신 날짜를 배치 실행 전에 미리 조회합니다."""
     db = StockDBManager()
     db.connect(ensure_tables=False, quiet=True)
     try:
@@ -367,13 +363,13 @@ def _master_feature_latest_dates_precheck(tickers=None):
     finally:
         db.close()
 
-
 def _force_retune_all_models_for_ticker(
     ticker: str,
     benchmark: str,
     optimize_profile: str,
     n_trials_by_model: dict[str, int],
 ):
+    """한 티커에 대해 모든 모델 재튜닝을 강제로 수행합니다."""
     print(f"  [{ticker}] force_retune_all=True -> 4모델 재최적화 시작")
     optimize_xgb(
         profile=optimize_profile,
@@ -413,8 +409,8 @@ def _force_retune_all_models_for_ticker(
     )
     print(f"  [{ticker}] force 재최적화 완료")
 
-
 def _init_worker_runtime():
+    """워커 프로세스에서 재사용할 DB 연결과 캐시를 초기화합니다."""
     global _WORKER_DB, _WORKER_SP500_LOGRET_CACHE
     if _WORKER_DB is None:
         _WORKER_DB = StockDBManager()
@@ -422,37 +418,37 @@ def _init_worker_runtime():
     if _WORKER_SP500_LOGRET_CACHE is None:
         _WORKER_SP500_LOGRET_CACHE = _WORKER_DB.fetch_sp500_log_returns()
 
-
 def _close_worker_runtime():
+    """워커 프로세스에서 열어 둔 DB 연결과 캐시를 정리합니다."""
     global _WORKER_DB, _WORKER_SP500_LOGRET_CACHE
     if _WORKER_DB is not None:
         _WORKER_DB.close()
     _WORKER_DB = None
     _WORKER_SP500_LOGRET_CACHE = None
 
-
 def _get_worker_db() -> StockDBManager:
+    """worker 데이터베이스 정보를 조회해 반환합니다."""
     if _WORKER_DB is None:
         _init_worker_runtime()
     return _WORKER_DB
 
-
 def _get_worker_sp500_logret_series():
+    """worker S&P 500 logret series 정보를 조회해 반환합니다."""
     global _WORKER_SP500_LOGRET_CACHE
     if _WORKER_SP500_LOGRET_CACHE is None:
         _WORKER_SP500_LOGRET_CACHE = _get_worker_db().fetch_sp500_log_returns()
     return _WORKER_SP500_LOGRET_CACHE
 
-
 def _get_ticker_logret_series(ticker: str):
+    """티커 logret series 정보를 조회해 반환합니다."""
     return _get_worker_db().fetch_log_returns_by_ticker(ticker)
 
-
 def _get_ticker_master_features(ticker: str):
+    """티커 통합 피처 정보를 조회해 반환합니다."""
     return _get_worker_db().fetch_master_features(ticker)
 
-
 def _check_eligibility(split) -> tuple[bool, str]:
+    """학습에 필요한 최소 샘플 조건을 만족하는지 검사합니다."""
     train_n = int(len(split.train))
     val_n = int(len(split.val))
     test_n = int(len(split.test))
@@ -473,7 +469,6 @@ def _check_eligibility(split) -> tuple[bool, str]:
 
     return True, "ok"
 
-
 def _build_success_row(
     *,
     ticker,
@@ -490,6 +485,7 @@ def _build_success_row(
     ineligible_cached,
     model_metrics=None,
 ):
+    """success row 결과를 여러 데이터를 바탕으로 조합해 만듭니다."""
     n_test_samples = int(ens.get("n_test_samples", 0))
     ic_full = float(ens.get("ic_full", 0.0))
     ic_pvalue = float(ens.get("ic_pvalue", 1.0))
@@ -562,7 +558,6 @@ def _build_success_row(
         }
     return row
 
-
 def _execute_single_ticker(
     idx: int,
     ticker: str,
@@ -580,6 +575,7 @@ def _execute_single_ticker(
     ensemble_snapshot_date: str | None,
     ineligible_cached: bool,
 ) -> dict[str, Any]:
+    """execute single 티커 관련 처리를 담당하는 함수입니다."""
     ticker = str(ticker).upper()
     slug = ticker_to_slug(ticker)
 
@@ -987,7 +983,6 @@ def _execute_single_ticker(
             },
         }
 
-
 def run_all_tickers(
     force_retune_all: bool = False,
     optimize_profile: str = "balanced",
@@ -1001,6 +996,7 @@ def run_all_tickers(
     respect_ineligible_cache: bool = True,
     tickers: list[str] | None = None,
 ):
+    """전체 티커 목록 작업 전체를 순서대로 실행합니다."""
     benchmark = "SP500"
     mode = str(mode).lower().strip()
     refresh_policy = str(refresh_policy).lower().strip()
@@ -1245,7 +1241,6 @@ def run_all_tickers(
     print(f"  leaderboard: {leaderboard_path}")
     print("=" * 80)
     return summary_payload
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run multi-ticker model/ensemble/mapping batch")

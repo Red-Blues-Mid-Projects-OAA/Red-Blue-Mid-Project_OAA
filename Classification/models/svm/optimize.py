@@ -1,15 +1,6 @@
 """
-SVM 하이퍼파라미터 최적화 (누수 방지 + Deep Scaling 버전).
-
-목표 제약:
-- Accuracy >= 0.52
-- IC >= 0.05
-- Train-Test Gap(여기서는 Train-Validation Gap) <= 0.25
-
-주의:
-- 이 스크립트는 튜닝 시 test 데이터를 사용하지 않습니다.
-- 튜닝 평가는 stride별 train/validation만 사용합니다.
-- 최종 test 평가는 `Classification.models.svm.pipeline`에서만 수행합니다.
+이 파일은 최적화 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -45,10 +36,15 @@ from Classification.model_config import (
 
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
+# Optuna가 시도할 하이퍼파라미터 탐색 횟수입니다.
 N_TRIALS = 100
+# 현재 파일이 기대하는 목적 함수 버전 문자열입니다.
 BASE_OBJECTIVE_VERSION = "target_aligned_v3_svm_no_class_weight"
+# 저장된 파라미터와 비교할 교차검증 분할 정책 이름입니다.
 CV_MODE = "single_holdout_2024Q2Q3"
+# 단계형 게이트 전략 전용 튜닝 분기를 구분하는 프로필 이름입니다.
 TSM_GATE_PROFILE = "tsm_gatehard_v1"
+# 단계형 게이트 전략에서 허용하는 스테이지 집합입니다.
 TSM_STAGES = {"stage1", "stage2"}
 
 TARGET_ACC = 0.52
@@ -64,13 +60,13 @@ SEED_PARAMS = {
     "gamma": 0.03,
 }
 
-
 def _get_feature_hash(feature_cols):
+    """피처 hash 정보를 조회해 반환합니다."""
     raw = "|".join(feature_cols)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
-
 def _get_current_data_end_date(split):
+    """current 데이터 end date 정보를 조회해 반환합니다."""
     candidates = []
     for df in [split.train, split.val, split.test, split.final_train]:
         if len(df) > 0:
@@ -79,22 +75,22 @@ def _get_current_data_end_date(split):
         return None
     return max(candidates).strftime("%Y-%m-%d")
 
-
 def _get_objective_version(profile: str, strategy_stage: str) -> str:
+    """objective version 정보를 조회해 반환합니다."""
     if profile == TSM_GATE_PROFILE:
         return f"{TSM_GATE_PROFILE}_{strategy_stage}"
     return BASE_OBJECTIVE_VERSION
 
-
 def _apply_direction(proba: np.ndarray, direction_mode: str) -> np.ndarray:
+    """지표 방향성을 반영해 점수가 클수록 좋도록 맞춥니다."""
     if direction_mode == "normal":
         return proba
     if direction_mode == "inverted":
         return 1.0 - proba
     raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
 
-
 def _compute_recency_weights(index, recency_weight_lambda: float) -> np.ndarray | None:
+    """최근 데이터에 더 큰 비중을 주는 학습 가중치를 계산합니다."""
     if recency_weight_lambda <= 0.0:
         return None
     rank = np.arange(len(index), dtype=float)
@@ -102,8 +98,8 @@ def _compute_recency_weights(index, recency_weight_lambda: float) -> np.ndarray 
     weights = np.clip(weights, 1e-8, None)
     return weights / np.mean(weights)
 
-
 def _normalize_class_weight_dict(class_weight):
+    """class 비중 dict 값을 서로 비교하기 쉽게 정규화합니다."""
     if not isinstance(class_weight, dict):
         return class_weight
     out = {}
@@ -115,7 +111,6 @@ def _normalize_class_weight_dict(class_weight):
         out[key] = float(v)
     return out
 
-
 def safe_ic(pred_proba, actual_excess_return):
     """짧은/상수열에서 NaN 안전 처리 포함 Spearman IC 계산."""
     x = np.asarray(pred_proba)
@@ -126,7 +121,6 @@ def safe_ic(pred_proba, actual_excess_return):
         return np.nan, np.nan
     ic, p_value = spearmanr(x, y)
     return float(ic), float(p_value)
-
 
 def evaluate_params(
     params,
@@ -236,8 +230,8 @@ def evaluate_params(
         "ic_late": float(0.0 if np.isnan(ic_late) else ic_late),
     }
 
-
 def _suggest_class_weight(trial: optuna.Trial, profile: str):
+    """클래스 불균형 완화를 위한 권장 가중치를 계산합니다."""
     if profile != TSM_GATE_PROFILE:
         return None, "none"
 
@@ -249,7 +243,6 @@ def _suggest_class_weight(trial: optuna.Trial, profile: str):
 
     w = float(trial.suggest_float("class_weight_1", 1.0, 5.0))
     return {0: 1.0, 1: w}, f"custom_1:{w:.4f}"
-
 
 def trial_to_params(trial, profile):
     """Optuna trial 값을 SVC 파라미터 딕셔너리로 변환합니다."""
@@ -286,8 +279,8 @@ def trial_to_params(trial, profile):
 
     return params, class_weight_mode
 
-
 def _compute_score(metrics: dict, profile: str, strategy_stage: str) -> float:
+    """최적화에 사용할 종합 점수를 계산합니다."""
     acc = metrics["accuracy"]
     ic = metrics["ic"]
     gap_abs = metrics["gap_abs"]
@@ -335,11 +328,11 @@ def _compute_score(metrics: dict, profile: str, strategy_stage: str) -> float:
 
     return float(score)
 
-
 def build_objective(stride_splits, feature_cols, target_col, benchmark_target_col, profile, strategy_stage):
     """목표 정렬형 강건 objective 함수를 생성합니다."""
 
     def objective(trial):
+        """하이퍼파라미터 탐색에서 사용할 목적 함수를 계산합니다."""
         params, class_weight_mode = trial_to_params(trial, profile=profile)
 
         recency_weight_lambda = 0.0
@@ -405,7 +398,6 @@ def build_objective(stride_splits, feature_cols, target_col, benchmark_target_co
 
     return objective
 
-
 def choose_best_trial(study):
     """제약 충족 우선순위로 best trial을 선택합니다."""
     completed = [t for t in study.trials if t.state == optuna.trial.TrialState.COMPLETE]
@@ -421,7 +413,6 @@ def choose_best_trial(study):
         return min(fully_feasible, key=lambda t: t.value), "all_constraints"
 
     return min(completed, key=lambda t: t.value), "fallback_objective_best"
-
 
 def compute_validation_threshold(params, stride_splits, feature_cols, direction_mode="normal"):
     """정책상 threshold=0.5를 고정하고 해당 validation 정확도만 계산합니다."""
@@ -445,7 +436,6 @@ def compute_validation_threshold(params, stride_splits, feature_cols, direction_
 
     fixed_acc = accuracy_score(val_y, (val_proba >= FIXED_THRESHOLD).astype(int))
     return float(FIXED_THRESHOLD), float(fixed_acc)
-
 
 def optimize(
     profile="balanced",
@@ -635,7 +625,6 @@ def optimize(
     print(f"\n저장 완료: {params_path}")
     print("=" * 70)
     return save_data
-
 
 if __name__ == "__main__":
     optimize()

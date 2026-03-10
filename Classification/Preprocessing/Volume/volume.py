@@ -1,11 +1,8 @@
 """
-거래량 분석 모듈 (Self-contained)
-
-생성되는 DataFrame:
-  df_volume_features : Volume_Ratio, OBV_ROC_20 (정상성 확보)
-
-★ DB 적재 없음
+이 파일은 거래량 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
+
 import sys
 from pathlib import Path
 
@@ -23,7 +20,6 @@ if __package__ in (None, ""):
 
 from common import pd, np
 from DB import StockDBManager
-
 
 def calculate_volume_analysis(ticker="AAPL", db=None, df_data=None):
     """
@@ -101,11 +97,10 @@ def calculate_volume_analysis(ticker="AAPL", db=None, df_data=None):
 
     return df_volume_features
 
-
 # Backward compatibility alias
 def calculate_aapl_volume_analysis(db=None):
+    """aapl 거래량 analysis 값을 계산합니다."""
     return calculate_volume_analysis(ticker="AAPL", db=db)
-
 
 if __name__ == "__main__":
     calculate_volume_analysis()

@@ -1,6 +1,8 @@
 """
-Target Variable 생성 모듈 (티커 파라미터화).
+이 파일은 생성 타깃 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
+
 import sys
 from pathlib import Path
 
@@ -23,8 +25,8 @@ from DB import StockDBManager
 FORWARD_DAYS = 60
 ALPHA_MARGIN = 0.01
 
-
 def _coerce_logret_series(series_like, name: str) -> pd.Series | None:
+    """로그수익률 열을 계산에 맞는 Series 형태로 정리합니다."""
     if series_like is None:
         return None
     if isinstance(series_like, pd.Series):
@@ -40,7 +42,6 @@ def _coerce_logret_series(series_like, name: str) -> pd.Series | None:
         raise TypeError(f"{name}는 pd.Series 또는 pd.DataFrame이어야 합니다.")
     s.index = pd.to_datetime(s.index)
     return pd.to_numeric(s.sort_index(), errors="coerce")
-
 
 def generate_target(
     ticker="AAPL",
@@ -160,7 +161,6 @@ def generate_target(
     print(f"  전체 컬럼: {list(master_df.columns)}")
 
     return master_df
-
 
 if __name__ == "__main__":
     df_final = generate_target()

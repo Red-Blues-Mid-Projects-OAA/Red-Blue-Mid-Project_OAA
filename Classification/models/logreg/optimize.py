@@ -1,5 +1,6 @@
 """
-Logistic Regression 하이퍼파라미터 최적화 모듈 (단일 Holdout + stride 앙상블).
+이 파일은 최적화 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -32,14 +33,21 @@ from Classification.model_config import get_model_params_path, save_json_artifac
 
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
+# Optuna가 시도할 하이퍼파라미터 탐색 횟수입니다.
 N_TRIALS = 100
+# 현재 파일이 기대하는 목적 함수 버전 문자열입니다.
 BASE_OBJECTIVE_VERSION = "target_aligned_v2_logreg_no_class_weight"
+# 저장된 파라미터와 비교할 교차검증 분할 정책 이름입니다.
 CV_MODE = "single_holdout_2024Q2Q3"
+# 스트라이드 분할에서 다음 모델로 이동할 날짜 간격입니다.
 STRIDE = 5
+# 한 번의 스트라이드 실험에서 학습할 모델 수입니다.
 N_STRIDE_MODELS = 5
+# 단계형 게이트 전략 전용 튜닝 분기를 구분하는 프로필 이름입니다.
 TSM_GATE_PROFILE = "tsm_gatehard_v1"
+# 단계형 게이트 전략에서 허용하는 스테이지 집합입니다.
 TSM_STAGES = {"stage1", "stage2"}
-
+# 튜닝 전용 날짜 분할 규칙으로, 학습/검증/테스트 구간 경계를 명시합니다.
 TUNE_SPLIT = {
     "train": ("2021-01-01", "2023-12-31"),
     "validation": ("2024-04-01", "2024-09-30"),
@@ -48,28 +56,28 @@ TUNE_SPLIT = {
     "test": ("2025-01-01", None),
 }
 
-
 def _get_feature_hash(feature_cols: list[str]) -> str:
+    """피처 hash 정보를 조회해 반환합니다."""
     raw = "|".join(feature_cols)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
-
 def _safe_spearman(x: np.ndarray, y: np.ndarray) -> float:
+    """예외 상황을 감안해 스피어만 상관계수를 안전하게 계산합니다."""
     ic, _ = spearmanr(x, y)
     if np.isnan(ic):
         return 0.0
     return float(ic)
 
-
 def _apply_direction(proba: np.ndarray, direction_mode: str) -> np.ndarray:
+    """지표 방향성을 반영해 점수가 클수록 좋도록 맞춥니다."""
     if direction_mode == "normal":
         return proba
     if direction_mode == "inverted":
         return 1.0 - proba
     raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
 
-
 def _compute_recency_weights(index, recency_weight_lambda: float) -> np.ndarray | None:
+    """최근 데이터에 더 큰 비중을 주는 학습 가중치를 계산합니다."""
     if recency_weight_lambda <= 0.0:
         return None
     rank = np.arange(len(index), dtype=float)
@@ -77,8 +85,8 @@ def _compute_recency_weights(index, recency_weight_lambda: float) -> np.ndarray 
     weights = np.clip(weights, 1e-8, None)
     return weights / np.mean(weights)
 
-
 def _split_half_ic(proba: np.ndarray, alpha_diff: np.ndarray) -> tuple[float, float]:
+    """half ic를 기준에 따라 나눕니다."""
     mid = len(proba) // 2
     if mid == 0:
         ic = _safe_spearman(proba, alpha_diff)
@@ -87,14 +95,14 @@ def _split_half_ic(proba: np.ndarray, alpha_diff: np.ndarray) -> tuple[float, fl
     second_ic = _safe_spearman(proba[mid:], alpha_diff[mid:])
     return first_ic, second_ic
 
-
 def _get_objective_version(profile: str, strategy_stage: str) -> str:
+    """objective version 정보를 조회해 반환합니다."""
     if profile == TSM_GATE_PROFILE:
         return f"{TSM_GATE_PROFILE}_{strategy_stage}"
     return BASE_OBJECTIVE_VERSION
 
-
 def _suggest_class_weight(trial: optuna.Trial, profile: str):
+    """클래스 불균형 완화를 위한 권장 가중치를 계산합니다."""
     if profile != TSM_GATE_PROFILE:
         return None, "none"
 
@@ -107,8 +115,8 @@ def _suggest_class_weight(trial: optuna.Trial, profile: str):
     w = float(trial.suggest_float("class_weight_1", 1.0, 3.0))
     return {0: 1.0, 1: w}, f"custom_1:{w:.4f}"
 
-
 def _get_search_space(trial: optuna.Trial, profile: str) -> tuple[dict, str]:
+    """search space 정보를 조회해 반환합니다."""
     class_weight, class_weight_mode = _suggest_class_weight(trial, profile)
 
     if profile == "balanced":
@@ -137,7 +145,6 @@ def _get_search_space(trial: optuna.Trial, profile: str) -> tuple[dict, str]:
 
     raise ValueError(f"지원하지 않는 profile 입니다: {profile}")
 
-
 def _compute_score(
     *,
     profile: str,
@@ -152,6 +159,7 @@ def _compute_score(
     ic_first: float,
     ic_second: float,
 ) -> float:
+    """최적화에 사용할 종합 점수를 계산합니다."""
     balance = min(pos_rate, 1.0 - pos_rate)
     flat_penalty = 4.0 * max(0.0, 0.03 - val_proba_std)
     unique_penalty = 0.25 * max(0.0, 8 - float(val_proba_unique))
@@ -192,8 +200,8 @@ def _compute_score(
 
     return float(score)
 
-
 def create_objective(full_df, feature_cols: list[str], profile: str, strategy_stage: str):
+    """objective를 준비하거나 생성합니다."""
     train_start, train_end = TUNE_SPLIT["train"]
     val_start, val_end = TUNE_SPLIT["validation"]
 
@@ -213,6 +221,7 @@ def create_objective(full_df, feature_cols: list[str], profile: str, strategy_st
     alpha_val = val_fold["Alpha_Diff"].astype(float).to_numpy()
 
     def objective(trial: optuna.Trial) -> float:
+        """하이퍼파라미터 탐색에서 사용할 목적 함수를 계산합니다."""
         search, class_weight_mode = _get_search_space(trial, profile)
 
         recency_weight_lambda = 0.0
@@ -360,7 +369,6 @@ def create_objective(full_df, feature_cols: list[str], profile: str, strategy_st
 
     return objective
 
-
 def optimize(
     profile: str = "balanced",
     n_trials: int = N_TRIALS,
@@ -371,6 +379,7 @@ def optimize(
     feature_source_mode: str = "db_first",
     strategy_stage: str = "stage2",
 ):
+    """핵심 결과가 더 좋아지도록 최적화합니다."""
     if profile not in {"balanced", "regularized", TSM_GATE_PROFILE}:
         raise ValueError(
             "profile은 'balanced', 'regularized', 'tsm_gatehard_v1'만 허용됩니다: "
@@ -541,7 +550,6 @@ def optimize(
     save_json_artifact_only(save_data, params_path)
     print(f"\n  저장 완료: {params_path}")
     return save_data
-
 
 if __name__ == "__main__":
     optimize()

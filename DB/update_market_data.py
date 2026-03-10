@@ -1,13 +1,6 @@
 """
-시장 지표(VIX, DXY) 데이터 수집 및 Oracle DB 적재 모듈
-
-- VIX 종가 : yfinance (^VIX)
-- 달러 인덱스 종가 : FRED (DTWEXBGS)
-- 각 지표의 로그 수익률을 계산하여 MARKET_FEATURES 테이블에 저장
-
-실행:
-  - python -m DB.update_market_data
-  - python DB/update_market_data.py
+이 파일은 시장 지표 데이터를 수집하고 저장소에 최신 값으로 갱신합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 if __package__ in (None, ""):
@@ -38,7 +31,6 @@ else:
 
 START_DATE = "2015-01-01"
 
-
 def _fetch_fred_series(series_id, start_date, end_date):
     """
     FRED CSV endpoint를 통해 시계열을 조회하고 Date index + Close 컬럼 형태로 반환합니다.
@@ -61,7 +53,6 @@ def _fetch_fred_series(series_id, start_date, end_date):
     series_df = series_df.dropna(subset=["TRADE_DATE", "Close"]).set_index("TRADE_DATE")
     series_df = series_df.sort_index()
     return series_df.loc[str(start_date):str(end_date)]
-
 
 def fetch_and_store_vix(db_manager):
     """
@@ -118,7 +109,6 @@ def fetch_and_store_vix(db_manager):
     db_manager.insert_market_features("VIX", df_vix)
     return int(len(df_vix))
 
-
 def fetch_and_store_dxy(db_manager):
     """
     FRED에서 달러 인덱스(DTWEXBGS) 데이터를 다운로드하여 DB에 적재 (증분 업데이트)
@@ -158,8 +148,8 @@ def fetch_and_store_dxy(db_manager):
     db_manager.insert_market_features("DXY", dxy)
     return int(len(dxy))
 
-
 def update_market_data():
+    """시장 데이터 데이터를 최신 상태로 갱신합니다."""
     db_manager = StockDBManager()
     result = {
         "vix_new_rows": 0,
@@ -204,9 +194,7 @@ def update_market_data():
     finally:
         db_manager.close()
 
-
 main = update_market_data
-
 
 if __name__ == "__main__":
     update_market_data()

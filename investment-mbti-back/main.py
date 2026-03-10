@@ -1,7 +1,6 @@
 """
-Investment MBTI Integration API — 실제 데이터 기반 FastAPI 서버.
-
-설문 응답 + 손실 한도 → λ 산출 → 종목 추천 → MVO 최적화 → 결과 반환
+이 파일은 백엔드 FastAPI 서버의 진입점입니다. 프론트엔드가 호출하는 API와 서버 시작 흐름을 한곳에서 연결합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 import sys
@@ -42,7 +41,6 @@ from chart_data_provider import (
     get_last_updated_date,
 )
 
-
 # ──────────────────────────────────────────────────────────────────
 # FastAPI 앱 생성 (서버 시작 시 데이터 캐싱)
 # ──────────────────────────────────────────────────────────────────
@@ -58,7 +56,6 @@ async def lifespan(app: FastAPI):
     yield
     print("서버 종료.")
 
-
 app = FastAPI(title="Investment MBTI Integration API", lifespan=lifespan)
 
 # 프론트엔드 연동을 위한 CORS 미들웨어 적용
@@ -70,7 +67,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # ──────────────────────────────────────────────────────────────────
 # 요청/응답 모델
 # ──────────────────────────────────────────────────────────────────
@@ -81,13 +77,11 @@ class AnalyzeRequest(BaseModel):
     loss_limit_value: int  # 원 단위 금액 (예: 9500000)
     initial_investment: int  # 원 단위 금액 (예: 10000000)
 
-
 class OptimizeRequest(BaseModel):
     """포트폴리오 최적화 요청 (사용자 종목 선택 후)."""
 
     selected_tickers: List[str]  # 사용자가 선택한 종목 리스트
     lambda_final: float  # λ 값
-
 
 class OptimizeFinalRequest(BaseModel):
     """최종 포트폴리오 최적화 요청 (종목 선택 후)."""
@@ -96,12 +90,10 @@ class OptimizeFinalRequest(BaseModel):
     lambda_final: float
     final_level: int
 
-
 class PortfolioScoresRequest(BaseModel):
     """포트폴리오 스코어 산출 요청."""
 
     selected_tickers: List[str]  # 선택된 종목 티커 리스트
-
 
 # ──────────────────────────────────────────────────────────────────
 # 엔드포인트
@@ -244,7 +236,6 @@ def analyze_portfolio(req: AnalyzeRequest):
         },
     }
 
-
 @app.post("/api/optimize")
 def optimize_selected(req: OptimizeRequest):
     """
@@ -280,7 +271,6 @@ def optimize_selected(req: OptimizeRequest):
         },
     }
 
-
 @app.get("/api/all-stocks")
 def get_all_stocks():
     """전체 300개 종목의 return_score, risk_score, market_cap_rank를 반환합니다."""
@@ -290,7 +280,6 @@ def get_all_stocks():
     except Exception as e:
         raise HTTPException(status_code=503, detail=str(e))
 
-
 @app.get("/api/last-updated")
 def last_updated():
     """DB에 적재된 개별 종목 데이터의 가장 최근 날짜를 반환합니다."""
@@ -298,7 +287,6 @@ def last_updated():
     if not date_str:
         raise HTTPException(status_code=503, detail="날짜 정보를 가져올 수 없습니다.")
     return {"status": "success", "date": date_str}
-
 
 @app.post("/api/portfolio-scores")
 def get_portfolio_scores(req: PortfolioScoresRequest):
@@ -308,7 +296,6 @@ def get_portfolio_scores(req: PortfolioScoresRequest):
         return {"status": "success", "data": scores}
     except Exception as e:
         raise HTTPException(status_code=503, detail=str(e))
-
 
 @app.post("/api/optimize-final")
 def optimize_final(req: OptimizeFinalRequest):
@@ -419,7 +406,6 @@ def optimize_final(req: OptimizeFinalRequest):
             "portfolio_scores": portfolio_scores,
         },
     }
-
 
 if __name__ == "__main__":
     import uvicorn

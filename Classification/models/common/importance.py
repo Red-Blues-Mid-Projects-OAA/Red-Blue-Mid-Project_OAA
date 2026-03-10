@@ -1,11 +1,6 @@
 """
-모델 공통 중요도 계산 유틸리티 모듈.
-
-이 모듈은 분류 모델의 예측 확률을 기준으로
-피처별 Permutation 중요도(ΔIC, ΔAccuracy)를 계산합니다.
-핵심 목적은 "특정 피처를 섞었을 때 정보계수(IC)가 얼마나 감소하는지"를
-정량화해, 모델이 어떤 피처의 순위 정보(rank signal)에 의존하는지
-해석 가능하게 만드는 것입니다.
+이 파일은 모델이 어떤 피처를 중요하게 보는지 정리해 해석하기 쉽게 만듭니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -16,7 +11,6 @@ import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
 from sklearn.metrics import accuracy_score
-
 
 def _safe_spearman(x: np.ndarray, y: np.ndarray) -> float:
     """
@@ -29,7 +23,6 @@ def _safe_spearman(x: np.ndarray, y: np.ndarray) -> float:
     if np.isnan(ic):
         return 0.0
     return float(ic)
-
 
 def compute_permutation_importance_ic(
     x_test: pd.DataFrame,

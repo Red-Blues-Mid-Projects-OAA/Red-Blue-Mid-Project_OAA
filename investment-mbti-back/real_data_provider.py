@@ -1,8 +1,7 @@
 """
-실제 데이터 기반 종목 추천 모듈.
-
-ADJUSTED_EXPECTED_RETURNS DB 스냅샷을 대상으로,
-리스크 타입별 λ를 이용한 개별 유틸리티 스코어로 종목을 정렬하여 추천합니다.
+이 파일은 실제 종목 데이터와 포트폴리오 계산용 데이터를 읽어 와 API가 바로 쓰기 좋은 형태로 가공합니다.
+이 모듈은 DB 스냅샷 또는 데모 스냅샷을 메모리 캐시에 올린 뒤, 추천 종목/전체 종목/최적화 입력처럼 FastAPI 응답에서 바로 소비할 구조로 다시 정리하는 역할을 맡습니다.
+상단에서는 캐시와 공통 매핑을 준비하고, 중간 함수들은 스냅샷 정규화와 fallback 계산을 담당하며, 하단 공개 함수들은 API 엔드포인트가 직접 호출하는 조회 인터페이스를 제공합니다.
 """
 
 import sys
@@ -11,7 +10,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-# 프로젝트 루트 경로 설정 (investment-mbti-back에서 실행 시)
+# 백엔드 하위 폴더에서 실행해도 `DB`, `risk_profile` 같은 상위 패키지를 바로 import할 수 있도록
+# 프로젝트 루트 경로를 먼저 sys.path에 주입합니다.
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
@@ -29,7 +29,7 @@ HORIZON_DAYS = 60
 # 리스크 타입별 λ 값 (risk_profile.py 로직과 동기화된 동적 매핑)
 LAMBDA_MAP = {i: get_lambda_by_level(i) for i in range(1, 5)}
 
-# 종목 한글 이름 매핑 — sp500_top300_kr.json 에서 동적 로드
+# 티커를 프론트엔드 친화적인 한글 이름으로 보여 주기 위한 정적 매핑 파일 경로입니다.
 import json as _json
 
 _KR_NAME_JSON = _PROJECT_ROOT / "DB" / "sp500_top300_kr.json"
@@ -54,11 +54,11 @@ _cache = {
     "cov_matrix": None,           # EWMA 공분산 numpy 행렬
     "ticker_to_cov_idx": None,    # ticker → 행렬 인덱스 매핑
     "variance_map": None,         # ticker → σ²_i (대각선 원소)
-    "risk_snapshot_stage": None,
-    "risk_snapshot_error": None,
-    "risk_snapshot_metrics_count": 0,
-    "risk_snapshot_holdings_count": 0,
-    "risk_snapshot_by_level": {},
+    "risk_snapshot_stage": None,  # 위험단계 스냅샷 동기화가 어디까지 진행됐는지 나타내는 상태 문자열
+    "risk_snapshot_error": None,  # 위험단계 스냅샷 동기화에서 마지막으로 발생한 오류 메시지
+    "risk_snapshot_metrics_count": 0,  # rank_no=0 요약 행으로 계산한 레벨별 메트릭 개수
+    "risk_snapshot_holdings_count": 0,  # 스냅샷에서 읽어 온 전체 보유 종목 행 개수
+    "risk_snapshot_by_level": {},  # risk_level -> {"summary": ..., "holdings": [...]} 캐시
 }
 
 RISK_LEVEL_LABEL_MAP = {
@@ -68,30 +68,31 @@ RISK_LEVEL_LABEL_MAP = {
     1: "High Risk",
 }
 
-
 def normalize_risk_score(ewma_std_60d: float, min_ewma_std_60d: float, max_ewma_std_60d: float, eps: float = 1e-8) -> int:
     """
     개별 종목 EWMA 표준편차를 0~100 Min-Max 정규화 점수로 변환합니다.
     전체 variance_map의 EWMA 표준편차 분포(전 종목) 기준 min/max를 사용합니다.
     """
-    score = int((ewma_std_60d - min_ewma_std_60d) / max(max_ewma_std_60d - min_ewma_std_60d, eps) * 100)
+    # 분모가 0에 가까운 구간에서도 폭주하지 않도록 eps로 최소 범위를 보장합니다.
+    denominator = max(max_ewma_std_60d - min_ewma_std_60d, eps)
+    # 선형 정규화 결과를 0~100 정수 점수로 잘라 프론트엔드 막대/배지에 재사용합니다.
+    score = int((ewma_std_60d - min_ewma_std_60d) / denominator * 100)
     return max(0, min(100, score))
-
 
 def _parse_bool(value) -> bool:
     """불리언/문자/숫자 입력을 Python bool로 정규화합니다."""
-    # 한글 주석: DB에서 들어오는 다양한 bool 표현을 단일 규칙으로 처리합니다.
+    # DB에서 들어오는 다양한 bool 표현을 단일 규칙으로 처리합니다.
     if pd.isna(value):
         return False
     if isinstance(value, bool):
         return value
+    # 공백 제거와 소문자 변환을 먼저 해 두면 Oracle 숫자/문자 혼합 입력도 같은 규칙으로 비교할 수 있습니다.
     normalized = str(value).strip().lower()
     return normalized in {"1", "true", "t", "y", "yes"}
 
-
 def _normalize_adjusted_returns_df(df: pd.DataFrame) -> pd.DataFrame:
     """adjusted_expected_returns 표준 컬럼 형태로 DataFrame을 정규화합니다."""
-    # 한글 주석: 필수 컬럼 누락을 초기에 차단해 이후 로직 오류를 방지합니다.
+    # 필수 컬럼 누락을 초기에 차단해 이후 로직 오류를 방지합니다.
     required_cols = [
         "Ticker",
         "Gate_Passed",
@@ -107,30 +108,33 @@ def _normalize_adjusted_returns_df(df: pd.DataFrame) -> pd.DataFrame:
         "Adjustment_Applied",
     ]
 
+    # 원본 DataFrame을 그대로 보존하기 위해 복사본에서만 컬럼명과 타입을 정리합니다.
     normalized_df = df.copy()
+    # DB/JSON 출처마다 공백이 섞일 수 있으므로 컬럼명을 문자열 + trim 기준으로 맞춥니다.
     normalized_df.columns = [str(c).strip() for c in normalized_df.columns]
+    # 필수 컬럼이 비어 있으면 이후 계산식이 조용히 깨지므로 초기에 강하게 실패시킵니다.
     missing_cols = [c for c in required_cols if c not in normalized_df.columns]
     if missing_cols:
         raise ValueError(f"adjusted returns 필수 컬럼 누락: {missing_cols}")
 
-    # 한글 주석: 티커 키 정규화(공백 제거 + 대문자)로 DB 키를 일치시킵니다.
+    # 티커 키 정규화(공백 제거 + 대문자)로 DB 키를 일치시킵니다.
     normalized_df["Ticker"] = normalized_df["Ticker"].astype(str).str.strip().str.upper()
     normalized_df["Gate_Passed"] = normalized_df["Gate_Passed"].apply(_parse_bool)
     normalized_df["Adjustment_Applied"] = normalized_df["Adjustment_Applied"].apply(_parse_bool)
     return normalized_df
 
-
 def _build_all_returns_map(df: pd.DataFrame) -> dict[str, float]:
     """전체 티커의 Adjusted_E_Total 맵을 생성합니다."""
-    # 한글 주석: optimize 단계에서 매 호출마다 파일 재로드하지 않도록 캐시 맵을 만듭니다.
+    # optimize 단계에서 매 호출마다 파일 재로드하지 않도록 캐시 맵을 만듭니다.
     all_returns = {}
     for _, row in df.iterrows():
+        # 티커는 캐시 키와 공분산 인덱스 키를 맞추기 위해 항상 대문자로 통일합니다.
         ticker = str(row["Ticker"]).strip().upper()
+        # 기대수익률은 숫자 변환이 실패하면 버리고, 유효한 값만 맵에 적재합니다.
         value = pd.to_numeric(row.get("Adjusted_E_Total"), errors="coerce")
         if ticker and pd.notna(value):
             all_returns[ticker] = float(value)
     return all_returns
-
 
 def _build_variance_map_from_df(df: pd.DataFrame) -> dict[str, float]:
     """DB 공분산이 없을 때 사용할 대체 분산 맵(Vol_3M^2)을 생성합니다."""
@@ -139,22 +143,25 @@ def _build_variance_map_from_df(df: pd.DataFrame) -> dict[str, float]:
         ticker = str(row["Ticker"]).strip().upper()
         vol = pd.to_numeric(row.get("Vol_3M"), errors="coerce")
         if pd.notna(vol):
+            # Vol_3M은 표준편차이므로 목적함수에서 쓰는 분산으로 맞추기 위해 제곱합니다.
             variance_map[ticker] = float(vol) ** 2
         else:
+            # 최소한의 계산 지속을 위한 보수적 fallback 분산입니다.
             variance_map[ticker] = 0.01
     return variance_map
-
-
 
 def _build_risk_snapshot_by_level(df: pd.DataFrame) -> dict[int, dict]:
     """RISK_LEVEL_PORTFOLIO_SNAPSHOT 조회 결과를 레벨별 캐시 구조로 변환합니다."""
     if df is None or df.empty:
         return {}
 
+    # 프론트엔드 카드에 바로 넣을 라벨과 색상을 레벨별로 미리 고정합니다.
     vol_labels = {4: "Very Low", 3: "Low", 2: "Medium", 1: "High"}
     color_map = {4: "#10b981", 3: "#3b82f6", 2: "#8b5cf6", 1: "#ef4444"}
 
+    # 최종 결과는 level -> summary/holdings 구조의 중첩 딕셔너리입니다.
     result: dict[int, dict] = {}
+    # 요약 행(rank 0)과 보유 종목 행(rank > 0)을 같은 순서 규칙으로 읽기 위해 정렬합니다.
     ordered = df.sort_values(["Risk_Level", "Rank_No"], ascending=[False, True])
 
     for _, row in ordered.iterrows():
@@ -164,9 +171,11 @@ def _build_risk_snapshot_by_level(df: pd.DataFrame) -> dict[int, dict]:
         except Exception:
             continue
 
+        # 같은 risk_level 안에서 summary 1개와 holdings 여러 개를 누적할 버킷입니다.
         bucket = result.setdefault(risk_level, {"summary": None, "holdings": []})
 
         if rank_no == 0:
+            # rank 0은 레벨 전체 요약 행이므로 포트폴리오 메트릭만 저장하고 다음 행으로 넘어갑니다.
             bucket["summary"] = {
                 "risk_level": risk_level,
                 "risk_label": str(row.get("Risk_Label") or RISK_LEVEL_LABEL_MAP.get(risk_level, f"Level {risk_level}")),
@@ -182,6 +191,7 @@ def _build_risk_snapshot_by_level(df: pd.DataFrame) -> dict[int, dict]:
         if not ticker:
             continue
 
+        # rank > 0 행은 실제 추천 종목 카드에 들어갈 보유 종목 정보입니다.
         holding = {
             "rank": rank_no,
             "ticker": ticker,
@@ -195,6 +205,7 @@ def _build_risk_snapshot_by_level(df: pd.DataFrame) -> dict[int, dict]:
         bucket["holdings"].append(holding)
 
     for risk_level in result:
+        # DB 조회 순서와 상관없이 rank 오름차순으로 카드가 고정되도록 다시 정렬합니다.
         result[risk_level]["holdings"] = sorted(
             result[risk_level]["holdings"],
             key=lambda item: int(item.get("rank", 9999)),
@@ -202,16 +213,16 @@ def _build_risk_snapshot_by_level(df: pd.DataFrame) -> dict[int, dict]:
 
     return result
 
-
 def _snapshot_records_to_dataframe(records, datetime_columns: list[str] | None = None) -> pd.DataFrame:
+    """스냅샷 레코드 리스트를 DataFrame으로 바꾸고 날짜 컬럼을 datetime으로 정규화합니다."""
     df = pd.DataFrame(records or [])
     for column in datetime_columns or []:
         if column in df.columns:
             df[column] = pd.to_datetime(df[column], errors="coerce")
     return df
 
-
 def _load_cache_from_demo_snapshot() -> bool:
+    """데모 스냅샷 JSON을 읽어 실제 DB 캐시와 같은 구조로 메모리에 적재합니다."""
     try:
         snapshot = load_demo_snapshot()
     except FileNotFoundError as e:
@@ -225,6 +236,7 @@ def _load_cache_from_demo_snapshot() -> bool:
         print(f"  [SYNC][SNAPSHOT][ERROR] {e}")
         return False
 
+    # adjusted_expected_returns가 추천/최적화 계산의 주원천이므로 가장 먼저 DataFrame으로 정규화합니다.
     source_df = _snapshot_records_to_dataframe(
         snapshot.get("adjusted_expected_returns"),
         datetime_columns=["Updated_At"],
@@ -235,9 +247,11 @@ def _load_cache_from_demo_snapshot() -> bool:
         print("  [SYNC][SNAPSHOT][ERROR] adjusted_expected_returns is empty")
         return False
 
+    # source_df는 원본 전체 종목 풀, filtered는 추천 후보로 줄인 하위 집합입니다.
     source_df = _normalize_adjusted_returns_df(source_df)
     filtered = _filter_candidates(source_df)
 
+    # 공분산 payload는 티커 순서와 행렬이 반드시 함께 움직여야 하므로 둘을 동시에 검증합니다.
     covariance_payload = snapshot.get("ewma_covariance") or {}
     covariance_tickers = [
         str(ticker).strip().upper()
@@ -247,15 +261,18 @@ def _load_cache_from_demo_snapshot() -> bool:
     covariance_matrix_raw = covariance_payload.get("matrix") or []
     covariance_matrix = np.array(covariance_matrix_raw, dtype=float) if covariance_matrix_raw else np.array([])
 
+    # 위험 단계별 포트폴리오 스냅샷은 요약/보유 종목 구조로 다시 묶어 캐시에 저장합니다.
     risk_snapshot_df = _snapshot_records_to_dataframe(
         snapshot.get("risk_level_portfolio_snapshot"),
         datetime_columns=["Updated_At"],
     )
     risk_snapshot_by_level = _build_risk_snapshot_by_level(risk_snapshot_df)
 
+    # 필터링 결과와 원본 전체 결과를 동시에 보관해 추천/순위 계산에서 각각 재사용합니다.
     _cache["adj_returns_df"] = filtered
     _cache["full_returns_df"] = source_df
     if covariance_tickers and covariance_matrix.size > 0 and covariance_matrix.shape[0] == covariance_matrix.shape[1]:
+        # 일간 공분산을 60거래일 기준으로 확대해 나머지 계산식과 스케일을 일치시킵니다.
         covariance_matrix_scaled = covariance_matrix * HORIZON_DAYS
         _cache["cov_ticker_list"] = covariance_tickers
         _cache["cov_matrix"] = covariance_matrix_scaled
@@ -267,6 +284,7 @@ def _load_cache_from_demo_snapshot() -> bool:
     else:
         _cache["cov_ticker_list"] = None
         _cache["cov_matrix"] = None
+        # 행렬이 비어 있으면 Vol_3M 기반 분산 맵으로 최소한의 최적화 입력을 유지합니다.
         _cache["ticker_to_cov_idx"] = None
         _cache["variance_map"] = _build_variance_map_from_df(source_df)
     _cache["all_returns_map"] = _build_all_returns_map(source_df)
@@ -290,11 +308,12 @@ def _load_cache_from_demo_snapshot() -> bool:
     )
     return True
 
-
 def _filter_candidates(df: pd.DataFrame) -> pd.DataFrame:
     """추천 후보 필터(Gate 통과 + 양수 수익률)를 적용합니다."""
-    # 한글 주석: 기존 서비스 규칙을 그대로 유지합니다.
+    # 기존 서비스 규칙을 그대로 유지합니다.
+    # 게이트 통과 여부는 문자열/숫자 혼합일 수 있으므로 불리언 정규화를 다시 적용합니다.
     gate_mask = df["Gate_Passed"].apply(_parse_bool)
+    # 원본 기대수익률과 조정 기대수익률이 모두 양수인 종목만 추천 풀에 남깁니다.
     e_total = pd.to_numeric(df["E_Total_3M"], errors="coerce")
     adjusted = pd.to_numeric(df["Adjusted_E_Total"], errors="coerce")
     filtered_df = df[(gate_mask) & (e_total > 0) & (adjusted > 0)].copy()
@@ -303,10 +322,9 @@ def _filter_candidates(df: pd.DataFrame) -> pd.DataFrame:
     filtered_df["Adjustment_Applied"] = filtered_df["Adjustment_Applied"].apply(_parse_bool)
     return filtered_df
 
-
 def get_cache_sync_status() -> dict:
     """캐시 동기화 상태를 확인하기 위한 진단 정보를 반환합니다."""
-    # 한글 주석: 문제가 발생했을 때 바로 원인 단계를 확인할 수 있게 합니다.
+    # 문제가 발생했을 때 바로 원인 단계를 확인할 수 있게 합니다.
     filtered_df = _cache.get("adj_returns_df")
     all_returns = _cache.get("all_returns_map")
     return {
@@ -322,13 +340,11 @@ def get_cache_sync_status() -> dict:
         "risk_snapshot_levels": sorted(list((_cache.get("risk_snapshot_by_level") or {}).keys()), reverse=True),
     }
 
-
 def reload_cache() -> dict:
     """문제 확인 후 수동으로 캐시 동기화를 다시 실행합니다."""
-    # 한글 주석: 재가동 시 즉시 현재 상태를 반환합니다.
+    # 재가동 시 즉시 현재 상태를 반환합니다.
     load_cache()
     return get_cache_sync_status()
-
 
 def load_cache():
     """
@@ -337,7 +353,7 @@ def load_cache():
     """
     print("\n[Cache] 실제 데이터 캐싱 시작...")
 
-    # 한글 주석: 이전 캐시 상태를 먼저 초기화합니다.
+    # 이전 캐시 상태를 먼저 초기화합니다.
     _cache["adj_returns_df"] = None
     _cache["full_returns_df"] = None
     _cache["cov_ticker_list"] = None
@@ -360,12 +376,14 @@ def load_cache():
             return
         raise RuntimeError("forced demo snapshot mode is enabled, but demo snapshot could not be loaded")
 
+    # source_df는 실제 계산에 쓰이는 전체 스냅샷 원본, source_name은 어떤 출처를 탔는지 남기는 라벨입니다.
     source_df = pd.DataFrame()
     source_name = "DB"
+    # 공분산 관련 값은 DB 조회가 성공하면 실제 티커 목록/행렬로 교체됩니다.
     ticker_list = []
     cov_matrix = np.array([])
 
-    # 한글 주석: DB 스냅샷과 EWMA 공분산을 직접 조회합니다.
+    # DB 스냅샷과 EWMA 공분산을 직접 조회합니다.
     db = StockDBManager()
     db_connected = False
     try:
@@ -373,6 +391,7 @@ def load_cache():
         db_connected = True
 
         try:
+            # 조정 기대수익률 스냅샷은 추천/최적화/전체 종목 조회의 공통 입력입니다.
             db_snapshot_df = db.fetch_adjusted_expected_returns()
             if not db_snapshot_df.empty:
                 source_df = _normalize_adjusted_returns_df(db_snapshot_df)
@@ -387,6 +406,7 @@ def load_cache():
             print(f"  [SYNC][DB_READ][ERROR] {e}")
 
         try:
+            # 공분산은 MVO와 포트폴리오 위험 계산에서만 쓰므로 별도 단계로 나눠 오류를 기록합니다.
             ticker_list, cov_matrix = db.fetch_ewma_covariance()
         except Exception as e:
             _cache["last_stage"] = "ewma_cov"
@@ -410,6 +430,7 @@ def load_cache():
             f"adjusted expected returns DB load failed (stage={stage}, error={error})"
         )
 
+    # 전체 풀과 추천 후보 풀을 분리 저장해, 추천과 전체 300종목 화면이 같은 원천을 공유하도록 맞춥니다.
     filtered = _filter_candidates(source_df)
     _cache["adj_returns_df"] = filtered
     _cache["full_returns_df"] = source_df
@@ -419,12 +440,13 @@ def load_cache():
     print(f"  [SYNC][SOURCE] {source_name} 사용, 후보 {len(source_df)} -> {len(filtered)}")
 
     if len(ticker_list) > 0 and cov_matrix.size > 0:
-        # 한글 주석: 일간 공분산을 60거래일 기준으로 스케일링해 기존 계산식을 유지합니다.
+        # 일간 공분산을 60거래일 기준으로 스케일링해 기존 계산식을 유지합니다.
         cov_matrix_scaled = cov_matrix * HORIZON_DAYS
         _cache["cov_ticker_list"] = ticker_list
         _cache["cov_matrix"] = cov_matrix_scaled
         _cache["ticker_to_cov_idx"] = {t: i for i, t in enumerate(ticker_list)}
 
+        # 대각 원소만 모아 ticker -> 분산 맵으로 캐싱하면 추천 점수와 fallback 경로에서 재사용하기 쉽습니다.
         variance_map = {}
         for i, ticker in enumerate(ticker_list):
             variance_map[ticker] = float(cov_matrix_scaled[i, i])
@@ -438,6 +460,7 @@ def load_cache():
     try:
         from DB import sync_risk_level_portfolio_snapshot
 
+        # 위험 단계 스냅샷은 추천 종목 API에서 최우선 사용되므로 캐시 적재 직전에 최신화합니다.
         snapshot_status = sync_risk_level_portfolio_snapshot(top_n=10, raise_on_error=False)
         _cache["risk_snapshot_stage"] = snapshot_status.get("stage")
         _cache["risk_snapshot_error"] = snapshot_status.get("error")
@@ -475,7 +498,6 @@ def load_cache():
 
     print("[Cache] 데이터 캐싱 완료!\n")
 
-
 def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     """
     Vol_3M 기준으로 오름차순 정렬하여 누적 사분위수(Cumulative Quartile) 풀을 형성하고,
@@ -502,6 +524,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     # 0. DB 스냅샷 우선 사용 (웹 응답 DB-only)
     risk_snapshot_by_level = _cache.get("risk_snapshot_by_level") or {}
     if risk_level in risk_snapshot_by_level:
+        # 이미 DB에서 레벨별 추천을 계산해 둔 경우, 서비스 응답은 그 결과를 그대로 우선 노출합니다.
         holdings = list(risk_snapshot_by_level[risk_level].get("holdings", []))
         if top_n is not None and int(top_n) > 0:
             holdings = holdings[: int(top_n)]
@@ -523,12 +546,14 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
             except (TypeError, ValueError):
                 ewma_std_60d = 0.0
 
+            # 위험도는 절대값이 아니라 전체 시장 분포 안에서의 상대 위치로 다시 계산합니다.
             holding["risk_score"] = normalize_risk_score(ewma_std_60d, sigma_min, sigma_max)
 
             try:
                 expected_log_pct = float(holding.get("expectedReturn3M", 0.0) or 0.0)
             except (TypeError, ValueError):
                 expected_log_pct = 0.0
+            # 스냅샷에 단순수익률 표시값이 없더라도 프론트엔드 카드가 깨지지 않도록 즉석 변환합니다.
             holding.setdefault(
                 "expectedReturn3M_simple",
                 round(float((np.exp(expected_log_pct / 100.0) - 1.0) * 100.0), 2),
@@ -537,6 +562,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
 
         return holdings
 
+    # 스냅샷이 비어 있으면 기존 유틸리티 점수 계산 로직으로 fallback 합니다.
     lam = LAMBDA_MAP.get(risk_level, get_lambda_by_level(2))
     df = _cache["adj_returns_df"]
     variance_map = _cache["variance_map"]
@@ -547,10 +573,14 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     # 1. 대상 종목 데이터 구성
     stocks = []
     for _, row in df.iterrows():
+        # ticker는 이후 이름 매핑/공분산 조회/정렬 결과 키로 재사용되는 기준 키입니다.
         ticker = str(row["Ticker"]).strip().upper()
-        e_ri = float(row["Adjusted_E_Total"])     # E(R_i)
-        vol_3m = float(row.get("Vol_3M", 0.0))    # (참고용) 과거 3개월 변동성
-        ewma_variance_60d = variance_map.get(ticker, 0.01)  # 목적함수 계산용 EWMA 분산(60일 스케일링)
+        # e_ri는 조정 후 기대 로그수익률이며, 순위 계산의 보상 항으로 바로 사용됩니다.
+        e_ri = float(row["Adjusted_E_Total"])
+        # vol_3m은 화면 설명용 참고 지표이고, 실제 목적함수 패널티에는 쓰지 않습니다.
+        vol_3m = float(row.get("Vol_3M", 0.0))
+        # ewma_variance_60d는 위험 패널티와 후속 sigma 계산에 재사용할 핵심 분산 값입니다.
+        ewma_variance_60d = variance_map.get(ticker, 0.01)
         
         # 각 종목의 Utility Score 계산
         # score_i = E(R_i) - 0.5 * λ * Var_i(EWMA 60일 분산)
@@ -580,6 +610,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     else: # risk_level == 1
         pool_size = total_count
 
+    # pool은 위험 수준 컷오프를 지난 뒤 실제 목적함수 경쟁에 들어가는 후보 집합입니다.
     pool = stocks[:pool_size]
 
     # 4. Pool 내에서 목적함수(score) 기준으로 내림차순 정렬
@@ -594,6 +625,7 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
     sigma_max = max(all_sigmas) if all_sigmas else 1
 
     import math
+    # result는 프론트엔드 카드에서 바로 소비할 최종 응답 포맷입니다.
     result = []
     for rank, s in enumerate(top_stocks, 1):
         risk_score = normalize_risk_score(s["sigma"], sigma_min, sigma_max)
@@ -615,7 +647,6 @@ def get_recommended_stocks(risk_level: int, top_n: int = 10) -> list[dict]:
 
     return result
 
-
 def get_risk_level_portfolio_summary(risk_level: int) -> dict | None:
     """리스크 레벨별 포트폴리오 요약(스냅샷 rank_no=0 행)을 반환합니다."""
     risk_snapshot_by_level = _cache.get("risk_snapshot_by_level") or {}
@@ -623,7 +654,6 @@ def get_risk_level_portfolio_summary(risk_level: int) -> dict | None:
     if not data:
         return None
     return data.get("summary")
-
 
 def get_mvo_inputs(selected_tickers: list[str]) -> tuple:
     """
@@ -645,6 +675,7 @@ def get_mvo_inputs(selected_tickers: list[str]) -> tuple:
         raise RuntimeError("캐시가 초기화되지 않았습니다. load_cache()를 먼저 호출하세요.")
 
     # 선택된 종목 중 데이터가 존재하는 것만 추출
+    # 사용자가 고른 종목 중 실제 기대수익률이 캐시에 존재하는 종목만 최적화 입력으로 남깁니다.
     valid_tickers = [t for t in selected_tickers if t in all_returns]
 
     # 기대수익률 벡터
@@ -653,6 +684,7 @@ def get_mvo_inputs(selected_tickers: list[str]) -> tuple:
     # 공분산 sub-matrix 추출
     if cov_matrix is not None and ticker_to_idx is not None:
         # DB 공분산 사용 가능 → sub-matrix 추출
+        # 공분산 행렬에 없는 티커는 제외하고, 행렬 인덱스와 동일한 순서로 다시 정렬합니다.
         idx_list = []
         final_tickers = []
         for t in valid_tickers:
@@ -673,7 +705,6 @@ def get_mvo_inputs(selected_tickers: list[str]) -> tuple:
             cov_sub[i, i] = variance_map.get(t, 0.01)
         return mu, cov_sub, valid_tickers
 
-
 # ──────────────────────────────────────────────────────────────────
 # 전체 300개 종목 데이터 및 포트폴리오 스코어 산출
 # ──────────────────────────────────────────────────────────────────
@@ -691,7 +722,6 @@ def _load_market_cap_rank() -> dict[str, int]:
         return {}
 
 MARKET_CAP_RANK = _load_market_cap_rank()
-
 
 def get_all_300_stocks() -> list[dict]:
     """
@@ -754,7 +784,6 @@ def get_all_300_stocks() -> list[dict]:
         })
 
     return result
-
 
 def calculate_portfolio_scores(selected_tickers: list[str]) -> dict:
     """

@@ -1,3 +1,8 @@
+"""
+이 파일은 S&P 500 지수 데이터를 갱신해 비교 기준으로 사용할 수 있게 준비합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
+"""
+
 if __package__ in (None, ""):
     import sys
     from pathlib import Path
@@ -23,7 +28,6 @@ if __package__ in (None, ""):
 else:
     from common import yf, pd, datetime, timedelta, np
     from DB import StockDBManager
-
 
 def update_sp500_data():
     """
@@ -109,7 +113,6 @@ def update_sp500_data():
 
     finally:
         db_manager.close()
-
 
 if __name__ == "__main__":
     update_sp500_data()

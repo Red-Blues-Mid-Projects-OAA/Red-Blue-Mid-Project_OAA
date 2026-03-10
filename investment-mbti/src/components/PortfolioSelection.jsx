@@ -1,3 +1,8 @@
+/*
+ * 이 파일은 포트폴리오 선택 관련 프론트엔드 로직을 담고 있습니다.
+ * 상단 상수와 보조 함수가 표시용 값을 만들고, 상태와 props에서 파생한 값이 마지막 JSX에 연결되므로 데이터가 화면 요소로 바뀌는 흐름을 위에서 아래로 따라가면 됩니다.
+ */
+
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { Search, ArrowUpDown, XCircle, Eye, RefreshCw, ArrowLeft, CheckCircle } from 'lucide-react';
 import { buildApiUrl, hasApiBase, API_BASE, getApiConfigErrorMessage } from '../config/api';
@@ -10,9 +15,14 @@ const ZERO_PORTFOLIO_SCORES = {
     diversification_benefit: 0,
 };
 
+/**
+ * 포트폴리오 선택 컴포넌트가 화면 상태와 렌더링을 담당합니다.
+ */
+
 function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFinal = 7.7, savedSelectedTickers, onSelectedTickersChange, onBack, onRestart, onConfirm }) {
     // ── 상태 관리 ──
     const [allStocks, setAllStocks] = useState([]);
+    // 화면에서 계속 바뀌는 값을 state로 보관합니다.
     const [selectedTickers, setSelectedTickers] = useState(new Set());
     const [portfolioScores, setPortfolioScores] = useState(ZERO_PORTFOLIO_SCORES);
     const [searchQuery, setSearchQuery] = useState('');
@@ -150,6 +160,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
         setSelectedTickers(new Set());
     }, []);
 
+    // 사용자 입력, 버튼 클릭, API 요청을 처리하는 함수들입니다.
     const handleRecCardsMouseDown = useCallback((event) => {
         if (event.button !== 0) {
             return;
@@ -294,6 +305,7 @@ function PortfolioSelection({ recommendedStocks = [], finalLevel = 2, lambdaFina
     ];
 
     if (loading) {
+        // 마지막에 현재 상태를 반영한 화면 구조를 JSX로 반환합니다.
         return (
             <div className="ps-container">
                 <div className="ps-loading">종목 데이터를 불러오는 중...</div>

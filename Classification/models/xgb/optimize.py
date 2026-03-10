@@ -1,14 +1,6 @@
 """
-Hyperparameter 최적화 모듈 (단일 Holdout 검증)
-
-고정 분할 정책:
-  - Train      : 2021-01-01 ~ 2023-12-31
-  - Embargo    : 2024-01-01 ~ 2024-03-31 (튜닝 학습 제외)
-  - Validation : 2024-04-01 ~ 2024-09-30
-  - Golden Gap : 2024-10-01 ~ 2024-12-31 (튜닝/평가 제외)
-  - Test       : 2025-01-01 ~ 현재 (튜닝 미사용)
-
-결과는 xgb_best_params.json에 저장됩니다.
+이 파일은 최적화 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -46,12 +38,19 @@ from Classification.model_config import (
 # Optuna 로그 레벨 (INFO)
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
+# Optuna가 시도할 하이퍼파라미터 탐색 횟수입니다.
 N_TRIALS = 100
+# 현재 파일이 기대하는 목적 함수 버전 문자열입니다.
 BASE_OBJECTIVE_VERSION = "target_aligned_v5_no_class_weight"
+# 저장된 파라미터와 비교할 교차검증 분할 정책 이름입니다.
 CV_MODE = "single_holdout_2024Q2Q3"
+# 스트라이드 분할에서 다음 모델로 이동할 날짜 간격입니다.
 STRIDE = 5
+# 한 번의 스트라이드 실험에서 학습할 모델 수입니다.
 N_STRIDE_MODELS = 5
+# 단계형 게이트 전략 전용 튜닝 분기를 구분하는 프로필 이름입니다.
 TSM_GATE_PROFILE = "tsm_gatehard_v1"
+# 단계형 게이트 전략에서 허용하는 스테이지 집합입니다.
 TSM_STAGES = {"stage1", "stage2"}
 
 # 튜닝에 사용하는 단일 분할 정의
@@ -63,12 +62,10 @@ TUNE_SPLIT = {
     "test": ("2025-01-01", None),
 }
 
-
 def _get_feature_hash(feature_cols):
     """피처 목록 기반 해시를 생성합니다(순서 민감)."""
     raw = "|".join(feature_cols)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
-
 
 def _safe_spearman(x, y):
     """상수 벡터 등으로 IC가 NaN이 되는 경우 0으로 보정합니다."""
@@ -77,16 +74,16 @@ def _safe_spearman(x, y):
         return 0.0
     return float(ic)
 
-
 def _apply_direction(proba: np.ndarray, direction_mode: str) -> np.ndarray:
+    """지표 방향성을 반영해 점수가 클수록 좋도록 맞춥니다."""
     if direction_mode == "normal":
         return proba
     if direction_mode == "inverted":
         return 1.0 - proba
     raise ValueError(f"지원하지 않는 direction_mode 입니다: {direction_mode}")
 
-
 def _compute_recency_weights(index, recency_weight_lambda: float) -> np.ndarray | None:
+    """최근 데이터에 더 큰 비중을 주는 학습 가중치를 계산합니다."""
     if recency_weight_lambda <= 0.0:
         return None
     rank = np.arange(len(index), dtype=float)
@@ -94,8 +91,8 @@ def _compute_recency_weights(index, recency_weight_lambda: float) -> np.ndarray 
     weights = np.clip(weights, 1e-8, None)
     return weights / np.mean(weights)
 
-
 def _split_half_ic(proba: np.ndarray, alpha_diff: np.ndarray) -> tuple[float, float]:
+    """half ic를 기준에 따라 나눕니다."""
     mid = len(proba) // 2
     if mid == 0:
         ic = _safe_spearman(proba, alpha_diff)
@@ -104,12 +101,11 @@ def _split_half_ic(proba: np.ndarray, alpha_diff: np.ndarray) -> tuple[float, fl
     second_ic = _safe_spearman(proba[mid:], alpha_diff[mid:])
     return first_ic, second_ic
 
-
 def _get_objective_version(profile: str, strategy_stage: str) -> str:
+    """objective version 정보를 조회해 반환합니다."""
     if profile == TSM_GATE_PROFILE:
         return f"{TSM_GATE_PROFILE}_{strategy_stage}"
     return BASE_OBJECTIVE_VERSION
-
 
 def _get_search_space(trial, profile):
     """
@@ -166,7 +162,6 @@ def _get_search_space(trial, profile):
 
     raise ValueError(f"지원하지 않는 profile 입니다: {profile}")
 
-
 def _compute_score(
     *,
     profile: str,
@@ -181,6 +176,7 @@ def _compute_score(
     ic_first: float,
     ic_second: float,
 ) -> float:
+    """최적화에 사용할 종합 점수를 계산합니다."""
     balance = min(pos_rate, 1.0 - pos_rate)
     flat_penalty = 4.0 * max(0.0, 0.03 - val_proba_std)
     unique_penalty = 0.25 * max(0.0, 8 - float(val_proba_unique))
@@ -221,7 +217,6 @@ def _compute_score(
 
     return float(score)
 
-
 def create_objective(full_df, feature_cols, profile, strategy_stage):
     """
     단일 Holdout 분할에서 'stride 5-모델 앙상블' 기준 점수를 최소화하는 Objective를 생성합니다.
@@ -243,6 +238,7 @@ def create_objective(full_df, feature_cols, profile, strategy_stage):
         )
 
     def objective(trial):
+        """하이퍼파라미터 탐색에서 사용할 목적 함수를 계산합니다."""
         params = _get_search_space(trial, profile)
 
         # Train 기준 스케일링으로 누수를 방지합니다.
@@ -390,7 +386,6 @@ def create_objective(full_df, feature_cols, profile, strategy_stage):
         return best_candidate["score"]
 
     return objective
-
 
 def optimize(
     profile="balanced",
@@ -565,7 +560,6 @@ def optimize(
     save_json_artifact_only(save_data, params_path)
     print(f"\n  저장 완료: {params_path}")
     return save_data
-
 
 if __name__ == "__main__":
     optimize()

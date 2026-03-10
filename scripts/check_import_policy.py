@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Import 정책 위반을 검사하는 로컬 스크립트."""
+"""
+이 파일은 check import policy 관련 작업을 담당합니다.
+"""
 
 from __future__ import annotations
 
@@ -47,8 +49,8 @@ DB_STOCK_MANAGER_DIRECT = re.compile(
     re.MULTILINE,
 )
 
-
 def iter_py_files() -> list[Path]:
+    """검사 대상이 되는 파이썬 파일 경로를 순회합니다."""
     files: list[Path] = []
     for base in TARGET_DIRS:
         if not base.exists():
@@ -59,8 +61,8 @@ def iter_py_files() -> list[Path]:
             files.append(path)
     return sorted(files)
 
-
 def main() -> int:
+    """메인 관련 처리를 담당하는 함수입니다."""
     violations: list[tuple[Path, str]] = []
 
     for path in iter_py_files():
@@ -86,7 +88,6 @@ def main() -> int:
 
     print("[PASS] Import 정책 위반이 없습니다.")
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

@@ -1,15 +1,12 @@
 """
-멀티티커 최종 기대수익률 집계 모듈.
-
-게이트 통과 티커는 GK 매핑을 적용하고,
-미통과 티커는 CAPM fallback으로 3개월 기대 로그수익률을 산출합니다.
+이 파일은 분류 결과와 보조 지표를 연결하는 매핑 작업을 일괄 실행합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 import argparse
 import os
 import sys
 from pathlib import Path
-
 
 if __package__ in (None, ""):
     _PROJECT_ROOT = next(
@@ -36,19 +33,18 @@ from Classification.model_config import (
     save_json_artifact_only,
 )
 
-
 def _normalize_tickers(tickers=None):
+    """티커 목록 값을 서로 비교하기 쉽게 정규화합니다."""
     base = tickers if tickers is not None else TICKERS
     return [str(t).strip().upper() for t in base if str(t).strip()]
 
-
 def load_ensemble_payloads(tickers: list[str]) -> dict[str, dict | None]:
+    """ensemble payloads 데이터를 메모리로 불러옵니다."""
     payloads: dict[str, dict | None] = {}
     for ticker in tickers:
         data, _ = load_json_artifact_only(get_ensemble_result_path(ticker))
         payloads[ticker] = data
     return payloads
-
 
 def evaluate_hard_gate_from_payload(payload: dict | None) -> tuple[bool, str]:
     """
@@ -71,8 +67,8 @@ def evaluate_hard_gate_from_payload(payload: dict | None) -> tuple[bool, str]:
         return True, f"Acc={acc:.1%}, IC={ic:.4f}, Gap={gap:.1%}"
     return False, f"Failed: Acc={acc:.1%}, IC={ic:.4f}, Gap={gap:.1%}"
 
-
 def _extract_mapping_inputs(payload: dict) -> tuple[float, float, str | None]:
+    """매핑 계산에 필요한 입력값만 골라 정리합니다."""
     if payload is None:
         raise ValueError("ensemble payload is None")
 
@@ -90,8 +86,8 @@ def _extract_mapping_inputs(payload: dict) -> tuple[float, float, str | None]:
     latest_trade_date = p_block.get("trade_date")
     return p_latest, ic_full, latest_trade_date
 
-
 def run_all_mapping(tickers: list[str] | None = None):
+    """전체 매핑 작업 전체를 순서대로 실행합니다."""
     ticker_list = _normalize_tickers(tickers)
     final_output_path = Path(MULTI_TICKER_ARTIFACT_DIR) / "final_expected_returns.csv"
 
@@ -205,7 +201,6 @@ def run_all_mapping(tickers: list[str] | None = None):
     print("=" * 80)
     return final_df
 
-
 def _parse_args():
     """CLI 인자를 파싱합니다. --help 호출 시 DB 접속 없이 종료됩니다."""
     parser = argparse.ArgumentParser(
@@ -218,7 +213,6 @@ def _parse_args():
         help="Comma-separated ticker subset (optional)",
     )
     return parser.parse_args()
-
 
 if __name__ == "__main__":
     args = _parse_args()

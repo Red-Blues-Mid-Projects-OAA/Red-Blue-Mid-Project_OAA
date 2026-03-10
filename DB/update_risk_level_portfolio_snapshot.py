@@ -1,12 +1,6 @@
 """
-RISK_LEVEL_PORTFOLIO_SNAPSHOT 계산/적재 전용 모듈.
-
-ADJUSTED_EXPECTED_RETURNS와 EWMA 공분산을 읽어
-리스크 레벨별 포트폴리오 스냅샷을 계산한 뒤
-RISK_LEVEL_PORTFOLIO_SNAPSHOT 테이블로 교체 적재한다.
-
-Execution:
-    python3 -m DB.update_risk_level_portfolio_snapshot
+이 파일은 위험 단계별 추천 포트폴리오 스냅샷을 새로 계산해 저장합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 from __future__ import annotations
@@ -67,16 +61,16 @@ TICKER_NAME_MAP = {
     "TSM": "TSMC",
 }
 
-
 def _parse_bool(value) -> bool:
+    """bool를 읽기 쉬운 형태로 해석합니다."""
     if pd.isna(value):
         return False
     if isinstance(value, bool):
         return value
     return str(value).strip().lower() in {"1", "true", "t", "y", "yes"}
 
-
 def _normalize_adjusted_returns_df(df: pd.DataFrame) -> pd.DataFrame:
+    """보정된 수익률 df 값을 서로 비교하기 쉽게 정규화합니다."""
     required_cols = [
         "Ticker",
         "Gate_Passed",
@@ -103,8 +97,8 @@ def _normalize_adjusted_returns_df(df: pd.DataFrame) -> pd.DataFrame:
     normalized["Adjustment_Applied"] = normalized["Adjustment_Applied"].apply(_parse_bool)
     return normalized
 
-
 def _build_all_returns_map(df: pd.DataFrame) -> dict[str, float]:
+    """전체 수익률 map 결과를 여러 데이터를 바탕으로 조합해 만듭니다."""
     out: dict[str, float] = {}
     for _, row in df.iterrows():
         ticker = str(row["Ticker"]).strip().upper()
@@ -113,8 +107,8 @@ def _build_all_returns_map(df: pd.DataFrame) -> dict[str, float]:
             out[ticker] = float(value)
     return out
 
-
 def _build_variance_map_from_df(df: pd.DataFrame) -> dict[str, float]:
+    """variance map from df 결과를 여러 데이터를 바탕으로 조합해 만듭니다."""
     variance_map: dict[str, float] = {}
     for _, row in df.iterrows():
         ticker = str(row["Ticker"]).strip().upper()
@@ -125,8 +119,8 @@ def _build_variance_map_from_df(df: pd.DataFrame) -> dict[str, float]:
             variance_map[ticker] = 0.01
     return variance_map
 
-
 def _filter_candidates(df: pd.DataFrame) -> pd.DataFrame:
+    """candidates만 남기도록 걸러냅니다."""
     gate_mask = df["Gate_Passed"].apply(_parse_bool)
     e_total = pd.to_numeric(df["E_Total_3M"], errors="coerce")
     adjusted = pd.to_numeric(df["Adjusted_E_Total"], errors="coerce")
@@ -136,8 +130,8 @@ def _filter_candidates(df: pd.DataFrame) -> pd.DataFrame:
     filtered["Adjustment_Applied"] = filtered["Adjustment_Applied"].apply(_parse_bool)
     return filtered
 
-
 def _load_context(db: StockDBManager):
+    """context 데이터를 메모리로 불러옵니다."""
     source_df = db.fetch_adjusted_expected_returns()
     if source_df.empty:
         raise RuntimeError("ADJUSTED_EXPECTED_RETURNS가 비어 있습니다.")
@@ -173,13 +167,13 @@ def _load_context(db: StockDBManager):
         "variance_map": variance_map,
     }
 
-
 def _get_recommended_stocks(
     risk_level: int,
     top_n: int,
     filtered_df: pd.DataFrame,
     variance_map: dict[str, float],
 ) -> list[dict]:
+    """recommended 종목 정보를 조회해 반환합니다."""
     lam = LAMBDA_MAP.get(risk_level, get_lambda_by_level(2))
 
     stocks: list[dict] = []
@@ -216,7 +210,6 @@ def _get_recommended_stocks(
     pool.sort(key=lambda x: x["score"], reverse=True)
     return pool[:top_n]
 
-
 def _get_mvo_inputs(
     selected_tickers: list[str],
     all_returns_map: dict[str, float],
@@ -224,6 +217,7 @@ def _get_mvo_inputs(
     ticker_to_cov_idx: dict[str, int] | None,
     variance_map: dict[str, float],
 ):
+    """mvo inputs 정보를 조회해 반환합니다."""
     valid_tickers = [t for t in selected_tickers if t in all_returns_map]
     mu = np.array([all_returns_map[t] for t in valid_tickers], dtype=float)
 
@@ -252,8 +246,8 @@ def _get_mvo_inputs(
         cov_sub[i, i] = float(variance_map.get(ticker, 0.01))
     return mu, cov_sub, valid_tickers
 
-
 def _build_snapshot_rows(context: dict, top_n: int = 10) -> tuple[list[dict], list[dict]]:
+    """스냅샷 rows 결과를 여러 데이터를 바탕으로 조합해 만듭니다."""
     filtered_df = context["filtered_df"]
     all_returns_map = context["all_returns_map"]
     cov_matrix = context["cov_matrix"]
@@ -358,7 +352,6 @@ def _build_snapshot_rows(context: dict, top_n: int = 10) -> tuple[list[dict], li
 
     return metrics_rows, holdings_rows
 
-
 def sync_risk_level_portfolio_snapshot(top_n: int = 10, raise_on_error: bool = False) -> dict:
     """Compute + persist RISK_LEVEL_PORTFOLIO_SNAPSHOT and return status."""
     status = {
@@ -403,8 +396,8 @@ def sync_risk_level_portfolio_snapshot(top_n: int = 10, raise_on_error: bool = F
 
     return status
 
-
 def main():
+    """메인 관련 처리를 담당하는 함수입니다."""
     parser = argparse.ArgumentParser(
         description="RISK_LEVEL_PORTFOLIO_SNAPSHOT 계산/적재"
     )
@@ -414,7 +407,6 @@ def main():
     status = sync_risk_level_portfolio_snapshot(top_n=args.top_n, raise_on_error=False)
     if status["stage"] != "ok":
         raise SystemExit(1)
-
 
 if __name__ == "__main__":
     main()

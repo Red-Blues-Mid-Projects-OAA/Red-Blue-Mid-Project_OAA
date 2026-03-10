@@ -1,3 +1,8 @@
+/*
+ * 이 파일은 화면에서 재사용하는 종목 관련 고정 정보를 정리한 상수 파일입니다.
+ * 설정값과 고정 데이터가 한곳에 모여 있어 개발 서버, API 주소, 린트 규칙, 화면 공통 상수를 바꾸더라도 호출부 수정 범위를 최소화할 수 있습니다.
+ */
+
 export const STOCKS_DATA = [
     // Low Volatility / Conservative
     { id: 1, ticker: 'JNJ', name: '존슨앤드존슨', volatility: 'Low', expectedReturn3M: 1.5 },

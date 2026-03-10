@@ -1,3 +1,8 @@
+"""
+이 파일은 CAPM 개념을 이용해 기대수익률을 계산하는 금융 공학 로직을 담고 있습니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
+"""
+
 import logging
 from pathlib import Path
 
@@ -14,7 +19,6 @@ _THIS_DIR = Path(__file__).resolve().parent
 _CLASSIFICATION_DIR = _THIS_DIR.parent
 LEADERBOARD_PATH = _CLASSIFICATION_DIR / "artifacts" / "multi_ticker" / "leaderboard.csv"
 CAPM_RESULTS_PATH = _THIS_DIR / "capm_results.csv"
-
 
 def get_failed_tickers(leaderboard_path=LEADERBOARD_PATH):
     """
@@ -38,7 +42,6 @@ def get_failed_tickers(leaderboard_path=LEADERBOARD_PATH):
 
     logger.info(f"Target Tickers for CAPM Fallback (Warnings exist): {failed_tickers}")
     return failed_tickers
-
 
 def run_capm_single(
     ticker: str,
@@ -97,7 +100,6 @@ def run_capm_single(
         "date": latest_date.strftime("%Y-%m-%d"),
     }
 
-
 def calculate_capm_for_failed_tickers():
     """
     Gate 실패 티커들에 대해 CAPM 결과를 단일 CSV로 저장합니다.
@@ -145,7 +147,6 @@ def calculate_capm_for_failed_tickers():
     finally:
         db.close()
         logger.info("DB Connection closed.")
-
 
 if __name__ == "__main__":
     calculate_capm_for_failed_tickers()

@@ -1,3 +1,8 @@
+/*
+ * 이 파일은 포트폴리오 원형 차트 관련 프론트엔드 로직을 담고 있습니다.
+ * 상단 상수와 보조 함수가 표시용 값을 만들고, 상태와 props에서 파생한 값이 마지막 JSX에 연결되므로 데이터가 화면 요소로 바뀌는 흐름을 위에서 아래로 따라가면 됩니다.
+ */
+
 import React, { useState, useCallback } from 'react';
 import './DashboardResult.css';
 
@@ -15,11 +20,17 @@ const COLORS = [
     '#FDBA74', // 피치
 ];
 
+/**
+ * 입력값을 안전한 숫자로 바꿔 계산에 사용할 수 있게 합니다.
+ */
 function toFiniteNumber(value, fallback = 0) {
     const num = Number(value);
     return Number.isFinite(num) ? num : fallback;
 }
 
+/**
+ * 도넛 차트 한 조각을 그릴 SVG 경로 문자열을 만듭니다.
+ */
 function arcPath(cx, cy, outerR, innerR, startAngle, endAngle) {
     const startRad = (Math.PI / 180) * startAngle;
     const endRad = (Math.PI / 180) * endAngle;
@@ -47,6 +58,7 @@ function arcPath(cx, cy, outerR, innerR, startAngle, endAngle) {
 /* ── 커스텀 hover 툴팁 ── */
 function PieTooltip({ slice, x, y, visible }) {
     if (!visible || !slice) return null;
+    // 마지막에 현재 상태를 반영한 화면 구조를 JSX로 반환합니다.
     return (
         <div
             className="pie-tooltip"
@@ -67,7 +79,12 @@ function PieTooltip({ slice, x, y, visible }) {
     );
 }
 
+/**
+ * 포트폴리오 원형 차트 컴포넌트가 화면 상태와 렌더링을 담당합니다.
+ */
+
 function PortfolioPieChart({ stocks, size = 240 }) {
+    // 화면에서 계속 바뀌는 값을 state로 보관합니다.
     const [hoverIdx, setHoverIdx] = useState(null);
     const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
@@ -109,6 +126,7 @@ function PortfolioPieChart({ stocks, size = 240 }) {
 
     const topLegend = slices.slice(0, 6);
 
+    // 사용자 입력, 버튼 클릭, API 요청을 처리하는 함수들입니다.
     const handleMouseMove = useCallback((e) => {
         const rect = e.currentTarget.closest('.premium-pie-wrap')?.getBoundingClientRect();
         if (!rect) return;

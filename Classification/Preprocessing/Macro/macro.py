@@ -1,13 +1,8 @@
 """
-시장 피처 생성 모듈 (DB 기반)
-
-생성되는 DataFrame:
-  1. df_dxy_log_returns  : 달러 인덱스 일별 로그 수익률 (DB: MARKET_FEATURES)
-  2. df_vix              : VIX 종가 + VIX 로그 수익률 (DB: MARKET_FEATURES)
-  3. df_sp500_momentum   : S&P 500 1개월(20d)/3개월(60d) Rolling 누적 수익률 (DB: SP500_DATA)
-
-★ 외부 API 의존성 없음 — 모든 데이터를 Oracle DB에서 조회
+이 파일은 거시 지표 관련 작업을 담당합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
+
 import sys
 from pathlib import Path
 
@@ -25,7 +20,6 @@ if __package__ in (None, ""):
 
 from common import pd, np
 from DB import StockDBManager
-
 
 def fetch_dollar_index_log_returns(db, start_date=None):
     """
@@ -51,7 +45,6 @@ def fetch_dollar_index_log_returns(db, start_date=None):
     print(df_dxy.tail())
 
     return df_dxy
-
 
 def fetch_vix_data(db, start_date=None):
     """
@@ -80,7 +73,6 @@ def fetch_vix_data(db, start_date=None):
     print(df_vix.tail())
 
     return df_vix
-
 
 def calculate_sp500_momentum(db, start_date=None):
     """
@@ -112,7 +104,6 @@ def calculate_sp500_momentum(db, start_date=None):
 
     return df_sp500
 
-
 def get_market_features(db, start_date=None):
     """
     모든 시장 피처를 생성하여 반환하는 통합 진입점
@@ -122,7 +113,6 @@ def get_market_features(db, start_date=None):
     df_sp500_mom = calculate_sp500_momentum(db, start_date=start_date)
     
     return df_dxy, df_vix, df_sp500_mom
-
 
 if __name__ == "__main__":
     db = StockDBManager()

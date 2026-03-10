@@ -1,9 +1,20 @@
+/*
+ * 이 파일은 질문 관련 프론트엔드 로직을 담고 있습니다.
+ * 상단 상수와 보조 함수가 표시용 값을 만들고, 상태와 props에서 파생한 값이 마지막 JSX에 연결되므로 데이터가 화면 요소로 바뀌는 흐름을 위에서 아래로 따라가면 됩니다.
+ */
+
 import { useEffect, useState } from 'react';
 import './Question.css';
 
+/**
+ * 질문 컴포넌트가 화면 상태와 렌더링을 담당합니다.
+ */
+
 function Question({ data, step, totalSteps, onAnswer, onBack }) {
+    // 화면에서 계속 바뀌는 값을 state로 보관합니다.
     const [animationClass, setAnimationClass] = useState('animate-fade-in');
 
+    // 화면이 열리거나 특정 값이 바뀔 때 필요한 부수 작업을 실행합니다.
     useEffect(() => {
         setAnimationClass('');
         const timer = setTimeout(() => {
@@ -12,6 +23,7 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
         return () => clearTimeout(timer);
     }, [data.id]);
 
+    // 사용자 입력, 버튼 클릭, API 요청을 처리하는 함수들입니다.
     const handleSelect = (value, optionText, optionKey) => {
         onAnswer({
             questionId: data.id,
@@ -24,6 +36,7 @@ function Question({ data, step, totalSteps, onAnswer, onBack }) {
 
     const progress = (step / totalSteps) * 100;
 
+    // 마지막에 현재 상태를 반영한 화면 구조를 JSX로 반환합니다.
     return (
         <div className={`question-container ${animationClass}`}>
             <div className="progress-bar">

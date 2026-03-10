@@ -1,10 +1,6 @@
 """
-차트 데이터 전용 모듈 (DB 기반, yfinance 미사용).
-
-DB의 LOG_RETURNS / SP500_DATA 테이블을 활용하여
-포트폴리오 누적수익률 차트, S&P 500 벤치마크, Monte Carlo placeholder 데이터를 생성합니다.
-
-모든 수익률은 단순수익률(Simple Return)로 변환하여 반환합니다.
+이 파일은 수익률 차트와 예측 그래프에 필요한 데이터를 계산해 프론트엔드에 전달합니다.
+주요 함수는 입력 준비, 핵심 계산, 결과 저장 또는 반환 순서로 배치되어 있어 상위 파이프라인과의 연결 지점을 위에서 아래로 따라가면 전체 흐름을 빠르게 파악할 수 있습니다.
 """
 
 import sys
@@ -23,7 +19,6 @@ if str(_PROJECT_ROOT) not in sys.path:
 from DB import StockDBManager
 from demo_snapshot import load_demo_snapshot, should_force_demo_snapshot
 
-
 # ──────────────────────────────────────────────────────────────────
 # 글로벌 캐시 (FastAPI startup 시 1회 로드)
 # ──────────────────────────────────────────────────────────────────
@@ -32,8 +27,8 @@ _chart_cache = {
     "sp500_df": pd.DataFrame(),
 }
 
-
 def _load_chart_cache_from_snapshot() -> bool:
+    """차트 캐시 from 스냅샷 데이터를 메모리로 불러옵니다."""
     try:
         snapshot = load_demo_snapshot()
     except FileNotFoundError as e:
@@ -83,7 +78,6 @@ def _load_chart_cache_from_snapshot() -> bool:
     )
     return True
 
-
 def load_chart_cache():
     """
     서버 시작 시 1회 호출되어 차트용 데이터를 메모리에 캐싱합니다.
@@ -124,8 +118,6 @@ def load_chart_cache():
 
     print("[Cache] 차트 데이터를 사용할 수 없습니다.")
 
-
-
 # ──────────────────────────────────────────────────────────────────
 # 유틸리티: 로그수익률 → 단순수익률 변환
 # ──────────────────────────────────────────────────────────────────
@@ -133,11 +125,9 @@ def _log_to_simple(log_return):
     """로그수익률을 단순수익률로 변환: simple = e^r - 1"""
     return math.exp(log_return) - 1.0
 
-
 def _log_to_simple_array(log_returns):
     """numpy 배열의 로그수익률을 단순수익률로 일괄 변환"""
     return np.exp(log_returns) - 1.0
-
 
 # ──────────────────────────────────────────────────────────────────
 # DB 데이터 기준 가장 최근 날짜 반환
@@ -149,7 +139,6 @@ def get_last_updated_date() -> str | None:
         return None
     latest = log_ret_df.index.max()
     return latest.strftime("%Y-%m-%d")
-
 
 # ──────────────────────────────────────────────────────────────────
 # 과거 기간별 누적수익률 (1M / 3M / 6M / 12M)
@@ -187,7 +176,6 @@ def get_historical_returns(tickers: list[str]) -> dict:
         result[t_upper] = returns
 
     return result
-
 
 # ──────────────────────────────────────────────────────────────────
 # 포트폴리오 vs S&P 500 누적수익률 시계열 (과거 1년)
@@ -252,7 +240,6 @@ def get_cumulative_return_chart(tickers: list[str], weights: list[float]) -> dic
         "warnings": warnings,
     }
 
-
 # ──────────────────────────────────────────────────────────────────
 # Monte Carlo 시뮬레이션 Placeholder (향후 실제 로직으로 대체)
 # ──────────────────────────────────────────────────────────────────
@@ -309,7 +296,6 @@ def get_forecast_placeholder(expected_return_log: float, volatility_60d: float, 
             "percentile_95": round(float(np.percentile(final_values, 95)), 2),
         },
     }
-
 
 # ──────────────────────────────────────────────────────────────────
 # 실데이터 기반 Monte Carlo 시뮬레이션
