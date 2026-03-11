@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-10T13:19:17",
-  "data_snapshot_end_date": "2026-03-09",
+  "generated_at": "2026-03-11T14:13:21",
+  "data_snapshot_end_date": "2026-03-10",
   "feature_count": 16,
   "ticker": "EBAY",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 235,
+  "n_test_samples": 236,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-09",
-  "ic_full": -0.09910122333490526,
-  "ic_pvalue": 0.12981706950688163,
-  "ic_first_half": 0.03460264652549865,
-  "ic_second_half": 0.13224429276273744,
-  "accuracy_ref": 0.34893617021276596,
+  "test_end": "2025-12-10",
+  "ic_full": -0.09747337572523473,
+  "ic_pvalue": 0.13543162485743596,
+  "ic_first_half": 0.04075319828061603,
+  "ic_second_half": 0.13132397678758595,
+  "accuracy_ref": 0.3474576271186441,
   "precision_ref": 1.0,
   "train_accuracy_ref": 0.6625,
-  "gap_ref": 0.313563829787234,
-  "gap_signed_ref": 0.313563829787234,
-  "gap_abs_ref": 0.313563829787234,
-  "proba_std_test": 0.06564650983991432,
-  "proba_unique_test": 235,
+  "gap_ref": 0.3150423728813559,
+  "gap_signed_ref": 0.3150423728813559,
+  "gap_abs_ref": 0.3150423728813559,
+  "proba_std_test": 0.06552348247315234,
+  "proba_unique_test": 236,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.2500128080789624,
-    "mean": 0.3777617218388862,
+    "mean": 0.377856768143446,
     "max": 0.5067390860754497
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-10",
-    "end": "2026-03-09"
+    "start": "2025-12-11",
+    "end": "2026-03-10"
   },
   "p_ens_future_stats": {
     "min": 0.3183016344182438,
-    "mean": 0.37553634281975345,
+    "mean": 0.3761690823966359,
     "max": 0.4460878490170757
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-09",
-    "p_ens": 0.43704755237113524
+    "trade_date": "2026-03-10",
+    "p_ens": 0.43815701911252
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

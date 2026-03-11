@@ -1,12 +1,12 @@
 {
   "ticker": "GD",
-  "beta_ols": 0.5467972425966721,
-  "beta_ewma": 0.1610710047266289,
-  "beta_final": 0.4310793712356591,
+  "beta_ols": 0.5476882953967664,
+  "beta_ewma": 0.18758309005563986,
+  "beta_final": 0.43965673379442843,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.015665556019303542,
+  "expected_capm_return_3m_log": 0.015802259710209075,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "WFC",
-  "beta_ols": 1.0206956336058495,
-  "beta_ewma": 1.4184103686043734,
-  "beta_final": 1.1400100541054066,
+  "beta_ols": 1.0209507639387123,
+  "beta_ewma": 1.4169847721655824,
+  "beta_final": 1.1397609664067734,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02690171165756973,
+  "expected_capm_return_3m_log": 0.026897785845643993,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

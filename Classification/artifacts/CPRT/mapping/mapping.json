@@ -1,12 +1,12 @@
 {
   "ticker": "CPRT",
-  "beta_ols": 0.6908237494823658,
-  "beta_ewma": 0.4046321267419428,
-  "beta_final": 0.6049662626602389,
+  "beta_ols": 0.6924877802643473,
+  "beta_ewma": 0.45018418687799716,
+  "beta_final": 0.6197967022484423,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.018433274161123878,
+  "expected_capm_return_3m_log": 0.01866897275675737,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

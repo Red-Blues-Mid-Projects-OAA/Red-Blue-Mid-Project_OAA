@@ -1,12 +1,12 @@
 {
   "ticker": "PG",
-  "beta_ols": 0.0767861242000169,
-  "beta_ewma": -0.13980940979458376,
-  "beta_final": 0.011807464001636701,
+  "beta_ols": 0.07651950577435926,
+  "beta_ewma": -0.14733555827982117,
+  "beta_final": 0.009362986558105128,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.008960427470653998,
+  "expected_capm_return_3m_log": 0.008921202492550111,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

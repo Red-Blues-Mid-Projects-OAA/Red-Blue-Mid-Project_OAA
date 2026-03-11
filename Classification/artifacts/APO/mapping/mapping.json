@@ -1,12 +1,12 @@
 {
   "ticker": "APO",
-  "beta_ols": 1.6588411159073795,
-  "beta_ewma": 1.8524463433594556,
-  "beta_final": 1.716922684143002,
+  "beta_ols": 1.6586015369351002,
+  "beta_ewma": 1.838668159279908,
+  "beta_final": 1.7126215236385423,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03595318795636224,
+  "expected_capm_return_3m_log": 0.03588600709181465,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "MMM",
-  "beta_ols": 0.9572218138365655,
-  "beta_ewma": 0.7082155776160303,
-  "beta_final": 0.8825199429704049,
+  "beta_ols": 0.9558976145877078,
+  "beta_ewma": 0.6674149875327516,
+  "beta_final": 0.8693528264712209,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.022835222302460725,
+  "expected_capm_return_3m_log": 0.022626831599311087,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

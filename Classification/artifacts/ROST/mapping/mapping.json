@@ -1,12 +1,12 @@
 {
   "ticker": "ROST",
-  "beta_ols": 0.695632763329392,
-  "beta_ewma": 0.9286309800666543,
-  "beta_final": 0.7655322283505706,
+  "beta_ols": 0.6953814659472727,
+  "beta_ewma": 0.9275336254598369,
+  "beta_final": 0.7650271138010419,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.020982181471755748,
+  "expected_capm_return_3m_log": 0.020974173200153,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

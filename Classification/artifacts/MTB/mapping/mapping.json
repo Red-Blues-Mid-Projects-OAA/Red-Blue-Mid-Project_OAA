@@ -1,12 +1,12 @@
 {
   "ticker": "MTB",
-  "beta_ols": 0.9161273612124337,
-  "beta_ewma": 1.0001057596245315,
-  "beta_final": 0.9413208807360629,
+  "beta_ols": 0.9171943711820726,
+  "beta_ewma": 1.024440257814882,
+  "beta_final": 0.9493681371719154,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.023765311674062657,
+  "expected_capm_return_3m_log": 0.023892532641411827,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

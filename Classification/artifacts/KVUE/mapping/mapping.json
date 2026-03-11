@@ -1,12 +1,12 @@
 {
   "ticker": "KVUE",
-  "beta_ols": 0.21977651622156935,
-  "beta_ewma": -0.14918623431256042,
-  "beta_final": 0.1090876910613304,
+  "beta_ols": 0.22031807577738827,
+  "beta_ewma": -0.13318672751971533,
+  "beta_final": 0.11426663478825716,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01052017388191002,
+  "expected_capm_return_3m_log": 0.010603142516772775,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

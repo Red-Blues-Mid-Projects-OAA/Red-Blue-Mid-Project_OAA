@@ -1,12 +1,12 @@
 {
   "ticker": "EW",
-  "beta_ols": 0.6383211350271897,
-  "beta_ewma": 1.1244410998700791,
-  "beta_final": 0.7841571244800565,
+  "beta_ols": 0.6372990225509898,
+  "beta_ewma": 1.0988242844693357,
+  "beta_final": 0.7757566011264936,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02127742264581064,
+  "expected_capm_return_3m_log": 0.02114426864736978,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

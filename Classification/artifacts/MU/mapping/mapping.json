@@ -1,12 +1,12 @@
 {
   "ticker": "MU",
-  "beta_ols": 2.299269242071349,
-  "beta_ewma": 3.5909811820074773,
-  "beta_final": 2.6867828240521874,
+  "beta_ols": 2.2972525728861255,
+  "beta_ewma": 3.5350842572226258,
+  "beta_final": 2.6686020781870754,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.05098757395357581,
+  "expected_capm_return_3m_log": 0.050707812133613896,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

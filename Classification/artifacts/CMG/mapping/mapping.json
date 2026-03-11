@@ -1,12 +1,12 @@
 {
   "ticker": "CMG",
-  "beta_ols": 0.9252627214360609,
-  "beta_ewma": 1.303607471145546,
-  "beta_final": 1.0387661463489064,
+  "beta_ols": 0.925957293879762,
+  "beta_ewma": 1.3186459642765247,
+  "beta_final": 1.0437638949987909,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0253047592093771,
+  "expected_capm_return_3m_log": 0.02538365015912711,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }

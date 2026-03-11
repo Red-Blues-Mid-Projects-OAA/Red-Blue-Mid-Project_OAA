@@ -1,12 +1,12 @@
 {
   "ticker": "KLAC",
-  "beta_ols": 1.9787096285500845,
-  "beta_ewma": 3.5578273815653243,
-  "beta_final": 2.4524449544546565,
+  "beta_ols": 1.9776401680974585,
+  "beta_ewma": 3.526261191599878,
+  "beta_final": 2.442226475148184,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04737561698158288,
+  "expected_capm_return_3m_log": 0.047217817639451765,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-09",
+  "date": "2026-03-10",
   "Return_Type": "CAPM"
 }
