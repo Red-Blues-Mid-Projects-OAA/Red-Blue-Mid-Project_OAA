@@ -547,29 +547,170 @@ NLP 기반 파생변수 도입을 고려할 수 있습니다.
 ---
 
 ## 9. 📂 디렉토리 구조
-MSA(Microservices Architecture) 형태를 지향하여 각 역할을 완벽히 분리했습니다.
+역할 분리를 중심으로 데이터 파이프라인, 머신러닝, 백엔드, 프론트엔드가 분리된 구조입니다.
 
 ```text
 📦 Red-Blue-Mid-Project_OAA
- ┣ 📂 .github/workflows       # [자동화] 일일 데이터 수집 및 DB 갱신 CI/CD
- ┣ 📂 DB/                     # [데이터] 기초 자산 데이터 수집 및 병합 파이프라인
- ┃ ┣ 📜 build_master_dataset.py
- ┃ ┣ 📜 calculate_ewma.py
- ┃ ┗ 📂 utils/sp500_scraper.py
- ┣ 📂 Classification/         # [머신러닝] 피처 생성, 개별 모델 훈련 및 앙상블
- ┃ ┣ 📂 Preprocessing/        # 매크로, 모멘텀, 변동성 등 학습 변수 생성
- ┃ ┣ 📂 models/               # LogReg, RF, SVM, XGB 개별 모델 정의
- ┃ ┣ 📂 ensemble/             # 모델 결과 결합 알고리즘
- ┃ ┗ 📂 artifacts/            # [산출물] 각 종목별 학습 결과 및 매핑 요약 데이터
- ┣ 📂 investment-mbti-back/   # [백엔드] FastAPI 서빙 및 포트폴리오 산출 로직
- ┃ ┣ 📜 main.py
- ┃ ┣ 📜 portfolio_optimizer.py# 포트폴리오 비중 최적화 로직
- ┃ ┗ 📜 risk_profile.py       # 투자 MBTI 분류 로직
- ┣ 📂 investment-mbti/        # [프론트엔드] React + Vite 웹 애플리케이션
- ┃ ┣ 📂 public/images/        # 시각화 리소스 (YOLO, Slave 등 캐릭터 에셋)
- ┃ ┣ 📂 src/components/       # 설문조사, 차트 시각화 대시보드 컴포넌트
- ┃ ┗ 📂 src/constants/        # 설문 문항 및 주식 기초 상수 데이터
- ┗ 📂 scripts/                # 전체 파이프라인 통합 일괄 실행 스크립트 모음
+ ┣ 📂 .github/
+ ┃ ┗ 📂 workflows/
+ ┃   ┗ 📜 daily-db-load.yml                 # GitHub Actions 기반 일일 데이터 적재/갱신 워크플로우
+ ┣ 📂 DB/                                   # 데이터 수집·정제·적재 파이프라인
+ ┃ ┣ 📂 utils/
+ ┃ ┃ ┗ 📜 sp500_scraper.py                  # S&P 500 종목 스크래핑 유틸
+ ┃ ┣ 📜 __init__.py
+ ┃ ┣ 📜 adjust_regime.py                    # 시장 국면(regime) 보정 로직
+ ┃ ┣ 📜 build_master_dataset.py             # 통합 마스터 데이터셋 생성
+ ┃ ┣ 📜 calculate_ewma.py                   # EWMA 지표 계산
+ ┃ ┣ 📜 calculate_log_returns.py            # 로그 수익률 계산
+ ┃ ┣ 📜 export_demo_snapshot.py             # 데모용 스냅샷 생성
+ ┃ ┣ 📜 run_all_mapping.py                  # 전체 매핑 배치 실행
+ ┃ ┣ 📜 run_all_tickers.py                  # 전체 종목 배치 실행
+ ┃ ┣ 📜 sp500_top300.json                   # S&P 500 상위 300 종목 데이터
+ ┃ ┣ 📜 sp500_top300_kr.json                # 상위 300 종목 한글 매핑 데이터
+ ┃ ┣ 📜 stock_db_manager.py                 # DB 관리 로직
+ ┃ ┣ 📜 update_market_data.py               # 시장 데이터 갱신
+ ┃ ┣ 📜 update_risk_level_portfolio_snapshot.py # 위험 성향별 포트폴리오 스냅샷 갱신
+ ┃ ┣ 📜 update_sp500_data.py                # S&P 500 데이터 갱신
+ ┃ ┗ 📜 update_stock_data.py                # 개별 종목 데이터 갱신
+ ┣ 📂 Classification/                       # 피처 생성, 모델 학습, 매핑, 앙상블, 산출물 관리
+ ┃ ┣ 📂 Preprocessing/                      # 학습용 피처 생성 및 데이터셋 분할
+ ┃ ┃ ┣ 📂 Macro/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┗ 📜 macro.py                        # 거시경제 피처 생성
+ ┃ ┃ ┣ 📂 Momentum/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┗ 📜 momentum.py                     # 모멘텀 피처 생성
+ ┃ ┃ ┣ 📂 Volatility/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┗ 📜 volatility.py                   # 변동성 피처 생성
+ ┃ ┃ ┣ 📂 Volume/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┗ 📜 volume.py                       # 거래량 피처 생성
+ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┣ 📜 build_master_dataset.py           # 전처리 단계 통합 데이터셋 생성
+ ┃ ┃ ┣ 📜 generate_target.py                # 타깃 라벨 생성
+ ┃ ┃ ┗ 📜 split_dataset.py                  # 학습/검증 데이터 분할
+ ┃ ┣ 📂 artifacts/                          # 종목별 모델 산출물 저장소
+ ┃ ┃ ┣ 📂 A/                                # 그룹/종목 단위 산출물 디렉토리 예시
+ ┃ ┃ ┃ ┣ 📂 ensemble/
+ ┃ ┃ ┃ ┣ 📂 logreg/
+ ┃ ┃ ┃ ┣ 📂 mapping/
+ ┃ ┃ ┃ ┣ 📂 rf/
+ ┃ ┃ ┃ ┣ 📂 svm/
+ ┃ ┃ ┃ ┗ 📂 xgb/
+ ┃ ┃ ┣ 📂 AAPL/                             # 종목별 산출물 디렉토리 예시
+ ┃ ┃ ┃ ┣ 📂 ensemble/
+ ┃ ┃ ┃ ┣ 📂 logreg/
+ ┃ ┃ ┃ ┣ 📂 mapping/
+ ┃ ┃ ┃ ┣ 📂 rf/
+ ┃ ┃ ┃ ┣ 📂 svm/
+ ┃ ┃ ┃ ┗ 📂 xgb/
+ ┃ ┃ ┣ 📂 ABBV/
+ ┃ ┃ ┣ 📂 ABNB/
+ ┃ ┃ ┗ 📂 ...                               # 다수 종목별 아티팩트 디렉토리 반복
+ ┃ ┣ 📂 capm/
+ ┃ ┃ ┗ 📜 capm.py                           # CAPM 계산 로직
+ ┃ ┣ 📂 ensemble/
+ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┗ 📜 ensemble.py                       # 개별 모델 예측 결합
+ ┃ ┣ 📂 mapping/
+ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┗ 📜 mapping.py                        # 예측 결과 → 투자 시그널/점수 매핑
+ ┃ ┣ 📂 models/
+ ┃ ┃ ┣ 📂 common/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┗ 📜 importance.py                   # 공통 피처 중요도 유틸
+ ┃ ┃ ┣ 📂 logreg/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┣ 📜 optimize.py                     # Logistic Regression 하이퍼파라미터 최적화
+ ┃ ┃ ┃ ┗ 📜 pipeline.py                     # Logistic Regression 학습 파이프라인
+ ┃ ┃ ┣ 📂 rf/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┣ 📜 optimize.py                     # Random Forest 하이퍼파라미터 최적화
+ ┃ ┃ ┃ ┗ 📜 pipeline.py                     # Random Forest 학습 파이프라인
+ ┃ ┃ ┣ 📂 svm/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┣ 📜 optimize.py                     # SVM 하이퍼파라미터 최적화
+ ┃ ┃ ┃ ┗ 📜 pipeline.py                     # SVM 학습 파이프라인
+ ┃ ┃ ┣ 📂 xgb/
+ ┃ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┃ ┣ 📜 optimize.py                     # XGBoost 하이퍼파라미터 최적화
+ ┃ ┃ ┃ ┗ 📜 pipeline.py                     # XGBoost 학습 파이프라인
+ ┃ ┃ ┗ 📜 __init__.py
+ ┃ ┣ 📂 multi_ticker/
+ ┃ ┃ ┣ 📜 __init__.py
+ ┃ ┃ ┣ 📜 adjust_regime.py                  # 다중 종목용 국면 보정
+ ┃ ┃ ┗ 📜 run_all_tickers.py                # 다중 종목 일괄 실행
+ ┃ ┣ 📜 model_config.py                     # 모델 공통 설정
+ ┃ ┗ 📜 model_gate.py                       # 모델 실행 진입/오케스트레이션
+ ┣ 📂 common/
+ ┃ ┗ 📜 __init__.py                         # 공용 Python 패키지 초기화
+ ┣ 📂 investment-mbti-back/                 # 백엔드 API 및 포트폴리오 계산 로직
+ ┃ ┣ 📂 data/
+ ┃ ┃ ┣ 📜 .gitkeep
+ ┃ ┃ ┗ 📜 demo_snapshot.json                # 데모 응답 스냅샷
+ ┃ ┣ 📜 chart_data_provider.py              # 차트 데이터 제공 로직
+ ┃ ┣ 📜 demo_snapshot.py                    # 데모 데이터 처리
+ ┃ ┣ 📜 main.py                             # 백엔드 서버 엔트리포인트
+ ┃ ┣ 📜 portfolio_optimizer.py              # 포트폴리오 비중 최적화 로직
+ ┃ ┣ 📜 real_data_provider.py               # 실데이터 제공 로직
+ ┃ ┣ 📜 requirements.txt                    # 백엔드 의존성 목록
+ ┃ ┗ 📜 risk_profile.py                     # 투자 성향/리스크 프로파일 계산
+ ┣ 📂 investment-mbti/                      # 프론트엔드 웹 애플리케이션
+ ┃ ┣ 📂 public/
+ ┃ ┃ ┣ 📂 images/
+ ┃ ┃ ┃ ┣ 📜 Q1.png ~ Q12.png                # 설문 문항 이미지
+ ┃ ┃ ┃ ┣ 📜 fire.png
+ ┃ ┃ ┃ ┣ 📜 rogomain-transparent.png
+ ┃ ┃ ┃ ┣ 📜 rogomain.png
+ ┃ ┃ ┃ ┣ 📜 slave.png
+ ┃ ┃ ┃ ┣ 📜 worker.png
+ ┃ ┃ ┃ ┗ 📜 yolo.png                        # 캐릭터/브랜딩 에셋
+ ┃ ┃ ┗ 📜 vite.svg
+ ┃ ┣ 📂 src/
+ ┃ ┃ ┣ 📂 components/                       # 화면/차트/설문 UI 컴포넌트
+ ┃ ┃ ┃ ┣ 📜 CumulativeReturnChart.jsx
+ ┃ ┃ ┃ ┣ 📜 DashboardResult.css
+ ┃ ┃ ┃ ┣ 📜 DashboardResult.jsx
+ ┃ ┃ ┃ ┣ 📜 Intro.css
+ ┃ ┃ ┃ ┣ 📜 Intro.jsx
+ ┃ ┃ ┃ ┣ 📜 InvestmentAmount.jsx
+ ┃ ┃ ┃ ┣ 📜 Loading.css
+ ┃ ┃ ┃ ┣ 📜 Loading.jsx
+ ┃ ┃ ┃ ┣ 📜 LossSlider.css
+ ┃ ┃ ┃ ┣ 📜 LossSlider.jsx
+ ┃ ┃ ┃ ┣ 📜 MbtiBarChart.jsx
+ ┃ ┃ ┃ ┣ 📜 PortfolioPieChart.jsx
+ ┃ ┃ ┃ ┣ 📜 PortfolioSelection.css
+ ┃ ┃ ┃ ┣ 📜 PortfolioSelection.jsx
+ ┃ ┃ ┃ ┣ 📜 Question.css
+ ┃ ┃ ┃ ┣ 📜 Question.jsx
+ ┃ ┃ ┃ ┗ 📜 StockCard.jsx
+ ┃ ┃ ┣ 📂 config/
+ ┃ ┃ ┃ ┗ 📜 api.js                          # API 엔드포인트 설정
+ ┃ ┃ ┣ 📂 constants/
+ ┃ ┃ ┃ ┣ 📜 questions.js                    # 설문 문항 상수
+ ┃ ┃ ┃ ┗ 📜 stocks.js                       # 종목/기초 데이터 상수
+ ┃ ┃ ┣ 📜 App.css
+ ┃ ┃ ┣ 📜 App.jsx
+ ┃ ┃ ┣ 📜 index.css
+ ┃ ┃ ┗ 📜 main.jsx
+ ┃ ┣ 📜 .env.example
+ ┃ ┣ 📜 .gitignore
+ ┃ ┣ 📜 README.md
+ ┃ ┣ 📜 eslint.config.js
+ ┃ ┣ 📜 index.html
+ ┃ ┣ 📜 package-lock.json
+ ┃ ┣ 📜 package.json
+ ┃ ┗ 📜 vite.config.js
+ ┣ 📂 scripts/                              # 통합 실행 및 검증 스크립트
+ ┃ ┣ 📜 __init__.py
+ ┃ ┣ 📜 check_import_policy.py              # 모듈 import 정책 검사
+ ┃ ┣ 📜 run_all_mapping.py                  # 전체 매핑 실행 스크립트
+ ┃ ┗ 📜 run_pipeline_300.sh                 # 300개 종목 대상 전체 파이프라인 실행
+ ┣ 📜 .gitignore
+ ┣ 📜 LICENSE
+ ┗ 📜 README.md
 ```
 
 ---
