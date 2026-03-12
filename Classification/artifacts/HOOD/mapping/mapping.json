@@ -1,12 +1,12 @@
 {
   "ticker": "HOOD",
-  "beta_ols": 2.7353206025119943,
-  "beta_ewma": 4.3036806551771685,
-  "beta_final": 3.2058286183115463,
+  "beta_ols": 2.735243465797931,
+  "beta_ewma": 4.303320634930251,
+  "beta_final": 3.205666616537627,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.058941715441236116,
+  "expected_capm_return_3m_log": 0.05893924268180118,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "MRK",
-  "beta_ols": 0.31407443379919664,
-  "beta_ewma": 0.26369700069047103,
-  "beta_final": 0.29896120386657893,
+  "beta_ols": 0.31427880516959444,
+  "beta_ewma": 0.26412010572307243,
+  "beta_final": 0.2992311953356378,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013557528040673618,
+  "expected_capm_return_3m_log": 0.013561840457860219,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

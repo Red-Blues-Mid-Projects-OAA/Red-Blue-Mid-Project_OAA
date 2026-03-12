@@ -1,12 +1,12 @@
 {
   "ticker": "GRMN",
-  "beta_ols": 1.0802086688892403,
-  "beta_ewma": 1.308632862327274,
-  "beta_final": 1.1487359269206503,
+  "beta_ols": 1.0808113929399403,
+  "beta_ewma": 1.3100039521113302,
+  "beta_final": 1.1495691606913572,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.027039228336122868,
+  "expected_capm_return_3m_log": 0.027052358817463033,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

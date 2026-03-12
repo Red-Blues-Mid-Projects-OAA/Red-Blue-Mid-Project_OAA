@@ -1,12 +1,12 @@
 {
   "ticker": "KEYS",
-  "beta_ols": 1.4515323131477909,
-  "beta_ewma": 3.0287575570219305,
-  "beta_final": 1.9246998863100326,
+  "beta_ols": 1.4516274921861148,
+  "beta_ewma": 3.0293721594517256,
+  "beta_final": 1.924950892365798,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03919314690087282,
+  "expected_capm_return_3m_log": 0.039197054604389485,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

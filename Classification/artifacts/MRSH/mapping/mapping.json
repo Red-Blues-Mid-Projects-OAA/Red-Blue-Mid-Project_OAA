@@ -1,12 +1,12 @@
 {
   "ticker": "MRSH",
-  "beta_ols": 0.31580669134609657,
-  "beta_ewma": 0.04472205565549882,
-  "beta_final": 0.23448130063891723,
+  "beta_ols": 0.3157959292349297,
+  "beta_ewma": 0.04458650774114385,
+  "beta_final": 0.23443310278679394,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.012527094999171543,
+  "expected_capm_return_3m_log": 0.012526324367193819,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

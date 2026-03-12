@@ -1,12 +1,12 @@
 {
   "ticker": "AON",
-  "beta_ols": 0.30076746550414024,
-  "beta_ewma": -0.1964972122567939,
-  "beta_final": 0.15158806217586,
+  "beta_ols": 0.301115901138459,
+  "beta_ewma": -0.19592619406317557,
+  "beta_final": 0.1520032725779686,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.011200842420666685,
+  "expected_capm_return_3m_log": 0.01120748997567732,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

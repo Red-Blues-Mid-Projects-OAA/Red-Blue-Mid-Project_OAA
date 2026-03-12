@@ -1,12 +1,12 @@
 {
   "ticker": "MSFT",
-  "beta_ols": 0.995332946977917,
-  "beta_ewma": 0.8409504757451379,
-  "beta_final": 0.9490182056080831,
+  "beta_ols": 0.995357160059935,
+  "beta_ewma": 0.840989890034843,
+  "beta_final": 0.9490469790524074,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02388700082770538,
+  "expected_capm_return_3m_log": 0.023887455687324265,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

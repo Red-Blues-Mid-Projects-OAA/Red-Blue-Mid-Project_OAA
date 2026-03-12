@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-11T14:10:13",
-  "data_snapshot_end_date": "2026-03-10",
+  "generated_at": "2026-03-12T12:34:13",
+  "data_snapshot_end_date": "2026-03-11",
   "feature_count": 16,
   "ticker": "FDX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 236,
+  "n_test_samples": 237,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-10",
-  "ic_full": -0.1125025677075963,
-  "ic_pvalue": 0.08459959276557598,
+  "test_end": "2025-12-11",
+  "ic_full": -0.122955725950539,
+  "ic_pvalue": 0.058751370848048365,
   "ic_first_half": 0.8189022675563055,
-  "ic_second_half": -0.7517045931801665,
-  "accuracy_ref": 0.4152542372881356,
+  "ic_second_half": -0.7544224469448797,
+  "accuracy_ref": 0.41350210970464135,
   "precision_ref": 0.3333333333333333,
   "train_accuracy_ref": 0.7693181818181818,
-  "gap_ref": 0.3540639445300462,
-  "gap_signed_ref": 0.3540639445300462,
-  "gap_abs_ref": 0.3540639445300462,
-  "proba_std_test": 0.07963343029616203,
-  "proba_unique_test": 236,
+  "gap_ref": 0.35581607211354044,
+  "gap_signed_ref": 0.35581607211354044,
+  "gap_abs_ref": 0.35581607211354044,
+  "proba_std_test": 0.08006156131647682,
+  "proba_unique_test": 237,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.3797746659974588,
-    "mean": 0.5347575220348538,
+    "mean": 0.5341226335057818,
     "max": 0.6584993404780873
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-11",
-    "end": "2026-03-10"
+    "start": "2025-12-12",
+    "end": "2026-03-11"
   },
   "p_ens_future_stats": {
     "min": 0.36096905128129164,
-    "mean": 0.4052543272759086,
+    "mean": 0.40647395509520934,
     "max": 0.4610230484037462
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-10",
-    "p_ens": 0.4610230484037462
+    "trade_date": "2026-03-11",
+    "p_ens": 0.45746661278307393
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

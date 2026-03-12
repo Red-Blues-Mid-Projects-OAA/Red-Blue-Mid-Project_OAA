@@ -1,12 +1,12 @@
 {
   "ticker": "TTWO",
-  "beta_ols": 0.7021499584704691,
-  "beta_ewma": 1.3687272589448158,
-  "beta_final": 0.9021231486127731,
+  "beta_ols": 0.7018673765204131,
+  "beta_ewma": 1.368110589498821,
+  "beta_final": 0.9017403404139355,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.023145393989638306,
+  "expected_capm_return_3m_log": 0.023139337928495103,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

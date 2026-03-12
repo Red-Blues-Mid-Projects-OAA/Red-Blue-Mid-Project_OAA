@@ -1,12 +1,12 @@
 {
   "ticker": "LIN",
-  "beta_ols": 0.5469925930985389,
-  "beta_ewma": 0.4086287290597906,
-  "beta_final": 0.5054834338869143,
+  "beta_ols": 0.5467691018883453,
+  "beta_ewma": 0.40821899496050096,
+  "beta_final": 0.505204069809992,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.016850766319167442,
+  "expected_capm_return_3m_log": 0.016846318849925764,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

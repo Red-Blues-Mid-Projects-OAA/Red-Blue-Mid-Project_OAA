@@ -1,12 +1,12 @@
 {
   "ticker": "A",
-  "beta_ols": 1.0110939391290725,
-  "beta_ewma": 1.0094331510922145,
-  "beta_final": 1.010595702718015,
+  "beta_ols": 1.0110458987018875,
+  "beta_ewma": 1.0091454364491996,
+  "beta_final": 1.0104757600260812,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02485996392545563,
+  "expected_capm_return_3m_log": 0.02485806967552421,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

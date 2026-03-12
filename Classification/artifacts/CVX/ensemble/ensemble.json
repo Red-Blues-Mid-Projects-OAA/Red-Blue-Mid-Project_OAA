@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-11T14:08:28",
-  "data_snapshot_end_date": "2026-03-10",
+  "generated_at": "2026-03-12T12:32:28",
+  "data_snapshot_end_date": "2026-03-11",
   "feature_count": 16,
   "ticker": "CVX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 236,
+  "n_test_samples": 237,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-10",
-  "ic_full": 0.04297132840637795,
-  "ic_pvalue": 0.5112217100942352,
+  "test_end": "2025-12-11",
+  "ic_full": 0.03285171609944128,
+  "ic_pvalue": 0.6148182752941073,
   "ic_first_half": 0.006694203104970802,
-  "ic_second_half": 0.2117931918530124,
-  "accuracy_ref": 0.5720338983050848,
+  "ic_second_half": 0.19086312491098137,
+  "accuracy_ref": 0.569620253164557,
   "precision_ref": 0.22857142857142856,
   "train_accuracy_ref": 0.8,
-  "gap_ref": 0.22796610169491527,
-  "gap_signed_ref": 0.22796610169491527,
-  "gap_abs_ref": 0.22796610169491527,
-  "proba_std_test": 0.10165319598514262,
-  "proba_unique_test": 236,
+  "gap_ref": 0.23037974683544304,
+  "gap_signed_ref": 0.23037974683544304,
+  "gap_abs_ref": 0.23037974683544304,
+  "proba_std_test": 0.10164005603246748,
+  "proba_unique_test": 237,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.25817093291609755,
-    "mean": 0.3943412524003979,
+    "mean": 0.3939248032097547,
     "max": 0.6969191159704234
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-11",
-    "end": "2026-03-10"
+    "start": "2025-12-12",
+    "end": "2026-03-11"
   },
   "p_ens_future_stats": {
     "min": 0.23122355093687824,
-    "mean": 0.3646893296868615,
+    "mean": 0.3683112247081555,
     "max": 0.5730277329845586
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-10",
-    "p_ens": 0.4151022030034762
+    "trade_date": "2026-03-11",
+    "p_ens": 0.5129564932604307
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

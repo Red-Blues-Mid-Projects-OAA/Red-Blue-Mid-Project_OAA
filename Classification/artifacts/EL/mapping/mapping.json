@@ -1,12 +1,12 @@
 {
   "ticker": "EL",
-  "beta_ols": 1.3243035353898436,
-  "beta_ewma": 1.717328065482759,
-  "beta_final": 1.442210894417718,
+  "beta_ols": 1.3250483180551165,
+  "beta_ewma": 1.7185616623553919,
+  "beta_final": 1.443102321345199,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.031653311067687026,
+  "expected_capm_return_3m_log": 0.03166729391052567,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

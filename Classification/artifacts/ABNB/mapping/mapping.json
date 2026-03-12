@@ -1,12 +1,12 @@
 {
   "ticker": "ABNB",
-  "beta_ols": 1.3106608107726965,
-  "beta_ewma": 1.5356804119157164,
-  "beta_final": 1.3781666911156023,
+  "beta_ols": 1.310405898080824,
+  "beta_ewma": 1.535350151435208,
+  "beta_final": 1.377889174087139,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03064820746736865,
+  "expected_capm_return_3m_log": 0.03064384994266625,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

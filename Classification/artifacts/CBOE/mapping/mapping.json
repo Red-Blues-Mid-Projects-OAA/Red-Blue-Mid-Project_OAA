@@ -1,12 +1,12 @@
 {
   "ticker": "CBOE",
-  "beta_ols": -0.23688105768400328,
-  "beta_ewma": -0.45888425514144965,
-  "beta_final": -0.30348201692123716,
+  "beta_ols": -0.2366975695904315,
+  "beta_ewma": -0.4585703762895899,
+  "beta_final": -0.303259411600179,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0038884356660117123,
+  "expected_capm_return_3m_log": 0.00389202575867231,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "GS",
-  "beta_ols": 1.3412998166882044,
-  "beta_ewma": 1.9506557404770695,
-  "beta_final": 1.5241065938248637,
+  "beta_ols": 1.341624208474536,
+  "beta_ewma": 1.9510921103233063,
+  "beta_final": 1.5244645790291669,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.032937104230029046,
+  "expected_capm_return_3m_log": 0.032942712373032874,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

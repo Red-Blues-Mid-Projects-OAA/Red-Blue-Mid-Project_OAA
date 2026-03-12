@@ -1,12 +1,12 @@
 {
   "ticker": "OKE",
-  "beta_ols": 0.7926151499694266,
-  "beta_ewma": -0.3888455628647121,
-  "beta_final": 0.43817693611918496,
+  "beta_ols": 0.7922441854774721,
+  "beta_ewma": -0.3894426418603121,
+  "beta_final": 0.43773813727613675,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.015778676427899253,
+  "expected_capm_return_3m_log": 0.01577168325891765,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

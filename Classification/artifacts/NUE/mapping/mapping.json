@@ -1,12 +1,12 @@
 {
   "ticker": "NUE",
-  "beta_ols": 1.1120398929208313,
-  "beta_ewma": 0.8192046057035953,
-  "beta_final": 1.0241893067556604,
+  "beta_ols": 1.111769498903145,
+  "beta_ewma": 0.8186375863833796,
+  "beta_final": 1.0238299251472154,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.025074623902652256,
+  "expected_capm_return_3m_log": 0.025068949411387716,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

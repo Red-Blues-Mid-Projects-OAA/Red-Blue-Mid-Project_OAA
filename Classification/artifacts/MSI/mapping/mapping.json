@@ -1,12 +1,12 @@
 {
   "ticker": "MSI",
-  "beta_ols": 0.5381607059140895,
-  "beta_ewma": -0.001128088906737722,
-  "beta_final": 0.3763740674678413,
+  "beta_ols": 0.5382529108399567,
+  "beta_ewma": -0.0007927236203546748,
+  "beta_final": 0.3765392205018633,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.014793237687171133,
+  "expected_capm_return_3m_log": 0.014795872325375867,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

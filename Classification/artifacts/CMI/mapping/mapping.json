@@ -1,12 +1,12 @@
 {
   "ticker": "CMI",
-  "beta_ols": 1.156473966970713,
-  "beta_ewma": 2.337257918043147,
-  "beta_final": 1.510709152292443,
+  "beta_ols": 1.1566003036259023,
+  "beta_ewma": 2.337435893847082,
+  "beta_final": 1.510850980692256,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.032727199285193194,
+  "expected_capm_return_3m_log": 0.0327294216180162,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

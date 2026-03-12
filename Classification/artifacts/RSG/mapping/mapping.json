@@ -1,12 +1,12 @@
 {
   "ticker": "RSG",
-  "beta_ols": 0.28882228401551163,
-  "beta_ewma": -0.04498647981945854,
-  "beta_final": 0.18867965486502059,
+  "beta_ols": 0.2887945230077235,
+  "beta_ewma": -0.045039740819149736,
+  "beta_final": 0.18864424385966155,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.011794507797446896,
+  "expected_capm_return_3m_log": 0.01179394119856539,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-10",
+  "date": "2026-03-11",
   "Return_Type": "CAPM"
 }

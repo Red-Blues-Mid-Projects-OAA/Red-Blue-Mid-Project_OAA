@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-11T14:08:53",
-  "data_snapshot_end_date": "2026-03-10",
+  "generated_at": "2026-03-12T12:32:53",
+  "data_snapshot_end_date": "2026-03-11",
   "feature_count": 16,
   "ticker": "MCD",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 236,
+  "n_test_samples": 237,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-10",
-  "ic_full": -0.33738354019546535,
-  "ic_pvalue": 1.0840831632158451e-07,
+  "test_end": "2025-12-11",
+  "ic_full": -0.3371422802118058,
+  "ic_pvalue": 1.041384204682046e-07,
   "ic_first_half": -0.5324283559577677,
-  "ic_second_half": 0.37701182167782366,
-  "accuracy_ref": 0.4322033898305085,
+  "ic_second_half": 0.3746403646204245,
+  "accuracy_ref": 0.43037974683544306,
   "precision_ref": 0.22,
   "train_accuracy_ref": 0.7727272727272727,
-  "gap_ref": 0.3405238828967642,
-  "gap_signed_ref": 0.3405238828967642,
-  "gap_abs_ref": 0.3405238828967642,
-  "proba_std_test": 0.10719140916275843,
-  "proba_unique_test": 236,
+  "gap_ref": 0.34234752589182965,
+  "gap_signed_ref": 0.34234752589182965,
+  "gap_abs_ref": 0.34234752589182965,
+  "proba_std_test": 0.10699986725615242,
+  "proba_unique_test": 237,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.26516170003465245,
-    "mean": 0.48671982123834723,
+    "mean": 0.48654209549752425,
     "max": 0.7157502125309325
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-11",
-    "end": "2026-03-10"
+    "start": "2025-12-12",
+    "end": "2026-03-11"
   },
   "p_ens_future_stats": {
     "min": 0.2507630560023093,
-    "mean": 0.39389347347055526,
+    "mean": 0.39542337053354604,
     "max": 0.5798845231217171
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-10",
-    "p_ens": 0.46124027878055585
+    "trade_date": "2026-03-11",
+    "p_ens": 0.5363926369921719
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

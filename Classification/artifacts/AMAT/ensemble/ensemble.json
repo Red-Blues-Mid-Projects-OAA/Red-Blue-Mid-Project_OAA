@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-11T14:08:38",
-  "data_snapshot_end_date": "2026-03-10",
+  "generated_at": "2026-03-12T12:32:37",
+  "data_snapshot_end_date": "2026-03-11",
   "feature_count": 16,
   "ticker": "AMAT",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 236,
+  "n_test_samples": 237,
   "test_start": "2025-01-02",
-  "test_end": "2025-12-10",
-  "ic_full": -0.20709828499956634,
-  "ic_pvalue": 0.0013772902777086293,
+  "test_end": "2025-12-11",
+  "ic_full": -0.2115741383444603,
+  "ic_pvalue": 0.001048795504313634,
   "ic_first_half": -0.004108553460497628,
-  "ic_second_half": -0.23069618981882192,
-  "accuracy_ref": 0.5254237288135594,
+  "ic_second_half": -0.23161230593932491,
+  "accuracy_ref": 0.5232067510548524,
   "precision_ref": 0.7014925373134329,
   "train_accuracy_ref": 0.7897727272727273,
-  "gap_ref": 0.2643489984591679,
-  "gap_signed_ref": 0.2643489984591679,
-  "gap_abs_ref": 0.2643489984591679,
-  "proba_std_test": 0.1302832814046989,
-  "proba_unique_test": 235,
+  "gap_ref": 0.2665659762178749,
+  "gap_signed_ref": 0.2665659762178749,
+  "gap_abs_ref": 0.2665659762178749,
+  "proba_std_test": 0.1304975935469715,
+  "proba_unique_test": 236,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.2492316116193673,
-    "mean": 0.5248474914001473,
+    "mean": 0.5241124495003213,
     "max": 0.7138320237207828
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2025-12-11",
-    "end": "2026-03-10"
+    "start": "2025-12-12",
+    "end": "2026-03-11"
   },
   "p_ens_future_stats": {
     "min": 0.3103030501180637,
-    "mean": 0.4540729169989116,
+    "mean": 0.4580631137701714,
     "max": 0.6234211550236444
   },
   "latest_future_prediction": {
-    "trade_date": "2026-03-10",
-    "p_ens": 0.5892439785699223
+    "trade_date": "2026-03-11",
+    "p_ens": 0.5900543733774491
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",
