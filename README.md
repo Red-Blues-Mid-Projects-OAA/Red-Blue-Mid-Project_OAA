@@ -1,3 +1,7 @@
+<p align="right">
+  <a href="./README.en.md">🇺🇸 English</a>
+</p>
+
 # 📈 Red & Blue: 투자 MBTI 진단 및 최적 자산 배분 알고리즘을 통한 포트폴리오 추천 서비스
 
 <div align="center">
