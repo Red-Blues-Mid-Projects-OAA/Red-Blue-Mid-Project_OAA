@@ -1,12 +1,12 @@
 {
   "ticker": "CVX",
-  "beta_ols": 0.5544914415418668,
-  "beta_ewma": -0.053560475689012274,
-  "beta_final": 0.37207586637260304,
+  "beta_ols": 0.4984646799617305,
+  "beta_ewma": -0.6234886400361076,
+  "beta_final": 0.16187868396237906,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01472466729692965,
+  "expected_capm_return_3m_log": 0.011365583156523121,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

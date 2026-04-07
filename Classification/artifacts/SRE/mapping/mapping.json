@@ -1,12 +1,12 @@
 {
   "ticker": "SRE",
-  "beta_ols": 0.5661257296871478,
-  "beta_ewma": 0.32439485373569105,
-  "beta_final": 0.4936064669017108,
+  "beta_ols": 0.5561006618294444,
+  "beta_ewma": 0.309560768671754,
+  "beta_final": 0.48213869388213726,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.016661667839011778,
+  "expected_capm_return_3m_log": 0.016479050380421294,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

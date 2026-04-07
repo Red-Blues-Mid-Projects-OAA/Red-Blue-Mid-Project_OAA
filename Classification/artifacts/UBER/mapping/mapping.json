@@ -1,12 +1,12 @@
 {
   "ticker": "UBER",
-  "beta_ols": 1.1588476687629896,
-  "beta_ewma": 0.4698158165766384,
-  "beta_final": 0.9521381131070842,
+  "beta_ols": 1.1666995197333274,
+  "beta_ewma": 1.1351749194705822,
+  "beta_final": 1.1572421396545038,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.023936320097510976,
+  "expected_capm_return_3m_log": 0.02717326504895991,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

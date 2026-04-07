@@ -1,12 +1,12 @@
 {
   "ticker": "AJG",
-  "beta_ols": 0.305513010872609,
-  "beta_ewma": -0.3915470215329902,
-  "beta_final": 0.09639500115092925,
+  "beta_ols": 0.30176545677242766,
+  "beta_ewma": 0.11997010513895251,
+  "beta_final": 0.2472268512823851,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.010316803080689812,
+  "expected_capm_return_3m_log": 0.01273086184778719,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

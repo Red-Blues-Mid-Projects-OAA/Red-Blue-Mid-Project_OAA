@@ -1,12 +1,12 @@
 {
   "ticker": "WEC",
-  "beta_ols": 0.061654606450570394,
-  "beta_ewma": -0.05990818488740156,
-  "beta_final": 0.025185769049178807,
+  "beta_ols": 0.06044647052916005,
+  "beta_ewma": 0.027327696982113684,
+  "beta_final": 0.05051083846504614,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.009175073392660332,
+  "expected_capm_return_3m_log": 0.00958127101347078,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "COP",
-  "beta_ols": 0.733989733476761,
-  "beta_ewma": 0.00775844306942145,
-  "beta_final": 0.5161203463545591,
+  "beta_ols": 0.6674825234823794,
+  "beta_ewma": -0.5305283750515724,
+  "beta_final": 0.3080792539221938,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.017020090991545233,
+  "expected_capm_return_3m_log": 0.013703155077203709,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

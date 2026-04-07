@@ -1,12 +1,12 @@
 {
   "ticker": "FE",
-  "beta_ols": 0.09964712929510515,
-  "beta_ewma": -0.10819405378961383,
-  "beta_final": 0.037294774369689455,
+  "beta_ols": 0.1058077947967852,
+  "beta_ewma": 0.1436065273302523,
+  "beta_final": 0.11714741455682533,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.009369314537443345,
+  "expected_capm_return_3m_log": 0.010649290717544505,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

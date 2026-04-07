@@ -1,12 +1,12 @@
 {
   "ticker": "SPGI",
-  "beta_ols": 0.751581039979984,
-  "beta_ewma": 0.5325104547169949,
-  "beta_final": 0.6858598644010873,
+  "beta_ols": 0.74400338426706,
+  "beta_ewma": 0.5529199778863088,
+  "beta_final": 0.6866783623528346,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.019718233160695695,
+  "expected_capm_return_3m_log": 0.019731226203763254,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

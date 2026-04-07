@@ -1,12 +1,12 @@
 {
   "ticker": "VTR",
-  "beta_ols": 0.2808761236651833,
-  "beta_ewma": 0.312953566519158,
-  "beta_final": 0.2904993565213757,
+  "beta_ols": 0.2913403932392637,
+  "beta_ewma": 0.42492922100830394,
+  "beta_final": 0.33141704156997576,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013422362433560892,
+  "expected_capm_return_3m_log": 0.014075793112733893,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

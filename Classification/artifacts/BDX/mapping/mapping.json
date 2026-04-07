@@ -1,12 +1,12 @@
 {
   "ticker": "BDX",
-  "beta_ols": 0.47265244980510107,
-  "beta_ewma": 0.4884066192209436,
-  "beta_final": 0.47737870062985377,
+  "beta_ols": 0.488990027243984,
+  "beta_ewma": 0.7101811330354171,
+  "beta_final": 0.555347358981414,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01640324052637206,
+  "expected_capm_return_3m_log": 0.01764428209948779,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

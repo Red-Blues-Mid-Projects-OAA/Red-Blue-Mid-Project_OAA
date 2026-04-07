@@ -1,12 +1,12 @@
 {
   "ticker": "JCI",
-  "beta_ols": 1.1456915712055542,
-  "beta_ewma": 1.2029791352090862,
-  "beta_final": 1.1628778404066136,
+  "beta_ols": 1.1563149696992556,
+  "beta_ewma": 1.3450324853323732,
+  "beta_final": 1.2129302243891908,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.027262059753440367,
+  "expected_capm_return_3m_log": 0.02805032693658915,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }

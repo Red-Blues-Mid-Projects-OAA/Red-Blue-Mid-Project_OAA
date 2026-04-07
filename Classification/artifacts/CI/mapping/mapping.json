@@ -1,12 +1,12 @@
 {
   "ticker": "CI",
-  "beta_ols": 0.17415684462484912,
-  "beta_ewma": 0.6763277544728785,
-  "beta_final": 0.3248081175792579,
+  "beta_ols": 0.18972295303536957,
+  "beta_ewma": 0.7494609833209167,
+  "beta_final": 0.3576443621210337,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013970281502374365,
+  "expected_capm_return_3m_log": 0.014494403117830292,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-03-11",
+  "date": "2026-04-06",
   "Return_Type": "CAPM"
 }
