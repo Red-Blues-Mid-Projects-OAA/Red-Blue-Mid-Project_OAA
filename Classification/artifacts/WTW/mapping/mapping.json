@@ -1,12 +1,12 @@
 {
   "ticker": "WTW",
-  "beta_ols": 0.31275788489977163,
-  "beta_ewma": 0.18627665786534797,
-  "beta_final": 0.27481351678944455,
+  "beta_ols": 0.31269066323375794,
+  "beta_ewma": 0.17406862857283714,
+  "beta_final": 0.27110405283548167,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013171755804311543,
+  "expected_capm_return_3m_log": 0.01311248194188905,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

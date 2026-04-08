@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-07T15:21:27",
-  "data_snapshot_end_date": "2026-04-06",
+  "generated_at": "2026-04-08T12:53:01",
+  "data_snapshot_end_date": "2026-04-07",
   "feature_count": 16,
   "ticker": "EMR",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 254,
+  "n_test_samples": 255,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-07",
-  "ic_full": 0.041268922993553954,
-  "ic_pvalue": 0.5126266315453164,
+  "test_end": "2026-01-08",
+  "ic_full": 0.041403716998610465,
+  "ic_pvalue": 0.5104107063719433,
   "ic_first_half": 0.1999378983877015,
-  "ic_second_half": -0.34608173978252715,
-  "accuracy_ref": 0.468503937007874,
+  "ic_second_half": -0.34294314228163336,
+  "accuracy_ref": 0.47058823529411764,
   "precision_ref": 0.43434343434343436,
   "train_accuracy_ref": 0.825,
-  "gap_ref": 0.35649606299212594,
-  "gap_signed_ref": 0.35649606299212594,
-  "gap_abs_ref": 0.35649606299212594,
-  "proba_std_test": 0.17155395284849995,
-  "proba_unique_test": 253,
+  "gap_ref": 0.3544117647058823,
+  "gap_signed_ref": 0.3544117647058823,
+  "gap_abs_ref": 0.3544117647058823,
+  "proba_std_test": 0.17123650625688508,
+  "proba_unique_test": 254,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.15966003673861148,
-    "mean": 0.4582256989571541,
+    "mean": 0.45806453833805477,
     "max": 0.8404311864283893
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-08",
-    "end": "2026-04-06"
+    "start": "2026-01-09",
+    "end": "2026-04-07"
   },
   "p_ens_future_stats": {
     "min": 0.204427512892628,
-    "mean": 0.38734186948440125,
+    "mean": 0.3863581206237798,
     "max": 0.6789704274082269
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-06",
-    "p_ens": 0.3554493804048775
+    "trade_date": "2026-04-07",
+    "p_ens": 0.3581048049791978
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

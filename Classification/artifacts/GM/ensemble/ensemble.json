@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-07T15:21:38",
-  "data_snapshot_end_date": "2026-04-06",
+  "generated_at": "2026-04-08T12:53:12",
+  "data_snapshot_end_date": "2026-04-07",
   "feature_count": 16,
   "ticker": "GM",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 254,
+  "n_test_samples": 255,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-07",
-  "ic_full": 0.13631878321650154,
-  "ic_pvalue": 0.029855896761916096,
+  "test_end": "2026-01-08",
+  "ic_full": 0.14638576887447893,
+  "ic_pvalue": 0.019349882546494012,
   "ic_first_half": 0.23081294525684284,
-  "ic_second_half": 0.11402676227971502,
-  "accuracy_ref": 0.33070866141732286,
+  "ic_second_half": 0.1345792895074162,
+  "accuracy_ref": 0.3333333333333333,
   "precision_ref": 0.0,
   "train_accuracy_ref": 0.7306818181818182,
-  "gap_ref": 0.39997315676449535,
-  "gap_signed_ref": 0.39997315676449535,
-  "gap_abs_ref": 0.39997315676449535,
-  "proba_std_test": 0.051377570503018284,
-  "proba_unique_test": 254,
+  "gap_ref": 0.3973484848484849,
+  "gap_signed_ref": 0.3973484848484849,
+  "gap_abs_ref": 0.3973484848484849,
+  "proba_std_test": 0.05155043742849172,
+  "proba_unique_test": 255,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.20571628978898449,
-    "mean": 0.3042509403422797,
+    "mean": 0.30391806669611937,
     "max": 0.4560956811522474
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-08",
-    "end": "2026-04-06"
+    "start": "2026-01-09",
+    "end": "2026-04-07"
   },
   "p_ens_future_stats": {
     "min": 0.2107346012586696,
-    "mean": 0.33119133314940175,
+    "mean": 0.33260590933090467,
     "max": 0.411693654041228
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-06",
-    "p_ens": 0.3215003883273749
+    "trade_date": "2026-04-07",
+    "p_ens": 0.3042427314615942
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

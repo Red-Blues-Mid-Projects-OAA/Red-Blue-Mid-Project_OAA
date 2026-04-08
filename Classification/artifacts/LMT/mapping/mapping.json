@@ -1,12 +1,12 @@
 {
   "ticker": "LMT",
-  "beta_ols": 0.14282236117788302,
-  "beta_ewma": 0.3698735183655303,
-  "beta_final": 0.2109377083341772,
+  "beta_ols": 0.14276719093555257,
+  "beta_ewma": 0.35890931763871325,
+  "beta_final": 0.20760982894650076,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.012150587476637352,
+  "expected_capm_return_3m_log": 0.012097356819719018,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

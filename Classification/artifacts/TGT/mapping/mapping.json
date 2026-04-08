@@ -1,12 +1,12 @@
 {
   "ticker": "TGT",
-  "beta_ols": 0.8037869388769622,
-  "beta_ewma": 0.3188291735029288,
-  "beta_final": 0.6582996092647522,
+  "beta_ols": 0.803713976046962,
+  "beta_ewma": 0.30291435467616346,
+  "beta_final": 0.6534740896357224,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01928063614085572,
+  "expected_capm_return_3m_log": 0.019203997661898904,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

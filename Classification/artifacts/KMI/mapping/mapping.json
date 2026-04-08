@@ -1,12 +1,12 @@
 {
   "ticker": "KMI",
-  "beta_ols": 0.5195807090579434,
-  "beta_ewma": 0.07760896641334049,
-  "beta_final": 0.38698918626456247,
+  "beta_ols": 0.5195869431313337,
+  "beta_ewma": 0.07916767466810237,
+  "beta_final": 0.38746116259236424,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.014962563469370868,
+  "expected_capm_return_3m_log": 0.014970091476917828,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

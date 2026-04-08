@@ -1,12 +1,12 @@
 {
   "ticker": "WDC",
-  "beta_ols": 1.912567037032851,
-  "beta_ewma": 2.998991305764118,
-  "beta_final": 2.238494317652231,
+  "beta_ols": 1.9126371098784443,
+  "beta_ewma": 3.0087752994986525,
+  "beta_final": 2.2414785667645063,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04406646577806757,
+  "expected_capm_return_3m_log": 0.04411269822006168,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

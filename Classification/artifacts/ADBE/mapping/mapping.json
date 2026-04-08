@@ -1,12 +1,12 @@
 {
   "ticker": "ADBE",
-  "beta_ols": 0.9560956097652695,
-  "beta_ewma": 0.398235987877551,
-  "beta_final": 0.788737723198954,
+  "beta_ols": 0.9560431530077976,
+  "beta_ewma": 0.3888578583068981,
+  "beta_final": 0.7858875645975277,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.021350020776410645,
+  "expected_capm_return_3m_log": 0.021304849094359042,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

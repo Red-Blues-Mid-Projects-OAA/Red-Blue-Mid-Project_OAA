@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-07T15:23:58",
-  "data_snapshot_end_date": "2026-04-06",
+  "generated_at": "2026-04-08T12:55:32",
+  "data_snapshot_end_date": "2026-04-07",
   "feature_count": 16,
   "ticker": "HPE",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 254,
+  "n_test_samples": 255,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-07",
-  "ic_full": 0.7479692508792132,
-  "ic_pvalue": 9.289475018489419e-47,
+  "test_end": "2026-01-08",
+  "ic_full": 0.7475248957850857,
+  "ic_pvalue": 7.450660714847715e-47,
   "ic_first_half": 0.7673650168728907,
-  "ic_second_half": 0.6709903449568803,
-  "accuracy_ref": 0.8661417322834646,
-  "precision_ref": 0.8380281690140845,
+  "ic_second_half": 0.6755344717084782,
+  "accuracy_ref": 0.8666666666666667,
+  "precision_ref": 0.8391608391608392,
   "train_accuracy_ref": 0.8772727272727273,
-  "gap_ref": 0.011130994989262732,
-  "gap_signed_ref": 0.011130994989262732,
-  "gap_abs_ref": 0.011130994989262732,
-  "proba_std_test": 0.22667084437086743,
-  "proba_unique_test": 254,
+  "gap_ref": 0.010606060606060619,
+  "gap_signed_ref": 0.010606060606060619,
+  "gap_abs_ref": 0.010606060606060619,
+  "proba_std_test": 0.22629689265499237,
+  "proba_unique_test": 255,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.10527840715954506,
-    "mean": 0.5484681184094924,
+    "mean": 0.5488236198634844,
     "max": 0.8510636675406508
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-08",
-    "end": "2026-04-06"
+    "start": "2026-01-09",
+    "end": "2026-04-07"
   },
   "p_ens_future_stats": {
     "min": 0.422944462589395,
-    "mean": 0.6385965198859792,
+    "mean": 0.6352082017125249,
     "max": 0.7745549396061563
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-06",
-    "p_ens": 0.422944462589395
+    "trade_date": "2026-04-07",
+    "p_ens": 0.4358218898294519
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

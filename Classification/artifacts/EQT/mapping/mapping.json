@@ -1,12 +1,12 @@
 {
   "ticker": "EQT",
-  "beta_ols": 0.7505129147787928,
-  "beta_ewma": -0.05428093996384343,
-  "beta_final": 0.5090747583560019,
+  "beta_ols": 0.7505253837067487,
+  "beta_ewma": -0.0501583395177151,
+  "beta_final": 0.5103202667394094,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01690793835499838,
+  "expected_capm_return_3m_log": 0.016927765443614694,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

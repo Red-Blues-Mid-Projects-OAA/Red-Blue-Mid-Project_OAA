@@ -1,12 +1,12 @@
 {
   "ticker": "MCHP",
-  "beta_ols": 2.035289949940905,
-  "beta_ewma": 1.8383392798155325,
-  "beta_final": 1.9762047489032932,
+  "beta_ols": 2.035304225639668,
+  "beta_ewma": 1.8393929679440713,
+  "beta_final": 1.9765308483309887,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.039994663330551086,
+  "expected_capm_return_3m_log": 0.03999973602958115,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

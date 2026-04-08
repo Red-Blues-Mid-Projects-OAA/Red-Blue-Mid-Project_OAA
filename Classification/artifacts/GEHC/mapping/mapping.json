@@ -1,12 +1,12 @@
 {
   "ticker": "GEHC",
-  "beta_ols": 1.219349724019663,
-  "beta_ewma": 1.3197415649930782,
-  "beta_final": 1.2494672763116874,
+  "beta_ols": 1.2193182010895334,
+  "beta_ewma": 1.3146359068616253,
+  "beta_final": 1.247913512821161,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.028625351175145277,
+  "expected_capm_return_3m_log": 0.02860090460078005,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }

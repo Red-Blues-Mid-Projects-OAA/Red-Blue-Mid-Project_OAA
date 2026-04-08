@@ -1,12 +1,12 @@
 {
   "ticker": "TER",
-  "beta_ols": 2.117776018609451,
-  "beta_ewma": 2.920164081135453,
-  "beta_final": 2.3584924373672513,
+  "beta_ols": 2.117820547950643,
+  "beta_ewma": 2.925393654392212,
+  "beta_final": 2.3600924798831135,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.045923811972844474,
+  "expected_capm_return_3m_log": 0.04594855434381825,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "Return_Type": "CAPM"
 }
