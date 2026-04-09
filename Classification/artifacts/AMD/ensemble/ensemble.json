@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-08T12:51:02",
-  "data_snapshot_end_date": "2026-04-07",
+  "generated_at": "2026-04-09T12:46:01",
+  "data_snapshot_end_date": "2026-04-08",
   "feature_count": 16,
   "ticker": "AMD",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 254,
+  "n_test_samples": 255,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-07",
-  "ic_full": 0.14344768749988557,
-  "ic_pvalue": 0.022210857338072067,
+  "test_end": "2026-01-08",
+  "ic_full": 0.1452017716535433,
+  "ic_pvalue": 0.02036247342746966,
   "ic_first_half": -0.566993578927634,
-  "ic_second_half": 0.8208837176602923,
-  "accuracy_ref": 0.3858267716535433,
+  "ic_second_half": 0.8240821278154185,
+  "accuracy_ref": 0.3843137254901961,
   "precision_ref": 0.631578947368421,
   "train_accuracy_ref": 0.7534090909090909,
-  "gap_ref": 0.36758231925554763,
-  "gap_signed_ref": 0.36758231925554763,
-  "gap_abs_ref": 0.36758231925554763,
-  "proba_std_test": 0.20766890562034512,
-  "proba_unique_test": 254,
+  "gap_ref": 0.3690953654188948,
+  "gap_signed_ref": 0.3690953654188948,
+  "gap_abs_ref": 0.3690953654188948,
+  "proba_std_test": 0.207489103880644,
+  "proba_unique_test": 255,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.1841731111042448,
-    "mean": 0.4623438474325361,
+    "mean": 0.46173396521739146,
     "max": 0.8459743664932501
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-08",
-    "end": "2026-04-07"
+    "start": "2026-01-09",
+    "end": "2026-04-08"
   },
   "p_ens_future_stats": {
     "min": 0.22305222043759237,
-    "mean": 0.32747917911735247,
+    "mean": 0.3308491618244053,
     "max": 0.575201124015905
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-07",
-    "p_ens": 0.47272888314542305
+    "trade_date": "2026-04-08",
+    "p_ens": 0.5090228472290019
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

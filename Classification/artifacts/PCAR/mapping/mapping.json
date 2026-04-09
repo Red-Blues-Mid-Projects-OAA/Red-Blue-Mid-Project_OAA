@@ -1,12 +1,12 @@
 {
   "ticker": "PCAR",
-  "beta_ols": 0.8837995317834286,
-  "beta_ewma": 1.0106176865518388,
-  "beta_final": 0.9218449782139517,
+  "beta_ols": 0.8956871224889636,
+  "beta_ewma": 1.251690774917291,
+  "beta_final": 1.002488218217462,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.023457345552929297,
+  "expected_capm_return_3m_log": 0.024731914684186732,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

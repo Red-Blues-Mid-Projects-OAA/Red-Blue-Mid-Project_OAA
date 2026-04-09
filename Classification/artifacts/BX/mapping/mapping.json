@@ -1,12 +1,12 @@
 {
   "ticker": "BX",
-  "beta_ols": 1.5022773438194132,
-  "beta_ewma": 0.8616869464555933,
-  "beta_final": 1.310100224610267,
+  "beta_ols": 1.5051578108448713,
+  "beta_ewma": 1.0891267187686886,
+  "beta_final": 1.3803484832220163,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.029578870295726995,
+  "expected_capm_return_3m_log": 0.030682464930749165,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

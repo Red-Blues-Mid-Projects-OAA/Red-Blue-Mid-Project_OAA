@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-08T12:53:48",
-  "data_snapshot_end_date": "2026-04-07",
+  "generated_at": "2026-04-09T12:48:58",
+  "data_snapshot_end_date": "2026-04-08",
   "feature_count": 16,
   "ticker": "F",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 255,
+  "n_test_samples": 256,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-08",
-  "ic_full": -0.053161909448818906,
-  "ic_pvalue": 0.39791279662484014,
-  "ic_first_half": -0.26599409448818895,
-  "ic_second_half": 0.3127746749679545,
-  "accuracy_ref": 0.35294117647058826,
+  "test_end": "2026-01-09",
+  "ic_full": -0.05081182764934767,
+  "ic_pvalue": 0.4182082243611733,
+  "ic_first_half": -0.2601114722578282,
+  "ic_second_half": 0.31496062992125984,
+  "accuracy_ref": 0.35546875,
   "precision_ref": 0.9,
   "train_accuracy_ref": 0.7670454545454546,
-  "gap_ref": 0.4141042780748663,
-  "gap_signed_ref": 0.4141042780748663,
-  "gap_abs_ref": 0.4141042780748663,
-  "proba_std_test": 0.0724766338312394,
-  "proba_unique_test": 255,
+  "gap_ref": 0.4115767045454546,
+  "gap_signed_ref": 0.4115767045454546,
+  "gap_abs_ref": 0.4115767045454546,
+  "proba_std_test": 0.07234375779228251,
+  "proba_unique_test": 256,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.19146986473438243,
-    "mean": 0.37176687971123645,
+    "mean": 0.37169614591167544,
     "max": 0.6476520900451174
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-09",
-    "end": "2026-04-07"
+    "start": "2026-01-12",
+    "end": "2026-04-08"
   },
   "p_ens_future_stats": {
     "min": 0.29861664893353024,
-    "mean": 0.4431674903983663,
+    "mean": 0.4464970748764178,
     "max": 0.5913740104699854
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-07",
-    "p_ens": 0.491125512359511
+    "trade_date": "2026-04-08",
+    "p_ens": 0.5534340927264761
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

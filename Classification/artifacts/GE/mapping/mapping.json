@@ -1,12 +1,12 @@
 {
   "ticker": "GE",
-  "beta_ols": 1.2000068573779015,
-  "beta_ewma": 1.5623741306503094,
-  "beta_final": 1.3087170393596237,
+  "beta_ols": 1.2148091728766381,
+  "beta_ewma": 1.8517270196280815,
+  "beta_final": 1.4058845269020712,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.029557128332712655,
+  "expected_capm_return_3m_log": 0.031083332533968132,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

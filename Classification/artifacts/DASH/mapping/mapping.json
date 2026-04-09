@@ -1,12 +1,12 @@
 {
   "ticker": "DASH",
-  "beta_ols": 1.337669505507684,
-  "beta_ewma": 1.216091344509119,
-  "beta_final": 1.3011960572081145,
+  "beta_ols": 1.3364179980898323,
+  "beta_ewma": 1.2448383204438191,
+  "beta_final": 1.3089440947960282,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.029438899512619188,
+  "expected_capm_return_3m_log": 0.029560697396043084,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

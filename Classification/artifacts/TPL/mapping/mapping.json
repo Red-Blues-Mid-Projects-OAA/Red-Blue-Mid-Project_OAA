@@ -1,12 +1,12 @@
 {
   "ticker": "TPL",
-  "beta_ols": 1.2322603085987158,
-  "beta_ewma": 0.5595659820564484,
-  "beta_final": 1.0304520106360355,
+  "beta_ols": 1.2172293747663696,
+  "beta_ewma": 0.42072993792333163,
+  "beta_final": 0.9782795437134582,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.025173504312341763,
+  "expected_capm_return_3m_log": 0.024349466375756496,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "STT",
-  "beta_ols": 1.034862797481093,
-  "beta_ewma": 1.0042236996267315,
-  "beta_final": 1.0256710681247847,
+  "beta_ols": 1.0394852250504822,
+  "beta_ewma": 1.0936075740309221,
+  "beta_final": 1.055721929744614,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02509801997950284,
+  "expected_capm_return_3m_log": 0.025572386038944038,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

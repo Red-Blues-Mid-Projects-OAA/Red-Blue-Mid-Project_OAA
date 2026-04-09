@@ -1,12 +1,12 @@
 {
   "ticker": "ATO",
-  "beta_ols": 0.17211723852040448,
-  "beta_ewma": 0.0026186084163933097,
-  "beta_final": 0.12126764948920112,
+  "beta_ols": 0.1721022151570597,
+  "beta_ewma": 0.03433330041588311,
+  "beta_final": 0.13077154073470673,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.010715290475406624,
+  "expected_capm_return_3m_log": 0.010867511427494292,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

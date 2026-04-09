@@ -1,12 +1,12 @@
 {
   "ticker": "EQIX",
-  "beta_ols": 0.7261796650588641,
-  "beta_ewma": 0.4616011468397165,
-  "beta_final": 0.6468061095931199,
+  "beta_ols": 0.7228205898183474,
+  "beta_ewma": 0.4136012312381242,
+  "beta_final": 0.6300547822442805,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01909808772208297,
+  "expected_capm_return_3m_log": 0.018831970832309322,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

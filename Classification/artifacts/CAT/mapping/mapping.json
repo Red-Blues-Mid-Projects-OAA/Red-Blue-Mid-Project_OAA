@@ -1,12 +1,12 @@
 {
   "ticker": "CAT",
-  "beta_ols": 1.2459356260539893,
-  "beta_ewma": 1.7011532117546853,
-  "beta_final": 1.382500901764198,
+  "beta_ols": 1.2594009988702972,
+  "beta_ewma": 1.8902167584152159,
+  "beta_final": 1.4486457267337727,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.030716260034434305,
+  "expected_capm_return_3m_log": 0.03175424288220618,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }

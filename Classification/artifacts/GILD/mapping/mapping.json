@@ -1,12 +1,12 @@
 {
   "ticker": "GILD",
-  "beta_ols": 0.3321912612145473,
-  "beta_ewma": 0.7718152887235226,
-  "beta_final": 0.46407846946723985,
+  "beta_ols": 0.3366896102788314,
+  "beta_ewma": 0.7831159603566917,
+  "beta_final": 0.4706175153021894,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.016191384424115874,
+  "expected_capm_return_3m_log": 0.01629554888146239,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "Return_Type": "CAPM"
 }
