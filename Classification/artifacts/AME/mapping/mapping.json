@@ -1,12 +1,12 @@
 {
   "ticker": "AME",
-  "beta_ols": 0.8333470144774545,
-  "beta_ewma": 1.3288752171611051,
-  "beta_final": 0.9820054752825497,
+  "beta_ols": 0.8341058998756385,
+  "beta_ewma": 1.3354645188554157,
+  "beta_final": 0.9845134855695716,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.024408338116019584,
+  "expected_capm_return_3m_log": 0.024447964087674884,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:46:52",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:52:50",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "NEM",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.3141343842984664,
-  "ic_pvalue": 2.865970207360457e-07,
+  "test_end": "2026-01-12",
+  "ic_full": 0.3189806069586463,
+  "ic_pvalue": 1.7333628978521066e-07,
   "ic_first_half": 0.5425059512909723,
-  "ic_second_half": 0.2113909998168833,
-  "accuracy_ref": 0.0625,
+  "ic_second_half": 0.22134950805008946,
+  "accuracy_ref": 0.0622568093385214,
   "precision_ref": 0.0,
   "train_accuracy_ref": 0.75,
-  "gap_ref": 0.6875,
-  "gap_signed_ref": 0.6875,
-  "gap_abs_ref": 0.6875,
-  "proba_std_test": 0.07528986984308708,
-  "proba_unique_test": 256,
+  "gap_ref": 0.6877431906614786,
+  "gap_signed_ref": 0.6877431906614786,
+  "gap_abs_ref": 0.6877431906614786,
+  "proba_std_test": 0.07534870827799232,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.19114244274192205,
-    "mean": 0.35911850327883676,
+    "mean": 0.35877096725674323,
     "max": 0.49182148460701686
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.2620938362209293,
-    "mean": 0.3375175094651102,
+    "mean": 0.3381355643559015,
     "max": 0.42399527074112653
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.3060618250847887
+    "trade_date": "2026-04-09",
+    "p_ens": 0.3068850375581513
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

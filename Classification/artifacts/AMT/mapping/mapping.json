@@ -1,12 +1,12 @@
 {
   "ticker": "AMT",
-  "beta_ols": 0.022586104309335164,
-  "beta_ewma": 0.288874966364099,
-  "beta_final": 0.1024727629257643,
+  "beta_ols": 0.024670397869603383,
+  "beta_ewma": 0.33177025151945716,
+  "beta_final": 0.11680035396455951,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.010414190221938749,
+  "expected_capm_return_3m_log": 0.010643731147516525,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

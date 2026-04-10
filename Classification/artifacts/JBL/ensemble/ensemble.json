@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:50:45",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:56:34",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "JBL",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.40598678187228193,
-  "ic_pvalue": 1.4063602980120212e-11,
+  "test_end": "2026-01-12",
+  "ic_full": 0.39591015518957556,
+  "ic_pvalue": 4.484960072928892e-11,
   "ic_first_half": 0.7766205823109321,
-  "ic_second_half": -0.046751968503937,
-  "accuracy_ref": 0.66796875,
+  "ic_second_half": -0.06708966905187837,
+  "accuracy_ref": 0.6653696498054474,
   "precision_ref": 0.712707182320442,
   "train_accuracy_ref": 0.7772727272727272,
-  "gap_ref": 0.10930397727272723,
-  "gap_signed_ref": 0.10930397727272723,
-  "gap_abs_ref": 0.10930397727272723,
-  "proba_std_test": 0.1471677122166867,
-  "proba_unique_test": 256,
+  "gap_ref": 0.11190307746727979,
+  "gap_signed_ref": 0.11190307746727979,
+  "gap_abs_ref": 0.11190307746727979,
+  "proba_std_test": 0.14760588857186074,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.31309266488001836,
-    "mean": 0.5829992472032803,
+    "mean": 0.5820861555691841,
     "max": 0.8455095189432726
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.2780285227466553,
-    "mean": 0.46990794024604526,
+    "mean": 0.47193987325687503,
     "max": 0.7443534190574477
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.524754083653362
+    "trade_date": "2026-04-09",
+    "p_ens": 0.47025067416504746
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

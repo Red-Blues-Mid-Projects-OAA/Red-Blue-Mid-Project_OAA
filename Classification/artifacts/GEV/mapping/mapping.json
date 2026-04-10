@@ -1,12 +1,12 @@
 {
   "ticker": "GEV",
-  "beta_ols": 1.8714960447602298,
-  "beta_ewma": 1.811760065910393,
-  "beta_final": 1.8535752511052785,
+  "beta_ols": 1.8735220927813863,
+  "beta_ewma": 1.8511648439392283,
+  "beta_final": 1.8668149181287388,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03808525124089834,
+  "expected_capm_return_3m_log": 0.0382915761521466,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

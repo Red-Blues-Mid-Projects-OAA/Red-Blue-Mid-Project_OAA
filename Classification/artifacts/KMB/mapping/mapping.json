@@ -1,12 +1,12 @@
 {
   "ticker": "KMB",
-  "beta_ols": 0.09204320895980891,
-  "beta_ewma": 0.7011387121108005,
-  "beta_final": 0.2747718599051064,
+  "beta_ols": 0.09298833296390586,
+  "beta_ewma": 0.7184747382933702,
+  "beta_final": 0.28063425456274516,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013171090184667718,
+  "expected_capm_return_3m_log": 0.013264758822019183,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

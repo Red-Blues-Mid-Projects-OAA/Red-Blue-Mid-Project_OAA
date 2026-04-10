@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:46:22",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:52:21",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "AMGN",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": -0.06495622568093384,
-  "ic_pvalue": 0.30052545042645346,
+  "test_end": "2026-01-12",
+  "ic_full": -0.06481172518324133,
+  "ic_pvalue": 0.3006527016141994,
   "ic_first_half": 0.19516800952206553,
-  "ic_second_half": 0.20651551913568944,
-  "accuracy_ref": 0.40625,
+  "ic_second_half": 0.2075357781753131,
+  "accuracy_ref": 0.4046692607003891,
   "precision_ref": 0.3382352941176471,
   "train_accuracy_ref": 0.8136363636363636,
-  "gap_ref": 0.4073863636363636,
-  "gap_signed_ref": 0.4073863636363636,
-  "gap_abs_ref": 0.4073863636363636,
-  "proba_std_test": 0.09647655141289678,
-  "proba_unique_test": 256,
+  "gap_ref": 0.4089671029359745,
+  "gap_signed_ref": 0.4089671029359745,
+  "gap_abs_ref": 0.4089671029359745,
+  "proba_std_test": 0.09629195973657534,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.2536532606456061,
-    "mean": 0.4173858464124588,
+    "mean": 0.4173361062253063,
     "max": 0.6060893462023464
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.29420108466864964,
-    "mean": 0.40399451188061225,
+    "mean": 0.40263121736145346,
     "max": 0.5027660811355601
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.37806002813960143
+    "trade_date": "2026-04-09",
+    "p_ens": 0.32280494567463247
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

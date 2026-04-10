@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:47:49",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:53:45",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "ICE",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.15839937628747996,
-  "ic_pvalue": 0.011147825269646935,
+  "test_end": "2026-01-12",
+  "ic_full": 0.1587321000361958,
+  "ic_pvalue": 0.010820528408557385,
   "ic_first_half": 0.5219053286943782,
-  "ic_second_half": 0.3337071964841604,
-  "accuracy_ref": 0.58203125,
+  "ic_second_half": 0.32887410554561725,
+  "accuracy_ref": 0.5836575875486382,
   "precision_ref": 0.3709677419354839,
   "train_accuracy_ref": 0.7238636363636364,
-  "gap_ref": 0.14183238636363638,
-  "gap_signed_ref": 0.14183238636363638,
-  "gap_abs_ref": 0.14183238636363638,
-  "proba_std_test": 0.08726659435223445,
-  "proba_unique_test": 256,
+  "gap_ref": 0.1402060488149982,
+  "gap_signed_ref": 0.1402060488149982,
+  "gap_abs_ref": 0.1402060488149982,
+  "proba_std_test": 0.08709665318284086,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.28984905832457997,
-    "mean": 0.42303837836170094,
+    "mean": 0.4230367972026998,
     "max": 0.5876270358392403
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.3166509981544093,
-    "mean": 0.3994631769461376,
+    "mean": 0.39815630960620285,
     "max": 0.4540995941028062
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.3166509981544093
+    "trade_date": "2026-04-09",
+    "p_ens": 0.3442199801023127
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

@@ -1,12 +1,12 @@
 {
   "ticker": "ED",
-  "beta_ols": -0.1661676481416016,
-  "beta_ewma": -0.2261690646786185,
-  "beta_final": -0.18416807310270666,
+  "beta_ols": -0.16491434739728436,
+  "beta_ewma": -0.199663763367203,
+  "beta_final": -0.17533917218825995,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.005810839331156365,
+  "expected_capm_return_3m_log": 0.0059529451270832695,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

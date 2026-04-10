@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:50:35",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:56:25",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "EQT",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": -0.37319180590524137,
-  "ic_pvalue": 7.001776093090495e-10,
+  "test_end": "2026-01-12",
+  "ic_full": -0.37996420007239157,
+  "ic_pvalue": 2.9873617510679177e-10,
   "ic_first_half": -0.2821827504120124,
-  "ic_second_half": -0.38235900018311664,
-  "accuracy_ref": 0.4375,
+  "ic_second_half": -0.3960084973166369,
+  "accuracy_ref": 0.4357976653696498,
   "precision_ref": 0.4375,
   "train_accuracy_ref": 0.8670454545454546,
-  "gap_ref": 0.42954545454545456,
-  "gap_signed_ref": 0.42954545454545456,
-  "gap_abs_ref": 0.42954545454545456,
-  "proba_std_test": 0.13451288343389053,
-  "proba_unique_test": 256,
+  "gap_ref": 0.43124778917580475,
+  "gap_signed_ref": 0.43124778917580475,
+  "gap_abs_ref": 0.43124778917580475,
+  "proba_std_test": 0.13481475340571564,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.2241829850866241,
-    "mean": 0.5064990353108134,
+    "mean": 0.505729230420744,
     "max": 0.7116234373993618
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.26242731221287297,
-    "mean": 0.3442917251982076,
+    "mean": 0.34383300806136624,
     "max": 0.4655063395971073
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.3127928606336075
+    "trade_date": "2026-04-09",
+    "p_ens": 0.28113615109753864
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

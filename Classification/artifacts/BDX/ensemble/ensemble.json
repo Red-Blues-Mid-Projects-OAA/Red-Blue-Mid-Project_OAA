@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:49:29",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:55:21",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "BDX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": -0.5317456797894254,
-  "ic_pvalue": 4.3559546665720116e-20,
+  "test_end": "2026-01-12",
+  "ic_full": -0.5299718351280427,
+  "ic_pvalue": 5.160594990229036e-20,
   "ic_first_half": -0.24711591283647683,
-  "ic_second_half": -0.1377151620582311,
-  "accuracy_ref": 0.51171875,
+  "ic_second_half": -0.13498993738819323,
+  "accuracy_ref": 0.5136186770428015,
   "precision_ref": 0.3103448275862069,
   "train_accuracy_ref": 0.6909090909090909,
-  "gap_ref": 0.17919034090909092,
-  "gap_signed_ref": 0.17919034090909092,
-  "gap_abs_ref": 0.17919034090909092,
-  "proba_std_test": 0.11281938938995978,
-  "proba_unique_test": 256,
+  "gap_ref": 0.1772904138662894,
+  "gap_signed_ref": 0.1772904138662894,
+  "gap_abs_ref": 0.1772904138662894,
+  "proba_std_test": 0.1127355314574308,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.191678247307187,
-    "mean": 0.31931324963424523,
+    "mean": 0.318967451431706,
     "max": 0.6291656676369712
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.2129455528033342,
-    "mean": 0.2872614510155797,
+    "mean": 0.2879295792304371,
     "max": 0.36176898851297357
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.2768192643060145
+    "trade_date": "2026-04-09",
+    "p_ens": 0.270530804379976
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

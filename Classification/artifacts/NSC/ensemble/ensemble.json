@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:48:48",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:54:40",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "NSC",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.21521300640878915,
-  "ic_pvalue": 0.0005257648953908534,
+  "test_end": "2026-01-12",
+  "ic_full": 0.2168603237263596,
+  "ic_pvalue": 0.00046291282895998605,
   "ic_first_half": 0.06661440212415308,
-  "ic_second_half": 0.3208489745467863,
-  "accuracy_ref": 0.515625,
+  "ic_second_half": 0.3266994633273704,
+  "accuracy_ref": 0.5136186770428015,
   "precision_ref": 0.74,
   "train_accuracy_ref": 0.8272727272727273,
-  "gap_ref": 0.31164772727272727,
-  "gap_signed_ref": 0.31164772727272727,
-  "gap_abs_ref": 0.31164772727272727,
-  "proba_std_test": 0.13979499665211248,
-  "proba_unique_test": 256,
+  "gap_ref": 0.31365405022992576,
+  "gap_signed_ref": 0.31365405022992576,
+  "gap_abs_ref": 0.31365405022992576,
+  "proba_std_test": 0.13963202251141307,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.13386061992690476,
-    "mean": 0.3428541837079702,
+    "mean": 0.34319936270749807,
     "max": 0.6633693733480914
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.28416731162197617,
-    "mean": 0.4352950852396937,
-    "max": 0.617434802044161
+    "mean": 0.4358626254848107,
+    "max": 0.6174348020441609
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.4151762760069939
+    "trade_date": "2026-04-09",
+    "p_ens": 0.46561760427388826
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

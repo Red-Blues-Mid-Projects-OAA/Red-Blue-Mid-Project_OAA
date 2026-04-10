@@ -1,12 +1,12 @@
 {
   "ticker": "ORLY",
-  "beta_ols": 0.25902358015866467,
-  "beta_ewma": 0.40687966740883963,
-  "beta_final": 0.30338040633371716,
+  "beta_ols": 0.260223117615028,
+  "beta_ewma": 0.43146858192737164,
+  "beta_final": 0.31159675690873107,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013628111060460548,
+  "expected_capm_return_3m_log": 0.013759328475057548,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

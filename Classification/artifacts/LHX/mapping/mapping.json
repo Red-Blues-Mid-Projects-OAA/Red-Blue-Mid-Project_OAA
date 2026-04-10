@@ -1,12 +1,12 @@
 {
   "ticker": "LHX",
-  "beta_ols": 0.39752015026051335,
-  "beta_ewma": 0.6944956268211409,
-  "beta_final": 0.48661279322870155,
+  "beta_ols": 0.39610930887724183,
+  "beta_ewma": 0.6601801998781247,
+  "beta_final": 0.4753305761775066,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.016550301716557483,
+  "expected_capm_return_3m_log": 0.016370619380549182,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

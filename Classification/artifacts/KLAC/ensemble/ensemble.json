@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:46:21",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:52:21",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "KLAC",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": -0.09532001029983976,
-  "ic_pvalue": 0.1282292178365732,
+  "test_end": "2026-01-12",
+  "ic_full": -0.09974776038367567,
+  "ic_pvalue": 0.11065318958562861,
   "ic_first_half": 0.2114310565830434,
-  "ic_second_half": -0.008732375022889581,
-  "accuracy_ref": 0.4140625,
+  "ic_second_half": -0.012511180679785332,
+  "accuracy_ref": 0.41245136186770426,
   "precision_ref": 0.8660714285714286,
   "train_accuracy_ref": 0.8375,
-  "gap_ref": 0.4234375,
-  "gap_signed_ref": 0.4234375,
-  "gap_abs_ref": 0.4234375,
-  "proba_std_test": 0.28821454269803715,
-  "proba_unique_test": 256,
+  "gap_ref": 0.42504863813229576,
+  "gap_signed_ref": 0.42504863813229576,
+  "gap_abs_ref": 0.42504863813229576,
+  "proba_std_test": 0.28846503425680114,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.09842843165800993,
-    "mean": 0.4961627768568286,
+    "mean": 0.4948111665793094,
     "max": 0.941420368376849
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.10970176450524873,
-    "mean": 0.1747772630550224,
+    "mean": 0.17443207710027367,
     "max": 0.3493196301158426
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.12933404136950796
+    "trade_date": "2026-04-09",
+    "p_ens": 0.128087779367067
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

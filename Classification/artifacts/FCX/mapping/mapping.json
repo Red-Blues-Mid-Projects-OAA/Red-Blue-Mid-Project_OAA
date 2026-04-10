@@ -1,12 +1,12 @@
 {
   "ticker": "FCX",
-  "beta_ols": 1.5701570916245176,
-  "beta_ewma": 2.3355891830419124,
-  "beta_final": 1.7997867190497359,
+  "beta_ols": 1.5712437005717628,
+  "beta_ewma": 2.3419749055973766,
+  "beta_final": 1.8024630620794468,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.037246581059452284,
+  "expected_capm_return_3m_log": 0.03728832720176029,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

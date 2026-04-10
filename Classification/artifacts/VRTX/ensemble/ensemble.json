@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:47:07",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:53:04",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "VRTX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": -0.28402165827420456,
-  "ic_pvalue": 3.882932234152547e-06,
+  "test_end": "2026-01-12",
+  "ic_full": -0.2842785720749253,
+  "ic_pvalue": 3.63873995900054e-06,
   "ic_first_half": 0.08085172129646584,
-  "ic_second_half": -0.19219236403589088,
-  "accuracy_ref": 0.41015625,
+  "ic_second_half": -0.1930288461538462,
+  "accuracy_ref": 0.41245136186770426,
   "precision_ref": 0.4233576642335766,
   "train_accuracy_ref": 0.8613636363636363,
-  "gap_ref": 0.45120738636363633,
-  "gap_signed_ref": 0.45120738636363633,
-  "gap_abs_ref": 0.45120738636363633,
-  "proba_std_test": 0.10294624831793035,
-  "proba_unique_test": 256,
+  "gap_ref": 0.4489122744959321,
+  "gap_signed_ref": 0.4489122744959321,
+  "gap_abs_ref": 0.4489122744959321,
+  "proba_std_test": 0.10276474174763267,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.32907107251734835,
-    "mean": 0.5071251860734463,
+    "mean": 0.5070017713508799,
     "max": 0.7150856284004183
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.4707468485967728,
-    "mean": 0.6201038157718254,
+    "mean": 0.6211833295063799,
     "max": 0.6902109649344162
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.5659140772760356
+    "trade_date": "2026-04-09",
+    "p_ens": 0.5401784279372704
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

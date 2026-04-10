@@ -1,12 +1,12 @@
 {
   "ticker": "AMP",
-  "beta_ols": 1.0855125006221666,
-  "beta_ewma": 0.9501458508149323,
-  "beta_final": 1.0449025056799963,
+  "beta_ols": 1.0848423970893124,
+  "beta_ewma": 0.9386170118401909,
+  "beta_final": 1.040974781514576,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.025401622597124095,
+  "expected_capm_return_3m_log": 0.025339623940228737,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

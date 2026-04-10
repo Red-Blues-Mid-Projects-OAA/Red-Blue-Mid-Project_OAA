@@ -1,12 +1,12 @@
 {
   "ticker": "LEN",
-  "beta_ols": 0.7434172282209521,
-  "beta_ewma": 1.1453135564880843,
-  "beta_final": 0.8639861267010918,
+  "beta_ols": 0.7434236183010036,
+  "beta_ewma": 1.1504779010134314,
+  "beta_final": 0.8655399031147318,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.022541882523047625,
+  "expected_capm_return_3m_log": 0.022566477872128083,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

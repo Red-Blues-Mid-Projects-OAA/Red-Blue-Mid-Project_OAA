@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:47:37",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:53:35",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "FCX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.03848563744563973,
-  "ic_pvalue": 0.5398869984285134,
+  "test_end": "2026-01-12",
+  "ic_full": 0.03355819043525473,
+  "ic_pvalue": 0.592299265304848,
   "ic_first_half": 0.18996635231642559,
-  "ic_second_half": 0.2934902032594763,
-  "accuracy_ref": 0.48828125,
+  "ic_second_half": 0.29280523255813956,
+  "accuracy_ref": 0.48638132295719844,
   "precision_ref": 0.5789473684210527,
   "train_accuracy_ref": 0.8534090909090909,
-  "gap_ref": 0.3651278409090909,
-  "gap_signed_ref": 0.3651278409090909,
-  "gap_abs_ref": 0.3651278409090909,
-  "proba_std_test": 0.16416370405998926,
-  "proba_unique_test": 256,
+  "gap_ref": 0.36702776795189246,
+  "gap_signed_ref": 0.36702776795189246,
+  "gap_abs_ref": 0.36702776795189246,
+  "proba_std_test": 0.1648009502047468,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.17213571961178517,
-    "mean": 0.477460552545775,
+    "mean": 0.47635217854639345,
     "max": 0.7792240073072112
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.15478929453417548,
-    "mean": 0.22836745975512648,
+    "mean": 0.22918180119013018,
     "max": 0.44137477049071255
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.3111852072786173
+    "trade_date": "2026-04-09",
+    "p_ens": 0.24146892229503925
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

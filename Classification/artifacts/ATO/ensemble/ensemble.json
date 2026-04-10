@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:50:38",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:56:28",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "ATO",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": -0.600189545662623,
-  "ic_pvalue": 1.919077273721845e-26,
+  "test_end": "2026-01-12",
+  "ic_full": -0.6001061838295176,
+  "ic_pvalue": 1.5630884476224473e-26,
   "ic_first_half": -0.6488509430507233,
-  "ic_second_half": -0.5119998626625161,
-  "accuracy_ref": 0.3671875,
+  "ic_second_half": -0.5123434704830054,
+  "accuracy_ref": 0.3657587548638132,
   "precision_ref": 0.11764705882352941,
   "train_accuracy_ref": 0.7954545454545454,
-  "gap_ref": 0.4282670454545454,
-  "gap_signed_ref": 0.4282670454545454,
-  "gap_abs_ref": 0.4282670454545454,
-  "proba_std_test": 0.0762680407629053,
-  "proba_unique_test": 256,
+  "gap_ref": 0.4296957905907322,
+  "gap_signed_ref": 0.4296957905907322,
+  "gap_abs_ref": 0.4296957905907322,
+  "proba_std_test": 0.076174042190139,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.25656175605628817,
-    "mean": 0.4329068133147975,
+    "mean": 0.43272670723228435,
     "max": 0.6420294355484005
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.3209206347569342,
-    "mean": 0.529394694918747,
+    "mean": 0.5316477531170464,
     "max": 0.6652202505728743
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.604496808664286
+    "trade_date": "2026-04-09",
+    "p_ens": 0.5218030442420384
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

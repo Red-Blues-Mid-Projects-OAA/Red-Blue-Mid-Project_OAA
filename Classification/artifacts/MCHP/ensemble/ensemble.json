@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:49:38",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:55:29",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "MCHP",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.4734485763401899,
-  "ic_pvalue": 1.0463074433729005e-15,
+  "test_end": "2026-01-12",
+  "ic_full": 0.47113098746880533,
+  "ic_pvalue": 1.3237286119742402e-15,
   "ic_first_half": 0.5932785590964549,
-  "ic_second_half": 0.3348345083318074,
-  "accuracy_ref": 0.55078125,
+  "ic_second_half": 0.33076364042933815,
+  "accuracy_ref": 0.5525291828793775,
   "precision_ref": 0.0,
   "train_accuracy_ref": 0.8375,
-  "gap_ref": 0.28671875,
-  "gap_signed_ref": 0.28671875,
-  "gap_abs_ref": 0.28671875,
-  "proba_std_test": 0.03227261129588409,
-  "proba_unique_test": 235,
+  "gap_ref": 0.28497081712062255,
+  "gap_signed_ref": 0.28497081712062255,
+  "gap_abs_ref": 0.28497081712062255,
+  "proba_std_test": 0.03261722488313804,
+  "proba_unique_test": 236,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.34533053138769704,
-    "mean": 0.4445125181671655,
+    "mean": 0.44419129898194337,
     "max": 0.4937099267680224
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.34186368057908334,
-    "mean": 0.4104157781290271,
+    "mean": 0.4114085933993084,
     "max": 0.48492448020698964
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.42909590867038694
+    "trade_date": "2026-04-09",
+    "p_ens": 0.42152810229185766
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

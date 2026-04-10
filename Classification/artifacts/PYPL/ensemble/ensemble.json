@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:50:32",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:56:21",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "PYPL",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.1851160162508583,
-  "ic_pvalue": 0.0029480861901809924,
+  "test_end": "2026-01-12",
+  "ic_full": 0.1866983191566374,
+  "ic_pvalue": 0.0026568890599452063,
   "ic_first_half": -0.5611952939022156,
-  "ic_second_half": -0.15330296648965389,
-  "accuracy_ref": 0.8984375,
+  "ic_second_half": -0.15371757602862257,
+  "accuracy_ref": 0.8988326848249028,
   "precision_ref": 0.0,
   "train_accuracy_ref": 0.7170454545454545,
-  "gap_ref": 0.18139204545454546,
-  "gap_signed_ref": -0.18139204545454546,
-  "gap_abs_ref": 0.18139204545454546,
-  "proba_std_test": 0.047696883221207464,
-  "proba_unique_test": 256,
+  "gap_ref": 0.1817872302794482,
+  "gap_signed_ref": -0.1817872302794482,
+  "gap_abs_ref": 0.1817872302794482,
+  "proba_std_test": 0.047669922263442396,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.1951331544006712,
-    "mean": 0.253195491263488,
+    "mean": 0.2530388551014539,
     "max": 0.37406224182203784
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.192069833563085,
-    "mean": 0.22332623158013448,
+    "mean": 0.2234809155568055,
     "max": 0.26681082253820754
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.22622496847082413
+    "trade_date": "2026-04-09",
+    "p_ens": 0.22222103538278495
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

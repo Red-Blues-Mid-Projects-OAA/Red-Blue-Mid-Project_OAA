@@ -1,12 +1,12 @@
 {
   "ticker": "ODFL",
-  "beta_ols": 1.1558721273390098,
-  "beta_ewma": 1.2544738254852543,
-  "beta_final": 1.185452636782883,
+  "beta_ols": 1.1561665266670724,
+  "beta_ewma": 1.2505779180166134,
+  "beta_final": 1.1844899440719348,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02761766362547391,
+  "expected_capm_return_3m_log": 0.027602501628719855,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

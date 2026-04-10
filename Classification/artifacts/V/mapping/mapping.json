@@ -1,12 +1,12 @@
 {
   "ticker": "V",
-  "beta_ols": 0.7162473919328077,
-  "beta_ewma": 0.6119757297946096,
-  "beta_final": 0.6849658932913483,
+  "beta_ols": 0.7156111879147807,
+  "beta_ewma": 0.6005962111436868,
+  "beta_final": 0.6811066948834525,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01970404184477968,
+  "expected_capm_return_3m_log": 0.01964277681117194,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }

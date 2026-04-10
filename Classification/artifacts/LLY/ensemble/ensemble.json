@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-09T12:45:38",
-  "data_snapshot_end_date": "2026-04-08",
+  "generated_at": "2026-04-10T13:51:35",
+  "data_snapshot_end_date": "2026-04-09",
   "feature_count": 16,
   "ticker": "LLY",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.11340481231403064,
-  "ic_pvalue": 0.07007195283140541,
+  "test_end": "2026-01-12",
+  "ic_full": 0.11501080218984706,
+  "ic_pvalue": 0.06563785755380633,
   "ic_first_half": 0.6099501007141548,
-  "ic_second_half": 0.354542437282549,
-  "accuracy_ref": 0.48046875,
+  "ic_second_half": 0.35988931127012525,
+  "accuracy_ref": 0.48249027237354086,
   "precision_ref": 0.42105263157894735,
   "train_accuracy_ref": 0.7613636363636364,
-  "gap_ref": 0.28089488636363635,
-  "gap_signed_ref": 0.28089488636363635,
-  "gap_abs_ref": 0.28089488636363635,
-  "proba_std_test": 0.10363727235584337,
-  "proba_unique_test": 256,
+  "gap_ref": 0.2788733639900955,
+  "gap_signed_ref": 0.2788733639900955,
+  "gap_abs_ref": 0.2788733639900955,
+  "proba_std_test": 0.10354963325323081,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.3069024676592513,
-    "mean": 0.5659809681661183,
+    "mean": 0.565677119988005,
     "max": 0.7470488410764339
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-08"
+    "start": "2026-01-13",
+    "end": "2026-04-09"
   },
   "p_ens_future_stats": {
     "min": 0.3898965465034484,
-    "mean": 0.5495846915453235,
+    "mean": 0.5514096297088873,
     "max": 0.6478053000453716
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-08",
-    "p_ens": 0.5946680993850849
+    "trade_date": "2026-04-09",
+    "p_ens": 0.5973882717344798
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

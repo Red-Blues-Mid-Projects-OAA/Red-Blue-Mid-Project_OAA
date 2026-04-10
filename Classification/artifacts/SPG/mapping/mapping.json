@@ -1,12 +1,12 @@
 {
   "ticker": "SPG",
-  "beta_ols": 0.8282867431318047,
-  "beta_ewma": 0.6785799621701847,
-  "beta_final": 0.7833747088433186,
+  "beta_ols": 0.8302348341071852,
+  "beta_ewma": 0.72144520040373,
+  "beta_final": 0.7975979439961487,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.021265021575516775,
+  "expected_capm_return_3m_log": 0.021490431888966252,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "Return_Type": "CAPM"
 }
