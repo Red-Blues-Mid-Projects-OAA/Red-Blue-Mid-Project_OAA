@@ -1,12 +1,12 @@
 {
   "ticker": "CEG",
-  "beta_ols": 1.6675297443389316,
-  "beta_ewma": 0.4733323796281949,
-  "beta_final": 1.3092705349257105,
+  "beta_ols": 1.6667917627762028,
+  "beta_ewma": 0.44287270884891294,
+  "beta_final": 1.2996160465980158,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.029565828655820747,
+  "expected_capm_return_3m_log": 0.02941406018316066,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-09",
+  "date": "2026-04-10",
   "Return_Type": "CAPM"
 }

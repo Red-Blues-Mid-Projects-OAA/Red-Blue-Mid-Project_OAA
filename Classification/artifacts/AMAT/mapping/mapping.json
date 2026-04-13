@@ -1,12 +1,12 @@
 {
   "ticker": "AMAT",
-  "beta_ols": 1.9185160518454647,
-  "beta_ewma": 2.461320611411381,
-  "beta_final": 2.0813574197152396,
+  "beta_ols": 1.918327328532527,
+  "beta_ewma": 2.458300872874446,
+  "beta_final": 2.0803193918351024,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.04162905265621074,
+  "expected_capm_return_3m_log": 0.041612931622973956,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-09",
+  "date": "2026-04-10",
   "Return_Type": "CAPM"
 }

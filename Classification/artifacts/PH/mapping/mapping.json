@@ -1,12 +1,12 @@
 {
   "ticker": "PH",
-  "beta_ols": 1.315833549029517,
-  "beta_ewma": 1.452567711927639,
-  "beta_final": 1.3568537978989534,
+  "beta_ols": 1.3157637845931065,
+  "beta_ewma": 1.4509757932251786,
+  "beta_final": 1.3563273871827282,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.030313500800818308,
+  "expected_capm_return_3m_log": 0.03030523240700537,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-09",
+  "date": "2026-04-10",
   "Return_Type": "CAPM"
 }

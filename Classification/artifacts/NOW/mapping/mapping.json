@@ -1,12 +1,12 @@
 {
   "ticker": "NOW",
-  "beta_ols": 1.2397240676518393,
-  "beta_ewma": -0.1851924660391144,
-  "beta_final": 0.8122491075445532,
+  "beta_ols": 1.242111911475376,
+  "beta_ewma": -0.10678765709758432,
+  "beta_final": 0.837442040903488,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02172257091251989,
+  "expected_capm_return_3m_log": 0.022121612090561953,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-09",
+  "date": "2026-04-10",
   "Return_Type": "CAPM"
 }

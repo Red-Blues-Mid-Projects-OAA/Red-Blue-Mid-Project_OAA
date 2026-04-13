@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-10T13:52:01",
-  "data_snapshot_end_date": "2026-04-09",
+  "generated_at": "2026-04-13T13:24:38",
+  "data_snapshot_end_date": "2026-04-10",
   "feature_count": 16,
   "ticker": "AMD",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 256,
+  "n_test_samples": 257,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-09",
-  "ic_full": 0.1467655642023346,
-  "ic_pvalue": 0.018798956691684944,
+  "test_end": "2026-01-12",
+  "ic_full": 0.14815684100986334,
+  "ic_pvalue": 0.017468865768700388,
   "ic_first_half": -0.5655843709943233,
-  "ic_second_half": 0.823372550814869,
-  "accuracy_ref": 0.3828125,
+  "ic_second_half": 0.8259671288014313,
+  "accuracy_ref": 0.38132295719844356,
   "precision_ref": 0.631578947368421,
   "train_accuracy_ref": 0.7534090909090909,
-  "gap_ref": 0.3705965909090909,
-  "gap_signed_ref": 0.3705965909090909,
-  "gap_abs_ref": 0.3705965909090909,
-  "proba_std_test": 0.20728562560272992,
-  "proba_unique_test": 256,
+  "gap_ref": 0.37208613371064736,
+  "gap_signed_ref": 0.37208613371064736,
+  "gap_abs_ref": 0.37208613371064736,
+  "proba_std_test": 0.20701831795699088,
+  "proba_unique_test": 257,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.1841731111042448,
-    "mean": 0.4611607966396581,
+    "mean": 0.46069124962988073,
     "max": 0.8459743664932501
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-12",
-    "end": "2026-04-09"
+    "start": "2026-01-13",
+    "end": "2026-04-10"
   },
   "p_ens_future_stats": {
     "min": 0.22305222043759237,
-    "mean": 0.3345263939036868,
+    "mean": 0.3375084428101484,
     "max": 0.575201124015905
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-09",
-    "p_ens": 0.535636738544885
+    "trade_date": "2026-04-10",
+    "p_ens": 0.5194101517497391
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

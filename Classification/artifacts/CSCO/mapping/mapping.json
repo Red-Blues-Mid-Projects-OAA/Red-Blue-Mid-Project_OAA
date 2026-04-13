@@ -1,12 +1,12 @@
 {
   "ticker": "CSCO",
-  "beta_ols": 0.857903047164026,
-  "beta_ewma": 0.9129767949372396,
-  "beta_final": 0.87442517149599,
+  "beta_ols": 0.8582479179060385,
+  "beta_ewma": 0.9269847665640899,
+  "beta_final": 0.8788689725034539,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.022707114724089414,
+  "expected_capm_return_3m_log": 0.022777444199631854,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-09",
+  "date": "2026-04-10",
   "Return_Type": "CAPM"
 }

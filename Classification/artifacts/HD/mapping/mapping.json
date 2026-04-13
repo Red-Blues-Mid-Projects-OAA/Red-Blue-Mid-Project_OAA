@@ -1,12 +1,12 @@
 {
   "ticker": "HD",
-  "beta_ols": 0.6989141637422152,
-  "beta_ewma": 1.2661623252303462,
-  "beta_final": 0.8690886121886544,
+  "beta_ols": 0.6990851352673523,
+  "beta_ewma": 1.2697220119494421,
+  "beta_final": 0.8702761982719792,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.022622649540722406,
+  "expected_capm_return_3m_log": 0.022641446852653103,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-09",
+  "date": "2026-04-10",
   "Return_Type": "CAPM"
 }

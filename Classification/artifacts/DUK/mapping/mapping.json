@@ -1,12 +1,12 @@
 {
   "ticker": "DUK",
-  "beta_ols": -0.04309695359991076,
-  "beta_ewma": -0.09835215543021641,
-  "beta_final": -0.05967351414900245,
+  "beta_ols": -0.042784812306523576,
+  "beta_ewma": -0.08558776581768755,
+  "beta_final": -0.05562569835987277,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.007812781782953157,
+  "expected_capm_return_3m_log": 0.00787780570998068,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-09",
+  "date": "2026-04-10",
   "Return_Type": "CAPM"
 }
