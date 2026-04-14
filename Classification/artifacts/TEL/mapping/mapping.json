@@ -1,12 +1,12 @@
 {
   "ticker": "TEL",
-  "beta_ols": 1.2231539830535634,
-  "beta_ewma": 1.8007593367475283,
-  "beta_final": 1.3964355891617528,
+  "beta_ols": 1.2243473708254975,
+  "beta_ewma": 1.795751287110338,
+  "beta_final": 1.3957685457109497,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03093502080595352,
+  "expected_capm_return_3m_log": 0.030924549975879345,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-13T13:26:19",
-  "data_snapshot_end_date": "2026-04-10",
+  "generated_at": "2026-04-14T13:43:35",
+  "data_snapshot_end_date": "2026-04-13",
   "feature_count": 16,
   "ticker": "FCX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 258,
+  "n_test_samples": 259,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-13",
-  "ic_full": 0.02855940988236708,
-  "ic_pvalue": 0.6479602372401606,
+  "test_end": "2026-01-14",
+  "ic_full": 0.02356800961452124,
+  "ic_pvalue": 0.7057953547153141,
   "ic_first_half": 0.20409771914132382,
-  "ic_second_half": 0.29219588550983905,
-  "accuracy_ref": 0.4844961240310077,
+  "ic_second_half": 0.29118791735514615,
+  "accuracy_ref": 0.4826254826254826,
   "precision_ref": 0.5789473684210527,
   "train_accuracy_ref": 0.8534090909090909,
-  "gap_ref": 0.36891296687808317,
-  "gap_signed_ref": 0.36891296687808317,
-  "gap_abs_ref": 0.36891296687808317,
-  "proba_std_test": 0.1654376043280192,
-  "proba_unique_test": 258,
+  "gap_ref": 0.3707836082836083,
+  "gap_signed_ref": 0.3707836082836083,
+  "gap_abs_ref": 0.3707836082836083,
+  "proba_std_test": 0.1661530174961284,
+  "proba_unique_test": 259,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.17213571961178517,
-    "mean": 0.47524416643044715,
+    "mean": 0.4740913161841447,
     "max": 0.7792240073072112
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-14",
-    "end": "2026-04-10"
+    "start": "2026-01-15",
+    "end": "2026-04-13"
   },
   "p_ens_future_stats": {
     "min": 0.15478929453417548,
-    "mean": 0.22999225050214775,
+    "mean": 0.2309182816405288,
     "max": 0.44137477049071255
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-10",
-    "p_ens": 0.23911201209836916
+    "trade_date": "2026-04-13",
+    "p_ens": 0.2322178207547009
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

@@ -1,12 +1,12 @@
 {
   "ticker": "VLO",
-  "beta_ols": 0.7302155575742674,
-  "beta_ewma": -1.1389082443192415,
-  "beta_final": 0.1694784170062147,
+  "beta_ols": 0.7311336139016896,
+  "beta_ewma": -1.0513970697450106,
+  "beta_final": 0.1963744088076796,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.011487228512631537,
+  "expected_capm_return_3m_log": 0.011917621200329704,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "SBUX",
-  "beta_ols": 0.9639652604136835,
-  "beta_ewma": 1.2619623251586822,
-  "beta_final": 1.053364379837183,
+  "beta_ols": 0.9639318813963911,
+  "beta_ewma": 1.2470195387127152,
+  "beta_final": 1.0488581785912883,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.025535179210597028,
+  "expected_capm_return_3m_log": 0.025464058536918945,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "SO",
-  "beta_ols": -0.004461051663497286,
-  "beta_ewma": 0.030796698021487556,
-  "beta_final": 0.0061162732419981665,
+  "beta_ols": -0.006705052877841794,
+  "beta_ewma": -0.025771867365730124,
+  "beta_final": -0.012425097224208292,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.008869102165570554,
+  "expected_capm_return_3m_log": 0.008571514949741203,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

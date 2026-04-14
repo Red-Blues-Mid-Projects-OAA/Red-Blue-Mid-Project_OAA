@@ -1,12 +1,12 @@
 {
   "ticker": "META",
-  "beta_ols": 1.502982759648399,
-  "beta_ewma": 2.280761736225119,
-  "beta_final": 1.736316452621415,
+  "beta_ols": 1.5016487638174636,
+  "beta_ewma": 2.219202553803436,
+  "beta_final": 1.7169149008132552,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03625604786781838,
+  "expected_capm_return_3m_log": 0.03595306639073137,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

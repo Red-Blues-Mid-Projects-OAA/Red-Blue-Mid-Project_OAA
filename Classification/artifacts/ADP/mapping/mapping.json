@@ -1,12 +1,12 @@
 {
   "ticker": "ADP",
-  "beta_ols": 0.4955153780736459,
-  "beta_ewma": -0.07899047103132002,
-  "beta_final": 0.3231636233421561,
+  "beta_ols": 0.500559146070258,
+  "beta_ewma": 0.08981000122238819,
+  "beta_final": 0.377334402615897,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013944025387520976,
+  "expected_capm_return_3m_log": 0.01480855753665388,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-13T13:24:35",
-  "data_snapshot_end_date": "2026-04-10",
+  "generated_at": "2026-04-14T13:41:49",
+  "data_snapshot_end_date": "2026-04-13",
   "feature_count": 16,
   "ticker": "NFLX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 258,
+  "n_test_samples": 259,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-13",
-  "ic_full": 0.1992953694157205,
-  "ic_pvalue": 0.0012910787592504186,
+  "test_end": "2026-01-14",
+  "ic_full": 0.20385064338552708,
+  "ic_pvalue": 0.0009685339973272709,
   "ic_first_half": 0.7156585420393561,
-  "ic_second_half": 0.5131652504472273,
-  "accuracy_ref": 0.5697674418604651,
-  "precision_ref": 0.465,
+  "ic_second_half": 0.5238443785931802,
+  "accuracy_ref": 0.5714285714285714,
+  "precision_ref": 0.46766169154228854,
   "train_accuracy_ref": 0.8477272727272728,
-  "gap_ref": 0.27795983086680764,
-  "gap_signed_ref": 0.27795983086680764,
-  "gap_abs_ref": 0.27795983086680764,
-  "proba_std_test": 0.08048814650448108,
-  "proba_unique_test": 258,
+  "gap_ref": 0.2762987012987014,
+  "gap_signed_ref": 0.2762987012987014,
+  "gap_abs_ref": 0.2762987012987014,
+  "proba_std_test": 0.08091439213786492,
+  "proba_unique_test": 259,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.3422944780234332,
-    "mean": 0.5645107867724717,
+    "mean": 0.5651137832620324,
     "max": 0.7514337220299092
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-14",
-    "end": "2026-04-10"
+    "start": "2026-01-15",
+    "end": "2026-04-13"
   },
   "p_ens_future_stats": {
-    "min": 0.5582177192786584,
-    "mean": 0.6568134649433967,
+    "min": 0.5582177192786585,
+    "mean": 0.6554463645342505,
     "max": 0.7613698461766326
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-10",
-    "p_ens": 0.6740326117232887
+    "trade_date": "2026-04-13",
+    "p_ens": 0.6386608679210899
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

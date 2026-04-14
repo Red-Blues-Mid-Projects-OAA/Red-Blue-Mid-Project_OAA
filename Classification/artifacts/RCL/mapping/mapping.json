@@ -1,12 +1,12 @@
 {
   "ticker": "RCL",
-  "beta_ols": 1.5666770624767723,
-  "beta_ewma": 1.9209694285187495,
-  "beta_final": 1.6729647722893652,
+  "beta_ols": 1.5672368975508186,
+  "beta_ewma": 1.935282527969665,
+  "beta_final": 1.6776505866764726,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03526638598415017,
+  "expected_capm_return_3m_log": 0.03533961999234352,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

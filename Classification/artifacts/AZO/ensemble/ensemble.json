@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-13T13:27:32",
-  "data_snapshot_end_date": "2026-04-10",
+  "generated_at": "2026-04-14T13:44:53",
+  "data_snapshot_end_date": "2026-04-13",
   "feature_count": 16,
   "ticker": "AZO",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 258,
+  "n_test_samples": 259,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-13",
-  "ic_full": -0.05338568916525662,
-  "ic_pvalue": 0.39313467020806225,
+  "test_end": "2026-01-14",
+  "ic_full": -0.04956865887098445,
+  "ic_pvalue": 0.4269847868506882,
   "ic_first_half": 0.003303890876565296,
-  "ic_second_half": 0.31233788014311276,
-  "accuracy_ref": 0.3953488372093023,
-  "precision_ref": 0.3813953488372093,
+  "ic_second_half": 0.32191891190648514,
+  "accuracy_ref": 0.39768339768339767,
+  "precision_ref": 0.38425925925925924,
   "train_accuracy_ref": 0.775,
-  "gap_ref": 0.3796511627906977,
-  "gap_signed_ref": 0.3796511627906977,
-  "gap_abs_ref": 0.3796511627906977,
-  "proba_std_test": 0.1048166507960004,
-  "proba_unique_test": 258,
+  "gap_ref": 0.37731660231660236,
+  "gap_signed_ref": 0.37731660231660236,
+  "gap_abs_ref": 0.37731660231660236,
+  "proba_std_test": 0.10486038619084942,
+  "proba_unique_test": 259,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
-    "min": 0.4102058235356291,
-    "mean": 0.6274110486992265,
+    "min": 0.4102058235356292,
+    "mean": 0.6278582161142853,
     "max": 0.8103716221055921
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-14",
-    "end": "2026-04-10"
+    "start": "2026-01-15",
+    "end": "2026-04-13"
   },
   "p_ens_future_stats": {
     "min": 0.5419762772553857,
-    "mean": 0.6873455222222841,
-    "max": 0.8125568152566719
+    "mean": 0.6884546751207046,
+    "max": 0.8125568152566717
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-10",
-    "p_ens": 0.8074275876145873
+    "trade_date": "2026-04-13",
+    "p_ens": 0.809776577144216
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

@@ -1,12 +1,12 @@
 {
   "ticker": "AZO",
-  "beta_ols": 0.2824015964419318,
-  "beta_ewma": 0.8604048763365144,
-  "beta_final": 0.4558025804103066,
+  "beta_ols": 0.285947566928063,
+  "beta_ewma": 0.9324553308847633,
+  "beta_final": 0.4798998961150731,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01605953717184633,
+  "expected_capm_return_3m_log": 0.016443394967593526,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

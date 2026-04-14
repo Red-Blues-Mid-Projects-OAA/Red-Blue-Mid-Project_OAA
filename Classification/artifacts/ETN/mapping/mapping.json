@@ -1,12 +1,12 @@
 {
   "ticker": "ETN",
-  "beta_ols": 1.490572158442587,
-  "beta_ewma": 1.4767934332691561,
-  "beta_final": 1.4864385408905576,
+  "beta_ols": 1.4881761240417124,
+  "beta_ewma": 1.402567315063205,
+  "beta_final": 1.46249348134816,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03234682627684919,
+  "expected_capm_return_3m_log": 0.03197141353165991,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

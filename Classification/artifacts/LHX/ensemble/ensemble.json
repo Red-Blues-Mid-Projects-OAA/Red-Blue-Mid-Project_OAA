@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-13T13:27:13",
-  "data_snapshot_end_date": "2026-04-10",
+  "generated_at": "2026-04-14T13:44:31",
+  "data_snapshot_end_date": "2026-04-13",
   "feature_count": 16,
   "ticker": "LHX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 258,
+  "n_test_samples": 259,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-13",
-  "ic_full": 0.19802432317136867,
-  "ic_pvalue": 0.0013885784168355074,
+  "test_end": "2026-01-14",
+  "ic_full": 0.19884515233352443,
+  "ic_pvalue": 0.0012962272589710747,
   "ic_first_half": 0.4977135509838999,
-  "ic_second_half": 0.12381484794275495,
-  "accuracy_ref": 0.47674418604651164,
+  "ic_second_half": 0.12266998047221729,
+  "accuracy_ref": 0.4749034749034749,
   "precision_ref": 0.7515923566878981,
   "train_accuracy_ref": 0.7329545454545454,
-  "gap_ref": 0.25621035940803377,
-  "gap_signed_ref": 0.25621035940803377,
-  "gap_abs_ref": 0.25621035940803377,
-  "proba_std_test": 0.1473445146763299,
-  "proba_unique_test": 257,
+  "gap_ref": 0.2580510705510705,
+  "gap_signed_ref": 0.2580510705510705,
+  "gap_abs_ref": 0.2580510705510705,
+  "proba_std_test": 0.14746881229341194,
+  "proba_unique_test": 258,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.25573845206726953,
-    "mean": 0.5228693484115272,
+    "mean": 0.5221860239019328,
     "max": 0.7936707739788142
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-14",
-    "end": "2026-04-10"
+    "start": "2026-01-15",
+    "end": "2026-04-13"
   },
   "p_ens_future_stats": {
     "min": 0.29513400612220303,
-    "mean": 0.45199440413783004,
+    "mean": 0.4517942571633183,
     "max": 0.6760837672949349
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-10",
-    "p_ens": 0.33749998070587073
+    "trade_date": "2026-04-13",
+    "p_ens": 0.3338794774855144
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

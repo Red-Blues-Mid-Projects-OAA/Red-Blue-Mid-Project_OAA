@@ -1,12 +1,12 @@
 {
   "ticker": "CBRE",
-  "beta_ols": 0.9917980556328445,
-  "beta_ewma": 0.9696272237440984,
-  "beta_final": 0.9851468060662206,
+  "beta_ols": 0.9956321962189159,
+  "beta_ewma": 1.0657948270458757,
+  "beta_final": 1.0166809854670038,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.024457970154000253,
+  "expected_capm_return_3m_log": 0.024956063833349734,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }

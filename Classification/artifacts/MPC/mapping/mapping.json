@@ -1,12 +1,12 @@
 {
   "ticker": "MPC",
-  "beta_ols": 0.7561314862238951,
-  "beta_ewma": -0.926483105771993,
-  "beta_final": 0.2513471086251287,
+  "beta_ols": 0.7567974591736693,
+  "beta_ewma": -0.8401523483450895,
+  "beta_final": 0.27771251691804166,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.012796724728086559,
+  "expected_capm_return_3m_log": 0.01321807674575467,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-10",
+  "date": "2026-04-13",
   "Return_Type": "CAPM"
 }
