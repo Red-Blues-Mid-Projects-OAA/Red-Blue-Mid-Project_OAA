@@ -1,12 +1,12 @@
 {
   "ticker": "CVS",
-  "beta_ols": 0.32409026183548,
-  "beta_ewma": 0.37526567933532906,
-  "beta_final": 0.3394428870854347,
+  "beta_ols": 0.32217381330676464,
+  "beta_ewma": 0.3198845357038992,
+  "beta_final": 0.321487030025905,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.014203910938054403,
+  "expected_capm_return_3m_log": 0.013917256066712081,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

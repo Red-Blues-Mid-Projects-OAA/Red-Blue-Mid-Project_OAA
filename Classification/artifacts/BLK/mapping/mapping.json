@@ -1,12 +1,12 @@
 {
   "ticker": "BLK",
-  "beta_ols": 1.0988164090506323,
-  "beta_ewma": 1.4156972477876544,
-  "beta_final": 1.1938806606717387,
+  "beta_ols": 1.1021726932399951,
+  "beta_ewma": 1.4792252240613888,
+  "beta_final": 1.2152884524864132,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02775039156715533,
+  "expected_capm_return_3m_log": 0.028087450979687116,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

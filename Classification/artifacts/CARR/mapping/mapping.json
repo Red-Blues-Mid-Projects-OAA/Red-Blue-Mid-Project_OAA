@@ -1,12 +1,12 @@
 {
   "ticker": "CARR",
-  "beta_ols": 1.1720945590683045,
-  "beta_ewma": 1.5681168537699786,
-  "beta_final": 1.2909012474788066,
+  "beta_ols": 1.1705347024866293,
+  "beta_ewma": 1.4932842542205378,
+  "beta_final": 1.2673595680068017,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.029277043833979218,
+  "expected_capm_return_3m_log": 0.028906821515390993,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

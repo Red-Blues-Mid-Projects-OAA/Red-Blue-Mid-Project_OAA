@@ -1,12 +1,12 @@
 {
   "ticker": "CDNS",
-  "beta_ols": 1.5418521486219134,
-  "beta_ewma": 1.5699324495328497,
-  "beta_final": 1.550276238895194,
+  "beta_ols": 1.5413019872287606,
+  "beta_ewma": 1.5620066653056486,
+  "beta_final": 1.5475133906518268,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03334699113462215,
+  "expected_capm_return_3m_log": 0.033303725444656325,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

@@ -1,12 +1,12 @@
 {
   "ticker": "INTU",
-  "beta_ols": 0.9586715310511051,
-  "beta_ewma": -0.0648789054322646,
-  "beta_final": 0.6516064001060942,
+  "beta_ols": 0.955356823137896,
+  "beta_ewma": -0.056278702433090556,
+  "beta_final": 0.6518661654666,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.019174333604168897,
+  "expected_capm_return_3m_log": 0.019178459446780198,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

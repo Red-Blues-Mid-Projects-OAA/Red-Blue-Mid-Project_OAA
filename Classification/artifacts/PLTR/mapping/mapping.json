@@ -1,12 +1,12 @@
 {
   "ticker": "PLTR",
-  "beta_ols": 2.0986307817859156,
-  "beta_ewma": 0.8106666599329152,
-  "beta_final": 1.7122415452300153,
+  "beta_ols": 2.098245111940963,
+  "beta_ewma": 0.9161915041233564,
+  "beta_final": 1.743629029595681,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0358800719003201,
+  "expected_capm_return_3m_log": 0.036370219833694574,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

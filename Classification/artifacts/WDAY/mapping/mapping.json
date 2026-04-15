@@ -1,12 +1,12 @@
 {
   "ticker": "WDAY",
-  "beta_ols": 0.9021139576321956,
-  "beta_ewma": -0.21329138823623775,
-  "beta_final": 0.5674923538716655,
+  "beta_ols": 0.8970397734300504,
+  "beta_ewma": -0.2546886535304834,
+  "beta_final": 0.5515212453418902,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0178374576667189,
+  "expected_capm_return_3m_log": 0.017583417062616864,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

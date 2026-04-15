@@ -1,12 +1,12 @@
 {
   "ticker": "SNPS",
-  "beta_ols": 1.6388785903587755,
-  "beta_ewma": 1.7125049556229954,
-  "beta_final": 1.6609664999380414,
+  "beta_ols": 1.6358728071153732,
+  "beta_ewma": 1.6431309946702017,
+  "beta_final": 1.6380502633818217,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03507884203130486,
+  "expected_capm_return_3m_log": 0.034720542555432936,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

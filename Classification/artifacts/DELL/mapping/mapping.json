@@ -1,12 +1,12 @@
 {
   "ticker": "DELL",
-  "beta_ols": 1.923621509500758,
-  "beta_ewma": 1.2558191361432127,
-  "beta_final": 1.7232807974934943,
+  "beta_ols": 1.9135792262323128,
+  "beta_ewma": 1.017364817421153,
+  "beta_final": 1.6447149035889648,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.036052488597890765,
+  "expected_capm_return_3m_log": 0.034824758641952,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

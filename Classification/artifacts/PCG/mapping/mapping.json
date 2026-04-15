@@ -1,12 +1,12 @@
 {
   "ticker": "PCG",
-  "beta_ols": 0.4816340745007634,
-  "beta_ewma": 0.5979415021374631,
-  "beta_final": 0.5165263027917733,
+  "beta_ols": 0.47858784792262044,
+  "beta_ewma": 0.5235840417186429,
+  "beta_final": 0.4920867060614271,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.017026552678585362,
+  "expected_capm_return_3m_log": 0.01663746846919312,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

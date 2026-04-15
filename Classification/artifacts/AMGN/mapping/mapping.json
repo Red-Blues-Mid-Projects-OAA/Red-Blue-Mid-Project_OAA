@@ -1,12 +1,12 @@
 {
   "ticker": "AMGN",
-  "beta_ols": 0.5179776646506689,
-  "beta_ewma": 0.7016011129061679,
-  "beta_final": 0.5730646991273185,
+  "beta_ols": 0.5173947334395695,
+  "beta_ewma": 0.6885537334971247,
+  "beta_final": 0.5687424334568361,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.017926077654554437,
+  "expected_capm_return_3m_log": 0.01785733903446446,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

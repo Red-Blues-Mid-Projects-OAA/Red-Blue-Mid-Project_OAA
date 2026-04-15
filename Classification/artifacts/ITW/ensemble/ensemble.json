@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-14T13:43:38",
-  "data_snapshot_end_date": "2026-04-13",
+  "generated_at": "2026-04-15T13:17:04",
+  "data_snapshot_end_date": "2026-04-14",
   "feature_count": 16,
   "ticker": "ITW",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 259,
+  "n_test_samples": 260,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-14",
-  "ic_full": 0.02313286964449755,
-  "ic_pvalue": 0.7109823117884742,
-  "ic_first_half": -0.09272696779964223,
-  "ic_second_half": 0.2610850892406014,
-  "accuracy_ref": 0.444015444015444,
+  "test_end": "2026-01-15",
+  "ic_full": 0.02020421330766158,
+  "ic_pvalue": 0.7457514106252322,
+  "ic_first_half": -0.08702836308020045,
+  "ic_second_half": 0.2657936063581368,
+  "accuracy_ref": 0.4423076923076923,
   "precision_ref": 0.2169811320754717,
   "train_accuracy_ref": 0.8477272727272728,
-  "gap_ref": 0.40371182871182876,
-  "gap_signed_ref": 0.40371182871182876,
-  "gap_abs_ref": 0.40371182871182876,
-  "proba_std_test": 0.2607942860792745,
-  "proba_unique_test": 259,
+  "gap_ref": 0.4054195804195805,
+  "gap_signed_ref": 0.4054195804195805,
+  "gap_abs_ref": 0.4054195804195805,
+  "proba_std_test": 0.2606650269889945,
+  "proba_unique_test": 260,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.09758801692140108,
-    "mean": 0.4753036055996417,
+    "mean": 0.4744377192119281,
     "max": 0.9342672209299467
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-15",
-    "end": "2026-04-13"
+    "start": "2026-01-16",
+    "end": "2026-04-14"
   },
   "p_ens_future_stats": {
-    "min": 0.04305171242515523,
-    "mean": 0.39241883202392763,
-    "max": 0.8819595910887392
+    "min": 0.043051712425155236,
+    "mean": 0.3921838977075204,
+    "max": 0.8819595910887393
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-13",
-    "p_ens": 0.7219930289126183
+    "trade_date": "2026-04-14",
+    "p_ens": 0.23607708096680638
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

@@ -1,12 +1,12 @@
 {
   "ticker": "ELV",
-  "beta_ols": 0.2710780012223515,
-  "beta_ewma": 0.7483210874657676,
-  "beta_final": 0.4142509270953763,
+  "beta_ols": 0.26891907936918497,
+  "beta_ewma": 0.6637595243480734,
+  "beta_final": 0.3873712128628515,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.015397294503505224,
+  "expected_capm_return_3m_log": 0.014968656785939173,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

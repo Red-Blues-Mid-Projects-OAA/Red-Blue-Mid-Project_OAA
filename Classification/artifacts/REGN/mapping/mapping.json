@@ -1,12 +1,12 @@
 {
   "ticker": "REGN",
-  "beta_ols": 0.6435045262721512,
-  "beta_ewma": 0.8208144599617888,
-  "beta_final": 0.6966975063790424,
+  "beta_ols": 0.6445250500797292,
+  "beta_ewma": 0.8440613261298672,
+  "beta_final": 0.7043859328947706,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.01989025894515754,
+  "expected_capm_return_3m_log": 0.020012279322523415,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

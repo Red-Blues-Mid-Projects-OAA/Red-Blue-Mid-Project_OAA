@@ -1,12 +1,12 @@
 {
   "ticker": "EMR",
-  "beta_ols": 1.3108060116796016,
-  "beta_ewma": 1.8162253714875594,
-  "beta_final": 1.462431819621989,
+  "beta_ols": 1.3079444429423994,
+  "beta_ewma": 1.7205944595267333,
+  "beta_final": 1.4317394479176995,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.031970446611751656,
+  "expected_capm_return_3m_log": 0.03148904225723957,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

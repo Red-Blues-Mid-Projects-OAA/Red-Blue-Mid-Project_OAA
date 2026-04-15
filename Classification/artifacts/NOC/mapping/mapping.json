@@ -1,12 +1,12 @@
 {
   "ticker": "NOC",
-  "beta_ols": 0.05106470226513069,
-  "beta_ewma": 0.2213717232468093,
-  "beta_final": 0.10215680855963427,
+  "beta_ols": 0.050472913470974136,
+  "beta_ewma": 0.20993115823047814,
+  "beta_final": 0.09831038689882533,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.010409127754330286,
+  "expected_capm_return_3m_log": 0.01034749532725812,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

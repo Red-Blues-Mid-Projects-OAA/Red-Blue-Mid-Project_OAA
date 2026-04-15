@@ -1,12 +1,12 @@
 {
   "ticker": "NFLX",
-  "beta_ols": 0.9000275560264092,
-  "beta_ewma": 0.4436862742959615,
-  "beta_final": 0.7631251715072749,
+  "beta_ols": 0.903661679275311,
+  "beta_ewma": 0.536514950375026,
+  "beta_final": 0.7935176606052254,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.020944018533032814,
+  "expected_capm_return_3m_log": 0.02142577261640476,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

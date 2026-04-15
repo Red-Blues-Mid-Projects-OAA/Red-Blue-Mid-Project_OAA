@@ -1,12 +1,12 @@
 {
   "ticker": "FDX",
-  "beta_ols": 0.9136393272281096,
-  "beta_ewma": 1.0930763931816678,
-  "beta_final": 0.9674704470141771,
+  "beta_ols": 0.9105810056640601,
+  "beta_ewma": 1.0111525775370611,
+  "beta_final": 0.9407524772259603,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02417865716902628,
+  "expected_capm_return_3m_log": 0.023756325037440414,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

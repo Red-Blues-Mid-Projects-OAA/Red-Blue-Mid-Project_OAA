@@ -1,12 +1,12 @@
 {
   "ticker": "WM",
-  "beta_ols": 0.21583619300027793,
-  "beta_ewma": -0.04719877915298729,
-  "beta_final": 0.13692570135429835,
+  "beta_ols": 0.21191936440166784,
+  "beta_ewma": -0.12304653836865048,
+  "beta_final": 0.11142959357057233,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.010966068398434779,
+  "expected_capm_return_3m_log": 0.010557692897378282,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

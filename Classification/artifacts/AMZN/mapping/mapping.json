@@ -1,12 +1,12 @@
 {
   "ticker": "AMZN",
-  "beta_ols": 1.4244812099376472,
-  "beta_ewma": 1.437310788310051,
-  "beta_final": 1.4283300834493682,
+  "beta_ols": 1.4285600299159453,
+  "beta_ewma": 1.513291752644869,
+  "beta_final": 1.4539795467346224,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.031435552681800934,
+  "expected_capm_return_3m_log": 0.03183789734602434,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

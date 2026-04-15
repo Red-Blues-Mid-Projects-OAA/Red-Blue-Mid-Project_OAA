@@ -1,12 +1,12 @@
 {
   "ticker": "CB",
-  "beta_ols": 0.22484584977544989,
-  "beta_ewma": 0.25594086610826555,
-  "beta_final": 0.23417435467529457,
+  "beta_ols": 0.22168226463835053,
+  "beta_ewma": 0.18147031240685046,
+  "beta_final": 0.2096186789689005,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.012522187252168663,
+  "expected_capm_return_3m_log": 0.012129489454929157,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }

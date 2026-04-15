@@ -1,12 +1,12 @@
 {
   "ticker": "NSC",
-  "beta_ols": 0.7625864798130253,
-  "beta_ewma": 0.5360047410618185,
-  "beta_final": 0.6946119581876632,
+  "beta_ols": 0.7622403367280601,
+  "beta_ewma": 0.5399357367771895,
+  "beta_final": 0.6955489567427989,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.019857157358586196,
+  "expected_capm_return_3m_log": 0.019872029429931812,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "Return_Type": "CAPM"
 }
