@@ -1,12 +1,12 @@
 {
   "ticker": "AFL",
-  "beta_ols": 0.40540557724321263,
-  "beta_ewma": 0.4712478289247629,
-  "beta_final": 0.4251582527476777,
+  "beta_ols": 0.4063096218539573,
+  "beta_ewma": 0.4864003607571376,
+  "beta_final": 0.4303368435249114,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.015571175925671383,
+  "expected_capm_return_3m_log": 0.015653720933969145,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

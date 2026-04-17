@@ -1,12 +1,12 @@
 {
   "ticker": "ZTS",
-  "beta_ols": 0.6549112663692597,
-  "beta_ewma": 0.9046849313041924,
-  "beta_final": 0.7298433658497394,
+  "beta_ols": 0.6535207606443055,
+  "beta_ewma": 0.8819400401734556,
+  "beta_final": 0.7220465445030505,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.020416199264641086,
+  "expected_capm_return_3m_log": 0.020292508458058134,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

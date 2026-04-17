@@ -1,12 +1,12 @@
 {
   "ticker": "TDG",
-  "beta_ols": 0.8274583447034641,
-  "beta_ewma": 1.2391185875369801,
-  "beta_final": 0.950956417553519,
+  "beta_ols": 0.8230567238991026,
+  "beta_ewma": 1.1666073118488236,
+  "beta_final": 0.9261219002840189,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.023917640226704735,
+  "expected_capm_return_3m_log": 0.023524983259947774,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

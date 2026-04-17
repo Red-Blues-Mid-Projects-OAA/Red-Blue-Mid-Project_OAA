@@ -1,12 +1,12 @@
 {
   "ticker": "COST",
-  "beta_ols": 0.528854833918998,
-  "beta_ewma": 0.02079185570844006,
-  "beta_final": 0.3764359404558306,
+  "beta_ols": 0.5296029466104658,
+  "beta_ewma": 0.05110470343803196,
+  "beta_final": 0.38605347365873566,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.014794224729723863,
+  "expected_capm_return_3m_log": 0.014947638715261322,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

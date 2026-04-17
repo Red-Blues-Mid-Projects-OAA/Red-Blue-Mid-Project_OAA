@@ -1,12 +1,12 @@
 {
   "ticker": "TT",
-  "beta_ols": 1.0208606624564414,
-  "beta_ewma": 1.3214510052216322,
-  "beta_final": 1.1110377652859986,
+  "beta_ols": 1.0172595369806534,
+  "beta_ewma": 1.2424792976008636,
+  "beta_final": 1.0848254651667164,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.026444982921598168,
+  "expected_capm_return_3m_log": 0.026031583743028164,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

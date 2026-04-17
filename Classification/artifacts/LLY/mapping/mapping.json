@@ -1,12 +1,12 @@
 {
   "ticker": "LLY",
-  "beta_ols": 0.7164219543142676,
-  "beta_ewma": 0.829696544266077,
-  "beta_final": 0.7504043312998103,
+  "beta_ols": 0.7130627797362354,
+  "beta_ewma": 0.7702948250559407,
+  "beta_final": 0.730232393332147,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.020742310428861245,
+  "expected_capm_return_3m_log": 0.02042237049733337,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

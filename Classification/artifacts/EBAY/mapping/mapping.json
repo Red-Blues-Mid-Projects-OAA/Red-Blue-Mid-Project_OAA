@@ -1,12 +1,12 @@
 {
   "ticker": "EBAY",
-  "beta_ols": 0.6372146716917899,
-  "beta_ewma": 0.9316604662611441,
-  "beta_final": 0.7255484100625962,
+  "beta_ols": 0.6364855253798853,
+  "beta_ewma": 0.8917796727776973,
+  "beta_final": 0.7130737695992289,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02034806485892676,
+  "expected_capm_return_3m_log": 0.020150143080351957,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

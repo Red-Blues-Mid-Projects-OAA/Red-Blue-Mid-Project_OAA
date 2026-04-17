@@ -1,12 +1,12 @@
 {
   "ticker": "HSY",
-  "beta_ols": 0.06100810915325269,
-  "beta_ewma": 0.06779266499652517,
-  "beta_final": 0.06304347590623444,
+  "beta_ols": 0.0569844141278782,
+  "beta_ewma": -0.0034056441903022603,
+  "beta_final": 0.038867396632424056,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.0097822253431875,
+  "expected_capm_return_3m_log": 0.009394538279865482,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

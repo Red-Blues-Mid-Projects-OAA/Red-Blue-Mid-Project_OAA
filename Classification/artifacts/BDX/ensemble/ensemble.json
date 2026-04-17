@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-15T13:19:01",
-  "data_snapshot_end_date": "2026-04-14",
+  "generated_at": "2026-04-17T13:06:03",
+  "data_snapshot_end_date": "2026-04-16",
   "feature_count": 16,
   "ticker": "BDX",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 260,
+  "n_test_samples": 262,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-15",
-  "ic_full": -0.5210668796875692,
-  "ic_pvalue": 1.686684187100179e-19,
-  "ic_first_half": -0.2634120362151606,
-  "ic_second_half": -0.12673940651927515,
-  "accuracy_ref": 0.5192307692307693,
+  "test_end": "2026-01-20",
+  "ic_full": -0.5098870325090554,
+  "ic_pvalue": 9.621631075093632e-19,
+  "ic_first_half": -0.270650723322479,
+  "ic_second_half": -0.1064218224523568,
+  "accuracy_ref": 0.5229007633587787,
   "precision_ref": 0.3103448275862069,
   "train_accuracy_ref": 0.6909090909090909,
-  "gap_ref": 0.17167832167832164,
-  "gap_signed_ref": 0.17167832167832164,
-  "gap_abs_ref": 0.17167832167832164,
-  "proba_std_test": 0.11250405665597872,
-  "proba_unique_test": 260,
+  "gap_ref": 0.16800832755031225,
+  "gap_signed_ref": 0.16800832755031225,
+  "gap_abs_ref": 0.16800832755031225,
+  "proba_std_test": 0.11242635592941601,
+  "proba_unique_test": 262,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.191678247307187,
-    "mean": 0.3179194199863277,
+    "mean": 0.31713946703919554,
     "max": 0.6291656676369712
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-16",
-    "end": "2026-04-14"
+    "start": "2026-01-21",
+    "end": "2026-04-16"
   },
   "p_ens_future_stats": {
-    "min": 0.2129455528033342,
-    "mean": 0.29101904477634927,
+    "min": 0.22305176333129267,
+    "mean": 0.29301945040535393,
     "max": 0.36176898851297357
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-14",
-    "p_ens": 0.28506194758198283
+    "trade_date": "2026-04-16",
+    "p_ens": 0.27114493256523414
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

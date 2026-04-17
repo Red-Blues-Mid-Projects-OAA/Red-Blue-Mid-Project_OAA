@@ -1,12 +1,12 @@
 {
   "ticker": "ISRG",
-  "beta_ols": 1.1639189400718402,
-  "beta_ewma": 0.9504219957183871,
-  "beta_final": 1.099869856765804,
+  "beta_ols": 1.1622112385802954,
+  "beta_ewma": 0.9459797975510822,
+  "beta_final": 1.0973418062715314,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.02626887260358406,
+  "expected_capm_return_3m_log": 0.026229002662157892,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

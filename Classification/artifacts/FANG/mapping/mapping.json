@@ -1,12 +1,12 @@
 {
   "ticker": "FANG",
-  "beta_ols": 0.8149070683941828,
-  "beta_ewma": -0.8473757990648247,
-  "beta_final": 0.31622220815648056,
+  "beta_ols": 0.8137151559195369,
+  "beta_ewma": -0.8447644391793734,
+  "beta_final": 0.31617127738986384,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.013833190649820276,
+  "expected_capm_return_3m_log": 0.013832377384349151,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-15T13:16:14",
-  "data_snapshot_end_date": "2026-04-14",
+  "generated_at": "2026-04-17T13:03:35",
+  "data_snapshot_end_date": "2026-04-16",
   "feature_count": 16,
   "ticker": "UBER",
   "benchmark": "SP500",
@@ -10,41 +10,41 @@
     "rf": 0.25,
     "logreg": 0.25
   },
-  "n_test_samples": 260,
+  "n_test_samples": 262,
   "test_start": "2025-01-02",
-  "test_end": "2026-01-15",
-  "ic_full": -0.4020967538208917,
-  "ic_pvalue": 1.595353153869138e-11,
-  "ic_first_half": -0.23082385393764762,
-  "ic_second_half": -0.2348768930341804,
-  "accuracy_ref": 0.3076923076923077,
+  "test_end": "2026-01-20",
+  "ic_full": -0.392777967385854,
+  "ic_pvalue": 4.2761608611309395e-11,
+  "ic_first_half": -0.23248812256445844,
+  "ic_second_half": -0.23076923076923078,
+  "accuracy_ref": 0.31297709923664124,
   "precision_ref": 0.2542372881355932,
   "train_accuracy_ref": 0.8522727272727273,
-  "gap_ref": 0.5445804195804196,
-  "gap_signed_ref": 0.5445804195804196,
-  "gap_abs_ref": 0.5445804195804196,
-  "proba_std_test": 0.07124164623695238,
-  "proba_unique_test": 257,
+  "gap_ref": 0.5392956280360861,
+  "gap_signed_ref": 0.5392956280360861,
+  "gap_abs_ref": 0.5392956280360861,
+  "proba_std_test": 0.07147715478057019,
+  "proba_unique_test": 259,
   "ic_degenerate": false,
   "optimize_profile": "balanced",
   "p_ens_test_stats": {
     "min": 0.3663969522082015,
-    "mean": 0.5193402140135853,
+    "mean": 0.5185949771829625,
     "max": 0.6064942430517642
   },
   "future_window": {
     "n_samples": 60,
-    "start": "2026-01-16",
-    "end": "2026-04-14"
+    "start": "2026-01-21",
+    "end": "2026-04-16"
   },
   "p_ens_future_stats": {
     "min": 0.3971059000188676,
-    "mean": 0.4252986713473999,
+    "mean": 0.4248452154707517,
     "max": 0.47390552597342595
   },
   "latest_future_prediction": {
-    "trade_date": "2026-04-14",
-    "p_ens": 0.4165505517393481
+    "trade_date": "2026-04-16",
+    "p_ens": 0.4056211495893235
   },
   "p_ens_column_location": {
     "test": "df_test_probs['p_ens'] (runtime)",

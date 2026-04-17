@@ -1,12 +1,12 @@
 {
   "ticker": "AXON",
-  "beta_ols": 1.1725328550043401,
-  "beta_ewma": 1.7452269674654026,
-  "beta_final": 1.344341088742659,
+  "beta_ols": 1.177481637290759,
+  "beta_ewma": 1.8922656489657728,
+  "beta_final": 1.3919168407932632,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.03011694373188206,
+  "expected_capm_return_3m_log": 0.030864086181390853,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }

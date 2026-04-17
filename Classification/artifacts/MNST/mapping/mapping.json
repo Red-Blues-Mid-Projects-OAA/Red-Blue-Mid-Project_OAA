@@ -1,12 +1,12 @@
 {
   "ticker": "MNST",
-  "beta_ols": 0.3054021741348594,
-  "beta_ewma": 0.7935714866942716,
-  "beta_final": 0.45185296790268303,
+  "beta_ols": 0.3049748527069461,
+  "beta_ewma": 0.7770927782882037,
+  "beta_final": 0.4466102303813233,
   "expected_market_return_3m": 0.024999999999999998,
-  "expected_capm_return_3m_log": 0.015996607827293622,
+  "expected_capm_return_3m_log": 0.015913068949078346,
   "risk_free_rate_3m": 0.008809523809523809,
   "market_risk_premium_3m": 0.01619047619047619,
-  "date": "2026-04-14",
+  "date": "2026-04-16",
   "Return_Type": "CAPM"
 }
